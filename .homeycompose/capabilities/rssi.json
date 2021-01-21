@@ -1,0 +1,8 @@
+{
+    "type": "number",
+    "title": {
+        "en": "RSSI"
+    },
+    "getable": true,
+    "setable": false
+}

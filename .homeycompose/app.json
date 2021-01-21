@@ -1,0 +1,26 @@
+{
+  "id": "com.switchbot",
+  "version": "0.0.1",
+  "compatibility": ">=4.0.0",
+  "sdk": 2,
+  "name": {
+    "en": "SwitchBot"
+  },
+  "description": {
+    "en": "Adds support for SwitchBot BLE devices"
+  },
+  "category": [
+    "appliances"
+  ],
+  "permissions": [
+    "homey:wireless:ble"
+  ],
+  "images": {
+    "large": "/assets/images/large.png",
+    "small": "/assets/images/small.png"
+  },
+  "author": {
+    "name": "Adrian Rockall",
+    "email": "ady@rockall.plus.com"
+  }
+}

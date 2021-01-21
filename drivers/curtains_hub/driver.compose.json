@@ -1,0 +1,29 @@
+{
+    "id": "curtains_hub",
+    "name":
+    {
+        "en": "Curtains (HUB)"
+    },
+    "class": "curtain",
+    "capabilities": [
+        "windowcoverings_set"
+    ],
+    "pair": [
+    {
+        "id": "list_my_devices",
+        "template": "list_devices",
+        "navigation":
+        {
+            "next": "add_my_devices"
+        }
+    },
+    {
+        "id": "add_my_devices",
+        "template": "add_devices"
+    }],
+    "images":
+    {
+        "large": "/drivers/curtains_hub/assets/images/large.png",
+        "small": "/drivers/curtains_hub/assets/images/small.png"
+    }
+}

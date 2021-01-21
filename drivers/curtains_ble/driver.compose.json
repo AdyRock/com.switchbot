@@ -1,0 +1,37 @@
+{
+    "id": "curtains_ble",
+    "name":
+    {
+        "en": "Curtains (BLE)"
+    },
+    "class": "curtain",
+    "capabilities": [
+        "measure_battery",
+        "windowcoverings_set",
+        "rssi"
+    ],
+    "pair": [
+    {
+        "id": "list_my_devices",
+        "template": "list_devices",
+        "navigation":
+        {
+            "next": "add_my_devices"
+        }
+    },
+    {
+        "id": "add_my_devices",
+        "template": "add_devices"
+    }],
+    "energy":
+    {
+        "batteries": [
+            "INTERNAL"
+        ]
+    },
+    "images":
+    {
+        "large": "/drivers/curtains_ble/assets/images/large.png",
+        "small": "/drivers/curtains_ble/assets/images/small.png"
+    }
+}
