@@ -148,8 +148,9 @@ class MyDevice extends Homey.Device
 
     async _operateCurtain(bytes)
     {
+        this.moving = true;
         const blePeripheral = await this.bleAdvertisement.connect();
-        await new Promise(resolve => setTimeout(resolve, 500));
+        await new Promise(resolve => setTimeout(resolve, 1000));
         let req_buf = Buffer.from(bytes);
         try
         {
@@ -157,8 +158,10 @@ class MyDevice extends Homey.Device
         }
         finally
         {
-            await new Promise(resolve => setTimeout(resolve, 5000));
+            await new Promise(resolve => setTimeout(resolve, 1000));
             await blePeripheral.disconnect();
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            this.moving = false
         }
     }
 
@@ -166,23 +169,30 @@ class MyDevice extends Homey.Device
     {
         try
         {
-            const dd = this.getData();
-
-            this.bleAdvertisement = await ManagerBLE.find(dd.id);
-            Homey.app.updateLog( Homey.app.varToString( this.bleAdvertisement ));
-            let rssi = await this.bleAdvertisement.rssi;
-            this.setCapabilityValue('rssi', rssi);
-
-            let data = this._driver.parse(this.bleAdvertisement);
-            if (data)
+            if (!this.moving)
             {
-                Homey.app.updateLog("Parsed BLE: " + Homey.app.varToString( data ));
-                this.setCapabilityValue('windowcoverings_set', data.serviceData.position / 100);
-                this.setCapabilityValue('measure_battery', data.serviceData.battery);
+                const dd = this.getData();
+
+                this.bleAdvertisement = await ManagerBLE.find(dd.id);
+                Homey.app.updateLog( Homey.app.varToString( this.bleAdvertisement ));
+                let rssi = await this.bleAdvertisement.rssi;
+                this.setCapabilityValue('rssi', rssi);
+
+                let data = this._driver.parse(this.bleAdvertisement);
+                if (data)
+                {
+                    Homey.app.updateLog("Parsed BLE: " + Homey.app.varToString( data ));
+                    this.setCapabilityValue('windowcoverings_set', data.serviceData.position / 100);
+                    this.setCapabilityValue('measure_battery', data.serviceData.battery);
+                }
+                else
+                {
+                    Homey.app.updateLog("Parsed BLE: No service data");
+                }
             }
             else
             {
-                Homey.app.updateLog("Parsed BLE: No service data");
+                Homey.app.updateLog("Refresh skipped while moving");
             }
         }
         catch (err)
