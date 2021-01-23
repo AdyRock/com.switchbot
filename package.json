@@ -1,8 +1,19 @@
 {
   "name": "com.switchbot",
   "version": "0.0.1",
+  "description": "Adds support to Homey for SwitchBot devices",
   "main": "app.js",
   "devDependencies": {
-    "homey": "^2.9.5"
-  }
+    "homey": "^2.9.7"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AdyRock/com.switchbot.git"
+  },
+  "author": "Adrian Rockall",
+  "license": "GPL-3.0-only",
+  "bugs": {
+    "url": "https://github.com/AdyRock/com.switchbot/issues"
+  },
+  "homepage": "https://github.com/AdyRock/com.switchbot#readme"
 }
