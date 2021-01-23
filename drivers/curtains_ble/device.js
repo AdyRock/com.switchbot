@@ -73,38 +73,6 @@ class MyDevice extends Homey.Device
     }
 
     /* ------------------------------------------------------------------
-     * open()
-     * - Open the curtain
-     *
-     * [Arguments]
-     * - none
-     *
-     * [Return value]
-     * - Promise object
-     *   Nothing will be passed to the `resolve()`.
-     * ---------------------------------------------------------------- */
-    open()
-    {
-        return this._operateCurtain([0x57, 0x0f, 0x4501, 0x05, 0xff, 0x00]);
-    }
-
-    /* ------------------------------------------------------------------
-     * close()
-     * - close the curtain
-     *
-     * [Arguments]
-     * - none
-     *
-     * [Return value]
-     * - Promise object
-     *   Nothing will be passed to the `resolve()`.
-     * ---------------------------------------------------------------- */
-    close()
-    {
-        return this._operateCurtain([0x57, 0x0f, 0x45, 0x01, 0x05, 0xff, 0x64]);
-    }
-
-    /* ------------------------------------------------------------------
      * pause()
      * - pause the curtain
      *
@@ -148,19 +116,46 @@ class MyDevice extends Homey.Device
 
     async _operateCurtain(bytes)
     {
+        if (this.moving)
+        {
+            Homey.app.updateLog("Can't send command via BLE busy: " + Homey.app.varToString(bytes));
+            return
+        }
+
         this.moving = true;
+        Homey.app.updateLog("Connecting to BLE device");
+
         const blePeripheral = await this.bleAdvertisement.connect();
-        await new Promise(resolve => setTimeout(resolve, 1000));
+        await new Promise(resolve => setTimeout(resolve, 1200));
         let req_buf = Buffer.from(bytes);
         try
         {
-            await blePeripheral.write('cba20d00224d11e69fb80002a5d5c51b', 'cba20002224d11e69fb80002a5d5c51b', req_buf);
+            Homey.app.updateLog("Getting BLE service");
+            const bleServices = await blePeripheral.discoverServices(['cba20d00224d11e69fb80002a5d5c51b']);
+
+            Homey.app.updateLog("Getting BLE characteristic");
+            const bleCharacteristics = await bleServices[0].discoverCharacteristics(['cba20002224d11e69fb80002a5d5c51b']);
+
+            Homey.app.updateLog("Sending command via BLE: " + Homey.app.varToString(bytes));
+
+            await bleCharacteristics[0].write(req_buf);
+
+            Homey.app.updateLog("Sent command via BLE: " + Homey.app.varToString(bytes));
+        }
+        catch(err)
+        {
+            Homey.app.updateLog("BLE error: " + Homey.app.varToString(err));
+            throw(err);
         }
         finally
         {
-            await new Promise(resolve => setTimeout(resolve, 1000));
+            Homey.app.updateLog("Disconnecting from BLE device");
+            await new Promise(resolve => setTimeout(resolve, 2000));
+
             await blePeripheral.disconnect();
             await new Promise(resolve => setTimeout(resolve, 1000));
+
+            Homey.app.updateLog("Disconnected from BLE device");
             this.moving = false
         }
     }
@@ -174,14 +169,14 @@ class MyDevice extends Homey.Device
                 const dd = this.getData();
 
                 this.bleAdvertisement = await ManagerBLE.find(dd.id);
-                Homey.app.updateLog( Homey.app.varToString( this.bleAdvertisement ));
+                Homey.app.updateLog(Homey.app.varToString(this.bleAdvertisement));
                 let rssi = await this.bleAdvertisement.rssi;
                 this.setCapabilityValue('rssi', rssi);
 
                 let data = this._driver.parse(this.bleAdvertisement);
                 if (data)
                 {
-                    Homey.app.updateLog("Parsed BLE: " + Homey.app.varToString( data ));
+                    Homey.app.updateLog("Parsed BLE: " + Homey.app.varToString(data));
                     this.setCapabilityValue('windowcoverings_set', data.serviceData.position / 100);
                     this.setCapabilityValue('measure_battery', data.serviceData.battery);
                 }

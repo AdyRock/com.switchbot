@@ -234,7 +234,7 @@ class BLEDriver extends Homey.Driver
 
         let calibration = byte1 & 0b01000000; // Whether the calibration is completed
         let battery = byte2 & 0b01111111; // %
-        let currPosition = byte3 & 0b01111111; // current positon %
+        let currPosition = byte3 & 0b01111111; // current position %
         let lightLevel = (byte4 >> 4) & 0b00001111; // light sensor level (1-10)
 
         let data = {
