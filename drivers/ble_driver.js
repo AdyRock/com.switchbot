@@ -3,40 +3,97 @@
 const Homey = require('homey');
 const { ManagerBLE } = require('homey');
 
+const BLE_POLLING_INTERVAL = 10000
+
 class BLEDriver extends Homey.Driver
 {
     /**
      * onInit is called when the driver is initialized.
      */
     async onInit()
-    {}
+    {
+        this.getBLEDevices = this.getBLEDevices.bind(this);
+        this.onPoll = this.onPoll.bind(this);
+        this.timerID = setTimeout(this.onPoll, BLE_POLLING_INTERVAL);
+    }
+
+    async onPoll()
+    {
+        if (!this.discovering)
+        {
+            this.polling = true;
+             Homey.app.updateLog("Polling BLE");
+
+            const promises = [];
+            try
+            {
+                let devices = this.getDevices();
+                for (var i = 0; i < devices.length; i++)
+                {
+                    let device = devices[i];
+                    if (device.getDeviceValues)
+                    {
+                        promises.push(device.getDeviceValues());
+                    }
+                }
+
+                await Promise.all(promises);
+
+            }
+            catch (err)
+            {
+                Homey.app.updateLog("BLE Polling Error: " + Homey.app.varToString(err));
+            }
+
+            this.polling = false;
+        }
+
+        Homey.app.updateLog("Next BLE polling interval = " + BLE_POLLING_INTERVAL, true);
+
+        this.timerID = setTimeout(this.onPoll, BLE_POLLING_INTERVAL);
+    }
 
     async getBLEDevices(type)
     {
-        const devices = [];
-        const bleAdvertisements = await ManagerBLE.discover();
-        Homey.app.detectedDevices = Homey.app.varToString(bleAdvertisements);
-        Homey.ManagerApi.realtime('com.switchbot.detectedDevicesUpdated', { 'devices': Homey.app.detectedDevices });
-
-        for (const bleAdvertisement of bleAdvertisements)
+        if (this.polling)
         {
-            this.log("ServiceData: ", bleAdvertisement.serviceData);
-            let data = this.parse(bleAdvertisement);
-            if (data)
-            {
-                Homey.app.updateLog("Parsed BLE: " + JSON.stringify(data, null, 2));
-                if (data.serviceData.model === type)
-                {
-                    devices.push(
-                    {
-                        "name": bleAdvertisement.address,
-                        data
-                    })
-                }
-            }
-
+            setTimeout(this.getBLEDevices, 500, type);
+            return;
         }
-        return devices;
+
+        try
+        {
+            this.discovering = true;
+
+            const devices = [];
+            const bleAdvertisements = await ManagerBLE.discover();
+            Homey.app.detectedDevices = Homey.app.varToString(bleAdvertisements);
+            Homey.ManagerApi.realtime('com.switchbot.detectedDevicesUpdated', { 'devices': Homey.app.detectedDevices });
+
+            for (const bleAdvertisement of bleAdvertisements)
+            {
+                this.log("ServiceData: ", bleAdvertisement.serviceData);
+                let data = this.parse(bleAdvertisement);
+                if (data)
+                {
+                    Homey.app.updateLog("Parsed BLE: " + JSON.stringify(data, null, 2));
+                    if (data.serviceData.model === type)
+                    {
+                        devices.push(
+                        {
+                            "name": bleAdvertisement.address,
+                            data
+                        })
+                    }
+                }
+
+            }
+            return devices;
+        }
+        finally
+        {
+            this.discovering = false;
+        }
     }
 
     /* ------------------------------------------------------------------

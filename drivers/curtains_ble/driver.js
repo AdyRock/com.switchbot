@@ -10,6 +10,7 @@ class BLECurtainDriver extends BLEDriver
      */
     async onInit()
     {
+        super.onInit();
         this.log('BLECurtainDriver has been initialized');
     }
 

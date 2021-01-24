@@ -10,7 +10,8 @@ class HubCurtainDriver extends HubDriver
      */
     async onInit()
     {
-        this.log('MyDriver has been initialized');
+        super.onInit();
+        this.log('HubCurtainDriver has been initialized');
     }
 
     /**

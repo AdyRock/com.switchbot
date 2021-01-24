@@ -8,7 +8,66 @@ class HubDriver extends Homey.Driver
     /**
      * onInit is called when the driver is initialized.
      */
-    async onInit() {}
+    async onInit()
+    {
+        this.onPoll = this.onPoll.bind(this);
+        this.timerID = setTimeout(this.onPoll, 10000);
+    }
+
+    async onPoll()
+    {
+        var nextInterval = Number(Homey.ManagerSettings.get('pollInterval'));
+        if (Homey.app.BearerToken && (nextInterval > 0))
+        {
+             Homey.app.updateLog("Polling hub");
+
+            Homey.app.timerProcessing = true;
+            const promises = [];
+            let numDevices = 0;
+            try
+            {
+                let devices = this.getDevices();
+                numDevices = devices.length
+                for (var i = 0; i < numDevices; i++)
+                {
+                    let device = devices[i];
+                    if (device.getDeviceValues)
+                    {
+                        promises.push(device.getDeviceValues());
+                    }
+                }
+
+                await Promise.all(promises);
+
+            }
+            catch (err)
+            {
+                Homey.app.updateLog("Polling Error: " + this.varToString(err));
+            }
+
+            if (numDevices > 0)
+            {
+                nextInterval *= (1000 * numDevices);
+                if (nextInterval < (87000 * numDevices))
+                {
+                    nextInterval = (87000 * numDevices);
+                }
+            }
+            else
+            {
+                nextInterval = 60000
+            }
+
+            Homey.app.updateLog("Next HUB polling interval = " + nextInterval, true);
+        }
+        else
+        {
+            nextInterval = 10000;
+        }
+
+        Homey.app.timerID = setTimeout(this.onPoll, nextInterval);
+        Homey.app.timerProcessing = false;
+    }
 
     async getHUBDevices(type)
     {
@@ -22,7 +81,7 @@ class HubDriver extends Homey.Driver
             if (response.statusCode !== 100)
             {
                 Homey.app.updateLog("Invalid response code: " + response.statusCode);
-                throw( new Error("Invalid response code: " + response.statusCode));
+                throw (new Error("Invalid response code: " + response.statusCode));
             }
 
             let searchData = response.body;
@@ -148,7 +207,7 @@ class HubDriver extends Homey.Driver
                         });
                         res.on('end', () =>
                         {
-                            let returnData = JSON.parse( Buffer.concat(body));
+                            let returnData = JSON.parse(Buffer.concat(body));
                             Homey.app.updateLog("Get response: " + Homey.app.varToString(returnData));
                             resolve(returnData);
                         });
@@ -177,20 +236,20 @@ class HubDriver extends Homey.Driver
                             message = "Not Found";
                         }
                         Homey.app.updateLog("HTTPS Error: " + res.statusCode + ": " + message);
-                        reject(new Error( "HTTPS Error: " + message))
+                        reject(new Error("HTTPS Error: " + message))
                         return;
                     }
                 }).on('error', (err) =>
                 {
                     Homey.app.updateLog(err);
-                    reject(new Error( "HTTPS Catch: " + err))
+                    reject(new Error("HTTPS Catch: " + err))
                     return;
                 });
             }
             catch (err)
             {
                 Homey.app.updateLog(err);
-                reject(new Error( "HTTPS Catch: " + err))
+                reject(new Error("HTTPS Catch: " + err))
                 return;
             }
         });
@@ -208,7 +267,7 @@ class HubDriver extends Homey.Driver
             {
                 if (!Homey.app.BearerToken)
                 {
-                    reject(new Error( "HTTPS: No Token specified"))
+                    reject(new Error("HTTPS: No Token specified"))
                     return;
                 }
 
@@ -238,7 +297,7 @@ class HubDriver extends Homey.Driver
                         });
                         res.on('end', () =>
                         {
-                            let returnData = JSON.parse( Buffer.concat(body));
+                            let returnData = JSON.parse(Buffer.concat(body));
                             Homey.app.updateLog("Post response: " + Homey.app.varToString(returnData));
                             resolve(returnData);
                         });
@@ -267,12 +326,12 @@ class HubDriver extends Homey.Driver
                             message = "Not Found";
                         }
                         Homey.app.updateLog("HTTPS Error: " + res.statusCode + ": " + message);
-                        reject(new Error( "HTTPS Error: " + message));
+                        reject(new Error("HTTPS Error: " + message));
                     }
                 }).on('error', (err) =>
                 {
                     Homey.app.updateLog(err);
-                    reject(new Error( "HTTPS Catch: " + err));
+                    reject(new Error("HTTPS Catch: " + err));
                 });
                 req.write(bodyText);
                 req.end();
@@ -280,7 +339,7 @@ class HubDriver extends Homey.Driver
             catch (err)
             {
                 Homey.app.updateLog(Homey.app.varToString(err));
-                reject(new Error( "HTTPS Catch: " + err));
+                reject(new Error("HTTPS Catch: " + err));
             }
         });
     }

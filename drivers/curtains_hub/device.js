@@ -3,14 +3,14 @@
 const Homey = require('homey');
 const { ManagerBLE } = require('homey');
 
-class MyDevice extends Homey.Device
+class CurtainsHubDevice extends Homey.Device
 {
     /**
      * onInit is called when the device is initialized.
      */
     async onInit()
     {
-        this.log('MyDevice has been initialized');
+        this.log('CurtainsHubDevice has been initialized');
         this._driver = this.getDriver();
 
         this.getDeviceValues();
@@ -22,7 +22,7 @@ class MyDevice extends Homey.Device
      */
     async onAdded()
     {
-        this.log('MyDevice has been added');
+        this.log('CurtainsHubDevice has been added');
     }
 
     /**
@@ -35,7 +35,7 @@ class MyDevice extends Homey.Device
      */
     async onSettings({ oldSettings, newSettings, changedKeys })
     {
-        this.log('MyDevice settings where changed');
+        this.log('CurtainsHubDevice settings where changed');
     }
 
     /**
@@ -45,7 +45,7 @@ class MyDevice extends Homey.Device
      */
     async onRenamed(name)
     {
-        this.log('MyDevice was renamed');
+        this.log('CurtainsHubDevice was renamed');
     }
 
     /**
@@ -53,7 +53,7 @@ class MyDevice extends Homey.Device
      */
     async onDeleted()
     {
-        this.log('MyDevice has been deleted');
+        this.log('CurtainsHubDevice has been deleted');
     }
 
     // this method is called when the Homey device has requested a position change ( 0 to 1)
@@ -146,4 +146,4 @@ class MyDevice extends Homey.Device
     }
 }
 
-module.exports = MyDevice;
+module.exports = CurtainsHubDevice;

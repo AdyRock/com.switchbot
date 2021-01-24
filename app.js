@@ -15,6 +15,7 @@ class MyApp extends Homey.App
     async onInit()
     {
         this.log('SwitchBot has been initialized');
+        this.diagLog = "";
 
         if (process.env.DEBUG === '1')
         {
@@ -57,57 +58,7 @@ class MyApp extends Homey.App
             }
         });
 
-        this.onPoll = this.onPoll.bind(this);
-
-        if (this.BearerToken)
-        {
-            if (Homey.ManagerSettings.get('pollInterval') > 1)
-            {
-                this.updateLog("Start Polling");
-                this.timerID = setTimeout(this.onPoll, 10000);
-            }
-        }
-
         this.updateLog('************** App has initialised. ***************');
-    }
-
-    async onPoll()
-    {
-        Homey.app.timerProcessing = true;
-        const promises = [];
-        try
-        {
-            // Fetch the list of drivers for this app
-            const drivers = Homey.ManagerDrivers.getDrivers();
-            for (const driver in drivers)
-            {
-                let devices = Homey.ManagerDrivers.getDriver(driver).getDevices();
-                for (var i = 0; i < devices.length; i++)
-                {
-                    let device = devices[i];
-                    if (device.getDeviceValues)
-                    {
-                        promises.push(device.getDeviceValues());
-                    }
-                }
-            }
-
-            await Promise.all(promises);
-
-        }
-        catch (err)
-        {
-            Homey.app.updateLog("Polling Error: " + this.varToString(err));
-        }
-
-        var nextInterval = Number(Homey.ManagerSettings.get('pollInterval')) * 1000;
-        if (nextInterval < 1000)
-        {
-            nextInterval = 5000;
-        }
-        Homey.app.updateLog("Next Interval = " + nextInterval, true);
-        Homey.app.timerID = setTimeout(Homey.app.onPoll, nextInterval);
-        Homey.app.timerProcessing = false;
     }
 
     varToString(source)
