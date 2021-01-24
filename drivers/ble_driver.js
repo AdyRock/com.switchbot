@@ -1,7 +1,6 @@
 'use strict';
 
 const Homey = require('homey');
-const { ManagerBLE } = require('homey');
 
 const BLE_POLLING_INTERVAL = 10000
 
@@ -22,7 +21,7 @@ class BLEDriver extends Homey.Driver
         if (!this.discovering)
         {
             this.polling = true;
-             Homey.app.updateLog("Polling BLE");
+            this.homey.app.updateLog("Polling BLE");
 
             const promises = [];
             try
@@ -42,13 +41,13 @@ class BLEDriver extends Homey.Driver
             }
             catch (err)
             {
-                Homey.app.updateLog("BLE Polling Error: " + Homey.app.varToString(err));
+                this.homey.app.updateLog("BLE Polling Error: " + this.homey.app.varToString(err));
             }
 
             this.polling = false;
         }
 
-        Homey.app.updateLog("Next BLE polling interval = " + BLE_POLLING_INTERVAL, true);
+        this.homey.app.updateLog("Next BLE polling interval = " + BLE_POLLING_INTERVAL, true);
 
         this.timerID = setTimeout(this.onPoll, BLE_POLLING_INTERVAL);
     }
@@ -66,9 +65,9 @@ class BLEDriver extends Homey.Driver
             this.discovering = true;
 
             const devices = [];
-            const bleAdvertisements = await ManagerBLE.discover();
-            Homey.app.detectedDevices = Homey.app.varToString(bleAdvertisements);
-            Homey.ManagerApi.realtime('com.switchbot.detectedDevicesUpdated', { 'devices': Homey.app.detectedDevices });
+            const bleAdvertisements = await this.homey.ble.discover();
+            this.homey.app.detectedDevices = this.homey.app.varToString(bleAdvertisements);
+            this.homey.api.realtime('com.switchbot.detectedDevicesUpdated', { 'devices': this.homey.app.detectedDevices });
 
             for (const bleAdvertisement of bleAdvertisements)
             {
@@ -76,7 +75,7 @@ class BLEDriver extends Homey.Driver
                 let data = this.parse(bleAdvertisement);
                 if (data)
                 {
-                    Homey.app.updateLog("Parsed BLE: " + JSON.stringify(data, null, 2));
+                    this.homey.app.updateLog("Parsed BLE: " + JSON.stringify(data, null, 2));
                     if (data.serviceData.model === type)
                     {
                         devices.push(

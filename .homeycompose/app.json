@@ -1,8 +1,8 @@
 {
   "id": "com.switchbot",
   "version": "0.0.4",
-  "compatibility": ">=4.0.0",
-  "sdk": 2,
+  "compatibility": ">=5.0.0",
+  "sdk": 3,
   "name": {
     "en": "SwitchBot"
   },
@@ -22,5 +22,19 @@
   "author": {
     "name": "Adrian Rockall",
     "email": "ady@rockall.plus.com"
+  },
+  "api": {
+    "getLog": {
+      "method": "get",
+      "path": "/getLog/"
+    },
+    "getDetect": {
+      "method": "get",
+      "path": "/getDetect/"
+    },
+    "clearLog": {
+      "method": "post",
+      "path": "/clearLog/"
+    }
   }
 }

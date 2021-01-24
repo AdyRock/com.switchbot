@@ -17,44 +17,36 @@ class MyApp extends Homey.App
         this.log('SwitchBot has been initialized');
         this.diagLog = "";
 
-        if (process.env.DEBUG === '1')
+        // if (process.env.DEBUG === '1')
+        // {
+        //     this.homey.settings.set('debugMode', true);
+        // }
+        //else
         {
-            Homey.ManagerSettings.set('debugMode', true);
-        }
-        else
-        {
-            Homey.ManagerSettings.set('debugMode', false);
-        }
-
-        this.BearerToken = Homey.ManagerSettings.get('BearerToken');
-
-        if (Homey.ManagerSettings.get('pollInterval') < MINIMUM_POLL_INTERVAL)
-        {
-            Homey.ManagerSettings.set('pollInterval', MINIMUM_POLL_INTERVAL);
+            this.homey.settings.set('debugMode', false);
         }
 
-        this.log("Switchbot has started with Key: " + this.BearerToken + " Polling every " + Homey.ManagerSettings.get('pollInterval') + " seconds");
+        this.BearerToken = this.homey.settings.get('BearerToken');
+
+        if (this.homey.settings.get('pollInterval') < MINIMUM_POLL_INTERVAL)
+        {
+            this.homey.settings.set('pollInterval', MINIMUM_POLL_INTERVAL);
+        }
+
+        this.log("Switchbot has started with Key: " + this.BearerToken + " Polling every " + this.homey.settings.get('pollInterval') + " seconds");
 
         // Callback for app settings changed
-        Homey.ManagerSettings.on('set', async function(setting)
+        this.homey.settings.on('set', async function(setting)
         {
-            Homey.app.updateLog("Setting " + setting + " has changed.");
+            this.homey.app.updateLog("Setting " + setting + " has changed.");
 
             if (setting === 'BearerToken')
             {
-                Homey.app.BearerToken = Homey.ManagerSettings.get('BearerToken');
+                this.homey.app.BearerToken = this.homey.settings.get('BearerToken');
             }
 
             if (setting === 'pollInterval')
             {
-                clearTimeout(Homey.app.timerID);
-                if (Homey.app.BearerToken && !Homey.app.timerProcessing)
-                {
-                    if (Homey.ManagerSettings.get('pollInterval') > 1)
-                    {
-                        Homey.app.timerID = setTimeout(Homey.app.onPoll, Homey.ManagerSettings.get('pollInterval') * 1000);
-                    }
-                }
             }
         });
 
@@ -114,7 +106,7 @@ class MyApp extends Homey.App
 
     updateLog(newMessage)
     {
-        if (Homey.ManagerSettings.get('logEnabled'))
+        if (this.homey.settings.get('logEnabled'))
         {
             console.log(newMessage);
             this.diagLog += "* ";
@@ -124,7 +116,7 @@ class MyApp extends Homey.App
             {
                 this.diagLog = this.diagLog.substr(this.diagLog.length - 60000);
             }
-            Homey.ManagerApi.realtime('com.switchbot.logupdated', { 'log': this.diagLog });
+            this.homey.api.realtime('com.switchbot.logupdated', { 'log': this.diagLog });
         }
     }
 }

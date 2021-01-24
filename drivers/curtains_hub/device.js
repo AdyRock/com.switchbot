@@ -11,7 +11,6 @@ class CurtainsHubDevice extends Homey.Device
     async onInit()
     {
         this.log('CurtainsHubDevice has been initialized');
-        this._driver = this.getDriver();
 
         this.getDeviceValues();
         this.registerCapabilityListener('windowcoverings_set', this.onCapabilityPosition.bind(this));
@@ -131,14 +130,14 @@ class CurtainsHubDevice extends Homey.Device
         const dd = this.getData();
 
 
-        return this._driver.setDeviceData(dd.id, data);
+        return this.driver.setDeviceData(dd.id, data);
     }
 
     async getDeviceValues()
     {
         const dd = this.getData();
 
-        let data = await this._driver.getDeviceData(dd.id);
+        let data = await this.driver.getDeviceData(dd.id);
         if (data)
         {
             this.setCapabilityValue('windowcoverings_set', data.slidePosition / 100);

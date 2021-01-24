@@ -18,17 +18,9 @@ class HubCurtainDriver extends HubDriver
      * onPairListDevices is called when a user is adding a device and the 'list_devices' view is called.
      * This should return an array with the data of devices that are available for pairing.
      */
-    onPairListDevices( data, callback )
+    async onPairListDevices()
     {
-        this.getHUBDevices('Curtain').then( function( devices )
-        {
-            //console.log( devices );
-            callback( null, devices );
-
-        } ).catch( function( err )
-        {
-            callback( err, [] );
-        } );
+        return this.getHUBDevices('Curtain');
     }
 }
 
