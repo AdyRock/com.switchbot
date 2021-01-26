@@ -131,7 +131,9 @@ class CurtainsBLEDevice extends Homey.Device
             this.moving = true;
             this.homey.app.updateLog("Connecting to BLE device: " + this.getName());
 
-            const blePeripheral = await this.bleAdvertisement.connect();
+            const dd = this.getData();
+            let bleAdvertisement = await ManagerBLE.find(dd.id);
+            const blePeripheral = await bleAdvertisement.connect();
             await new Promise(resolve => setTimeout(resolve, 1200));
 
             let req_buf = Buffer.from(bytes);
@@ -180,12 +182,12 @@ class CurtainsBLEDevice extends Homey.Device
                 this.updating = true;
                 const dd = this.getData();
 
-                this.bleAdvertisement = await this.homey.ble.find(dd.id);
-                this.homey.app.updateLog(this.homey.app.varToString(this.bleAdvertisement));
-                let rssi = await this.bleAdvertisement.rssi;
+                let bleAdvertisement = await ManagerBLE.find(dd.id);
+                Homey.app.updateLog(Homey.app.varToString(bleAdvertisement));
+                let rssi = await bleAdvertisement.rssi;
                 this.setCapabilityValue('rssi', rssi);
 
-                let data = this.driver.parse(this.bleAdvertisement);
+                let data = this._driver.parse(bleAdvertisement);
                 if (data)
                 {
                     this.homey.app.updateLog("Parsed BLE: " + this.homey.app.varToString(data));

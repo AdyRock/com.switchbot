@@ -201,8 +201,8 @@
                     if ( err ) return Homey.alert( err );
                 } );
 
-                if ( pollIntervalElement.value < 1 ) pollIntervalElement.value = 5;
-                if ( pollIntervalElement.value > 600 ) pollIntervalElement.value = 600;
+                if ( pollIntervalElement.value < 87 ) pollIntervalElement.value = 87;
+                if ( pollIntervalElement.value > 3000 ) pollIntervalElement.value = 3000;
                 Homey.set( 'pollInterval', pollIntervalElement.value, function( err )
                 {
                     if ( err ) return Homey.alert( err );
