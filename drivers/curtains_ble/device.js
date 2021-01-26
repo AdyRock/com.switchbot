@@ -116,10 +116,31 @@ class CurtainsBLEDevice extends Homey.Device
 
     async _operateCurtain(bytes)
     {
+        let loops = 5;
+        let response = null;
+        while (loops-- > 0)
+        {
+            response = await this._operateCurtainsLoop(bytes);
+            if (response === true)
+            {
+                return;
+            }
+
+            await new Promise(resolve => setTimeout(resolve, 2000));
+        }
+
+        if (response instanceof Error)
+        {
+            throw response;
+        }
+    }
+
+    async _operateCurtainsLoop(bytes)
+    {
         if (this.moving)
         {
             this.homey.app.updateLog("Still processing the previous command to: " + this.getName());
-            return
+            return false;
         }
 
         if (this.updating)
@@ -132,9 +153,9 @@ class CurtainsBLEDevice extends Homey.Device
             this.homey.app.updateLog("Connecting to BLE device: " + this.getName());
 
             const dd = this.getData();
-            let bleAdvertisement = await ManagerBLE.find(dd.id);
+            let bleAdvertisement = await this.homey.ble.find(dd.id);
             const blePeripheral = await bleAdvertisement.connect();
-            await new Promise(resolve => setTimeout(resolve, 1200));
+            await new Promise(resolve => setTimeout(resolve, 1000));
 
             let req_buf = Buffer.from(bytes);
             try
@@ -154,15 +175,15 @@ class CurtainsBLEDevice extends Homey.Device
             catch(err)
             {
                 this.homey.app.updateLog("BLE error: " + this.getName() + ": " + this.homey.app.varToString(err));
-                throw(err);
+                return err;
+                //throw(err);
             }
             finally
             {
                 this.homey.app.updateLog("Disconnecting from BLE device: " + this.getName());
-                await new Promise(resolve => setTimeout(resolve, 2000));
+                await new Promise(resolve => setTimeout(resolve, 1000));
 
                 await blePeripheral.disconnect();
-                await new Promise(resolve => setTimeout(resolve, 1000));
 
                 this.homey.app.updateLog("Disconnected from BLE device: " + this.getName());
             }
@@ -171,6 +192,8 @@ class CurtainsBLEDevice extends Homey.Device
         {
             this.moving = false
         }
+
+        return true;
     }
 
     async getDeviceValues()
@@ -182,12 +205,12 @@ class CurtainsBLEDevice extends Homey.Device
                 this.updating = true;
                 const dd = this.getData();
 
-                let bleAdvertisement = await ManagerBLE.find(dd.id);
-                Homey.app.updateLog(Homey.app.varToString(bleAdvertisement));
+                let bleAdvertisement = await this.homey.ble.find(dd.id);
+                this.homey.app.updateLog(this.homey.app.varToString(bleAdvertisement));
                 let rssi = await bleAdvertisement.rssi;
                 this.setCapabilityValue('rssi', rssi);
 
-                let data = this._driver.parse(bleAdvertisement);
+                let data = this.driver.parse(bleAdvertisement);
                 if (data)
                 {
                     this.homey.app.updateLog("Parsed BLE: " + this.homey.app.varToString(data));
