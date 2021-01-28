@@ -23,7 +23,7 @@
     }],
     "images":
     {
-        "large": "/drivers/curtains_hub/assets/images/large.png",
-        "small": "/drivers/curtains_hub/assets/images/small.png"
+        "large": "/drivers/curtains_hub/assets/images/large.jpg",
+        "small": "/drivers/curtains_hub/assets/images/small.jpg"
     }
 }
