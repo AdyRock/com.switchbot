@@ -4,11 +4,17 @@
   "version": "0.1.0",
   "compatibility": ">=5.0.0",
   "sdk": 3,
+  "brandColor": "#FF7D4B",
   "name": {
     "en": "SwitchBot"
   },
   "description": {
-    "en": "Adds support for SwitchBot BLE devices"
+    "en": "Give SwitchBot the power of Homey"
+  },
+  "tags": {
+    "en": [
+      "Curtains"
+    ]
   },
   "category": [
     "appliances"
@@ -16,9 +22,20 @@
   "permissions": [
     "homey:wireless:ble"
   ],
+  "contributing": {
+    "donate": {
+      "paypal": {
+        "username": "adyrock"
+      }
+    }
+  },
+  "bugs": {
+    "url": "https://github.com/AdyRock/com.somfy.tahoma/issues"
+  },
+  "source": "https://github.com/AdyRock/com.somfy.tahoma",
   "images": {
-    "large": "/assets/images/large.png",
-    "small": "/assets/images/small.png"
+    "large": "/assets/images/large.jpg",
+    "small": "/assets/images/small.jpg"
   },
   "author": {
     "name": "Adrian Rockall",
