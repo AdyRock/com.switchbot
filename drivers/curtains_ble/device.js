@@ -126,7 +126,7 @@ class CurtainsBLEDevice extends Homey.Device
                 return;
             }
 
-            await new Promise(resolve => setTimeout(resolve, 2000));
+            await new Promise(resolve => setTimeout(resolve, 5000));
         }
 
         if (response instanceof Error)
