@@ -3,7 +3,7 @@
 const Homey = require('homey');
 const BLEDriver = require('../ble_driver');
 
-class BLECurtainDriver extends BLEDriver
+class BLETemperatureDriver extends BLEDriver
 {
     /**
      * onInit is called when the driver is initialized.
@@ -11,7 +11,7 @@ class BLECurtainDriver extends BLEDriver
     async onInit()
     {
         super.onInit();
-        this.log('BLECurtainDriver has been initialized');
+        this.log('BLETemperatureDriver has been initialized');
     }
 
     /**
@@ -20,8 +20,8 @@ class BLECurtainDriver extends BLEDriver
      */
     onPairListDevices()
     {
-        return this.getBLEDevices('c');
+        return this.getBLEDevices('T');
     }
 }
 
-module.exports = BLECurtainDriver;
+module.exports = BLETemperatureDriver;

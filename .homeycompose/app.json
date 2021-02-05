@@ -1,6 +1,6 @@
 {
   "id": "com.switchbot",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#FF7D4B",
@@ -32,6 +32,7 @@
     "url": "https://github.com/AdyRock/com.switchbot/issues"
   },
   "source": "https://github.com/AdyRock/com.switchbot",
+  "homeyCommunityTopicId": 42296,
   "images": {
     "large": "/assets/images/large.jpg",
     "small": "/assets/images/small.jpg"
