@@ -1,7 +1,6 @@
 'use strict';
 
 const Homey = require('homey');
-const { ManagerBLE } = require('homey');
 
 class CurtainsHubDevice extends Homey.Device
 {

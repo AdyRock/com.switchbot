@@ -1,0 +1,37 @@
+{
+    "id": "bot_ble",
+    "name":
+    {
+        "en": "Bot (BLE)"
+    },
+    "class": "button",
+    "capabilities": [
+        "measure_battery",
+        "onoff",
+        "rssi"
+    ],
+    "pair": [
+    {
+        "id": "list_my_devices",
+        "template": "list_devices",
+        "navigation":
+        {
+            "next": "add_my_devices"
+        }
+    },
+    {
+        "id": "add_my_devices",
+        "template": "add_devices"
+    }],
+    "energy":
+    {
+        "batteries": [
+            "CR2"
+        ]
+    },
+    "images":
+    {
+        "large": "/drivers/bot_ble/assets/images/large.jpg",
+        "small": "/drivers/bot_ble/assets/images/small.jpg"
+    }
+}

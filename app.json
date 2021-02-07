@@ -58,6 +58,67 @@
   },
   "drivers": [
     {
+      "id": "bot_ble",
+      "name": {
+        "en": "Bot (BLE)"
+      },
+      "class": "button",
+      "capabilities": [
+        "measure_battery",
+        "onoff",
+        "rssi"
+      ],
+      "pair": [
+        {
+          "id": "list_my_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_my_devices"
+          }
+        },
+        {
+          "id": "add_my_devices",
+          "template": "add_devices"
+        }
+      ],
+      "energy": {
+        "batteries": [
+          "CR2"
+        ]
+      },
+      "images": {
+        "large": "/drivers/bot_ble/assets/images/large.jpg",
+        "small": "/drivers/bot_ble/assets/images/small.jpg"
+      }
+    },
+    {
+      "id": "bot_hub",
+      "name": {
+        "en": "Bot (HUB)"
+      },
+      "class": "button",
+      "capabilities": [
+        "onoff"
+      ],
+      "pair": [
+        {
+          "id": "list_my_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_my_devices"
+          }
+        },
+        {
+          "id": "add_my_devices",
+          "template": "add_devices"
+        }
+      ],
+      "images": {
+        "large": "/drivers/bot_hub/assets/images/large.jpg",
+        "small": "/drivers/bot_hub/assets/images/small.jpg"
+      }
+    },
+    {
       "id": "curtains_ble",
       "name": {
         "en": "Curtains (BLE)"
@@ -152,6 +213,34 @@
       "images": {
         "large": "/drivers/temperature_ble/assets/images/large.jpg",
         "small": "/drivers/temperature_ble/assets/images/small.jpg"
+      }
+    },
+    {
+      "id": "temperature_hub",
+      "name": {
+        "en": "Temperature & Humidity (HUB)"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "measure_temperature",
+        "measure_humidity"
+      ],
+      "pair": [
+        {
+          "id": "list_my_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_my_devices"
+          }
+        },
+        {
+          "id": "add_my_devices",
+          "template": "add_devices"
+        }
+      ],
+      "images": {
+        "large": "/drivers/temperature_hub/assets/images/large.jpg",
+        "small": "/drivers/temperature_hub/assets/images/small.jpg"
       }
     }
   ],
