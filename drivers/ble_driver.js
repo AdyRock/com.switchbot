@@ -230,8 +230,8 @@ class BLEDriver extends Homey.Driver
         let byte1 = buf.readUInt8(1);
         let byte2 = buf.readUInt8(2);
 
-        let mode = (byte1 & 0b10000000) ? true : false; // Whether the light switch Add-on is used or not
-        let state = (byte1 & 0b01000000) ? true : false; // Whether the switch status is ON or OFF
+        let mode = (byte1 & 0b10000000) != 0 ? true : false; // Whether the light switch Add-on is used or not
+        let state = (byte1 & 0b01000000) != 0 ? true : false; // Whether the switch status is ON or OFF
         let battery = byte2 & 0b01111111; // %
 
         let data = {
@@ -270,7 +270,7 @@ class BLEDriver extends Homey.Driver
                 f: temp_f
             },
             fahrenheit: (byte5 & 0b10000000) ? true : false,
-            humidity: byte5 & 0b01111111,
+            humidity: (byte5 & 0b01111111),
             battery: (byte2 & 0b01111111)
         };
 
@@ -289,8 +289,8 @@ class BLEDriver extends Homey.Driver
         let byte4 = buf.readUInt8(4);
 
         let calibration = byte1 & 0b01000000; // Whether the calibration is completed
-        let battery = byte2 & 0b01111111; // %
-        let currPosition = byte3 & 0b01111111; // current position %
+        let battery = (byte2 & 0b01111111); // %
+        let currPosition = (byte3 & 0b01111111); // current position %
         let lightLevel = (byte4 >> 4) & 0b00001111; // light sensor level (1-10)
 
         let data = {
