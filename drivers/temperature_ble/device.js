@@ -102,6 +102,29 @@ class TemperatureBLEDevice extends Homey.Device
             this.updating = false;
         }
     }
+
+    async syncBLEEvents(events)
+    {
+        try
+        {
+            const dd = this.getData();
+            for (const event of events)
+            {
+                if (event.address && (event.address == dd.address))
+                {
+                    this.setCapabilityValue('measure_temperature', event.serviceData.temperature.c);
+                    this.setCapabilityValue('measure_humidity', event.serviceData.humidity);
+                    this.setCapabilityValue('measure_battery', event.serviceData.battery);
+                    this.setCapabilityValue('rssi', event.rssi);
+                }
+            }
+        }
+        catch (error)
+        {
+            this.homey.app.updateLog("Error in temperature syncEvents: " + error, 0);
+        }
+    }
+
 }
 
 module.exports = TemperatureBLEDevice;

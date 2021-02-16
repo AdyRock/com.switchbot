@@ -18,7 +18,11 @@ class BLEDriver extends Homey.Driver
 
     async onPoll()
     {
-        if (!this.discovering)
+        if (this.homey.app.usingBLEHub)
+        {
+            return;
+        }
+        else if (!this.discovering)
         {
             this.polling = true;
             this.homey.app.updateLog("Polling BLE");
@@ -305,5 +309,4 @@ class BLEDriver extends Homey.Driver
         return data;
     }
 }
-
 module.exports = BLEDriver;

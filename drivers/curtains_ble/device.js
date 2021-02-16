@@ -236,6 +236,27 @@ class CurtainsBLEDevice extends Homey.Device
             this.updating = false;
         }
     }
+
+    async syncBLEEvents(events)
+    {
+        try
+        {
+            const dd = this.getData();
+            for(const event of events)
+            {
+                if (event.address && (event.address == dd.address))
+                {
+                    this.setCapabilityValue('windowcoverings_set', event.serviceData.position / 100);
+                    this.setCapabilityValue('measure_battery', event.serviceData.battery);
+                    this.setCapabilityValue('rssi', event.rssi);
+                }
+            }
+        }
+        catch (error)
+        {
+            this.homey.app.updateLog("Error in curtains syncEvents: " + error, 0);
+        }
+    }
 }
 
 module.exports = CurtainsBLEDevice;

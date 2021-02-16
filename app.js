@@ -5,6 +5,9 @@ if (process.env.DEBUG === '1')
 }
 
 const Homey = require('homey');
+const http = require("http");
+var mdns = require('multicast-dns')({ multicast: false, loopback: false })
+
 const MINIMUM_POLL_INTERVAL = 5;
 
 class MyApp extends Homey.App
@@ -45,10 +48,37 @@ class MyApp extends Homey.App
                 this.homey.app.BearerToken = this.homey.settings.get('BearerToken');
             }
 
-            if (setting === 'pollInterval')
-            {
-            }
+            if (setting === 'pollInterval') {}
         });
+
+        this.usingBLEHub = false;
+
+        mdns.on('response', (response) =>
+        {
+            const answer = response.answers.find(answer => answer.name === 'switchbotble.local');
+            if (answer)
+            {
+                console.log('got a response packet:', response)
+                this.BLEHubAddress = answer.data;
+                this.usingBLEHub = true;
+                clearTimeout(this.timerID);
+                this.timerID = setTimeout(this.onPoll, (1000 * 10));
+            }
+        })
+
+        // lets query for an A record for 'brunhilde.local'
+        mdns.query(
+        {
+            questions: [
+            {
+                name: 'switchbotble.local',
+                type: 'A'
+            }]
+        })
+
+        this.onPoll = this.onPoll.bind(this);
+        this.homeyId = await this.homey.cloud.getLocalAddress();
+        this.timerID = setTimeout(this.onPoll, (1000 * 10));
 
         this.updateLog('************** App has initialised. ***************');
     }
@@ -104,9 +134,9 @@ class MyApp extends Homey.App
         return source.toString();
     }
 
-    updateLog(newMessage)
+    updateLog(newMessage, errorLevel = 1)
     {
-        if (this.homey.settings.get('logEnabled'))
+        if ((errorLevel == 0) || this.homey.settings.get('logEnabled'))
         {
             console.log(newMessage);
             this.diagLog += "* ";
@@ -118,6 +148,235 @@ class MyApp extends Homey.App
             }
             this.homey.api.realtime('com.switchbot.logupdated', { 'log': this.diagLog });
         }
+    }
+
+    //=======================================================================================
+    //BLEHub interface
+
+    async onPoll()
+    {
+        if (this.usingBLEHub)
+        {
+            this.refreshBLEHubCallback();
+            this.timerID = setTimeout(this.onPoll, 1000 * 60 * 5);
+        }
+        else
+        {
+            // lets query for an A record for 'brunhilde.local'
+            mdns.query(
+            {
+                questions: [
+                {
+                    name: 'switchbotble.local',
+                    type: 'A'
+                }]
+            })
+            this.timerID = setTimeout(this.onPoll, 1000 * 10);
+        }
+    }
+
+    async refreshBLEHubCallback()
+    {
+        try
+        {
+            const url = "callback/add";
+            const callbackUrl = "http://" + this.homeyId + "/api/app/com.switchbot/newData/";
+            this.homey.app.updateLog("Registering callback: " + callbackUrl);
+            const body = { "uri": callbackUrl };
+            let response = await this.PostBLEHubURL(url, body);
+            if (response)
+            {
+                if (response.statusCode !== 200)
+                {
+                    this.homey.app.updateLog("Invalid response code: " + response.statusCode + ":  " + response.message, 0);
+                    return false;
+                }
+
+                return true;
+            }
+
+            this.homey.app.updateLog("Invalid response: No data", 0);
+        }
+        catch (err)
+        {
+            this.homey.app.updateLog(err, 0);
+        }
+
+        return false;
+    }
+
+    async GetBLEHubURL(url)
+    {
+        this.homey.app.updateLog(url);
+
+        return new Promise((resolve, reject) =>
+        {
+            try
+            {
+                let http_options = {
+                    host: this.BLEHubAddress,
+                    path: "/api/v1/" + url,
+                }
+
+                http.get(http_options, (res) =>
+                {
+                    if (res.statusCode === 200)
+                    {
+                        let body = [];
+                        res.on('data', (chunk) =>
+                        {
+                            body.push(chunk);
+                        });
+                        res.on('end', () =>
+                        {
+                            let returnData = JSON.parse(Buffer.concat(body));
+                            this.homey.app.updateLog("Get response: " + this.homey.app.varToString(returnData));
+                            resolve(returnData);
+                        });
+                    }
+                    else
+                    {
+                        let message = "";
+                        if (res.statusCode === 204)
+                        {
+                            message = "No Data Found";
+                        }
+                        else if (res.statusCode === 400)
+                        {
+                            message = "Bad request";
+                        }
+                        else if (res.statusCode === 401)
+                        {
+                            message = "Unauthorized";
+                        }
+                        else if (res.statusCode === 403)
+                        {
+                            message = "Forbidden";
+                        }
+                        else if (res.statusCode === 404)
+                        {
+                            message = "Not Found";
+                        }
+                        this.homey.app.updateLog("HTTPS Error: " + res.statusCode + ": " + message, 0);
+                        reject(new Error("HTTP Error: " + message))
+                        return;
+                    }
+                }).on('error', (err) =>
+                {
+                    this.homey.app.updateLog(err, 0);
+                    reject(new Error("HTTP Catch: " + err))
+                    return;
+                });
+            }
+            catch (err)
+            {
+                this.homey.app.updateLog(err, 0);
+                reject(new Error("HTTP Catch: " + err))
+                return;
+            }
+        });
+    }
+
+    async PostBLEHubURL(url, body)
+    {
+        this.homey.app.updateLog(url);
+        let bodyText = JSON.stringify(body);
+        this.homey.app.updateLog(bodyText);
+
+        return new Promise((resolve, reject) =>
+        {
+            if (this.postInProgress)
+            {
+                return { "message": "Busy", "statusCode": 300 };;
+            }
+
+            this.postInProgress = true;
+
+            try
+            {
+                let http_options = {
+                    host: this.BLEHubAddress,
+                    path: "/api/v1/" + url,
+                    method: "POST",
+                    headers:
+                    {
+                        "contentType": "application/json; charset=utf-8",
+                        "Content-Length": bodyText.length,
+                        "connection": 'Close'
+                    },
+                }
+
+                this.homey.app.updateLog(http_options);
+
+                let req = http.request(http_options, (res) =>
+                {
+                    let body = [];
+                    res.on('data', (chunk) =>
+                    {
+                        this.homey.app.updateLog("Post: retrieve data");
+                        body.push(chunk);
+                    });
+                    res.on('end', () =>
+                    {
+                        const bodyText = Buffer.concat(body).toString();
+                        let returnData = "";
+                        switch (res.headers['content-type'])
+                        {
+                            case 'application/json':
+                                returnData = JSON.parse(bodyText);
+                                break;
+                            default:
+                                returnData = { "message": bodyText, "statusCode": res.statusCode };
+                        }
+                        this.homey.app.updateLog("Post response: " + this.homey.app.varToString(returnData));
+                        this.postInProgress = false;
+                        console.log("POST complete");
+                        resolve(returnData);
+                    });
+                }).on('error', (err) =>
+                {
+                    this.homey.app.updateLog(err, 0);
+                    this.postInProgress = false;
+                    reject(new Error("HTTP Catch: " + err));
+                });
+                req.write(bodyText);
+                req.end();
+            }
+            catch (err)
+            {
+                this.homey.app.updateLog(this.homey.app.varToString(err), 0);
+                this.postInProgress = false;
+                reject(new Error("HTTP Catch: " + err));
+            }
+        });
+    }
+
+    async newData(body)
+    {
+        this.updateLog(body);
+        let promises = [];
+
+        const drivers = this.homey.drivers.getDrivers();
+        for (const driver in drivers)
+        {
+            this.homey.drivers.getDriver(driver).getDevices().forEach(device =>
+            {
+                try
+                {
+                    if (device.syncBLEEvents)
+                    {
+                        promises.push(device.syncBLEEvents(body));
+                    }
+                }
+                catch (error)
+                {
+                    this.updateLog("Sync Devices", error);
+                }
+            })
+        }
+
+        // Wait for all the checks to complete
+        await Promise.allSettled(promises);
     }
 }
 

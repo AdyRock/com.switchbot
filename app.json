@@ -54,6 +54,11 @@
     "clearLog": {
       "method": "post",
       "path": "/clearLog/"
+    },
+    "newData": {
+      "method": "post",
+      "path": "/newData/",
+      "public": true
     }
   },
   "drivers": [

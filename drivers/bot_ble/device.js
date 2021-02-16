@@ -74,9 +74,8 @@ class BotBLEDevice extends Homey.Device
             return await this._operateBot([0x57, 0x01, 0x01]);
         }
 
-        return  await this._operateBot([0x57, 0x01, 0x02]);
+        return await this._operateBot([0x57, 0x01, 0x02]);
     }
-
 
     async _operateBot(bytes)
     {
@@ -130,13 +129,13 @@ class BotBLEDevice extends Homey.Device
                 this.homey.app.updateLog("Getting BLE characteristic for " + this.getName());
                 const bleCharacteristics = await bleServices[0].discoverCharacteristics(['cba20002224d11e69fb80002a5d5c51b']);
 
-                this.homey.app.updateLog("Sending command via BLE to: "+ this.getName() + ":       " + bytes);
+                this.homey.app.updateLog("Sending command via BLE to: " + this.getName() + ":       " + bytes);
 
                 await bleCharacteristics[0].write(req_buf);
 
                 this.homey.app.updateLog("Sent command via BLE to: " + this.getName());
             }
-            catch(err)
+            catch (err)
             {
                 this.homey.app.updateLog("BLE error: " + this.getName() + ": " + this.homey.app.varToString(err));
                 return err;
@@ -198,6 +197,27 @@ class BotBLEDevice extends Homey.Device
         finally
         {
             this.updating = false;
+        }
+    }
+
+    async syncBLEEvents(events)
+    {
+        try
+        {
+            const dd = this.getData();
+            for (const event of events)
+            {
+                if (event.address && (event.address == dd.address))
+                {
+                    this.setCapabilityValue('onoff', (event.serviceData.state == 1));
+                    this.setCapabilityValue('measure_battery', event.serviceData.battery);
+                    this.setCapabilityValue('rssi', event.rssi);
+                }
+            }
+        }
+        catch (error)
+        {
+            this.homey.app.updateLog("Error in bot syncEvents: " + error, 0);
         }
     }
 }

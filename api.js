@@ -11,5 +11,10 @@ module.exports = {
     {
         homey.app.diagLog = "";
         return 'OK';
-    }
+    },
+    async newData({ homey, body })
+    {
+        homey.app.newData(body);
+        return 'OK';
+    },
 };
