@@ -10,5 +10,8 @@
   },
   "0.2.0": {
     "en": "Added HUB Temperature and Humidity, HUB Bot and BLE Bot"
+  },
+  "0.2.1": {
+    "en": "Added Invert Position and Motion Mode to advanced settings for curtains"
   }
 }

@@ -11,6 +11,18 @@ class CurtainsHubDevice extends Homey.Device
     {
         this.log('CurtainsHubDevice has been initialized');
 
+        this.invertPosition = this.getSetting('invertPosition');
+        if (this.invertPosition === null)
+        {
+            this.invertPosition = false;
+        }
+
+        this.motionMode = Number(this.getSetting('motionMode'));
+        if (this.motionMode === null)
+        {
+            this.motionMode = 2;
+        }
+
         this.getDeviceValues();
         this.registerCapabilityListener('windowcoverings_set', this.onCapabilityPosition.bind(this));
     }
@@ -33,7 +45,15 @@ class CurtainsHubDevice extends Homey.Device
      */
     async onSettings({ oldSettings, newSettings, changedKeys })
     {
-        this.log('CurtainsHubDevice settings where changed');
+        if (changedKeys.indexOf("invertPosition") >= 0)
+        {
+            this.invertPosition = newSettings.invertPosition;
+        }
+
+        if (changedKeys.indexOf("motionMode") >= 0)
+        {
+            this.motionMode = Number(newSettings.motionMode);
+        }
     }
 
     /**
@@ -57,7 +77,12 @@ class CurtainsHubDevice extends Homey.Device
     // this method is called when the Homey device has requested a position change ( 0 to 1)
     async onCapabilityPosition(value, opts)
     {
-        return await this.runToPos(value * 100);
+        if (this.invertPosition)
+        {
+            value = 1 - value;
+        }
+
+        return await this.runToPos(value * 100, this.motionMode);
     }
 
     /* ------------------------------------------------------------------
@@ -103,18 +128,8 @@ class CurtainsHubDevice extends Homey.Device
      * - Promise object
      *   Nothing will be passed to the `resolve()`.
      * ---------------------------------------------------------------- */
-    async runToPos(percent, mode)
+    async runToPos(percent, mode = 0xff)
     {
-
-        if (mode == null)
-        {
-            mode = 0xff;
-        }
-        else
-        {
-            if (mode > 1) { mode = 0xff; }
-        }
-
         return this._operateCurtain('setPosition', '0,' + mode + ',' + percent);
     }
 
@@ -139,7 +154,13 @@ class CurtainsHubDevice extends Homey.Device
         let data = await this.driver.getDeviceData(dd.id);
         if (data)
         {
-            this.setCapabilityValue('windowcoverings_set', data.slidePosition / 100);
+            let position = data.slidePosition / 100;
+            if (this.invertPosition)
+            {
+                position = 1 - position;
+            }
+
+            this.setCapabilityValue('windowcoverings_set', position);
         }
     }
 }

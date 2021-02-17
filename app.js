@@ -58,14 +58,17 @@ class MyApp extends Homey.App
 
         mdns.on('response', (response) =>
         {
-            const answer = response.answers.find(answer => answer.name === 'switchbotble.local');
-            if (answer)
+            if (this.enableBLEHub)
             {
-                console.log('got a response packet:', response)
-                this.BLEHubAddress = answer.data;
-                this.usingBLEHub = true;
-                clearTimeout(this.timerID);
-                this.timerID = setTimeout(this.onPoll, (1000 * 10));
+                const answer = response.answers.find(answer => answer.name === 'switchbotble.local');
+                if (answer)
+                {
+                    console.log('got a response packet:', response)
+                    this.BLEHubAddress = answer.data;
+                    this.usingBLEHub = true;
+                    clearTimeout(this.timerID);
+                    this.timerID = setTimeout(this.onPoll, (1000 * 10));
+                }
             }
         })
 
@@ -81,7 +84,6 @@ class MyApp extends Homey.App
                 }]
             })
         }
-
         this.onPoll = this.onPoll.bind(this);
         this.homeyId = await this.homey.cloud.getLocalAddress();
         this.timerID = setTimeout(this.onPoll, (1000 * 10));

@@ -13,6 +13,18 @@ class CurtainsBLEDevice extends Homey.Device
 
         this._operateCurtain = this._operateCurtain.bind(this);
 
+        this.invertPosition = this.getSetting('invertPosition');
+        if (this.invertPosition === null)
+        {
+            this.invertPosition = false;
+        }
+
+        this.motionMode = Number(this.getSetting('motionMode'));
+        if (this.motionMode === null)
+        {
+            this.motionMode = 2;
+        }
+
         try
         {
             this.getDeviceValues();
@@ -44,7 +56,15 @@ class CurtainsBLEDevice extends Homey.Device
      */
     async onSettings({ oldSettings, newSettings, changedKeys })
     {
-        this.log('CurtainsBLEDevice settings where changed');
+        if (changedKeys.indexOf("invertPosition") >= 0)
+        {
+            this.invertPosition = newSettings.invertPosition;
+        }
+
+        if (changedKeys.indexOf("motionMode") >= 0)
+        {
+            this.motionMode = Number(newSettings.motionMode);
+        }
     }
 
     /**
@@ -69,7 +89,11 @@ class CurtainsBLEDevice extends Homey.Device
     // this method is called when the Homey device has requested a position change ( 0 to 1)
     async onCapabilityPosition(value, opts)
     {
-        return await this.runToPos(value * 100);
+        if (this.invertPosition)
+        {
+            value = 1 - value;
+        }
+        return await this.runToPos(value * 100, this.motionMode);
     }
 
     /* ------------------------------------------------------------------
@@ -94,23 +118,14 @@ class CurtainsBLEDevice extends Homey.Device
      *
      * [Arguments]
      * - percent | number | Required | the percentage of target position
+     * - mode | number | Optional | the Motion Mode, 0 = Silent, 1 = Performance, 3 = App setting
      *
      * [Return value]
      * - Promise object
      *   Nothing will be passed to the `resolve()`.
      * ---------------------------------------------------------------- */
-    async runToPos(percent, mode)
+    async runToPos(percent, mode = 0xff)
     {
-
-        if (mode == null)
-        {
-            mode = 0xff;
-        }
-        else
-        {
-            if (mode > 1) { mode = 0xff; }
-        }
-
         return this._operateCurtain([0x57, 0x0f, 0x45, 0x01, 0x05, mode, percent]);
     }
 
@@ -142,7 +157,7 @@ class CurtainsBLEDevice extends Homey.Device
             const dd = this.getData();
             return this.homey.app.sendBLECommand(dd.address, bytes);
         }
-        
+
         if (this.moving)
         {
             this.homey.app.updateLog("Still processing the previous command to: " + this.getName());
@@ -172,13 +187,13 @@ class CurtainsBLEDevice extends Homey.Device
                 this.homey.app.updateLog("Getting BLE characteristic for " + this.getName());
                 const bleCharacteristics = await bleServices[0].discoverCharacteristics(['cba20002224d11e69fb80002a5d5c51b']);
 
-                this.homey.app.updateLog("Sending command via BLE to: "+ this.getName() + ":       " + bytes);
+                this.homey.app.updateLog("Sending command via BLE to: " + this.getName() + ":       " + bytes);
 
                 await bleCharacteristics[0].write(req_buf);
 
                 this.homey.app.updateLog("Sent command via BLE to: " + this.getName());
             }
-            catch(err)
+            catch (err)
             {
                 this.homey.app.updateLog("BLE error: " + this.getName() + ": " + this.homey.app.varToString(err));
                 return err;
@@ -220,7 +235,14 @@ class CurtainsBLEDevice extends Homey.Device
                 if (data)
                 {
                     this.homey.app.updateLog("Parsed BLE: " + this.homey.app.varToString(data));
-                    this.setCapabilityValue('windowcoverings_set', data.serviceData.position / 100);
+                    let position = data.serviceData.position / 100;
+                    if (this.invertPosition)
+                    {
+                        position = 1 - position;
+                    }
+
+                    this.setCapabilityValue('windowcoverings_set', position);
+
                     this.setCapabilityValue('measure_battery', data.serviceData.battery);
                 }
                 else
@@ -248,11 +270,17 @@ class CurtainsBLEDevice extends Homey.Device
         try
         {
             const dd = this.getData();
-            for(const event of events)
+            for (const event of events)
             {
                 if (event.address && (event.address == dd.address))
                 {
-                    this.setCapabilityValue('windowcoverings_set', event.serviceData.position / 100);
+                    let position = event.serviceData.position / 100;
+                    if (this.invertPosition)
+                    {
+                        position = 1 - position;
+                    }
+                    this.setCapabilityValue('windowcoverings_set', position);
+
                     this.setCapabilityValue('measure_battery', event.serviceData.battery);
                     this.setCapabilityValue('rssi', event.rssi);
                 }

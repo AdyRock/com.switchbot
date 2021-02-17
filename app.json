@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.switchbot",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#FF7D4B",
@@ -155,7 +155,51 @@
       "images": {
         "large": "/drivers/curtains_ble/assets/images/large.jpg",
         "small": "/drivers/curtains_ble/assets/images/small.jpg"
-      }
+      },
+      "settings": [
+        {
+          "id": "invertPosition",
+          "type": "checkbox",
+          "label": {
+            "en": "Invert Open / Close Position"
+          },
+          "value": false,
+          "hint": {
+            "en": "Reverse the action of the position control."
+          }
+        },
+        {
+          "id": "motionMode",
+          "type": "radio",
+          "label": {
+            "en": "Motion Mode"
+          },
+          "value": "0xff",
+          "values": [
+            {
+              "id": "0",
+              "label": {
+                "en": "Performance"
+              }
+            },
+            {
+              "id": "1",
+              "label": {
+                "en": "Silent"
+              }
+            },
+            {
+              "id": "0xff",
+              "label": {
+                "en": "Last Used"
+              }
+            }
+          ],
+          "hint": {
+            "en": "Select the silent or performance mode of the motor."
+          }
+        }
+      ]
     },
     {
       "id": "curtains_hub",
@@ -182,7 +226,51 @@
       "images": {
         "large": "/drivers/curtains_hub/assets/images/large.jpg",
         "small": "/drivers/curtains_hub/assets/images/small.jpg"
-      }
+      },
+      "settings": [
+        {
+          "id": "invertPosition",
+          "type": "checkbox",
+          "label": {
+            "en": "Invert Open / Close Position"
+          },
+          "value": false,
+          "hint": {
+            "en": "Reverse the action of the position control."
+          }
+        },
+        {
+          "id": "motionMode",
+          "type": "radio",
+          "label": {
+            "en": "Motion Mode"
+          },
+          "value": "0xff",
+          "values": [
+            {
+              "id": "0",
+              "label": {
+                "en": "Performance"
+              }
+            },
+            {
+              "id": "1",
+              "label": {
+                "en": "Silent"
+              }
+            },
+            {
+              "id": "0xff",
+              "label": {
+                "en": "Last Used"
+              }
+            }
+          ],
+          "hint": {
+            "en": "Select the silent or performance mode of the motor."
+          }
+        }
+      ]
     },
     {
       "id": "temperature_ble",

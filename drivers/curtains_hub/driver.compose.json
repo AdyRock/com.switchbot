@@ -25,5 +25,54 @@
     {
         "large": "/drivers/curtains_hub/assets/images/large.jpg",
         "small": "/drivers/curtains_hub/assets/images/small.jpg"
-    }
+    },
+    "settings": [
+    {
+        "id": "invertPosition",
+        "type": "checkbox",
+        "label":
+        {
+            "en": "Invert Open / Close Position"
+        },
+        "value": false,
+        "hint":
+        {
+            "en": "Reverse the action of the position control."
+        }
+    },
+    {
+        "id": "motionMode",
+        "type": "radio",
+        "label":
+        {
+            "en": "Motion Mode"
+        },
+        "value": "0xff",
+        "values": [
+        {
+            "id": "0",
+            "label":
+            {
+                "en": "Performance"
+            }
+        },
+        {
+            "id": "1",
+            "label":
+            {
+                "en": "Silent"
+            }
+        },
+        {
+            "id": "0xff",
+            "label":
+            {
+                "en": "Last Used"
+            }
+        }],
+        "hint":
+        {
+            "en": "Select the silent or performance mode of the motor."
+        }
+    }]
 }
