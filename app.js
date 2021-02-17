@@ -51,6 +51,9 @@ class MyApp extends Homey.App
             if (setting === 'pollInterval') {}
         });
 
+        // Set to true to enable use of my BLE hub (WIP)
+        this.enableBLEHub = false;
+
         this.usingBLEHub = false;
 
         mdns.on('response', (response) =>
@@ -66,15 +69,18 @@ class MyApp extends Homey.App
             }
         })
 
-        // lets query for an A record for 'brunhilde.local'
-        mdns.query(
+        if (this.enableBLEHub)
         {
-            questions: [
+            // lets query for an A record for 'brunhilde.local'
+            mdns.query(
             {
-                name: 'switchbotble.local',
-                type: 'A'
-            }]
-        })
+                questions: [
+                {
+                    name: 'switchbotble.local',
+                    type: 'A'
+                }]
+            })
+        }
 
         this.onPoll = this.onPoll.bind(this);
         this.homeyId = await this.homey.cloud.getLocalAddress();
@@ -175,6 +181,35 @@ class MyApp extends Homey.App
         }
     }
 
+    async sendBLECommand(address, command)
+    {
+        try
+        {
+            const url = "device/write";
+            this.homey.app.updateLog("Request to write: " + command + " to " + address);
+            const body = { "address": address, data: command };
+            let response = await this.PostBLEHubURL(url, body);
+            if (response)
+            {
+                if (response.statusCode !== 200)
+                {
+                    this.homey.app.updateLog("Invalid response code: " + response.statusCode + ":  " + response.message, 0);
+                    return false;
+                }
+
+                return true;
+            }
+
+            this.homey.app.updateLog("Invalid response: No data", 0);
+        }
+        catch (err)
+        {
+            this.homey.app.updateLog(err, 0);
+        }
+
+        return false;
+    }
+
     async refreshBLEHubCallback()
     {
         try
@@ -216,6 +251,7 @@ class MyApp extends Homey.App
                 let http_options = {
                     host: this.BLEHubAddress,
                     path: "/api/v1/" + url,
+                    timeout: 30000
                 }
 
                 http.get(http_options, (res) =>
@@ -287,7 +323,7 @@ class MyApp extends Homey.App
         {
             if (this.postInProgress)
             {
-                return { "message": "Busy", "statusCode": 300 };;
+                reject({ "message": "Busy", "statusCode": 300 });
             }
 
             this.postInProgress = true;
@@ -339,6 +375,9 @@ class MyApp extends Homey.App
                     this.postInProgress = false;
                     reject(new Error("HTTP Catch: " + err));
                 });
+
+                req.setTimeout(15000, function() { req.abort(); })
+
                 req.write(bodyText);
                 req.end();
             }
