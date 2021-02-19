@@ -4,5 +4,6 @@
         "en": "RSSI"
     },
     "getable": true,
-    "setable": false
+    "setable": false,
+    "icon": "/assets/signal_strength.svg"
 }

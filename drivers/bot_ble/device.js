@@ -100,6 +100,12 @@ class BotBLEDevice extends Homey.Device
 
     async _operateBotLoop(bytes)
     {
+        if (this.homey.app.usingBLEHub)
+        {
+            const dd = this.getData();
+            return this.homey.app.sendBLECommand(dd.address, bytes);
+        }
+
         if (this.moving)
         {
             this.homey.app.updateLog("Still processing the previous command to: " + this.getName());

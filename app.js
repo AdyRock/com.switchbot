@@ -52,7 +52,7 @@ class MyApp extends Homey.App
         });
 
         // Set to true to enable use of my BLE hub (WIP)
-        this.enableBLEHub = false;
+        this.enableBLEHub = true;
 
         this.usingBLEHub = false;
 
@@ -67,7 +67,7 @@ class MyApp extends Homey.App
                     this.BLEHubAddress = answer.data;
                     this.usingBLEHub = true;
                     clearTimeout(this.timerID);
-                    this.timerID = setTimeout(this.onPoll, (1000 * 10));
+                    this.timerID = setTimeout(this.onPoll, 3000);
                 }
             }
         })

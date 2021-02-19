@@ -13,5 +13,8 @@
   },
   "0.2.1": {
     "en": "Added Invert Position and Motion Mode to advanced settings for curtains"
+  },
+  "0.2.2": {
+    "en": "Fixed Invert Position for HUB connected curtains"
   }
 }

@@ -142,8 +142,6 @@ class CurtainsHubDevice extends Homey.Device
         }
 
         const dd = this.getData();
-
-
         return this.driver.setDeviceData(dd.id, data);
     }
 
