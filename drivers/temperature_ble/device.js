@@ -27,6 +27,14 @@ class TemperatureBLEDevice extends Homey.Device
     async onAdded()
     {
         this.log('TemperatureBLEDevice has been added');
+        try
+        {
+            this.getDeviceValues();
+        }
+        catch (err)
+        {
+            this.log(err);
+        }
     }
 
     /**
@@ -65,6 +73,26 @@ class TemperatureBLEDevice extends Homey.Device
     {
         try
         {
+            if (this.homey.app.usingBLEHub)
+            {
+                const dd = this.getData();
+                let data = await this.homey.app.getDevice(dd.address);
+                if (data)
+                {
+                    this.homey.app.updateLog("Parsed BLE: " + this.homey.app.varToString(data));
+                    this.setCapabilityValue('measure_temperature', data.serviceData.temperature.c);
+                    this.setCapabilityValue('measure_humidity', data.serviceData.humidity);
+                    this.setCapabilityValue('measure_battery', data.serviceData.battery);
+                    this.setCapabilityValue('rssi', data.rssi);
+                }
+                else
+                {
+                    this.homey.app.updateLog("Parsed BLE: No service data");
+                }
+
+                return
+            }
+    
             if (!this.updating)
             {
                 this.updating = true;

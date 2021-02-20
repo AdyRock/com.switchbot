@@ -58,6 +58,33 @@ class BLEDriver extends Homey.Driver
 
     async getBLEDevices(type)
     {
+        if (this.homey.app.usingBLEHub)
+        {
+            let searchData = await this.homey.app.getDevices();
+            this.homey.app.detectedDevices = this.homey.app.varToString(searchData);
+            this.homey.api.realtime('com.switchbot.detectedDevicesUpdated', { 'devices': this.homey.app.detectedDevices });
+
+            const devices = [];
+
+            // Create an array of devices
+            for (const data of searchData)
+            {
+                if (data.serviceData.model === type)
+                {
+                    this.homey.app.updateLog("Found device: ");
+                    this.homey.app.updateLog(data);
+
+                    // Add this device to the table
+                    devices.push(
+                    {
+                        "name": data.address,
+                        data
+                    })
+                }
+            }
+            return devices;
+        }
+
         if (this.polling)
         {
             setTimeout(this.getBLEDevices, 500, type);

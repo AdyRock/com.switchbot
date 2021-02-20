@@ -169,6 +169,25 @@ class BotBLEDevice extends Homey.Device
     {
         try
         {
+            if (this.homey.app.usingBLEHub)
+            {
+                const dd = this.getData();
+                let data = await this.homey.app.getDevice(dd.address);
+                if (data)
+                {
+                    this.homey.app.updateLog("Parsed BLE: " + this.homey.app.varToString(data));
+                    this.setCapabilityValue('onoff', data.serviceData.state);
+                    this.setCapabilityValue('measure_battery', data.serviceData.battery);
+                    this.setCapabilityValue('rssi', data.rssi);
+                }
+                else
+                {
+                    this.homey.app.updateLog("Parsed BLE: No service data");
+                }
+
+                return;
+            }
+
             if (!this.moving && !this.updating)
             {
                 this.updating = true;

@@ -221,6 +221,32 @@ class CurtainsBLEDevice extends Homey.Device
     {
         try
         {
+            if (this.homey.app.usingBLEHub)
+            {
+                const dd = this.getData();
+                let data = await this.homey.app.getDevice(dd.address);
+                if (data)
+                {
+                    this.homey.app.updateLog("Parsed BLE: " + this.homey.app.varToString(data));
+                    this.homey.app.updateLog("Parsed BLE: " + this.homey.app.varToString(data));
+                    let position = data.serviceData.position / 100;
+                    if (this.invertPosition)
+                    {
+                        position = 1 - position;
+                    }
+
+                    this.setCapabilityValue('windowcoverings_set', position);
+                    this.setCapabilityValue('measure_battery', data.serviceData.battery);
+                    this.setCapabilityValue('rssi', data.rssi);
+                }
+                else
+                {
+                    this.homey.app.updateLog("Parsed BLE: No service data");
+                }
+
+                return;
+            }
+
             if (!this.moving && !this.updating)
             {
                 this.updating = true;

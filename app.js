@@ -161,6 +161,36 @@ class MyApp extends Homey.App
     //=======================================================================================
     //BLEHub interface
 
+    async getDevices()
+    {
+        try
+        {
+            const url = "devices";
+            return await this.GetBLEHubURL(url);
+        }
+        catch (err)
+        {
+            this.homey.app.updateLog(err, 0);
+        }
+
+        return null;
+    }
+
+    async getDevice(Address)
+    {
+        try
+        {
+            const url = "device?address=" + Address;
+            return await this.GetBLEHubURL(url);
+        }
+        catch (err)
+        {
+            this.homey.app.updateLog(err, 0);
+        }
+
+        return null;
+    }
+
     async onPoll()
     {
         if (this.usingBLEHub)
