@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.switchbot",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#FF7D4B",
@@ -62,6 +62,36 @@
     }
   },
   "drivers": [
+    {
+      "id": "air_con_hub",
+      "name": {
+        "en": "Air Conditioner (HUB)"
+      },
+      "class": "button",
+      "capabilities": [
+        "onoff",
+        "target_temperature",
+        "aircon_mode",
+        "aircon_fan_speed"
+      ],
+      "pair": [
+        {
+          "id": "list_my_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_my_devices"
+          }
+        },
+        {
+          "id": "add_my_devices",
+          "template": "add_devices"
+        }
+      ],
+      "images": {
+        "large": "/drivers/air_con_hub/assets/images/large.png",
+        "small": "/drivers/air_con_hub/assets/images/small.png"
+      }
+    },
     {
       "id": "bot_ble",
       "name": {
@@ -338,6 +368,82 @@
     }
   ],
   "capabilities": {
+    "aircon_fan_speed": {
+      "type": "enum",
+      "title": {
+        "en": "Fan Speed"
+      },
+      "values": [
+        {
+          "id": "1",
+          "title": {
+            "en": "Auto"
+          }
+        },
+        {
+          "id": "2",
+          "title": {
+            "en": "Low"
+          }
+        },
+        {
+          "id": "3",
+          "title": {
+            "en": "Medium"
+          }
+        },
+        {
+          "id": "4",
+          "title": {
+            "en": "High"
+          }
+        }
+      ],
+      "getable": true,
+      "setable": true,
+      "icon": "/assets/air_con_fan.svg"
+    },
+    "aircon_mode": {
+      "type": "enum",
+      "title": {
+        "en": "Mode"
+      },
+      "values": [
+        {
+          "id": "1",
+          "title": {
+            "en": "Auto"
+          }
+        },
+        {
+          "id": "2",
+          "title": {
+            "en": "Cool"
+          }
+        },
+        {
+          "id": "3",
+          "title": {
+            "en": "Dry"
+          }
+        },
+        {
+          "id": "4",
+          "title": {
+            "en": "Fan"
+          }
+        },
+        {
+          "id": "5",
+          "title": {
+            "en": "Heat"
+          }
+        }
+      ],
+      "getable": true,
+      "setable": true,
+      "icon": "/assets/air_con_mode.svg"
+    },
     "rssi": {
       "type": "number",
       "title": {

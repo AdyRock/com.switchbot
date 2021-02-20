@@ -10,64 +10,9 @@ class HubDriver extends Homey.Driver
      */
     async onInit()
     {
-        this.onPoll = this.onPoll.bind(this);
-        this.timerID = setTimeout(this.onPoll, 10000);
     }
 
-    async onPoll()
-    {
-        var nextInterval = Number(this.homey.settings.get('pollInterval'));
-        if (this.homey.app.BearerToken && (nextInterval > 0))
-        {
-            this.homey.app.updateLog("Polling hub");
-
-            const promises = [];
-            let numDevices = 0;
-            try
-            {
-                let devices = this.getDevices();
-                numDevices = devices.length
-                for (var i = 0; i < numDevices; i++)
-                {
-                    let device = devices[i];
-                    if (device.getDeviceValues)
-                    {
-                        promises.push(device.getDeviceValues());
-                    }
-                }
-
-                await Promise.all(promises);
-
-            }
-            catch (err)
-            {
-                this.homey.app.updateLog("Polling Error: " + this.varToString(err));
-            }
-
-            if (numDevices > 0)
-            {
-                nextInterval *= (1000 * numDevices);
-                if (nextInterval < (87000 * numDevices))
-                {
-                    nextInterval = (87000 * numDevices);
-                }
-            }
-            else
-            {
-                nextInterval = 60000
-            }
-
-            this.homey.app.updateLog("Next HUB polling interval = " + nextInterval, true);
-        }
-        else
-        {
-            nextInterval = 10000;
-        }
-
-        this.timerID = setTimeout(this.onPoll, nextInterval);
-    }
-
-    async getHUBDevices(type)
+    async getHUBDevices(type, RemoteList = false)
     {
         const devices = [];
 
@@ -88,25 +33,52 @@ class HubDriver extends Homey.Driver
 
             const devices = [];
 
-            // Create an array of devices
-            for (const device of searchData['deviceList'])
+            if (RemoteList)
             {
-                if (device.deviceType === type)
+                // Create an array of devices
+                for (const device of searchData['infraredRemoteList'])
                 {
-                    this.homey.app.updateLog("Found device: ");
-                    this.homey.app.updateLog(device);
-
-                    var data = {};
-                    data = {
-                        "id": device['deviceId'],
-                    };
-
-                    // Add this device to the table
-                    devices.push(
+                    if (device.remoteType === type)
                     {
-                        "name": device['deviceName'],
-                        data
-                    })
+                        this.homey.app.updateLog("Found device: ");
+                        this.homey.app.updateLog(device);
+
+                        var data = {};
+                        data = {
+                            "id": device['deviceId'],
+                        };
+
+                        // Add this device to the table
+                        devices.push(
+                        {
+                            "name": device['deviceName'],
+                            data
+                        })
+                    }
+                }
+            }
+            else
+            {
+                // Create an array of devices
+                for (const device of searchData['deviceList'])
+                {
+                    if (device.deviceType === type)
+                    {
+                        this.homey.app.updateLog("Found device: ");
+                        this.homey.app.updateLog(device);
+
+                        var data = {};
+                        data = {
+                            "id": device['deviceId'],
+                        };
+
+                        // Add this device to the table
+                        devices.push(
+                        {
+                            "name": device['deviceName'],
+                            data
+                        })
+                    }
                 }
             }
             return devices;
@@ -114,7 +86,7 @@ class HubDriver extends Homey.Driver
         else
         {
             this.homey.app.updateLog("Getting API Key returned NULL");
-            throw( new Error("HTTPS Error: Nothing returned"));
+            throw (new Error("HTTPS Error: Nothing returned"));
         }
     }
 
@@ -128,14 +100,14 @@ class HubDriver extends Homey.Driver
             if (response.statusCode !== 100)
             {
                 this.homey.app.updateLog("Invalid response code: " + response.statusCode + ":  " + response.message);
-                throw( new Error(response.message));
+                throw (new Error(response.message));
             }
 
             return response.body;
         }
 
         this.homey.app.updateLog("Invalid response: No data");
-        throw( new Error("Invalid response: No data"));
+        throw (new Error("Invalid response: No data"));
     }
 
     async setDeviceData(deviceId, body)
@@ -148,26 +120,27 @@ class HubDriver extends Homey.Driver
             if (response.statusCode !== 100)
             {
                 this.homey.app.updateLog("Invalid response code: " + response.statusCode + ":  " + response.message);
-                throw( new Error(response.message));
+                throw (new Error(response.message));
             }
 
             return true;
         }
 
         this.homey.app.updateLog("Invalid response: No data");
-        throw( new Error("Invalid response: No data"));
+        throw (new Error("Invalid response: No data"));
     }
 
     async GetURL(url)
     {
-        // if ( ( process.env.DEBUG === '1' ) && ( url === 'devices' ) )
-        // {
-        //     const simData = this.homey.settings.get( 'simData' );
-        //     if ( simData )
-        //     {
-        //         return { 'body': simData };
-        //     }
-        // }
+        if ((process.env.DEBUG === '1') && (url === 'devices'))
+        {
+            const simData = this.homey.settings.get('simData');
+            if (simData)
+            {
+                const bodyJSON = JSON.parse(simData);
+                return { 'body': bodyJSON, 'statusCode': 100 };
+            }
+        }
 
         this.homey.app.updateLog(url);
 
@@ -265,9 +238,11 @@ class HubDriver extends Homey.Driver
                     return;
                 }
 
+                const safeUrl = encodeURI(url);
+
                 let https_options = {
                     host: "api.switch-bot.com",
-                    path: "/v1.0/" + url,
+                    path: "/v1.0/" + safeUrl,
                     method: "POST",
                     headers:
                     {

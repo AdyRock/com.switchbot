@@ -23,7 +23,7 @@ class CurtainsHubDevice extends Homey.Device
             this.motionMode = 2;
         }
 
-        this.getDeviceValues();
+        this.getHubDeviceValues();
         this.registerCapabilityListener('windowcoverings_set', this.onCapabilityPosition.bind(this));
     }
 
@@ -145,7 +145,7 @@ class CurtainsHubDevice extends Homey.Device
         return this.driver.setDeviceData(dd.id, data);
     }
 
-    async getDeviceValues()
+    async getHubDeviceValues()
     {
         const dd = this.getData();
 

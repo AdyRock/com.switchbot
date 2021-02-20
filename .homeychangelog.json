@@ -16,5 +16,8 @@
   },
   "0.2.2": {
     "en": "Fixed Invert Position for HUB connected curtains"
+  },
+  "0.2.3": {
+    "en": "Added Air Conditioner Remote"
   }
 }

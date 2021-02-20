@@ -11,7 +11,7 @@ class BotHubDevice extends Homey.Device
     {
         this.log('BotHubDevice has been initialized');
 
-        this.getDeviceValues();
+        this.getHubDeviceValues();
         this.registerCapabilityListener('onoff', this.onCapabilityOnOff.bind(this));
     }
 
@@ -79,7 +79,7 @@ class BotHubDevice extends Homey.Device
         return this.driver.setDeviceData(dd.id, data);
     }
 
-    async getDeviceValues()
+    async getHubDeviceValues()
     {
         const dd = this.getData();
 

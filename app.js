@@ -20,11 +20,11 @@ class MyApp extends Homey.App
         this.log('SwitchBot has been initialized');
         this.diagLog = "";
 
-        // if (process.env.DEBUG === '1')
-        // {
-        //     this.homey.settings.set('debugMode', true);
-        // }
-        //else
+        if (process.env.DEBUG === '1')
+        {
+            this.homey.settings.set('debugMode', true);
+        }
+        else
         {
             this.homey.settings.set('debugMode', false);
         }
@@ -66,8 +66,8 @@ class MyApp extends Homey.App
                     console.log('got a response packet:', response)
                     this.BLEHubAddress = answer.data;
                     this.usingBLEHub = true;
-                    clearTimeout(this.timerID);
-                    this.timerID = setTimeout(this.onPoll, 3000);
+                    clearTimeout(this.timerBLEHubID);
+                    this.timerBLEHubID = setTimeout(this.onBLEHubPoll, 3000);
                 }
             }
         })
@@ -84,9 +84,14 @@ class MyApp extends Homey.App
                 }]
             })
         }
-        this.onPoll = this.onPoll.bind(this);
+
         this.homeyId = await this.homey.cloud.getLocalAddress();
-        this.timerID = setTimeout(this.onPoll, (1000 * 10));
+
+        this.onBLEHubPoll = this.onBLEHubPoll.bind(this);
+        this.timerBLEHubID = setTimeout(this.onBLEHubPoll, (1000 * 10));
+        
+        this.onHubPoll = this.onHubPoll.bind(this);
+        this.timerHubID = setTimeout(this.onHubPoll, 10000);
 
         this.updateLog('************** App has initialised. ***************');
     }
@@ -191,12 +196,12 @@ class MyApp extends Homey.App
         return null;
     }
 
-    async onPoll()
+    async onBLEHubPoll()
     {
         if (this.usingBLEHub)
         {
             this.refreshBLEHubCallback();
-            this.timerID = setTimeout(this.onPoll, 1000 * 60 * 5);
+            this.timerBLEHubID = setTimeout(this.onBLEHubPoll, 1000 * 60 * 5);
         }
         else
         {
@@ -209,7 +214,7 @@ class MyApp extends Homey.App
                     type: 'A'
                 }]
             })
-            this.timerID = setTimeout(this.onPoll, 1000 * 10);
+            this.timerBLEHubID = setTimeout(this.onBLEHubPoll, 1000 * 10);
         }
     }
 
@@ -449,6 +454,60 @@ class MyApp extends Homey.App
         // Wait for all the checks to complete
         await Promise.allSettled(promises);
     }
+
+
+    async onHubPoll()
+    {
+        var nextInterval = Number(this.homey.settings.get('pollInterval'));
+        if (this.homey.app.BearerToken && (nextInterval > 0))
+        {
+            this.homey.app.updateLog("Polling hub");
+
+            const promises = [];
+            let totalHuBDevices = 0;
+
+            const drivers = this.homey.drivers.getDrivers();
+            for (const driver in drivers)
+            {
+                let devices = this.homey.drivers.getDriver(driver).getDevices();
+                let numDevices = devices.length;
+                for (var i = 0; i < numDevices; i++)
+                {
+                    let device = devices[i];
+                    if (device.getHubDeviceValues)
+                    {
+                        totalHuBDevices++;
+                        promises.push(device.getHubDeviceValues());
+                    }
+                }
+            }
+
+            await Promise.all(promises);
+
+            if (totalHuBDevices > 0)
+            {
+                nextInterval *= (1000 * totalHuBDevices);
+                if (nextInterval < (87000 * totalHuBDevices))
+                {
+                    nextInterval = (87000 * totalHuBDevices);
+                }
+            }
+            else
+            {
+                nextInterval = 60000
+            }
+
+            this.homey.app.updateLog("Next HUB polling interval = " + nextInterval, true);
+        }
+        else
+        {
+            nextInterval = 10000;
+        }
+
+        this.timerBLEHubID = setTimeout(this.onBLEHubPoll, nextInterval);
+    }
+
+
 }
 
 module.exports = MyApp;

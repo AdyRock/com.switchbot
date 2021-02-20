@@ -11,7 +11,7 @@ class TemperatureHubDevice extends Homey.Device
     {
         this.log('TemperatureHubDevice has been initialized');
 
-        this.getDeviceValues();
+        this.getHubDeviceValues();
     }
 
     /**
@@ -53,7 +53,7 @@ class TemperatureHubDevice extends Homey.Device
         this.log('TemperatureHubDevice has been deleted');
     }
 
-    async getDeviceValues()
+    async getHubDeviceValues()
     {
         const dd = this.getData();
 

@@ -1,0 +1,41 @@
+{
+    "type": "enum",
+    "title": {
+        "en": "Mode"
+    },
+    "values": [
+        {
+          "id": "1",
+          "title": {
+            "en": "Auto"
+          }
+        },
+        {
+          "id": "2",
+          "title": {
+            "en": "Cool"
+          }
+        },
+        {
+          "id": "3",
+          "title": {
+            "en": "Dry"
+          }
+        },
+        {
+          "id": "4",
+          "title": {
+            "en": "Fan"
+          }
+        },
+        {
+          "id": "5",
+          "title": {
+            "en": "Heat"
+          }
+        }
+      ],
+    "getable": true,
+    "setable": true,
+    "icon": "/assets/air_con_mode.svg"
+}
