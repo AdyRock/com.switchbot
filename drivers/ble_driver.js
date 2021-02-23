@@ -67,17 +67,19 @@ class BLEDriver extends Homey.Driver
             const devices = [];
 
             // Create an array of devices
-            for (const data of searchData)
+            for (const deviceData of searchData)
             {
-                if (data.serviceData.model === type)
+                if (deviceData.serviceData.model === type)
                 {
                     this.homey.app.updateLog("Found device: ");
-                    this.homey.app.updateLog(data);
+                    this.homey.app.updateLog(deviceData);
+
+                    let data = { id: deviceData.address, pid: deviceData.address, address: deviceData.address, model: deviceData.model, modelName: deviceData.modelName }
 
                     // Add this device to the table
                     devices.push(
                     {
-                        "name": data.address,
+                        "name": deviceData.address,
                         data
                     })
                 }
@@ -103,12 +105,13 @@ class BLEDriver extends Homey.Driver
             for (const bleAdvertisement of bleAdvertisements)
             {
                 this.log("ServiceData: ", bleAdvertisement.serviceData);
-                let data = this.parse(bleAdvertisement);
-                if (data)
+                let deviceData = this.parse(bleAdvertisement);
+                if (deviceData)
                 {
-                    this.homey.app.updateLog("Parsed BLE: " + JSON.stringify(data, null, 2));
-                    if (data.serviceData.model === type)
+                    this.homey.app.updateLog("Parsed BLE: " + JSON.stringify(deviceData, null, 2));
+                    if (deviceData.serviceData.model === type)
                     {
+                        let data = { id: deviceData.id, pid: deviceData.deviceData, address: deviceData.address, model: deviceData.model, modelName: deviceData.modelName }
                         devices.push(
                         {
                             "name": bleAdvertisement.address,

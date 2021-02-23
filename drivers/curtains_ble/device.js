@@ -1,3 +1,4 @@
+/*jslint node: true */
 'use strict';
 
 const Homey = require('homey');
@@ -131,6 +132,12 @@ class CurtainsBLEDevice extends Homey.Device
 
     async _operateCurtain(bytes)
     {
+        if (this.homey.app.usingBLEHub)
+        {
+            const dd = this.getData();
+            return this.homey.app.sendBLECommand(dd.address, bytes);
+        }
+
         let loops = 5;
         let response = null;
         while (loops-- > 0)
@@ -141,7 +148,7 @@ class CurtainsBLEDevice extends Homey.Device
                 return;
             }
 
-            await new Promise(resolve => setTimeout(resolve, 5000));
+            await Homey.app.Delay(5000);
         }
 
         if (response instanceof Error)
@@ -152,12 +159,6 @@ class CurtainsBLEDevice extends Homey.Device
 
     async _operateCurtainsLoop(bytes)
     {
-        if (this.homey.app.usingBLEHub)
-        {
-            const dd = this.getData();
-            return this.homey.app.sendBLECommand(dd.address, bytes);
-        }
-
         if (this.moving)
         {
             this.homey.app.updateLog("Still processing the previous command to: " + this.getName());
@@ -166,7 +167,7 @@ class CurtainsBLEDevice extends Homey.Device
 
         if (this.updating)
         {
-            this.deferCommandTimerID = setTimeout(this._operateCurtain, nextInterval);
+            this.deferCommandTimerID = setTimeout(this._operateCurtain, 500);
         }
         try
         {
@@ -176,7 +177,7 @@ class CurtainsBLEDevice extends Homey.Device
             const dd = this.getData();
             let bleAdvertisement = await this.homey.ble.find(dd.id);
             const blePeripheral = await bleAdvertisement.connect();
-            await new Promise(resolve => setTimeout(resolve, 1000));
+            await Homey.app.Delay(1000);
 
             let req_buf = Buffer.from(bytes);
             try
@@ -202,7 +203,7 @@ class CurtainsBLEDevice extends Homey.Device
             finally
             {
                 this.homey.app.updateLog("Disconnecting from BLE device: " + this.getName());
-                await new Promise(resolve => setTimeout(resolve, 1000));
+                await Homey.app.Delay(1000);
 
                 await blePeripheral.disconnect();
 
@@ -211,7 +212,7 @@ class CurtainsBLEDevice extends Homey.Device
         }
         finally
         {
-            this.moving = false
+            this.moving = false;
         }
 
         return true;

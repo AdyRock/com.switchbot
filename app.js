@@ -1,12 +1,13 @@
+/*jslint node: true */
 'use strict';
 if (process.env.DEBUG === '1')
 {
-    require('inspector').open(9222, '0.0.0.0', true)
+    require('inspector').open(9222, '0.0.0.0', true);
 }
 
 const Homey = require('homey');
 const http = require("http");
-var mdns = require('multicast-dns')({ multicast: false, loopback: false })
+const dgram = require('dgram');
 
 const MINIMUM_POLL_INTERVAL = 5;
 
@@ -36,7 +37,7 @@ class MyApp extends Homey.App
             this.homey.settings.set('pollInterval', MINIMUM_POLL_INTERVAL);
         }
 
-        this.log("Switchbot has started with Key: " + this.BearerToken + " Polling every " + this.homey.settings.get('pollInterval') + " seconds");
+        this.log("SwitchBot has started with Key: " + this.BearerToken + " Polling every " + this.homey.settings.get('pollInterval') + " seconds");
 
         // Callback for app settings changed
         this.homey.settings.on('set', async function(setting)
@@ -53,45 +54,62 @@ class MyApp extends Homey.App
 
         // Set to true to enable use of my BLE hub (WIP)
         this.enableBLEHub = true;
-
         this.usingBLEHub = false;
 
-        mdns.on('response', (response) =>
-        {
-            if (this.enableBLEHub)
-            {
-                const answer = response.answers.find(answer => answer.name === 'switchbotble.local');
-                if (answer)
-                {
-                    console.log('got a response packet:', response)
-                    this.BLEHubAddress = answer.data;
-                    this.usingBLEHub = true;
-                    clearTimeout(this.timerBLEHubID);
-                    this.timerBLEHubID = setTimeout(this.onBLEHubPoll, 3000);
-                }
-            }
-        })
-
-        if (this.enableBLEHub)
-        {
-            // lets query for an A record for 'brunhilde.local'
-            mdns.query(
-            {
-                questions: [
-                {
-                    name: 'switchbotble.local',
-                    type: 'A'
-                }]
-            })
-        }
+        this.BLEHubs = [];
 
         this.homeyId = await this.homey.cloud.getLocalAddress();
 
-        this.onBLEHubPoll = this.onBLEHubPoll.bind(this);
-        this.timerBLEHubID = setTimeout(this.onBLEHubPoll, (1000 * 10));
-        
         this.onHubPoll = this.onHubPoll.bind(this);
         this.timerHubID = setTimeout(this.onHubPoll, 10000);
+
+        const server = dgram.createSocket('udp4');
+        server.on('error', (err) =>
+        {
+            console.log(`server error:\n${err.stack}`);
+            server.close();
+        });
+
+        server.on('message', (msg, rinfo) =>
+        {
+            console.log(`server got: ${msg} from ${rinfo.address}:${rinfo.port}`);
+            if (this.enableBLEHub)
+            {
+                let msgTxt = msg.toString();
+                if (msgTxt.indexOf('SwitchBot BLE Hub!') == 0)
+                {
+                    let mac = msgTxt.substring(19, 36);
+                    let hubEntry = this.BLEHubs.find(entry => entry.mac === mac);
+                    if (!hubEntry)
+                    {
+                        this.BLEHubs.push({ 'mac': mac, 'address': rinfo.address });
+                    }
+                    else
+                    {
+                        hubEntry.address = rinfo.address;
+                    }
+
+                    this.usingBLEHub = true;
+
+                    setImmediate(() => { this.refreshBLEHubCallback(rinfo.address); });
+                }
+            }
+        });
+
+        server.on('listening', () =>
+        {
+            var address = server.address();
+            console.log(`server listening ${address.address}:${address.port}`);
+        });
+
+        server.bind(1234, () =>
+        {
+            server.addMembership('239.1.2.3');
+            server.send("Are you there SwitchBot?", 1234, '239.1.2.3', (error, bytes) =>
+            {
+                console.log(`server got: ${error} and ${bytes}`);
+            });
+        });
 
         this.updateLog('************** App has initialised. ***************');
     }
@@ -141,7 +159,7 @@ class MyApp extends Homey.App
         }
         catch (err)
         {
-            this.log("VarToString Erro: ", err);
+            this.log("VarToString Error: ", err);
         }
 
         return source.toString();
@@ -171,7 +189,12 @@ class MyApp extends Homey.App
         try
         {
             const url = "devices";
-            return await this.GetBLEHubURL(url);
+            let data = await this.GetBLEHubsURL(url);
+            // merge into one array
+            data = data.flat();
+            // Remove duplicate entries
+            data = data.filter((v, i, a) => a.findIndex(t => (t.address === v.address)) === i);
+            return data;
         }
         catch (err)
         {
@@ -186,7 +209,10 @@ class MyApp extends Homey.App
         try
         {
             const url = "device?address=" + Address;
-            return await this.GetBLEHubURL(url);
+            let data = await this.GetBLEHubsURL(url);
+            // Get object with best rssi value
+            data = data.reduce((max, device) => max.rssi > device.rssi ? max : device);
+            return data;
         }
         catch (err)
         {
@@ -196,28 +222,6 @@ class MyApp extends Homey.App
         return null;
     }
 
-    async onBLEHubPoll()
-    {
-        if (this.usingBLEHub)
-        {
-            this.refreshBLEHubCallback();
-            this.timerBLEHubID = setTimeout(this.onBLEHubPoll, 1000 * 60 * 5);
-        }
-        else
-        {
-            // lets query for an A record for 'brunhilde.local'
-            mdns.query(
-            {
-                questions: [
-                {
-                    name: 'switchbotble.local',
-                    type: 'A'
-                }]
-            })
-            this.timerBLEHubID = setTimeout(this.onBLEHubPoll, 1000 * 10);
-        }
-    }
-
     async sendBLECommand(address, command)
     {
         try
@@ -225,16 +229,19 @@ class MyApp extends Homey.App
             const url = "device/write";
             this.homey.app.updateLog("Request to write: " + command + " to " + address);
             const body = { "address": address, data: command };
-            let response = await this.PostBLEHubURL(url, body);
+            let response = await this.PostBLEHubsURL(url, body, true);
             if (response)
             {
-                if (response.statusCode !== 200)
+                for (var i = 0; i < response.length; i++)
                 {
-                    this.homey.app.updateLog("Invalid response code: " + response.statusCode + ":  " + response.message, 0);
-                    return false;
+                    if (response[i].statusCode === 200)
+                    {
+                        return true;
+                    }
                 }
 
-                return true;
+                this.homey.app.updateLog("Invalid response code: " + response[0].statusCode + ":  " + response[0].message, 0);
+                return false;
             }
 
             this.homey.app.updateLog("Invalid response: No data", 0);
@@ -247,7 +254,7 @@ class MyApp extends Homey.App
         return false;
     }
 
-    async refreshBLEHubCallback()
+    async refreshBLEHubCallback(Address)
     {
         try
         {
@@ -255,7 +262,7 @@ class MyApp extends Homey.App
             const callbackUrl = "http://" + this.homeyId + "/api/app/com.switchbot/newData/";
             this.homey.app.updateLog("Registering callback: " + callbackUrl);
             const body = { "uri": callbackUrl };
-            let response = await this.PostBLEHubURL(url, body);
+            let response = await this.PostBLEHubURL(url, body, Address);
             if (response)
             {
                 if (response.statusCode !== 200)
@@ -277,19 +284,38 @@ class MyApp extends Homey.App
         return false;
     }
 
-    async GetBLEHubURL(url)
+    async GetBLEHubsURL(path)
     {
-        this.homey.app.updateLog(url);
+        let responses = [];
+
+        for (var i = 0; i < this.BLEHubs.length; i++)
+        {
+            try
+            {
+                responses.push(await this.GetBLEHubURL(path, this.BLEHubs[i].address));
+            }
+            catch (err)
+            {
+                console.log(err);
+            }
+        }
+        return responses;
+    }
+
+    async GetBLEHubURL(path, HubAddress)
+    {
+        // Send a request to the specified 
+        this.homey.app.updateLog("Get from: " + HubAddress + " " + path);
 
         return new Promise((resolve, reject) =>
         {
             try
             {
                 let http_options = {
-                    host: this.BLEHubAddress,
-                    path: "/api/v1/" + url,
+                    host: HubAddress,
+                    path: "/api/v1/" + path,
                     timeout: 30000
-                }
+                };
 
                 http.get(http_options, (res) =>
                 {
@@ -331,44 +357,80 @@ class MyApp extends Homey.App
                             message = "Not Found";
                         }
                         this.homey.app.updateLog("HTTPS Error: " + res.statusCode + ": " + message, 0);
-                        reject(new Error("HTTP Error: " + message))
+                        reject(new Error("HTTP Error: " + message));
                         return;
                     }
                 }).on('error', (err) =>
                 {
                     this.homey.app.updateLog(err, 0);
-                    reject(new Error("HTTP Catch: " + err))
+                    reject(new Error("HTTP Catch: " + err));
                     return;
                 });
             }
             catch (err)
             {
                 this.homey.app.updateLog(err, 0);
-                reject(new Error("HTTP Catch: " + err))
+                reject(new Error("HTTP Catch: " + err));
                 return;
             }
         });
     }
 
-    async PostBLEHubURL(url, body)
+    async PostBLEHubsURL(path, body, JustOneGoodOne = false)
+    {
+        let responses = [];
+
+        for (var i = 0; i < this.BLEHubs.length; i++)
+        {
+            try
+            {
+                let response = await this.PostBLEHubURL(path, body, this.BLEHubs[i].address);
+                responses.push(response);
+                if (JustOneGoodOne && (response.statusCode === 200))
+                {
+                    break;
+                }
+            }
+            catch (err)
+            {
+                console.log(err);
+            }
+        }
+
+        return responses;
+
+    }
+
+    async Delay(period)
+    {
+        await new Promise(resolve => setTimeout(resolve, period));
+    }
+
+    async PostBLEHubURL(url, body, HubAddress)
     {
         this.homey.app.updateLog(url);
         let bodyText = JSON.stringify(body);
         this.homey.app.updateLog(bodyText);
 
+        let retries = 10;
+        while (this.postInProgress && (retries-- > 0))
+        {
+            await this.Delay(100);
+        }
+        if (this.postInProgress)
+        {
+            console.log("\n*** POST IN PROGRESS ***\n\n");
+            //throw (new Error({ "message": "Busy", "statusCode": 300 }));
+        }
+
         return new Promise((resolve, reject) =>
         {
-            if (this.postInProgress)
-            {
-                reject({ "message": "Busy", "statusCode": 300 });
-            }
-
             this.postInProgress = true;
 
             try
             {
                 let http_options = {
-                    host: this.BLEHubAddress,
+                    host: HubAddress,
                     path: "/api/v1/" + url,
                     method: "POST",
                     headers:
@@ -377,7 +439,7 @@ class MyApp extends Homey.App
                         "Content-Length": bodyText.length,
                         "connection": 'Close'
                     },
-                }
+                };
 
                 this.homey.app.updateLog(http_options);
 
@@ -403,7 +465,7 @@ class MyApp extends Homey.App
                         }
                         this.homey.app.updateLog("Post response: " + this.homey.app.varToString(returnData));
                         this.postInProgress = false;
-                        console.log("POST complete");
+                        //console.log("POST complete");
                         resolve(returnData);
                     });
                 }).on('error', (err) =>
@@ -413,7 +475,7 @@ class MyApp extends Homey.App
                     reject(new Error("HTTP Catch: " + err));
                 });
 
-                req.setTimeout(15000, function() { req.abort(); })
+                req.setTimeout(15000, function() { req.abort(); });
 
                 req.write(bodyText);
                 req.end();
@@ -448,13 +510,12 @@ class MyApp extends Homey.App
                 {
                     this.updateLog("Sync Devices", error);
                 }
-            })
+            });
         }
 
         // Wait for all the checks to complete
         await Promise.allSettled(promises);
     }
-
 
     async onHubPoll()
     {
@@ -494,7 +555,7 @@ class MyApp extends Homey.App
             }
             else
             {
-                nextInterval = 60000
+                nextInterval = 60000;
             }
 
             this.homey.app.updateLog("Next HUB polling interval = " + nextInterval, true);
@@ -504,9 +565,8 @@ class MyApp extends Homey.App
             nextInterval = 10000;
         }
 
-        this.timerBLEHubID = setTimeout(this.onBLEHubPoll, nextInterval);
+        this.timerHubID = setTimeout(this.onHubPoll, nextInterval);
     }
-
 
 }
 

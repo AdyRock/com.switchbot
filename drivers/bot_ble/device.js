@@ -1,3 +1,4 @@
+/*jslint node: true */
 'use strict';
 
 const Homey = require('homey');
@@ -79,6 +80,15 @@ class BotBLEDevice extends Homey.Device
 
     async _operateBot(bytes)
     {
+        if (this.homey.app.usingBLEHub)
+        {
+            const dd = this.getData();
+            if (this.homey.app.sendBLECommand(dd.address, bytes))
+            {
+                return;
+            }
+        }
+
         let loops = 5;
         let response = null;
         while (loops-- > 0)
@@ -89,7 +99,7 @@ class BotBLEDevice extends Homey.Device
                 return;
             }
 
-            await new Promise(resolve => setTimeout(resolve, 5000));
+            await Homey.app.Delay(5000);
         }
 
         if (response instanceof Error)
@@ -100,12 +110,6 @@ class BotBLEDevice extends Homey.Device
 
     async _operateBotLoop(bytes)
     {
-        if (this.homey.app.usingBLEHub)
-        {
-            const dd = this.getData();
-            return this.homey.app.sendBLECommand(dd.address, bytes);
-        }
-
         if (this.moving)
         {
             this.homey.app.updateLog("Still processing the previous command to: " + this.getName());
@@ -114,7 +118,7 @@ class BotBLEDevice extends Homey.Device
 
         if (this.updating)
         {
-            this.deferCommandTimerID = setTimeout(this._operateBot, nextInterval);
+            this.deferCommandTimerID = setTimeout(this._operateBot, 500);
         }
         try
         {
@@ -124,7 +128,7 @@ class BotBLEDevice extends Homey.Device
             const dd = this.getData();
             let bleAdvertisement = await this.homey.ble.find(dd.id);
             const blePeripheral = await bleAdvertisement.connect();
-            await new Promise(resolve => setTimeout(resolve, 1000));
+            await Homey.app.Delay(1000);
 
             let req_buf = Buffer.from(bytes);
             try
@@ -150,7 +154,7 @@ class BotBLEDevice extends Homey.Device
             finally
             {
                 this.homey.app.updateLog("Disconnecting from BLE device: " + this.getName());
-                await new Promise(resolve => setTimeout(resolve, 1000));
+                await Homey.app.Delay(1000);
 
                 await blePeripheral.disconnect();
 
@@ -159,7 +163,7 @@ class BotBLEDevice extends Homey.Device
         }
         finally
         {
-            this.moving = false
+            this.moving = false;
         }
 
         return true;
