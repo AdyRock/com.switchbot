@@ -434,7 +434,7 @@ class MyApp extends Homey.App
 
         if (responses.length == 0)
         {
-            responses.push({statusCode: 410, message: "No hubs"})
+            responses.push({ statusCode: 410, message: "No hubs" });
         }
         return responses;
     }
