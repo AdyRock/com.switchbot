@@ -78,11 +78,14 @@ class MyApp extends Homey.App
                 let msgTxt = msg.toString();
                 if (msgTxt.indexOf('SwitchBot BLE Hub!') == 0)
                 {
+                    let newAddress = false;
+
                     let mac = msgTxt.substring(19, 36);
                     let hubEntry = this.BLEHubs.find(entry => entry.mac === mac);
                     if (!hubEntry)
                     {
                         this.BLEHubs.push({ 'mac': mac, 'address': rinfo.address });
+                        newAddress = true;
                     }
                     else
                     {
@@ -91,7 +94,7 @@ class MyApp extends Homey.App
 
                     this.usingBLEHub = true;
 
-                    setImmediate(() => { this.refreshBLEHubCallback(rinfo.address); });
+                    setImmediate(() => { this.refreshBLEHubCallback(rinfo.address, newAddress); });
                 }
             }
         });
@@ -105,10 +108,7 @@ class MyApp extends Homey.App
         server.bind(1234, () =>
         {
             server.addMembership('239.1.2.3');
-            server.send("Are you there SwitchBot?", 1234, '239.1.2.3', (error, bytes) =>
-            {
-                console.log(`server got: ${error} and ${bytes}`);
-            });
+            setTimeout(() => { server.send("Are you there SwitchBot?", 1234, '239.1.2.3'); }, 500);
         });
 
         this.updateLog('************** App has initialised. ***************');
@@ -222,14 +222,14 @@ class MyApp extends Homey.App
         return null;
     }
 
-    async sendBLECommand(address, command)
+    async sendBLECommand(address, command, bestHub)
     {
         try
         {
             const url = "device/write";
             this.homey.app.updateLog("Request to write: " + command + " to " + address);
             const body = { "address": address, data: command };
-            let response = await this.PostBLEHubsURL(url, body, true);
+            let response = await this.PostBLEHubsURL(url, body, bestHub, true);
             if (response)
             {
                 for (var i = 0; i < response.length; i++)
@@ -254,7 +254,7 @@ class MyApp extends Homey.App
         return false;
     }
 
-    async refreshBLEHubCallback(Address)
+    async refreshBLEHubCallback(Address, isNewAddress)
     {
         try
         {
@@ -269,6 +269,11 @@ class MyApp extends Homey.App
                 {
                     this.homey.app.updateLog("Invalid response code: " + response.statusCode + ":  " + response.message, 0);
                     return false;
+                }
+
+                if (isNewAddress)
+                {
+                    this.refreshBLEDevices();
                 }
 
                 return true;
@@ -376,9 +381,33 @@ class MyApp extends Homey.App
         });
     }
 
-    async PostBLEHubsURL(path, body, JustOneGoodOne = false)
+    async PostBLEHubsURL(path, body, bestHub, JustOneGoodOne = false)
     {
         let responses = [];
+
+        if (bestHub)
+        {
+            // This one first
+            let x = this.BLEHubs.findIndex(hub => hub.mac === bestHub);
+            try
+            {
+                let response = await this.PostBLEHubURL(path, body, this.BLEHubs[x].address);
+                if (response.statusCode === 200)
+                {
+                    responses.push(response);
+                    return responses;
+                }
+            }
+            catch (err)
+            {
+                this.BLEHubs.splice(x, 1);
+                if (this.BLEHubs.length === 0)
+                {
+                    this.usingBLEHub = false;
+                }
+                console.log(err);
+            }
+        }
 
         for (var i = 0; i < this.BLEHubs.length; i++)
         {
@@ -393,12 +422,21 @@ class MyApp extends Homey.App
             }
             catch (err)
             {
+                this.BLEHubs.splice(i, 1);
+                i--;
+                if (this.BLEHubs.length === 0)
+                {
+                    this.usingBLEHub = false;
+                }
                 console.log(err);
             }
         }
 
+        if (responses.length == 0)
+        {
+            responses.push({statusCode: 410, message: "No hubs"})
+        }
         return responses;
-
     }
 
     async Delay(period)
@@ -475,7 +513,11 @@ class MyApp extends Homey.App
                     reject(new Error("HTTP Catch: " + err));
                 });
 
-                req.setTimeout(15000, function() { req.abort(); });
+                req.setTimeout(5000, function () {
+                    req.abort();
+                    reject(new Error("HTTP Catch: Timeout"));
+                    return;
+                });
 
                 req.write(bodyText);
                 req.end();
@@ -489,6 +531,29 @@ class MyApp extends Homey.App
         });
     }
 
+    async refreshBLEDevices()
+    {
+        let promises = [];
+
+        const drivers = this.homey.drivers.getDrivers();
+        for (const driver in drivers)
+        {
+            let devices = this.homey.drivers.getDriver(driver).getDevices();
+            let numDevices = devices.length;
+            for (var i = 0; i < numDevices; i++)
+            {
+                let device = devices[i];
+                if (device.getDeviceValues)
+                {
+                    promises.push(device.getDeviceValues());
+                }
+            }
+        }
+
+        // Wait for all the checks to complete
+        await Promise.allSettled(promises);
+    }
+
     async newData(body)
     {
         this.updateLog(body);
@@ -497,20 +562,16 @@ class MyApp extends Homey.App
         const drivers = this.homey.drivers.getDrivers();
         for (const driver in drivers)
         {
-            this.homey.drivers.getDriver(driver).getDevices().forEach(device =>
+            let devices = this.homey.drivers.getDriver(driver).getDevices();
+            let numDevices = devices.length;
+            for (var i = 0; i < numDevices; i++)
             {
-                try
+                let device = devices[i];
+                if (device.syncBLEEvents)
                 {
-                    if (device.syncBLEEvents)
-                    {
-                        promises.push(device.syncBLEEvents(body));
-                    }
+                    promises.push(device.syncBLEEvents(body));
                 }
-                catch (error)
-                {
-                    this.updateLog("Sync Devices", error);
-                }
-            });
+            }
         }
 
         // Wait for all the checks to complete

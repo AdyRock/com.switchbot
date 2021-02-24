@@ -1,3 +1,4 @@
+/*jslint node: true */
 'use strict';
 
 const Homey = require('homey');
@@ -10,6 +11,8 @@ class TemperatureBLEDevice extends Homey.Device
     async onInit()
     {
         this.log('TemperatureBLEDevice has been initialized');
+        this.bestRSSI = 100;
+        this.bestHub = "";
 
         try
         {
@@ -73,52 +76,67 @@ class TemperatureBLEDevice extends Homey.Device
     {
         try
         {
+            const dd = this.getData();
+
             if (this.homey.app.usingBLEHub)
             {
-                const dd = this.getData();
                 let data = await this.homey.app.getDevice(dd.address);
                 if (data)
                 {
+                    this.setAvailable();
+
                     this.homey.app.updateLog("Parsed BLE: " + this.homey.app.varToString(data));
                     this.setCapabilityValue('measure_temperature', data.serviceData.temperature.c);
                     this.setCapabilityValue('measure_humidity', data.serviceData.humidity);
                     this.setCapabilityValue('measure_battery', data.serviceData.battery);
                     this.setCapabilityValue('rssi', data.rssi);
+
+                    if (data.hubMAC && (data.rssi < this.bestRSSI) || (data.hubMAC === this.bestHub))
+                    {
+                        this.bestHub = data.hubMAC;
+                        this.bestRSSI = data.rssi;
+                    }
                 }
                 else
                 {
                     this.homey.app.updateLog("Parsed BLE: No service data");
                 }
 
-                return
+                return;
             }
     
-            if (!this.updating)
+            if (dd.id)
             {
-                this.updating = true;
-                const dd = this.getData();
-
-                let bleAdvertisement = await this.homey.ble.find(dd.id);
-                this.homey.app.updateLog(this.homey.app.varToString(bleAdvertisement));
-                let rssi = await bleAdvertisement.rssi;
-                this.setCapabilityValue('rssi', rssi);
-
-                let data = this.driver.parse(bleAdvertisement);
-                if (data)
+                if (!this.updating)
                 {
-                    this.homey.app.updateLog("Parsed BLE: " + this.homey.app.varToString(data));
-                    this.setCapabilityValue('measure_temperature', data.serviceData.temperature.c);
-                    this.setCapabilityValue('measure_humidity', data.serviceData.humidity);
-                    this.setCapabilityValue('measure_battery', data.serviceData.battery);
+                    this.updating = true;
+
+                    let bleAdvertisement = await this.homey.ble.find(dd.id);
+                    this.homey.app.updateLog(this.homey.app.varToString(bleAdvertisement));
+                    let rssi = await bleAdvertisement.rssi;
+                    this.setCapabilityValue('rssi', rssi);
+
+                    let data = this.driver.parse(bleAdvertisement);
+                    if (data)
+                    {
+                        this.homey.app.updateLog("Parsed BLE: " + this.homey.app.varToString(data));
+                        this.setCapabilityValue('measure_temperature', data.serviceData.temperature.c);
+                        this.setCapabilityValue('measure_humidity', data.serviceData.humidity);
+                        this.setCapabilityValue('measure_battery', data.serviceData.battery);
+                    }
+                    else
+                    {
+                        this.homey.app.updateLog("Parsed BLE: No service data");
+                    }
                 }
                 else
                 {
-                    this.homey.app.updateLog("Parsed BLE: No service data");
+                    this.homey.app.updateLog("Refresh skipped while moving");
                 }
             }
             else
             {
-                this.homey.app.updateLog("Refresh skipped while moving");
+                this.setUnavailable("SwitchBot BLE hub not detected");
             }
         }
         catch (err)
@@ -144,6 +162,14 @@ class TemperatureBLEDevice extends Homey.Device
                     this.setCapabilityValue('measure_humidity', event.serviceData.humidity);
                     this.setCapabilityValue('measure_battery', event.serviceData.battery);
                     this.setCapabilityValue('rssi', event.rssi);
+
+                    if (event.hubMAC && (event.rssi < this.bestRSSI) || (event.hubMAC === this.bestHub))
+                    {
+                        this.bestHub = event.hubMAC;
+                        this.bestRSSI = event.rssi;
+                    }
+
+                    this.setAvailable();
                 }
             }
         }

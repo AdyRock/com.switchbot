@@ -1,3 +1,4 @@
+/*jslint node: true */
 'use strict';
 
 const Homey = require('homey');
@@ -36,48 +37,48 @@ class HubDriver extends Homey.Driver
             if (RemoteList)
             {
                 // Create an array of devices
-                for (const device of searchData['infraredRemoteList'])
+                for (const device of searchData.infraredRemoteList)
                 {
                     if (device.remoteType === type)
                     {
                         this.homey.app.updateLog("Found device: ");
                         this.homey.app.updateLog(device);
 
-                        var data = {};
+                        let data = {};
                         data = {
-                            "id": device['deviceId'],
+                            "id": device.deviceId,
                         };
 
                         // Add this device to the table
                         devices.push(
-                        {
-                            "name": device['deviceName'],
-                            data
-                        })
+                            {
+                                "name": device.deviceName,
+                                data
+                            });
                     }
                 }
             }
             else
             {
                 // Create an array of devices
-                for (const device of searchData['deviceList'])
+                for (const device of searchData.deviceList)
                 {
                     if (device.deviceType === type)
                     {
                         this.homey.app.updateLog("Found device: ");
                         this.homey.app.updateLog(device);
 
-                        var data = {};
+                        let data = {};
                         data = {
-                            "id": device['deviceId'],
+                            "id": device.deviceId,
                         };
 
                         // Add this device to the table
                         devices.push(
-                        {
-                            "name": device['deviceName'],
-                            data
-                        })
+                            {
+                                "name": device.deviceName,
+                                data
+                            });
                     }
                 }
             }
@@ -161,7 +162,7 @@ class HubDriver extends Homey.Driver
                     {
                         "Authorization": this.homey.app.BearerToken,
                     },
-                }
+                };
 
                 https.get(https_options, (res) =>
                 {
@@ -203,20 +204,20 @@ class HubDriver extends Homey.Driver
                             message = "Not Found";
                         }
                         this.homey.app.updateLog("HTTPS Error: " + res.statusCode + ": " + message);
-                        reject(new Error("HTTPS Error: " + message))
+                        reject(new Error("HTTPS Error: " + message));
                         return;
                     }
                 }).on('error', (err) =>
                 {
                     this.homey.app.updateLog(err);
-                    reject(new Error("HTTPS Catch: " + err))
+                    reject(new Error("HTTPS Catch: " + err));
                     return;
                 });
             }
             catch (err)
             {
                 this.homey.app.updateLog(err);
-                reject(new Error("HTTPS Catch: " + err))
+                reject(new Error("HTTPS Catch: " + err));
                 return;
             }
         });
@@ -234,7 +235,7 @@ class HubDriver extends Homey.Driver
             {
                 if (!this.homey.app.BearerToken)
                 {
-                    reject(new Error("HTTPS: No Token specified"))
+                    reject(new Error("HTTPS: No Token specified"));
                     return;
                 }
 
@@ -250,7 +251,7 @@ class HubDriver extends Homey.Driver
                         "contentType": "application/json; charset=utf-8",
                         "Content-Length": bodyText.length
                     },
-                }
+                };
 
                 this.homey.app.updateLog(https_options);
 

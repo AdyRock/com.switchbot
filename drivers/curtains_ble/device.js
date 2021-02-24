@@ -11,6 +11,8 @@ class CurtainsBLEDevice extends Homey.Device
     async onInit()
     {
         this.log('CurtainsBLEDevice has been initialized');
+        this.bestRSSI = 100;
+        this.bestHub = "";
 
         this._operateCurtain = this._operateCurtain.bind(this);
 
@@ -45,6 +47,14 @@ class CurtainsBLEDevice extends Homey.Device
     async onAdded()
     {
         this.log('CurtainsBLEDevice has been added');
+        try
+        {
+            this.getDeviceValues();
+        }
+        catch (err)
+        {
+            this.log(err);
+        }
     }
 
     /**
@@ -135,7 +145,10 @@ class CurtainsBLEDevice extends Homey.Device
         if (this.homey.app.usingBLEHub)
         {
             const dd = this.getData();
-            return this.homey.app.sendBLECommand(dd.address, bytes);
+            if (await this.homey.app.sendBLECommand(dd.address, bytes, this.bestHub))
+            {
+                return;
+            }
         }
 
         let loops = 5;
@@ -148,7 +161,7 @@ class CurtainsBLEDevice extends Homey.Device
                 return;
             }
 
-            await Homey.app.Delay(5000);
+            await this.homey.app.Delay(5000);
         }
 
         if (response instanceof Error)
@@ -177,7 +190,7 @@ class CurtainsBLEDevice extends Homey.Device
             const dd = this.getData();
             let bleAdvertisement = await this.homey.ble.find(dd.id);
             const blePeripheral = await bleAdvertisement.connect();
-            await Homey.app.Delay(1000);
+            await this.homey.app.Delay(1000);
 
             let req_buf = Buffer.from(bytes);
             try
@@ -203,7 +216,7 @@ class CurtainsBLEDevice extends Homey.Device
             finally
             {
                 this.homey.app.updateLog("Disconnecting from BLE device: " + this.getName());
-                await Homey.app.Delay(1000);
+                await this.homey.app.Delay(1000);
 
                 await blePeripheral.disconnect();
 
@@ -222,12 +235,15 @@ class CurtainsBLEDevice extends Homey.Device
     {
         try
         {
+            const dd = this.getData();
+
             if (this.homey.app.usingBLEHub)
             {
-                const dd = this.getData();
                 let data = await this.homey.app.getDevice(dd.address);
                 if (data)
                 {
+                    this.setAvailable();
+
                     this.homey.app.updateLog("Parsed BLE: " + this.homey.app.varToString(data));
                     this.homey.app.updateLog("Parsed BLE: " + this.homey.app.varToString(data));
                     let position = data.serviceData.position / 100;
@@ -239,6 +255,12 @@ class CurtainsBLEDevice extends Homey.Device
                     this.setCapabilityValue('windowcoverings_set', position);
                     this.setCapabilityValue('measure_battery', data.serviceData.battery);
                     this.setCapabilityValue('rssi', data.rssi);
+
+                    if (data.hubMAC && (data.rssi < this.bestRSSI) || (data.hubMAC === this.bestHub))
+                    {
+                        this.bestHub = data.hubMAC;
+                        this.bestRSSI = data.rssi;
+                    }
                 }
                 else
                 {
@@ -248,38 +270,44 @@ class CurtainsBLEDevice extends Homey.Device
                 return;
             }
 
-            if (!this.moving && !this.updating)
+            if (dd.id)
             {
-                this.updating = true;
-                const dd = this.getData();
-
-                let bleAdvertisement = await this.homey.ble.find(dd.id);
-                this.homey.app.updateLog(this.homey.app.varToString(bleAdvertisement));
-                let rssi = await bleAdvertisement.rssi;
-                this.setCapabilityValue('rssi', rssi);
-
-                let data = this.driver.parse(bleAdvertisement);
-                if (data)
+                if (!this.moving && !this.updating)
                 {
-                    this.homey.app.updateLog("Parsed BLE: " + this.homey.app.varToString(data));
-                    let position = data.serviceData.position / 100;
-                    if (this.invertPosition)
+                    this.updating = true;
+
+                    let bleAdvertisement = await this.homey.ble.find(dd.id);
+                    this.homey.app.updateLog(this.homey.app.varToString(bleAdvertisement));
+                    let rssi = await bleAdvertisement.rssi;
+                    this.setCapabilityValue('rssi', rssi);
+
+                    let data = this.driver.parse(bleAdvertisement);
+                    if (data)
                     {
-                        position = 1 - position;
+                        this.homey.app.updateLog("Parsed BLE: " + this.homey.app.varToString(data));
+                        let position = data.serviceData.position / 100;
+                        if (this.invertPosition)
+                        {
+                            position = 1 - position;
+                        }
+
+                        this.setCapabilityValue('windowcoverings_set', position);
+
+                        this.setCapabilityValue('measure_battery', data.serviceData.battery);
                     }
-
-                    this.setCapabilityValue('windowcoverings_set', position);
-
-                    this.setCapabilityValue('measure_battery', data.serviceData.battery);
+                    else
+                    {
+                        this.homey.app.updateLog("Parsed BLE: No service data");
+                    }
                 }
                 else
                 {
-                    this.homey.app.updateLog("Parsed BLE: No service data");
+                    this.homey.app.updateLog("Refresh skipped while moving");
                 }
             }
             else
             {
-                this.homey.app.updateLog("Refresh skipped while moving");
+                this.setUnavailable("SwitchBot BLE hub not detected");
             }
         }
         catch (err)
@@ -310,6 +338,14 @@ class CurtainsBLEDevice extends Homey.Device
 
                     this.setCapabilityValue('measure_battery', event.serviceData.battery);
                     this.setCapabilityValue('rssi', event.rssi);
+
+                    if (event.hubMAC && (event.rssi < this.bestRSSI) || (event.hubMAC === this.bestHub))
+                    {
+                        this.bestHub = event.hubMAC;
+                        this.bestRSSI = event.rssi;
+                    }
+
+                    this.setAvailable();
                 }
             }
         }
