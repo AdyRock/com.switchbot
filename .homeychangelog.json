@@ -19,5 +19,8 @@
   },
   "0.2.3": {
     "en": "Added Air Conditioner Remote"
+  },
+  "0.2.4": {
+    "en": "Fixed operation of the Switch Bot to honour the single press mode when selected in the SwitchBot app."
   }
 }
