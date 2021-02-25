@@ -203,11 +203,18 @@ class BotBLEDevice extends Homey.Device
                 {
                     this.setAvailable();
                     console.log("Got bot state of:", data.serviceData.state);
+                    this.homey.app.updateLog("Parsed BLE: " + this.homey.app.varToString(data));
 
                     this.operationMode = data.serviceData.mode;
+                    if (this.operationMode)
+                    {
+                        this.setCapabilityValue('onoff', (data.serviceData.state === 0));
+                    }
+                    else
+                    {
+                        this.setCapabilityValue('onoff', false);
+                    }
 
-                    this.homey.app.updateLog("Parsed BLE: " + this.homey.app.varToString(data));
-                    this.setCapabilityValue('onoff', (data.serviceData.state === 0));
                     this.setCapabilityValue('measure_battery', data.serviceData.battery);
                     this.setCapabilityValue('rssi', data.rssi);
 
@@ -239,8 +246,17 @@ class BotBLEDevice extends Homey.Device
                     let data = this.driver.parse(bleAdvertisement);
                     if (data)
                     {
+                        this.operationMode = data.serviceData.mode;
+                        if (this.operationMode)
+                        {
+                            this.setCapabilityValue('onoff', (data.serviceData.state === 0));
+                        }
+                        else
+                        {
+                            this.setCapabilityValue('onoff', false);
+                        }
+
                         this.homey.app.updateLog("Parsed BLE: " + this.homey.app.varToString(data));
-                        this.setCapabilityValue('onoff', (data.serviceData.state === 0));
                         this.setCapabilityValue('measure_battery', data.serviceData.battery);
                     }
                     else
@@ -280,8 +296,15 @@ class BotBLEDevice extends Homey.Device
                     console.log("Got bot state of:", event.serviceData.state);
 
                     this.operationMode = event.serviceData.mode;
+                    if (this.operationMode)
+                    {
+                        this.setCapabilityValue('onoff', (event.serviceData.state === 0));
+                    }
+                    else
+                    {
+                        this.setCapabilityValue('onoff', false);
+                    }
 
-                    this.setCapabilityValue('onoff', (event.serviceData.state === 0));
                     this.setCapabilityValue('measure_battery', event.serviceData.battery);
                     this.setCapabilityValue('rssi', event.rssi);
 

@@ -1,3 +1,4 @@
+/*jslint node: true */
 'use strict';
 
 const Homey = require('homey');
@@ -57,12 +58,26 @@ class BotHubDevice extends Homey.Device
     // this method is called when the Homey device has requested a position change ( 0 to 1)
     async onCapabilityOnOff(value, opts)
     {
-        if (value)
+        let pushButton = this.getSetting('push_button');
+        if (pushButton)
         {
-            return this._operateBot('turnOn');
+            if (value === true)
+            {
+                let retValue = await this._operateBot('press');
+                setTimeout(() => this.setCapabilityValue('onoff', false), 1000);
+                return retValue;
+            }
         }
-        else{
-            return this._operateBot('turnOff');
+        else
+        {
+            if (value)
+            {
+                return this._operateBot('turnOn');
+            }
+            else
+            {
+                return this._operateBot('turnOff');
+            }
         }
     }
 
@@ -71,7 +86,7 @@ class BotHubDevice extends Homey.Device
         let data = {
             "command": command,
             "parameter": "default",
-            "commandType": "command"        
+            "commandType": "command"
         }
 
         const dd = this.getData();
@@ -86,7 +101,16 @@ class BotHubDevice extends Homey.Device
         let data = await this.driver.getDeviceData(dd.id);
         if (data)
         {
-            this.setCapabilityValue('onoff', data.power === 'on');
+            console.log("Bot Hub got ", data.power);
+            let pushButton = this.getSetting('push_button');
+            if (pushButton)
+            {
+                this.setCapabilityValue('onoff', false);
+            }
+            else
+            {
+                this.setCapabilityValue('onoff', data.power === 'on');
+            }
         }
     }
 }
