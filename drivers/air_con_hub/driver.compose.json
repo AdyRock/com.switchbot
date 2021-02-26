@@ -26,7 +26,7 @@
     }],
     "images":
     {
-        "large": "/drivers/air_con_hub/assets/images/large.png",
-        "small": "/drivers/air_con_hub/assets/images/small.png"
+        "large": "/drivers/air_con_hub/assets/images/large.jpg",
+        "small": "/drivers/air_con_hub/assets/images/small.jpg"
     }
 }

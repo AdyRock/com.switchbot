@@ -10,7 +10,7 @@ const http = require("http");
 const dgram = require('dgram');
 
 const MINIMUM_POLL_INTERVAL = 5;
-
+const BLE_POLLING_INTERVAL = 10000;
 class MyApp extends Homey.App
 {
     /**
@@ -62,6 +62,9 @@ class MyApp extends Homey.App
 
         this.onHubPoll = this.onHubPoll.bind(this);
         this.timerHubID = setTimeout(this.onHubPoll, 10000);
+
+        this.onBLEPoll = this.onBLEPoll.bind(this);
+        this.timerID = setTimeout(this.onBLEPoll, BLE_POLLING_INTERVAL);
 
         const server = dgram.createSocket('udp4');
         server.on('error', (err) =>
@@ -513,7 +516,8 @@ class MyApp extends Homey.App
                     reject(new Error("HTTP Catch: " + err));
                 });
 
-                req.setTimeout(5000, function () {
+                req.setTimeout(5000, function()
+                {
                     req.abort();
                     reject(new Error("HTTP Catch: Timeout"));
                     return;
@@ -578,6 +582,9 @@ class MyApp extends Homey.App
         await Promise.allSettled(promises);
     }
 
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // SwitchBot Hub
+    //    
     async onHubPoll()
     {
         var nextInterval = Number(this.homey.settings.get('pollInterval'));
@@ -627,6 +634,69 @@ class MyApp extends Homey.App
         }
 
         this.timerHubID = setTimeout(this.onHubPoll, nextInterval);
+    }
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // Homey BLE
+    //
+    async onBLEPoll()
+    {
+        if (this.homey.app.usingBLEHub)
+        {
+            return;
+        }
+        else if (!this.discovering)
+        {
+            this.polling = true;
+            this.homey.app.updateLog("Polling BLE");
+
+            const promises = [];
+            try
+            {
+                //clear BLE cache for each device
+                const drivers = this.homey.drivers.getDrivers();
+                for (const driver in drivers)
+                {
+                    let devices = this.homey.drivers.getDriver(driver).getDevices();
+
+                    for (let i = 0; i < devices.length; i++)
+                    {
+                        let device = devices[i];
+                        let id = device.getData().id;
+                        delete this.homey.ble.__advertisementsByPeripheralUUID[id];
+                    }
+                }
+
+                // Run discovery too fetch new data
+                await this.homey.ble.discover(['cba20d00224d11e69fb80002a5d5c51b'], 2000);
+
+                for (const driver in drivers)
+                {
+                    let devices = this.homey.drivers.getDriver(driver).getDevices();
+
+                    for (let i = 0; i < devices.length; i++)
+                    {
+                        let device = devices[i];
+                        if (device.getDeviceValues)
+                        {
+                            promises.push(device.getDeviceValues());
+                        }
+                    }
+
+                    await Promise.all(promises);
+                }
+            }
+            catch (err)
+            {
+                this.homey.app.updateLog("BLE Polling Error: " + this.homey.app.varToString(err));
+            }
+
+            this.polling = false;
+        }
+
+        this.homey.app.updateLog("Next BLE polling interval = " + BLE_POLLING_INTERVAL, true);
+
+        this.timerID = setTimeout(this.onBLEPoll, BLE_POLLING_INTERVAL);
     }
 
 }

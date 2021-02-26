@@ -3,8 +3,6 @@
 
 const Homey = require('homey');
 
-const BLE_POLLING_INTERVAL = 10000;
-
 class BLEDriver extends Homey.Driver
 {
     /**
@@ -13,48 +11,6 @@ class BLEDriver extends Homey.Driver
     async onInit()
     {
         this.getBLEDevices = this.getBLEDevices.bind(this);
-        this.onPoll = this.onPoll.bind(this);
-        this.timerID = setTimeout(this.onPoll, BLE_POLLING_INTERVAL);
-    }
-
-    async onPoll()
-    {
-        if (this.homey.app.usingBLEHub)
-        {
-            return;
-        }
-        else if (!this.discovering)
-        {
-            this.polling = true;
-            this.homey.app.updateLog("Polling BLE");
-
-            const promises = [];
-            try
-            {
-                let devices = this.getDevices();
-                for (var i = 0; i < devices.length; i++)
-                {
-                    let device = devices[i];
-                    if (device.getDeviceValues)
-                    {
-                        promises.push(device.getDeviceValues());
-                    }
-                }
-
-                await Promise.all(promises);
-
-            }
-            catch (err)
-            {
-                this.homey.app.updateLog("BLE Polling Error: " + this.homey.app.varToString(err));
-            }
-
-            this.polling = false;
-        }
-
-        this.homey.app.updateLog("Next BLE polling interval = " + BLE_POLLING_INTERVAL, true);
-
-        this.timerID = setTimeout(this.onPoll, BLE_POLLING_INTERVAL);
     }
 
     checkExist(devices, device)
@@ -83,7 +39,7 @@ class BLEDriver extends Homey.Driver
                         this.homey.app.updateLog("Found device: ");
                         this.homey.app.updateLog(deviceData);
 
-                        let id = deviceData.address.replace(/\:/g,"");
+                        let id = deviceData.address.replace(/\:/g, "");
 
                         let data = { id: id, pid: deviceData.address, address: deviceData.address, model: deviceData.model, modelName: deviceData.modelName };
 
