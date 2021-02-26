@@ -22,5 +22,8 @@
   },
   "0.2.4": {
     "en": "Fixed operation of the Switch Bot to honour the single press mode when selected in the SwitchBot app. BLE can detect the mode setting but for the hub you have to adjust the Advanced setting."
+  },
+  "0.2.5": {
+    "en": "Fix to reduce Homey BLE caching problem"
   }
 }
