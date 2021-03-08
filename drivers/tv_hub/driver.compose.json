@@ -1,15 +1,17 @@
 {
-    "id": "air_con_hub",
+    "id": "tv_hub",
     "name":
     {
-        "en": "Air Conditioner (HUB Remote)"
+        "en": "TV (HUB Remote)"
     },
-    "class": "button",
+    "class": "remote",
     "capabilities": [
-        "onoff",
-        "target_temperature",
-        "aircon_mode",
-        "aircon_fan_speed"
+        "power_on",
+        "power_off",
+        "volume_up",
+        "volume_down",
+        "channel_up",
+        "channel_down"
     ],
     "pair": [
     {
@@ -26,7 +28,7 @@
     }],
     "images":
     {
-        "large": "/drivers/air_con_hub/assets/images/large.jpg",
-        "small": "/drivers/air_con_hub/assets/images/small.jpg"
+        "large": "/drivers/tv_hub/assets/images/large.jpg",
+        "small": "/drivers/tv_hub/assets/images/small.jpg"
     }
 }

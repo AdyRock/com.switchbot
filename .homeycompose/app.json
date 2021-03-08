@@ -73,18 +73,5 @@
             "path": "/newData/",
             "public": true
         }
-    },
-    "discovery":
-    {
-        "switchbot_ble_hub":
-        {
-            "type": "mdns-sd",
-            "mdns-sd":
-            {
-                "name": "switchbotble",
-                "protocol": "tcp"
-            },
-            "id": "{{txt.id}}"
-        }
     }
 }

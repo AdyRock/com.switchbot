@@ -4,7 +4,7 @@
 const Homey = require('homey');
 const HubDriver = require('../hub_driver');
 
-class HubCurtainDriver extends HubDriver
+class HubTVDriver extends HubDriver
 {
     /**
      * onInit is called when the driver is initialized.
@@ -12,7 +12,7 @@ class HubCurtainDriver extends HubDriver
     async onInit()
     {
         super.onInit();
-        this.log('HubCurtainDriver has been initialized');
+        this.log('HubTVDriver has been initialized');
     }
 
     /**
@@ -21,8 +21,8 @@ class HubCurtainDriver extends HubDriver
      */
     async onPairListDevices()
     {
-        return this.getHUBDevices('Curtain');
+        return this.getHUBDevices('TV', true);
     }
 }
 
-module.exports = HubCurtainDriver;
+module.exports = HubTVDriver;

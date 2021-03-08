@@ -65,7 +65,7 @@
     {
       "id": "air_con_hub",
       "name": {
-        "en": "Air Conditioner (HUB)"
+        "en": "Air Conditioner (HUB Remote)"
       },
       "class": "button",
       "capabilities": [
@@ -378,6 +378,38 @@
         "large": "/drivers/temperature_hub/assets/images/large.jpg",
         "small": "/drivers/temperature_hub/assets/images/small.jpg"
       }
+    },
+    {
+      "id": "tv_hub",
+      "name": {
+        "en": "TV (HUB Remote)"
+      },
+      "class": "remote",
+      "capabilities": [
+        "power_on",
+        "power_off",
+        "volume_up",
+        "volume_down",
+        "channel_up",
+        "channel_down"
+      ],
+      "pair": [
+        {
+          "id": "list_my_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_my_devices"
+          }
+        },
+        {
+          "id": "add_my_devices",
+          "template": "add_devices"
+        }
+      ],
+      "images": {
+        "large": "/drivers/tv_hub/assets/images/large.jpg",
+        "small": "/drivers/tv_hub/assets/images/small.jpg"
+      }
     }
   ],
   "capabilities": {
@@ -456,6 +488,24 @@
       "getable": true,
       "setable": true,
       "icon": "/assets/air_con_mode.svg"
+    },
+    "power_off": {
+      "type": "boolean",
+      "getable": false,
+      "setable": true,
+      "uiComponent": "button",
+      "title": {
+        "en": "Power Off"
+      }
+    },
+    "power_on": {
+      "type": "boolean",
+      "getable": false,
+      "setable": true,
+      "uiComponent": "button",
+      "title": {
+        "en": "Power On"
+      }
     },
     "rssi": {
       "type": "number",

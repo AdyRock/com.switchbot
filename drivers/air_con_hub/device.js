@@ -1,3 +1,4 @@
+/*jslint node: true */
 'use strict';
 
 const Homey = require('homey');
@@ -110,7 +111,7 @@ class AirConHubDevice extends Homey.Device
             "command": command,
             "parameter": "setAll",
             "commandType": "command"
-        }
+        };
 
         const dd = this.getData();
 

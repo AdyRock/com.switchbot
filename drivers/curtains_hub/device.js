@@ -1,3 +1,4 @@
+/*jslint node: true */
 'use strict';
 
 const Homey = require('homey');
@@ -138,8 +139,8 @@ class CurtainsHubDevice extends Homey.Device
         let data = {
             "command": command,
             "parameter": parameter,
-            "commandType": "command"        
-        }
+            "commandType": "command"
+        };
 
         const dd = this.getData();
         return this.driver.setDeviceData(dd.id, data);
