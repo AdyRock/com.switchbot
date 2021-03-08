@@ -316,6 +316,38 @@
       ]
     },
     {
+      "id": "settop_box_hub",
+      "name": {
+        "en": "STB (HUB Remote)"
+      },
+      "class": "remote",
+      "capabilities": [
+        "power_on",
+        "power_off",
+        "volume_up",
+        "volume_down",
+        "channel_up",
+        "channel_down"
+      ],
+      "pair": [
+        {
+          "id": "list_my_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_my_devices"
+          }
+        },
+        {
+          "id": "add_my_devices",
+          "template": "add_devices"
+        }
+      ],
+      "images": {
+        "large": "/drivers/settop_box_hub/assets/images/large.jpg",
+        "small": "/drivers/settop_box_hub/assets/images/small.jpg"
+      }
+    },
+    {
       "id": "temperature_ble",
       "name": {
         "en": "Temperature & Humidity (BLE)"
@@ -488,6 +520,24 @@
       "getable": true,
       "setable": true,
       "icon": "/assets/air_con_mode.svg"
+    },
+    "arrow_up": {
+      "type": "boolean",
+      "getable": false,
+      "setable": true,
+      "uiComponent": "button",
+      "title": {
+        "en": "Up"
+      }
+    },
+    "back": {
+      "type": "boolean",
+      "getable": false,
+      "setable": true,
+      "uiComponent": "button",
+      "title": {
+        "en": "Back"
+      }
     },
     "power_off": {
       "type": "boolean",
