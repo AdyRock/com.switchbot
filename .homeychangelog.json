@@ -25,5 +25,8 @@
   },
   "0.2.5": {
     "en": "Fix to reduce Homey BLE caching problem"
+  },
+  "0.2.6": {
+    "en": "Added On/Off capability to curtains so they can be fully opened/closed by tapping on the tile"
   }
 }

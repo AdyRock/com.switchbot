@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.switchbot",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#FF7D4B",
@@ -173,6 +173,7 @@
       },
       "class": "curtain",
       "capabilities": [
+        "open_close",
         "measure_battery",
         "windowcoverings_set",
         "rssi"
@@ -251,6 +252,7 @@
       },
       "class": "curtain",
       "capabilities": [
+        "open_close",
         "windowcoverings_set"
       ],
       "pair": [
@@ -538,6 +540,16 @@
       "title": {
         "en": "Back"
       }
+    },
+    "open_close": {
+      "type": "boolean",
+      "title": {
+        "en": "Open / Close"
+      },
+      "getable": true,
+      "setable": true,
+      "uiQuickAction": true,
+      "uiComponent": "toggle"
     },
     "power_off": {
       "type": "boolean",

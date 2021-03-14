@@ -10,7 +10,12 @@ class CurtainsHubDevice extends Homey.Device
      */
     async onInit()
     {
-        this.log('CurtainsHubDevice has been initialized');
+        this.log('CurtainsHubDevice has been initialising');
+
+        if (!this.hasCapability("open_close"))
+        {
+            this.addCapability("open_close");
+        }
 
         this.invertPosition = this.getSetting('invertPosition');
         if (this.invertPosition === null)
@@ -25,6 +30,7 @@ class CurtainsHubDevice extends Homey.Device
         }
 
         this.getHubDeviceValues();
+        this.registerCapabilityListener('open_close', this.onCapabilityopenClose.bind(this));
         this.registerCapabilityListener('windowcoverings_set', this.onCapabilityPosition.bind(this));
     }
 
@@ -73,6 +79,19 @@ class CurtainsHubDevice extends Homey.Device
     async onDeleted()
     {
         this.log('CurtainsHubDevice has been deleted');
+    }
+
+    // this method is called when the Homey device switches the device on or off
+    async onCapabilityopenClose(value, opts)
+    {
+        value = value ? 1 : 0;
+
+        if (this.invertPosition)
+        {
+            value = 1 - value;
+        }
+
+        return await this.runToPos(value * 100, this.motionMode);
     }
 
     // this method is called when the Homey device has requested a position change ( 0 to 1)
@@ -157,6 +176,15 @@ class CurtainsHubDevice extends Homey.Device
             if (this.invertPosition)
             {
                 position = 1 - position;
+            }
+
+            if (position > 0.5)
+            {
+                this.setCapabilityValue('open_close', true);
+            }
+            else
+            {
+                this.setCapabilityValue('open_close', false);
             }
 
             this.setCapabilityValue('windowcoverings_set', position);

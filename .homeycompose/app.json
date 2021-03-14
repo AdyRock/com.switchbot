@@ -1,6 +1,6 @@
 {
     "id": "com.switchbot",
-    "version": "0.2.5",
+    "version": "0.2.6",
     "compatibility": ">=5.0.0",
     "sdk": 3,
     "brandColor": "#FF7D4B",

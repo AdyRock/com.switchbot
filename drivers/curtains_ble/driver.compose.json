@@ -6,6 +6,7 @@
     },
     "class": "curtain",
     "capabilities": [
+        "open_close",
         "measure_battery",
         "windowcoverings_set",
         "rssi"

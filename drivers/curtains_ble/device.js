@@ -11,6 +11,16 @@ class CurtainsBLEDevice extends Homey.Device
     async onInit()
     {
         this.log('CurtainsBLEDevice has been initialized');
+
+        if (!this.hasCapability("open_close"))
+        {
+            this.addCapability("open_close");
+        }
+        if (this.hasCapability("onoff"))
+        {
+            this.removeCapability("onoff");
+        }
+
         this.bestRSSI = 100;
         this.bestHub = "";
 
@@ -38,6 +48,7 @@ class CurtainsBLEDevice extends Homey.Device
         }
 
         // register a capability listener
+        this.registerCapabilityListener('open_close', this.onCapabilityopenClose.bind(this));
         this.registerCapabilityListener('windowcoverings_set', this.onCapabilityPosition.bind(this));
     }
 
@@ -95,6 +106,19 @@ class CurtainsBLEDevice extends Homey.Device
     {
         await this.blePeripheral.disconnect();
         this.log('CurtainsBLEDevice has been deleted');
+    }
+
+    // this method is called when the Homey device switches the device on or off
+    async onCapabilityopenClose(value, opts)
+    {
+        value = value ? 1 : 0;
+        
+        if (this.invertPosition)
+        {
+            value = 1 - value;
+        }
+
+        return await this.runToPos(value * 100, this.motionMode);
     }
 
     // this method is called when the Homey device has requested a position change ( 0 to 1)
@@ -253,6 +277,16 @@ class CurtainsBLEDevice extends Homey.Device
                     }
 
                     this.setCapabilityValue('windowcoverings_set', position);
+
+                    if (position > 0.5)
+                    {
+                        this.setCapabilityValue('open_close', true);
+                    }
+                    else
+                    {
+                        this.setCapabilityValue('open_close', false);
+                    }
+
                     this.setCapabilityValue('measure_battery', data.serviceData.battery);
                     this.setCapabilityValue('rssi', data.rssi);
 
@@ -291,6 +325,15 @@ class CurtainsBLEDevice extends Homey.Device
                             position = 1 - position;
                         }
 
+                        if (position > 0.5)
+                        {
+                            this.setCapabilityValue('open_close', true);
+                        }
+                        else
+                        {
+                            this.setCapabilityValue('open_close', false);
+                        }
+    
                         this.setCapabilityValue('windowcoverings_set', position);
 
                         this.setCapabilityValue('measure_battery', data.serviceData.battery);
@@ -335,6 +378,15 @@ class CurtainsBLEDevice extends Homey.Device
                         position = 1 - position;
                     }
                     this.setCapabilityValue('windowcoverings_set', position);
+
+                    if (position > 0.5)
+                    {
+                        this.setCapabilityValue('open_close', true);
+                    }
+                    else
+                    {
+                        this.setCapabilityValue('open_close', false);
+                    }
 
                     this.setCapabilityValue('measure_battery', event.serviceData.battery);
                     this.setCapabilityValue('rssi', event.rssi);

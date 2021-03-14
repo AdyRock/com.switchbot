@@ -6,6 +6,7 @@
     },
     "class": "curtain",
     "capabilities": [
+        "open_close",
         "windowcoverings_set"
     ],
     "pair": [

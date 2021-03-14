@@ -1,0 +1,10 @@
+{
+    "type": "boolean",
+    "title": {
+        "en": "Open / Close"
+    },
+    "getable": true,
+    "setable": true,
+    "uiQuickAction": true,
+    "uiComponent": "toggle"
+}
