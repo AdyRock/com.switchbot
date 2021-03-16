@@ -28,5 +28,8 @@
   },
   "0.2.6": {
     "en": "Added On/Off capability to curtains so they can be fully opened/closed by tapping on the tile"
+  },
+  "0.2.7": {
+    "en": "Added a check for a SwitchBot device with no service data in the discovery, so the entry in the BLE cache can be cleared ready for the next discovery."
   }
 }

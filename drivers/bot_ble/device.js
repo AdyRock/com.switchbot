@@ -223,13 +223,13 @@ class BotBLEDevice extends Homey.Device
                         this.bestHub = data.hubMAC;
                         this.bestRSSI = data.rssi;
                     }
+
+                    return;
                 }
                 else
                 {
-                    this.homey.app.updateLog("Parsed BLE: No service data");
+                    this.homey.app.updateLog("Parsed BLE Hub: No service data");
                 }
-
-                return;
             }
 
             if (dd.id)
