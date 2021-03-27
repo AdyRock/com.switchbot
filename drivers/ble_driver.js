@@ -65,17 +65,17 @@ class BLEDriver extends Homey.Driver
 
             for (const bleAdvertisement of bleAdvertisements)
             {
-                if (bleAdvertisement.serviceData.length === 0)
-                {
-                    if ((bleAdvertisement.localName && bleAdvertisement.localName === "WoHand") || (bleAdvertisement.serviceUuids && (bleAdvertisement.serviceUuids.indexOf('cba20d00224d11e69fb80002a5d5c51b') >= 0)))
-                    {
-                        // This is a SwitchBot device that has no service data so make sure the cache is cleared so it updates next time.
-                        delete this.homey.ble.__advertisementsByPeripheralUUID[bleAdvertisement.id];
-                        this.homey.app.updateLog("Cleared BLE cache for: " + bleAdvertisement.id);
-                    }
+                // if (bleAdvertisement.serviceData.length === 0)
+                // {
+                //     if ((bleAdvertisement.localName && bleAdvertisement.localName === "WoHand") || (bleAdvertisement.serviceUuids && (bleAdvertisement.serviceUuids.indexOf('cba20d00224d11e69fb80002a5d5c51b') >= 0)))
+                //     {
+                //         // This is a SwitchBot device that has no service data so make sure the cache is cleared so it updates next time.
+                //         delete this.homey.ble.__advertisementsByPeripheralUUID[bleAdvertisement.id];
+                //         this.homey.app.updateLog("Cleared BLE cache for: " + bleAdvertisement.id);
+                //     }
 
-                    continue;
-                }
+                //     continue;
+                // }
 
                 this.log("ServiceData: ", bleAdvertisement.serviceData);
                 let deviceData = this.parse(bleAdvertisement);
@@ -171,8 +171,31 @@ class BLEDriver extends Homey.Driver
      * ---------------------------------------------------------------- */
     parse(device)
     {
-        if (!device || !device.serviceData || device.serviceData.length === 0)
+        if (!device)
         {
+            return null;
+        }
+        if (!device.serviceData || device.serviceData.length === 0)
+        {
+            if (device.localName === "WoHand")
+            {
+                //looks like a bot device with no service data so make it up
+                let data = {
+                    id: device.uuid,
+                    pid: device.id,
+                    address: device.address,
+                    rssi: device.rssi,
+                    serviceData: {
+                        model: 'H',
+                        modelName: 'WoHand',
+                        mode: false,
+                        state: false,
+                        battery: 0
+                    }
+                };
+                return data;
+        
+            }
             return null;
         }
         if (device.serviceData[0].uuid !== '0d00')

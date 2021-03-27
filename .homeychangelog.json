@@ -31,5 +31,11 @@
   },
   "0.2.7": {
     "en": "Added a check for a SwitchBot device with no service data in the discovery, so the entry in the BLE cache can be cleared ready for the next discovery."
+  },
+  "0.2.8": {
+    "en": "Fix Bot state check when using Homey's BLE. Adding my BLE hub no longer disables Homey's BLE checking so both are now used. Added error handler around JSON parsing to cope with bad data."
+  },
+  "0.2.9": {
+    "en": "Attempt to add devices based on the localName id there is no service data."
   }
 }
