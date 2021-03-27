@@ -248,7 +248,7 @@ class BLEDriver extends Homey.Driver
         let byte2 = buf.readUInt8(2);
 
         let mode = (byte1 & 0b10000000) != 0 ? true : false; // Whether the light switch Add-on is used or not
-        let state = (byte1 & 0b01000000) != 0 ? true : false; // Whether the switch status is ON or OFF
+        let state = (byte1 & 0b01000000) == 0 ? true : false; // Whether the switch status is ON or OFF
         let battery = byte2 & 0b01111111; // %
 
         let data = {

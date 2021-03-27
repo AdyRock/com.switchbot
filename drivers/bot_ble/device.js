@@ -196,41 +196,41 @@ class BotBLEDevice extends Homey.Device
         try
         {
             const dd = this.getData();
-            if (this.homey.app.usingBLEHub)
-            {
-                let data = await this.homey.app.getDevice(dd.address);
-                if (data)
-                {
-                    this.setAvailable();
-                    console.log("Got bot state of:", data.serviceData.state);
-                    this.homey.app.updateLog("Parsed BLE: " + this.homey.app.varToString(data));
+            // if (this.homey.app.usingBLEHub)
+            // {
+            //     let data = await this.homey.app.getDevice(dd.address);
+            //     if (data)
+            //     {
+            //         this.setAvailable();
+            //         console.log("Got bot state of:", data.serviceData.state);
+            //         this.homey.app.updateLog("Parsed BLE: " + this.homey.app.varToString(data));
 
-                    this.operationMode = data.serviceData.mode;
-                    if (this.operationMode)
-                    {
-                        this.setCapabilityValue('onoff', (data.serviceData.state === 0));
-                    }
-                    else
-                    {
-                        this.setCapabilityValue('onoff', false);
-                    }
+            //         this.operationMode = data.serviceData.mode;
+            //         if (this.operationMode)
+            //         {
+            //             this.setCapabilityValue('onoff', (data.serviceData.state === 0));
+            //         }
+            //         else
+            //         {
+            //             this.setCapabilityValue('onoff', false);
+            //         }
 
-                    this.setCapabilityValue('measure_battery', data.serviceData.battery);
-                    this.setCapabilityValue('rssi', data.rssi);
+            //         this.setCapabilityValue('measure_battery', data.serviceData.battery);
+            //         this.setCapabilityValue('rssi', data.rssi);
 
-                    if (data.hubMAC && (data.rssi < this.bestRSSI) || (data.hubMAC === this.bestHub))
-                    {
-                        this.bestHub = data.hubMAC;
-                        this.bestRSSI = data.rssi;
-                    }
+            //         if (data.hubMAC && (data.rssi < this.bestRSSI) || (data.hubMAC === this.bestHub))
+            //         {
+            //             this.bestHub = data.hubMAC;
+            //             this.bestRSSI = data.rssi;
+            //         }
 
-                    return;
-                }
-                else
-                {
-                    this.homey.app.updateLog("Parsed BLE Hub: No service data");
-                }
-            }
+            //         return;
+            //     }
+            //     else
+            //     {
+            //         this.homey.app.updateLog("Parsed BLE Hub: No service data");
+            //     }
+            // }
 
             if (dd.id)
             {
@@ -246,10 +246,12 @@ class BotBLEDevice extends Homey.Device
                     let data = this.driver.parse(bleAdvertisement);
                     if (data)
                     {
+                        this.setAvailable();
+                        console.log("Got bot state of:", data.serviceData.state);
                         this.operationMode = data.serviceData.mode;
                         if (this.operationMode)
                         {
-                            this.setCapabilityValue('onoff', (data.serviceData.state === 0));
+                            this.setCapabilityValue('onoff', data.serviceData.state);
                         }
                         else
                         {
