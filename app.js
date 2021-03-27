@@ -410,6 +410,11 @@ class MyApp extends Homey.App
         });
     }
 
+    IsBLEHubAvailable( hubMAC)
+    {
+        return (this.BLEHubs.findIndex(hub => hub.mac === hubMAC) >= 0);
+    }
+
     async PostBLEHubsURL(path, body, bestHub, JustOneGoodOne = false)
     {
         let responses = [];
@@ -418,23 +423,26 @@ class MyApp extends Homey.App
         {
             // This one first
             let x = this.BLEHubs.findIndex(hub => hub.mac === bestHub);
-            try
+            if (x >= 0)
             {
-                let response = await this.PostBLEHubURL(path, body, this.BLEHubs[x].address);
-                if (response.statusCode === 200)
+                try
                 {
-                    responses.push(response);
-                    return responses;
+                    let response = await this.PostBLEHubURL(path, body, this.BLEHubs[x].address);
+                    if (response.statusCode === 200)
+                    {
+                        responses.push(response);
+                        return responses;
+                    }
                 }
-            }
-            catch (err)
-            {
-                this.BLEHubs.splice(x, 1);
-                if (this.BLEHubs.length === 0)
+                catch (err)
                 {
-                    this.usingBLEHub = false;
+                    this.BLEHubs.splice(x, 1);
+                    if (this.BLEHubs.length === 0)
+                    {
+                        this.usingBLEHub = false;
+                    }
+                    console.log(err);
                 }
-                console.log(err);
             }
         }
 

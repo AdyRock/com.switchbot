@@ -196,6 +196,16 @@ class BotBLEDevice extends Homey.Device
         try
         {
             const dd = this.getData();
+            if (this.bestHub !== "")
+            {
+                // This device is being controlled by a BLE hub
+                if (this.homey.app.IsBLEHubAvailable(this.bestHub))
+                {
+                    return;
+                }
+                
+                this.bestHub = "";
+            }
             // if (this.homey.app.usingBLEHub)
             // {
             //     let data = await this.homey.app.getDevice(dd.address);
