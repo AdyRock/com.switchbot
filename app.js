@@ -213,6 +213,11 @@ class MyApp extends Homey.App
         {
             const url = "device?address=" + Address;
             let data = await this.GetBLEHubsURL(url);
+            if (!data || data.length === 0)
+            {
+                return null;
+            }
+
             // Get object with best rssi value
             data = data.reduce((max, device) => max.rssi > device.rssi ? max : device);
             return data;
@@ -304,6 +309,12 @@ class MyApp extends Homey.App
             }
             catch (err)
             {
+                this.BLEHubs.splice(i, 1);
+                if (this.BLEHubs.length === 0)
+                {
+                    this.usingBLEHub = false;
+                }
+
                 console.log(err);
             }
         }
@@ -322,10 +333,10 @@ class MyApp extends Homey.App
                 let http_options = {
                     host: HubAddress,
                     path: "/api/v1/" + path,
-                    timeout: 30000
+                    timeout: 15000
                 };
 
-                http.get(http_options, (res) =>
+                let req = http.get(http_options, (res) =>
                 {
                     if (res.statusCode === 200)
                     {
@@ -336,9 +347,17 @@ class MyApp extends Homey.App
                         });
                         res.on('end', () =>
                         {
-                            let returnData = JSON.parse(Buffer.concat(body));
-                            this.homey.app.updateLog("Get response: " + this.homey.app.varToString(returnData));
-                            resolve(returnData);
+                            try
+                            {
+                                let returnData = JSON.parse(Buffer.concat(body));
+                                this.homey.app.updateLog("Get response: " + this.homey.app.varToString(returnData));
+                                resolve(returnData);
+                            }
+                            catch (err)
+                            {
+                                reject(new Error("HTTP Error: " + err.message));
+                                return;
+                            }
                         });
                     }
                     else
@@ -372,6 +391,13 @@ class MyApp extends Homey.App
                 {
                     this.homey.app.updateLog(err, 0);
                     reject(new Error("HTTP Catch: " + err));
+                    return;
+                });
+
+                req.setTimeout(15000, function()
+                {
+                    req.destroy();
+                    reject(new Error("HTTP Catch: Timeout"));
                     return;
                 });
             }
@@ -518,7 +544,7 @@ class MyApp extends Homey.App
 
                 req.setTimeout(5000, function()
                 {
-                    req.abort();
+                    req.destroy();
                     reject(new Error("HTTP Catch: Timeout"));
                     return;
                 });
@@ -641,11 +667,12 @@ class MyApp extends Homey.App
     //
     async onBLEPoll()
     {
-        if (this.homey.app.usingBLEHub)
-        {
-            return;
-        }
-        else if (!this.discovering)
+        // if (this.homey.app.usingBLEHub)
+        // {
+        //     return;
+        // }
+        // else if (!this.discovering)
+        if (!this.discovering)
         {
             this.polling = true;
             this.homey.app.updateLog("Polling BLE");
@@ -683,6 +710,7 @@ class MyApp extends Homey.App
                         }
                     }
 
+                    this.homey.app.updateLog("Polling BLE: waiting for devices to update");
                     await Promise.all(promises);
                 }
             }
