@@ -2,7 +2,7 @@
 'use strict';
 if (process.env.DEBUG === '1')
 {
-    require('inspector').open(9222, '0.0.0.0', true);
+    require('inspector').open(9222, '0.0.0.0', false);
 }
 
 const Homey = require('homey');
@@ -20,6 +20,8 @@ class MyApp extends Homey.App
     {
         this.log('SwitchBot has been initialized');
         this.diagLog = "";
+        this.moving = false;
+        this.discovering = false;
 
         if (process.env.DEBUG === '1')
         {
@@ -675,32 +677,32 @@ class MyApp extends Homey.App
     //
     async onBLEPoll()
     {
-        // if (this.homey.app.usingBLEHub)
-        // {
-        //     return;
-        // }
-        // else if (!this.discovering)
-        if (!this.discovering)
+        let pollingInterval = 1000;
+        if (!this.discovering && !this.moving)
         {
             this.polling = true;
-            this.homey.app.updateLog("Polling BLE");
+            pollingInterval = BLE_POLLING_INTERVAL;
+
+            this.log("\r\nPolling BLE Starting ------------------------------------");
+
+            this.homey.app.updateLog("Polling BLE Starting ------------------------------------");
 
             const promises = [];
             try
             {
                 //clear BLE cache for each device
                 const drivers = this.homey.drivers.getDrivers();
-                for (const driver in drivers)
-                {
-                    let devices = this.homey.drivers.getDriver(driver).getDevices();
+                // for (const driver in drivers)
+                // {
+                //     let devices = this.homey.drivers.getDriver(driver).getDevices();
 
-                    for (let i = 0; i < devices.length; i++)
-                    {
-                        let device = devices[i];
-                        let id = device.getData().id;
-                        delete this.homey.ble.__advertisementsByPeripheralUUID[id];
-                    }
-                }
+                //     for (let i = 0; i < devices.length; i++)
+                //     {
+                //         let device = devices[i];
+                //         let id = device.getData().id;
+                //         delete this.homey.ble.__advertisementsByPeripheralUUID[id];
+                //     }
+                // }
 
                 // Run discovery too fetch new data
                 await this.homey.ble.discover(['cba20d00224d11e69fb80002a5d5c51b'], 2000);
@@ -728,11 +730,16 @@ class MyApp extends Homey.App
             }
 
             this.polling = false;
+            this.log("------------------------------------ Polling BLE Finished\r\n");
+        }
+        else
+        {
+            this.log("Polling BLE skipped");
         }
 
-        this.homey.app.updateLog("Next BLE polling interval = " + BLE_POLLING_INTERVAL, true);
+        this.homey.app.updateLog("Next BLE polling interval = " + pollingInterval, true);
 
-        this.timerID = setTimeout(this.onBLEPoll, BLE_POLLING_INTERVAL);
+        this.timerID = setTimeout(this.onBLEPoll, pollingInterval);
     }
 
 }

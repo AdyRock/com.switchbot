@@ -13,15 +13,6 @@ class TemperatureBLEDevice extends Homey.Device
         this.log('TemperatureBLEDevice has been initialized');
         this.bestRSSI = 100;
         this.bestHub = "";
-
-        try
-        {
-            this.getDeviceValues();
-        }
-        catch (err)
-        {
-            this.log(err);
-        }
     }
 
     /**
@@ -30,14 +21,6 @@ class TemperatureBLEDevice extends Homey.Device
     async onAdded()
     {
         this.log('TemperatureBLEDevice has been added');
-        try
-        {
-            this.getDeviceValues();
-        }
-        catch (err)
-        {
-            this.log(err);
-        }
     }
 
     /**
@@ -78,39 +61,22 @@ class TemperatureBLEDevice extends Homey.Device
         {
             const dd = this.getData();
 
-            if (this.homey.app.usingBLEHub)
+            if (this.bestHub !== "")
             {
-                let data = await this.homey.app.getDevice(dd.address);
-                if (data)
+                // This device is being controlled by a BLE hub
+                if (this.homey.app.IsBLEHubAvailable(this.bestHub))
                 {
-                    this.setAvailable();
-
-                    this.homey.app.updateLog("Parsed BLE: " + this.homey.app.varToString(data));
-                    this.setCapabilityValue('measure_temperature', data.serviceData.temperature.c);
-                    this.setCapabilityValue('measure_humidity', data.serviceData.humidity);
-                    this.setCapabilityValue('measure_battery', data.serviceData.battery);
-                    this.setCapabilityValue('rssi', data.rssi);
-
-                    if (data.hubMAC && (data.rssi < this.bestRSSI) || (data.hubMAC === this.bestHub))
-                    {
-                        this.bestHub = data.hubMAC;
-                        this.bestRSSI = data.rssi;
-                    }
-                }
-                else
-                {
-                    this.homey.app.updateLog("Parsed BLE: No service data");
+                    return;
                 }
 
-                return;
+                this.bestHub = "";
             }
-    
+
             if (dd.id)
             {
-                if (!this.updating)
+                if (!this.homey.app.moving)
                 {
-                    this.updating = true;
-
+                    this.log("Finding Temperature BLE device");
                     let bleAdvertisement = await this.homey.ble.find(dd.id);
                     this.homey.app.updateLog(this.homey.app.varToString(bleAdvertisement));
                     let rssi = await bleAdvertisement.rssi;
@@ -145,7 +111,7 @@ class TemperatureBLEDevice extends Homey.Device
         }
         finally
         {
-            this.updating = false;
+            this.log("Finding Temperature BLE device --- COMPLETE");
         }
     }
 

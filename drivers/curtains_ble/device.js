@@ -38,15 +38,6 @@ class CurtainsBLEDevice extends Homey.Device
             this.motionMode = 2;
         }
 
-        try
-        {
-            this.getDeviceValues();
-        }
-        catch (err)
-        {
-            this.log(err);
-        }
-
         // register a capability listener
         this.registerCapabilityListener('open_close', this.onCapabilityopenClose.bind(this));
         this.registerCapabilityListener('windowcoverings_set', this.onCapabilityPosition.bind(this));
@@ -58,14 +49,6 @@ class CurtainsBLEDevice extends Homey.Device
     async onAdded()
     {
         this.log('CurtainsBLEDevice has been added');
-        try
-        {
-            this.getDeviceValues();
-        }
-        catch (err)
-        {
-            this.log(err);
-        }
     }
 
     /**
@@ -196,7 +179,7 @@ class CurtainsBLEDevice extends Homey.Device
 
     async _operateCurtainsLoop(bytes)
     {
-        if (this.moving)
+        if (this.homey.app.moving)
         {
             this.homey.app.updateLog("Still processing the previous command to: " + this.getName());
             return false;
@@ -208,7 +191,7 @@ class CurtainsBLEDevice extends Homey.Device
         }
         try
         {
-            this.moving = true;
+            this.homey.app.moving = true;
             this.homey.app.updateLog("Connecting to BLE device: " + this.getName());
 
             const dd = this.getData();
@@ -249,7 +232,7 @@ class CurtainsBLEDevice extends Homey.Device
         }
         finally
         {
-            this.moving = false;
+            this.homey.app.moving = false;
         }
 
         return true;
@@ -260,56 +243,22 @@ class CurtainsBLEDevice extends Homey.Device
         try
         {
             const dd = this.getData();
-
-            if (this.homey.app.usingBLEHub)
+            if (this.bestHub !== "")
             {
-                let data = await this.homey.app.getDevice(dd.address);
-                if (data)
+                // This device is being controlled by a BLE hub
+                if (this.homey.app.IsBLEHubAvailable(this.bestHub))
                 {
-                    this.setAvailable();
-
-                    this.homey.app.updateLog("Parsed BLE: " + this.homey.app.varToString(data));
-                    this.homey.app.updateLog("Parsed BLE: " + this.homey.app.varToString(data));
-                    let position = data.serviceData.position / 100;
-                    if (this.invertPosition)
-                    {
-                        position = 1 - position;
-                    }
-
-                    this.setCapabilityValue('windowcoverings_set', position);
-
-                    if (position > 0.5)
-                    {
-                        this.setCapabilityValue('open_close', true);
-                    }
-                    else
-                    {
-                        this.setCapabilityValue('open_close', false);
-                    }
-
-                    this.setCapabilityValue('measure_battery', data.serviceData.battery);
-                    this.setCapabilityValue('rssi', data.rssi);
-
-                    if (data.hubMAC && (data.rssi < this.bestRSSI) || (data.hubMAC === this.bestHub))
-                    {
-                        this.bestHub = data.hubMAC;
-                        this.bestRSSI = data.rssi;
-                    }
-                }
-                else
-                {
-                    this.homey.app.updateLog("Parsed BLE: No service data");
+                    return;
                 }
 
-                return;
+                this.bestHub = "";
             }
 
             if (dd.id)
             {
-                if (!this.moving && !this.updating)
+                if (!this.homey.app.moving)
                 {
-                    this.updating = true;
-
+                    this.log("Finding Curtain BLE device");
                     let bleAdvertisement = await this.homey.ble.find(dd.id);
                     this.homey.app.updateLog(this.homey.app.varToString(bleAdvertisement));
                     let rssi = await bleAdvertisement.rssi;
@@ -359,7 +308,7 @@ class CurtainsBLEDevice extends Homey.Device
         }
         finally
         {
-            this.updating = false;
+            this.log("Finding Bot Curtain device --- COMPLETE");
         }
     }
 
