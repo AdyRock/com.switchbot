@@ -13,19 +13,11 @@ class BotBLEDevice extends Homey.Device
         this.log('BotBLEDevice has been initialized');
 
         this._operateBot = this._operateBot.bind(this);
+        this._operateBotLoop = this._operateBotLoop.bind(this);
 
         this.operationMode = false; // Default to push button until we know otherwise
         this.bestRSSI = 100;
         this.bestHub = "";
-
-        try
-        {
-            this.getDeviceValues();
-        }
-        catch (err)
-        {
-            this.log(err);
-        }
 
         // register a capability listener
         this.registerCapabilityListener('onoff', this.onCapabilityOnOff.bind(this));
@@ -37,14 +29,6 @@ class BotBLEDevice extends Homey.Device
     async onAdded()
     {
         this.log('BotBLEDevice has been added');
-        try
-        {
-            this.getDeviceValues();
-        }
-        catch (err)
-        {
-            this.log(err);
-        }
     }
 
     /**
@@ -115,77 +99,110 @@ class BotBLEDevice extends Homey.Device
         let response = null;
         while (loops-- > 0)
         {
-            response = await this._operateBotLoop(bytes);
-            if (response === true)
+            try
             {
-                return;
+                response = await this._operateBotLoop(bytes);
+                if (response === true)
+                {
+                    this.log("Command complete");
+                    return;
+                }
             }
-
-            await this.homey.app.Delay(5000);
+            catch (err)
+            {
+                this.log("_operateBot error: ", err);
+            }
+            if (loops > 0)
+            {
+                this.log("Retry command in 5 seconds");
+                await this.homey.app.Delay(5000);
+            }
         }
 
         if (response instanceof Error)
         {
+            this.log("!!!!!!! Command failed\r\n");
             throw response;
         }
     }
 
     async _operateBotLoop(bytes)
     {
-        if (this.moving)
+        if (this.homey.app.moving)
         {
-            this.homey.app.updateLog("Still processing the previous command to: " + this.getName());
+            this.log("Still processing a previous command");
+            this.homey.app.updateLog("Still processing a previous command");
             return false;
         }
 
-        if (this.updating)
+        while (this.homey.app.polling)
         {
-            this.deferCommandTimerID = setTimeout(this._operateBot, 500);
+            this.log("Still polling, defering BLE command");
+            this.homey.app.updateLog("Still polling, deferring BLE command");
+            await this.homey.app.Delay(500);
         }
+
+        let sending = true;
+
         try
         {
-            this.moving = true;
+            this.homey.app.moving = true;
             this.homey.app.updateLog("Connecting to BLE device: " + this.getName());
 
             const dd = this.getData();
             let bleAdvertisement = await this.homey.ble.find(dd.id);
+            this.log("Connecting to peripheral");
             const blePeripheral = await bleAdvertisement.connect();
-            await this.homey.app.Delay(1000);
+            this.log("Peripheral connected");
+            await this.homey.app.Delay(2000);
 
             let req_buf = Buffer.from(bytes);
             try
             {
-                this.homey.app.updateLog("Getting BLE service for " + this.getName());
-                const bleServices = await blePeripheral.discoverServices(['cba20d00224d11e69fb80002a5d5c51b']);
+                this.log("Discovering characteristics");
+                await blePeripheral.discoverAllServicesAndCharacteristics();
 
-                this.homey.app.updateLog("Getting BLE characteristic for " + this.getName());
-                const bleCharacteristics = await bleServices[0].discoverCharacteristics(['cba20002224d11e69fb80002a5d5c51b']);
+                this.log("Getting service");
+                const bleService = await blePeripheral.getService('cba20d00224d11e69fb80002a5d5c51b');
 
-                this.homey.app.updateLog("Sending command via BLE to: " + this.getName() + ":       " + bytes);
-
-                await bleCharacteristics[0].write(req_buf);
-
-                this.homey.app.updateLog("Sent command via BLE to: " + this.getName());
+                this.log("Getting write characteristic");
+                const bleCharacteristic = await bleService.getCharacteristic('cba20002224d11e69fb80002a5d5c51b');
+                this.log("Writing data");
+                await bleCharacteristic.write(req_buf);
             }
             catch (err)
             {
+                this.log("Catch 2: ", err);
                 this.homey.app.updateLog("BLE error: " + this.getName() + ": " + this.homey.app.varToString(err));
+                sending = false;
                 return err;
                 //throw(err);
             }
             finally
             {
+                this.log("Finally 2");
                 this.homey.app.updateLog("Disconnecting from BLE device: " + this.getName());
-                await this.homey.app.Delay(1000);
+                let retries = 10;
+                while (sending && (retries-- > 0))
+                {
+                    await this.homey.app.Delay(500);
+                }
 
                 await blePeripheral.disconnect();
-
+                this.log("Disconnected");
                 this.homey.app.updateLog("Disconnected from BLE device: " + this.getName());
             }
         }
+        catch (err)
+        {
+            this.log("Catch 1", err);
+            this.homey.app.updateLog("BLE error: " + this.getName() + ": " + this.homey.app.varToString(err));
+            return err;
+        }
         finally
         {
-            this.moving = false;
+            this.log("finally 1");
+            this.homey.app.moving = false;
         }
 
         return true;
@@ -206,48 +223,12 @@ class BotBLEDevice extends Homey.Device
                 
                 this.bestHub = "";
             }
-            // if (this.homey.app.usingBLEHub)
-            // {
-            //     let data = await this.homey.app.getDevice(dd.address);
-            //     if (data)
-            //     {
-            //         this.setAvailable();
-            //         console.log("Got bot state of:", data.serviceData.state);
-            //         this.homey.app.updateLog("Parsed BLE: " + this.homey.app.varToString(data));
-
-            //         this.operationMode = data.serviceData.mode;
-            //         if (this.operationMode)
-            //         {
-            //             this.setCapabilityValue('onoff', (data.serviceData.state === 0));
-            //         }
-            //         else
-            //         {
-            //             this.setCapabilityValue('onoff', false);
-            //         }
-
-            //         this.setCapabilityValue('measure_battery', data.serviceData.battery);
-            //         this.setCapabilityValue('rssi', data.rssi);
-
-            //         if (data.hubMAC && (data.rssi < this.bestRSSI) || (data.hubMAC === this.bestHub))
-            //         {
-            //             this.bestHub = data.hubMAC;
-            //             this.bestRSSI = data.rssi;
-            //         }
-
-            //         return;
-            //     }
-            //     else
-            //     {
-            //         this.homey.app.updateLog("Parsed BLE Hub: No service data");
-            //     }
-            // }
 
             if (dd.id)
             {
-                if (!this.moving && !this.updating)
+                if (!this.homey.app.moving)
                 {
-                    this.updating = true;
-
+                    this.log("Finding Bot BLE device");
                     let bleAdvertisement = await this.homey.ble.find(dd.id);
                     this.homey.app.updateLog(this.homey.app.varToString(bleAdvertisement));
                     let rssi = await bleAdvertisement.rssi;
@@ -257,7 +238,6 @@ class BotBLEDevice extends Homey.Device
                     if (data)
                     {
                         this.setAvailable();
-                        console.log("Got bot state of:", data.serviceData.state);
                         this.operationMode = data.serviceData.mode;
                         if (this.operationMode)
                         {
@@ -292,7 +272,7 @@ class BotBLEDevice extends Homey.Device
         }
         finally
         {
-            this.updating = false;
+            this.log("Finding Bot BLE device --- COMPLETE");
         }
     }
 
