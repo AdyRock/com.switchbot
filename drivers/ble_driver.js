@@ -65,7 +65,7 @@ class BLEDriver extends Homey.Driver
 
             for (const bleAdvertisement of bleAdvertisements)
             {
-                this.log("ServiceData: ", bleAdvertisement.serviceData);
+                this.homey.app.updateLog("ServiceData: ", bleAdvertisement.serviceData);
                 let deviceData = this.parse(bleAdvertisement);
                 if (deviceData)
                 {

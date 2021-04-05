@@ -63,9 +63,15 @@
             <p> Diagnostics Log
             </p>
             <div class="field row">
-                <label for="logEnabled">Log Enabled</label>
-                <input id="logEnabled" type="checkbox" value="logEnabled" />
-            </div>
+                <label for="logLevel"><span data-i18n="settings.logLevel"></span></label>
+                <select id="logLevel">
+                    <option value=0>Errors Only</option>
+                    <option value=1>Basic Information</option>
+                    <option value=2>Detailed Information</option>
+                    <option value=3>Full Information</option>
+                </select>
+                <P></P>
+                </div>
         </fieldset>
         <fieldset>
             <p><button id="clearLog">Clear Log</button></p>
@@ -101,7 +107,7 @@
         var BearerTokenElement = document.getElementById( 'BearerToken' );
         var detectedDevicesElement = document.getElementById( 'detectedDevices' );
         var diagLogElement = document.getElementById( 'diagLog' );
-        var logEnabledElement = document.getElementById( 'logEnabled' );
+        var logLevelElement = document.getElementById('logLevel');
         var pollIntervalElement = document.getElementById( 'pollInterval' );
 
         var saveElement = document.getElementById( 'save' );
@@ -157,11 +163,11 @@
                 pollIntervalElement.value = pollInterval;
             } );
 
-            Homey.get( 'logEnabled', function( err, logEnabled )
-            {
-                if ( err ) return Homey.alert( err );
-                logEnabledElement.checked = logEnabled;
-            } );
+            Homey.get('logLevel', function(err, logLevel)
+                {
+                    if (err) return Homey.alert(err);
+                    logLevelElement.value = logLevel.toString();
+                });
 
             Homey.api( 'GET', '/getLog/',
             {
@@ -211,13 +217,13 @@
                 return Homey.alert( "The settings have been saved" );
             } );
 
-            logEnabledElement.addEventListener( 'click', function( e )
+            logLevelElement.addEventListener('change', function(e)
             {
-                Homey.set( 'logEnabled', logEnabledElement.checked, function( err )
+                Homey.set('logLevel', parseInt(logLevelElement.value), function(err)
                 {
-                    if ( err ) return Homey.alert( err );
-                } );
-            } );
+                    if (err) return Homey.alert(err);
+                });
+            });
 
             clearLogElement.addEventListener( 'click', function( e )
             {
@@ -303,11 +309,11 @@
             if ( tabPage == 'log' )
             {
                 // Refresh the log data
-                Homey.get( 'logEnabled', function( err, logEnabled )
+                Homey.get('logLevel', function(err, logLevel)
                 {
-                    if ( err ) return Homey.alert( err );
-                    logEnabledElement.checked = logEnabled;
-                } );
+                    if (err) return Homey.alert(err);
+                    logLevelElement.value = logLevel;
+                });
 
                 // Make the log text area fill the page
                 diagLogElement.setAttribute( 'cols', diagLogElement.parentElement.clientWidth / 8 );

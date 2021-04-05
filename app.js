@@ -39,6 +39,12 @@ class MyApp extends Homey.App
             this.homey.settings.set('pollInterval', MINIMUM_POLL_INTERVAL);
         }
 
+        this.logLevel = this.homey.settings.get('logLevel');
+        if (this.logLevel === null)
+        {
+            this.logLevel = 0;
+        }
+
         this.log("SwitchBot has started with Key: " + this.BearerToken + " Polling every " + this.homey.settings.get('pollInterval') + " seconds");
 
         // Callback for app settings changed
@@ -52,6 +58,11 @@ class MyApp extends Homey.App
             }
 
             if (setting === 'pollInterval') {}
+
+            if (setting === 'logLevel')
+            {
+                this.homey.app.logLevel = this.homey.settings.get('logLevel');
+            }
         });
 
         // Set to true to enable use of my BLE hub (WIP)
@@ -71,13 +82,13 @@ class MyApp extends Homey.App
         const server = dgram.createSocket('udp4');
         server.on('error', (err) =>
         {
-            console.log(`server error:\n${err.stack}`);
+            this.homey.app.updateLog(`server error:\n${err.stack}`, 0);
             server.close();
         });
 
         server.on('message', (msg, rinfo) =>
         {
-            console.log(`server got: ${msg} from ${rinfo.address}:${rinfo.port}`);
+            this.homey.app.updateLog(`server got: ${msg} from ${rinfo.address}:${rinfo.port}`);
             if (this.enableBLEHub)
             {
                 let msgTxt = msg.toString();
@@ -107,7 +118,7 @@ class MyApp extends Homey.App
         server.on('listening', () =>
         {
             var address = server.address();
-            console.log(`server listening ${address.address}:${address.port}`);
+            this.homey.app.updateLog(`server listening ${address.address}:${address.port}`);
         });
 
         server.bind(1234, () =>
@@ -116,7 +127,7 @@ class MyApp extends Homey.App
             setTimeout(() => { server.send("Are you there SwitchBot?", 1234, '239.1.2.3'); }, 500);
         });
 
-        this.updateLog('************** App has initialised. ***************');
+        this.homey.app.updateLog('************** App has initialised. ***************');
     }
 
     varToString(source)
@@ -164,7 +175,7 @@ class MyApp extends Homey.App
         }
         catch (err)
         {
-            this.log("VarToString Error: ", err);
+            this.homey.app.updateLog("VarToString Error: " + err, 0);
         }
 
         return source.toString();
@@ -172,10 +183,31 @@ class MyApp extends Homey.App
 
     updateLog(newMessage, errorLevel = 1)
     {
-        if ((errorLevel == 0) || this.homey.settings.get('logEnabled'))
+        const zeroPad = (num, places) => String(num).padStart(places, '0');
+        
+        if (errorLevel <= this.homey.app.logLevel)
         {
             console.log(newMessage);
-            this.diagLog += "* ";
+
+            const nowTime = new Date(Date.now());
+
+            this.diagLog += zeroPad(nowTime.getHours().toString(), 2);
+            this.diagLog += ":";
+            this.diagLog += zeroPad(nowTime.getMinutes().toString(), 2);
+            this.diagLog += ":";
+            this.diagLog += zeroPad(nowTime.getSeconds().toString(), 2);
+            this.diagLog += ".";
+            this.diagLog += zeroPad(nowTime.getMilliseconds().toString(), 3);
+            this.diagLog += ": ";
+
+            if (errorLevel === 0)
+            {
+                this.diagLog += "!!!!!! ";
+            }
+            else
+            {
+                this.diagLog += "* ";
+            }
             this.diagLog += newMessage;
             this.diagLog += "\r\n";
             if (this.diagLog.length > 60000)
@@ -317,7 +349,7 @@ class MyApp extends Homey.App
                     this.usingBLEHub = false;
                 }
 
-                console.log(err);
+                this.homey.app.updateLog(this.homey.app.varToString(err), 0);
             }
         }
         return responses;
@@ -412,7 +444,7 @@ class MyApp extends Homey.App
         });
     }
 
-    IsBLEHubAvailable( hubMAC)
+    IsBLEHubAvailable(hubMAC)
     {
         return (this.BLEHubs.findIndex(hub => hub.mac === hubMAC) >= 0);
     }
@@ -443,7 +475,7 @@ class MyApp extends Homey.App
                     {
                         this.usingBLEHub = false;
                     }
-                    console.log(err);
+                    this.homey.app.updateLog(this.homey.app.varToString(err), 0);
                 }
             }
         }
@@ -467,7 +499,7 @@ class MyApp extends Homey.App
                 {
                     this.usingBLEHub = false;
                 }
-                console.log(err);
+                this.homey.app.updateLog(this.homey.app.varToString(err), 0);
             }
         }
 
@@ -496,8 +528,7 @@ class MyApp extends Homey.App
         }
         if (this.postInProgress)
         {
-            console.log("\n*** POST IN PROGRESS ***\n\n");
-            //throw (new Error({ "message": "Busy", "statusCode": 300 }));
+            this.homey.app.updateLog("\n*** POST IN PROGRESS ***\n\n");
         }
 
         return new Promise((resolve, reject) =>
@@ -542,7 +573,7 @@ class MyApp extends Homey.App
                         }
                         this.homey.app.updateLog("Post response: " + this.homey.app.varToString(returnData));
                         this.postInProgress = false;
-                        //console.log("POST complete");
+                        this.homey.app.updateLog("POST complete");
                         resolve(returnData);
                     });
                 }).on('error', (err) =>
@@ -596,7 +627,7 @@ class MyApp extends Homey.App
 
     async newData(body)
     {
-        this.updateLog(body);
+        this.homey.app.updateLog(body);
         let promises = [];
 
         const drivers = this.homey.drivers.getDrivers();
@@ -683,26 +714,24 @@ class MyApp extends Homey.App
             this.polling = true;
             pollingInterval = BLE_POLLING_INTERVAL;
 
-            this.log("\r\nPolling BLE Starting ------------------------------------");
-
-            this.homey.app.updateLog("Polling BLE Starting ------------------------------------");
+            this.homey.app.updateLog("\r\nPolling BLE Starting ------------------------------------");
 
             const promises = [];
             try
             {
                 //clear BLE cache for each device
                 const drivers = this.homey.drivers.getDrivers();
-                // for (const driver in drivers)
-                // {
-                //     let devices = this.homey.drivers.getDriver(driver).getDevices();
+                for (const driver in drivers)
+                {
+                    let devices = this.homey.drivers.getDriver(driver).getDevices();
 
-                //     for (let i = 0; i < devices.length; i++)
-                //     {
-                //         let device = devices[i];
-                //         let id = device.getData().id;
-                //         delete this.homey.ble.__advertisementsByPeripheralUUID[id];
-                //     }
-                // }
+                    for (let i = 0; i < devices.length; i++)
+                    {
+                        let device = devices[i];
+                        let id = device.getData().id;
+                        delete this.homey.ble.__advertisementsByPeripheralUUID[id];
+                    }
+                }
 
                 // Run discovery too fetch new data
                 await this.homey.ble.discover(['cba20d00224d11e69fb80002a5d5c51b'], 2000);
@@ -719,10 +748,10 @@ class MyApp extends Homey.App
                             promises.push(device.getDeviceValues());
                         }
                     }
-
-                    this.homey.app.updateLog("Polling BLE: waiting for devices to update");
-                    await Promise.all(promises);
                 }
+
+                this.homey.app.updateLog("Polling BLE: waiting for devices to update");
+                await Promise.all(promises);
             }
             catch (err)
             {
@@ -730,11 +759,11 @@ class MyApp extends Homey.App
             }
 
             this.polling = false;
-            this.log("------------------------------------ Polling BLE Finished\r\n");
+            this.homey.app.updateLog("------------------------------------ Polling BLE Finished\r\n");
         }
         else
         {
-            this.log("Polling BLE skipped");
+            this.homey.app.updateLog("Polling BLE skipped");
         }
 
         this.homey.app.updateLog("Next BLE polling interval = " + pollingInterval, true);
