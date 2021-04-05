@@ -65,18 +65,6 @@ class BLEDriver extends Homey.Driver
 
             for (const bleAdvertisement of bleAdvertisements)
             {
-                // if (bleAdvertisement.serviceData.length === 0)
-                // {
-                //     if ((bleAdvertisement.localName && bleAdvertisement.localName === "WoHand") || (bleAdvertisement.serviceUuids && (bleAdvertisement.serviceUuids.indexOf('cba20d00224d11e69fb80002a5d5c51b') >= 0)))
-                //     {
-                //         // This is a SwitchBot device that has no service data so make sure the cache is cleared so it updates next time.
-                //         delete this.homey.ble.__advertisementsByPeripheralUUID[bleAdvertisement.id];
-                //         this.homey.app.updateLog("Cleared BLE cache for: " + bleAdvertisement.id);
-                //     }
-
-                //     continue;
-                // }
-
                 this.log("ServiceData: ", bleAdvertisement.serviceData);
                 let deviceData = this.parse(bleAdvertisement);
                 if (deviceData)
