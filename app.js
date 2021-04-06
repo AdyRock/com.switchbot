@@ -43,6 +43,7 @@ class MyApp extends Homey.App
         if (this.logLevel === null)
         {
             this.logLevel = 0;
+            this.homey.settings.set('logLevel', this.logLevel);
         }
 
         this.log("SwitchBot has started with Key: " + this.BearerToken + " Polling every " + this.homey.settings.get('pollInterval') + " seconds");

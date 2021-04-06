@@ -37,5 +37,11 @@
   },
   "0.2.9": {
     "en": "Attempt to add devices based on the localName id there is no service data."
+  },
+  "0.2.10": {
+    "en": "Changed logging to multi-level to make it easier to spot general issues. Cleaned up the retries loops."
+  },
+  "0.2.11": {
+    "en": "Ensure log level is initialised at start up."
   }
 }
