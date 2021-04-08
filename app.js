@@ -10,7 +10,7 @@ const http = require("http");
 const dgram = require('dgram');
 
 const MINIMUM_POLL_INTERVAL = 5;
-const BLE_POLLING_INTERVAL = 10000;
+const BLE_POLLING_INTERVAL = 30000;
 class MyApp extends Homey.App
 {
     /**
@@ -424,7 +424,7 @@ class MyApp extends Homey.App
                     }
                 }).on('error', (err) =>
                 {
-                    this.homey.app.updateLog(err, 0);
+                    this.homey.app.updateLog(this.homey.app.varToString(err), 0);
                     reject(new Error("HTTP Catch: " + err));
                     return;
                 });
@@ -438,7 +438,7 @@ class MyApp extends Homey.App
             }
             catch (err)
             {
-                this.homey.app.updateLog(err, 0);
+                this.homey.app.updateLog(this.homey.app.varToString(err), 0);
                 reject(new Error("HTTP Catch: " + err));
                 return;
             }
@@ -550,7 +550,7 @@ class MyApp extends Homey.App
                     },
                 };
 
-                this.homey.app.updateLog(http_options);
+                this.homey.app.updateLog(this.homey.app.varToString(http_options));
 
                 let req = http.request(http_options, (res) =>
                 {
@@ -579,7 +579,7 @@ class MyApp extends Homey.App
                     });
                 }).on('error', (err) =>
                 {
-                    this.homey.app.updateLog(err, 0);
+                    this.homey.app.updateLog(this.homey.app.varToString(err), 0);
                     this.postInProgress = false;
                     reject(new Error("HTTP Catch: " + err));
                 });
@@ -628,7 +628,7 @@ class MyApp extends Homey.App
 
     async newData(body)
     {
-        this.homey.app.updateLog(body);
+        this.homey.app.updateLog(this.homey.app.varToString(body));
         let promises = [];
 
         const drivers = this.homey.drivers.getDrivers();
@@ -709,7 +709,7 @@ class MyApp extends Homey.App
     //
     async onBLEPoll()
     {
-        let pollingInterval = 1000;
+        let pollingInterval = 10000;
         if (!this.discovering && !this.moving)
         {
             this.polling = true;
@@ -720,17 +720,20 @@ class MyApp extends Homey.App
             const promises = [];
             try
             {
-                //clear BLE cache for each device
                 const drivers = this.homey.drivers.getDrivers();
-                for (const driver in drivers)
+                if (parseInt(this.homey.version) < 6)
                 {
-                    let devices = this.homey.drivers.getDriver(driver).getDevices();
-
-                    for (let i = 0; i < devices.length; i++)
+                    //clear BLE cache for each device
+                    for (const driver in drivers)
                     {
-                        let device = devices[i];
-                        let id = device.getData().id;
-                        delete this.homey.ble.__advertisementsByPeripheralUUID[id];
+                        let devices = this.homey.drivers.getDriver(driver).getDevices();
+
+                        for (let i = 0; i < devices.length; i++)
+                        {
+                            let device = devices[i];
+                            let id = device.getData().id;
+                            delete this.homey.ble.__advertisementsByPeripheralUUID[id];
+                        }
                     }
                 }
 

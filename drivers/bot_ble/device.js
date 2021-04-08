@@ -68,7 +68,7 @@ class BotBLEDevice extends Homey.Device
     {
         if (this.operationMode)
         {
-            this.homey.app.updateLog("Setting bot state to:", value);
+            this.homey.app.updateLog("COMMAND: Setting bot state to:" + value);
             if (value)
             {
                 return await this._operateBot([0x57, 0x01, 0x01]);
@@ -78,7 +78,7 @@ class BotBLEDevice extends Homey.Device
         }
         else
         {
-            this.homey.app.updateLog("Pressing bot");
+            this.homey.app.updateLog("COMMAND: Pressing bot");
             await this._operateBot([0x57, 0x01, 0x00]);
             setTimeout(() => this.setCapabilityValue('onoff', false), 1000);
         }
@@ -152,19 +152,32 @@ class BotBLEDevice extends Homey.Device
             this.homey.app.updateLog("Connecting to peripheral");
             const blePeripheral = await bleAdvertisement.connect();
             this.homey.app.updateLog("Peripheral connected");
-            await this.homey.app.Delay(2000);
+            //await this.homey.app.Delay(2000);
 
             let req_buf = Buffer.from(bytes);
             try
             {
-                this.homey.app.updateLog("Discovering characteristics");
-                await blePeripheral.discoverAllServicesAndCharacteristics();
+                // this.homey.app.updateLog("Discovering characteristics");
+                // await blePeripheral.discoverAllServicesAndCharacteristics();
 
                 this.homey.app.updateLog("Getting service");
                 const bleService = await blePeripheral.getService('cba20d00224d11e69fb80002a5d5c51b');
 
                 this.homey.app.updateLog("Getting write characteristic");
                 const bleCharacteristic = await bleService.getCharacteristic('cba20002224d11e69fb80002a5d5c51b');
+                
+                if (parseInt(this.homey.version) >= 6)
+                {
+                    this.homey.app.updateLog("Getting notify characteristic");
+                    const bleNotifyCharacteristic = await bleService.getCharacteristic('cba20003224d11e69fb80002a5d5c51b');
+
+                    bleNotifyCharacteristic.subscribeToNotifications(data =>
+                    {
+                        sending = false;
+                        this.homey.app.updateLog('received notification:' + this.homey.app.varToString(data));
+                    });
+                }
+                
                 this.homey.app.updateLog("Writing data");
                 await bleCharacteristic.write(req_buf);
             }
@@ -222,7 +235,7 @@ class BotBLEDevice extends Homey.Device
             {
                 if (!this.homey.app.moving)
                 {
-                    this.homey.app.updateLog("Finding Bot BLE device");
+                    this.homey.app.updateLog("Finding Bot BLE device", 2);
                     let bleAdvertisement = await this.homey.ble.find(dd.id);
                     this.homey.app.updateLog(this.homey.app.varToString(bleAdvertisement), 3);
                     let rssi = await bleAdvertisement.rssi;
@@ -246,7 +259,7 @@ class BotBLEDevice extends Homey.Device
 
                         this.setCapabilityValue('measure_battery', data.serviceData.battery);
 
-                        this.homey.app.updateLog(`Parsed Bot BLE: onoff = ${data.serviceData.state}, battery = ${data.serviceData.battery}`);
+                        this.homey.app.updateLog(`Parsed Bot BLE: onoff = ${data.serviceData.state}, battery = ${data.serviceData.battery}`, 2);
                     }
                     else
                     {
@@ -269,7 +282,7 @@ class BotBLEDevice extends Homey.Device
         }
         finally
         {
-            this.homey.app.updateLog("Finding Bot BLE device --- COMPLETE");
+            this.homey.app.updateLog("Finding Bot BLE device --- COMPLETE", 2);
         }
     }
 

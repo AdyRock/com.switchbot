@@ -126,9 +126,9 @@ class CurtainsBLEDevice extends Homey.Device
      * - Promise object
      *   Nothing will be passed to the `resolve()`.
      * ---------------------------------------------------------------- */
-    pause()
+    async pause()
     {
-        return this._operateCurtain([0x57, 0x0f, 0x45, 0x01, 0x00, 0xff]);
+        return await this._operateCurtain([0x57, 0x0f, 0x45, 0x01, 0x00, 0xff]);
     }
 
     /* ------------------------------------------------------------------
@@ -145,7 +145,8 @@ class CurtainsBLEDevice extends Homey.Device
      * ---------------------------------------------------------------- */
     async runToPos(percent, mode = 0xff)
     {
-        return this._operateCurtain([0x57, 0x0f, 0x45, 0x01, 0x05, mode, percent]);
+        this.homey.app.updateLog("COMMAND: Setting curtain to:" + percent);
+        return await this._operateCurtain([0x57, 0x0f, 0x45, 0x01, 0x05, mode, percent]);
     }
 
     async _operateCurtain(bytes)
@@ -221,14 +222,27 @@ class CurtainsBLEDevice extends Homey.Device
             let req_buf = Buffer.from(bytes);
             try
             {
-                this.homey.app.updateLog("Discovering characteristics");
-                await blePeripheral.discoverAllServicesAndCharacteristics();
+                // this.homey.app.updateLog("Discovering characteristics");
+                // await blePeripheral.discoverAllServicesAndCharacteristics();
 
                 this.homey.app.updateLog("Getting service");
                 const bleService = await blePeripheral.getService('cba20d00224d11e69fb80002a5d5c51b');
 
                 this.homey.app.updateLog("Getting write characteristic");
                 const bleCharacteristic = await bleService.getCharacteristic('cba20002224d11e69fb80002a5d5c51b');
+
+                if (parseInt(this.homey.version) >= 6)
+                {
+                    this.homey.app.updateLog("Getting notify characteristic");
+                    const bleNotifyCharacteristic = await bleService.getCharacteristic('cba20003224d11e69fb80002a5d5c51b');
+
+                    bleNotifyCharacteristic.subscribeToNotifications(data =>
+                    {
+                        sending = false;
+                        this.homey.app.updateLog('received notification:' + this.homey.app.varToString(data));
+                    });
+                }
+
                 this.homey.app.updateLog("Writing data");
                 await bleCharacteristic.write(req_buf);
             }
@@ -286,7 +300,7 @@ class CurtainsBLEDevice extends Homey.Device
             {
                 if (!this.homey.app.moving)
                 {
-                    this.homey.app.updateLog("Finding Curtain BLE device");
+                    this.homey.app.updateLog("Finding Curtain BLE device", 2);
                     let bleAdvertisement = await this.homey.ble.find(dd.id);
                     this.homey.app.updateLog(this.homey.app.varToString(bleAdvertisement), 3);
                     let rssi = await bleAdvertisement.rssi;
@@ -314,7 +328,7 @@ class CurtainsBLEDevice extends Homey.Device
                         this.setCapabilityValue('windowcoverings_set', position);
 
                         this.setCapabilityValue('measure_battery', data.serviceData.battery);
-                        this.homey.app.updateLog(`Parsed Curtain BLE: position = ${data.serviceData.position}, battery = ${data.serviceData.battery}`);
+                        this.homey.app.updateLog(`Parsed Curtain BLE: position = ${data.serviceData.position}, battery = ${data.serviceData.battery}`, 2);
                     }
                     else
                     {
@@ -337,7 +351,7 @@ class CurtainsBLEDevice extends Homey.Device
         }
         finally
         {
-            this.homey.app.updateLog("Finding Curtain device --- COMPLETE");
+            this.homey.app.updateLog("Finding Curtain device --- COMPLETE", 2);
         }
     }
 
@@ -381,7 +395,7 @@ class CurtainsBLEDevice extends Homey.Device
         }
         catch (error)
         {
-            this.homey.app.updateLog("Error in curtains syncEvents: " + error, 0);
+            this.homey.app.updateLog("Error in curtains syncEvents: " + this.homey.app.varToString(error), 0);
         }
     }
 }

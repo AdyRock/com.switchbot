@@ -209,14 +209,14 @@ class HubDriver extends Homey.Driver
                     }
                 }).on('error', (err) =>
                 {
-                    this.homey.app.updateLog(err);
+                    this.homey.app.updateLog(this.homey.app.varToString(err));
                     reject(new Error("HTTPS Catch: " + err));
                     return;
                 });
             }
             catch (err)
             {
-                this.homey.app.updateLog(err);
+                this.homey.app.updateLog(this.homey.app.varToString(err));
                 reject(new Error("HTTPS Catch: " + err));
                 return;
             }
@@ -253,7 +253,7 @@ class HubDriver extends Homey.Driver
                     },
                 };
 
-                this.homey.app.updateLog(https_options);
+                this.homey.app.updateLog(this.homey.app.varToString(https_options));
 
                 let req = https.request(https_options, (res) =>
                 {
@@ -300,7 +300,7 @@ class HubDriver extends Homey.Driver
                     }
                 }).on('error', (err) =>
                 {
-                    this.homey.app.updateLog(err);
+                    this.homey.app.updateLog(this.homey.app.varToString(err));
                     reject(new Error("HTTPS Catch: " + err));
                 });
                 req.write(bodyText);
