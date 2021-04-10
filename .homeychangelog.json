@@ -43,5 +43,8 @@
   },
   "0.2.11": {
     "en": "Ensure log level is initialised at start up."
+  },
+  "0.3.0": {
+    "en": "Optimised for Homey v6."
   }
 }

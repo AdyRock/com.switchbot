@@ -1,6 +1,6 @@
 {
     "id": "com.switchbot",
-    "version": "0.2.11",
+    "version": "0.3.0",
     "compatibility": ">=5.0.0",
     "sdk": 3,
     "brandColor": "#FF7D4B",
@@ -34,12 +34,12 @@
             }
         }
     },
+    "homeyCommunityTopicId": 42296,
     "bugs":
     {
         "url": "https://github.com/AdyRock/com.switchbot/issues"
     },
     "source": "https://github.com/AdyRock/com.switchbot",
-    "homeyCommunityTopicId": 42296,
     "images":
     {
         "large": "/assets/images/large.jpg",
