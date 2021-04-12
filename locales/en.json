@@ -1,1 +1,7 @@
-{}
+{
+    "settings":
+    {
+        "clear": "Clear Log",
+        "send": "Send Log"
+    }
+}

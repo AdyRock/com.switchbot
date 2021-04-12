@@ -1,12 +1,12 @@
 {
     "type": "number",
     "title": {
-        "en": "RSSI"
+        "en": "Position Reading"
     },
     "units": {
-        "en": "db"
+        "en": "%"
     },
     "getable": true,
     "setable": false,
-    "icon": "/assets/signal_strength.svg"
+    "icon": "/drivers/curtains_ble/assets/icon.svg"
 }

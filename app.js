@@ -8,6 +8,7 @@ if (process.env.DEBUG === '1')
 const Homey = require('homey');
 const http = require("http");
 const dgram = require('dgram');
+const nodemailer = require("nodemailer");
 
 const MINIMUM_POLL_INTERVAL = 5;
 const BLE_POLLING_INTERVAL = 30000;
@@ -20,7 +21,7 @@ class MyApp extends Homey.App
     {
         this.log('SwitchBot has been initialized');
         this.diagLog = "";
-        this.moving = false;
+        this.moving = 0;
         this.discovering = false;
 
         if (process.env.DEBUG === '1')
@@ -216,6 +217,71 @@ class MyApp extends Homey.App
                 this.diagLog = this.diagLog.substr(this.diagLog.length - 60000);
             }
             this.homey.api.realtime('com.switchbot.logupdated', { 'log': this.diagLog });
+        }
+    }
+
+    async sendLog(logType)
+    {
+        let tries = 5;
+        console.log("Send Log");
+        while (tries-- > 0)
+        {
+            try
+            {
+                let subject = "";
+                let text = "";
+                if (logType === 'infoLog')
+                {
+                    subject = "SwitchBot Information log";
+                    text = this.diagLog;
+                }
+                else
+                {
+                    subject = "SwitchBot device log";
+                    text = this.detectedDevices;
+                }
+
+                subject += "(" + this.homeyHash + " : " + Homey.manifest.version + ")";
+
+                // create reusable transporter object using the default SMTP transport
+                let transporter = nodemailer.createTransport(
+                {
+                    host: Homey.env.MAIL_HOST, //Homey.env.MAIL_HOST,
+                    port: 465,
+                    ignoreTLS: false,
+                    secure: true, // true for 465, false for other ports
+                    auth:
+                    {
+                        user: Homey.env.MAIL_USER, // generated ethereal user
+                        pass: Homey.env.MAIL_SECRET // generated ethereal password
+                    },
+                    tls:
+                    {
+                        // do not fail on invalid certs
+                        rejectUnauthorized: false
+                    }
+                });
+                // send mail with defined transport object
+                const response = await transporter.sendMail(
+                {
+                    from: '"Homey User" <' + Homey.env.MAIL_USER + '>', // sender address
+                    to: Homey.env.MAIL_RECIPIENT, // list of receivers
+                    subject: subject, // Subject line
+                    text: text // plain text body
+                });
+                return {
+                    error: response.err,
+                    message: response.err ? null : "OK"
+                };
+            }
+            catch (err)
+            {
+                this.logInformation("Send log error", err);
+                return {
+                    error: err,
+                    message: null
+                };
+            }
         }
     }
 

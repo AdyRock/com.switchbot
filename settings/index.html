@@ -3,12 +3,36 @@
 
 <head>
     <link rel="stylesheet" type="text/css" href="lwsa.css">
+    <link rel="stylesheet" type="text/css" href="busy_indicator.css" />
+
+    <style type="text/css">
+        .fog_div {
+            display: none;
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            height: 100%;
+            width: 100%;
+            z-index: 100;
+            background-color: rgba(30, 30, 30, 0.5);
+        }
+
+        #busybox.show {
+            display: block;
+        }
+    </style>
 
     <!-- The '/homey.js' script must be included in your settings view to work -->
     <script type="text/javascript" src="/homey.js" data-origin="settings"></script>
+    <script type="text/javascript" src="busy_indicator.js"></script>
 </head>
 
 <body>
+    <!-- Busy indicator -->
+    <div id="busybox" class="fog_div">
+        <div></div>
+    </div>
+
     <!-- Tab links -->
     <div class="tab">
         <button class="tablinks" onclick="setPage(event, 'settings')" id="defaultOpen">Settings</button>
@@ -46,10 +70,9 @@
     <!-- detected-->
     <div id="detected" class="tabcontent">
         <fieldset>
-            <p data-i18n="settings.detectedDescription">
-                <!--
-                    This field will also be translated
-                    -->
+            <p>
+                <button id="clearDeviceLog" style="background-color:#a5510d;color:white;margin:10px 20px 5px 5px;" data-i18n="settings.clear"></button>
+                <button id="sendDeviceLog" style="background-color:#0f9e16;color:white;margin:10px 20px 5px 5px;" data-i18n="settings.send"></button>
             </p>
             <div class="field row">
                 <textarea id="detectedDevices"></textarea>
@@ -71,12 +94,15 @@
                     <option value=3>Full Information</option>
                 </select>
                 <P></P>
-                </div>
+            </div>
         </fieldset>
         <fieldset>
-            <p><button id="clearLog">Clear Log</button></p>
+            <p>
+                <button id="clearInfoLog" style="background-color:#a5510d;color:white;margin:5px 20px 5px 5px;" data-i18n="settings.clear"></button>
+                <button id="sendInfoLog" style="background-color:#0f9e16;color:white;margin:5px 20px 5px 5px;" data-i18n="settings.send"></button>
+            </p>
             <div class="field row">
-                <textarea id="diagLog"></textarea>
+                <textarea id="infoLog"></textarea>
             </div>
         </fieldset>
     </div>
@@ -104,118 +130,125 @@
     </div>
 
     <script type="text/javascript">
-        var BearerTokenElement = document.getElementById( 'BearerToken' );
-        var detectedDevicesElement = document.getElementById( 'detectedDevices' );
-        var diagLogElement = document.getElementById( 'diagLog' );
-        var logLevelElement = document.getElementById('logLevel');
-        var pollIntervalElement = document.getElementById( 'pollInterval' );
+        // Create the busy indicator
+        var busyi;
+        busyi = new busy_indicator(document.getElementById("busybox"), document.querySelector("#busybox div"));
 
-        var saveElement = document.getElementById( 'save' );
-        var clearLogElement = document.getElementById( 'clearLog' );
+        var BearerTokenElement = document.getElementById('BearerToken');
+        var detectedDevicesElement = document.getElementById('detectedDevices');
+        var infoLogElement = document.getElementById('infoLog');
+        var logLevelElement = document.getElementById('logLevel');
+        var pollIntervalElement = document.getElementById('pollInterval');
+        var clearInfoLogElement = document.getElementById('clearInfoLog');
+        var sendInfoLogElement = document.getElementById('sendInfoLog');
+
+        var saveElement = document.getElementById('save');
+        var clearDeviceLogElement = document.getElementById('clearDeviceLog');
+        var sendDeviceLogElement = document.getElementById('sendDeviceLog');
 
         // Simulation log tab
-        var useSimElement = document.getElementById( 'useSim' );
-        var clearSimElement = document.getElementById( 'clearSim' );
-        var simDataElement = document.getElementById( 'simData' );
+        var useSimElement = document.getElementById('useSim');
+        var clearSimElement = document.getElementById('clearSim');
+        var simDataElement = document.getElementById('simData');
 
         // a method named 'onHomeyReady' must be present in your code
-        function onHomeyReady( Homey )
+        function onHomeyReady(Homey)
         {
-            Homey.get( 'debugMode', function( err, debugMode )
+            Homey.get('debugMode', function(err, debugMode)
             {
-                if ( err ) return Homey.alert( err );
-                if ( debugMode )
+                if (err) return Homey.alert(err);
+                if (debugMode)
                 {
-                    document.getElementById( "simLogTab" ).style.visibility = 'visible';
+                    document.getElementById("simLogTab").style.visibility = 'visible';
                 }
-            } );
+            });
 
-            document.getElementById( "defaultOpen" ).click();
+            document.getElementById("defaultOpen").click();
 
-            Homey.on( 'com.switchbot.logupdated', function( data )
+            Homey.on('com.switchbot.logupdated', function(data)
             {
-                diagLogElement.value = data.log;
-            } );
+                infoLogElement.value = data.log;
+            });
 
-            Homey.on( 'com.switchbot.detectedDevicesUpdated', function( data )
+            Homey.on('com.switchbot.detectedDevicesUpdated', function(data)
             {
                 detectedDevicesElement.value = data.devices;
-            } );
+            });
 
-            Homey.on( 'settings.set', function()
+            Homey.on('settings.set', function()
             {
-                Homey.get( 'BearerToken', function( err, BearerToken )
-                {
-                    if ( err ) return Homey.alert( err );
-                    BearerTokenElement.value = BearerToken;
-                } );
-            } );
-
-            Homey.get( 'BearerToken', function( err, BearerToken )
-            {
-                if ( err ) return Homey.alert( err );
-                BearerTokenElement.value = BearerToken;
-            } );
-
-            Homey.get( 'pollInterval', function( err, pollInterval )
-            {
-                if ( err ) return Homey.alert( err );
-                pollIntervalElement.value = pollInterval;
-            } );
-
-            Homey.get('logLevel', function(err, logLevel)
+                Homey.get('BearerToken', function(err, BearerToken)
                 {
                     if (err) return Homey.alert(err);
-                    logLevelElement.value = logLevel.toString();
+                    BearerTokenElement.value = BearerToken;
                 });
+            });
 
-            Homey.api( 'GET', '/getLog/',
+            Homey.get('BearerToken', function(err, BearerToken)
+            {
+                if (err) return Homey.alert(err);
+                BearerTokenElement.value = BearerToken;
+            });
+
+            Homey.get('pollInterval', function(err, pollInterval)
+            {
+                if (err) return Homey.alert(err);
+                pollIntervalElement.value = pollInterval;
+            });
+
+            Homey.get('logLevel', function(err, logLevel)
+            {
+                if (err) return Homey.alert(err);
+                logLevelElement.value = logLevel.toString();
+            });
+
+            Homey.api('GET', '/getLog/',
             {
                 notify: true
-            }, function( err, result )
+            }, function(err, result)
             {
-                if ( err )
+                if (err)
                 {
-                    return Homey.alert( err );
+                    return Homey.alert(err);
                 }
                 else
                 {
-                    diagLogElement.value = result;
+                    infoLogElement.value = result;
                 }
-            } );
+            });
 
-            Homey.api( 'GET', '/getDetect/',
+            Homey.api('GET', '/getDetect/',
             {
                 notify: true
-            }, function( err, result )
+            }, function(err, result)
             {
-                if ( err )
+                if (err)
                 {
-                    return Homey.alert( err );
+                    return Homey.alert(err);
                 }
                 else
                 {
                     detectedDevicesElement.value = result;
                 }
-            } );
+            });
 
-            saveElement.addEventListener( 'click', function( e )
+            saveElement.addEventListener('click', function(e)
             {
-                BearerTokenElement.value = BearerTokenElement.value.replace( /[\"\']/g, '' );
-                Homey.set( 'BearerToken', BearerTokenElement.value, function( err )
+                BearerTokenElement.value = BearerTokenElement.value.replace(/[\"\']/g, '');
+                Homey.set('BearerToken', BearerTokenElement.value, function(err)
                 {
-                    if ( err ) return Homey.alert( err );
-                } );
+                    if (err) return Homey.alert(err);
+                });
 
-                if ( pollIntervalElement.value < 87 ) pollIntervalElement.value = 87;
-                if ( pollIntervalElement.value > 3000 ) pollIntervalElement.value = 3000;
-                Homey.set( 'pollInterval', pollIntervalElement.value, function( err )
+                if (pollIntervalElement.value < 87) pollIntervalElement.value = 87;
+                if (pollIntervalElement.value > 3000) pollIntervalElement.value = 3000;
+                Homey.set('pollInterval', pollIntervalElement.value, function(err)
                 {
-                    if ( err ) return Homey.alert( err );
-                } );
+                    if (err) return Homey.alert(err);
+                });
 
-                return Homey.alert( "The settings have been saved" );
-            } );
+                return Homey.alert("The settings have been saved");
+            });
 
             logLevelElement.addEventListener('change', function(e)
             {
@@ -225,88 +258,158 @@
                 });
             });
 
-            clearLogElement.addEventListener( 'click', function( e )
+            clearDeviceLogElement.addEventListener('click', function(e)
             {
-                Homey.api( 'POST', '/clearLog/',
+                Homey.set('deviceLog', "", function(err)
+                {
+                    if (err) return Homey.alert(err);
+                });
+                deviceLogElement.value = "";
+            });
+
+            sendDeviceLogElement.addEventListener('click', function(e)
+            {
+                if (deviceLogElement.value.length < 15)
+                {
+                    return Homey.alert("No Data to send");
+                }
+                Homey.confirm("Send the device log contents to the developer?", null, function(e, ok)
+                {
+                    if (ok)
+                    {
+                        waitCursor(true);
+                        Homey.api('POST', '/SendDeviceLog/',
+                        {
+                            notify: true
+                        }, function(err, result)
+                        {
+                            if (err)
+                            {
+                                Homey.alert(err);
+                            }
+                            else
+                            {
+                                Homey.alert("Log sent successfully");
+                            }
+                            waitCursor(false);
+                        });
+                    }
+                });
+            });
+
+            sendInfoLogElement.addEventListener('click', function(e)
+            {
+                if (infoLogElement.value.length < 15)
+                {
+                    return Homey.alert("No Data to send");
+                }
+
+                Homey.confirm("Send the information log contents to the developer?", null, function(e, ok)
+                {
+                    if (ok)
+                    {
+                        waitCursor(true);
+                        Homey.api('POST', '/sendInfoLog/',
+                        {
+                            notify: true
+                        }, function(err, result)
+                        {
+                            if (err)
+                            {
+                                Homey.alert(err);
+                            }
+                            else
+                            {
+                                Homey.alert("Log sent successfully");
+                            }
+                            waitCursor(false);
+                        });
+                    }
+                });
+            });
+
+            clearInfoLogElement.addEventListener('click', function(e)
+            {
+                Homey.api('POST', '/clearLog/',
                 {
                     notify: true
-                }, function( err, result )
+                }, function(err, result)
                 {
-                    if ( err )
+                    if (err)
                     {
-                        return Homey.alert( err );
+                        return Homey.alert(err);
                     }
                     else
                     {
-                        diagLogElement.value = "";
+                        infoLogElement.value = "";
                     }
-                } );
-            } );
+                });
+            });
 
-            useSimElement.addEventListener( 'click', function( e )
+            useSimElement.addEventListener('click', function(e)
             {
                 try
                 {
-                    Homey.set( 'simData', simDataElement.value, function( err )
+                    Homey.set('simData', simDataElement.value, function(err)
                     {
-                        if ( err )
+                        if (err)
                         {
-                            Homey.alert( err );
+                            Homey.alert(err);
                         }
                         else
                         {
-                            Homey.alert( "Simulator On" );
+                            Homey.alert("Simulator On");
                         }
-                    } );
+                    });
                 }
-                catch ( err )
+                catch (err)
                 {
-                    return Homey.alert( err );
+                    return Homey.alert(err);
                 }
-            } );
+            });
 
-            clearSimElement.addEventListener( 'click', function( e )
+            clearSimElement.addEventListener('click', function(e)
             {
-                Homey.set( 'simData', "", function( err )
+                Homey.set('simData', "", function(err)
                 {
-                    if ( err )
+                    if (err)
                     {
-                        return Homey.alert( err );
+                        return Homey.alert(err);
                     }
                     else
                     {
-                        return Homey.alert( "Simulator Off" );
+                        return Homey.alert("Simulator Off");
                     }
-                } );
-            } );
+                });
+            });
 
             // Tell Homey we're ready to be displayed
             Homey.ready();
-        };
+        }
 
-        function setPage( evt, tabPage )
+        function setPage(evt, tabPage)
         {
             var i, tabcontent, tablinks;
 
             // Get all elements with class="tabcontent" and hide them
-            tabcontent = document.getElementsByClassName( "tabcontent" );
-            for ( i = 0; i < tabcontent.length; i++ )
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++)
             {
-                tabcontent[ i ].style.display = "none";
+                tabcontent[i].style.display = "none";
             }
 
             // Get all elements with class="tablinks" and remove the class "active"
-            tablinks = document.getElementsByClassName( "tablinks" );
-            for ( i = 0; i < tablinks.length; i++ )
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++)
             {
-                tablinks[ i ].className = tablinks[ i ].className.replace( " active", "" );
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
             }
 
             // Show the current tab, and add an "active" class to the button that opened the tab
-            document.getElementById( tabPage ).style.display = "block";
+            document.getElementById(tabPage).style.display = "block";
             evt.currentTarget.className += " active";
 
-            if ( tabPage == 'log' )
+            if (tabPage == 'log')
             {
                 // Refresh the log data
                 Homey.get('logLevel', function(err, logLevel)
@@ -316,27 +419,39 @@
                 });
 
                 // Make the log text area fill the page
-                diagLogElement.setAttribute( 'cols', diagLogElement.parentElement.clientWidth / 8 );
-                diagLogElement.style.height = ( window.innerHeight - diagLogElement.offsetTop - 20 ) + 'px';
+                infoLogElement.setAttribute('cols', infoLogElement.parentElement.clientWidth / 8);
+                infoLogElement.style.height = (window.innerHeight - infoLogElement.offsetTop - 20) + 'px';
             }
-            else if ( tabPage == 'detected' )
+            else if (tabPage == 'detected')
             {
                 // Make the detected devices text area fill the page
-                detectedDevicesElement.setAttribute( 'cols', detectedDevicesElement.parentElement.clientWidth / 8 );
-                detectedDevicesElement.style.height = ( window.innerHeight - detectedDevicesElement.offsetTop - 20 ) + 'px';
+                detectedDevicesElement.setAttribute('cols', detectedDevicesElement.parentElement.clientWidth / 8);
+                detectedDevicesElement.style.height = (window.innerHeight - detectedDevicesElement.offsetTop - 20) + 'px';
             }
-            else if ( tabPage == 'simulator' )
+            else if (tabPage == 'simulator')
             {
-                Homey.get( 'simData', function( err, simData )
+                Homey.get('simData', function(err, simData)
                 {
-                    if ( err ) return Homey.alert( err );
+                    if (err) return Homey.alert(err);
                     simDataElement.value = simData ? simData : "";
-                } );
+                });
                 // Make the simulator text box fill the page
-                simDataElement.setAttribute( 'cols', simDataElement.parentElement.clientWidth / 8 );
-                simDataElement.style.height = ( window.innerHeight - simDataElement.offsetTop - 40 ) + 'px';
+                simDataElement.setAttribute('cols', simDataElement.parentElement.clientWidth / 8);
+                simDataElement.style.height = (window.innerHeight - simDataElement.offsetTop - 40) + 'px';
             }
-        };
+        }
+
+        function waitCursor(On)
+        {
+            if (On)
+            {
+                busyi.show();
+            }
+            else
+            {
+                busyi.hide();
+            }
+        }
     </script>
 
 </body>

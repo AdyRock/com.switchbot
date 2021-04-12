@@ -67,6 +67,16 @@
             "method": "post",
             "path": "/clearLog/"
         },
+        "SendDeviceLog":
+        {
+            "method": "post",
+            "path": "/SendDeviceLog/"
+        },
+        "SendInfoLog":
+        {
+            "method": "post",
+            "path": "/SendInfoLog/"
+        },
         "newData":
         {
             "method": "post",

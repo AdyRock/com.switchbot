@@ -55,6 +55,14 @@
       "method": "post",
       "path": "/clearLog/"
     },
+    "SendDeviceLog": {
+      "method": "post",
+      "path": "/SendDeviceLog/"
+    },
+    "SendInfoLog": {
+      "method": "post",
+      "path": "/SendInfoLog/"
+    },
     "newData": {
       "method": "post",
       "path": "/newData/",
@@ -176,7 +184,8 @@
         "open_close",
         "measure_battery",
         "windowcoverings_set",
-        "rssi"
+        "rssi",
+        "position"
       ],
       "pair": [
         {
@@ -551,6 +560,18 @@
       "uiQuickAction": true,
       "uiComponent": "toggle"
     },
+    "position": {
+      "type": "number",
+      "title": {
+        "en": "Position Reading"
+      },
+      "units": {
+        "en": "%"
+      },
+      "getable": true,
+      "setable": false,
+      "icon": "/drivers/curtains_ble/assets/icon.svg"
+    },
     "power_off": {
       "type": "boolean",
       "getable": false,
@@ -573,6 +594,9 @@
       "type": "number",
       "title": {
         "en": "RSSI"
+      },
+      "units": {
+        "en": "db"
       },
       "getable": true,
       "setable": false,

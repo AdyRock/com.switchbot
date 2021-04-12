@@ -74,7 +74,7 @@ class TemperatureBLEDevice extends Homey.Device
 
             if (dd.id)
             {
-                if (!this.homey.app.moving)
+                if (this.homey.app.moving === 0)
                 {
                     this.homey.app.updateLog("Finding Temperature BLE device", 2);
                     let bleAdvertisement = await this.homey.ble.find(dd.id);
