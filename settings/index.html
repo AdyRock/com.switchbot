@@ -264,12 +264,12 @@
                 {
                     if (err) return Homey.alert(err);
                 });
-                deviceLogElement.value = "";
+                detectedDevicesElement.value = "";
             });
 
             sendDeviceLogElement.addEventListener('click', function(e)
             {
-                if (deviceLogElement.value.length < 15)
+                if (detectedDevicesElement.value.length < 15)
                 {
                     return Homey.alert("No Data to send");
                 }

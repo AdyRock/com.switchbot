@@ -7,7 +7,8 @@
     "class": "curtain",
     "capabilities": [
         "open_close",
-        "windowcoverings_set"
+        "windowcoverings_set",
+        "position"
     ],
     "pair": [
     {

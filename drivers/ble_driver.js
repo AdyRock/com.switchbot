@@ -15,12 +15,13 @@ class BLEDriver extends Homey.Driver
 
     checkExist(devices, device)
     {
-        return devices.findIndex(device1 => device1.data.mac === device.data.mac);
+        return devices.findIndex(device1 => device1.data.address === device.data.address);
     }
 
     async getBLEDevices(type)
     {
         this.discovering = true;
+        this.homey.app.detectedDevices = "";
         try
         {
             let devices = [];
@@ -28,27 +29,41 @@ class BLEDriver extends Homey.Driver
             if (this.homey.app.usingBLEHub)
             {
                 let searchData = await this.homey.app.getDevices();
-                this.homey.app.detectedDevices = this.homey.app.varToString(searchData);
-                this.homey.api.realtime('com.switchbot.detectedDevicesUpdated', { 'devices': this.homey.app.detectedDevices });
+                this.homey.app.updateLog("BLE HUB Discovery: " + this.homey.app.varToString(searchData, 2));
 
                 // Create an array of devices
                 for (const deviceData of searchData)
                 {
-                    if (deviceData.serviceData.model === type)
+                    try
                     {
-                        this.homey.app.updateLog("Found device: ");
-                        this.homey.app.updateLog(deviceData);
-
-                        let id = deviceData.address.replace(/\:/g, "");
-
-                        let data = { id: id, pid: deviceData.address, address: deviceData.address, model: deviceData.model, modelName: deviceData.modelName };
-
-                        // Add this device to the table
-                        devices.push(
+                        if (deviceData.serviceData.model === type)
                         {
-                            "name": deviceData.address,
-                            data
-                        });
+                            let id = deviceData.address.replace(/\:/g, "");
+
+                            let data = { 
+                                id: id,
+                                pid: id,
+                                address: deviceData.address,
+                                model: deviceData.serviceData.model,
+                                modelName: deviceData.serviceData.modelName
+                            };
+
+                            let device = {
+                                "name": deviceData.address,
+                                data
+                            };
+
+                            this.homey.app.detectedDevices += "\r\nBLE Hub Found device:\r\n";
+                            this.homey.app.detectedDevices += this.homey.app.varToString(device);
+                            this.homey.api.realtime('com.switchbot.detectedDevicesUpdated', { 'devices': this.homey.app.detectedDevices });
+
+                            // Add this device to the table
+                            devices.push(device);
+                        }
+                    }
+                    catch(err)
+                    {
+                        this.homey.app.updateLog("BLE Discovery: " + this.homey.app.varToString(err), 0);
                     }
                 }
             }
@@ -59,36 +74,44 @@ class BLEDriver extends Homey.Driver
                 await this.asyncDelay(500);
             }
 
-            const bleAdvertisements = await this.homey.ble.discover();
-            this.homey.app.detectedDevices = this.homey.app.varToString(bleAdvertisements);
-            this.homey.api.realtime('com.switchbot.detectedDevicesUpdated', { 'devices': this.homey.app.detectedDevices });
+            const bleAdvertisements = await this.homey.ble.discover([], 20000);
+            this.homey.app.updateLog("BLE Discovery: " + this.homey.app.varToString(bleAdvertisements), 2);
 
             for (const bleAdvertisement of bleAdvertisements)
             {
-                this.homey.app.updateLog("ServiceData: " + this.homey.app.varToString(bleAdvertisement.serviceData));
-                let deviceData = this.parse(bleAdvertisement);
-                if (deviceData)
+                try
                 {
-                    this.homey.app.updateLog("Parsed BLE: " + JSON.stringify(deviceData, null, 2), 2);
-                    if (deviceData.serviceData.model === type)
+                    let deviceData = this.parse(bleAdvertisement);
+                    if (deviceData)
                     {
-                        let device = {
-                            "name": bleAdvertisement.address,
-                            "data":
-                            {
-                                id: deviceData.id,
-                                pid: deviceData.pid,
-                                address: deviceData.address,
-                                model: deviceData.model,
-                                modelName: deviceData.modelName
-                            }
-                        };
-
-                        if (this.checkExist(devices, device) < 0)
+                        if (deviceData.serviceData.model === type)
                         {
-                            devices.push(device);
+                            let device = {
+                                "name": bleAdvertisement.address,
+                                "data":
+                                {
+                                    id: deviceData.id,
+                                    pid: deviceData.pid,
+                                    address: deviceData.address,
+                                    model: deviceData.serviceData.model,
+                                    modelName: deviceData.serviceData.modelName
+                                }
+                            };
+
+                            this.homey.app.detectedDevices += "\r\nBLE Homey Found device:\r\n";
+                            this.homey.app.detectedDevices += this.homey.app.varToString(device);
+                            this.homey.api.realtime('com.switchbot.detectedDevicesUpdated', { 'devices': this.homey.app.detectedDevices });
+
+                            if (this.checkExist(devices, device) < 0)
+                            {
+                                devices.push(device);
+                            }
                         }
                     }
+                }
+                catch(err)
+                {
+                    this.homey.app.updateLog("BLE Discovery: " + this.homey.app.varToString(err), 0);
                 }
             }
 

@@ -151,14 +151,16 @@ class CurtainsBLEDevice extends Homey.Device
     async runToPos(percent, mode = 0xff)
     {
         this.homey.app.updateLog("COMMAND: Setting curtain to:" + percent);
+        this.setCapabilityValue('position', null);
         return await this._operateCurtain([0x57, 0x0f, 0x45, 0x01, 0x05, mode, percent]);
     }
 
     async _operateCurtain(bytes)
     {
+        let name = this.getName();
         if (this.sendingCommand)
         {
-            throw new Error("Still sending previous command");
+            throw new Error("Still sending previous command for " + name);
         }
         this.sendingCommand = true;
 
@@ -178,21 +180,21 @@ class CurtainsBLEDevice extends Homey.Device
         {
             try
             {
-                response = await this._operateCurtainsLoop(bytes);
+                response = await this._operateCurtainsLoop(name, bytes);
                 if (response === true)
                 {
-                    this.homey.app.updateLog("Command complete");
+                    this.homey.app.updateLog("Command complete for " + name);
                     this.sendingCommand = false;
                     return;
                 }
             }
             catch (err)
             {
-                this.homey.app.updateLog("_operateBot error: " + this.homey.app.varToString( err), 0);
+                this.homey.app.updateLog("_operateBot error: " + name + " : " + this.homey.app.varToString( err), 0);
             }
             if (loops > 0)
             {
-                this.homey.app.updateLog("Retry command in 2 seconds");
+                this.homey.app.updateLog(`Retry command for ${name} in 2 seconds`);
                 await this.homey.app.Delay(2000);
             }
         }
@@ -200,69 +202,68 @@ class CurtainsBLEDevice extends Homey.Device
         if (response instanceof Error)
         {
             this.sendingCommand = false;
-            this.homey.app.updateLog("!!!!!!! Command failed\r\n");
+            this.homey.app.updateLog(`!!!!!!! Command for ${name} failed\r\n`);
             throw response;
         }
     }
 
-    async _operateCurtainsLoop(bytes)
+    async _operateCurtainsLoop(name, bytes)
     {
         while (this.homey.app.polling /*|| this.homey.app.moving*/)
         {
-            this.homey.app.updateLog("Busy, deferring BLE command");
+            this.homey.app.updateLog("Busy, deferring BLE command for " + name);
             await this.homey.app.Delay(500);
         }
 
         this.homey.app.moving++;
         let delay = this.homey.app.moving * 1000;
         let sending = true;
-        this.setCapabilityValue('position', null);
 
         try
         {
-            this.homey.app.updateLog("Connecting to BLE device: " + this.getName());
+            this.homey.app.updateLog("Looking for BLE device: " + name);
 
             const dd = this.getData();
             let bleAdvertisement = await this.homey.ble.find(dd.id);
-            this.homey.app.updateLog("Connecting to peripheral");
+            this.homey.app.updateLog("Connecting to BLE device: " + name);
             const blePeripheral = await bleAdvertisement.connect();
-            this.homey.app.updateLog("Peripheral connected");
+            this.homey.app.updateLog(`BLE device ${name} connected`);
             await this.homey.app.Delay(delay);
 
             let req_buf = Buffer.from(bytes);
             try
             {
-                this.homey.app.updateLog("Getting service");
+                this.homey.app.updateLog("Getting service for " + name);
                 const bleService = await blePeripheral.getService('cba20d00224d11e69fb80002a5d5c51b');
 
-                this.homey.app.updateLog("Getting write characteristic");
+                this.homey.app.updateLog("Getting write characteristic for " + name);
                 const bleCharacteristic = await bleService.getCharacteristic('cba20002224d11e69fb80002a5d5c51b');
 
                 if (parseInt(this.homey.version) >= 6)
                 {
-                    this.homey.app.updateLog("Getting notify characteristic");
+                    this.homey.app.updateLog("Getting notify characteristic for " + name);
                     const bleNotifyCharacteristic = await bleService.getCharacteristic('cba20003224d11e69fb80002a5d5c51b');
 
                     bleNotifyCharacteristic.subscribeToNotifications(data =>
                     {
                         sending = false;
-                        this.homey.app.updateLog('received notification:' + this.homey.app.varToString(data));
+                        this.homey.app.updateLog(`received notification for ${name}: ` + this.homey.app.varToString(data));
                     });
                 }
 
-                this.homey.app.updateLog("Writing data");
+                this.homey.app.updateLog("Writing data to " + name);
                 await bleCharacteristic.write(req_buf);
             }
             catch (err)
             {
-                this.homey.app.updateLog("Catch 2: " + this.getName() + ": " + this.homey.app.varToString(err));
+                this.homey.app.updateLog("Catch 2: " + name + ": " + this.homey.app.varToString(err));
                 sending = false;
                 return err;
                 //throw(err);
             }
             finally
             {
-                this.homey.app.updateLog("Finally 2: " + this.getName());
+                this.homey.app.updateLog("Finally 2: " + name);
                 let retries = 6;
                 while (sending && (retries-- > 0))
                 {
@@ -270,17 +271,17 @@ class CurtainsBLEDevice extends Homey.Device
                 }
 
                 await blePeripheral.disconnect();
-                this.homey.app.updateLog("Disconnected: " + this.getName());
+                this.homey.app.updateLog("Disconnected: " + name);
             }
         }
         catch (err)
         {
-            this.homey.app.updateLog("Catch 1: " + this.getName() + ": " + this.homey.app.varToString(err));
+            this.homey.app.updateLog("Catch 1: " + name + ": " + this.homey.app.varToString(err));
             return err;
         }
         finally
         {
-            this.homey.app.updateLog("finally 1");
+            this.homey.app.updateLog("finally 1: " + name);
             this.homey.app.moving--;
         }
 
@@ -289,6 +290,7 @@ class CurtainsBLEDevice extends Homey.Device
 
     async getDeviceValues()
     {
+        let name = this.getName();
         try
         {
             const dd = this.getData();
@@ -307,7 +309,7 @@ class CurtainsBLEDevice extends Homey.Device
             {
                 if (this.homey.app.moving === 0)
                 {
-                    this.homey.app.updateLog("Finding Curtain BLE device", 2);
+                    this.homey.app.updateLog("Finding Curtain BLE device " + name, 2);
                     let bleAdvertisement = await this.homey.ble.find(dd.id);
                     this.homey.app.updateLog(this.homey.app.varToString(bleAdvertisement), 3);
                     let rssi = await bleAdvertisement.rssi;
@@ -316,7 +318,7 @@ class CurtainsBLEDevice extends Homey.Device
                     let data = this.driver.parse(bleAdvertisement);
                     if (data)
                     {
-                        this.homey.app.updateLog("Parsed Curtain BLE: " + this.homey.app.varToString(data), 2);
+                        this.homey.app.updateLog("Parsed Curtain BLE (" + name + ") " + this.homey.app.varToString(data), 2);
                         let position = data.serviceData.position / 100;
                         if (this.invertPosition)
                         {
@@ -336,21 +338,21 @@ class CurtainsBLEDevice extends Homey.Device
                         this.setCapabilityValue('position', position * 100);
 
                         this.setCapabilityValue('measure_battery', data.serviceData.battery);
-                        this.homey.app.updateLog(`Parsed Curtain BLE: position = ${data.serviceData.position}, battery = ${data.serviceData.battery}`, 2);
+                        this.homey.app.updateLog(`Parsed Curtain BLE (${name}): position = ${data.serviceData.position}, battery = ${data.serviceData.battery}`, 2);
                     }
                     else
                     {
-                        this.homey.app.updateLog("Parsed Curtain BLE: No service data", 0);
+                        this.homey.app.updateLog(`Parsed Curtain BLE (${name}): No service data`, 0);
                     }
                 }
                 else
                 {
-                    this.homey.app.updateLog("Curtain Refresh skipped while moving");
+                    this.homey.app.updateLog(`Curtain (${name}) Refresh skipped while moving`);
                 }
             }
             else
             {
-                this.setUnavailable("SwitchBot Curtain BLE no ID");
+                this.setUnavailable(`SwitchBot Curtain BLE (${name}) no ID`);
             }
         }
         catch (err)
@@ -359,12 +361,14 @@ class CurtainsBLEDevice extends Homey.Device
         }
         finally
         {
-            this.homey.app.updateLog("Finding Curtain device --- COMPLETE", 2);
+            this.homey.app.updateLog(`Finding Curtain device (${name}) --- COMPLETE`, 2);
         }
     }
 
     async syncBLEEvents(events)
     {
+        let name = this.getName();
+        this.homey.app.updateLog(`syncEvents for (${name})`, 2);
         try
         {
             const dd = this.getData();
@@ -391,6 +395,7 @@ class CurtainsBLEDevice extends Homey.Device
 
                     this.setCapabilityValue('measure_battery', event.serviceData.battery);
                     this.setCapabilityValue('rssi', event.rssi);
+                    this.homey.app.updateLog(`Parsed Curtain BLE (${name}): position = ${event.serviceData.position}, battery = ${event.serviceData.battery}`, 2);
 
                     if (event.hubMAC && (event.rssi < this.bestRSSI) || (event.hubMAC === this.bestHub))
                     {
@@ -404,7 +409,7 @@ class CurtainsBLEDevice extends Homey.Device
         }
         catch (error)
         {
-            this.homey.app.updateLog("Error in curtains syncEvents: " + this.homey.app.varToString(error), 0);
+            this.homey.app.updateLog(`Error in curtains (${name}) syncEvents: ` + this.homey.app.varToString(error), 0);
         }
     }
 }

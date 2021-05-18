@@ -1,13 +1,13 @@
 {
   "name": "com.switchbot",
-  "version": "0.3.0",
+  "version": "0.3.2",
   "description": "Adds support to Homey for SwitchBot devices",
   "main": "app.js",
   "dependencies": {
     "nodemailer": "^6.4.16"
   },
   "devDependencies": {
-    "homey": "^2.9.7"
+    "homey": "^2.19.2"
   },
   "repository": {
     "type": "git",

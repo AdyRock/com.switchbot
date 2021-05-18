@@ -46,5 +46,11 @@
   },
   "0.3.0": {
     "en": "Optimised for Homey v6."
+  },
+  "0.3.1": {
+    "en": "Optimised for activating multiple devices simultaneously. Added Position value to BLE curtain information. Added buttons to send the logs from the configuration page"
+  },
+  "0.3.2": {
+    "en": "Added Position value to hub curtian information. Fixed issue during pair curtains."
   }
 }
