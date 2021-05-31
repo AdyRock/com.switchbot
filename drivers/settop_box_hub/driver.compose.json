@@ -2,7 +2,7 @@
     "id": "settop_box_hub",
     "name":
     {
-        "en": "STB (HUB Remote)"
+        "en": "Set Top Box (HUB Remote)"
     },
     "class": "remote",
     "capabilities": [
@@ -11,7 +11,8 @@
         "volume_up",
         "volume_down",
         "channel_up",
-        "channel_down"
+        "channel_down",
+        "volume_mute"
     ],
     "pair": [
     {

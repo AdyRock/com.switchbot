@@ -52,5 +52,8 @@
   },
   "0.3.2": {
     "en": "Added Position value to hub curtian information. Fixed issue during pair curtains."
+  },
+  "0.3.3": {
+    "en": "Added support for Scenes plus the DVD and Speaker remote devices."
   }
 }

@@ -3,27 +3,26 @@
 
 const Homey = require('homey');
 
-class TVHubDevice extends Homey.Device
+class DVDHubDevice extends Homey.Device
 {
     /**
      * onInit is called when the device is initialized.
      */
     async onInit()
     {
-        this.log('TVHubDevice has been initialized');
-
-        if (!this.hasCapability('volume_mute'))
-        {
-            this.addCapability('volume_mute');
-        }
-        
+        this.log('DVDHubDevice has been initialized');
         this.registerCapabilityListener('power_on', this.onCapabilityPowerOn.bind(this));
         this.registerCapabilityListener('power_off', this.onCapabilityPowerOff.bind(this));
         this.registerCapabilityListener('volume_up', this.onCapabilityVolumeUp.bind(this));
         this.registerCapabilityListener('volume_down', this.onCapabilityVolumeDown.bind(this));
-        this.registerCapabilityListener('channel_up', this.onCapabilityChannelUp.bind(this));
-        this.registerCapabilityListener('channel_down', this.onCapabilityChannelDown.bind(this));
         this.registerCapabilityListener('volume_mute', this.onCapabilityMute.bind(this));
+        this.registerCapabilityListener('play', this.onCapabilityPlay.bind(this));
+        this.registerCapabilityListener('pause', this.onCapabilityPause.bind(this));
+        this.registerCapabilityListener('stop', this.onCapabilityStop.bind(this));
+        this.registerCapabilityListener('prev', this.onCapabilityPrev.bind(this));
+        this.registerCapabilityListener('next', this.onCapabilityNext.bind(this));
+        this.registerCapabilityListener('rewind', this.onCapabilityRewind.bind(this));
+        this.registerCapabilityListener('forward', this.onCapabilityForward.bind(this));
 
         this.setCapabilityValue('volume_mute', false);
     }
@@ -62,14 +61,39 @@ class TVHubDevice extends Homey.Device
         return this._operateDevice('volumeSub');
     }
 
-    async onCapabilityChannelUp(value, opts)
+    async onCapabilityPlay(value, opts)
     {
-        return this._operateDevice('channelAdd');
+        return this._operateDevice('Play');
     }
 
-    async onCapabilityChannelDown(value, opts)
+    async onCapabilityPause(value, opts)
     {
-        return this._operateDevice('channelSub');
+        return this._operateDevice('Pause');
+    }
+
+    async onCapabilityStop(value, opts)
+    {
+        return this._operateDevice('Stop');
+    }
+
+    async onCapabilityPrev(value, opts)
+    {
+        return this._operateDevice('Previous');
+    }
+
+    async onCapabilityNext(value, opts)
+    {
+        return this._operateDevice('Next');
+    }
+
+    async onCapabilityRewind(value, opts)
+    {
+        return this._operateDevice('Rewind');
+    }
+
+    async onCapabilityForward(value, opts)
+    {
+        return this._operateDevice('FastForward');
     }
 
     async _operateDevice(command)
@@ -86,4 +110,4 @@ class TVHubDevice extends Homey.Device
     }
 }
 
-module.exports = TVHubDevice;
+module.exports = DVDHubDevice;

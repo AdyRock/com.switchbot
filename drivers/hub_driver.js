@@ -225,6 +225,11 @@ class HubDriver extends Homey.Driver
 
     async PostURL(url, body)
     {
+        if (body == undefined)
+        {
+            body = "";
+        }
+        
         this.homey.app.updateLog(url);
         let bodyText = JSON.stringify(body);
         this.homey.app.updateLog(bodyText);

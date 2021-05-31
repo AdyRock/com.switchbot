@@ -1,0 +1,64 @@
+{
+    "actions": [
+        {
+            "id": "on",
+            "title": {
+                "en": "On"
+            }
+        },
+        {
+            "id": "off",
+            "title": {
+                "en": "Off"
+            }
+        },
+        {
+            "id": "mute",
+            "title": {
+                "en": "Toggle Mute"
+            }
+        },
+        {
+            "id": "play",
+            "title": {
+                "en": "Paly"
+            }
+        },
+        {
+            "id": "pause",
+            "title": {
+                "en": "Pause"
+            }
+        },
+        {
+            "id": "stop",
+            "title": {
+                "en": "Stop"
+            }
+        },
+        {
+            "id": "prev",
+            "title": {
+                "en": "Previous"
+            }
+        },
+        {
+            "id": "next",
+            "title": {
+                "en": "Next"
+            }
+        },
+        {
+            "id": "rewind",
+            "title": {
+                "en": "Rewind"
+            }
+        },
+        {
+            "id": "forward",
+            "title": {
+                "en": "Fast Forward"
+            }
+        }
+    ]
+}

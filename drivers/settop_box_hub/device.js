@@ -3,20 +3,27 @@
 
 const Homey = require('homey');
 
-class TVHubDevice extends Homey.Device
+class STBHubDevice extends Homey.Device
 {
     /**
      * onInit is called when the device is initialized.
      */
     async onInit()
     {
-        this.log('TVHubDevice has been initialized');
+        this.log('STBHubDevice has been initialized');
+        if (!this.hasCapability('volume_mute'))
+        {
+            this.addCapability('volume_mute');
+        }
         this.registerCapabilityListener('power_on', this.onCapabilityPowerOn.bind(this));
         this.registerCapabilityListener('power_off', this.onCapabilityPowerOff.bind(this));
         this.registerCapabilityListener('volume_up', this.onCapabilityVolumeUp.bind(this));
         this.registerCapabilityListener('volume_down', this.onCapabilityVolumeDown.bind(this));
         this.registerCapabilityListener('channel_up', this.onCapabilityChannelUp.bind(this));
         this.registerCapabilityListener('channel_down', this.onCapabilityChannelDown.bind(this));
+        this.registerCapabilityListener('volume_mute', this.onCapabilityMute.bind(this));
+
+        this.setCapabilityValue('volume_mute', false);
     }
 
     async onCapabilityPowerOn(value, opts)
@@ -27,6 +34,20 @@ class TVHubDevice extends Homey.Device
     async onCapabilityPowerOff(value, opts)
     {
         return this._operateDevice('turnOff');
+    }
+
+    async onCapabilityMute(value, opts)
+    {
+        if (this.cancelMute)
+        {
+            clearTimeout(this.cancelMute);
+        }
+        let result =  this._operateDevice('setMute');
+        if (value)
+        {
+            this.cancelMute = setTimeout(() => this.setCapabilityValue('volume_mute', false), 1000);
+        }
+        return result;
     }
 
     async onCapabilityVolumeUp(value, opts)
@@ -63,4 +84,4 @@ class TVHubDevice extends Homey.Device
     }
 }
 
-module.exports = TVHubDevice;
+module.exports = STBHubDevice;

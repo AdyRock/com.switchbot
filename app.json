@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.switchbot",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#FF7D4B",
@@ -68,6 +68,444 @@
       "path": "/newData/",
       "public": true
     }
+  },
+  "flow": {
+    "actions": [
+      {
+        "id": "operate_aircon",
+        "title": {
+          "en": "Operate air conditioner"
+        },
+        "titleFormatted": {
+          "en": "Switch Air conditioner [[onoff]], Mode is [[aircon_mode]] at [[target_temperature]] with the fan on [[aircon_fan_speed]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=air_con_hub"
+          },
+          {
+            "name": "onoff",
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "on",
+                "title": {
+                  "en": "On"
+                }
+              },
+              {
+                "id": "off",
+                "title": {
+                  "en": "Off"
+                }
+              }
+            ]
+          },
+          {
+            "name": "aircon_mode",
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "1",
+                "title": {
+                  "en": "Auto"
+                }
+              },
+              {
+                "id": "2",
+                "title": {
+                  "en": "Cool"
+                }
+              },
+              {
+                "id": "3",
+                "title": {
+                  "en": "Dry"
+                }
+              },
+              {
+                "id": "4",
+                "title": {
+                  "en": "Fan"
+                }
+              },
+              {
+                "id": "5",
+                "title": {
+                  "en": "Heat"
+                }
+              }
+            ]
+          },
+          {
+            "name": "target_temperature",
+            "type": "range",
+            "min": 5,
+            "max": 40,
+            "step": 0.5,
+            "label": "°C",
+            "labelDecimals": 1
+          },
+          {
+            "name": "aircon_fan_speed",
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "1",
+                "title": {
+                  "en": "Auto"
+                }
+              },
+              {
+                "id": "2",
+                "title": {
+                  "en": "Low"
+                }
+              },
+              {
+                "id": "3",
+                "title": {
+                  "en": "Medium"
+                }
+              },
+              {
+                "id": "4",
+                "title": {
+                  "en": "High"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "on",
+        "title": {
+          "en": "On"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=dvd"
+          }
+        ]
+      },
+      {
+        "id": "off",
+        "title": {
+          "en": "off"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=dvd"
+          }
+        ]
+      },
+      {
+        "id": "mute",
+        "title": {
+          "en": "Toggle Mute"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=dvd"
+          }
+        ]
+      },
+      {
+        "id": "play",
+        "title": {
+          "en": "Play"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=dvd"
+          }
+        ]
+      },
+      {
+        "id": "pause",
+        "title": {
+          "en": "Pause"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=dvd"
+          }
+        ]
+      },
+      {
+        "id": "stop",
+        "title": {
+          "en": "Sto["
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=dvd"
+          }
+        ]
+      },
+      {
+        "id": "prev",
+        "title": {
+          "en": "Previous"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=dvd"
+          }
+        ]
+      },
+      {
+        "id": "next",
+        "title": {
+          "en": "Next"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=dvd"
+          }
+        ]
+      },
+      {
+        "id": "rewind",
+        "title": {
+          "en": "Rewind"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=dvd"
+          }
+        ]
+      },
+      {
+        "id": "forward",
+        "title": {
+          "en": "Fast Forward"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=dvd"
+          }
+        ]
+      },
+      {
+        "id": "start_scene",
+        "title": {
+          "en": "Start Scene"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=scene"
+          }
+        ]
+      },
+      {
+        "id": "on",
+        "title": {
+          "en": "On"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=settop_box_hub"
+          }
+        ]
+      },
+      {
+        "id": "off",
+        "title": {
+          "en": "Off"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=settop_box_hub"
+          }
+        ]
+      },
+      {
+        "id": "on",
+        "title": {
+          "en": "On"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=speaker"
+          }
+        ]
+      },
+      {
+        "id": "off",
+        "title": {
+          "en": "Off"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=speaker"
+          }
+        ]
+      },
+      {
+        "id": "mute",
+        "title": {
+          "en": "Toggle Mute"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=speaker"
+          }
+        ]
+      },
+      {
+        "id": "play",
+        "title": {
+          "en": "Paly"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=speaker"
+          }
+        ]
+      },
+      {
+        "id": "pause",
+        "title": {
+          "en": "Pause"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=speaker"
+          }
+        ]
+      },
+      {
+        "id": "stop",
+        "title": {
+          "en": "Stop"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=speaker"
+          }
+        ]
+      },
+      {
+        "id": "prev",
+        "title": {
+          "en": "Previous"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=speaker"
+          }
+        ]
+      },
+      {
+        "id": "next",
+        "title": {
+          "en": "Next"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=speaker"
+          }
+        ]
+      },
+      {
+        "id": "rewind",
+        "title": {
+          "en": "Rewind"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=speaker"
+          }
+        ]
+      },
+      {
+        "id": "forward",
+        "title": {
+          "en": "Fast Forward"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=speaker"
+          }
+        ]
+      },
+      {
+        "id": "on",
+        "title": {
+          "en": "On"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=tv_hub"
+          }
+        ]
+      },
+      {
+        "id": "off",
+        "title": {
+          "en": "off"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=tv_hub"
+          }
+        ]
+      }
+    ]
   },
   "drivers": [
     {
@@ -328,9 +766,72 @@
       ]
     },
     {
+      "id": "dvd",
+      "name": {
+        "en": "DVD (HUB Remote)"
+      },
+      "class": "remote",
+      "capabilities": [
+        "power_on",
+        "power_off",
+        "volume_mute",
+        "stop",
+        "play",
+        "pause",
+        "prev",
+        "next",
+        "rewind",
+        "forward"
+      ],
+      "pair": [
+        {
+          "id": "list_my_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_my_devices"
+          }
+        },
+        {
+          "id": "add_my_devices",
+          "template": "add_devices"
+        }
+      ],
+      "images": {
+        "large": "/drivers/settop_box_hub/assets/images/large.jpg",
+        "small": "/drivers/settop_box_hub/assets/images/small.jpg"
+      }
+    },
+    {
+      "name": {
+        "en": "Scene"
+      },
+      "class": "other",
+      "capabilities": [
+        "play_scene"
+      ],
+      "pair": [
+        {
+          "id": "list_my_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_my_devices"
+          }
+        },
+        {
+          "id": "add_my_devices",
+          "template": "add_devices"
+        }
+      ],
+      "images": {
+        "small": "/drivers/scene/assets/images/small.png",
+        "large": "/drivers/scene/assets/images/large.png"
+      },
+      "id": "scene"
+    },
+    {
       "id": "settop_box_hub",
       "name": {
-        "en": "STB (HUB Remote)"
+        "en": "Set Top Box (HUB Remote)"
       },
       "class": "remote",
       "capabilities": [
@@ -339,7 +840,46 @@
         "volume_up",
         "volume_down",
         "channel_up",
-        "channel_down"
+        "channel_down",
+        "volume_mute"
+      ],
+      "pair": [
+        {
+          "id": "list_my_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_my_devices"
+          }
+        },
+        {
+          "id": "add_my_devices",
+          "template": "add_devices"
+        }
+      ],
+      "images": {
+        "large": "/drivers/settop_box_hub/assets/images/large.jpg",
+        "small": "/drivers/settop_box_hub/assets/images/small.jpg"
+      }
+    },
+    {
+      "id": "speaker",
+      "name": {
+        "en": "Speaker (HUB Remote)"
+      },
+      "class": "remote",
+      "capabilities": [
+        "power_on",
+        "power_off",
+        "volume_up",
+        "volume_down",
+        "volume_mute",
+        "stop",
+        "play",
+        "pause",
+        "prev",
+        "next",
+        "rewind",
+        "forward"
       ],
       "pair": [
         {
@@ -435,7 +975,8 @@
         "volume_up",
         "volume_down",
         "channel_up",
-        "channel_down"
+        "channel_down",
+        "volume_mute"
       ],
       "pair": [
         {
@@ -551,6 +1092,26 @@
         "en": "Back"
       }
     },
+    "forward": {
+      "type": "boolean",
+      "getable": false,
+      "setable": true,
+      "uiComponent": "button",
+      "title": {
+        "en": "Fast Forward"
+      },
+      "icon": "/assets/fast-forward.svg"
+    },
+    "next": {
+      "type": "boolean",
+      "getable": false,
+      "setable": true,
+      "uiComponent": "button",
+      "title": {
+        "en": "Next"
+      },
+      "icon": "/assets/next.svg"
+    },
     "open_close": {
       "type": "boolean",
       "title": {
@@ -560,6 +1121,36 @@
       "setable": true,
       "uiQuickAction": true,
       "uiComponent": "toggle"
+    },
+    "pause": {
+      "type": "boolean",
+      "getable": false,
+      "setable": true,
+      "uiComponent": "button",
+      "title": {
+        "en": "Pause"
+      },
+      "icon": "/assets/pause.svg"
+    },
+    "play": {
+      "type": "boolean",
+      "getable": false,
+      "setable": true,
+      "uiComponent": "button",
+      "title": {
+        "en": "Play"
+      },
+      "icon": "/assets/play_scene.svg"
+    },
+    "play_scene": {
+      "type": "boolean",
+      "getable": false,
+      "setable": true,
+      "uiComponent": "button",
+      "title": {
+        "en": "Play Scene"
+      },
+      "icon": "/assets/play_scene.svg"
     },
     "position": {
       "type": "number",
@@ -591,6 +1182,26 @@
         "en": "Power On"
       }
     },
+    "prev": {
+      "type": "boolean",
+      "getable": false,
+      "setable": true,
+      "uiComponent": "button",
+      "title": {
+        "en": "Previous"
+      },
+      "icon": "/assets/prev.svg"
+    },
+    "rewind": {
+      "type": "boolean",
+      "getable": false,
+      "setable": true,
+      "uiComponent": "button",
+      "title": {
+        "en": "Rewind"
+      },
+      "icon": "/assets/rewind.svg"
+    },
     "rssi": {
       "type": "number",
       "title": {
@@ -602,6 +1213,16 @@
       "getable": true,
       "setable": false,
       "icon": "/assets/signal_strength.svg"
+    },
+    "stop": {
+      "type": "boolean",
+      "getable": false,
+      "setable": true,
+      "uiComponent": "button",
+      "title": {
+        "en": "Stop"
+      },
+      "icon": "/assets/stop.svg"
     }
   }
 }

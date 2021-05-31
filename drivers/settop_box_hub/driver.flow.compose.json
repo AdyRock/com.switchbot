@@ -1,0 +1,16 @@
+{
+    "actions": [
+        {
+            "id": "on",
+            "title": {
+                "en": "On"
+            }
+        },
+        {
+            "id": "off",
+            "title": {
+                "en": "Off"
+            }
+        }
+    ]
+}

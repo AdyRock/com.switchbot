@@ -1,8 +1,8 @@
 {
-    "id": "tv_hub",
+    "id": "settop_box_hub",
     "name":
     {
-        "en": "TV (HUB Remote)"
+        "en": "Speaker (HUB Remote)"
     },
     "class": "remote",
     "capabilities": [
@@ -10,9 +10,14 @@
         "power_off",
         "volume_up",
         "volume_down",
-        "channel_up",
-        "channel_down",
-        "volume_mute"
+        "volume_mute",
+        "stop",
+        "play",
+        "pause",
+        "prev",
+        "next",
+        "rewind",
+        "forward"
     ],
     "pair": [
     {
@@ -29,7 +34,7 @@
     }],
     "images":
     {
-        "large": "/drivers/tv_hub/assets/images/large.jpg",
-        "small": "/drivers/tv_hub/assets/images/small.jpg"
+        "large": "/drivers/settop_box_hub/assets/images/large.jpg",
+        "small": "/drivers/settop_box_hub/assets/images/small.jpg"
     }
 }

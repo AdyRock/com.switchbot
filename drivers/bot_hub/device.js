@@ -87,7 +87,7 @@ class BotHubDevice extends Homey.Device
             "command": command,
             "parameter": "default",
             "commandType": "command"
-        }
+        };
 
         const dd = this.getData();
 

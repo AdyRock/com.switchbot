@@ -86,7 +86,18 @@ class AirConHubDevice extends Homey.Device
 
         if (valueOj.onoff)
         {
-            power = valueOj.onoff;
+            if (valueOj.onoff === 'on')
+            {
+                power = true;
+            }
+            else if (valueOj.onoff === 'off')
+            {
+                power = false;
+            }
+            else
+            {
+                power = valueOj.onoff;
+            }
         }
         else
         {
