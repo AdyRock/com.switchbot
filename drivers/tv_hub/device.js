@@ -72,11 +72,11 @@ class TVHubDevice extends Homey.Device
         return this._operateDevice('channelSub');
     }
 
-    async _operateDevice(parameters)
+    async _operateDevice(command)
     {
         let data = {
-            "command": "default",
-            "parameter": parameters,
+            "command": command,
+            "parameter": "default",
             "commandType": "command"
         };
 

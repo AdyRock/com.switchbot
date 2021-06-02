@@ -95,11 +95,11 @@ class SpeakerHubDevice extends Homey.Device
         return this._operateDevice('FastForward');
     }
 
-    async _operateDevice(parameters)
+    async _operateDevice(command)
     {
         let data = {
-            "command": "default",
-            "parameter": parameters,
+            "command": command,
+            "parameter": "default",
             "commandType": "command"
         };
 

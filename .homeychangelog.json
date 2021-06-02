@@ -60,6 +60,9 @@
     "en": "Added a Run Scene action flow card to run a SwitchBot scene without needing to add the scene as a device."
   },
   "0.3.5": {
-    "en": "Fix remote parameters and command switched."
+    "en": "Fix remote parameters and command switched for aircon."
+  },
+  "0.3.6": {
+    "en": "Fix remote parameters and command switched for TV, etc."
   }
 }
