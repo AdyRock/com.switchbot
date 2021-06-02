@@ -34,7 +34,7 @@
     }],
     "images":
     {
-        "large": "/drivers/settop_box_hub/assets/images/large.jpg",
-        "small": "/drivers/settop_box_hub/assets/images/small.jpg"
+        "large": "/drivers/speaker/assets/images/large.jpg",
+        "small": "/drivers/speaker/assets/images/small.jpg"
     }
 }
