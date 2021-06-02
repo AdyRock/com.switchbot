@@ -38,7 +38,7 @@ class AirConHubDevice extends Homey.Device
         }
     }
 
-    // this method is called when the Homey device has requested a position change ( 0 to 1)
+    // this method is called when the Homey device has requested a value change
     async onCapabilityAll(valueOj, optsObj)
     {
         let temp;
@@ -112,15 +112,15 @@ class AirConHubDevice extends Homey.Device
         mode = Number(mode);
         fan = Number(fan);
 
-        let command = `${ temp },${ mode },${ fan },${ power }`;
-        return this._operateDevice(command);
+        let parameters = `${ temp },${ mode },${ fan },${ power }`;
+        return this._operateDevice(parameters);
     }
 
-    async _operateDevice(command)
+    async _operateDevice(parameters)
     {
         let data = {
-            "command": command,
-            "parameter": "setAll",
+            "command": "setAll",
+            "parameter": parameters,
             "commandType": "command"
         };
 
