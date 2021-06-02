@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.switchbot",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#FF7D4B",
@@ -818,8 +818,8 @@
         }
       ],
       "images": {
-        "large": "/drivers/settop_box_hub/assets/images/large.jpg",
-        "small": "/drivers/settop_box_hub/assets/images/small.jpg"
+        "large": "/drivers/dvd/assets/images/large.jpg",
+        "small": "/drivers/dvd/assets/images/small.jpg"
       }
     },
     {
@@ -916,8 +916,8 @@
         }
       ],
       "images": {
-        "large": "/drivers/settop_box_hub/assets/images/large.jpg",
-        "small": "/drivers/settop_box_hub/assets/images/small.jpg"
+        "large": "/drivers/speaker/assets/images/large.jpg",
+        "small": "/drivers/speaker/assets/images/small.jpg"
       }
     },
     {
