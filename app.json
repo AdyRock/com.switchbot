@@ -72,6 +72,27 @@
   "flow": {
     "actions": [
       {
+        "title": {
+          "en": "Run a Scene"
+        },
+        "titleFormatted": {
+          "en": "Run the '[[scene]]' scene"
+        },
+        "hint": {
+          "en": "Run a SwitchBot scene"
+        },
+        "args": [
+          {
+            "type": "autocomplete",
+            "name": "scene",
+            "placeholder": {
+              "en": "Scene Name"
+            }
+          }
+        ],
+        "id": "run_scene"
+      },
+      {
         "id": "operate_aircon",
         "title": {
           "en": "Operate air conditioner"
@@ -1140,7 +1161,7 @@
       "title": {
         "en": "Play"
       },
-      "icon": "/assets/play_scene.svg"
+      "icon": "/assets/play.svg"
     },
     "play_scene": {
       "type": "boolean",
@@ -1171,7 +1192,8 @@
       "uiComponent": "button",
       "title": {
         "en": "Power Off"
-      }
+      },
+      "icon": "/assets/power_off.svg"
     },
     "power_on": {
       "type": "boolean",
@@ -1180,7 +1202,8 @@
       "uiComponent": "button",
       "title": {
         "en": "Power On"
-      }
+      },
+      "icon": "/assets/power_on.svg"
     },
     "prev": {
       "type": "boolean",

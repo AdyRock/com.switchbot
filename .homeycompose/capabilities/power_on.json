@@ -6,5 +6,6 @@
     "title":
     {
         "en": "Power On"
-    }
+    },
+    "icon": "/assets/power_on.svg"
 }

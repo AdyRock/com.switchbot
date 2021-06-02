@@ -9,6 +9,7 @@ const Homey = require('homey');
 const http = require("http");
 const dgram = require('dgram');
 const nodemailer = require("nodemailer");
+const hubInterface = require("../hub_interface");
 
 const MINIMUM_POLL_INTERVAL = 5;
 const BLE_POLLING_INTERVAL = 30000;
@@ -23,6 +24,7 @@ class MyApp extends Homey.App
         this.diagLog = "";
         this.moving = 0;
         this.discovering = false;
+        this.hub = new hubInterface(this.homey);
 
         if (process.env.DEBUG === '1')
         {
@@ -81,6 +83,7 @@ class MyApp extends Homey.App
         this.onBLEPoll = this.onBLEPoll.bind(this);
         this.timerID = setTimeout(this.onBLEPoll, BLE_POLLING_INTERVAL);
 
+        // Create a server to listen for data from ESP32 BLE hub
         const server = dgram.createSocket('udp4');
         server.on('error', (err) =>
         {
@@ -91,13 +94,16 @@ class MyApp extends Homey.App
         server.on('message', (msg, rinfo) =>
         {
             this.homey.app.updateLog(`server got: ${msg} from ${rinfo.address}:${rinfo.port}`);
+            // Make sure we have a hub registered
             if (this.enableBLEHub)
             {
+                // Validate the message to confirm it is from a hub
                 let msgTxt = msg.toString();
                 if (msgTxt.indexOf('SwitchBot BLE Hub!') == 0)
                 {
                     let newAddress = false;
 
+                    // Get the hubs MAC addredd
                     let mac = msgTxt.substring(19, 36);
                     let hubEntry = this.BLEHubs.find(entry => entry.mac === mac);
                     if (!hubEntry)
@@ -129,6 +135,103 @@ class MyApp extends Homey.App
             setTimeout(() => { server.send("Are you there SwitchBot?", 1234, '239.1.2.3'); }, 500);
         });
 
+        // Register flow cards
+
+        const operateAction = this.homey.flow.getActionCard('operate_aircon');
+        operateAction
+            .registerRunListener(async (args, state) =>
+            {
+                this.log("activate_instant_mode");
+                return args.device.onCapabilityAll(args);
+            });
+
+        const onAction = this.homey.flow.getActionCard('on');
+        onAction
+            .registerRunListener(async (args, state) =>
+            {
+                return args.device.onCapabilityPowerOn();
+            });
+
+        const offAction = this.homey.flow.getActionCard('off');
+        offAction
+            .registerRunListener(async (args, state) =>
+            {
+                return args.device.onCapabilityPowerOff();
+            });
+
+        const playAction = this.homey.flow.getActionCard('play');
+        playAction
+            .registerRunListener(async (args, state) =>
+            {
+                return args.device.onCapabilityPlay();
+            });
+
+        const pauseAction = this.homey.flow.getActionCard('pause');
+        pauseAction
+            .registerRunListener(async (args, state) =>
+            {
+                return args.device.onCapabilityPause();
+            });
+
+        const stopAction = this.homey.flow.getActionCard('stop');
+        stopAction
+            .registerRunListener(async (args, state) =>
+            {
+                return args.device.onCapabilityStop();
+            });
+
+        const prevAction = this.homey.flow.getActionCard('prev');
+        prevAction
+            .registerRunListener(async (args, state) =>
+            {
+                return args.device.onCapabilityPrev();
+            });
+
+        const nextAction = this.homey.flow.getActionCard('next');
+        nextAction
+            .registerRunListener(async (args, state) =>
+            {
+                return args.device.onCapabilityNext();
+            });
+
+        const rewindAction = this.homey.flow.getActionCard('rewind');
+        rewindAction
+            .registerRunListener(async (args, state) =>
+            {
+                return args.device.onCapabilityRewind();
+            });
+
+        const forwardAction = this.homey.flow.getActionCard('forward');
+        forwardAction
+            .registerRunListener(async (args, state) =>
+            {
+                return args.device.onCapabilityForward();
+            });
+
+        const startSceneAction = this.homey.flow.getActionCard('start_scene');
+        startSceneAction
+            .registerRunListener(async (args, state) =>
+            {
+                this.log("activate_instant_mode");
+                return args.device.onCapabilityStartScene();
+            });
+
+        const runSceneAction = this.homey.flow.getActionCard('run_scene');
+        runSceneAction.registerRunListener(async (args, state) =>
+        {
+            const url = `scenes/${args.scene.data.id}/execute`;
+            await this.hub.PostURL(url);
+        });
+        runSceneAction.registerArgumentAutocompleteListener("scene", async (query, args) =>
+        {
+            const results = await this.hub.getScenes();
+
+            // filter based on the query
+            return results.filter((result) =>
+            {
+                return result.name.toLowerCase().includes(query.toLowerCase());
+            });
+        });
         this.homey.app.updateLog('************** App has initialised. ***************');
     }
 
@@ -186,7 +289,7 @@ class MyApp extends Homey.App
     updateLog(newMessage, errorLevel = 1)
     {
         const zeroPad = (num, places) => String(num).padStart(places, '0');
-        
+
         if (errorLevel <= this.homey.app.logLevel)
         {
             console.log(newMessage);
@@ -288,7 +391,7 @@ class MyApp extends Homey.App
     //=======================================================================================
     //BLEHub interface
 
-    async getDevices()
+    async getBLEDevices()
     {
         try
         {
@@ -308,7 +411,7 @@ class MyApp extends Homey.App
         return null;
     }
 
-    async getDevice(Address)
+    async getBLEDevice(Address)
     {
         try
         {
@@ -692,7 +795,7 @@ class MyApp extends Homey.App
         await Promise.allSettled(promises);
     }
 
-    async newData(body)
+    async newBLEData(body)
     {
         this.homey.app.updateLog(this.homey.app.varToString(body));
         let promises = [];

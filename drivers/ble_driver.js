@@ -28,7 +28,7 @@ class BLEDriver extends Homey.Driver
 
             if (this.homey.app.usingBLEHub)
             {
-                let searchData = await this.homey.app.getDevices();
+                let searchData = await this.homey.app.getBLEDevices();
                 this.homey.app.updateLog("BLE HUB Discovery: " + this.homey.app.varToString(searchData, 2));
 
                 // Create an array of devices

@@ -55,5 +55,8 @@
   },
   "0.3.3": {
     "en": "Added support for Scenes plus the DVD and Speaker remote devices."
+  },
+  "0.3.4": {
+    "en": "Added a Run Scene action flow card to run a SwitchBot scene without needing to add the scene as a device."
   }
 }

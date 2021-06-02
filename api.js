@@ -23,7 +23,7 @@ module.exports = {
     },
     async newData({ homey, body })
     {
-        homey.app.newData(body);
+        homey.app.newBLEData(body);
         return 'OK';
     },
 };

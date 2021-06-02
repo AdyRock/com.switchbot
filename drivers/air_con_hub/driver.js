@@ -13,14 +13,6 @@ class HubAirConDriver extends HubDriver
     {
         super.onInit();
         this.log('HubAirConDriver has been initialized');
-
-        const operateAction = this.homey.flow.getActionCard('operate_aircon');
-        operateAction
-            .registerRunListener(async (args, state) =>
-            {
-                this.log("activate_instant_mode");
-                return args.device.onCapabilityAll(args);
-            });
     }
 
     /**

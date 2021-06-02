@@ -13,20 +13,6 @@ class HubTVDriver extends HubDriver
     {
         super.onInit();
         this.log('HubTVDriver has been initialized');
-
-        const onAction = this.homey.flow.getActionCard('on');
-        onAction
-            .registerRunListener(async (args, state) =>
-            {
-                return args.device.onCapabilityPowerOn();
-            });
-
-        const offAction = this.homey.flow.getActionCard('off');
-        offAction
-            .registerRunListener(async (args, state) =>
-            {
-                return args.device.onCapabilityPowerOff();
-            });
     }
 
     /**
