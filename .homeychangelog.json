@@ -64,5 +64,8 @@
   },
   "0.3.6": {
     "en": "Fix remote parameters and command switched for TV, etc."
+  },
+  "0.3.7": {
+    "en": "Added support for the SwitchBot Humidifier"
   }
 }

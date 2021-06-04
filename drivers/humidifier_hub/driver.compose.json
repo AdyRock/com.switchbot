@@ -1,15 +1,16 @@
 {
-    "id": "air_con_hub",
+    "id": "humidifier_hub",
     "name":
     {
-        "en": "Air Conditioner (HUB Remote)"
+        "en": "Humidifier (HUB)"
     },
-    "class": "remote",
+    "class": "other",
     "capabilities": [
         "onoff",
-        "target_temperature",
-        "aircon_mode",
-        "aircon_fan_speed"
+        "nebulization_mode",
+        "nebulization_efficiency",
+        "measure_temperature",
+        "measure_humidity"
     ],
     "pair": [
     {
@@ -26,7 +27,7 @@
     }],
     "images":
     {
-        "large": "/drivers/air_con_hub/assets/images/large.jpg",
-        "small": "/drivers/air_con_hub/assets/images/small.jpg"
+        "large": "/drivers/curtains_hub/assets/images/large.jpg",
+        "small": "/drivers/curtains_hub/assets/images/small.jpg"
     }
 }

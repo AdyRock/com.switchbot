@@ -332,6 +332,72 @@
         ]
       },
       {
+        "id": "nebulization_mode",
+        "title": {
+          "en": "Set nebulization mode"
+        },
+        "titleFormatted": {
+          "en": "Set the nebulization mode to [[mode]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=humidifier_hub"
+          },
+          {
+            "name": "mode",
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "0",
+                "title": {
+                  "en": "Manual"
+                }
+              },
+              {
+                "id": "1",
+                "title": {
+                  "en": "Auto"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "nebulization_efficiency",
+        "title": {
+          "en": "Set nebulization efficiency"
+        },
+        "titleFormatted": {
+          "en": "Set the nebulization efficiency to [[efficiency]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=humidifier_hub"
+          },
+          {
+            "name": "efficiency",
+            "type": "range",
+            "title": {
+              "en": "Efficiency"
+            },
+            "placeholder": {
+              "en": "In %"
+            },
+            "label": "%",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "labelMultiplier": 1,
+            "labelDecimals": 0
+          }
+        ]
+      },
+      {
         "id": "start_scene",
         "title": {
           "en": "Start Scene"
@@ -534,7 +600,7 @@
       "name": {
         "en": "Air Conditioner (HUB Remote)"
       },
-      "class": "button",
+      "class": "remote",
       "capabilities": [
         "onoff",
         "target_temperature",
@@ -820,6 +886,37 @@
       "images": {
         "large": "/drivers/dvd/assets/images/large.jpg",
         "small": "/drivers/dvd/assets/images/small.jpg"
+      }
+    },
+    {
+      "id": "humidifier_hub",
+      "name": {
+        "en": "Humidifier (HUB)"
+      },
+      "class": "other",
+      "capabilities": [
+        "onoff",
+        "nebulization_mode",
+        "nebulization_efficiency",
+        "measure_temperature",
+        "measure_humidity"
+      ],
+      "pair": [
+        {
+          "id": "list_my_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_my_devices"
+          }
+        },
+        {
+          "id": "add_my_devices",
+          "template": "add_devices"
+        }
+      ],
+      "images": {
+        "large": "/drivers/curtains_hub/assets/images/large.jpg",
+        "small": "/drivers/curtains_hub/assets/images/small.jpg"
       }
     },
     {
@@ -1122,6 +1219,31 @@
         "en": "Fast Forward"
       },
       "icon": "/assets/fast-forward.svg"
+    },
+    "nebulization_efficiency": {
+      "type": "number",
+      "getable": true,
+      "setable": true,
+      "uiComponent": "slider",
+      "units": {
+        "en": "%"
+      },
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "title": {
+        "en": "Efficiency"
+      }
+    },
+    "nebulization_mode": {
+      "type": "boolean",
+      "getable": true,
+      "setable": true,
+      "uiComponent": "button",
+      "title": {
+        "en": "Auto"
+      },
+      "icon": "/assets/humidifier.svg"
     },
     "next": {
       "type": "boolean",

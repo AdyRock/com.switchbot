@@ -232,6 +232,19 @@ class MyApp extends Homey.App
                 return result.name.toLowerCase().includes(query.toLowerCase());
             });
         });
+
+        const nebulizationModeAction = this.homey.flow.getActionCard('nebulization_mode');
+        nebulizationModeAction.registerRunListener(async (args, state) =>
+        {
+            return args.device.onCapabilityNebulization(args);
+        });
+
+        const nebulizationEfficiencyAction = this.homey.flow.getActionCard('nebulization_efficiency');
+        nebulizationEfficiencyAction.registerRunListener(async (args, state) =>
+        {
+            return args.device.onCapabilityNebulization(args);
+        });
+
         this.homey.app.updateLog('************** App has initialised. ***************');
     }
 
