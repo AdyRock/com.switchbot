@@ -76,7 +76,7 @@ class HumidityHubDevice extends Homey.Device
             let data = await this.driver.getDeviceData(dd.id);
             if (data)
             {
-                this.setCapabilityValue('onoff', data.power);
+                this.setCapabilityValue('onoff', data.power == 'on');
                 this.setCapabilityValue('nebulization_efficiency', data.nebulizationEfficiency);
                 this.setCapabilityValue('nebulization_mode', data.auto);
                 this.setCapabilityValue('measure_temperature', data.temperature);
