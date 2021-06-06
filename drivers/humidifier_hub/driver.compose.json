@@ -27,7 +27,7 @@
     }],
     "images":
     {
-        "large": "/drivers/curtains_hub/assets/images/large.jpg",
-        "small": "/drivers/curtains_hub/assets/images/small.jpg"
+        "large": "/drivers/humidifier_hub/assets/images/large.jpg",
+        "small": "/drivers/humidifier_hub/assets/images/small.jpg"
     }
 }
