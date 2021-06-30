@@ -657,7 +657,20 @@
       "images": {
         "large": "/drivers/bot_ble/assets/images/large.jpg",
         "small": "/drivers/bot_ble/assets/images/small.jpg"
-      }
+      },
+      "settings": [
+        {
+          "id": "password",
+          "type": "password",
+          "label": {
+            "en": "Password"
+          },
+          "value": "",
+          "hint": {
+            "en": "The password that has been set in the SwitchBot app which is required to control the Bot.\r\nLeave this empty if no password is set."
+          }
+        }
+      ]
     },
     {
       "id": "bot_hub",

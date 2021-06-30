@@ -2,7 +2,7 @@
 'use strict';
 
 const Homey = require('homey');
-
+var crc = require('crc-32');
 class BotBLEDevice extends Homey.Device
 {
     /**
@@ -14,6 +14,8 @@ class BotBLEDevice extends Homey.Device
 
         this._operateBot = this._operateBot.bind(this);
         this._operateBotLoop = this._operateBotLoop.bind(this);
+
+        this.setPassord( this.getSetting('password') );
 
         this.operationMode = false; // Default to push button until we know otherwise
         this.bestRSSI = 100;
@@ -42,7 +44,10 @@ class BotBLEDevice extends Homey.Device
      */
     async onSettings({ oldSettings, newSettings, changedKeys })
     {
-        this.log('BotBLEDevice settings where changed');
+        if (changedKeys.indexOf("password") >= 0)
+        {
+            this.setPassord( newSettings.password );
+        }
     }
 
     /**
@@ -64,23 +69,72 @@ class BotBLEDevice extends Homey.Device
         this.log('BotBLEDevice has been deleted');
     }
 
+    setPassord(password)
+    {
+        if (password === "")
+        {
+            this.pwArr = [];
+        }
+        else
+        {
+            let pwCRC = crc.str(password);
+            let pwArrBuff = new ArrayBuffer(4); // an Int32 takes 4 bytes
+            let view = new DataView(pwArrBuff);
+            view.setUint32(0, pwCRC, false); // byteOffset = 0; bigEndian = false
+            this.pwArr = Array.from(new Uint8Array(pwArrBuff));
+        }
+    }
+
     // this method is called when the Homey device has requested a position change ( 0 to 1)
     async onCapabilityOnOff(value, opts)
     {
         if (this.operationMode)
         {
             this.homey.app.updateLog("COMMAND: Setting bot state to:" + value);
-            if (value)
-            {
-                return await this._operateBot([0x57, 0x01, 0x01]);
-            }
 
-            return await this._operateBot([0x57, 0x01, 0x02]);
+            let cmd = [];
+            if (this.pwArr.length > 0)
+            {
+                cmd = [0x57, 0x11];
+                cmd = cmd.concat(this.pwArr);
+                if (value)
+                {
+                    cmd = cmd.concat([0x1]);
+                }
+                else
+                {
+                    cmd =  cmd.concat([0x02]);
+                }
+
+            }
+            else
+            {
+                if (value)
+                {
+                    cmd = [0x57, 0x01, 0x01];
+                }
+                else
+                {
+                    cmd = [0x57, 0x01, 0x02];
+                }
+            }
+            return await this._operateBot(cmd);
         }
         else
         {
             this.homey.app.updateLog("COMMAND: Pressing bot");
-            await this._operateBot([0x57, 0x01, 0x00]);
+            let cmd = [];
+            if (this.pwArr.length > 0)
+            {
+                cmd = [0x57, 0x11];
+                cmd = cmd.concat(this.pwArr);
+            }
+            else
+            {
+                cmd = [0x57, 0x01, 0x00];
+            }
+
+            await this._operateBot(cmd);
             setTimeout(() => this.setCapabilityValue('onoff', false), 1000);
         }
     }
@@ -111,7 +165,7 @@ class BotBLEDevice extends Homey.Device
             try
             {
                 response = await this._operateBotLoop(name, bytes);
-                if (response === true)
+                if (response.status && (response.status === true))
                 {
                     this.homey.app.updateLog("Command complete for " + name);
                     this.sendingCommand = false;
@@ -122,6 +176,7 @@ class BotBLEDevice extends Homey.Device
             {
                 this.homey.app.updateLog("_operateBot error: " + name + " : " + this.homey.app.varToString(err), 0);
             }
+
             if (loops > 0)
             {
                 this.homey.app.updateLog(`Retry command for ${name} in 2 seconds`);
@@ -137,13 +192,18 @@ class BotBLEDevice extends Homey.Device
         }
     }
 
-    async _operateBotLoop(name, bytes)
+    async _operateBotLoop(name, bytes, checkPolling = true)
     {
-        while (this.homey.app.polling /*|| this.homey.app.moving*/ )
+        if (checkPolling)
         {
-            this.homey.app.updateLog("Busy, deferring BLE command for " + name);
-            await this.homey.app.Delay(500);
+            while (this.homey.app.polling /*|| this.homey.app.moving*/ )
+            {
+                this.homey.app.updateLog("Busy, deferring BLE command for " + name);
+                await this.homey.app.Delay(500);
+            }
         }
+        
+        let returnStatue = {status: false, notificationData: []};
 
         this.homey.app.moving++;
         let delay = this.homey.app.moving * 1000;
@@ -177,6 +237,7 @@ class BotBLEDevice extends Homey.Device
                     bleNotifyCharacteristic.subscribeToNotifications(data =>
                     {
                         sending = false;
+                        returnStatue.notificationData =  data;
                         this.homey.app.updateLog(`received notification for ${name}: ` + this.homey.app.varToString(data));
                     });
                 }
@@ -215,7 +276,8 @@ class BotBLEDevice extends Homey.Device
             this.homey.app.moving--;
         }
 
-        return true;
+        returnStatue.status = true;
+        return returnStatue;
     }
 
     async getDeviceValues()
@@ -240,34 +302,51 @@ class BotBLEDevice extends Homey.Device
                 if (this.homey.app.moving === 0)
                 {
                     this.homey.app.updateLog("Finding Bot BLE device " + name, 2);
-                    let bleAdvertisement = await this.homey.ble.find(dd.id);
-                    this.homey.app.updateLog(this.homey.app.varToString(bleAdvertisement), 3);
-                    let rssi = await bleAdvertisement.rssi;
-                    this.setCapabilityValue('rssi', rssi);
 
-                    let data = this.driver.parse(bleAdvertisement);
-                    if (data)
+                    if (this.pwArr.length > 0)
                     {
-                        this.homey.app.updateLog("Parsed Bot BLE (" + name + ") " + this.homey.app.varToString(data), 2);
+                        let cmd = [];
+                        cmd = [0x57, 0x12];
+                        cmd = cmd.concat(this.pwArr);
+                        let notification = await this._operateBotLoop(name, cmd, false);
 
-                        this.setAvailable();
-                        this.operationMode = data.serviceData.mode;
-                        if (this.operationMode)
+                        if (notification.status === true)
                         {
-                            this.setCapabilityValue('onoff', data.serviceData.state);
+                            this.setCapabilityValue('measure_battery', notification.notificationData[1]);
+                            this.operationMode = ((notification.notificationData[9] & 16) != 0);
                         }
-                        else
-                        {
-                            this.setCapabilityValue('onoff', false);
-                        }
-
-                        this.setCapabilityValue('measure_battery', data.serviceData.battery);
-
-                        this.homey.app.updateLog(`Parsed Bot BLE (${name}): onoff = ${data.serviceData.state}, battery = ${data.serviceData.battery}`, 2);
                     }
                     else
                     {
-                        this.homey.app.updateLog(`Parsed Bot BLE (${name}): No service data`, 0);
+                        let bleAdvertisement = await this.homey.ble.find(dd.id);
+                        this.homey.app.updateLog(this.homey.app.varToString(bleAdvertisement), 3);
+                        let rssi = await bleAdvertisement.rssi;
+                        this.setCapabilityValue('rssi', rssi);
+
+                        let data = this.driver.parse(bleAdvertisement);
+                        if (data)
+                        {
+                            this.homey.app.updateLog("Parsed Bot BLE (" + name + ") " + this.homey.app.varToString(data), 2);
+
+                            this.setAvailable();
+                            this.operationMode = data.serviceData.mode;
+                            if (this.operationMode)
+                            {
+                                this.setCapabilityValue('onoff', data.serviceData.state);
+                            }
+                            else
+                            {
+                                this.setCapabilityValue('onoff', false);
+                            }
+
+                            this.setCapabilityValue('measure_battery', data.serviceData.battery);
+
+                            this.homey.app.updateLog(`Parsed Bot BLE (${name}): onoff = ${data.serviceData.state}, battery = ${data.serviceData.battery}`, 2);
+                        }
+                        else
+                        {
+                            this.homey.app.updateLog(`Parsed Bot BLE (${name}): No service data`, 0);
+                        }
                     }
                 }
                 else

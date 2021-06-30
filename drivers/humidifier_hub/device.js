@@ -38,7 +38,7 @@ class HumidityHubDevice extends Homey.Device
         else if (valueOj.nebulization_efficiency)
         {
             // The efficiency has changed
-            mode = valueOj.nebulization_efficiency;
+            mode = valueOj.nebulization_efficiency.toString();
 
             if (this.getCapabilityValue('nebulization_mode'))
             {
@@ -48,7 +48,7 @@ class HumidityHubDevice extends Homey.Device
         else
         {
             // mode must have been false so get the last efficiency
-            mode = this.getCapabilityValue('nebulization_efficiency');
+            mode = this.getCapabilityValue('nebulization_efficiency').toString();
         }
 
         return await this.sendCommand('setMode', mode);
@@ -56,7 +56,6 @@ class HumidityHubDevice extends Homey.Device
 
     async sendCommand(command, parameter)
     {
-        this.setCapabilityValue('position', null);
         let data = {
             "command": command,
             "parameter": parameter,
