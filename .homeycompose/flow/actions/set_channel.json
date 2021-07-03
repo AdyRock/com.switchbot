@@ -1,0 +1,28 @@
+{
+    "title": {
+        "en": "Set Channel"
+    },
+    "titleFormatted": {
+        "en": "Set the channel to '[[channel_number]]'"
+    },
+    "hint": {
+        "en": "Set the channel number"
+    },
+    "args": [
+        {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=dvd|speaker|tv_hub|settop_box_hub"
+        },
+        {
+            "type": "number",
+            "name": "channel_number",
+            "placeholder": {
+                "en": "Scene Name"
+            }
+        }
+    ],
+    "min": 1,
+    "max": 999,
+    "step": 1
+}

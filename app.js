@@ -159,6 +159,13 @@ class MyApp extends Homey.App
                 return args.device.onCapabilityPowerOff();
             });
 
+        const muteAction = this.homey.flow.getActionCard('mute');
+        muteAction
+            .registerRunListener(async (args, state) =>
+            {
+                return args.device.onCapabilityMute();
+            });
+
         const playAction = this.homey.flow.getActionCard('play');
         playAction
             .registerRunListener(async (args, state) =>
@@ -192,6 +199,13 @@ class MyApp extends Homey.App
             .registerRunListener(async (args, state) =>
             {
                 return args.device.onCapabilityNext();
+            });
+
+        const setChannelAction = this.homey.flow.getActionCard('set_channel');
+        setChannelAction
+            .registerRunListener(async (args, state) =>
+            {
+                return args.device._operateDevice("SetChannel", args.channel_number.toString());
             });
 
         const rewindAction = this.homey.flow.getActionCard('rewind');

@@ -2,8 +2,9 @@
 'use strict';
 
 const Homey = require('homey');
+const HubDevice = require('../hub_device');
 
-class STBHubDevice extends Homey.Device
+class STBHubDevice extends HubDevice
 {
     /**
      * onInit is called when the device is initialized.
@@ -24,63 +25,6 @@ class STBHubDevice extends Homey.Device
         this.registerCapabilityListener('volume_mute', this.onCapabilityMute.bind(this));
 
         this.setCapabilityValue('volume_mute', false);
-    }
-
-    async onCapabilityPowerOn(value, opts)
-    {
-        return this._operateDevice('turnOn');
-    }
-
-    async onCapabilityPowerOff(value, opts)
-    {
-        return this._operateDevice('turnOff');
-    }
-
-    async onCapabilityMute(value, opts)
-    {
-        if (this.cancelMute)
-        {
-            clearTimeout(this.cancelMute);
-        }
-        let result =  this._operateDevice('setMute');
-        if (value)
-        {
-            this.cancelMute = setTimeout(() => this.setCapabilityValue('volume_mute', false), 1000);
-        }
-        return result;
-    }
-
-    async onCapabilityVolumeUp(value, opts)
-    {
-        return this._operateDevice('volumeAdd');
-    }
-
-    async onCapabilityVolumeDown(value, opts)
-    {
-        return this._operateDevice('volumeSub');
-    }
-
-    async onCapabilityChannelUp(value, opts)
-    {
-        return this._operateDevice('channelAdd');
-    }
-
-    async onCapabilityChannelDown(value, opts)
-    {
-        return this._operateDevice('channelSub');
-    }
-
-    async _operateDevice(command)
-    {
-        let data = {
-            "command": command,
-            "parameter": "default",
-            "commandType": "command"
-        };
-
-        const dd = this.getData();
-
-        return this.driver.setDeviceData(dd.id, data);
     }
 }
 

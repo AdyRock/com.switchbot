@@ -76,5 +76,8 @@
   },
   "0.3.10": {
     "en": "Added support for a password on a bot. Fixes for Humidifier"
+  },
+  "0.3.11": {
+    "en": "Added flow action card to select a specific channel number"
   }
 }

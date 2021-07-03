@@ -2,8 +2,9 @@
 'use strict';
 
 const Homey = require('homey');
+const HubDevice = require('../hub_device');
 
-class DVDHubDevice extends Homey.Device
+class DVDHubDevice extends HubDevice
 {
     /**
      * onInit is called when the device is initialized.
@@ -25,88 +26,6 @@ class DVDHubDevice extends Homey.Device
         this.registerCapabilityListener('forward', this.onCapabilityForward.bind(this));
 
         this.setCapabilityValue('volume_mute', false);
-    }
-
-    async onCapabilityPowerOn(value, opts)
-    {
-        return this._operateDevice('turnOn');
-    }
-
-    async onCapabilityPowerOff(value, opts)
-    {
-        return this._operateDevice('turnOff');
-    }
-
-    async onCapabilityMute(value, opts)
-    {
-        if (this.cancelMute)
-        {
-            clearTimeout(this.cancelMute);
-        }
-        let result =  this._operateDevice('setMute');
-        if (value)
-        {
-            this.cancelMute = setTimeout(() => this.setCapabilityValue('volume_mute', false), 1000);
-        }
-        return result;
-    }
-
-    async onCapabilityVolumeUp(value, opts)
-    {
-        return this._operateDevice('volumeAdd');
-    }
-
-    async onCapabilityVolumeDown(value, opts)
-    {
-        return this._operateDevice('volumeSub');
-    }
-
-    async onCapabilityPlay(value, opts)
-    {
-        return this._operateDevice('Play');
-    }
-
-    async onCapabilityPause(value, opts)
-    {
-        return this._operateDevice('Pause');
-    }
-
-    async onCapabilityStop(value, opts)
-    {
-        return this._operateDevice('Stop');
-    }
-
-    async onCapabilityPrev(value, opts)
-    {
-        return this._operateDevice('Previous');
-    }
-
-    async onCapabilityNext(value, opts)
-    {
-        return this._operateDevice('Next');
-    }
-
-    async onCapabilityRewind(value, opts)
-    {
-        return this._operateDevice('Rewind');
-    }
-
-    async onCapabilityForward(value, opts)
-    {
-        return this._operateDevice('FastForward');
-    }
-
-    async _operateDevice(command)
-    {
-        let data = {
-            "command": command,
-            "parameter": "default",
-            "commandType": "command"
-        };
-
-        const dd = this.getData();
-
-        return this.driver.setDeviceData(dd.id, data);
     }
 }
 
