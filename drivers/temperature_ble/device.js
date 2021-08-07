@@ -93,7 +93,7 @@ class TemperatureBLEDevice extends Homey.Device
                     }
                     else
                     {
-                        this.homey.app.updateLog("Parsed Temperature BLE: No service data", 0);
+                        this.homey.app.updateLog("Parsed Temperature BLE: No service data", 1);
                     }
                 }
                 else

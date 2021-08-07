@@ -35,6 +35,9 @@ class MyApp extends Homey.App
             this.homey.settings.set('debugMode', false);
         }
 
+        this.homeyHash = await this.homey.cloud.getHomeyId();
+        this.homeyHash = this.hashCode(this.homeyHash).toString();
+
         this.BearerToken = this.homey.settings.get('BearerToken');
 
         if (this.homey.settings.get('pollInterval') < MINIMUM_POLL_INTERVAL)
@@ -260,6 +263,12 @@ class MyApp extends Homey.App
         });
 
         this.homey.app.updateLog('************** App has initialised. ***************');
+    }
+
+    hashCode(s)
+    {
+        for (var i = 0, h = 0; i < s.length; i++) h = Math.imul(31, h) + s.charCodeAt(i) | 0;
+        return h;
     }
 
     varToString(source)
@@ -849,6 +858,11 @@ class MyApp extends Homey.App
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // SwitchBot Hub
     //    
+    async getDeviceStatus(body)
+    {
+        return this.hub.getDeviceData(body.deviceId);
+    }
+
     async onHubPoll()
     {
         var nextInterval = Number(this.homey.settings.get('pollInterval'));

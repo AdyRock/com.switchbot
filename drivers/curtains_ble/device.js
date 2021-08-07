@@ -342,7 +342,7 @@ class CurtainsBLEDevice extends Homey.Device
                     }
                     else
                     {
-                        this.homey.app.updateLog(`Parsed Curtain BLE (${name}): No service data`, 0);
+                        this.homey.app.updateLog(`Parsed Curtain BLE (${name}): No service data`, 1);
                     }
                 }
                 else

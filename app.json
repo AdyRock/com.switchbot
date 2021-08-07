@@ -67,6 +67,10 @@
       "method": "post",
       "path": "/newData/",
       "public": true
+    },
+    "requestDeviceStatus": {
+      "method": "post",
+      "path": "/requestDeviceStatus/"
     }
   },
   "flow": {

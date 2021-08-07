@@ -39,6 +39,7 @@
         <button class="tablinks" onclick="setPage(event, 'detected')">Detected</button>
         <button class="tablinks" onclick="setPage(event, 'log')">Log</button>
         <button class="tablinks" onclick="setPage(event, 'simulator')" id="simLogTab" style="visibility:hidden">Simulation Data</button>
+        <button class="tablinks" onclick="setPage(event, 'status')" id="deviceStatusTab" style="visibility:hidden">Get Status</button>
     </div>
 
     <!-- SETTINGS PAGE -->
@@ -129,6 +130,21 @@
         </fieldset>
     </div>
 
+    <!--DEVICE GET STATUS PAGE -->
+    <div id="status" class="tabcontent">
+        <fieldset>
+            <h1>For debug use only</h1>
+            <div class="field row">
+                <label for="deviceID">Device ID</label>
+                <input id="deviceID" type="text" value="" />
+            </div>
+            <p><button id="readStatus" style="background-color:#0f9e16;color:white;margin:5px 20px 5px 5px;">Read Status</button></p>
+            <div class="field row">
+                <textarea id="statusData"></textarea>
+            </div>
+        </fieldset>
+    </div>
+
     <script type="text/javascript">
         // Create the busy indicator
         var busyi;
@@ -151,6 +167,11 @@
         var clearSimElement = document.getElementById('clearSim');
         var simDataElement = document.getElementById('simData');
 
+        // Get device status tab
+        var deviceIDElement = document.getElementById('deviceID');
+        var readStatusElement = document.getElementById('readStatus');
+        var statusDataElement = document.getElementById('statusData');
+
         // a method named 'onHomeyReady' must be present in your code
         function onHomeyReady(Homey)
         {
@@ -160,6 +181,7 @@
                 if (debugMode)
                 {
                     document.getElementById("simLogTab").style.visibility = 'visible';
+                    document.getElementById("deviceStatusTab").style.visibility = 'visible';
                 }
             });
 
@@ -383,6 +405,21 @@
                 });
             });
 
+            readStatusElement.addEventListener('click', function(e)
+            {
+                Homey.api('POST', '/requestDeviceStatus/?deviceId=' + deviceIDElement.value,{}, function(err, result)
+                {
+                    if (err)
+                    {
+                        return Homey.alert(err);
+                    }
+                    else
+                    {
+                        statusDataElement.value = result;
+                    }
+                });
+            });
+
             // Tell Homey we're ready to be displayed
             Homey.ready();
         }
@@ -438,6 +475,12 @@
                 // Make the simulator text box fill the page
                 simDataElement.setAttribute('cols', simDataElement.parentElement.clientWidth / 8);
                 simDataElement.style.height = (window.innerHeight - simDataElement.offsetTop - 40) + 'px';
+            }
+            else if (tabPage == 'status')
+            {
+                // Make the detected devices text area fill the page
+                statusDataElement.setAttribute('cols', statusDataElement.parentElement.clientWidth / 8);
+                statusDataElement.style.height = (window.innerHeight - statusDataElement.offsetTop - 20) + 'px';
             }
         }
 

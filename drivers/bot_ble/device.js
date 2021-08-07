@@ -345,7 +345,7 @@ class BotBLEDevice extends Homey.Device
                         }
                         else
                         {
-                            this.homey.app.updateLog(`Parsed Bot BLE (${name}): No service data`, 0);
+                            this.homey.app.updateLog(`Parsed Bot BLE (${name}): No service data`, 1);
                         }
                     }
                 }

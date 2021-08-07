@@ -26,4 +26,9 @@ module.exports = {
         homey.app.newBLEData(body);
         return 'OK';
     },
+    async requestDeviceStatus({ homey, query  })
+    {
+        let retval = await homey.app.getDeviceStatus(query);
+        return JSON.stringify( retval, null, 2 );
+    },
 };
