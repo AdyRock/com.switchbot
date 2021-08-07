@@ -9,7 +9,8 @@
         "open_close",
         "measure_battery",
         "windowcoverings_set",
-        "rssi"
+        "rssi",
+        "position"
     ],
     "pair": [
     {

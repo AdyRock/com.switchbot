@@ -1,0 +1,12 @@
+{
+    "title": {
+        "en": "Next"
+    },
+    "args": [
+        {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=dvd|speaker"
+        }
+    ]
+}

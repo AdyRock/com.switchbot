@@ -6,5 +6,6 @@
     "title":
     {
         "en": "Power Off"
-    }
+    },
+    "icon": "/assets/power_off.svg"
 }

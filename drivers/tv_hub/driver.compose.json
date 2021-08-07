@@ -11,7 +11,8 @@
         "volume_up",
         "volume_down",
         "channel_up",
-        "channel_down"
+        "channel_down",
+        "volume_mute"
     ],
     "pair": [
     {

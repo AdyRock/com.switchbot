@@ -8,9 +8,11 @@ if (process.env.DEBUG === '1')
 const Homey = require('homey');
 const http = require("http");
 const dgram = require('dgram');
+const nodemailer = require("nodemailer");
+const hubInterface = require("../hub_interface");
 
 const MINIMUM_POLL_INTERVAL = 5;
-const BLE_POLLING_INTERVAL = 10000;
+const BLE_POLLING_INTERVAL = 30000;
 class MyApp extends Homey.App
 {
     /**
@@ -20,8 +22,9 @@ class MyApp extends Homey.App
     {
         this.log('SwitchBot has been initialized');
         this.diagLog = "";
-        this.moving = false;
+        this.moving = 0;
         this.discovering = false;
+        this.hub = new hubInterface(this.homey);
 
         if (process.env.DEBUG === '1')
         {
@@ -32,11 +35,21 @@ class MyApp extends Homey.App
             this.homey.settings.set('debugMode', false);
         }
 
+        this.homeyHash = await this.homey.cloud.getHomeyId();
+        this.homeyHash = this.hashCode(this.homeyHash).toString();
+
         this.BearerToken = this.homey.settings.get('BearerToken');
 
         if (this.homey.settings.get('pollInterval') < MINIMUM_POLL_INTERVAL)
         {
             this.homey.settings.set('pollInterval', MINIMUM_POLL_INTERVAL);
+        }
+
+        this.logLevel = this.homey.settings.get('logLevel');
+        if (this.logLevel === null)
+        {
+            this.logLevel = 0;
+            this.homey.settings.set('logLevel', this.logLevel);
         }
 
         this.log("SwitchBot has started with Key: " + this.BearerToken + " Polling every " + this.homey.settings.get('pollInterval') + " seconds");
@@ -52,6 +65,11 @@ class MyApp extends Homey.App
             }
 
             if (setting === 'pollInterval') {}
+
+            if (setting === 'logLevel')
+            {
+                this.homey.app.logLevel = this.homey.settings.get('logLevel');
+            }
         });
 
         // Set to true to enable use of my BLE hub (WIP)
@@ -68,23 +86,27 @@ class MyApp extends Homey.App
         this.onBLEPoll = this.onBLEPoll.bind(this);
         this.timerID = setTimeout(this.onBLEPoll, BLE_POLLING_INTERVAL);
 
+        // Create a server to listen for data from ESP32 BLE hub
         const server = dgram.createSocket('udp4');
         server.on('error', (err) =>
         {
-            console.log(`server error:\n${err.stack}`);
+            this.homey.app.updateLog(`server error:\n${err.stack}`, 0);
             server.close();
         });
 
         server.on('message', (msg, rinfo) =>
         {
-            console.log(`server got: ${msg} from ${rinfo.address}:${rinfo.port}`);
+            this.homey.app.updateLog(`server got: ${msg} from ${rinfo.address}:${rinfo.port}`);
+            // Make sure we have a hub registered
             if (this.enableBLEHub)
             {
+                // Validate the message to confirm it is from a hub
                 let msgTxt = msg.toString();
                 if (msgTxt.indexOf('SwitchBot BLE Hub!') == 0)
                 {
                     let newAddress = false;
 
+                    // Get the hubs MAC addredd
                     let mac = msgTxt.substring(19, 36);
                     let hubEntry = this.BLEHubs.find(entry => entry.mac === mac);
                     if (!hubEntry)
@@ -107,7 +129,7 @@ class MyApp extends Homey.App
         server.on('listening', () =>
         {
             var address = server.address();
-            console.log(`server listening ${address.address}:${address.port}`);
+            this.homey.app.updateLog(`server listening ${address.address}:${address.port}`);
         });
 
         server.bind(1234, () =>
@@ -116,7 +138,137 @@ class MyApp extends Homey.App
             setTimeout(() => { server.send("Are you there SwitchBot?", 1234, '239.1.2.3'); }, 500);
         });
 
-        this.updateLog('************** App has initialised. ***************');
+        // Register flow cards
+
+        const operateAction = this.homey.flow.getActionCard('operate_aircon');
+        operateAction
+            .registerRunListener(async (args, state) =>
+            {
+                this.log("activate_instant_mode");
+                return args.device.onCapabilityAll(args);
+            });
+
+        const onAction = this.homey.flow.getActionCard('on');
+        onAction
+            .registerRunListener(async (args, state) =>
+            {
+                return args.device.onCapabilityPowerOn();
+            });
+
+        const offAction = this.homey.flow.getActionCard('off');
+        offAction
+            .registerRunListener(async (args, state) =>
+            {
+                return args.device.onCapabilityPowerOff();
+            });
+
+        const muteAction = this.homey.flow.getActionCard('mute');
+        muteAction
+            .registerRunListener(async (args, state) =>
+            {
+                return args.device.onCapabilityMute();
+            });
+
+        const playAction = this.homey.flow.getActionCard('play');
+        playAction
+            .registerRunListener(async (args, state) =>
+            {
+                return args.device.onCapabilityPlay();
+            });
+
+        const pauseAction = this.homey.flow.getActionCard('pause');
+        pauseAction
+            .registerRunListener(async (args, state) =>
+            {
+                return args.device.onCapabilityPause();
+            });
+
+        const stopAction = this.homey.flow.getActionCard('stop');
+        stopAction
+            .registerRunListener(async (args, state) =>
+            {
+                return args.device.onCapabilityStop();
+            });
+
+        const prevAction = this.homey.flow.getActionCard('prev');
+        prevAction
+            .registerRunListener(async (args, state) =>
+            {
+                return args.device.onCapabilityPrev();
+            });
+
+        const nextAction = this.homey.flow.getActionCard('next');
+        nextAction
+            .registerRunListener(async (args, state) =>
+            {
+                return args.device.onCapabilityNext();
+            });
+
+        const setChannelAction = this.homey.flow.getActionCard('set_channel');
+        setChannelAction
+            .registerRunListener(async (args, state) =>
+            {
+                return args.device._operateDevice("SetChannel", args.channel_number.toString());
+            });
+
+        const rewindAction = this.homey.flow.getActionCard('rewind');
+        rewindAction
+            .registerRunListener(async (args, state) =>
+            {
+                return args.device.onCapabilityRewind();
+            });
+
+        const forwardAction = this.homey.flow.getActionCard('forward');
+        forwardAction
+            .registerRunListener(async (args, state) =>
+            {
+                return args.device.onCapabilityForward();
+            });
+
+        const startSceneAction = this.homey.flow.getActionCard('start_scene');
+        startSceneAction
+            .registerRunListener(async (args, state) =>
+            {
+                this.log("activate_instant_mode");
+                return args.device.onCapabilityStartScene();
+            });
+
+        const runSceneAction = this.homey.flow.getActionCard('run_scene');
+        runSceneAction.registerRunListener(async (args, state) =>
+        {
+            const url = `scenes/${args.scene.data.id}/execute`;
+            await this.hub.PostURL(url);
+        });
+        runSceneAction.registerArgumentAutocompleteListener("scene", async (query, args) =>
+        {
+            const results = await this.hub.getScenes();
+
+            // filter based on the query
+            return results.filter((result) =>
+            {
+                return result.name.toLowerCase().includes(query.toLowerCase());
+            });
+        });
+
+        const nebulizationModeAction = this.homey.flow.getActionCard('nebulization_mode');
+        nebulizationModeAction.registerRunListener(async (args, state) =>
+        {
+            return args.device.onCapabilityNebulization(args);
+        });
+
+        const nebulizationEfficiencyAction = this.homey.flow.getActionCard('nebulization_efficiency');
+        nebulizationEfficiencyAction.registerRunListener(async (args, state) =>
+        {
+            return args.device.onCapabilityNebulization(args);
+        });
+
+        this.homey.app.updateLog('************** App has initialised. ***************');
+    }
+
+    hashCode(s)
+    {
+        for (var i = 0, h = 0; i < s.length; i++) h = Math.imul(31, h) + s.charCodeAt(i) | 0;
+        return h;
     }
 
     varToString(source)
@@ -164,7 +316,7 @@ class MyApp extends Homey.App
         }
         catch (err)
         {
-            this.log("VarToString Error: ", err);
+            this.homey.app.updateLog("VarToString Error: " + err, 0);
         }
 
         return source.toString();
@@ -172,10 +324,31 @@ class MyApp extends Homey.App
 
     updateLog(newMessage, errorLevel = 1)
     {
-        if ((errorLevel == 0) || this.homey.settings.get('logEnabled'))
+        const zeroPad = (num, places) => String(num).padStart(places, '0');
+
+        if (errorLevel <= this.homey.app.logLevel)
         {
             console.log(newMessage);
-            this.diagLog += "* ";
+
+            const nowTime = new Date(Date.now());
+
+            this.diagLog += zeroPad(nowTime.getHours().toString(), 2);
+            this.diagLog += ":";
+            this.diagLog += zeroPad(nowTime.getMinutes().toString(), 2);
+            this.diagLog += ":";
+            this.diagLog += zeroPad(nowTime.getSeconds().toString(), 2);
+            this.diagLog += ".";
+            this.diagLog += zeroPad(nowTime.getMilliseconds().toString(), 3);
+            this.diagLog += ": ";
+
+            if (errorLevel === 0)
+            {
+                this.diagLog += "!!!!!! ";
+            }
+            else
+            {
+                this.diagLog += "* ";
+            }
             this.diagLog += newMessage;
             this.diagLog += "\r\n";
             if (this.diagLog.length > 60000)
@@ -186,10 +359,75 @@ class MyApp extends Homey.App
         }
     }
 
+    async sendLog(logType)
+    {
+        let tries = 5;
+        console.log("Send Log");
+        while (tries-- > 0)
+        {
+            try
+            {
+                let subject = "";
+                let text = "";
+                if (logType === 'infoLog')
+                {
+                    subject = "SwitchBot Information log";
+                    text = this.diagLog;
+                }
+                else
+                {
+                    subject = "SwitchBot device log";
+                    text = this.detectedDevices;
+                }
+
+                subject += "(" + this.homeyHash + " : " + Homey.manifest.version + ")";
+
+                // create reusable transporter object using the default SMTP transport
+                let transporter = nodemailer.createTransport(
+                {
+                    host: Homey.env.MAIL_HOST, //Homey.env.MAIL_HOST,
+                    port: 465,
+                    ignoreTLS: false,
+                    secure: true, // true for 465, false for other ports
+                    auth:
+                    {
+                        user: Homey.env.MAIL_USER, // generated ethereal user
+                        pass: Homey.env.MAIL_SECRET // generated ethereal password
+                    },
+                    tls:
+                    {
+                        // do not fail on invalid certs
+                        rejectUnauthorized: false
+                    }
+                });
+                // send mail with defined transport object
+                const response = await transporter.sendMail(
+                {
+                    from: '"Homey User" <' + Homey.env.MAIL_USER + '>', // sender address
+                    to: Homey.env.MAIL_RECIPIENT, // list of receivers
+                    subject: subject, // Subject line
+                    text: text // plain text body
+                });
+                return {
+                    error: response.err,
+                    message: response.err ? null : "OK"
+                };
+            }
+            catch (err)
+            {
+                this.logInformation("Send log error", err);
+                return {
+                    error: err,
+                    message: null
+                };
+            }
+        }
+    }
+
     //=======================================================================================
     //BLEHub interface
 
-    async getDevices()
+    async getBLEDevices()
     {
         try
         {
@@ -209,7 +447,7 @@ class MyApp extends Homey.App
         return null;
     }
 
-    async getDevice(Address)
+    async getBLEDevice(Address)
     {
         try
         {
@@ -317,7 +555,7 @@ class MyApp extends Homey.App
                     this.usingBLEHub = false;
                 }
 
-                console.log(err);
+                this.homey.app.updateLog(this.homey.app.varToString(err), 0);
             }
         }
         return responses;
@@ -391,7 +629,7 @@ class MyApp extends Homey.App
                     }
                 }).on('error', (err) =>
                 {
-                    this.homey.app.updateLog(err, 0);
+                    this.homey.app.updateLog(this.homey.app.varToString(err), 0);
                     reject(new Error("HTTP Catch: " + err));
                     return;
                 });
@@ -405,14 +643,14 @@ class MyApp extends Homey.App
             }
             catch (err)
             {
-                this.homey.app.updateLog(err, 0);
+                this.homey.app.updateLog(this.homey.app.varToString(err), 0);
                 reject(new Error("HTTP Catch: " + err));
                 return;
             }
         });
     }
 
-    IsBLEHubAvailable( hubMAC)
+    IsBLEHubAvailable(hubMAC)
     {
         return (this.BLEHubs.findIndex(hub => hub.mac === hubMAC) >= 0);
     }
@@ -443,7 +681,7 @@ class MyApp extends Homey.App
                     {
                         this.usingBLEHub = false;
                     }
-                    console.log(err);
+                    this.homey.app.updateLog(this.homey.app.varToString(err), 0);
                 }
             }
         }
@@ -467,7 +705,7 @@ class MyApp extends Homey.App
                 {
                     this.usingBLEHub = false;
                 }
-                console.log(err);
+                this.homey.app.updateLog(this.homey.app.varToString(err), 0);
             }
         }
 
@@ -496,8 +734,7 @@ class MyApp extends Homey.App
         }
         if (this.postInProgress)
         {
-            console.log("\n*** POST IN PROGRESS ***\n\n");
-            //throw (new Error({ "message": "Busy", "statusCode": 300 }));
+            this.homey.app.updateLog("\n*** POST IN PROGRESS ***\n\n");
         }
 
         return new Promise((resolve, reject) =>
@@ -518,7 +755,7 @@ class MyApp extends Homey.App
                     },
                 };
 
-                this.homey.app.updateLog(http_options);
+                this.homey.app.updateLog(this.homey.app.varToString(http_options));
 
                 let req = http.request(http_options, (res) =>
                 {
@@ -542,12 +779,12 @@ class MyApp extends Homey.App
                         }
                         this.homey.app.updateLog("Post response: " + this.homey.app.varToString(returnData));
                         this.postInProgress = false;
-                        //console.log("POST complete");
+                        this.homey.app.updateLog("POST complete");
                         resolve(returnData);
                     });
                 }).on('error', (err) =>
                 {
-                    this.homey.app.updateLog(err, 0);
+                    this.homey.app.updateLog(this.homey.app.varToString(err), 0);
                     this.postInProgress = false;
                     reject(new Error("HTTP Catch: " + err));
                 });
@@ -594,9 +831,9 @@ class MyApp extends Homey.App
         await Promise.allSettled(promises);
     }
 
-    async newData(body)
+    async newBLEData(body)
     {
-        this.updateLog(body);
+        this.homey.app.updateLog(this.homey.app.varToString(body));
         let promises = [];
 
         const drivers = this.homey.drivers.getDrivers();
@@ -621,6 +858,11 @@ class MyApp extends Homey.App
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // SwitchBot Hub
     //    
+    async getDeviceStatus(body)
+    {
+        return this.hub.getDeviceData(body.deviceId);
+    }
+
     async onHubPoll()
     {
         var nextInterval = Number(this.homey.settings.get('pollInterval'));
@@ -677,32 +919,33 @@ class MyApp extends Homey.App
     //
     async onBLEPoll()
     {
-        let pollingInterval = 1000;
+        let pollingInterval = 10000;
         if (!this.discovering && !this.moving)
         {
             this.polling = true;
             pollingInterval = BLE_POLLING_INTERVAL;
 
-            this.log("\r\nPolling BLE Starting ------------------------------------");
-
-            this.homey.app.updateLog("Polling BLE Starting ------------------------------------");
+            this.homey.app.updateLog("\r\nPolling BLE Starting ------------------------------------");
 
             const promises = [];
             try
             {
-                //clear BLE cache for each device
                 const drivers = this.homey.drivers.getDrivers();
-                // for (const driver in drivers)
-                // {
-                //     let devices = this.homey.drivers.getDriver(driver).getDevices();
+                if (parseInt(this.homey.version) < 6)
+                {
+                    //clear BLE cache for each device
+                    for (const driver in drivers)
+                    {
+                        let devices = this.homey.drivers.getDriver(driver).getDevices();
 
-                //     for (let i = 0; i < devices.length; i++)
-                //     {
-                //         let device = devices[i];
-                //         let id = device.getData().id;
-                //         delete this.homey.ble.__advertisementsByPeripheralUUID[id];
-                //     }
-                // }
+                        for (let i = 0; i < devices.length; i++)
+                        {
+                            let device = devices[i];
+                            let id = device.getData().id;
+                            delete this.homey.ble.__advertisementsByPeripheralUUID[id];
+                        }
+                    }
+                }
 
                 // Run discovery too fetch new data
                 await this.homey.ble.discover(['cba20d00224d11e69fb80002a5d5c51b'], 2000);
@@ -719,10 +962,10 @@ class MyApp extends Homey.App
                             promises.push(device.getDeviceValues());
                         }
                     }
-
-                    this.homey.app.updateLog("Polling BLE: waiting for devices to update");
-                    await Promise.all(promises);
                 }
+
+                this.homey.app.updateLog("Polling BLE: waiting for devices to update");
+                await Promise.all(promises);
             }
             catch (err)
             {
@@ -730,11 +973,11 @@ class MyApp extends Homey.App
             }
 
             this.polling = false;
-            this.log("------------------------------------ Polling BLE Finished\r\n");
+            this.homey.app.updateLog("------------------------------------ Polling BLE Finished\r\n");
         }
         else
         {
-            this.log("Polling BLE skipped");
+            this.homey.app.updateLog("Polling BLE skipped");
         }
 
         this.homey.app.updateLog("Next BLE polling interval = " + pollingInterval, true);

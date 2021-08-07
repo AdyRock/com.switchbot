@@ -4,7 +4,7 @@
     {
         "en": "Air Conditioner (HUB Remote)"
     },
-    "class": "button",
+    "class": "remote",
     "capabilities": [
         "onoff",
         "target_temperature",

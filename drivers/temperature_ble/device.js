@@ -74,30 +74,31 @@ class TemperatureBLEDevice extends Homey.Device
 
             if (dd.id)
             {
-                if (!this.homey.app.moving)
+                if (this.homey.app.moving === 0)
                 {
-                    this.log("Finding Temperature BLE device");
+                    this.homey.app.updateLog("Finding Temperature BLE device", 2);
                     let bleAdvertisement = await this.homey.ble.find(dd.id);
-                    this.homey.app.updateLog(this.homey.app.varToString(bleAdvertisement));
+                    this.homey.app.updateLog(this.homey.app.varToString(bleAdvertisement), 3);
                     let rssi = await bleAdvertisement.rssi;
                     this.setCapabilityValue('rssi', rssi);
 
                     let data = this.driver.parse(bleAdvertisement);
                     if (data)
                     {
-                        this.homey.app.updateLog("Parsed BLE: " + this.homey.app.varToString(data));
+                        this.homey.app.updateLog("Parsed Temperature BLE: " + this.homey.app.varToString(data), 2);
                         this.setCapabilityValue('measure_temperature', data.serviceData.temperature.c);
                         this.setCapabilityValue('measure_humidity', data.serviceData.humidity);
                         this.setCapabilityValue('measure_battery', data.serviceData.battery);
+                        this.homey.app.updateLog(`Parsed Curtain BLE: temperature = ${data.serviceData.temperature.c}, humidity = ${data.serviceData.humidity}, battery = ${data.serviceData.battery}`, 2);
                     }
                     else
                     {
-                        this.homey.app.updateLog("Parsed BLE: No service data");
+                        this.homey.app.updateLog("Parsed Temperature BLE: No service data", 1);
                     }
                 }
                 else
                 {
-                    this.homey.app.updateLog("Refresh skipped while moving");
+                    this.homey.app.updateLog("Temperature Refresh skipped while moving");
                 }
             }
             else
@@ -107,11 +108,11 @@ class TemperatureBLEDevice extends Homey.Device
         }
         catch (err)
         {
-            this.log(err);
+            this.homey.app.updateLog(this.homey.app.varToString(err), 0);
         }
         finally
         {
-            this.log("Finding Temperature BLE device --- COMPLETE");
+            this.homey.app.updateLog("Finding Temperature BLE device --- COMPLETE", 2);
         }
     }
 
@@ -141,7 +142,7 @@ class TemperatureBLEDevice extends Homey.Device
         }
         catch (error)
         {
-            this.homey.app.updateLog("Error in temperature syncEvents: " + error, 0);
+            this.homey.app.updateLog("Error in temperature syncEvents: " + this.homey.app.varToString(error), 0);
         }
     }
 

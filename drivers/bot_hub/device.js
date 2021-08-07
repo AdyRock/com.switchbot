@@ -87,7 +87,7 @@ class BotHubDevice extends Homey.Device
             "command": command,
             "parameter": "default",
             "commandType": "command"
-        }
+        };
 
         const dd = this.getData();
 
@@ -101,7 +101,7 @@ class BotHubDevice extends Homey.Device
         let data = await this.driver.getDeviceData(dd.id);
         if (data)
         {
-            console.log("Bot Hub got ", data.power);
+            this.homey.app.updateLog("Bot Hub got: " + data.power);
             let pushButton = this.getSetting('push_button');
             if (pushButton)
             {

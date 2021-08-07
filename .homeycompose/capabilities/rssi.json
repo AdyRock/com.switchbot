@@ -3,6 +3,9 @@
     "title": {
         "en": "RSSI"
     },
+    "units": {
+        "en": "db"
+    },
     "getable": true,
     "setable": false,
     "icon": "/assets/signal_strength.svg"

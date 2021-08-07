@@ -37,5 +37,47 @@
   },
   "0.2.9": {
     "en": "Attempt to add devices based on the localName id there is no service data."
+  },
+  "0.2.10": {
+    "en": "Changed logging to multi-level to make it easier to spot general issues. Cleaned up the retries loops."
+  },
+  "0.2.11": {
+    "en": "Ensure log level is initialised at start up."
+  },
+  "0.3.0": {
+    "en": "Optimised for Homey v6."
+  },
+  "0.3.1": {
+    "en": "Optimised for activating multiple devices simultaneously. Added Position value to BLE curtain information. Added buttons to send the logs from the configuration page"
+  },
+  "0.3.2": {
+    "en": "Added Position value to hub curtian information. Fixed issue during pair curtains."
+  },
+  "0.3.3": {
+    "en": "Added support for Scenes plus the DVD and Speaker remote devices."
+  },
+  "0.3.4": {
+    "en": "Added a Run Scene action flow card to run a SwitchBot scene without needing to add the scene as a device."
+  },
+  "0.3.5": {
+    "en": "Fix remote parameters and command switched for aircon."
+  },
+  "0.3.6": {
+    "en": "Fix remote parameters and command switched for TV, etc."
+  },
+  "0.3.7": {
+    "en": "Added support for the SwitchBot Humidifier"
+  },
+  "0.3.8": {
+    "en": "Added support for the SwitchBot Humidifier"
+  },
+  "0.3.9": {
+    "en": "Added support for the SwitchBot Humidifier"
+  },
+  "0.3.10": {
+    "en": "Added support for a password on a bot. Fixes for Humidifier"
+  },
+  "0.3.11": {
+    "en": "Added flow action card to select a specific channel number"
   }
 }

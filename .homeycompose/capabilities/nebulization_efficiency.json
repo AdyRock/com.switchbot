@@ -1,0 +1,16 @@
+{
+    "type": "number",
+    "getable": true,
+    "setable": true,
+    "uiComponent": "slider",
+    "units": {
+        "en": "%"
+    },
+    "min": 0,
+    "max": 100,
+    "step": 1,
+    "title":
+    {
+        "en": "Efficiency"
+    }
+}

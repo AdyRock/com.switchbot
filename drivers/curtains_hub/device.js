@@ -16,6 +16,10 @@ class CurtainsHubDevice extends Homey.Device
         {
             this.addCapability("open_close");
         }
+        if (!this.hasCapability("position"))
+        {
+            this.addCapability("position");
+        }
 
         this.invertPosition = this.getSetting('invertPosition');
         if (this.invertPosition === null)
@@ -155,6 +159,7 @@ class CurtainsHubDevice extends Homey.Device
 
     async _operateCurtain(command, parameter)
     {
+        this.setCapabilityValue('position', null);
         let data = {
             "command": command,
             "parameter": parameter,
@@ -188,6 +193,7 @@ class CurtainsHubDevice extends Homey.Device
             }
 
             this.setCapabilityValue('windowcoverings_set', position);
+            this.setCapabilityValue('position', position * 100);
         }
     }
 }
