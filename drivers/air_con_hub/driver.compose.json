@@ -6,7 +6,8 @@
     },
     "class": "remote",
     "capabilities": [
-        "onoff",
+        "power_on",
+        "power_off",
         "target_temperature",
         "aircon_mode",
         "aircon_fan_speed"

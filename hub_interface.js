@@ -255,14 +255,14 @@ class hub_interface
                 }).on('error', (err) =>
                 {
                     this.homey.app.updateLog(this.homey.app.varToString(err));
-                    reject(new Error("HTTPS Catch: " + err));
+                    reject(new Error("HTTPS Catch: " + err.message));
                     return;
                 });
             }
             catch (err)
             {
                 this.homey.app.updateLog(this.homey.app.varToString(err));
-                reject(new Error("HTTPS Catch: " + err));
+                reject(new Error("HTTPS Catch: " + err.message));
                 return;
             }
         });
@@ -351,7 +351,7 @@ class hub_interface
                 }).on('error', (err) =>
                 {
                     this.homey.app.updateLog(this.homey.app.varToString(err));
-                    reject(new Error("HTTPS Catch: " + err));
+                    reject(new Error("HTTPS Catch: " + err.message));
                 });
                 req.write(bodyText);
                 req.end();
@@ -359,7 +359,7 @@ class hub_interface
             catch (err)
             {
                 this.homey.app.updateLog(this.homey.app.varToString(err));
-                reject(new Error("HTTPS Catch: " + err));
+                reject(new Error("HTTPS Catch: " + err.message));
             }
         });
     }

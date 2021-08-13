@@ -11,15 +11,18 @@ class AirConHubDevice extends Homey.Device
     async onInit()
     {
         this.log('AirConHubDevice has been initialized');
-        this.registerMultipleCapabilityListener(['onoff', 'target_temperature', 'aircon_mode', 'aircon_fan_speed'], this.onCapabilityAll.bind(this));
 
-        let temp = this.getCapabilityValue('onoff');
-        if (temp === null)
+        if (this.hasCapability('onoff'))
         {
-            this.setCapabilityValue('onoff', false);
+            this.removeCapability('onoff');
+            this.addCapability('power_on');
+            this.addCapability('power_off');
         }
         
-        temp = this.getCapabilityValue('target_temperature');
+        this.registerMultipleCapabilityListener(['power_on', 'target_temperature', 'aircon_mode', 'aircon_fan_speed'], this.onCapabilityAll.bind(this));
+        this.registerCapabilityListener('power_off', this.onCapabilityACPowerOff.bind(this));
+
+        let temp = this.getCapabilityValue('target_temperature');
         if (temp === null)
         {
             this.setCapabilityValue('target_temperature', 21);
@@ -38,13 +41,39 @@ class AirConHubDevice extends Homey.Device
         }
     }
 
+    async onCapabilityACPowerOff(value, opts)
+    {
+        let temp = this.getCapabilityValue('target_temperature');
+        if (temp === null)
+        {
+            temp = 22;
+        }
+    
+        let mode = this.getCapabilityValue('aircon_mode');
+        if (mode === null)
+        {
+            mode = '1';
+        }
+        
+        let fan = this.getCapabilityValue('aircon_fan_speed');
+        if (fan === null)
+        {
+            fan = '1';
+        }
+
+        mode = Number(mode);
+        fan = Number(fan);
+
+        let parameters = `${ temp },${ mode },${ fan },off`;
+        return this._operateDevice(parameters);
+    }
+
     // this method is called when the Homey device has requested a value change
     async onCapabilityAll(valueOj, optsObj)
     {
         let temp;
         let mode;
         let fan;
-        let power;
         if (valueOj.target_temperature)
         {
             temp = valueOj.target_temperature;
@@ -84,35 +113,10 @@ class AirConHubDevice extends Homey.Device
             }
         }
 
-        if (valueOj.onoff)
-        {
-            if (valueOj.onoff === 'on')
-            {
-                power = true;
-            }
-            else if (valueOj.onoff === 'off')
-            {
-                power = false;
-            }
-            else
-            {
-                power = valueOj.onoff;
-            }
-        }
-        else
-        {
-            power = this.getCapabilityValue('onoff');
-            if (power === null)
-            {
-                power = true;
-            }
-        }
-
-        power = power ? "on" : "off";
         mode = Number(mode);
         fan = Number(fan);
 
-        let parameters = `${ temp },${ mode },${ fan },${ power }`;
+        let parameters = `${ temp },${ mode },${ fan },on`;
         return this._operateDevice(parameters);
     }
 
