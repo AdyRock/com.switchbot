@@ -81,6 +81,9 @@
     "en": "Added flow action card to select a specific channel number"
   },
   "0.3.12": {
-    "en": "Seperated On and Off to individual buttons for the AC device. Decoded error messages reported in device view to prevent [object Object] being reported.."
+    "en": "Separated On and Off to individual buttons for the AC device. Decoded error messages reported in device view to prevent [object Object] being reported."
+  },
+  "0.3.13": {
+    "en": "Fix deprecated AC flow > Turn On / Off action cards."
   }
 }
