@@ -85,5 +85,8 @@
   },
   "0.3.13": {
     "en": "Fix deprecated AC flow > Turn On / Off action cards."
+  },
+  "0.3.14": {
+    "en": "Added BLE Presence sensor and Contact Sensor."
   }
 }

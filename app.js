@@ -12,7 +12,7 @@ const nodemailer = require("nodemailer");
 const hubInterface = require("../hub_interface");
 
 const MINIMUM_POLL_INTERVAL = 5;
-const BLE_POLLING_INTERVAL = 30000;
+const BLE_POLLING_INTERVAL = 20000;
 class MyApp extends Homey.App
 {
     /**
@@ -573,7 +573,7 @@ class MyApp extends Homey.App
                 let http_options = {
                     host: HubAddress,
                     path: "/api/v1/" + path,
-                    timeout: 15000
+                    timeout: 5000
                 };
 
                 let req = http.get(http_options, (res) =>
@@ -634,7 +634,7 @@ class MyApp extends Homey.App
                     return;
                 });
 
-                req.setTimeout(15000, function()
+                req.setTimeout(5000, function()
                 {
                     req.destroy();
                     reject(new Error("HTTP Catch: Timeout"));
@@ -833,26 +833,29 @@ class MyApp extends Homey.App
 
     async newBLEData(body)
     {
-        this.homey.app.updateLog(this.homey.app.varToString(body));
-        let promises = [];
-
-        const drivers = this.homey.drivers.getDrivers();
-        for (const driver in drivers)
+        if (Symbol.iterator in Object(body))
         {
-            let devices = this.homey.drivers.getDriver(driver).getDevices();
-            let numDevices = devices.length;
-            for (var i = 0; i < numDevices; i++)
+            this.homey.app.updateLog(this.homey.app.varToString(body));
+            let promises = [];
+
+            const drivers = this.homey.drivers.getDrivers();
+            for (const driver in drivers)
             {
-                let device = devices[i];
-                if (device.syncBLEEvents)
+                let devices = this.homey.drivers.getDriver(driver).getDevices();
+                let numDevices = devices.length;
+                for (var i = 0; i < numDevices; i++)
                 {
-                    promises.push(device.syncBLEEvents(body));
+                    let device = devices[i];
+                    if (device.syncBLEEvents)
+                    {
+                        promises.push(device.syncBLEEvents(body));
+                    }
                 }
             }
-        }
 
-        // Wait for all the checks to complete
-        await Promise.allSettled(promises);
+            // Wait for all the checks to complete
+            await Promise.allSettled(promises);
+        }
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

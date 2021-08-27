@@ -1,0 +1,37 @@
+{
+    "id": "presence_ble",
+    "name":
+    {
+        "en": "Contact Sensor (BLE)"
+    },
+    "class": "sensor",
+    "capabilities": [
+        "alarm_motion",
+        "alarm_contact",
+        "bright",
+        "measure_battery",
+        "rssi"
+    ],
+    "pair": [
+    {
+        "id": "list_my_devices",
+        "template": "list_devices",
+        "navigation":
+        {
+            "next": "add_my_devices"
+        }
+    },
+    {
+        "id": "add_my_devices",
+        "template": "add_devices"
+    }],
+    "energy":
+    {
+        "batteries": ["AAA", "AAA"]
+    },
+    "images":
+    {
+        "large": "/drivers/presence_ble/assets/images/large.jpg",
+        "small": "/drivers/presence_ble/assets/images/small.jpg"
+    }
+}

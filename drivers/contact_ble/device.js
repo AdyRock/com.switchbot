@@ -3,14 +3,14 @@
 
 const Homey = require('homey');
 
-class TemperatureBLEDevice extends Homey.Device
+class ContactBLEDevice extends Homey.Device
 {
     /**
      * onInit is called when the device is initialized.
      */
     async onInit()
     {
-        this.log('TemperatureBLEDevice has been initialized');
+        this.log('ContactBLEDevice has been initialized');
         this.bestRSSI = 100;
         this.bestHub = "";
     }
@@ -20,7 +20,7 @@ class TemperatureBLEDevice extends Homey.Device
      */
     async onAdded()
     {
-        this.log('TemperatureBLEDevice has been added');
+        this.log('ContactBLEDevice has been added');
     }
 
     /**
@@ -33,7 +33,7 @@ class TemperatureBLEDevice extends Homey.Device
      */
     async onSettings({ oldSettings, newSettings, changedKeys })
     {
-        this.log('TemperatureBLEDevice settings where changed');
+        this.log('ContactBLEDevice settings where changed');
     }
 
     /**
@@ -43,7 +43,7 @@ class TemperatureBLEDevice extends Homey.Device
      */
     async onRenamed(name)
     {
-        this.log('TemperatureBLEDevice was renamed');
+        this.log('ContactBLEDevice was renamed');
     }
 
     /**
@@ -52,7 +52,7 @@ class TemperatureBLEDevice extends Homey.Device
     async onDeleted()
     {
         await this.blePeripheral.disconnect();
-        this.log('TemperatureBLEDevice has been deleted');
+        this.log('ContactBLEDevice has been deleted');
     }
 
     async getDeviceValues()
@@ -76,7 +76,7 @@ class TemperatureBLEDevice extends Homey.Device
             {
                 if (this.homey.app.moving === 0)
                 {
-                    this.homey.app.updateLog("Finding Temperature BLE device", 2);
+                    this.homey.app.updateLog("Finding Presence BLE device", 2);
                     let bleAdvertisement = await this.homey.ble.find(dd.id);
                     this.homey.app.updateLog(this.homey.app.varToString(bleAdvertisement), 3);
                     let rssi = await bleAdvertisement.rssi;
@@ -85,20 +85,21 @@ class TemperatureBLEDevice extends Homey.Device
                     let data = this.driver.parse(bleAdvertisement);
                     if (data)
                     {
-                        this.homey.app.updateLog("Parsed Temperature BLE: " + this.homey.app.varToString(data), 2);
-                        this.setCapabilityValue('measure_temperature', data.serviceData.temperature.c);
-                        this.setCapabilityValue('measure_humidity', data.serviceData.humidity);
+                        this.homey.app.updateLog("Parsed Presence BLE: " + this.homey.app.varToString(data), 2);
+                        this.setCapabilityValue('alarm_motion', data.serviceData.motion);
+                        this.setCapabilityValue('alarm_contact', data.serviceData.contact);
+                        this.setCapabilityValue('bright', data.serviceData.light);
                         this.setCapabilityValue('measure_battery', data.serviceData.battery);
-                        this.homey.app.updateLog(`Parsed Temperature BLE: temperature = ${data.serviceData.temperature.c}, humidity = ${data.serviceData.humidity}, battery = ${data.serviceData.battery}`, 2);
+                        this.homey.app.updateLog(`Parsed Presence BLE: battery = ${data.serviceData.battery}`, 2);
                     }
                     else
                     {
-                        this.homey.app.updateLog("Parsed Temperature BLE: No service data", 1);
+                        this.homey.app.updateLog("Parsed Presence BLE: No service data", 1);
                     }
                 }
                 else
                 {
-                    this.homey.app.updateLog("Temperature Refresh skipped while moving");
+                    this.homey.app.updateLog("Presence Refresh skipped while moving");
                 }
             }
             else
@@ -112,7 +113,7 @@ class TemperatureBLEDevice extends Homey.Device
         }
         finally
         {
-            this.homey.app.updateLog("Finding Temperature BLE device --- COMPLETE", 2);
+            this.homey.app.updateLog("Finding Presence BLE device --- COMPLETE", 2);
         }
     }
 
@@ -125,8 +126,9 @@ class TemperatureBLEDevice extends Homey.Device
             {
                 if (event.address && (event.address == dd.address))
                 {
-                    this.setCapabilityValue('measure_temperature', event.serviceData.temperature.c);
-                    this.setCapabilityValue('measure_humidity', event.serviceData.humidity);
+                    this.setCapabilityValue('alarm_motion', (event.serviceData.motion == 1));
+                    this.setCapabilityValue('alarm_contact', (event.serviceData.contact == 1));
+                    this.setCapabilityValue('bright', (event.serviceData.light == 1));
                     this.setCapabilityValue('measure_battery', event.serviceData.battery);
                     this.setCapabilityValue('rssi', event.rssi);
 
@@ -142,10 +144,10 @@ class TemperatureBLEDevice extends Homey.Device
         }
         catch (error)
         {
-            this.homey.app.updateLog("Error in temperature syncEvents: " + this.homey.app.varToString(error), 0);
+            this.homey.app.updateLog("Error in Presence syncEvents: " + this.homey.app.varToString(error), 0);
         }
     }
 
 }
 
-module.exports = TemperatureBLEDevice;
+module.exports = ContactBLEDevice;

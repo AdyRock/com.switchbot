@@ -40,7 +40,7 @@ class BLEDriver extends Homey.Driver
                         {
                             let id = deviceData.address.replace(/\:/g, "");
 
-                            let data = { 
+                            let data = {
                                 id: id,
                                 pid: id,
                                 address: deviceData.address,
@@ -61,7 +61,7 @@ class BLEDriver extends Homey.Driver
                             devices.push(device);
                         }
                     }
-                    catch(err)
+                    catch (err)
                     {
                         this.homey.app.updateLog("BLE Discovery: " + this.homey.app.varToString(err), 0);
                     }
@@ -109,7 +109,7 @@ class BLEDriver extends Homey.Driver
                         }
                     }
                 }
-                catch(err)
+                catch (err)
                 {
                     this.homey.app.updateLog("BLE Discovery: " + this.homey.app.varToString(err), 0);
                 }
@@ -196,7 +196,8 @@ class BLEDriver extends Homey.Driver
                     pid: device.id,
                     address: device.address,
                     rssi: device.rssi,
-                    serviceData: {
+                    serviceData:
+                    {
                         model: 'H',
                         modelName: 'WoHand',
                         mode: false,
@@ -205,11 +206,12 @@ class BLEDriver extends Homey.Driver
                     }
                 };
                 return data;
-        
+
             }
             return null;
         }
-        if (device.serviceData[0].uuid !== '0d00')
+
+        if ((device.serviceData[0].uuid !== '0d00') && (device.serviceData[0].uuid !== 'fd3d'))
         {
             return null;
         }
@@ -233,6 +235,14 @@ class BLEDriver extends Homey.Driver
         else if (model === 'c')
         { // WoCurtain
             sd = this._parseServiceDataForWoCurtain(buf);
+        }
+        else if (model === 's')
+        { // WoPresence
+            sd = this._parseServiceDataForWoPresence(buf);
+        }
+        else if (model === 'd')
+        { // WoContact
+            sd = this._parseServiceDataForWoContact(buf);
         }
         else
         {
@@ -351,6 +361,68 @@ class BLEDriver extends Homey.Driver
             battery: battery,
             position: currPosition,
             lightLevel: lightLevel
+        };
+
+        return data;
+    }
+
+    _parseServiceDataForWoPresence(buf)
+    {
+        if (buf.length !== 6)
+        {
+            return null;
+        }
+
+        let byte1 = buf.readUInt8(1);
+        let byte2 = buf.readUInt8(2);
+        let byte3 = buf.readUInt8(3);
+        let byte4 = buf.readUInt8(4);
+        let byte5 = buf.readUInt8(5);
+
+        //console.log( "Pd: ", buf );
+
+        let data = {
+            model: 'P',
+            modelName: 'WoPresence',
+            battery: (byte2 & 0b01111111),
+            light: ((byte5 & 0b00000011) === 2),
+            range: ((byte5 >> 2) & 0b00000011),
+            motion: ((byte1 & 0b01000000) === 0b01000000),
+            lastMotion: (byte3 * 256) + byte4,
+        };
+
+        return data;
+    }
+
+    _parseServiceDataForWoContact(buf)
+    {
+        if (buf.length !== 9)
+        {
+            return null;
+        }
+
+        let byte1 = buf.readUInt8(1);
+        let byte2 = buf.readUInt8(2);
+        let byte3 = buf.readUInt8(3);
+        let byte4 = buf.readUInt8(4);
+        let byte5 = buf.readUInt8(5);
+        let byte6 = buf.readUInt8(6);
+        let byte7 = buf.readUInt8(7);
+        let byte8 = buf.readUInt8(8);
+
+        console.log( "Cd: ", buf );
+
+        let data = {
+            model: 'C',
+            modelName: 'WoContact',
+            battery: (byte2 & 0b01111111),
+            light: ((byte8 & 0b00110000) !== 0b00100000),
+            motion: ((byte1 & 0b01000000) === 0b01000000),
+            contact: (byte3 > 1),
+            openTime: byte3 - 1,
+            lastMotion: (byte4 * 256) + byte5,
+            lastContact: (byte6 * 256) + byte7,
+            buttonPresses: (byte8 & 0b00001111) // Increments every time button is pressed
         };
 
         return data;
