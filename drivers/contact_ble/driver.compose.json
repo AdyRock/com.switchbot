@@ -31,7 +31,7 @@
     },
     "images":
     {
-        "large": "/drivers/presence_ble/assets/images/large.jpg",
-        "small": "/drivers/presence_ble/assets/images/small.jpg"
+        "large": "/drivers/contact_ble/assets/images/large.jpg",
+        "small": "/drivers/contact_ble/assets/images/small.jpg"
     }
 }
