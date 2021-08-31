@@ -13,6 +13,32 @@ class BLEContactDriver extends BLEDriver
     {
         super.onInit();
         this.log('BLEContactDriver has been initialized');
+
+        // Device Triggers
+        this.bright_changed_trigger = this.homey.flow.getDeviceTriggerCard('bright_changed');
+        // this.bright_true_trigger = this.homey.flow.getDeviceTriggerCard('bright_true');
+        // this.bright_false_trigger = this.homey.flow.getDeviceTriggerCard('bright_false');
+    }
+
+    bright_changed(device, bright)
+    {
+        let tokens = {
+            bright: bright
+        };
+
+        this.bright_changed_trigger.trigger(device, tokens)
+            .catch(this.error);
+
+        // if (bright)
+        // {
+        //     this.bright_true_trigger.trigger(device)
+        //         .catch(this.error);
+        // }
+        // else
+        // {
+        //     this.bright_false_trigger.trigger(device)
+        //         .catch(this.error);
+        // }
     }
 
     /**

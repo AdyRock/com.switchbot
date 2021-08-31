@@ -443,6 +443,93 @@
           }
         ]
       }
+    ],
+    "triggers": [
+      {
+        "id": "alarm_contact.left_open_true",
+        "title": {
+          "en": "Left Open Set"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=contact_ble"
+          }
+        ]
+      },
+      {
+        "id": "bright_changed",
+        "title": {
+          "en": "Bright Changed"
+        },
+        "tokens": [
+          {
+            "name": "bright",
+            "title": {
+              "en": "Bright State"
+            },
+            "type": "boolean",
+            "example": true
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=contact_ble"
+          }
+        ]
+      },
+      {
+        "id": "bright_true",
+        "title": {
+          "en": "Bright Set"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=contact_ble"
+          }
+        ]
+      },
+      {
+        "id": "bright_false",
+        "title": {
+          "en": "Bright Cleared"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=contact_ble"
+          }
+        ]
+      },
+      {
+        "id": "button_press_id_changed",
+        "title": {
+          "en": "Button Press Changed"
+        },
+        "tokens": [
+          {
+            "name": "button_press_id",
+            "title": {
+              "en": "Button press ID"
+            },
+            "type": "number",
+            "example": 1
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=contact_ble"
+          }
+        ]
+      }
     ]
   },
   "drivers": [
@@ -573,10 +660,23 @@
       "capabilities": [
         "alarm_motion",
         "alarm_contact",
+        "alarm_contact.left_open",
         "bright",
+        "button_press_id",
         "measure_battery",
         "rssi"
       ],
+      "capabilitiesOptions": {
+        "alarm_contact.left_open": {
+          "title": "Left Open",
+          "insightsTitleTrue": {
+            "en": "Contact Left Open"
+          },
+          "insightsTitleFalse": {
+            "en": "Contact Closed"
+          }
+        }
+      },
       "pair": [
         {
           "id": "list_my_devices",
@@ -597,8 +697,8 @@
         ]
       },
       "images": {
-        "large": "/drivers/presence_ble/assets/images/large.jpg",
-        "small": "/drivers/presence_ble/assets/images/small.jpg"
+        "large": "/drivers/contact_ble/assets/images/large.jpg",
+        "small": "/drivers/contact_ble/assets/images/small.jpg"
       }
     },
     {
@@ -1154,7 +1254,25 @@
         "en": "Bright"
       },
       "getable": true,
-      "setable": false
+      "setable": false,
+      "insights": true,
+      "insightsTitleTrue": {
+        "en": "Light is bright"
+      },
+      "insightsTitleFalse": {
+        "en": "Light is dim"
+      },
+      "icon": "/assets/sun.svg"
+    },
+    "button_press_id": {
+      "type": "number",
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "title": {
+        "en": "Button Press ID"
+      },
+      "icon": "/assets/button_press.svg"
     },
     "forward": {
       "type": "boolean",

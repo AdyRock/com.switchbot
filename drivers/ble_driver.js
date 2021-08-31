@@ -415,11 +415,11 @@ class BLEDriver extends Homey.Driver
         let data = {
             model: 'C',
             modelName: 'WoContact',
-            battery: (byte2 & 0b01111111),
-            light: ((byte8 & 0b00110000) !== 0b00100000),
             motion: ((byte1 & 0b01000000) === 0b01000000),
-            contact: (byte3 > 1),
-            openTime: byte3 - 1,
+            battery: (byte2 & 0b01111111),
+            light: ((byte3 & 0b00000001) === 0b000000001),
+            contact: ((byte3 & 0b00000110) != 0),
+            leftOpen: ((byte3 & 0b00000100) != 0),
             lastMotion: (byte4 * 256) + byte5,
             lastContact: (byte6 * 256) + byte7,
             buttonPresses: (byte8 & 0b00001111) // Increments every time button is pressed

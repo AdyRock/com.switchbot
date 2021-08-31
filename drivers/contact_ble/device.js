@@ -13,6 +13,14 @@ class ContactBLEDevice extends Homey.Device
         this.log('ContactBLEDevice has been initialized');
         this.bestRSSI = 100;
         this.bestHub = "";
+
+        if (!this.hasCapability("alarm_contact.left_open"))
+        {
+            this.addCapability("alarm_contact.left_open");
+            this.addCapability("button_press_id");
+        }
+
+        this.lastButtonID = -1;
     }
 
     /**
@@ -88,8 +96,14 @@ class ContactBLEDevice extends Homey.Device
                         this.homey.app.updateLog("Parsed Presence BLE: " + this.homey.app.varToString(data), 2);
                         this.setCapabilityValue('alarm_motion', data.serviceData.motion);
                         this.setCapabilityValue('alarm_contact', data.serviceData.contact);
-                        this.setCapabilityValue('bright', data.serviceData.light);
+                        if (this.getCapabilityValue('bright') != data.serviceData.light)
+                        {
+                            this.setCapabilityValue('bright', data.serviceData.light);
+                            this.driver.bright_changed( this, data.serviceData.light);
+                        }
                         this.setCapabilityValue('measure_battery', data.serviceData.battery);
+                        this.setCapabilityValue('alarm_contact.left_open', data.serviceData.leftOpen);
+                        this.setCapabilityValue('button_press_id', data.serviceData.buttonPresses);
                         this.homey.app.updateLog(`Parsed Presence BLE: battery = ${data.serviceData.battery}`, 2);
                     }
                     else
@@ -128,7 +142,16 @@ class ContactBLEDevice extends Homey.Device
                 {
                     this.setCapabilityValue('alarm_motion', (event.serviceData.motion == 1));
                     this.setCapabilityValue('alarm_contact', (event.serviceData.contact == 1));
-                    this.setCapabilityValue('bright', (event.serviceData.light == 1));
+
+                    let light = (event.serviceData.light === 1);
+                    if (this.getCapabilityValue('bright') != light)
+                    {
+                        this.setCapabilityValue('bright', light);
+                        this.driver.bright_changed( this, light);
+                    }
+
+                    this.setCapabilityValue('button_press_id', event.serviceData.buttonPresses);
+                    this.setCapabilityValue('alarm_contact.left_open', (event.serviceData.leftOpen == 1));
                     this.setCapabilityValue('measure_battery', event.serviceData.battery);
                     this.setCapabilityValue('rssi', event.rssi);
 
