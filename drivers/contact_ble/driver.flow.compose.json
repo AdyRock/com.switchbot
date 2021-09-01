@@ -49,6 +49,38 @@
                     "example": 1
                 }
             ]
+        },
+        {
+            "id": "entry_id_changed",
+            "title": {
+                "en": "Entry ID Changed"
+            },
+            "tokens": [
+                {
+                    "name": "entry_id",
+                    "title": {
+                        "en": "Entry ID"
+                    },
+                    "type": "number",
+                    "example": 1
+                }
+            ]
+        },
+        {
+            "id": "exit_id_changed",
+            "title": {
+                "en": "Exit ID Changed"
+            },
+            "tokens": [
+                {
+                    "name": "exit_id",
+                    "title": {
+                        "en": "Exit ID"
+                    },
+                    "type": "number",
+                    "example": 1
+                }
+            ]
         }
     ]
 }

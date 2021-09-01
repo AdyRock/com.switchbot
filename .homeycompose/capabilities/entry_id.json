@@ -1,0 +1,11 @@
+{
+    "type": "number",
+    "getable": true,
+    "setable": false,
+    "uiComponent": "sensor",
+    "title":
+    {
+        "en": "Entry ID"
+    },
+    "icon": "/assets/entry.svg" 
+}

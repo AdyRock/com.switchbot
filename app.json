@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.switchbot",
-  "version": "0.3.14",
+  "version": "0.3.15",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#FF7D4B",
@@ -529,6 +529,52 @@
             "filter": "driver_id=contact_ble"
           }
         ]
+      },
+      {
+        "id": "entry_id_changed",
+        "title": {
+          "en": "Entry ID Changed"
+        },
+        "tokens": [
+          {
+            "name": "entry_id",
+            "title": {
+              "en": "Entry ID"
+            },
+            "type": "number",
+            "example": 1
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=contact_ble"
+          }
+        ]
+      },
+      {
+        "id": "exit_id_changed",
+        "title": {
+          "en": "Exit ID Changed"
+        },
+        "tokens": [
+          {
+            "name": "exit_id",
+            "title": {
+              "en": "Exit ID"
+            },
+            "type": "number",
+            "example": 1
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=contact_ble"
+          }
+        ]
       }
     ]
   },
@@ -659,9 +705,11 @@
       "class": "sensor",
       "capabilities": [
         "alarm_motion",
+        "bright",
         "alarm_contact",
         "alarm_contact.left_open",
-        "bright",
+        "entry_id",
+        "exit_id",
         "button_press_id",
         "measure_battery",
         "rssi"
@@ -1273,6 +1321,26 @@
         "en": "Button Press ID"
       },
       "icon": "/assets/button_press.svg"
+    },
+    "entry_id": {
+      "type": "number",
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "title": {
+        "en": "Entry ID"
+      },
+      "icon": "/assets/entry.svg"
+    },
+    "exit_id": {
+      "type": "number",
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "title": {
+        "en": "Exit ID"
+      },
+      "icon": "/assets/exit.svg"
     },
     "forward": {
       "type": "boolean",

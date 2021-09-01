@@ -19,8 +19,11 @@ class ContactBLEDevice extends Homey.Device
             this.addCapability("alarm_contact.left_open");
             this.addCapability("button_press_id");
         }
-
-        this.lastButtonID = -1;
+        if (!this.hasCapability("entry_id"))
+        {
+            this.addCapability("entry_id");
+            this.addCapability("exit_id");
+        }
     }
 
     /**
@@ -104,7 +107,8 @@ class ContactBLEDevice extends Homey.Device
                         this.setCapabilityValue('measure_battery', data.serviceData.battery);
                         this.setCapabilityValue('alarm_contact.left_open', data.serviceData.leftOpen);
                         this.setCapabilityValue('button_press_id', data.serviceData.buttonPresses);
-                        this.homey.app.updateLog(`Parsed Presence BLE: battery = ${data.serviceData.battery}`, 2);
+                        this.setCapabilityValue('entry_id', data.serviceData.entryCount);
+                        this.setCapabilityValue('exit_id', data.serviceData.exitCount);
                     }
                     else
                     {
@@ -151,6 +155,8 @@ class ContactBLEDevice extends Homey.Device
                     }
 
                     this.setCapabilityValue('button_press_id', event.serviceData.buttonPresses);
+                    this.setCapabilityValue('entry_id', event.serviceData.entryCount);
+                    this.setCapabilityValue('exit_id', event.serviceData.exitCount);
                     this.setCapabilityValue('alarm_contact.left_open', (event.serviceData.leftOpen == 1));
                     this.setCapabilityValue('measure_battery', event.serviceData.battery);
                     this.setCapabilityValue('rssi', event.rssi);

@@ -422,7 +422,9 @@ class BLEDriver extends Homey.Driver
             leftOpen: ((byte3 & 0b00000100) != 0),
             lastMotion: (byte4 * 256) + byte5,
             lastContact: (byte6 * 256) + byte7,
-            buttonPresses: (byte8 & 0b00001111) // Increments every time button is pressed
+            buttonPresses: (byte8 & 0b00001111), // Increments every time button is pressed
+            entryCount: ((byte8 >> 6) & 0b00000011), // Increments every time button is pressed
+            exitCount: ((byte8 >> 4) & 0b00000011) // Increments every time button is pressed
         };
 
         return data;

@@ -6,9 +6,11 @@
     "class": "sensor",
     "capabilities": [
         "alarm_motion",
+        "bright",
         "alarm_contact",
         "alarm_contact.left_open",
-        "bright",
+        "entry_id",
+        "exit_id",
         "button_press_id",
         "measure_battery",
         "rssi"

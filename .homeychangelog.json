@@ -88,5 +88,8 @@
   },
   "0.3.14": {
     "en": "Added BLE Presence sensor and Contact Sensor."
+  },
+  "0.3.15": {
+    "en": "Updated BLE Contact Sensor."
   }
 }
