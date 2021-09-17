@@ -1,21 +1,17 @@
 {
-    "id": "dvd",
+    "id": "fan_hub",
     "name":
     {
-        "en": "DVD (HUB Remote)"
+        "en": "Fan (HUB Remote)"
     },
     "class": "remote",
     "capabilities": [
         "power_on",
         "power_off",
-        "volume_mute",
-        "stop",
-        "play",
-        "pause",
-        "prev",
-        "next",
-        "rewind",
-        "forward"
+        "fan_swing",
+        "fan_speed_low",
+        "fan_speed_middle",
+        "fan_speed_high"
     ],
     "pair": [
     {
@@ -32,7 +28,7 @@
     }],
     "images":
     {
-        "large": "/drivers/dvd/assets/images/large.jpg",
-        "small": "/drivers/dvd/assets/images/small.jpg"
+        "large": "/drivers/fan_hub/assets/images/large.jpg",
+        "small": "/drivers/fan_hub/assets/images/small.jpg"
     }
 }

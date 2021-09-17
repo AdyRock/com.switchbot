@@ -1,17 +1,15 @@
 {
-    "id": "humidifier_hub",
+    "id": "smart_fan_hub",
     "name":
     {
-        "en": "Humidifier (HUB)"
+        "en": "Smart Fan (HUB)"
     },
     "class": "other",
     "capabilities": [
         "onoff",
-        "nebulization_mode",
-        "nebulization_efficiency",
-        "measure_temperature",
-        "measure_humidity",
-        "alarm_water"
+        "smart_fan_speed",
+        "smart_fan_mode",
+        "smart_fan_shake_range"
     ],
     "pair": [
     {
@@ -28,7 +26,7 @@
     }],
     "images":
     {
-        "large": "/drivers/humidifier_hub/assets/images/large.jpg",
-        "small": "/drivers/humidifier_hub/assets/images/small.jpg"
+        "large": "/drivers/smart_fan_hub/assets/images/large.jpg",
+        "small": "/drivers/smart_fan_hub/assets/images/small.jpg"
     }
 }

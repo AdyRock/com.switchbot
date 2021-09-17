@@ -11,6 +11,10 @@ class HumidityHubDevice extends Homey.Device
     async onInit()
     {
         this.log('HumidityHubDevice has been initialising');
+        if (!this.hasCapability("alarm_water"))
+        {
+            await this.addCapability("alarm_water");
+        }
 
         this.getHubDeviceValues();
         this.registerCapabilityListener('onoff', this.onCapabilityOnOff.bind(this));
@@ -80,6 +84,7 @@ class HumidityHubDevice extends Homey.Device
                 this.setCapabilityValue('nebulization_mode', data.auto);
                 this.setCapabilityValue('measure_temperature', data.temperature);
                 this.setCapabilityValue('measure_humidity', data.humidity);
+                this.setCapabilityValue('alarm_water', data.lackWater);
             }
         }
         catch(err)

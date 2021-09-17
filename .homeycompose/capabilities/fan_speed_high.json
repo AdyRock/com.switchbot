@@ -1,0 +1,11 @@
+{
+    "type": "boolean",
+    "getable": false,
+    "setable": true,
+    "uiComponent": "button",
+    "title":
+    {
+        "en": "High Speed"
+    },
+    "icon": "/assets/fan_speed.svg"
+}

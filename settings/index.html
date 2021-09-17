@@ -262,7 +262,7 @@
                     if (err) return Homey.alert(err);
                 });
 
-                if (pollIntervalElement.value < 87) pollIntervalElement.value = 87;
+                if (pollIntervalElement.value < 8) pollIntervalElement.value = 8;
                 if (pollIntervalElement.value > 3000) pollIntervalElement.value = 3000;
                 Homey.set('pollInterval', pollIntervalElement.value, function(err)
                 {

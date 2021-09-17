@@ -11,8 +11,8 @@ const dgram = require('dgram');
 const nodemailer = require("nodemailer");
 const hubInterface = require("../hub_interface");
 
-const MINIMUM_POLL_INTERVAL = 5;
-const BLE_POLLING_INTERVAL = 20000;
+const MINIMUM_POLL_INTERVAL = 5;    // in Seconds
+const BLE_POLLING_INTERVAL = 20000; // in milliSeconds
 class MyApp extends Homey.App
 {
     /**
@@ -152,56 +152,56 @@ class MyApp extends Homey.App
         onAction
             .registerRunListener(async (args, state) =>
             {
-                return args.device.onCapabilityPowerOn();
+                return args.device.onCapabilityCommand('on');
             });
 
         const offAction = this.homey.flow.getActionCard('off');
         offAction
             .registerRunListener(async (args, state) =>
             {
-                return args.device.onCapabilityPowerOff();
+                return args.device.onCapabilityCommand('off');
             });
 
         const muteAction = this.homey.flow.getActionCard('mute');
         muteAction
             .registerRunListener(async (args, state) =>
             {
-                return args.device.onCapabilityMute();
+                return args.device.onCapabilityCommand('mute');
             });
 
         const playAction = this.homey.flow.getActionCard('play');
         playAction
             .registerRunListener(async (args, state) =>
             {
-                return args.device.onCapabilityPlay();
+                return args.device.onCapabilityCommand('play');
             });
 
         const pauseAction = this.homey.flow.getActionCard('pause');
         pauseAction
             .registerRunListener(async (args, state) =>
             {
-                return args.device.onCapabilityPause();
+                return args.device.onCapabilityCommand('pause');
             });
 
         const stopAction = this.homey.flow.getActionCard('stop');
         stopAction
             .registerRunListener(async (args, state) =>
             {
-                return args.device.onCapabilityStop();
+                return args.device.onCapabilityCommand('stop');
             });
 
         const prevAction = this.homey.flow.getActionCard('prev');
         prevAction
             .registerRunListener(async (args, state) =>
             {
-                return args.device.onCapabilityPrev();
+                return args.device.onCapabilityCommand('prev');
             });
 
         const nextAction = this.homey.flow.getActionCard('next');
         nextAction
             .registerRunListener(async (args, state) =>
             {
-                return args.device.onCapabilityNext();
+                return args.device.onCapabilityCommand('next');
             });
 
         const setChannelAction = this.homey.flow.getActionCard('set_channel');
@@ -215,14 +215,14 @@ class MyApp extends Homey.App
         rewindAction
             .registerRunListener(async (args, state) =>
             {
-                return args.device.onCapabilityRewind();
+                return args.device.onCapabilityCommand('rewind');
             });
 
         const forwardAction = this.homey.flow.getActionCard('forward');
         forwardAction
             .registerRunListener(async (args, state) =>
             {
-                return args.device.onCapabilityForward();
+                return args.device.onCapabilityCommand('forward');
             });
 
         const startSceneAction = this.homey.flow.getActionCard('start_scene');
@@ -261,6 +261,40 @@ class MyApp extends Homey.App
         {
             return args.device.onCapabilityNebulization(args);
         });
+
+        const smartFanAction = this.homey.flow.getActionCard('smart_fan_mode');
+        smartFanAction.registerRunListener(async (args, state) =>
+        {
+            return args.device.onCapabilityFanSettings(args);
+        });
+
+        const fanSwingAction = this.homey.flow.getActionCard('fan_swing');
+        fanSwingAction
+            .registerRunListener(async (args, state) =>
+            {
+                return args.device.onCapabilityCommand('swing');
+            });
+
+        const fanLowSpeedAction = this.homey.flow.getActionCard('fan_low_speed');
+        fanLowSpeedAction
+            .registerRunListener(async (args, state) =>
+            {
+                return args.device.onCapabilityCommand('lowSpeed');
+            });
+
+        const fanMediumSpeedAction = this.homey.flow.getActionCard('fan_medium_speed');
+        fanMediumSpeedAction
+            .registerRunListener(async (args, state) =>
+            {
+                return args.device.onCapabilityCommand('middleSpeed');
+            });
+
+        const fanHighSpeedAction = this.homey.flow.getActionCard('fan_high_speed');
+        fanHighSpeedAction
+            .registerRunListener(async (args, state) =>
+            {
+                return args.device.onCapabilityCommand('highSpeed');
+            });
 
         this.homey.app.updateLog('************** App has initialised. ***************');
     }
@@ -897,9 +931,9 @@ class MyApp extends Homey.App
             if (totalHuBDevices > 0)
             {
                 nextInterval *= (1000 * totalHuBDevices);
-                if (nextInterval < (87000 * totalHuBDevices))
+                if (nextInterval < (8700 * totalHuBDevices))
                 {
-                    nextInterval = (87000 * totalHuBDevices);
+                    nextInterval = (8700 * totalHuBDevices);
                 }
             }
             else
@@ -907,7 +941,7 @@ class MyApp extends Homey.App
                 nextInterval = 60000;
             }
 
-            this.homey.app.updateLog("Next HUB polling interval = " + nextInterval, true);
+            this.homey.app.updateLog("Next HUB polling interval = " + (nextInterval / 1000) + "s", true);
         }
         else
         {

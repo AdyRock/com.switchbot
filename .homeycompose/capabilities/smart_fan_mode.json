@@ -1,0 +1,23 @@
+{
+    "type": "enum",
+    "title": {
+        "en": "Mode"
+    },
+    "values": [
+        {
+          "id": "1",
+          "title": {
+            "en": "Standard"
+          }
+        },
+        {
+          "id": "2",
+          "title": {
+            "en": "Natural"
+          }
+        }
+      ],
+    "getable": true,
+    "setable": true,
+    "icon": "/assets/fan_mode.svg"
+}

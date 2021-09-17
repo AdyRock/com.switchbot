@@ -39,7 +39,7 @@ class hub_interface
                 // Create an array of devices
                 for (const device of searchData.infraredRemoteList)
                 {
-                    if (device.remoteType === type)
+                    if ((device.remoteType === type) || (device.remoteType === ('DIY ' + type)))
                     {
                         this.homey.app.updateLog("Found device: ");
                         this.homey.app.updateLog(device);

@@ -4,7 +4,7 @@
 const Homey = require('homey');
 const HubDriver = require('../hub_driver');
 
-class HubSTBDriver extends HubDriver
+class HubFanDriver extends HubDriver
 {
     /**
      * onInit is called when the driver is initialized.
@@ -12,7 +12,7 @@ class HubSTBDriver extends HubDriver
     async onInit()
     {
         super.onInit();
-        this.log('HubSTBDriver has been initialized');
+        this.log('HubFanDriver has been initialized');
     }
 
     /**
@@ -21,8 +21,8 @@ class HubSTBDriver extends HubDriver
      */
     async onPairListDevices()
     {
-        return this.getHUBDevices('Set Top Box', true);
+        return this.getHUBDevices('Fan', true);
     }
 }
 
-module.exports = HubSTBDriver;
+module.exports = HubFanDriver;

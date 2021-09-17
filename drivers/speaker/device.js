@@ -12,18 +12,18 @@ class SpeakerHubDevice extends HubDevice
     async onInit()
     {
         this.log('SpeakerHubDevice has been initialized');
-        this.registerCapabilityListener('power_on', this.onCapabilityPowerOn.bind(this));
-        this.registerCapabilityListener('power_off', this.onCapabilityPowerOff.bind(this));
-        this.registerCapabilityListener('volume_up', this.onCapabilityVolumeUp.bind(this));
-        this.registerCapabilityListener('volume_down', this.onCapabilityVolumeDown.bind(this));
-        this.registerCapabilityListener('volume_mute', this.onCapabilityMute.bind(this));
-        this.registerCapabilityListener('play', this.onCapabilityPlay.bind(this));
-        this.registerCapabilityListener('pause', this.onCapabilityPause.bind(this));
-        this.registerCapabilityListener('stop', this.onCapabilityStop.bind(this));
-        this.registerCapabilityListener('prev', this.onCapabilityPrev.bind(this));
-        this.registerCapabilityListener('next', this.onCapabilityNext.bind(this));
-        this.registerCapabilityListener('rewind', this.onCapabilityRewind.bind(this));
-        this.registerCapabilityListener('forward', this.onCapabilityForward.bind(this));
+        this.registerCapabilityListener('power_on', this.onCapabilityCommand.bind(this, 'turnOn'));
+        this.registerCapabilityListener('power_off', this.onCapabilityCommand.bind(this, 'turnOff'));
+        this.registerCapabilityListener('volume_up', this.onCapabilityCommand.bind(this, 'volumeAdd'));
+        this.registerCapabilityListener('volume_down', this.onCapabilityCommand.bind(this, 'volumeSub'));
+        this.registerCapabilityListener('volume_mute', this.onCapabilityCommand.bind(this, 'setMute'));
+        this.registerCapabilityListener('play', this.onCapabilityCommand.bind(this, 'Play'));
+        this.registerCapabilityListener('pause', this.onCapabilityCommand.bind(this, 'Pause'));
+        this.registerCapabilityListener('stop', this.onCapabilityCommand.bind(this, 'Stop'));
+        this.registerCapabilityListener('prev', this.onCapabilityCommand.bind(this, 'Previous'));
+        this.registerCapabilityListener('next', this.onCapabilityCommand.bind(this, 'Next'));
+        this.registerCapabilityListener('rewind', this.onCapabilityCommand.bind(this, 'Rewind'));
+        this.registerCapabilityListener('forward', this.onCapabilityCommand.bind(this, 'FastForward'));
 
         this.setCapabilityValue('volume_mute', false);
     }

@@ -94,5 +94,11 @@
   },
   "0.3.16": {
     "en": "Updated BLE Contact Sensor to add entry and exit trigger."
+  },
+  "0.3.17": {
+    "en": "Reduce Hub polling interval to improve responsiveness. Added Smart Fan and Remote Fan"
+  },
+  "0.3.18": {
+    "en": "Reduce Hub polling interval to improve responsiveness. Added Smart Fan and Remote Fan"
   }
 }
