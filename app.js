@@ -152,14 +152,14 @@ class MyApp extends Homey.App
         onAction
             .registerRunListener(async (args, state) =>
             {
-                return args.device.onCapabilityCommand('on');
+                return args.device.onCapabilityCommand('turnOn');
             });
 
         const offAction = this.homey.flow.getActionCard('off');
         offAction
             .registerRunListener(async (args, state) =>
             {
-                return args.device.onCapabilityCommand('off');
+                return args.device.onCapabilityCommand('turnOff');
             });
 
         const muteAction = this.homey.flow.getActionCard('mute');

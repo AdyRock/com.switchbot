@@ -100,5 +100,8 @@
   },
   "0.3.18": {
     "en": "Reduce Hub polling interval to improve responsiveness. Added Smart Fan and Remote Fan"
+  },
+  "0.3.19": {
+    "en": "Fix Remote On and Off action cards that I broke in the last update"
   }
 }
