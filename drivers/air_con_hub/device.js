@@ -52,6 +52,18 @@ class AirConHubDevice extends Homey.Device
         return this.onCapabilityAll({power_on:true});
     }
 
+    async onCapabilityCommand(command)
+    {
+        if (command === 'turnOn')
+        {
+            return this.onCapabilityPowerOn();
+        }
+        else
+        {
+            return this.onCapabilityPowerOff();
+        }
+    }
+
     // this method is called when the Homey device has requested a value change
     async onCapabilityAll(valueOj, optsObj)
     {

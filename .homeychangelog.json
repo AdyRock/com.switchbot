@@ -103,5 +103,8 @@
   },
   "0.3.19": {
     "en": "Fix Remote On and Off action cards that I broke in the last update"
+  },
+  "0.3.20": {
+    "en": "Fix AirCon On and Off action cards"
   }
 }
