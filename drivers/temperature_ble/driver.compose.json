@@ -1,9 +1,15 @@
 {
     "id": "temperature_ble",
-    "name":
-    {
+    "name": {
         "en": "Temperature & Humidity (BLE)"
     },
+    "platforms": [
+        "local",
+        "cloud"
+    ],
+    "connectivity": [
+        "ble"
+    ],
     "class": "sensor",
     "capabilities": [
         "measure_battery",
@@ -12,24 +18,25 @@
         "rssi"
     ],
     "pair": [
-    {
-        "id": "list_my_devices",
-        "template": "list_devices",
-        "navigation":
         {
-            "next": "add_my_devices"
+            "id": "list_my_devices",
+            "template": "list_devices",
+            "navigation": {
+                "next": "add_my_devices"
+            }
+        },
+        {
+            "id": "add_my_devices",
+            "template": "add_devices"
         }
+    ],
+    "energy": {
+        "batteries": [
+            "AAA",
+            "AAA"
+        ]
     },
-    {
-        "id": "add_my_devices",
-        "template": "add_devices"
-    }],
-    "energy":
-    {
-        "batteries": ["AAA", "AAA"]
-    },
-    "images":
-    {
+    "images": {
         "large": "/drivers/temperature_ble/assets/images/large.jpg",
         "small": "/drivers/temperature_ble/assets/images/small.jpg"
     }

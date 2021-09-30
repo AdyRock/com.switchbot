@@ -17,12 +17,14 @@
         {
             "type": "number",
             "name": "channel_number",
+            "title": { "en": "Channel number" },
             "placeholder": {
-                "en": "Scene Name"
+                "en": "Channel Number"
             }
         }
     ],
     "min": 1,
     "max": 999,
-    "step": 1
+    "step": 1,
+    "platforms": ["local", "cloud"]
 }

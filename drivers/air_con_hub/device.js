@@ -26,19 +26,19 @@ class AirConHubDevice extends Homey.Device
         let temp = this.getCapabilityValue('target_temperature');
         if (temp === null)
         {
-            this.setCapabilityValue('target_temperature', 21);
+            this.setCapabilityValue('target_temperature', 21).catch(this.error);
         }
         
         temp = this.getCapabilityValue('aircon_mode');
         if (temp === null)
         {
-            this.setCapabilityValue('aircon_mode', '2');
+            this.setCapabilityValue('aircon_mode', '2').catch(this.error);
         }
 
         temp = this.getCapabilityValue('aircon_fan_speed');
         if (temp === null)
         {
-            this.setCapabilityValue('aircon_fan_speed', '2');
+            this.setCapabilityValue('aircon_fan_speed', '2').catch(this.error);
         }
     }
 

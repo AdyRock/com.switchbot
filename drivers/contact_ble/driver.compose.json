@@ -3,6 +3,13 @@
     "name": {
         "en": "Contact Sensor (BLE)"
     },
+    "platforms": [
+        "local",
+        "cloud"
+    ],
+    "connectivity": [
+        "ble"
+    ],
     "class": "sensor",
     "capabilities": [
         "alarm_motion",

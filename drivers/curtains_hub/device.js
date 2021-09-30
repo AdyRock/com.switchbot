@@ -33,7 +33,14 @@ class CurtainsHubDevice extends Homey.Device
             this.motionMode = 2;
         }
 
-        this.getHubDeviceValues();
+        try
+        {
+            this.getHubDeviceValues();
+        }
+        catch(err)
+        {
+            this.setUnavailable(err.message);
+        }
         this.registerCapabilityListener('open_close', this.onCapabilityopenClose.bind(this));
         this.registerCapabilityListener('windowcoverings_set', this.onCapabilityPosition.bind(this));
     }
@@ -159,7 +166,7 @@ class CurtainsHubDevice extends Homey.Device
 
     async _operateCurtain(command, parameter)
     {
-        this.setCapabilityValue('position', null);
+        this.setCapabilityValue('position', null).catch(this.error);
         let data = {
             "command": command,
             "parameter": parameter,
@@ -174,26 +181,35 @@ class CurtainsHubDevice extends Homey.Device
     {
         const dd = this.getData();
 
-        let data = await this.driver.getDeviceData(dd.id);
-        if (data)
+        try
         {
-            let position = data.slidePosition / 100;
-            if (this.invertPosition)
+            let data = await this.driver.getDeviceData(dd.id);
+            if (data)
             {
-                position = 1 - position;
-            }
+                this.setAvailable();
+                let position = data.slidePosition / 100;
+                if (this.invertPosition)
+                {
+                    position = 1 - position;
+                }
 
-            if (position > 0.5)
-            {
-                this.setCapabilityValue('open_close', true);
-            }
-            else
-            {
-                this.setCapabilityValue('open_close', false);
-            }
+                if (position > 0.5)
+                {
+                    this.setCapabilityValue('open_close', true).catch(this.error);
+                }
+                else
+                {
+                    this.setCapabilityValue('open_close', false).catch(this.error);
+                }
 
-            this.setCapabilityValue('windowcoverings_set', position);
-            this.setCapabilityValue('position', position * 100);
+                this.setCapabilityValue('windowcoverings_set', position).catch(this.error);
+                this.setCapabilityValue('position', position * 100).catch(this.error);
+            }
+        }
+        catch (err)
+        {
+            this.log('getHubDeviceValues: ', err);
+            this.setUnavailable(err.message);
         }
     }
 }

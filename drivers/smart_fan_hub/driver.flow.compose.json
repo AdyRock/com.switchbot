@@ -8,9 +8,11 @@
             "titleFormatted": {
                 "en": "Set the fan mode to [[fan_mode]], speed [[fan_speed]], shake range [[shake_range]]"
             },
+            "platforms": ["local", "cloud"],
             "args": [
                 {
                     "name": "fan_mode",
+                    "title": { "en": "Mode" },
                     "type": "dropdown",
                     "values": [
                         {
@@ -29,6 +31,7 @@
                 },
                 {
                     "name": "fan_speed",
+                    "title": { "en": "Speed" },
                     "type": "dropdown",
                     "values": [
                         {
@@ -59,6 +62,7 @@
                 },
                 {
                     "name": "shake_range",
+                    "title": { "en": "Shake Range" },
                     "type": "range",
                     "min": 0,
                     "max": 120,

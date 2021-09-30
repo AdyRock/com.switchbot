@@ -1,9 +1,10 @@
 {
     "id": "com.switchbot",
-    "version": "0.3.20",
+    "version": "0.4.0",
     "compatibility": ">=5.0.0",
+    "platforms": ["local", "cloud"],
     "sdk": 3,
-    "brandColor": "#FF7D4B",
+    "brandColor": "#E0393A",
     "name":
     {
         "en": "SwitchBot"
@@ -24,6 +25,8 @@
     "permissions": [
         "homey:wireless:ble"
     ],
+    "support": "https://github.com/AdyRock/com.switchbot/issues",
+    "homepage": "https://www.switch-bot.com/",
     "contributing":
     {
         "donate":

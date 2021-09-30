@@ -8,5 +8,6 @@
             "type": "device",
             "filter": "driver_id=fan_hub"
         }
-    ]
+    ],
+    "platforms": ["local", "cloud"]
 }

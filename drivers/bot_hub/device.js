@@ -12,7 +12,14 @@ class BotHubDevice extends Homey.Device
     {
         this.log('BotHubDevice has been initialized');
 
-        this.getHubDeviceValues();
+        try
+        {
+            this.getHubDeviceValues();
+        }
+        catch(err)
+        {
+            this.setUnavailable(err.message);
+        }
         this.registerCapabilityListener('onoff', this.onCapabilityOnOff.bind(this));
     }
 
@@ -64,7 +71,7 @@ class BotHubDevice extends Homey.Device
             if (value === true)
             {
                 let retValue = await this._operateBot('press');
-                setTimeout(() => this.setCapabilityValue('onoff', false), 1000);
+                this.homey.setTimeout(() => this.setCapabilityValue('onoff', false), 1000).catch(this.error);
                 return retValue;
             }
         }
@@ -98,19 +105,29 @@ class BotHubDevice extends Homey.Device
     {
         const dd = this.getData();
 
-        let data = await this.driver.getDeviceData(dd.id);
-        if (data)
+        try
         {
-            this.homey.app.updateLog("Bot Hub got: " + data.power);
-            let pushButton = this.getSetting('push_button');
-            if (pushButton)
+            let data = await this.driver.getDeviceData(dd.id);
+            if (data)
             {
-                this.setCapabilityValue('onoff', false);
+                this.setAvailable();
+                this.homey.app.updateLog("Bot Hub got: " + data.power);
+                let pushButton = this.getSetting('push_button');
+                if (pushButton)
+                {
+                    this.setCapabilityValue('onoff', false).catch(this.error);
+                }
+                else
+                {
+                    this.setCapabilityValue('onoff', data.power === 'on').catch(this.error);
+                }
             }
-            else
-            {
-                this.setCapabilityValue('onoff', data.power === 'on');
-            }
+        }
+        catch (err)
+        {
+            this.log('getHubDeviceValues: ', err);
+            this.setUnavailable(err.message);
+
         }
     }
 }

@@ -3,5 +3,22 @@
     {
         "clear": "Clear Log",
         "send": "Send Log"
+    },
+    "pair": {
+        "api_code":{
+            "title": "Connection Details",
+            "intro": "Get the API code from the SwitchBot phone app",
+            "intro1": "1. Open the SwitchBot phone app",
+            "intro2": "2. Go to Profile > Preference",
+            "intro3": "3. Tap App Version 10 times to show the Developer Options",
+            "intro4": "4. Tap Developer Options",
+            "intro5": "5. Tap Get Token",
+            "api_code": "API Code",
+            "login": "Log in",
+            "checking": "Checking connection",
+            "try_again": "Try again",
+            "correct": "Successful",
+            "adding": "Adding device(s)"
+        }
     }
 }

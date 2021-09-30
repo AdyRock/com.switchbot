@@ -64,7 +64,7 @@ class TemperatureBLEDevice extends Homey.Device
             if (this.bestHub !== "")
             {
                 // This device is being controlled by a BLE hub
-                if (this.homey.app.IsBLEHubAvailable(this.bestHub))
+                if (this.homey.app.BLEHub && this.homey.app.BLEHub.IsBLEHubAvailable(this.bestHub))
                 {
                     return;
                 }
@@ -80,15 +80,15 @@ class TemperatureBLEDevice extends Homey.Device
                     let bleAdvertisement = await this.homey.ble.find(dd.id);
                     this.homey.app.updateLog(this.homey.app.varToString(bleAdvertisement), 3);
                     let rssi = await bleAdvertisement.rssi;
-                    this.setCapabilityValue('rssi', rssi);
+                    this.setCapabilityValue('rssi', rssi).catch(this.error);
 
                     let data = this.driver.parse(bleAdvertisement);
                     if (data)
                     {
                         this.homey.app.updateLog("Parsed Temperature BLE: " + this.homey.app.varToString(data), 2);
-                        this.setCapabilityValue('measure_temperature', data.serviceData.temperature.c);
-                        this.setCapabilityValue('measure_humidity', data.serviceData.humidity);
-                        this.setCapabilityValue('measure_battery', data.serviceData.battery);
+                        this.setCapabilityValue('measure_temperature', data.serviceData.temperature.c).catch(this.error);
+                        this.setCapabilityValue('measure_humidity', data.serviceData.humidity).catch(this.error);
+                        this.setCapabilityValue('measure_battery', data.serviceData.battery).catch(this.error);
                         this.homey.app.updateLog(`Parsed Temperature BLE: temperature = ${data.serviceData.temperature.c}, humidity = ${data.serviceData.humidity}, battery = ${data.serviceData.battery}`, 2);
                     }
                     else
@@ -125,10 +125,10 @@ class TemperatureBLEDevice extends Homey.Device
             {
                 if (event.address && (event.address == dd.address))
                 {
-                    this.setCapabilityValue('measure_temperature', event.serviceData.temperature.c);
-                    this.setCapabilityValue('measure_humidity', event.serviceData.humidity);
-                    this.setCapabilityValue('measure_battery', event.serviceData.battery);
-                    this.setCapabilityValue('rssi', event.rssi);
+                    this.setCapabilityValue('measure_temperature', event.serviceData.temperature.c).catch(this.error);
+                    this.setCapabilityValue('measure_humidity', event.serviceData.humidity).catch(this.error);
+                    this.setCapabilityValue('measure_battery', event.serviceData.battery).catch(this.error);
+                    this.setCapabilityValue('rssi', event.rssi).catch(this.error);
 
                     if (event.hubMAC && (event.rssi < this.bestRSSI) || (event.hubMAC === this.bestHub))
                     {

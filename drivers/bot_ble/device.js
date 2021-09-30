@@ -135,7 +135,7 @@ class BotBLEDevice extends Homey.Device
             }
 
             await this._operateBot(cmd);
-            setTimeout(() => this.setCapabilityValue('onoff', false), 1000);
+            this.homey.setTimeout(() => this.setCapabilityValue('onoff', false).catch(this.error), 1000);
         }
     }
 
@@ -148,10 +148,10 @@ class BotBLEDevice extends Homey.Device
         }
         this.sendingCommand = true;
 
-        if (this.homey.app.usingBLEHub)
+        if (this.homey.app.BLEHub)
         {
             const dd = this.getData();
-            if (await this.homey.app.sendBLECommand(dd.address, bytes, this.bestHub))
+            if (await this.homey.app.BLEHub.sendBLEHubCommand(dd.address, bytes, this.bestHub))
             {
                 this.sendingCommand = false;
                 return;
@@ -289,7 +289,7 @@ class BotBLEDevice extends Homey.Device
             if (this.bestHub !== "")
             {
                 // This device is being controlled by a BLE hub
-                if (this.homey.app.IsBLEHubAvailable(this.bestHub))
+                if (this.homey.app.BLEHub && this.homey.app.BLEHub.IsBLEHubAvailable(this.bestHub))
                 {
                     return;
                 }
@@ -312,7 +312,7 @@ class BotBLEDevice extends Homey.Device
 
                         if (notification.status === true)
                         {
-                            this.setCapabilityValue('measure_battery', notification.notificationData[1]);
+                            this.setCapabilityValue('measure_battery', notification.notificationData[1]).catch(this.error);
                             this.operationMode = ((notification.notificationData[9] & 16) != 0);
                         }
                     }
@@ -321,7 +321,7 @@ class BotBLEDevice extends Homey.Device
                         let bleAdvertisement = await this.homey.ble.find(dd.id);
                         this.homey.app.updateLog(this.homey.app.varToString(bleAdvertisement), 3);
                         let rssi = await bleAdvertisement.rssi;
-                        this.setCapabilityValue('rssi', rssi);
+                        this.setCapabilityValue('rssi', rssi).catch(this.error);
 
                         let data = this.driver.parse(bleAdvertisement);
                         if (data)
@@ -332,14 +332,14 @@ class BotBLEDevice extends Homey.Device
                             this.operationMode = data.serviceData.mode;
                             if (this.operationMode)
                             {
-                                this.setCapabilityValue('onoff', data.serviceData.state);
+                                this.setCapabilityValue('onoff', data.serviceData.state).catch(this.error);
                             }
                             else
                             {
-                                this.setCapabilityValue('onoff', false);
+                                this.setCapabilityValue('onoff', false).catch(this.error);
                             }
 
-                            this.setCapabilityValue('measure_battery', data.serviceData.battery);
+                            this.setCapabilityValue('measure_battery', data.serviceData.battery).catch(this.error);
 
                             this.homey.app.updateLog(`Parsed Bot BLE (${name}): onoff = ${data.serviceData.state}, battery = ${data.serviceData.battery}`, 2);
                         }
@@ -385,15 +385,15 @@ class BotBLEDevice extends Homey.Device
                     this.operationMode = event.serviceData.mode;
                     if (this.operationMode)
                     {
-                        this.setCapabilityValue('onoff', (event.serviceData.state === 0));
+                        this.setCapabilityValue('onoff', (event.serviceData.state === 0)).catch(this.error);
                     }
                     else
                     {
-                        this.setCapabilityValue('onoff', false);
+                        this.setCapabilityValue('onoff', false).catch(this.error);
                     }
 
-                    this.setCapabilityValue('measure_battery', event.serviceData.battery);
-                    this.setCapabilityValue('rssi', event.rssi);
+                    this.setCapabilityValue('measure_battery', event.serviceData.battery).catch(this.error);
+                    this.setCapabilityValue('rssi', event.rssi).catch(this.error);
 
                     if (event.hubMAC && (event.rssi < this.bestRSSI) || (event.hubMAC === this.bestHub))
                     {

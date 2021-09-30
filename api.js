@@ -23,7 +23,10 @@ module.exports = {
     },
     async newData({ homey, body })
     {
-        homey.app.newBLEData(body);
+        if (homey.app.BLEHub)
+        {
+            homey.app.BLEHub.newBLEHubData(body);
+        }
         return 'OK';
     },
     async requestDeviceStatus({ homey, query  })

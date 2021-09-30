@@ -12,7 +12,14 @@ class SmartFanHubDevice extends Homey.Device
     {
         this.log('SmartFanHubDevice has been initialising');
 
-        this.getHubDeviceValues();
+        try
+        {
+            this.getHubDeviceValues();
+        }
+        catch(err)
+        {
+            this.setUnavailable(err.message);
+        }
         this.registerCapabilityListener('onoff', this.onCapabilityOnOff.bind(this));
         this.registerMultipleCapabilityListener(['smart_fan_mode', 'smart_fan_speed', 'smart_fan_shake_range'], this.onCapabilityFanSettings.bind(this));
 
@@ -76,15 +83,18 @@ class SmartFanHubDevice extends Homey.Device
             let data = await this.driver.getDeviceData(dd.id);
             if (data)
             {
-                this.setCapabilityValue('onoff', data.power == 'on');
-                this.setCapabilityValue('smart_fan_mode', data.mode);
-                this.setCapabilityValue('smart_fan_speed', data.speed);
-                this.setCapabilityValue('smart_fan_shake_range', data.shakeRange);
+                this.setAvailable();
+                this.setCapabilityValue('onoff', data.power == 'on').catch(this.error);
+                this.setCapabilityValue('smart_fan_mode', data.mode).catch(this.error);
+                this.setCapabilityValue('smart_fan_speed', data.speed).catch(this.error);
+                this.setCapabilityValue('smart_fan_shake_range', data.shakeRange).catch(this.error);
             }
         }
         catch(err)
         {
             this.log('getHubDeviceValues: ', err);
+            this.setUnavailable(err.message);
+
         }
     }
 }

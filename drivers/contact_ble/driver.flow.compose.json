@@ -1,44 +1,11 @@
 {
     "triggers": [
         {
-            "id": "alarm_contact.left_open_true",
-            "title": {
-                "en": "Left Open Set"
-            }
-        },
-        {
-            "id": "bright_changed",
-            "title": {
-                "en": "Bright Changed"
-            },
-            "tokens": [
-                {
-                    "name": "bright",
-                    "title": {
-                        "en": "Bright State"
-                    },
-                    "type": "boolean",
-                    "example": true
-                }
-            ]
-        },
-        {
-            "id": "bright_true",
-            "title": {
-                "en": "Bright Set"
-            }
-        },
-        {
-            "id": "bright_false",
-            "title": {
-                "en": "Bright Cleared"
-            }
-        },
-        {
             "id": "button_press_id_changed",
             "title": {
                 "en": "Button Press Changed"
             },
+            "platforms": ["local", "cloud"],
             "tokens": [
                 {
                     "name": "button_press_id",
@@ -55,6 +22,7 @@
             "title": {
                 "en": "Entry ID Changed"
             },
+            "platforms": ["local", "cloud"],
             "tokens": [
                 {
                     "name": "entry_id",
@@ -71,6 +39,7 @@
             "title": {
                 "en": "Exit ID Changed"
             },
+            "platforms": ["local", "cloud"],
             "tokens": [
                 {
                     "name": "exit_id",

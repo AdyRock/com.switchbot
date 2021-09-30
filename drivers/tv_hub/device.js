@@ -25,7 +25,7 @@ class TVHubDevice extends HubDevice
         this.registerCapabilityListener('channel_up', this.onCapabilityCommand.bind(this, 'channelAdd'));
         this.registerCapabilityListener('channel_down', this.onCapabilityCommand.bind(this, 'channelSub'));
 
-        this.setCapabilityValue('volume_mute', false);
+        this.setCapabilityValue('volume_mute', false).catch(this.error);
     }
 }
 

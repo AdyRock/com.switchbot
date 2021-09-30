@@ -16,7 +16,14 @@ class HumidityHubDevice extends Homey.Device
             await this.addCapability("alarm_water");
         }
 
-        this.getHubDeviceValues();
+        try
+        {
+            this.getHubDeviceValues();
+        }
+        catch(err)
+        {
+            this.setUnavailable(err.message);
+        }
         this.registerCapabilityListener('onoff', this.onCapabilityOnOff.bind(this));
         this.registerMultipleCapabilityListener(['nebulization_mode', 'nebulization_efficiency'], this.onCapabilityNebulization.bind(this));
 
@@ -46,7 +53,7 @@ class HumidityHubDevice extends Homey.Device
 
             if (this.getCapabilityValue('nebulization_mode'))
             {
-                setTimeout(() => this.setCapabilityValue('nebulization_mode', false), 1000);
+                this.homey.setTimeout(() => this.setCapabilityValue('nebulization_mode', false).catch(this.error), 1000);
             }
         }
         else
@@ -79,17 +86,19 @@ class HumidityHubDevice extends Homey.Device
             let data = await this.driver.getDeviceData(dd.id);
             if (data)
             {
-                this.setCapabilityValue('onoff', data.power == 'on');
-                this.setCapabilityValue('nebulization_efficiency', data.nebulizationEfficiency);
-                this.setCapabilityValue('nebulization_mode', data.auto);
-                this.setCapabilityValue('measure_temperature', data.temperature);
-                this.setCapabilityValue('measure_humidity', data.humidity);
-                this.setCapabilityValue('alarm_water', data.lackWater);
+                this.setAvailable();
+                this.setCapabilityValue('onoff', data.power == 'on').catch(this.error);
+                this.setCapabilityValue('nebulization_efficiency', data.nebulizationEfficiency).catch(this.error);
+                this.setCapabilityValue('nebulization_mode', data.auto).catch(this.error);
+                this.setCapabilityValue('measure_temperature', data.temperature).catch(this.error);
+                this.setCapabilityValue('measure_humidity', data.humidity).catch(this.error);
+                this.setCapabilityValue('alarm_water', data.lackWater).catch(this.error);
             }
         }
         catch(err)
         {
             this.log('getHubDeviceValues: ', err);
+            this.setUnavailable(err.message);
         }
     }
 }

@@ -12,9 +12,11 @@
     {
       "type": "autocomplete",
       "name": "scene",
+      "title": { "en": "Scene Name" },
       "placeholder": {
         "en": "Scene Name"
       }
     }
-  ]
+  ],
+  "platforms": ["local", "cloud"]
 }

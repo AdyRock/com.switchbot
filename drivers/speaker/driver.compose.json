@@ -19,22 +19,5 @@
         "rewind",
         "forward"
     ],
-    "pair": [
-    {
-        "id": "list_my_devices",
-        "template": "list_devices",
-        "navigation":
-        {
-            "next": "add_my_devices"
-        }
-    },
-    {
-        "id": "add_my_devices",
-        "template": "add_devices"
-    }],
-    "images":
-    {
-        "large": "/drivers/speaker/assets/images/large.jpg",
-        "small": "/drivers/speaker/assets/images/small.jpg"
-    }
+    "$extends": ["hubDriver"]
 }

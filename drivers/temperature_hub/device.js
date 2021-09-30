@@ -11,8 +11,14 @@ class TemperatureHubDevice extends Homey.Device
     async onInit()
     {
         this.log('TemperatureHubDevice has been initialized');
-
-        this.getHubDeviceValues();
+        try
+        {
+            this.getHubDeviceValues();
+        }
+        catch(err)
+        {
+            this.setUnavailable(err.message);
+        }
     }
 
     /**
@@ -58,11 +64,20 @@ class TemperatureHubDevice extends Homey.Device
     {
         const dd = this.getData();
 
-        let data = await this.driver.getDeviceData(dd.id);
-        if (data)
+        try
         {
-            this.setCapabilityValue('measure_temperature', data.temperature);
-            this.setCapabilityValue('measure_humidity', data.humidity);
+            let data = await this.driver.getDeviceData(dd.id);
+            if (data)
+            {
+                this.setAvailable();
+                this.setCapabilityValue('measure_temperature', data.temperature).catch(this.error);
+                this.setCapabilityValue('measure_humidity', data.humidity).catch(this.error);
+            }
+        }
+        catch(err)
+        {
+            this.log('getHubDeviceValues: ', err);
+            this.setUnavailable(err.message);
         }
     }
 }

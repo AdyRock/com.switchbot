@@ -8,5 +8,6 @@
             "type": "device",
             "filter": "driver_id=dvd|speaker|tv_hub|settop_box_hub"
         }
-    ]
+    ],
+    "platforms": ["local", "cloud"]
 }

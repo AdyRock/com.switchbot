@@ -151,7 +151,7 @@ class CurtainsBLEDevice extends Homey.Device
     async runToPos(percent, mode = 0xff)
     {
         this.homey.app.updateLog("COMMAND: Setting curtain to:" + percent);
-        this.setCapabilityValue('position', null);
+        this.setCapabilityValue('position', null).catch(this.error);
         return await this._operateCurtain([0x57, 0x0f, 0x45, 0x01, 0x05, mode, percent]);
     }
 
@@ -164,10 +164,10 @@ class CurtainsBLEDevice extends Homey.Device
         }
         this.sendingCommand = true;
 
-        if (this.homey.app.usingBLEHub)
+        if (this.homey.app.BLEHub)
         {
             const dd = this.getData();
-            if (await this.homey.app.sendBLECommand(dd.address, bytes, this.bestHub))
+            if (await this.homey.app.BLEHub.sendBLEHubCommand(dd.address, bytes, this.bestHub))
             {
                 this.sendingCommand = false;
                 return;
@@ -297,7 +297,7 @@ class CurtainsBLEDevice extends Homey.Device
             if (this.bestHub !== "")
             {
                 // This device is being controlled by a BLE hub
-                if (this.homey.app.IsBLEHubAvailable(this.bestHub))
+                if (this.homey.app.BLEHub && this.homey.app.BLEHub.IsBLEHubAvailable(this.bestHub))
                 {
                     return;
                 }
@@ -313,7 +313,7 @@ class CurtainsBLEDevice extends Homey.Device
                     let bleAdvertisement = await this.homey.ble.find(dd.id);
                     this.homey.app.updateLog(this.homey.app.varToString(bleAdvertisement), 3);
                     let rssi = await bleAdvertisement.rssi;
-                    this.setCapabilityValue('rssi', rssi);
+                    this.setCapabilityValue('rssi', rssi).catch(this.error);
 
                     let data = this.driver.parse(bleAdvertisement);
                     if (data)
@@ -327,17 +327,17 @@ class CurtainsBLEDevice extends Homey.Device
 
                         if (position > 0.5)
                         {
-                            this.setCapabilityValue('open_close', true);
+                            this.setCapabilityValue('open_close', true).catch(this.error);
                         }
                         else
                         {
-                            this.setCapabilityValue('open_close', false);
+                            this.setCapabilityValue('open_close', false).catch(this.error);
                         }
     
-                        this.setCapabilityValue('windowcoverings_set', position);
-                        this.setCapabilityValue('position', position * 100);
+                        this.setCapabilityValue('windowcoverings_set', position).catch(this.error);
+                        this.setCapabilityValue('position', position * 100).catch(this.error);
 
-                        this.setCapabilityValue('measure_battery', data.serviceData.battery);
+                        this.setCapabilityValue('measure_battery', data.serviceData.battery).catch(this.error);
                         this.homey.app.updateLog(`Parsed Curtain BLE (${name}): position = ${data.serviceData.position}, battery = ${data.serviceData.battery}`, 2);
                     }
                     else
@@ -381,20 +381,20 @@ class CurtainsBLEDevice extends Homey.Device
                     {
                         position = 1 - position;
                     }
-                    this.setCapabilityValue('windowcoverings_set', position);
-                    this.setCapabilityValue('position', position * 100);
+                    this.setCapabilityValue('windowcoverings_set', position).catch(this.error);
+                    this.setCapabilityValue('position', position * 100).catch(this.error);
 
                     if (position > 0.5)
                     {
-                        this.setCapabilityValue('open_close', true);
+                        this.setCapabilityValue('open_close', true).catch(this.error);
                     }
                     else
                     {
-                        this.setCapabilityValue('open_close', false);
+                        this.setCapabilityValue('open_close', false).catch(this.error);
                     }
 
-                    this.setCapabilityValue('measure_battery', event.serviceData.battery);
-                    this.setCapabilityValue('rssi', event.rssi);
+                    this.setCapabilityValue('measure_battery', event.serviceData.battery).catch(this.error);
+                    this.setCapabilityValue('rssi', event.rssi).catch(this.error);
                     this.homey.app.updateLog(`Parsed Curtain BLE (${name}): position = ${event.serviceData.position}, battery = ${event.serviceData.battery}`, 2);
 
                     if (event.hubMAC && (event.rssi < this.bestRSSI) || (event.hubMAC === this.bestHub))

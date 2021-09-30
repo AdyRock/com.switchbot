@@ -8,10 +8,12 @@
             "titleFormatted": {
                 "en": "Set the nebulization mode to [[mode]]"
             },
+            "platforms": ["local", "cloud"],
             "args": [
                 {
                     "name": "mode",
                     "type": "dropdown",
+                    "title": { "en": "Mode" },
                     "values": [
                         {
                             "id": "0",
@@ -37,6 +39,7 @@
             "titleFormatted": {
                 "en": "Set the nebulization efficiency to [[efficiency]]"
             },
+            "platforms": ["local", "cloud"],
             "args": [
                 {
                     "name": "efficiency",

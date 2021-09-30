@@ -1,0 +1,35 @@
+{
+    "platforms": [
+        "local",
+        "cloud"
+    ],
+    "connectivity": [
+        "cloud"
+    ],
+    "pair": [
+        {
+            "id": "my_connect"
+        },
+        {
+            "id": "list_my_devices",
+            "template": "list_devices",
+            "navigation": {
+                "next": "add_my_devices"
+            }
+        },
+        {
+            "id": "add_my_devices",
+            "template": "add_devices"
+        }
+    ],
+    "repair": [
+        {
+            "id": "my_repair"
+        }
+    ],
+    "icon": "{{driverAssetsPath}}/icon.svg",
+    "images": {
+        "large": "{{driverAssetsPath}}/images/large.jpg",
+        "small": "{{driverAssetsPath}}/images/small.jpg"
+    }
+}

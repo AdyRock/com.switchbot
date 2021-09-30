@@ -1,9 +1,15 @@
 {
     "id": "bot_ble",
-    "name":
-    {
+    "name": {
         "en": "Bot (BLE)"
     },
+    "platforms": [
+        "local",
+        "cloud"
+    ],
+    "connectivity": [
+        "ble"
+    ],
     "class": "button",
     "capabilities": [
         "measure_battery",
@@ -11,41 +17,38 @@
         "rssi"
     ],
     "pair": [
-    {
-        "id": "list_my_devices",
-        "template": "list_devices",
-        "navigation":
         {
-            "next": "add_my_devices"
+            "id": "list_my_devices",
+            "template": "list_devices",
+            "navigation": {
+                "next": "add_my_devices"
+            }
+        },
+        {
+            "id": "add_my_devices",
+            "template": "add_devices"
         }
-    },
-    {
-        "id": "add_my_devices",
-        "template": "add_devices"
-    }],
-    "energy":
-    {
+    ],
+    "energy": {
         "batteries": [
             "CR2"
         ]
     },
-    "images":
-    {
+    "images": {
         "large": "/drivers/bot_ble/assets/images/large.jpg",
         "small": "/drivers/bot_ble/assets/images/small.jpg"
     },
     "settings": [
-    {
-        "id": "password",
-        "type": "password",
-        "label":
         {
-            "en": "Password"
-        },
-        "value": "",
-        "hint":
-        {
-            "en": "The password that has been set in the SwitchBot app which is required to control the Bot.\r\nLeave this empty if no password is set."
+            "id": "password",
+            "type": "password",
+            "label": {
+                "en": "Password"
+            },
+            "value": "",
+            "hint": {
+                "en": "The password that has been set in the SwitchBot app which is required to control the Bot.\r\nLeave this empty if no password is set."
+            }
         }
-    }]
+    ]
 }

@@ -25,7 +25,7 @@ class DVDHubDevice extends HubDevice
         this.registerCapabilityListener('rewind', this.onCapabilityCommand.bind(this, 'Rewind'));
         this.registerCapabilityListener('forward', this.onCapabilityCommand.bind(this, 'FastForward'));
 
-        this.setCapabilityValue('volume_mute', false);
+        this.setCapabilityValue('volume_mute', false).catch(this.error);
     }
 }
 

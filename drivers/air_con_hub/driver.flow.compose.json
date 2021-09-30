@@ -8,10 +8,12 @@
             "titleFormatted": {
                 "en": "Switch Air conditioner [[onoff]], Mode is [[aircon_mode]] at [[target_temperature]] with the fan on [[aircon_fan_speed]]"
             },
+            "platforms": ["local", "cloud"],
             "args": [
                 {
                     "name": "onoff",
                     "type": "dropdown",
+                    "title": { "en": "Power" },
                     "values": [
                         {
                             "id": "on",
@@ -30,6 +32,7 @@
                 {
                     "name": "aircon_mode",
                     "type": "dropdown",
+                    "title": { "en": "Mode" },
                     "values": [
                         {
                             "id": "1",
@@ -65,6 +68,7 @@
                 },
                 {
                     "name": "target_temperature",
+                    "title": { "en": "Temperature" },
                     "type": "range",
                     "min": 5,
                     "max": 40,
@@ -74,6 +78,7 @@
                 },
                 {
                     "name": "aircon_fan_speed",
+                    "title": { "en": "Speed" },
                     "type": "dropdown",
                     "values": [
                         {

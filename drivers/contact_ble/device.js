@@ -75,7 +75,7 @@ class ContactBLEDevice extends Homey.Device
             if (this.bestHub !== "")
             {
                 // This device is being controlled by a BLE hub
-                if (this.homey.app.IsBLEHubAvailable(this.bestHub))
+                if (this.homey.app.BLEHub && this.homey.app.BLEHub.IsBLEHubAvailable(this.bestHub))
                 {
                     return;
                 }
@@ -91,24 +91,24 @@ class ContactBLEDevice extends Homey.Device
                     let bleAdvertisement = await this.homey.ble.find(dd.id);
                     this.homey.app.updateLog(this.homey.app.varToString(bleAdvertisement), 3);
                     let rssi = await bleAdvertisement.rssi;
-                    this.setCapabilityValue('rssi', rssi);
+                    this.setCapabilityValue('rssi', rssi).catch(this.error);
 
                     let data = this.driver.parse(bleAdvertisement);
                     if (data)
                     {
                         this.homey.app.updateLog("Parsed Presence BLE: " + this.homey.app.varToString(data), 2);
-                        this.setCapabilityValue('alarm_motion', data.serviceData.motion);
-                        this.setCapabilityValue('alarm_contact', data.serviceData.contact);
+                        this.setCapabilityValue('alarm_motion', data.serviceData.motion).catch(this.error);
+                        this.setCapabilityValue('alarm_contact', data.serviceData.contact).catch(this.error);
                         if (this.getCapabilityValue('bright') != data.serviceData.light)
                         {
-                            this.setCapabilityValue('bright', data.serviceData.light);
+                            this.setCapabilityValue('bright', data.serviceData.light).catch(this.error);
                             this.driver.bright_changed( this, data.serviceData.light);
                         }
-                        this.setCapabilityValue('measure_battery', data.serviceData.battery);
-                        this.setCapabilityValue('alarm_contact.left_open', data.serviceData.leftOpen);
-                        this.setCapabilityValue('button_press_id', data.serviceData.buttonPresses);
-                        this.setCapabilityValue('entry_id', data.serviceData.entryCount);
-                        this.setCapabilityValue('exit_id', data.serviceData.exitCount);
+                        this.setCapabilityValue('measure_battery', data.serviceData.battery).catch(this.error);
+                        this.setCapabilityValue('alarm_contact.left_open', data.serviceData.leftOpen).catch(this.error);
+                        this.setCapabilityValue('button_press_id', data.serviceData.buttonPresses).catch(this.error);
+                        this.setCapabilityValue('entry_id', data.serviceData.entryCount).catch(this.error);
+                        this.setCapabilityValue('exit_id', data.serviceData.exitCount).catch(this.error);
                     }
                     else
                     {
@@ -144,22 +144,22 @@ class ContactBLEDevice extends Homey.Device
             {
                 if (event.address && (event.address == dd.address))
                 {
-                    this.setCapabilityValue('alarm_motion', (event.serviceData.motion == 1));
-                    this.setCapabilityValue('alarm_contact', (event.serviceData.contact == 1));
+                    this.setCapabilityValue('alarm_motion', (event.serviceData.motion == 1)).catch(this.error);
+                    this.setCapabilityValue('alarm_contact', (event.serviceData.contact == 1)).catch(this.error);
 
                     let light = (event.serviceData.light === 1);
                     if (this.getCapabilityValue('bright') != light)
                     {
-                        this.setCapabilityValue('bright', light);
+                        this.setCapabilityValue('bright', light).catch(this.error);
                         this.driver.bright_changed( this, light);
                     }
 
-                    this.setCapabilityValue('button_press_id', event.serviceData.buttonPresses);
-                    this.setCapabilityValue('entry_id', event.serviceData.entryCount);
-                    this.setCapabilityValue('exit_id', event.serviceData.exitCount);
-                    this.setCapabilityValue('alarm_contact.left_open', (event.serviceData.leftOpen == 1));
-                    this.setCapabilityValue('measure_battery', event.serviceData.battery);
-                    this.setCapabilityValue('rssi', event.rssi);
+                    this.setCapabilityValue('button_press_id', event.serviceData.buttonPresses).catch(this.error);
+                    this.setCapabilityValue('entry_id', event.serviceData.entryCount).catch(this.error);
+                    this.setCapabilityValue('exit_id', event.serviceData.exitCount).catch(this.error);
+                    this.setCapabilityValue('alarm_contact.left_open', (event.serviceData.leftOpen == 1)).catch(this.error);
+                    this.setCapabilityValue('measure_battery', event.serviceData.battery).catch(this.error);
+                    this.setCapabilityValue('rssi', event.rssi).catch(this.error);
 
                     if (event.hubMAC && (event.rssi < this.bestRSSI) || (event.hubMAC === this.bestHub))
                     {

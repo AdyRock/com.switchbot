@@ -35,37 +35,10 @@
 
     <!-- Tab links -->
     <div class="tab">
-        <button class="tablinks" onclick="setPage(event, 'settings')" id="defaultOpen">Settings</button>
-        <button class="tablinks" onclick="setPage(event, 'detected')">Detected</button>
+        <button class="tablinks" onclick="setPage(event, 'detected')"id="defaultOpen">Detected</button>
         <button class="tablinks" onclick="setPage(event, 'log')">Log</button>
         <button class="tablinks" onclick="setPage(event, 'simulator')" id="simLogTab" style="visibility:hidden">Simulation Data</button>
         <button class="tablinks" onclick="setPage(event, 'status')" id="deviceStatusTab" style="visibility:hidden">Get Status</button>
-    </div>
-
-    <!-- SETTINGS PAGE -->
-    <div id="settings" class="tabcontent">
-
-        <p data-i18n="settings.subtitle"></p>
-
-        <fieldset>
-            <legend>Account Details</legend>
-
-            <fieldset>
-                <div class="field row">
-                    <label for="BearerToken">API Token</label>
-                    <input id="BearerToken" type="text" value="" />
-                </div>
-            </fieldset>
-        </fieldset>
-        <p>Polling</p>
-        <fieldset>
-            <div class="field row">
-                <label for="pollInterval">Polling Interval (seconds)</label>
-                <input id="pollInterval" type="text" value="" />
-            </div>
-
-            <p><button id="save" class="right">Save changes</button></p>
-        </fieldset>
     </div>
 
     <!-- detected-->
@@ -150,7 +123,6 @@
         var busyi;
         busyi = new busy_indicator(document.getElementById("busybox"), document.querySelector("#busybox div"));
 
-        var BearerTokenElement = document.getElementById('BearerToken');
         var detectedDevicesElement = document.getElementById('detectedDevices');
         var infoLogElement = document.getElementById('infoLog');
         var logLevelElement = document.getElementById('logLevel');
@@ -197,27 +169,6 @@
                 detectedDevicesElement.value = data.devices;
             });
 
-            Homey.on('settings.set', function()
-            {
-                Homey.get('BearerToken', function(err, BearerToken)
-                {
-                    if (err) return Homey.alert(err);
-                    BearerTokenElement.value = BearerToken;
-                });
-            });
-
-            Homey.get('BearerToken', function(err, BearerToken)
-            {
-                if (err) return Homey.alert(err);
-                BearerTokenElement.value = BearerToken;
-            });
-
-            Homey.get('pollInterval', function(err, pollInterval)
-            {
-                if (err) return Homey.alert(err);
-                pollIntervalElement.value = pollInterval;
-            });
-
             Homey.get('logLevel', function(err, logLevel)
             {
                 if (err) return Homey.alert(err);
@@ -252,24 +203,6 @@
                 {
                     detectedDevicesElement.value = result;
                 }
-            });
-
-            saveElement.addEventListener('click', function(e)
-            {
-                BearerTokenElement.value = BearerTokenElement.value.replace(/[\"\']/g, '');
-                Homey.set('BearerToken', BearerTokenElement.value, function(err)
-                {
-                    if (err) return Homey.alert(err);
-                });
-
-                if (pollIntervalElement.value < 8) pollIntervalElement.value = 8;
-                if (pollIntervalElement.value > 3000) pollIntervalElement.value = 3000;
-                Homey.set('pollInterval', pollIntervalElement.value, function(err)
-                {
-                    if (err) return Homey.alert(err);
-                });
-
-                return Homey.alert("The settings have been saved");
             });
 
             logLevelElement.addEventListener('change', function(e)
