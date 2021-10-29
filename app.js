@@ -7,8 +7,8 @@ if (process.env.DEBUG === '1')
 
 const Homey = require('homey');
 const nodemailer = require("nodemailer");
-const hubInterface = require("../lib/hub_interface");
-const bleHubInterface = require("../lib/ble_hub_interface");
+const hubInterface = require("./lib/hub_interface");
+const bleHubInterface = require("./lib/ble_hub_interface");
 
 const MINIMUM_POLL_INTERVAL = 5; // in Seconds
 const BLE_POLLING_INTERVAL = 20000; // in milliSeconds
@@ -21,8 +21,6 @@ class MyApp extends Homey.App
     {
         this.log('SwitchBot has been initialized');
         this.diagLog = "";
-        this.moving = 0;
-        this.discovering = false;
         this.BearerToken = this.homey.settings.get('BearerToken');
 
         if (process.env.DEBUG === '1')
@@ -61,7 +59,7 @@ class MyApp extends Homey.App
         // Set to true to enable use of my BLE hub (WIP)
         this.BLEHub = null;
 
-        if (this.homey.cloud.getLocalAddress)
+        try
         {
             this.homeyIP = await this.homey.cloud.getLocalAddress();
             if (this.homeyIP)
@@ -69,7 +67,12 @@ class MyApp extends Homey.App
                 this.BLEHub = new bleHubInterface(this.homey, this.homeyIP);
             }
         }
-        
+        catch (err)
+        {
+            // Homey cloud or Bridge so no LAN access
+            this.homeyIP = null;
+        }
+
         this.onHubPoll = this.onHubPoll.bind(this);
         this.timerHubID = this.homey.setTimeout(this.onHubPoll, 10000);
 
@@ -305,38 +308,46 @@ class MyApp extends Homey.App
 
     updateLog(newMessage, errorLevel = 1)
     {
-        const zeroPad = (num, places) => String(num).padStart(places, '0');
-
-        if (errorLevel <= this.homey.app.logLevel)
+        if (this.BLEHub != null)
         {
+            const zeroPad = (num, places) => String(num).padStart(places, '0');
+
+            if (errorLevel <= this.homey.app.logLevel)
+            {
+                console.log(newMessage);
+
+                const nowTime = new Date(Date.now());
+
+                this.diagLog += zeroPad(nowTime.getHours().toString(), 2);
+                this.diagLog += ":";
+                this.diagLog += zeroPad(nowTime.getMinutes().toString(), 2);
+                this.diagLog += ":";
+                this.diagLog += zeroPad(nowTime.getSeconds().toString(), 2);
+                this.diagLog += ".";
+                this.diagLog += zeroPad(nowTime.getMilliseconds().toString(), 3);
+                this.diagLog += ": ";
+
+                if (errorLevel === 0)
+                {
+                    this.diagLog += "!!!!!! ";
+                }
+                else
+                {
+                    this.diagLog += "* ";
+                }
+                this.diagLog += newMessage;
+                this.diagLog += "\r\n";
+                if (this.diagLog.length > 60000)
+                {
+                    this.diagLog = this.diagLog.substr(this.diagLog.length - 60000);
+                }
+                this.homey.api.realtime('com.switchbot.logupdated', { 'log': this.diagLog });
+            }
+        }
+        else if (errorLevel < 2)
+        {
+            // Connected via the cloud
             console.log(newMessage);
-
-            const nowTime = new Date(Date.now());
-
-            this.diagLog += zeroPad(nowTime.getHours().toString(), 2);
-            this.diagLog += ":";
-            this.diagLog += zeroPad(nowTime.getMinutes().toString(), 2);
-            this.diagLog += ":";
-            this.diagLog += zeroPad(nowTime.getSeconds().toString(), 2);
-            this.diagLog += ".";
-            this.diagLog += zeroPad(nowTime.getMilliseconds().toString(), 3);
-            this.diagLog += ": ";
-
-            if (errorLevel === 0)
-            {
-                this.diagLog += "!!!!!! ";
-            }
-            else
-            {
-                this.diagLog += "* ";
-            }
-            this.diagLog += newMessage;
-            this.diagLog += "\r\n";
-            if (this.diagLog.length > 60000)
-            {
-                this.diagLog = this.diagLog.substr(this.diagLog.length - 60000);
-            }
-            this.homey.api.realtime('com.switchbot.logupdated', { 'log': this.diagLog });
         }
     }
 
@@ -484,36 +495,17 @@ class MyApp extends Homey.App
     async onBLEPoll()
     {
         let pollingInterval = 10000;
-        if (!this.discovering && !this.moving)
+        pollingInterval = BLE_POLLING_INTERVAL;
+
+        this.homey.app.updateLog("\r\nPolling BLE Starting ------------------------------------");
+
+        const promises = [];
+        try
         {
-            this.polling = true;
-            pollingInterval = BLE_POLLING_INTERVAL;
-
-            this.homey.app.updateLog("\r\nPolling BLE Starting ------------------------------------");
-
-            const promises = [];
-            try
+            const drivers = this.homey.drivers.getDrivers();
+            if (parseInt(this.homey.version) < 6)
             {
-                const drivers = this.homey.drivers.getDrivers();
-                if (parseInt(this.homey.version) < 6)
-                {
-                    //clear BLE cache for each device
-                    for (const driver in drivers)
-                    {
-                        let devices = this.homey.drivers.getDriver(driver).getDevices();
-
-                        for (let i = 0; i < devices.length; i++)
-                        {
-                            let device = devices[i];
-                            let id = device.getData().id;
-                            delete this.homey.ble.__advertisementsByPeripheralUUID[id];
-                        }
-                    }
-                }
-
-                // Run discovery too fetch new data
-                await this.homey.ble.discover(['cba20d00224d11e69fb80002a5d5c51b'], 2000);
-
+                //clear BLE cache for each device
                 for (const driver in drivers)
                 {
                     let devices = this.homey.drivers.getDriver(driver).getDevices();
@@ -521,28 +513,39 @@ class MyApp extends Homey.App
                     for (let i = 0; i < devices.length; i++)
                     {
                         let device = devices[i];
-                        if (device.getDeviceValues)
-                        {
-                            promises.push(device.getDeviceValues());
-                        }
+                        let id = device.getData().id;
+                        delete this.homey.ble.__advertisementsByPeripheralUUID[id];
                     }
                 }
-
-                this.homey.app.updateLog("Polling BLE: waiting for devices to update");
-                await Promise.all(promises);
             }
-            catch (err)
+
+            // Run discovery too fetch new data
+            await this.homey.ble.discover(['cba20d00224d11e69fb80002a5d5c51b'], 2000);
+
+            for (const driver in drivers)
             {
-                this.homey.app.updateLog("BLE Polling Error: " + this.homey.app.varToString(err));
+                let devices = this.homey.drivers.getDriver(driver).getDevices();
+
+                for (let i = 0; i < devices.length; i++)
+                {
+                    let device = devices[i];
+                    if (device.getDeviceValues)
+                    {
+                        promises.push(device.getDeviceValues());
+                    }
+                }
             }
 
-            this.polling = false;
-            this.homey.app.updateLog("------------------------------------ Polling BLE Finished\r\n");
+            this.homey.app.updateLog("Polling BLE: waiting for devices to update");
+            await Promise.all(promises);
         }
-        else
+        catch (err)
         {
-            this.homey.app.updateLog("Polling BLE skipped");
+            this.homey.app.updateLog("BLE Polling Error: " + this.homey.app.varToString(err));
         }
+
+        //this.polling = false;
+        this.homey.app.updateLog("------------------------------------ Polling BLE Finished\r\n");
 
         this.homey.app.updateLog("Next BLE polling interval = " + pollingInterval, true);
 

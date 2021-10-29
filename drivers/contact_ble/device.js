@@ -85,39 +85,40 @@ class ContactBLEDevice extends Homey.Device
 
             if (dd.id)
             {
-                if (this.homey.app.moving === 0)
+                this.homey.app.updateLog("Finding Presence BLE device", 2);
+                let bleAdvertisement = await this.homey.ble.find(dd.id);
+                if (!bleAdvertisement)
                 {
-                    this.homey.app.updateLog("Finding Presence BLE device", 2);
-                    let bleAdvertisement = await this.homey.ble.find(dd.id);
-                    this.homey.app.updateLog(this.homey.app.varToString(bleAdvertisement), 3);
-                    let rssi = await bleAdvertisement.rssi;
-                    this.setCapabilityValue('rssi', rssi).catch(this.error);
+                    let name = this.getName();
+                    this.homey.app.updateLog(`BLE device ${name} not found`);
+                    return;
+                }
+    
+                this.homey.app.updateLog(this.homey.app.varToString(bleAdvertisement), 3);
+                let rssi = bleAdvertisement.rssi;
+                this.setCapabilityValue('rssi', rssi).catch(this.error);
 
-                    let data = this.driver.parse(bleAdvertisement);
-                    if (data)
+                let data = this.driver.parse(bleAdvertisement);
+                if (data)
+                {
+                    this.homey.app.updateLog("Parsed Presence BLE: " + this.homey.app.varToString(data), 2);
+                    this.setCapabilityValue('alarm_motion', data.serviceData.motion).catch(this.error);
+                    this.setCapabilityValue('alarm_contact', data.serviceData.contact).catch(this.error);
+                    if (this.getCapabilityValue('bright') != data.serviceData.light)
                     {
-                        this.homey.app.updateLog("Parsed Presence BLE: " + this.homey.app.varToString(data), 2);
-                        this.setCapabilityValue('alarm_motion', data.serviceData.motion).catch(this.error);
-                        this.setCapabilityValue('alarm_contact', data.serviceData.contact).catch(this.error);
-                        if (this.getCapabilityValue('bright') != data.serviceData.light)
-                        {
-                            this.setCapabilityValue('bright', data.serviceData.light).catch(this.error);
-                            this.driver.bright_changed( this, data.serviceData.light);
-                        }
-                        this.setCapabilityValue('measure_battery', data.serviceData.battery).catch(this.error);
-                        this.setCapabilityValue('alarm_contact.left_open', data.serviceData.leftOpen).catch(this.error);
-                        this.setCapabilityValue('button_press_id', data.serviceData.buttonPresses).catch(this.error);
-                        this.setCapabilityValue('entry_id', data.serviceData.entryCount).catch(this.error);
-                        this.setCapabilityValue('exit_id', data.serviceData.exitCount).catch(this.error);
+                        this.setCapabilityValue('bright', data.serviceData.light).catch(this.error);
+                        let device = this;
+                        this.driver.bright_changed(device, data.serviceData.light);
                     }
-                    else
-                    {
-                        this.homey.app.updateLog("Parsed Presence BLE: No service data", 1);
-                    }
+                    this.setCapabilityValue('measure_battery', data.serviceData.battery).catch(this.error);
+                    this.setCapabilityValue('alarm_contact.left_open', data.serviceData.leftOpen).catch(this.error);
+                    this.setCapabilityValue('button_press_id', data.serviceData.buttonPresses).catch(this.error);
+                    this.setCapabilityValue('entry_id', data.serviceData.entryCount).catch(this.error);
+                    this.setCapabilityValue('exit_id', data.serviceData.exitCount).catch(this.error);
                 }
                 else
                 {
-                    this.homey.app.updateLog("Presence Refresh skipped while moving");
+                    this.homey.app.updateLog("Parsed Presence BLE: No service data", 1);
                 }
             }
             else
@@ -151,7 +152,7 @@ class ContactBLEDevice extends Homey.Device
                     if (this.getCapabilityValue('bright') != light)
                     {
                         this.setCapabilityValue('bright', light).catch(this.error);
-                        this.driver.bright_changed( this, light);
+                        this.driver.bright_changed(this, light);
                     }
 
                     this.setCapabilityValue('button_press_id', event.serviceData.buttonPresses).catch(this.error);

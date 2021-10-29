@@ -18,12 +18,12 @@ class HubDriver extends Homey.Driver
     {
         return await this.hub.getHUBDevices(type, RemoteList);
     }
- 
+
     async getScenes()
     {
         return await this.hub.getScenes();
     }
-    
+
     async getDeviceData(deviceId)
     {
         return await this.hub.getDeviceData(deviceId);
@@ -42,7 +42,7 @@ class HubDriver extends Homey.Driver
     async PostURL(url, body)
     {
         return await this.hub.PostURL(url, body);
-    } 
+    }
 
     async onPair(session)
     {
@@ -55,10 +55,10 @@ class HubDriver extends Homey.Driver
                 this.homey.settings.set('BearerToken', this.homey.app.BearerToken);
                 return devices;
             }
-            catch(err)
+            catch (err)
             {
                 this.homey.app.BearerToken = oldAPICode;
-                throw new Error( err.message );
+                throw new Error(err.message);
             }
         });
 
@@ -104,6 +104,7 @@ class HubDriver extends Homey.Driver
 
             return false;
         });
-    }}
+    }
+}
 
 module.exports = HubDriver;

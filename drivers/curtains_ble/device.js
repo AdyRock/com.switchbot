@@ -101,7 +101,7 @@ class CurtainsBLEDevice extends Homey.Device
     async onCapabilityopenClose(value, opts)
     {
         value = value ? 1 : 0;
-        
+
         if (this.invertPosition)
         {
             value = 1 - value;
@@ -190,7 +190,7 @@ class CurtainsBLEDevice extends Homey.Device
             }
             catch (err)
             {
-                this.homey.app.updateLog("_operateBot error: " + name + " : " + this.homey.app.varToString( err), 0);
+                this.homey.app.updateLog("_operateBot error: " + name + " : " + this.homey.app.varToString(err), 0);
             }
             if (loops > 0)
             {
@@ -209,14 +209,6 @@ class CurtainsBLEDevice extends Homey.Device
 
     async _operateCurtainsLoop(name, bytes)
     {
-        while (this.homey.app.polling /*|| this.homey.app.moving*/)
-        {
-            this.homey.app.updateLog("Busy, deferring BLE command for " + name);
-            await this.homey.app.Delay(500);
-        }
-
-        this.homey.app.moving++;
-        let delay = this.homey.app.moving * 1000;
         let sending = true;
 
         try
@@ -225,10 +217,15 @@ class CurtainsBLEDevice extends Homey.Device
 
             const dd = this.getData();
             let bleAdvertisement = await this.homey.ble.find(dd.id);
+            if (!bleAdvertisement)
+            {
+                this.homey.app.updateLog(`BLE device ${name} not found`);
+                return;
+            }
+
             this.homey.app.updateLog("Connecting to BLE device: " + name);
             const blePeripheral = await bleAdvertisement.connect();
             this.homey.app.updateLog(`BLE device ${name} connected`);
-            await this.homey.app.Delay(delay);
 
             let req_buf = Buffer.from(bytes);
             try
@@ -282,7 +279,6 @@ class CurtainsBLEDevice extends Homey.Device
         finally
         {
             this.homey.app.updateLog("finally 1: " + name);
-            this.homey.app.moving--;
         }
 
         return true;
@@ -307,47 +303,46 @@ class CurtainsBLEDevice extends Homey.Device
 
             if (dd.id)
             {
-                if (this.homey.app.moving === 0)
+                this.homey.app.updateLog("Finding Curtain BLE device " + name, 2);
+                let bleAdvertisement = await this.homey.ble.find(dd.id);
+                if (!bleAdvertisement)
                 {
-                    this.homey.app.updateLog("Finding Curtain BLE device " + name, 2);
-                    let bleAdvertisement = await this.homey.ble.find(dd.id);
-                    this.homey.app.updateLog(this.homey.app.varToString(bleAdvertisement), 3);
-                    let rssi = await bleAdvertisement.rssi;
-                    this.setCapabilityValue('rssi', rssi).catch(this.error);
-
-                    let data = this.driver.parse(bleAdvertisement);
-                    if (data)
-                    {
-                        this.homey.app.updateLog("Parsed Curtain BLE (" + name + ") " + this.homey.app.varToString(data), 2);
-                        let position = data.serviceData.position / 100;
-                        if (this.invertPosition)
-                        {
-                            position = 1 - position;
-                        }
-
-                        if (position > 0.5)
-                        {
-                            this.setCapabilityValue('open_close', true).catch(this.error);
-                        }
-                        else
-                        {
-                            this.setCapabilityValue('open_close', false).catch(this.error);
-                        }
+                    this.homey.app.updateLog(`BLE device ${name} not found`);
+                    return;
+                }
     
-                        this.setCapabilityValue('windowcoverings_set', position).catch(this.error);
-                        this.setCapabilityValue('position', position * 100).catch(this.error);
+                this.homey.app.updateLog(this.homey.app.varToString(bleAdvertisement), 3);
+                let rssi = await bleAdvertisement.rssi;
+                this.setCapabilityValue('rssi', rssi).catch(this.error);
 
-                        this.setCapabilityValue('measure_battery', data.serviceData.battery).catch(this.error);
-                        this.homey.app.updateLog(`Parsed Curtain BLE (${name}): position = ${data.serviceData.position}, battery = ${data.serviceData.battery}`, 2);
+                let data = this.driver.parse(bleAdvertisement);
+                if (data)
+                {
+                    this.homey.app.updateLog("Parsed Curtain BLE (" + name + ") " + this.homey.app.varToString(data), 2);
+                    let position = data.serviceData.position / 100;
+                    if (this.invertPosition)
+                    {
+                        position = 1 - position;
+                    }
+
+                    if (position > 0.5)
+                    {
+                        this.setCapabilityValue('open_close', true).catch(this.error);
                     }
                     else
                     {
-                        this.homey.app.updateLog(`Parsed Curtain BLE (${name}): No service data`, 1);
+                        this.setCapabilityValue('open_close', false).catch(this.error);
                     }
+
+                    this.setCapabilityValue('windowcoverings_set', position).catch(this.error);
+                    this.setCapabilityValue('position', position * 100).catch(this.error);
+
+                    this.setCapabilityValue('measure_battery', data.serviceData.battery).catch(this.error);
+                    this.homey.app.updateLog(`Parsed Curtain BLE (${name}): position = ${data.serviceData.position}, battery = ${data.serviceData.battery}`, 2);
                 }
                 else
                 {
-                    this.homey.app.updateLog(`Curtain (${name}) Refresh skipped while moving`);
+                    this.homey.app.updateLog(`Parsed Curtain BLE (${name}): No service data`, 1);
                 }
             }
             else

@@ -13,6 +13,20 @@ class BLEPresenceDriver extends BLEDriver
     {
         super.onInit();
         this.log('BLEPresenceDriver has been initialized');
+
+        // Device Triggers
+        this.bright_changed_trigger = this.homey.flow.getDeviceTriggerCard('bright_changed');
+    }
+
+    bright_changed(device, bright)
+    {
+        let tokens = {
+            bright: bright
+        };
+
+        this.bright_changed_trigger
+            .trigger(device, tokens, {})
+            .catch(this.error);
     }
 
     /**

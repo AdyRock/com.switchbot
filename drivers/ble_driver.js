@@ -20,7 +20,6 @@ class BLEDriver extends Homey.Driver
 
     async getBLEDevices(type)
     {
-        this.discovering = true;
         this.homey.app.detectedDevices = "";
         try
         {
@@ -68,11 +67,11 @@ class BLEDriver extends Homey.Driver
                 }
             }
 
-            let retries = 10;
-            while (this.polling && (retries-- > 0))
-            {
-                await this.asyncDelay(500);
-            }
+            // let retries = 10;
+            // while (this.polling && (retries-- > 0))
+            // {
+            //     await this.asyncDelay(500);
+            // }
 
             const bleAdvertisements = await this.homey.ble.discover([], 20000);
             this.homey.app.updateLog("BLE Discovery: " + this.homey.app.varToString(bleAdvertisements), 2);
@@ -100,7 +99,10 @@ class BLEDriver extends Homey.Driver
 
                             this.homey.app.detectedDevices += "\r\nBLE Homey Found device:\r\n";
                             this.homey.app.detectedDevices += this.homey.app.varToString(device);
-                            this.homey.api.realtime('com.switchbot.detectedDevicesUpdated', { 'devices': this.homey.app.detectedDevices });
+                            if (this.homey.app.BLEHub)
+                            {
+                                this.homey.api.realtime('com.switchbot.detectedDevicesUpdated', { 'devices': this.homey.app.detectedDevices });
+                            }
 
                             if (this.checkExist(devices, device) < 0)
                             {
@@ -117,9 +119,9 @@ class BLEDriver extends Homey.Driver
 
             return devices;
         }
-        finally
+        catch (err)
         {
-            this.discovering = false;
+            this.homey.app.updateLog("BLE Discovery: " + this.homey.app.varToString(err), 0);
         }
     }
 
@@ -410,7 +412,7 @@ class BLEDriver extends Homey.Driver
         let byte7 = buf.readUInt8(7);
         let byte8 = buf.readUInt8(8);
 
-        console.log( "Cd: ", buf );
+        console.log("Cd: ", buf);
 
         let data = {
             model: 'C',
