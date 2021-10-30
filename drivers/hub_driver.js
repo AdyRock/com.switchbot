@@ -1,57 +1,59 @@
-/*jslint node: true */
+/* jslint node: true */
+
 'use strict';
 
 const Homey = require('homey');
-const hubInterface = require("../lib/hub_interface");
+const HubInterface = require('../lib/hub_interface');
 
 class HubDriver extends Homey.Driver
 {
+
     /**
      * onInit is called when the driver is initialized.
      */
     async onInit()
     {
-        this.hub = new hubInterface(this.homey);
+        this.hub = new HubInterface(this.homey);
     }
 
     async getHUBDevices(type, RemoteList = false)
     {
-        return await this.hub.getHUBDevices(type, RemoteList);
+        return this.hub.getHUBDevices(type, RemoteList);
     }
 
     async getScenes()
     {
-        return await this.hub.getScenes();
+        return this.hub.getScenes();
     }
 
     async getDeviceData(deviceId)
     {
-        return await this.hub.getDeviceData(deviceId);
+        return this.hub.getDeviceData(deviceId);
     }
 
     async setDeviceData(deviceId, body)
     {
-        return await this.hub.setDeviceData(deviceId, body);
+        return this.hub.setDeviceData(deviceId, body);
     }
 
     async GetURL(url)
     {
-        return await this.hub.GetURL(url);
+        return this.hub.GetURL(url);
     }
 
     async PostURL(url, body)
     {
-        return await this.hub.PostURL(url, body);
+        return this.hub.PostURL(url, body);
     }
 
     async onPair(session)
     {
-        let oldAPICode = this.homey.app.BearerToken;
-        session.setHandler("list_devices", async () =>
+        const oldAPICode = this.homey.app.BearerToken;
+        session.setHandler('list_devices', async () =>
         {
             try
             {
-                let devices = await this.onPairListDevices();
+                const devices = await this.onPairListDevices();
                 this.homey.settings.set('BearerToken', this.homey.app.BearerToken);
                 return devices;
             }
@@ -67,7 +69,7 @@ class HubDriver extends Homey.Driver
             return this.homey.app.BearerToken;
         });
 
-        session.setHandler('api_connection', async (data) =>
+        session.setHandler('api_connection', async data =>
         {
             if (data.api_token)
             {
@@ -89,7 +91,7 @@ class HubDriver extends Homey.Driver
             return this.homey.app.BearerToken;
         });
 
-        session.setHandler('api_connection', async (data) =>
+        session.setHandler('api_connection', async data =>
         {
             if (data.api_token)
             {
@@ -105,6 +107,7 @@ class HubDriver extends Homey.Driver
             return false;
         });
     }
+
 }
 
 module.exports = HubDriver;

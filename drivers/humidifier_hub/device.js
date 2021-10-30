@@ -1,38 +1,39 @@
-/*jslint node: true */
+/* jslint node: true */
+
 'use strict';
 
 const Homey = require('homey');
 
 class HumidityHubDevice extends Homey.Device
 {
+
     /**
      * onInit is called when the device is initialized.
      */
     async onInit()
     {
         this.log('HumidityHubDevice has been initialising');
-        if (!this.hasCapability("alarm_water"))
+        if (!this.hasCapability('alarm_water'))
         {
-            await this.addCapability("alarm_water");
+            await this.addCapability('alarm_water');
         }
 
         try
         {
             this.getHubDeviceValues();
         }
-        catch(err)
+        catch (err)
         {
             this.setUnavailable(err.message);
         }
         this.registerCapabilityListener('onoff', this.onCapabilityOnOff.bind(this));
         this.registerMultipleCapabilityListener(['nebulization_mode', 'nebulization_efficiency'], this.onCapabilityNebulization.bind(this));
-
     }
 
     // this method is called when the Homey device switches the device on or off
     async onCapabilityOnOff(value, opts)
     {
-        let command = value ? "turnOn" : "turnOff";
+        const command = value ? 'turnOn' : 'turnOff';
 
         return this.sendCommand(command, 'default');
     }
@@ -62,15 +63,15 @@ class HumidityHubDevice extends Homey.Device
             mode = this.getCapabilityValue('nebulization_efficiency').toString();
         }
 
-        return await this.sendCommand('setMode', mode);
+        return this.sendCommand('setMode', mode);
     }
 
     async sendCommand(command, parameter)
     {
-        let data = {
-            "command": command,
-            "parameter": parameter,
-            "commandType": "command"
+        const data = {
+            command,
+            parameter,
+            commandType: 'command',
         };
 
         const dd = this.getData();
@@ -83,11 +84,11 @@ class HumidityHubDevice extends Homey.Device
 
         try
         {
-            let data = await this.driver.getDeviceData(dd.id);
+            const data = await this.driver.getDeviceData(dd.id);
             if (data)
             {
                 this.setAvailable();
-                this.setCapabilityValue('onoff', data.power == 'on').catch(this.error);
+                this.setCapabilityValue('onoff', data.power === 'on').catch(this.error);
                 this.setCapabilityValue('nebulization_efficiency', data.nebulizationEfficiency).catch(this.error);
                 this.setCapabilityValue('nebulization_mode', data.auto).catch(this.error);
                 this.setCapabilityValue('measure_temperature', data.temperature).catch(this.error);
@@ -95,12 +96,13 @@ class HumidityHubDevice extends Homey.Device
                 this.setCapabilityValue('alarm_water', data.lackWater).catch(this.error);
             }
         }
-        catch(err)
+        catch (err)
         {
             this.log('getHubDeviceValues: ', err);
             this.setUnavailable(err.message);
         }
     }
+
 }
 
 module.exports = HumidityHubDevice;

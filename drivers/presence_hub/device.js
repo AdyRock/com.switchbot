@@ -1,17 +1,18 @@
-/*jslint node: true */
+/* jslint node: true */
+
 'use strict';
 
 const Homey = require('homey');
 
 class PresenceHubDevice extends Homey.Device
 {
+
     /**
      * onInit is called when the device is initialized.
      */
     async onInit()
     {
         this.log('PresenceHubDevice has been initialising');
-
     }
 
     /**
@@ -20,18 +21,6 @@ class PresenceHubDevice extends Homey.Device
     async onAdded()
     {
         this.log('PresenceHubDevice has been added');
-    }
-
-    /**
-     * onSettings is called when the user updates the device's settings.
-     * @param {object} event the onSettings event data
-     * @param {object} event.oldSettings The old settings object
-     * @param {object} event.newSettings The new settings object
-     * @param {string[]} event.changedKeys An array of keys changed since the previous version
-     * @returns {Promise<string|void>} return a custom message that will be displayed
-     */
-    async onSettings({ oldSettings, newSettings, changedKeys })
-    {
     }
 
     /**
@@ -58,18 +47,18 @@ class PresenceHubDevice extends Homey.Device
 
         try
         {
-            let data = await this.driver.getDeviceData(dd.id);
+            const data = await this.driver.getDeviceData(dd.id);
             if (data)
             {
                 this.setAvailable();
 
                 this.setCapabilityValue('alarm_motion', data.moveDetected).catch(this.error);
 
-                let bright = (data.brightness === 'bright');
+                const bright = (data.brightness === 'bright');
                 if (this.getCapabilityValue('bright') !== bright)
                 {
                     this.setCapabilityValue('bright', bright).catch(this.error);
-                    this.driver.bright_changed( this, bright);
+                    this.driver.bright_changed(this, bright);
                 }
             }
         }
@@ -79,6 +68,7 @@ class PresenceHubDevice extends Homey.Device
             this.setUnavailable(err.message);
         }
     }
+
 }
 
 module.exports = PresenceHubDevice;

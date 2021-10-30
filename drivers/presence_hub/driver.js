@@ -1,11 +1,12 @@
-/*jslint node: true */
+/* jslint node: true */
+
 'use strict';
 
-const Homey = require('homey');
 const HubDriver = require('../hub_driver');
 
 class HubPresenceDriver extends HubDriver
 {
+
     /**
      * onInit is called when the driver is initialized.
      */
@@ -13,15 +14,15 @@ class HubPresenceDriver extends HubDriver
     {
         super.onInit();
         this.log('HubPresenceDriver has been initialized');
-        
+
         // Device Triggers
         this.bright_changed_trigger = this.homey.flow.getDeviceTriggerCard('bright_changed');
     }
 
     bright_changed(device, bright)
     {
-        let tokens = {
-            bright: bright
+        const tokens = {
+            bright,
         };
 
         this.bright_changed_trigger.trigger(device, tokens)
@@ -32,6 +33,7 @@ class HubPresenceDriver extends HubDriver
     {
         return this.getHUBDevices('Motion Sensor');
     }
+
 }
 
 module.exports = HubPresenceDriver;

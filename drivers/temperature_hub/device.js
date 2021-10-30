@@ -1,10 +1,12 @@
-/*jslint node: true */
+/* jslint node: true */
+
 'use strict';
 
 const Homey = require('homey');
 
 class TemperatureHubDevice extends Homey.Device
 {
+
     /**
      * onInit is called when the device is initialized.
      */
@@ -15,7 +17,7 @@ class TemperatureHubDevice extends Homey.Device
         {
             this.getHubDeviceValues();
         }
-        catch(err)
+        catch (err)
         {
             this.setUnavailable(err.message);
         }
@@ -66,7 +68,7 @@ class TemperatureHubDevice extends Homey.Device
 
         try
         {
-            let data = await this.driver.getDeviceData(dd.id);
+            const data = await this.driver.getDeviceData(dd.id);
             if (data)
             {
                 this.setAvailable();
@@ -74,12 +76,13 @@ class TemperatureHubDevice extends Homey.Device
                 this.setCapabilityValue('measure_humidity', data.humidity).catch(this.error);
             }
         }
-        catch(err)
+        catch (err)
         {
             this.log('getHubDeviceValues: ', err);
             this.setUnavailable(err.message);
         }
     }
+
 }
 
 module.exports = TemperatureHubDevice;

@@ -1,10 +1,12 @@
-/*jslint node: true */
+/* jslint node: true */
+
 'use strict';
 
 const Homey = require('homey');
 
 class BotHubDevice extends Homey.Device
 {
+
     /**
      * onInit is called when the device is initialized.
      */
@@ -16,7 +18,7 @@ class BotHubDevice extends Homey.Device
         {
             this.getHubDeviceValues();
         }
-        catch(err)
+        catch (err)
         {
             this.setUnavailable(err.message);
         }
@@ -65,35 +67,31 @@ class BotHubDevice extends Homey.Device
     // this method is called when the Homey device has requested a position change ( 0 to 1)
     async onCapabilityOnOff(value, opts)
     {
-        let pushButton = this.getSetting('push_button');
+        const pushButton = this.getSetting('push_button');
         if (pushButton)
         {
             if (value === true)
             {
-                let retValue = await this._operateBot('press');
+                await this._operateBot('press');
                 this.homey.setTimeout(() => this.setCapabilityValue('onoff', false), 1000).catch(this.error);
-                return retValue;
             }
+        }
+        else if (value)
+        {
+            this._operateBot('turnOn');
         }
         else
         {
-            if (value)
-            {
-                return this._operateBot('turnOn');
-            }
-            else
-            {
-                return this._operateBot('turnOff');
-            }
+            this._operateBot('turnOff');
         }
     }
 
     async _operateBot(command)
     {
-        let data = {
-            "command": command,
-            "parameter": "default",
-            "commandType": "command"
+        const data = {
+            command,
+            parameter: 'default',
+            commandType: 'command',
         };
 
         const dd = this.getData();
@@ -107,12 +105,12 @@ class BotHubDevice extends Homey.Device
 
         try
         {
-            let data = await this.driver.getDeviceData(dd.id);
+            const data = await this.driver.getDeviceData(dd.id);
             if (data)
             {
                 this.setAvailable();
-                this.homey.app.updateLog("Bot Hub got: " + data.power);
-                let pushButton = this.getSetting('push_button');
+                this.homey.app.updateLog(`Bot Hub got: ${data.power}`);
+                const pushButton = this.getSetting('push_button');
                 if (pushButton)
                 {
                     this.setCapabilityValue('onoff', false).catch(this.error);
@@ -127,9 +125,9 @@ class BotHubDevice extends Homey.Device
         {
             this.log('getHubDeviceValues: ', err);
             this.setUnavailable(err.message);
-
         }
     }
+
 }
 
 module.exports = BotHubDevice;

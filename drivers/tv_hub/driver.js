@@ -1,11 +1,12 @@
-/*jslint node: true */
+/* jslint node: true */
+
 'use strict';
 
-const Homey = require('homey');
 const HubDriver = require('../hub_driver');
 
 class HubTVDriver extends HubDriver
 {
+
     /**
      * onInit is called when the driver is initialized.
      */
@@ -23,6 +24,7 @@ class HubTVDriver extends HubDriver
     {
         return this.getHUBDevices('TV', true);
     }
+
 }
 
 module.exports = HubTVDriver;

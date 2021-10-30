@@ -1,11 +1,12 @@
-/*jslint node: true */
+/* jslint node: true */
+
 'use strict';
 
-const Homey = require('homey');
 const BLEDriver = require('../ble_driver');
 
 class BLEPresenceDriver extends BLEDriver
 {
+
     /**
      * onInit is called when the driver is initialized.
      */
@@ -20,8 +21,8 @@ class BLEPresenceDriver extends BLEDriver
 
     bright_changed(device, bright)
     {
-        let tokens = {
-            bright: bright
+        const tokens = {
+            bright,
         };
 
         this.bright_changed_trigger
@@ -37,6 +38,7 @@ class BLEPresenceDriver extends BLEDriver
     {
         return this.getBLEDevices('P');
     }
+
 }
 
 module.exports = BLEPresenceDriver;

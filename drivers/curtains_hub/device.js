@@ -1,10 +1,12 @@
-/*jslint node: true */
+/* jslint node: true */
+
 'use strict';
 
 const Homey = require('homey');
 
 class CurtainsHubDevice extends Homey.Device
 {
+
     /**
      * onInit is called when the device is initialized.
      */
@@ -12,13 +14,13 @@ class CurtainsHubDevice extends Homey.Device
     {
         this.log('CurtainsHubDevice has been initialising');
 
-        if (!this.hasCapability("open_close"))
+        if (!this.hasCapability('open_close'))
         {
-            this.addCapability("open_close");
+            this.addCapability('open_close');
         }
-        if (!this.hasCapability("position"))
+        if (!this.hasCapability('position'))
         {
-            this.addCapability("position");
+            this.addCapability('position');
         }
 
         this.invertPosition = this.getSetting('invertPosition');
@@ -37,7 +39,7 @@ class CurtainsHubDevice extends Homey.Device
         {
             this.getHubDeviceValues();
         }
-        catch(err)
+        catch (err)
         {
             this.setUnavailable(err.message);
         }
@@ -63,12 +65,12 @@ class CurtainsHubDevice extends Homey.Device
      */
     async onSettings({ oldSettings, newSettings, changedKeys })
     {
-        if (changedKeys.indexOf("invertPosition") >= 0)
+        if (changedKeys.indexOf('invertPosition') >= 0)
         {
             this.invertPosition = newSettings.invertPosition;
         }
 
-        if (changedKeys.indexOf("motionMode") >= 0)
+        if (changedKeys.indexOf('motionMode') >= 0)
         {
             this.motionMode = Number(newSettings.motionMode);
         }
@@ -102,7 +104,7 @@ class CurtainsHubDevice extends Homey.Device
             value = 1 - value;
         }
 
-        return await this.runToPos(value * 100, this.motionMode);
+        return this.runToPos(value * 100, this.motionMode);
     }
 
     // this method is called when the Homey device has requested a position change ( 0 to 1)
@@ -113,7 +115,7 @@ class CurtainsHubDevice extends Homey.Device
             value = 1 - value;
         }
 
-        return await this.runToPos(value * 100, this.motionMode);
+        return this.runToPos(value * 100, this.motionMode);
     }
 
     /* ------------------------------------------------------------------
@@ -161,16 +163,16 @@ class CurtainsHubDevice extends Homey.Device
      * ---------------------------------------------------------------- */
     async runToPos(percent, mode = 0xff)
     {
-        return this._operateCurtain('setPosition', '0,' + mode + ',' + percent);
+        return this._operateCurtain('setPosition', `0,${mode},${percent}`);
     }
 
     async _operateCurtain(command, parameter)
     {
         this.setCapabilityValue('position', null).catch(this.error);
-        let data = {
-            "command": command,
-            "parameter": parameter,
-            "commandType": "command"
+        const data = {
+            command,
+            parameter,
+            commandType: 'command',
         };
 
         const dd = this.getData();
@@ -183,7 +185,7 @@ class CurtainsHubDevice extends Homey.Device
 
         try
         {
-            let data = await this.driver.getDeviceData(dd.id);
+            const data = await this.driver.getDeviceData(dd.id);
             if (data)
             {
                 this.setAvailable();
@@ -212,6 +214,7 @@ class CurtainsHubDevice extends Homey.Device
             this.setUnavailable(err.message);
         }
     }
+
 }
 
 module.exports = CurtainsHubDevice;

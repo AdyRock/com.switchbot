@@ -1,26 +1,30 @@
-/*jslint node: true */
+/* jslint node: true */
+
 'use strict';
+
 if (process.env.DEBUG === '1')
 {
+    // eslint-disable-next-line node/no-unsupported-features/node-builtins, global-require
     require('inspector').open(9222, '0.0.0.0', true);
 }
 
 const Homey = require('homey');
-const nodemailer = require("nodemailer");
-const hubInterface = require("./lib/hub_interface");
-const bleHubInterface = require("./lib/ble_hub_interface");
+const nodemailer = require('nodemailer');
+const HubInterface = require('./lib/hub_interface');
+const BLEHubInterface = require('./lib/ble_hub_interface');
 
 const MINIMUM_POLL_INTERVAL = 5; // in Seconds
 const BLE_POLLING_INTERVAL = 20000; // in milliSeconds
 class MyApp extends Homey.App
 {
+
     /**
      * onInit is called when the app is initialized.
      */
     async onInit()
     {
         this.log('SwitchBot has been initialized');
-        this.diagLog = "";
+        this.diagLog = '';
         this.BearerToken = this.homey.settings.get('BearerToken');
 
         if (process.env.DEBUG === '1')
@@ -32,7 +36,7 @@ class MyApp extends Homey.App
             this.homey.settings.set('debugMode', false);
         }
 
-        this.hub = new hubInterface(this.homey);
+        this.hub = new HubInterface(this.homey);
 
         this.homeyHash = await this.homey.cloud.getHomeyId();
         this.homeyHash = this.hashCode(this.homeyHash).toString();
@@ -44,12 +48,12 @@ class MyApp extends Homey.App
             this.homey.settings.set('logLevel', this.logLevel);
         }
 
-        this.log("SwitchBot has started with Key: " + this.BearerToken + " Polling every " + MINIMUM_POLL_INTERVAL + " seconds");
+        this.log(`SwitchBot has started with Key: ${this.BearerToken} Polling every ${MINIMUM_POLL_INTERVAL} seconds`);
 
         // Callback for app settings changed
-        this.homey.settings.on('set', async function(setting)
+        this.homey.settings.on('set', async function settingChanged(setting)
         {
-            this.homey.app.updateLog("Setting " + setting + " has changed.");
+            this.homey.app.updateLog(`Setting ${setting} has changed.`);
             if (setting === 'logLevel')
             {
                 this.homey.app.logLevel = this.homey.settings.get('logLevel');
@@ -64,7 +68,7 @@ class MyApp extends Homey.App
             this.homeyIP = await this.homey.cloud.getLocalAddress();
             if (this.homeyIP)
             {
-                this.BLEHub = new bleHubInterface(this.homey, this.homeyIP);
+                this.BLEHub = new BLEHubInterface(this.homey, this.homeyIP);
             }
         }
         catch (err)
@@ -85,7 +89,7 @@ class MyApp extends Homey.App
         operateAction
             .registerRunListener(async (args, state) =>
             {
-                this.log("activate_instant_mode");
+                this.log('activate_instant_mode');
                 return args.device.onCapabilityAll(args);
             });
 
@@ -149,7 +153,7 @@ class MyApp extends Homey.App
         setChannelAction
             .registerRunListener(async (args, state) =>
             {
-                return args.device._operateDevice("SetChannel", args.channel_number.toString());
+                return args.device._operateDevice('SetChannel', args.channel_number.toString());
             });
 
         const rewindAction = this.homey.flow.getActionCard('rewind');
@@ -170,7 +174,7 @@ class MyApp extends Homey.App
         startSceneAction
             .registerRunListener(async (args, state) =>
             {
-                this.log("activate_instant_mode");
+                this.log('activate_instant_mode');
                 return args.device.onCapabilityStartScene();
             });
 
@@ -180,12 +184,12 @@ class MyApp extends Homey.App
             const url = `scenes/${args.scene.data.id}/execute`;
             await this.hub.PostURL(url);
         });
-        runSceneAction.registerArgumentAutocompleteListener("scene", async (query, args) =>
+        runSceneAction.registerArgumentAutocompleteListener('scene', async (query, args) =>
         {
             const results = await this.hub.getScenes();
 
             // filter based on the query
-            return results.filter((result) =>
+            return results.filter(result =>
             {
                 return result.name.toLowerCase().includes(query.toLowerCase());
             });
@@ -251,7 +255,8 @@ class MyApp extends Homey.App
 
     hashCode(s)
     {
-        for (var i = 0, h = 0; i < s.length; i++) h = Math.imul(31, h) + s.charCodeAt(i) | 0;
+        let h = 0;
+        for (let i = 0; i < s.length; i++) h = Math.imul(31, h) + s.charCodeAt(i) | 0;
         return h;
     }
 
@@ -261,29 +266,29 @@ class MyApp extends Homey.App
         {
             if (source === null)
             {
-                return "null";
+                return 'null';
             }
             if (source === undefined)
             {
-                return "undefined";
+                return 'undefined';
             }
             if (source instanceof Error)
             {
-                let stack = source.stack.replace('/\\n/g', '\n');
-                return source.message + '\n' + stack;
+                const stack = source.stack.replace('/\\n/g', '\n');
+                return `${source.message}\n${stack}`;
             }
-            if (typeof(source) === "object")
+            if (typeof (source) === 'object')
             {
                 const getCircularReplacer = () =>
                 {
                     const seen = new WeakSet();
                     return (key, value) =>
                     {
-                        if (typeof value === "object" && value !== null)
+                        if (typeof value === 'object' && value !== null)
                         {
                             if (seen.has(value))
                             {
-                                return;
+                                return '';
                             }
                             seen.add(value);
                         }
@@ -293,14 +298,14 @@ class MyApp extends Homey.App
 
                 return JSON.stringify(source, getCircularReplacer(), 2);
             }
-            if (typeof(source) === "string")
+            if (typeof (source) === 'string')
             {
                 return source;
             }
         }
         catch (err)
         {
-            this.homey.app.updateLog("VarToString Error: " + err, 0);
+            this.homey.app.updateLog(`VarToString Error: ${err}`, 0);
         }
 
         return source.toString();
@@ -314,106 +319,113 @@ class MyApp extends Homey.App
 
             if (errorLevel <= this.homey.app.logLevel)
             {
-                console.log(newMessage);
+                this.log(newMessage);
 
                 const nowTime = new Date(Date.now());
 
                 this.diagLog += zeroPad(nowTime.getHours().toString(), 2);
-                this.diagLog += ":";
+                this.diagLog += ':';
                 this.diagLog += zeroPad(nowTime.getMinutes().toString(), 2);
-                this.diagLog += ":";
+                this.diagLog += ':';
                 this.diagLog += zeroPad(nowTime.getSeconds().toString(), 2);
-                this.diagLog += ".";
+                this.diagLog += '.';
                 this.diagLog += zeroPad(nowTime.getMilliseconds().toString(), 3);
-                this.diagLog += ": ";
+                this.diagLog += ': ';
 
                 if (errorLevel === 0)
                 {
-                    this.diagLog += "!!!!!! ";
+                    this.diagLog += '!!!!!! ';
                 }
                 else
                 {
-                    this.diagLog += "* ";
+                    this.diagLog += '* ';
                 }
                 this.diagLog += newMessage;
-                this.diagLog += "\r\n";
+                this.diagLog += '\r\n';
                 if (this.diagLog.length > 60000)
                 {
                     this.diagLog = this.diagLog.substr(this.diagLog.length - 60000);
                 }
-                this.homey.api.realtime('com.switchbot.logupdated', { 'log': this.diagLog });
+                this.homey.api.realtime('com.switchbot.logupdated', { log: this.diagLog });
             }
         }
         else if (errorLevel < 2)
         {
             // Connected via the cloud
-            console.log(newMessage);
+            this.log(newMessage);
         }
     }
 
     async sendLog(logType)
     {
         let tries = 5;
-        console.log("Send Log");
+        this.log('Send Log');
         while (tries-- > 0)
         {
             try
             {
-                let subject = "";
-                let text = "";
+                let subject = '';
+                let text = '';
                 if (logType === 'infoLog')
                 {
-                    subject = "SwitchBot Information log";
+                    subject = 'SwitchBot Information log';
                     text = this.diagLog;
                 }
                 else
                 {
-                    subject = "SwitchBot device log";
+                    subject = 'SwitchBot device log';
                     text = this.detectedDevices;
                 }
 
-                subject += "(" + this.homeyHash + " : " + Homey.manifest.version + ")";
+                subject += `(${this.homeyHash} : ${Homey.manifest.version})`;
 
                 // create reusable transporter object using the default SMTP transport
-                let transporter = nodemailer.createTransport(
+                const transporter = nodemailer.createTransport(
                 {
-                    host: Homey.env.MAIL_HOST, //Homey.env.MAIL_HOST,
+                    host: Homey.env.MAIL_HOST, // Homey.env.MAIL_HOST,
                     port: 465,
                     ignoreTLS: false,
                     secure: true, // true for 465, false for other ports
                     auth:
                     {
                         user: Homey.env.MAIL_USER, // generated ethereal user
-                        pass: Homey.env.MAIL_SECRET // generated ethereal password
+                        pass: Homey.env.MAIL_SECRET, // generated ethereal password
                     },
                     tls:
                     {
                         // do not fail on invalid certs
-                        rejectUnauthorized: false
-                    }
-                });
+                        rejectUnauthorized: false,
+                    },
+                },
+);
                 // send mail with defined transport object
                 const response = await transporter.sendMail(
                 {
-                    from: '"Homey User" <' + Homey.env.MAIL_USER + '>', // sender address
+                    from: `"Homey User" <${Homey.env.MAIL_USER}>`, // sender address
                     to: Homey.env.MAIL_RECIPIENT, // list of receivers
-                    subject: subject, // Subject line
-                    text: text // plain text body
-                });
+                    subject, // Subject line
+                    text, // plain text body
+                },
+);
                 return {
-                    error: response.err,
-                    message: response.err ? null : "OK"
+                    error: response,
+                    message: 'OK',
                 };
             }
             catch (err)
             {
-                this.logInformation("Send log error", err);
+                this.logInformation('Send log error', err);
                 return {
                     error: err,
-                    message: null
+                    message: null,
                 };
             }
         }
+
+        return {
+            error: 'Failed',
+            message: 'Max tries',
+        };
     }
 
     async Delay(period)
@@ -421,12 +433,12 @@ class MyApp extends Homey.App
         await new Promise(resolve => this.homey.setTimeout(resolve, period));
     }
 
-    //=======================================================================================
-    //BLEHub interface
+    //= ======================================================================================
+    // BLEHub interface
 
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // SwitchBot Hub
-    //    
+    //
     async getDeviceStatus(body)
     {
         return this.hub.getDeviceData(body.deviceId);
@@ -434,27 +446,31 @@ class MyApp extends Homey.App
 
     async onHubPoll()
     {
-        var nextInterval = MINIMUM_POLL_INTERVAL;
+        let nextInterval = MINIMUM_POLL_INTERVAL;
         if (this.homey.app.BearerToken && (nextInterval > 0))
         {
-            this.homey.app.updateLog("Polling hub");
+            this.homey.app.updateLog('Polling hub');
             let totalHuBDevices = 0;
             try
             {
                 const promises = [];
 
                 const drivers = this.homey.drivers.getDrivers();
+                // eslint-disable-next-line no-restricted-syntax
                 for (const driver in drivers)
                 {
-                    let devices = this.homey.drivers.getDriver(driver).getDevices();
-                    let numDevices = devices.length;
-                    for (var i = 0; i < numDevices; i++)
+                    if (Object.prototype.hasOwnProperty.call(drivers, driver))
                     {
-                        let device = devices[i];
-                        if (device.getHubDeviceValues)
+                        const devices = this.homey.drivers.getDriver(driver).getDevices();
+                        const numDevices = devices.length;
+                        for (let i = 0; i < numDevices; i++)
                         {
-                            totalHuBDevices++;
-                            promises.push(device.getHubDeviceValues());
+                            const device = devices[i];
+                            if (device.getHubDeviceValues)
+                            {
+                                totalHuBDevices++;
+                                promises.push(device.getHubDeviceValues());
+                            }
                         }
                     }
                 }
@@ -463,7 +479,7 @@ class MyApp extends Homey.App
             }
             catch (err)
             {
-                this.homey.app.updateLog("Polling hub error" + err.message);
+                this.homey.app.updateLog(`Polling hub error${err.message}`);
             }
 
             if (totalHuBDevices > 0)
@@ -479,7 +495,7 @@ class MyApp extends Homey.App
                 nextInterval = 60000;
             }
 
-            this.homey.app.updateLog("Next HUB polling interval = " + (nextInterval / 1000) + "s", true);
+            this.homey.app.updateLog(`Next HUB polling interval = ${nextInterval / 1000}s`, true);
         }
         else
         {
@@ -489,7 +505,7 @@ class MyApp extends Homey.App
         this.timerHubID = this.homey.setTimeout(this.onHubPoll, nextInterval);
     }
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Homey BLE
     //
     async onBLEPoll()
@@ -497,24 +513,28 @@ class MyApp extends Homey.App
         let pollingInterval = 10000;
         pollingInterval = BLE_POLLING_INTERVAL;
 
-        this.homey.app.updateLog("\r\nPolling BLE Starting ------------------------------------");
+        this.homey.app.updateLog('\r\nPolling BLE Starting ------------------------------------');
 
         const promises = [];
         try
         {
             const drivers = this.homey.drivers.getDrivers();
-            if (parseInt(this.homey.version) < 6)
+            if (parseInt(this.homey.version, 10) < 6)
             {
-                //clear BLE cache for each device
+                // clear BLE cache for each device
+                // eslint-disable-next-line no-restricted-syntax
                 for (const driver in drivers)
                 {
-                    let devices = this.homey.drivers.getDriver(driver).getDevices();
-
-                    for (let i = 0; i < devices.length; i++)
+                    if (Object.prototype.hasOwnProperty.call(drivers, driver))
                     {
-                        let device = devices[i];
-                        let id = device.getData().id;
-                        delete this.homey.ble.__advertisementsByPeripheralUUID[id];
+                        const devices = this.homey.drivers.getDriver(driver).getDevices();
+
+                        for (let i = 0; i < devices.length; i++)
+                        {
+                            const device = devices[i];
+                            const { id } = device.getData();
+                            delete this.homey.ble.__advertisementsByPeripheralUUID[id];
+                        }
                     }
                 }
             }
@@ -522,32 +542,36 @@ class MyApp extends Homey.App
             // Run discovery too fetch new data
             await this.homey.ble.discover(['cba20d00224d11e69fb80002a5d5c51b'], 2000);
 
+            // eslint-disable-next-line no-restricted-syntax
             for (const driver in drivers)
             {
-                let devices = this.homey.drivers.getDriver(driver).getDevices();
-
-                for (let i = 0; i < devices.length; i++)
+                if (Object.prototype.hasOwnProperty.call(drivers, driver))
                 {
-                    let device = devices[i];
-                    if (device.getDeviceValues)
+                    const devices = this.homey.drivers.getDriver(driver).getDevices();
+
+                    for (let i = 0; i < devices.length; i++)
                     {
-                        promises.push(device.getDeviceValues());
+                        const device = devices[i];
+                        if (device.getDeviceValues)
+                        {
+                            promises.push(device.getDeviceValues());
+                        }
                     }
                 }
             }
 
-            this.homey.app.updateLog("Polling BLE: waiting for devices to update");
+            this.homey.app.updateLog('Polling BLE: waiting for devices to update');
             await Promise.all(promises);
         }
         catch (err)
         {
-            this.homey.app.updateLog("BLE Polling Error: " + this.homey.app.varToString(err));
+            this.homey.app.updateLog(`BLE Polling Error: ${this.homey.app.varToString(err)}`);
         }
 
-        //this.polling = false;
-        this.homey.app.updateLog("------------------------------------ Polling BLE Finished\r\n");
+        // this.polling = false;
+        this.homey.app.updateLog('------------------------------------ Polling BLE Finished\r\n');
 
-        this.homey.app.updateLog("Next BLE polling interval = " + pollingInterval, true);
+        this.homey.app.updateLog(`Next BLE polling interval = ${pollingInterval}`, true);
 
         this.timerID = this.homey.setTimeout(this.onBLEPoll, pollingInterval);
     }

@@ -1,11 +1,12 @@
-/*jslint node: true */
+/* jslint node: true */
+
 'use strict';
 
-const Homey = require('homey');
 const BLEDriver = require('../ble_driver');
 
 class BLEBotDriver extends BLEDriver
 {
+
     /**
      * onInit is called when the driver is initialized.
      */
@@ -23,6 +24,7 @@ class BLEBotDriver extends BLEDriver
     {
         return this.getBLEDevices('H');
     }
+
 }
 
 module.exports = BLEBotDriver;

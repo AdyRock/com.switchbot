@@ -1,10 +1,12 @@
-/*jslint node: true */
+/* jslint node: true */
+
 'use strict';
 
-const Homey = require('homey');
 const HubDevice = require('../hub_device');
+
 class TVHubDevice extends HubDevice
 {
+
     /**
      * onInit is called when the device is initialized.
      */
@@ -16,7 +18,7 @@ class TVHubDevice extends HubDevice
         {
             this.addCapability('volume_mute');
         }
-        
+
         this.registerCapabilityListener('power_on', this.onCapabilityCommand.bind(this, 'turnOn'));
         this.registerCapabilityListener('power_off', this.onCapabilityCommand.bind(this, 'turnOff'));
         this.registerCapabilityListener('volume_up', this.onCapabilityCommand.bind(this, 'volumeAdd'));
@@ -27,6 +29,7 @@ class TVHubDevice extends HubDevice
 
         this.setCapabilityValue('volume_mute', false).catch(this.error);
     }
+
 }
 
 module.exports = TVHubDevice;

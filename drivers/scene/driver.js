@@ -1,10 +1,10 @@
 'use strict';
 
-const { Driver } = require('homey');
 const HubDriver = require('../hub_driver');
 
 class sceneDriver extends HubDriver
 {
+
     /**
      * onInit is called when the driver is initialized.
      */

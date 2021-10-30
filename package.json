@@ -1,26 +1,29 @@
 {
-  "name": "com.switchbot",
-  "version": "0.4.0",
-  "description": "Adds support to Homey for SwitchBot devices",
-  "main": "app.js",
-  "dependencies": {
-    "crc-32": "^1.2.0",
-    "nodemailer": "^6.4.16"
-  },
-  "devDependencies": {
-    "homey": "^2.19.2"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/AdyRock/com.switchbot.git"
-  },
-  "author": "Adrian Rockall",
-  "license": "GPL-3.0-only",
-  "bugs": {
-    "url": "https://github.com/AdyRock/com.switchbot/issues"
-  },
-  "homepage": "https://github.com/AdyRock/com.switchbot#readme",
-  "engines": {
-    "node": ">=8.0.0"
-  }
+    "name": "com.switchbot",
+    "version": "0.4.0",
+    "description": "Adds support to Homey for SwitchBot devices",
+    "main": "app.js",
+    "dependencies": {
+        "crc-32": "^1.2.0",
+        "nodemailer": "^6.4.16"
+    },
+    "devDependencies": {
+        "@types/homey": "npm:homey-apps-sdk-v3-types@^0.2.2",
+        "eslint": "^8.1.0",
+        "eslint-config-athom": "^3.0.1",
+        "homey": "^2.19.2"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/AdyRock/com.switchbot.git"
+    },
+    "author": "Adrian Rockall",
+    "license": "GPL-3.0-only",
+    "bugs": {
+        "url": "https://github.com/AdyRock/com.switchbot/issues"
+    },
+    "homepage": "https://github.com/AdyRock/com.switchbot#readme",
+    "engines": {
+        "node": ">=12.16.1"
+    }
 }

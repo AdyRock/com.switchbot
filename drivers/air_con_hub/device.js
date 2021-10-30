@@ -1,10 +1,12 @@
-/*jslint node: true */
+/* jslint node: true */
+
 'use strict';
 
 const Homey = require('homey');
 
 class AirConHubDevice extends Homey.Device
 {
+
     /**
      * onInit is called when the device is initialized.
      */
@@ -18,7 +20,7 @@ class AirConHubDevice extends Homey.Device
             this.addCapability('power_on');
             this.addCapability('power_off');
         }
-        
+
         this.registerMultipleCapabilityListener(['onoff', 'target_temperature', 'aircon_mode', 'aircon_fan_speed'], this.onCapabilityAll.bind(this));
         this.registerCapabilityListener('power_off', this.onCapabilityPowerOff.bind(this));
         this.registerCapabilityListener('power_on', this.onCapabilityPowerOn.bind(this));
@@ -28,7 +30,7 @@ class AirConHubDevice extends Homey.Device
         {
             this.setCapabilityValue('target_temperature', 21).catch(this.error);
         }
-        
+
         temp = this.getCapabilityValue('aircon_mode');
         if (temp === null)
         {
@@ -44,12 +46,12 @@ class AirConHubDevice extends Homey.Device
 
     async onCapabilityPowerOff(value, opts)
     {
-        return this.onCapabilityAll({power_off:true});
+        return this.onCapabilityAll({ power_off: true });
     }
 
     async onCapabilityPowerOn(value, opts)
     {
-        return this.onCapabilityAll({power_on:true});
+        return this.onCapabilityAll({ power_on: true });
     }
 
     async onCapabilityCommand(command)
@@ -58,10 +60,8 @@ class AirConHubDevice extends Homey.Device
         {
             return this.onCapabilityPowerOn();
         }
-        else
-        {
+
             return this.onCapabilityPowerOff();
-        }
     }
 
     // this method is called when the Homey device has requested a value change
@@ -72,7 +72,7 @@ class AirConHubDevice extends Homey.Device
         let fan;
         let onOff = 'on';
 
-        if (valueOj.onoff != undefined && valueOj.onOff == false)
+        if (valueOj.onoff !== undefined && valueOj.onOff === false)
         {
             onOff = 'off';
         }
@@ -124,22 +124,23 @@ class AirConHubDevice extends Homey.Device
         mode = Number(mode);
         fan = Number(fan);
 
-        let parameters = `${ temp },${ mode },${ fan },${ onOff }`;
+        const parameters = `${temp},${mode},${fan},${onOff}`;
         return this._operateDevice(parameters);
     }
 
     async _operateDevice(parameters)
     {
-        let data = {
-            "command": "setAll",
-            "parameter": parameters,
-            "commandType": "command"
+        const data = {
+            command: 'setAll',
+            parameter: parameters,
+            commandType: 'command',
         };
 
         const dd = this.getData();
 
         return this.driver.setDeviceData(dd.id, data);
     }
+
 }
 
 module.exports = AirConHubDevice;

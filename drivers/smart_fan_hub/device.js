@@ -1,10 +1,12 @@
-/*jslint node: true */
+/* jslint node: true */
+
 'use strict';
 
 const Homey = require('homey');
 
 class SmartFanHubDevice extends Homey.Device
 {
+
     /**
      * onInit is called when the device is initialized.
      */
@@ -16,19 +18,18 @@ class SmartFanHubDevice extends Homey.Device
         {
             this.getHubDeviceValues();
         }
-        catch(err)
+        catch (err)
         {
             this.setUnavailable(err.message);
         }
         this.registerCapabilityListener('onoff', this.onCapabilityOnOff.bind(this));
         this.registerMultipleCapabilityListener(['smart_fan_mode', 'smart_fan_speed', 'smart_fan_shake_range'], this.onCapabilityFanSettings.bind(this));
-
     }
 
     // this method is called when the Homey device switches the device on or off
     async onCapabilityOnOff(value, opts)
     {
-        let command = value ? "turnOn" : "turnOff";
+        const command = value ? 'turnOn' : 'turnOff';
 
         return this.sendCommand(command, 'default');
     }
@@ -58,16 +59,16 @@ class SmartFanHubDevice extends Homey.Device
             shake = valueOj.shake_range;
         }
 
-        let parameters = `on,${mode},${speed},${shake}`;
-        return await this.sendCommand('setAllStatus', parameters);
+        const parameters = `on,${mode},${speed},${shake}`;
+        return this.sendCommand('setAllStatus', parameters);
     }
 
     async sendCommand(command, parameter)
     {
-        let data = {
-            "command": command,
-            "parameter": parameter,
-            "commandType": "command"
+        const data = {
+            command,
+            parameter,
+            commandType: 'command',
         };
 
         const dd = this.getData();
@@ -80,23 +81,23 @@ class SmartFanHubDevice extends Homey.Device
 
         try
         {
-            let data = await this.driver.getDeviceData(dd.id);
+            const data = await this.driver.getDeviceData(dd.id);
             if (data)
             {
                 this.setAvailable();
-                this.setCapabilityValue('onoff', data.power == 'on').catch(this.error);
+                this.setCapabilityValue('onoff', data.power === 'on').catch(this.error);
                 this.setCapabilityValue('smart_fan_mode', data.mode).catch(this.error);
                 this.setCapabilityValue('smart_fan_speed', data.speed).catch(this.error);
                 this.setCapabilityValue('smart_fan_shake_range', data.shakeRange).catch(this.error);
             }
         }
-        catch(err)
+        catch (err)
         {
             this.log('getHubDeviceValues: ', err);
             this.setUnavailable(err.message);
-
         }
     }
+
 }
 
 module.exports = SmartFanHubDevice;

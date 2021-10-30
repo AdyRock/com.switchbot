@@ -1,4 +1,7 @@
-/*jslint node: true */
+/* jslint node: true */
+
+'use strict';
+
 module.exports = {
     async getLog({ homey, query })
     {
@@ -10,7 +13,7 @@ module.exports = {
     },
     async clearLog({ homey, query })
     {
-        homey.app.diagLog = "";
+        homey.app.diagLog = '';
         return 'OK';
     },
     async SendDeviceLog({ homey, query })
@@ -29,9 +32,9 @@ module.exports = {
         }
         return 'OK';
     },
-    async requestDeviceStatus({ homey, query  })
+    async requestDeviceStatus({ homey, query })
     {
-        let retval = await homey.app.getDeviceStatus(query);
-        return JSON.stringify( retval, null, 2 );
+        const retval = await homey.app.getDeviceStatus(query);
+        return JSON.stringify(retval, null, 2);
     },
 };
