@@ -510,9 +510,6 @@ class MyApp extends Homey.App
     //
     async onBLEPoll()
     {
-        let pollingInterval = 10000;
-        pollingInterval = BLE_POLLING_INTERVAL;
-
         this.homey.app.updateLog('\r\nPolling BLE Starting ------------------------------------');
 
         const promises = [];
@@ -571,9 +568,9 @@ class MyApp extends Homey.App
         // this.polling = false;
         this.homey.app.updateLog('------------------------------------ Polling BLE Finished\r\n');
 
-        this.homey.app.updateLog(`Next BLE polling interval = ${pollingInterval}`, true);
+        this.homey.app.updateLog(`Next BLE polling interval = ${BLE_POLLING_INTERVAL}`, true);
 
-        this.timerID = this.homey.setTimeout(this.onBLEPoll, pollingInterval);
+        this.timerID = this.homey.setTimeout(this.onBLEPoll, BLE_POLLING_INTERVAL);
     }
 
 }

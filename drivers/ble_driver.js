@@ -39,7 +39,7 @@ class BLEDriver extends Homey.Driver
                     {
                         if (deviceData.serviceData.model === type)
                         {
-                            const id = deviceData.address.replace(/\:/g, '');
+                            const id = deviceData.address.replace(/:/g, '');
 
                             const data = {
                                 id,

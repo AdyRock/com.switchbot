@@ -45,8 +45,16 @@
     "small": "/assets/images/small.jpg"
   },
   "author": {
-    "name": "Adrian Rockall",
-    "email": "ady@rockall.plus.com"
+    "name": "SwitchBot Global",
+    "email": "integrations@wondertechlabs.com"
+  },
+  "contributors": {
+    "developers": [
+      {
+        "name": "Adrian Rockall",
+        "email": "ady@rockall.plus.com"
+      }
+    ]
   },
   "api": {
     "getLog": {
