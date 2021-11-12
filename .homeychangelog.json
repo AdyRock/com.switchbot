@@ -108,6 +108,9 @@
     "en": "Fix AirCon On and Off action cards"
   },
   "0.4.0": {
-    "en": "Big code reorganise in preperation for Possible Homey / Homey bridge usage. Added error handling around API calls that might have preented polling timer from restarting. Added Presence Sensor (Hub). Added Contact Sensor (Hub)."
+    "en": "Big code reorganise in preparation for Possible Homey / Homey bridge usage. Added error handling around API calls that might have prevented polling timer from restarting. Added Presence Sensor (Hub). Added Contact Sensor (Hub)."
+  },
+  "0.4.1": {
+    "en": "Add Color Bulb (Hub)"
   }
 }
