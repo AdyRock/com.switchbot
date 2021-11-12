@@ -72,7 +72,7 @@ class BLEDriver extends Homey.Driver
             // let retries = 10;
             // while (this.polling && (retries-- > 0))
             // {
-            //     await this.asyncDelay(500);
+            //     await this.homey.app.Delay(500);
             // }
 
             const bleAdvertisements = await this.homey.ble.discover([], 20000);

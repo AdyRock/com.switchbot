@@ -88,6 +88,16 @@
             "method": "post",
             "path": "/SendInfoLog/"
         },
+        "SendStatusLog":
+        {
+            "method": "post",
+            "path": "/SendStatusLog/"
+        },
+        "clearStatusLog":
+        {
+            "method": "post",
+            "path": "/clearStatusLog/"
+        },
         "newData":
         {
             "method": "post",

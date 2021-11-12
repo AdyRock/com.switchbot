@@ -25,6 +25,7 @@ class MyApp extends Homey.App
     {
         this.log('SwitchBot has been initialized');
         this.diagLog = '';
+        this.homey.app.deviceStatusLog = '';
         this.BearerToken = this.homey.settings.get('BearerToken');
 
         if (process.env.DEBUG === '1')
@@ -370,6 +371,11 @@ class MyApp extends Homey.App
                 {
                     subject = 'SwitchBot Information log';
                     text = this.diagLog;
+                }
+                else if (logType === 'statusLog')
+                {
+                    subject = 'SwitchBot Status log';
+                    text = this.deviceStatusLog;
                 }
                 else
                 {

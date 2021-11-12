@@ -9,7 +9,7 @@ module.exports = {
     },
     async getDetect({ homey, query })
     {
-        return homey.app.detectedDevices;
+        return homey.app.hub.getHUBDevices('', false);
     },
     async clearLog({ homey, query })
     {
@@ -24,6 +24,15 @@ module.exports = {
     {
         return homey.app.sendLog('infoLog');
     },
+    async SendStatusLog({ homey, query })
+    {
+        return homey.app.sendLog('statusLog');
+    },
+    async clearStatusLog({ homey, query })
+    {
+        homey.app.deviceStatusLog = '';
+        return 'OK';
+    },
     async newData({ homey, body })
     {
         if (homey.app.BLEHub)
@@ -35,6 +44,8 @@ module.exports = {
     async requestDeviceStatus({ homey, query })
     {
         const retval = await homey.app.getDeviceStatus(query);
-        return JSON.stringify(retval, null, 2);
+        const data = JSON.stringify(retval, null, 2);
+        homey.app.deviceStatusLog += data;
+        return homey.app.deviceStatusLog;
     },
 };

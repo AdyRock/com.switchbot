@@ -2,7 +2,8 @@
     "settings":
     {
         "clear": "Clear Log",
-        "send": "Send Log"
+        "send": "Send Log",
+        "getDevices": "Get HUB Devices"
     },
     "pair": {
         "api_code":{
