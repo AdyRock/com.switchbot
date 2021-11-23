@@ -37,12 +37,12 @@
                 "en": "Set nebulization efficiency"
             },
             "titleFormatted": {
-                "en": "Set the nebulization efficiency to [[efficiency]]"
+                "en": "Set the nebulization efficiency to [[nebulization_efficiency]]"
             },
             "platforms": ["local", "cloud"],
             "args": [
                 {
-                    "name": "efficiency",
+                    "name": "nebulization_efficiency",
                     "type": "range",
                     "title": { "en": "Efficiency" },
                     "placeholder": { "en": "In %" },

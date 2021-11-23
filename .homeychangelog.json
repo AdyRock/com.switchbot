@@ -112,5 +112,8 @@
   },
   "0.4.1": {
     "en": "Add Color Bulb (Hub)"
+  },
+  "0.4.2": {
+    "en": "Fixed 'Set nebulization efficiency' flow card"
   }
 }
