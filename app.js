@@ -14,7 +14,7 @@ const HubInterface = require('./lib/hub_interface');
 const BLEHubInterface = require('./lib/ble_hub_interface');
 
 const MINIMUM_POLL_INTERVAL = 5; // in Seconds
-const BLE_POLLING_INTERVAL = 20000; // in milliSeconds
+const BLE_POLLING_INTERVAL = 5000; // in milliSeconds
 class MyApp extends Homey.App
 {
 
@@ -241,6 +241,22 @@ class MyApp extends Homey.App
             {
                 return args.device.onCapabilityCommand('highSpeed');
             });
+
+        const sendRemoteCommandAction = this.homey.flow.getActionCard('send_custom_remote_command');
+        sendRemoteCommandAction.registerRunListener(async (args, state) =>
+        {
+            return args.device.onCapabilityButtonPressed(args.command.id);
+        });
+        sendRemoteCommandAction.registerArgumentAutocompleteListener('command', async (query, args) =>
+        {
+            const results = await args.device.getButtonList();
+
+            // filter based on the query
+            return results.filter(result =>
+            {
+                return result.name.toLowerCase().includes(query.toLowerCase());
+            });
+        });
 
         this.homey.app.updateLog('************** App has initialised. ***************');
     }
@@ -543,7 +559,9 @@ class MyApp extends Homey.App
             }
 
             // Run discovery too fetch new data
+            this.homey.app.updateLog('BLE Starting Discovery');
             await this.homey.ble.discover(['cba20d00224d11e69fb80002a5d5c51b'], 2000);
+            this.homey.app.updateLog('BLE Finished Discovery');
 
             // eslint-disable-next-line no-restricted-syntax
             for (const driver in drivers)

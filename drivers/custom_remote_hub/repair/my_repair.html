@@ -33,7 +33,8 @@
         document.getElementById('submit').disabled = 'disabled';
         document.getElementById('submit').value = __('pair.api_code.checking');
 
-        Homey.emit('api_connection', {api_token: document.forms.form.api_code.value}).then(function(result)
+        Homey.emit('api_connection', {api_token: document.forms.form.api_code.value})
+        .then(function(result)
         {
             if (result)
             {
@@ -41,14 +42,14 @@
                 document.getElementById('submit').value = __('pair.api_code.correct');
                 document.getElementById('status').value = __('pair.api_code.adding');
                 document.getElementById('status').style.color = 'green';
-                Homey.showView("list_my_devices");
+                Homey.showView('define_capabilities');
             }
             else
             {
                 console.log('authentication failed');
                 document.getElementById('submit').disabled = false;
                 document.getElementById('submit').value = __('pair.api_code.try_again');
-                document.getElementById('status').value = err;
+                document.getElementById('status').value = 'failed';
                 document.getElementById('status').style.color = 'red';
             }
         })

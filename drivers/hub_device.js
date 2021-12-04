@@ -25,6 +25,19 @@ class HubDevice extends Homey.Device
         return this.driver.setDeviceData(dd.id, data);
     }
 
+    async _operateRemote(command)
+    {
+        const data = {
+            command,
+            parameter: 'default',
+            commandType: 'customize',
+        };
+
+        const dd = this.getData();
+
+        return this.driver.setDeviceData(dd.id, data);
+    }
+
 }
 
 module.exports = HubDevice;

@@ -115,5 +115,8 @@
   },
   "0.4.2": {
     "en": "Fixed 'Set nebulization efficiency' flow card"
+  },
+  "0.4.3": {
+    "en": "Added support for custom remotes controls"
   }
 }

@@ -1,0 +1,55 @@
+{
+    "id": "custom_remote_hub",
+    "name":
+    {
+        "en": "Custom IR Remote (HUB)"
+    },
+    "class": "remote",
+    "capabilities":
+    [
+    ],
+    "platforms":
+    [
+        "local",
+        "cloud"
+    ],
+    "connectivity":
+    [
+        "cloud"
+    ],
+    "pair":
+    [
+        {
+            "id": "my_connect"
+        },
+        {
+            "id": "list_devices",
+            "template": "list_devices",
+            "navigation":
+            {
+                "next": "define_capabilities"
+            },
+            "options": {
+                "singular": true
+            }
+        },
+        {
+            "id": "define_capabilities"
+        }
+    ],
+    "repair":
+    [
+        {
+            "id": "my_repair"
+        },
+        {
+            "id": "define_capabilities"
+        }
+    ],
+    "icon": "{{driverAssetsPath}}/icon.svg",
+    "images": 
+    {
+        "large": "{{driverAssetsPath}}/images/large.jpg",
+        "small": "{{driverAssetsPath}}/images/small.jpg"
+    }
+}

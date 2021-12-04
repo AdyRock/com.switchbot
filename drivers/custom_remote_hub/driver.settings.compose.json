@@ -1,0 +1,158 @@
+[
+    {
+        "id": "button0",
+        "type": "text",
+        "label":
+        {
+            "en": "Command  1"
+        },
+        "value": "",
+        "hint":
+        {
+            "en": "The command to assign to button 1. This is the name you gave the button when defining the remote. Leave it empty if there is no button 1."
+        }
+    },
+    {
+        "id": "button1",
+        "type": "text",
+        "label":
+        {
+            "en": "Command  2"
+        },
+        "value": "",
+        "hint":
+        {
+            "en": "The command to assign to button 2. Leave it empty if there is no button 2."
+        }
+    },
+    {
+        "id": "button2",
+        "type": "text",
+        "label":
+        {
+            "en": "Command  3"
+        },
+        "value": "",
+        "hint":
+        {
+            "en": "The command to assign to button 3. Leave it empty if there is no button 3."
+        }
+    },
+    {
+        "id": "button3",
+        "type": "text",
+        "label":
+        {
+            "en": "Command  4"
+        },
+        "value": "",
+        "hint":
+        {
+            "en": "The command to assign to button 4. Leave it empty if there is no button 4."
+        }
+    },
+    {
+        "id": "button4",
+        "type": "text",
+        "label":
+        {
+            "en": "Command  5"
+        },
+        "value": "",
+        "hint":
+        {
+            "en": "The command to assign to button 5. Leave it empty if there is no button 5."
+        }
+    },
+    {
+        "id": "button5",
+        "type": "text",
+        "label":
+        {
+            "en": "Command  6"
+        },
+        "value": "",
+        "hint":
+        {
+            "en": "The command to assign to button 6. Leave it empty if there is no button 6."
+        }
+    },
+    {
+        "id": "button6",
+        "type": "text",
+        "label":
+        {
+            "en": "Command  7"
+        },
+        "value": "",
+        "hint":
+        {
+            "en": "The command to assign to button 7. Leave it empty if there is no button 7."
+        }
+    },
+    {
+        "id": "button6",
+        "type": "text",
+        "label":
+        {
+            "en": "Command  8"
+        },
+        "value": "",
+        "hint":
+        {
+            "en": "The command to assign to button 8. Leave it empty if there is no button 8."
+        }
+    },
+    {
+        "id": "button8",
+        "type": "text",
+        "label":
+        {
+            "en": "Command  9"
+        },
+        "value": "",
+        "hint":
+        {
+            "en": "The command to assign to button 9. Leave it empty if there is no button 9."
+        }
+    },
+    {
+        "id": "button9",
+        "type": "text",
+        "label":
+        {
+            "en": "Command  10"
+        },
+        "value": "",
+        "hint":
+        {
+            "en": "The command to assign to button 10. Leave it empty if there is no button 10."
+        }
+    },
+    {
+        "id": "button10",
+        "type": "text",
+        "label":
+        {
+            "en": "Command  11"
+        },
+        "value": "",
+        "hint":
+        {
+            "en": "The command to assign to button 11. Leave it empty if there is no button 11."
+        }
+    },
+    {
+        "id": "button11",
+        "type": "text",
+        "label":
+        {
+            "en": "Command  12"
+        },
+        "value": "",
+        "hint":
+        {
+            "en": "The command to assign to button 12. Leave it empty if there is no button 12."
+        }
+    }
+]

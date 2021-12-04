@@ -51,6 +51,14 @@
                 document.getElementById('status').value = err;
                 document.getElementById('status').style.color = 'red';
             }
+        })
+        .catch(function(err)
+        {
+            console.log('authentication failed');
+            document.getElementById('submit').disabled = false;
+            document.getElementById('submit').value = __('pair.api_code.try_again');
+            document.getElementById('status').value = err.message;
+            document.getElementById('status').style.color = 'red';
         });
     }
 </script>

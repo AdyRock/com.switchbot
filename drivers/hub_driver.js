@@ -49,6 +49,7 @@ class HubDriver extends Homey.Driver
     async onPair(session)
     {
         const oldAPICode = this.homey.app.BearerToken;
+        let device = {};
         session.setHandler('list_devices', async () =>
         {
             try
@@ -62,6 +63,13 @@ class HubDriver extends Homey.Driver
                 this.homey.app.BearerToken = oldAPICode;
                 throw new Error(err.message);
             }
+        });
+
+        session.setHandler('list_devices_selection', async data =>
+        {
+            // User selected a device so cache the information required to validate it when the credentials are set
+            this.log('list_devices_selection: ', data);
+            device = data[0];
         });
 
         session.setHandler('api_code_setup', async () =>
@@ -78,6 +86,31 @@ class HubDriver extends Homey.Driver
             }
 
             return false;
+        });
+
+        session.setHandler('set_buttons', async data =>
+        {
+            // Creat the full device descriptor
+            const capabilities = [];
+            const capabilitiesOptions = {};
+            const settings = {};
+
+            for (let i = 0; i < 12; i++)
+            {
+                if (data.buttons[i])
+                {
+                    settings[`button${i}`] = data.buttons[i];
+                    capabilities.push(`button.b${i}`);
+                    capabilitiesOptions[`button.b${i}`] = {};
+                    capabilitiesOptions[`button.b${i}`].title = { en: data.buttons[i] };
+                }
+            }
+
+            device.capabilities = capabilities;
+            device.capabilitiesOptions = capabilitiesOptions;
+            device.settings = settings;
+            this.log(JSON.stringify(device, null, 2));
+            return device;
         });
     }
 
@@ -96,15 +129,29 @@ class HubDriver extends Homey.Driver
             if (data.api_token)
             {
                 this.homey.app.BearerToken = data.api_token;
-                await device.getHubDeviceValues();
-                if (device.getAvailable())
+                if (device.getHubDeviceValues)
                 {
-                    this.homey.settings.set('BearerToken', this.homey.app.BearerToken);
-                    return true;
+                    await device.getHubDeviceValues();
+                    if (device.getAvailable())
+                    {
+                        this.homey.settings.set('BearerToken', this.homey.app.BearerToken);
+                    }
                 }
+                return true;
             }
 
             return false;
+        });
+
+        session.setHandler('get_buttons', async () =>
+        {
+            return device.getButtons();
+        });
+
+        session.setHandler('set_buttons', async data =>
+        {
+            await device.setButtons(data.buttons, true);
+            return true;
         });
     }
 

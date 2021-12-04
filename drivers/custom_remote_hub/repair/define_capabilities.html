@@ -1,0 +1,94 @@
+</br>
+<form id="form" name="form" onsubmit="return getForm()" action="javascript:void(0);" method="post" style="text-align:left;">
+    <div class="form-group">
+        <label for="button1" data-i18n="pair.button_code.button1"></label>
+        <input type="text" name="button1" id="button1" />
+        <label for="button2" data-i18n="pair.button_code.button2"></label>
+        <input type="text" name="button2" id="button2" />
+        <label for="button3" data-i18n="pair.button_code.button3"></label>
+        <input type="text" name="button3" id="button3" />
+        <label for="button4" data-i18n="pair.button_code.button4"></label>
+        <input type="text" name="button4" id="button4" />
+        <label for="button5" data-i18n="pair.button_code.button5"></label>
+        <input type="text" name="button5" id="button4" />
+        <label for="button6" data-i18n="pair.button_code.button6"></label>
+        <input type="text" name="button6" id="button4" />
+        <label for="button7" data-i18n="pair.button_code.button7"></label>
+        <input type="text" name="button7" id="button4" />
+        <label for="button8" data-i18n="pair.button_code.button8"></label>
+        <input type="text" name="button8" id="button4" />
+        <label for="button9" data-i18n="pair.button_code.button9"></label>
+        <input type="text" name="button9" id="button4" />
+        <label for="button10" data-i18n="pair.button_code.button10"></label>
+        <input type="text" name="button10" id="button4" />
+        <label for="button11" data-i18n="pair.button_code.button11"></label>
+        <input type="text" name="button11" id="button4" />
+        <label for="button12" data-i18n="pair.button_code.button12"></label>
+        <input type="text" name="button12" id="button4" />
+        </br>
+        <input type="submit" id="submit" value="Done" style="margin: 15px; padding: 10px; text-align:center; color: white; background-color: rgb(15, 170, 36);border-radius: 5px" />
+    </div>
+</form>
+
+
+<script type="text/javascript">
+    Homey.setTitle(__('pair.api_code.title'));
+
+    Homey.emit('get_buttons', {}).then(function(results)
+    {
+        document.getElementById('button1').value = results[0];
+        document.getElementById('button2').value = results[1];
+        document.getElementById('button3').value = results[2];
+        document.getElementById('button4').value = results[3];
+        document.getElementById('button5').value = results[4];
+        document.getElementById('button6').value = results[5];
+        document.getElementById('button7').value = results[6];
+        document.getElementById('button8').value = results[7];
+        document.getElementById('button9').value = results[8];
+        document.getElementById('button10').value = results[9];
+        document.getElementById('button11').value = results[10];
+        document.getElementById('button12').value = results[11];
+    })
+    .catch(function(err)
+    {
+        return Homey.alert(err.message);
+    });
+
+    function getForm()
+    {
+        // Mark as authenticating
+        document.getElementById('submit').disabled = 'disabled';
+
+        let buttons = [];
+        buttons.push(document.getElementById('button1').value);
+        buttons.push(document.getElementById('button2').value);
+        buttons.push(document.getElementById('button3').value);
+        buttons.push(document.getElementById('button4').value);
+        buttons.push(document.getElementById('button5').value);
+        buttons.push(document.getElementById('button6').value);
+        buttons.push(document.getElementById('button7').value);
+        buttons.push(document.getElementById('button8').value);
+        buttons.push(document.getElementById('button9').value);
+        buttons.push(document.getElementById('button10').value);
+        buttons.push(document.getElementById('button11').value);
+        buttons.push(document.getElementById('button12').value);
+
+        Homey.emit('set_buttons', {buttons: buttons}).then(function(result)
+        {
+            if (result)
+            {
+                Homey.done();
+            }
+            else
+            {
+                console.log('set_buttons failed');
+                document.getElementById('submit').disabled = false;
+            }
+        })
+        .catch(function(err)
+        {
+            document.getElementById('submit').disabled = false;
+            return Homey.alert(err.message);
+        });
+    }
+</script>

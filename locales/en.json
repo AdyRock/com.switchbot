@@ -5,8 +5,10 @@
         "send": "Send Log",
         "getDevices": "Get HUB Devices"
     },
-    "pair": {
-        "api_code":{
+    "pair":
+    {
+        "api_code":
+        {
             "title": "Connection Details",
             "intro": "Get the API code from the SwitchBot phone app",
             "intro1": "1. Open the SwitchBot phone app",
@@ -20,6 +22,23 @@
             "try_again": "Try again",
             "correct": "Successful",
             "adding": "Adding device(s)"
+        },
+        "button_code":
+        {
+            "title": "Define Buttons",
+            "instructions": "Enter the text for each button exactley as it appears on each button in the SwitchBot app",
+            "button1": "Command Code 1",
+            "button2": "Command Code 2",
+            "button3": "Command Code 3",
+            "button4": "Command Code 4",
+            "button5": "Command Code 5",
+            "button6": "Command Code 6",
+            "button7": "Command Code 7",
+            "button8": "Command Code 8",
+            "button9": "Command Code 9",
+            "button10": "Command Code 10",
+            "button11": "Command Code 11",
+            "button12": "Command Code 12"
         }
     }
 }

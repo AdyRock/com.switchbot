@@ -18,7 +18,7 @@ class BotBLEDevice extends Homey.Device
         this._operateBot = this._operateBot.bind(this);
         this._operateBotLoop = this._operateBotLoop.bind(this);
 
-        this.setPassord(this.getSetting('password'));
+        this.setPassword(this.getSetting('password'));
 
         this.operationMode = false; // Default to push button until we know otherwise
         this.bestRSSI = 100;
@@ -49,7 +49,7 @@ class BotBLEDevice extends Homey.Device
     {
         if (changedKeys.indexOf('password') >= 0)
         {
-            this.setPassord(newSettings.password);
+            this.setPassword(newSettings.password);
         }
     }
 
@@ -72,7 +72,7 @@ class BotBLEDevice extends Homey.Device
         this.log('BotBLEDevice has been deleted');
     }
 
-    setPassord(password)
+    setPassword(password)
     {
         if (password === '')
         {
