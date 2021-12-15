@@ -2,9 +2,9 @@
 
 'use strict';
 
-const Homey = require('homey');
+const HubDevice = require('../hub_device');
 
-class AirConHubDevice extends Homey.Device
+class AirConHubDevice extends HubDevice
 {
 
     /**
@@ -12,7 +12,7 @@ class AirConHubDevice extends Homey.Device
      */
     async onInit()
     {
-        this.log('AirConHubDevice has been initialized');
+        await super.onInit();
 
         if (this.hasCapability('onoff'))
         {
@@ -42,6 +42,8 @@ class AirConHubDevice extends Homey.Device
         {
             this.setCapabilityValue('aircon_fan_speed', '2').catch(this.error);
         }
+
+        this.log('AirConHubDevice has been initialized');
     }
 
     async onCapabilityPowerOff(value, opts)

@@ -13,5 +13,8 @@
         "fan_speed_middle",
         "fan_speed_high"
     ],
-    "$extends": ["hubDriver"]
+    "$extends": [
+        "settingsCompose",
+        "hubDriver"
+    ]
 }

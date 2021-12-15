@@ -2,9 +2,9 @@
 
 'use strict';
 
-const Homey = require('homey');
+const HubDevice = require('../hub_device');
 
-class ContactHubDevice extends Homey.Device
+class ContactHubDevice extends HubDevice
 {
 
     /**
@@ -12,6 +12,7 @@ class ContactHubDevice extends Homey.Device
      */
     async onInit()
     {
+        await super.onInit();
         this.log('ContactHubDevice has been initialising');
     }
 

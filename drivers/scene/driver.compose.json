@@ -4,9 +4,22 @@
     },
     "class": "other",
     "capabilities": [
-        "play_scene"
+        "play_scene",
+        "button.send_log"
     ],
+    "capabilitiesOptions": {
+        "button.send_log": {
+            "maintenanceAction": true,
+            "title": {
+                "en": "Send Diagnostics Log"
+            },
+            "desc": {
+                "en": "Send a diagnostics log to the developer"
+            }
+        }
+    },
     "$extends": [
+        "settingsCompose",
         "hubDriver"
     ]
 }

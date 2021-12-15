@@ -1,7 +1,6 @@
 {
     "id": "air_con_hub",
-    "name":
-    {
+    "name": {
         "en": "Air Conditioner (HUB Remote)"
     },
     "class": "remote",
@@ -10,7 +9,22 @@
         "power_off",
         "target_temperature",
         "aircon_mode",
-        "aircon_fan_speed"
+        "aircon_fan_speed",
+        "button.send_log"
     ],
-    "$extends": ["hubDriver"]
+    "capabilitiesOptions": {
+        "button.send_log": {
+            "maintenanceAction": true,
+            "title": {
+                "en": "Send Diagnostics Log"
+            },
+            "desc": {
+                "en": "Send a diagnostics log to the developer"
+            }
+        }
+    },
+    "$extends": [
+        "settingsCompose",
+        "hubDriver"
+    ]
 }

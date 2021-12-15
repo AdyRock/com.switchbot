@@ -906,6 +906,64 @@
   },
   "drivers": [
     {
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Diagnostics"
+          },
+          "children": [
+            {
+              "id": "logLevel",
+              "type": "dropdown",
+              "label": {
+                "en": "Enable Logging"
+              },
+              "value": "Errors Only",
+              "hint": {
+                "en": "When enable the app will log communications with the Ambient server to help diagnose problems"
+              },
+              "values": [
+                {
+                  "id": "0",
+                  "label": {
+                    "en": "Errors Only"
+                  }
+                },
+                {
+                  "id": "1",
+                  "label": {
+                    "en": "Basic Information"
+                  }
+                },
+                {
+                  "id": "2",
+                  "label": {
+                    "en": "Detailed Information"
+                  }
+                },
+                {
+                  "id": "3",
+                  "label": {
+                    "en": "Full Information"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "replyEmail",
+              "type": "text",
+              "label": {
+                "en": "Your email address (optional)"
+              },
+              "value": "",
+              "hint": {
+                "en": "If you don't supply your email address, logs will be sent anonymously, but you won't get a reply."
+              }
+            }
+          ]
+        }
+      ],
       "platforms": [
         "local",
         "cloud"
@@ -949,8 +1007,20 @@
         "power_off",
         "target_temperature",
         "aircon_mode",
-        "aircon_fan_speed"
-      ]
+        "aircon_fan_speed",
+        "button.send_log"
+      ],
+      "capabilitiesOptions": {
+        "button.send_log": {
+          "maintenanceAction": true,
+          "title": {
+            "en": "Send Diagnostics Log"
+          },
+          "desc": {
+            "en": "Send a diagnostics log to the developer"
+          }
+        }
+      }
     },
     {
       "id": "bot_ble",
@@ -1007,6 +1077,19 @@
       ]
     },
     {
+      "settings": [
+        {
+          "id": "push_button",
+          "type": "checkbox",
+          "label": {
+            "en": "Push Button"
+          },
+          "value": false,
+          "hint": {
+            "en": "When ticked Bot produces a short press and then returns."
+          }
+        }
+      ],
       "platforms": [
         "local",
         "cloud"
@@ -1046,23 +1129,80 @@
       },
       "class": "button",
       "capabilities": [
-        "onoff"
+        "onoff",
+        "button.send_log"
       ],
-      "settings": [
-        {
-          "id": "push_button",
-          "type": "checkbox",
-          "label": {
-            "en": "Push Button"
+      "capabilitiesOptions": {
+        "button.send_log": {
+          "maintenanceAction": true,
+          "title": {
+            "en": "Send Diagnostics Log"
           },
-          "value": false,
-          "hint": {
-            "en": "When ticked Bot produces a short press and then returns."
+          "desc": {
+            "en": "Send a diagnostics log to the developer"
           }
         }
-      ]
+      }
     },
     {
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Diagnostics"
+          },
+          "children": [
+            {
+              "id": "logLevel",
+              "type": "dropdown",
+              "label": {
+                "en": "Enable Logging"
+              },
+              "value": "Errors Only",
+              "hint": {
+                "en": "When enable the app will log communications with the Ambient server to help diagnose problems"
+              },
+              "values": [
+                {
+                  "id": "0",
+                  "label": {
+                    "en": "Errors Only"
+                  }
+                },
+                {
+                  "id": "1",
+                  "label": {
+                    "en": "Basic Information"
+                  }
+                },
+                {
+                  "id": "2",
+                  "label": {
+                    "en": "Detailed Information"
+                  }
+                },
+                {
+                  "id": "3",
+                  "label": {
+                    "en": "Full Information"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "replyEmail",
+              "type": "text",
+              "label": {
+                "en": "Your email address (optional)"
+              },
+              "value": "",
+              "hint": {
+                "en": "If you don't supply your email address, logs will be sent anonymously, but you won't get a reply."
+              }
+            }
+          ]
+        }
+      ],
       "platforms": [
         "local",
         "cloud"
@@ -1106,8 +1246,26 @@
         "light_mode",
         "light_temperature",
         "light_hue",
-        "light_saturation"
+        "light_saturation",
+        "button.send_log"
       ],
+      "capabilitiesOptions": {
+        "button.send_log": {
+          "maintenanceAction": true,
+          "title": {
+            "en": "Send Diagnostics Log"
+          },
+          "desc": {
+            "en": "Send a diagnostics log to the developer"
+          }
+        }
+      },
+      "energy": {
+        "approximation": {
+          "usageOn": 10,
+          "usageOff": 0.1
+        }
+      },
       "id": "color_bulb_hub"
     },
     {
@@ -1170,6 +1328,64 @@
       }
     },
     {
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Diagnostics"
+          },
+          "children": [
+            {
+              "id": "logLevel",
+              "type": "dropdown",
+              "label": {
+                "en": "Enable Logging"
+              },
+              "value": "Errors Only",
+              "hint": {
+                "en": "When enable the app will log communications with the Ambient server to help diagnose problems"
+              },
+              "values": [
+                {
+                  "id": "0",
+                  "label": {
+                    "en": "Errors Only"
+                  }
+                },
+                {
+                  "id": "1",
+                  "label": {
+                    "en": "Basic Information"
+                  }
+                },
+                {
+                  "id": "2",
+                  "label": {
+                    "en": "Detailed Information"
+                  }
+                },
+                {
+                  "id": "3",
+                  "label": {
+                    "en": "Full Information"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "replyEmail",
+              "type": "text",
+              "label": {
+                "en": "Your email address (optional)"
+              },
+              "value": "",
+              "hint": {
+                "en": "If you don't supply your email address, logs will be sent anonymously, but you won't get a reply."
+              }
+            }
+          ]
+        }
+      ],
       "platforms": [
         "local",
         "cloud"
@@ -1212,7 +1428,8 @@
         "alarm_motion",
         "bright",
         "alarm_contact",
-        "alarm_contact.left_open"
+        "alarm_contact.left_open",
+        "button.send_log"
       ],
       "capabilitiesOptions": {
         "alarm_contact.left_open": {
@@ -1222,6 +1439,15 @@
           },
           "insightsTitleFalse": {
             "en": "Contact Closed"
+          }
+        },
+        "button.send_log": {
+          "maintenanceAction": true,
+          "title": {
+            "en": "Send Diagnostics Log"
+          },
+          "desc": {
+            "en": "Send a diagnostics log to the developer"
           }
         }
       }
@@ -1314,49 +1540,6 @@
       ]
     },
     {
-      "platforms": [
-        "local",
-        "cloud"
-      ],
-      "connectivity": [
-        "cloud"
-      ],
-      "pair": [
-        {
-          "id": "my_connect"
-        },
-        {
-          "id": "list_my_devices",
-          "template": "list_devices",
-          "navigation": {
-            "next": "add_my_devices"
-          }
-        },
-        {
-          "id": "add_my_devices",
-          "template": "add_devices"
-        }
-      ],
-      "repair": [
-        {
-          "id": "my_repair"
-        }
-      ],
-      "icon": "/drivers/curtains_hub/assets/icon.svg",
-      "images": {
-        "large": "/drivers/curtains_hub/assets/images/large.jpg",
-        "small": "/drivers/curtains_hub/assets/images/small.jpg"
-      },
-      "id": "curtains_hub",
-      "name": {
-        "en": "Curtains (HUB)"
-      },
-      "class": "curtain",
-      "capabilities": [
-        "open_close",
-        "windowcoverings_set",
-        "position"
-      ],
       "settings": [
         {
           "id": "invertPosition",
@@ -1400,7 +1583,62 @@
             "en": "Select the silent or performance mode of the motor."
           }
         }
-      ]
+      ],
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "my_connect"
+        },
+        {
+          "id": "list_my_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_my_devices"
+          }
+        },
+        {
+          "id": "add_my_devices",
+          "template": "add_devices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "my_repair"
+        }
+      ],
+      "icon": "/drivers/curtains_hub/assets/icon.svg",
+      "images": {
+        "large": "/drivers/curtains_hub/assets/images/large.jpg",
+        "small": "/drivers/curtains_hub/assets/images/small.jpg"
+      },
+      "id": "curtains_hub",
+      "name": {
+        "en": "Curtains (HUB)"
+      },
+      "class": "curtain",
+      "capabilities": [
+        "open_close",
+        "windowcoverings_set",
+        "position",
+        "button.send_log"
+      ],
+      "capabilitiesOptions": {
+        "button.send_log": {
+          "maintenanceAction": true,
+          "title": {
+            "en": "Send Diagnostics Log"
+          },
+          "desc": {
+            "en": "Send a diagnostics log to the developer"
+          }
+        }
+      }
     },
     {
       "id": "custom_remote_hub",
@@ -1408,7 +1646,20 @@
         "en": "Custom IR Remote (HUB)"
       },
       "class": "remote",
-      "capabilities": [],
+      "capabilities": [
+        "button.send_log"
+      ],
+      "capabilitiesOptions": {
+        "button.send_log": {
+          "maintenanceAction": true,
+          "title": {
+            "en": "Send Diagnostics Log"
+          },
+          "desc": {
+            "en": "Send a diagnostics log to the developer"
+          }
+        }
+      },
       "platforms": [
         "local",
         "cloud"
@@ -1583,6 +1834,64 @@
       ]
     },
     {
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Diagnostics"
+          },
+          "children": [
+            {
+              "id": "logLevel",
+              "type": "dropdown",
+              "label": {
+                "en": "Enable Logging"
+              },
+              "value": "Errors Only",
+              "hint": {
+                "en": "When enable the app will log communications with the Ambient server to help diagnose problems"
+              },
+              "values": [
+                {
+                  "id": "0",
+                  "label": {
+                    "en": "Errors Only"
+                  }
+                },
+                {
+                  "id": "1",
+                  "label": {
+                    "en": "Basic Information"
+                  }
+                },
+                {
+                  "id": "2",
+                  "label": {
+                    "en": "Detailed Information"
+                  }
+                },
+                {
+                  "id": "3",
+                  "label": {
+                    "en": "Full Information"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "replyEmail",
+              "type": "text",
+              "label": {
+                "en": "Your email address (optional)"
+              },
+              "value": "",
+              "hint": {
+                "en": "If you don't supply your email address, logs will be sent anonymously, but you won't get a reply."
+              }
+            }
+          ]
+        }
+      ],
       "platforms": [
         "local",
         "cloud"
@@ -1635,6 +1944,64 @@
       ]
     },
     {
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Diagnostics"
+          },
+          "children": [
+            {
+              "id": "logLevel",
+              "type": "dropdown",
+              "label": {
+                "en": "Enable Logging"
+              },
+              "value": "Errors Only",
+              "hint": {
+                "en": "When enable the app will log communications with the Ambient server to help diagnose problems"
+              },
+              "values": [
+                {
+                  "id": "0",
+                  "label": {
+                    "en": "Errors Only"
+                  }
+                },
+                {
+                  "id": "1",
+                  "label": {
+                    "en": "Basic Information"
+                  }
+                },
+                {
+                  "id": "2",
+                  "label": {
+                    "en": "Detailed Information"
+                  }
+                },
+                {
+                  "id": "3",
+                  "label": {
+                    "en": "Full Information"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "replyEmail",
+              "type": "text",
+              "label": {
+                "en": "Your email address (optional)"
+              },
+              "value": "",
+              "hint": {
+                "en": "If you don't supply your email address, logs will be sent anonymously, but you won't get a reply."
+              }
+            }
+          ]
+        }
+      ],
       "platforms": [
         "local",
         "cloud"
@@ -1683,6 +2050,64 @@
       ]
     },
     {
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Diagnostics"
+          },
+          "children": [
+            {
+              "id": "logLevel",
+              "type": "dropdown",
+              "label": {
+                "en": "Enable Logging"
+              },
+              "value": "Errors Only",
+              "hint": {
+                "en": "When enable the app will log communications with the Ambient server to help diagnose problems"
+              },
+              "values": [
+                {
+                  "id": "0",
+                  "label": {
+                    "en": "Errors Only"
+                  }
+                },
+                {
+                  "id": "1",
+                  "label": {
+                    "en": "Basic Information"
+                  }
+                },
+                {
+                  "id": "2",
+                  "label": {
+                    "en": "Detailed Information"
+                  }
+                },
+                {
+                  "id": "3",
+                  "label": {
+                    "en": "Full Information"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "replyEmail",
+              "type": "text",
+              "label": {
+                "en": "Your email address (optional)"
+              },
+              "value": "",
+              "hint": {
+                "en": "If you don't supply your email address, logs will be sent anonymously, but you won't get a reply."
+              }
+            }
+          ]
+        }
+      ],
       "platforms": [
         "local",
         "cloud"
@@ -1727,8 +2152,20 @@
         "nebulization_efficiency",
         "measure_temperature",
         "measure_humidity",
-        "alarm_water"
-      ]
+        "alarm_water",
+        "button.send_log"
+      ],
+      "capabilitiesOptions": {
+        "button.send_log": {
+          "maintenanceAction": true,
+          "title": {
+            "en": "Send Diagnostics Log"
+          },
+          "desc": {
+            "en": "Send a diagnostics log to the developer"
+          }
+        }
+      }
     },
     {
       "id": "presence_ble",
@@ -1774,6 +2211,64 @@
       }
     },
     {
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Diagnostics"
+          },
+          "children": [
+            {
+              "id": "logLevel",
+              "type": "dropdown",
+              "label": {
+                "en": "Enable Logging"
+              },
+              "value": "Errors Only",
+              "hint": {
+                "en": "When enable the app will log communications with the Ambient server to help diagnose problems"
+              },
+              "values": [
+                {
+                  "id": "0",
+                  "label": {
+                    "en": "Errors Only"
+                  }
+                },
+                {
+                  "id": "1",
+                  "label": {
+                    "en": "Basic Information"
+                  }
+                },
+                {
+                  "id": "2",
+                  "label": {
+                    "en": "Detailed Information"
+                  }
+                },
+                {
+                  "id": "3",
+                  "label": {
+                    "en": "Full Information"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "replyEmail",
+              "type": "text",
+              "label": {
+                "en": "Your email address (optional)"
+              },
+              "value": "",
+              "hint": {
+                "en": "If you don't supply your email address, logs will be sent anonymously, but you won't get a reply."
+              }
+            }
+          ]
+        }
+      ],
       "platforms": [
         "local",
         "cloud"
@@ -1814,10 +2309,80 @@
       "class": "sensor",
       "capabilities": [
         "alarm_motion",
-        "bright"
-      ]
+        "bright",
+        "button.send_log"
+      ],
+      "capabilitiesOptions": {
+        "button.send_log": {
+          "maintenanceAction": true,
+          "title": {
+            "en": "Send Diagnostics Log"
+          },
+          "desc": {
+            "en": "Send a diagnostics log to the developer"
+          }
+        }
+      }
     },
     {
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Diagnostics"
+          },
+          "children": [
+            {
+              "id": "logLevel",
+              "type": "dropdown",
+              "label": {
+                "en": "Enable Logging"
+              },
+              "value": "Errors Only",
+              "hint": {
+                "en": "When enable the app will log communications with the Ambient server to help diagnose problems"
+              },
+              "values": [
+                {
+                  "id": "0",
+                  "label": {
+                    "en": "Errors Only"
+                  }
+                },
+                {
+                  "id": "1",
+                  "label": {
+                    "en": "Basic Information"
+                  }
+                },
+                {
+                  "id": "2",
+                  "label": {
+                    "en": "Detailed Information"
+                  }
+                },
+                {
+                  "id": "3",
+                  "label": {
+                    "en": "Full Information"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "replyEmail",
+              "type": "text",
+              "label": {
+                "en": "Your email address (optional)"
+              },
+              "value": "",
+              "hint": {
+                "en": "If you don't supply your email address, logs will be sent anonymously, but you won't get a reply."
+              }
+            }
+          ]
+        }
+      ],
       "platforms": [
         "local",
         "cloud"
@@ -1856,11 +2421,81 @@
       },
       "class": "other",
       "capabilities": [
-        "play_scene"
+        "play_scene",
+        "button.send_log"
       ],
+      "capabilitiesOptions": {
+        "button.send_log": {
+          "maintenanceAction": true,
+          "title": {
+            "en": "Send Diagnostics Log"
+          },
+          "desc": {
+            "en": "Send a diagnostics log to the developer"
+          }
+        }
+      },
       "id": "scene"
     },
     {
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Diagnostics"
+          },
+          "children": [
+            {
+              "id": "logLevel",
+              "type": "dropdown",
+              "label": {
+                "en": "Enable Logging"
+              },
+              "value": "Errors Only",
+              "hint": {
+                "en": "When enable the app will log communications with the Ambient server to help diagnose problems"
+              },
+              "values": [
+                {
+                  "id": "0",
+                  "label": {
+                    "en": "Errors Only"
+                  }
+                },
+                {
+                  "id": "1",
+                  "label": {
+                    "en": "Basic Information"
+                  }
+                },
+                {
+                  "id": "2",
+                  "label": {
+                    "en": "Detailed Information"
+                  }
+                },
+                {
+                  "id": "3",
+                  "label": {
+                    "en": "Full Information"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "replyEmail",
+              "type": "text",
+              "label": {
+                "en": "Your email address (optional)"
+              },
+              "value": "",
+              "hint": {
+                "en": "If you don't supply your email address, logs will be sent anonymously, but you won't get a reply."
+              }
+            }
+          ]
+        }
+      ],
       "platforms": [
         "local",
         "cloud"
@@ -1906,10 +2541,80 @@
         "volume_down",
         "channel_up",
         "channel_down",
-        "volume_mute"
-      ]
+        "volume_mute",
+        "button.send_log"
+      ],
+      "capabilitiesOptions": {
+        "button.send_log": {
+          "maintenanceAction": true,
+          "title": {
+            "en": "Send Diagnostics Log"
+          },
+          "desc": {
+            "en": "Send a diagnostics log to the developer"
+          }
+        }
+      }
     },
     {
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Diagnostics"
+          },
+          "children": [
+            {
+              "id": "logLevel",
+              "type": "dropdown",
+              "label": {
+                "en": "Enable Logging"
+              },
+              "value": "Errors Only",
+              "hint": {
+                "en": "When enable the app will log communications with the Ambient server to help diagnose problems"
+              },
+              "values": [
+                {
+                  "id": "0",
+                  "label": {
+                    "en": "Errors Only"
+                  }
+                },
+                {
+                  "id": "1",
+                  "label": {
+                    "en": "Basic Information"
+                  }
+                },
+                {
+                  "id": "2",
+                  "label": {
+                    "en": "Detailed Information"
+                  }
+                },
+                {
+                  "id": "3",
+                  "label": {
+                    "en": "Full Information"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "replyEmail",
+              "type": "text",
+              "label": {
+                "en": "Your email address (optional)"
+              },
+              "value": "",
+              "hint": {
+                "en": "If you don't supply your email address, logs will be sent anonymously, but you won't get a reply."
+              }
+            }
+          ]
+        }
+      ],
       "platforms": [
         "local",
         "cloud"
@@ -1952,10 +2657,80 @@
         "onoff",
         "smart_fan_speed",
         "smart_fan_mode",
-        "smart_fan_shake_range"
-      ]
+        "smart_fan_shake_range",
+        "button.send_log"
+      ],
+      "capabilitiesOptions": {
+        "button.send_log": {
+          "maintenanceAction": true,
+          "title": {
+            "en": "Send Diagnostics Log"
+          },
+          "desc": {
+            "en": "Send a diagnostics log to the developer"
+          }
+        }
+      }
     },
     {
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Diagnostics"
+          },
+          "children": [
+            {
+              "id": "logLevel",
+              "type": "dropdown",
+              "label": {
+                "en": "Enable Logging"
+              },
+              "value": "Errors Only",
+              "hint": {
+                "en": "When enable the app will log communications with the Ambient server to help diagnose problems"
+              },
+              "values": [
+                {
+                  "id": "0",
+                  "label": {
+                    "en": "Errors Only"
+                  }
+                },
+                {
+                  "id": "1",
+                  "label": {
+                    "en": "Basic Information"
+                  }
+                },
+                {
+                  "id": "2",
+                  "label": {
+                    "en": "Detailed Information"
+                  }
+                },
+                {
+                  "id": "3",
+                  "label": {
+                    "en": "Full Information"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "replyEmail",
+              "type": "text",
+              "label": {
+                "en": "Your email address (optional)"
+              },
+              "value": "",
+              "hint": {
+                "en": "If you don't supply your email address, logs will be sent anonymously, but you won't get a reply."
+              }
+            }
+          ]
+        }
+      ],
       "platforms": [
         "local",
         "cloud"
@@ -2053,6 +2828,64 @@
       }
     },
     {
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Diagnostics"
+          },
+          "children": [
+            {
+              "id": "logLevel",
+              "type": "dropdown",
+              "label": {
+                "en": "Enable Logging"
+              },
+              "value": "Errors Only",
+              "hint": {
+                "en": "When enable the app will log communications with the Ambient server to help diagnose problems"
+              },
+              "values": [
+                {
+                  "id": "0",
+                  "label": {
+                    "en": "Errors Only"
+                  }
+                },
+                {
+                  "id": "1",
+                  "label": {
+                    "en": "Basic Information"
+                  }
+                },
+                {
+                  "id": "2",
+                  "label": {
+                    "en": "Detailed Information"
+                  }
+                },
+                {
+                  "id": "3",
+                  "label": {
+                    "en": "Full Information"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "replyEmail",
+              "type": "text",
+              "label": {
+                "en": "Your email address (optional)"
+              },
+              "value": "",
+              "hint": {
+                "en": "If you don't supply your email address, logs will be sent anonymously, but you won't get a reply."
+              }
+            }
+          ]
+        }
+      ],
       "platforms": [
         "local",
         "cloud"
@@ -2093,10 +2926,80 @@
       "class": "sensor",
       "capabilities": [
         "measure_temperature",
-        "measure_humidity"
-      ]
+        "measure_humidity",
+        "button.send_log"
+      ],
+      "capabilitiesOptions": {
+        "button.send_log": {
+          "maintenanceAction": true,
+          "title": {
+            "en": "Send Diagnostics Log"
+          },
+          "desc": {
+            "en": "Send a diagnostics log to the developer"
+          }
+        }
+      }
     },
     {
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Diagnostics"
+          },
+          "children": [
+            {
+              "id": "logLevel",
+              "type": "dropdown",
+              "label": {
+                "en": "Enable Logging"
+              },
+              "value": "Errors Only",
+              "hint": {
+                "en": "When enable the app will log communications with the Ambient server to help diagnose problems"
+              },
+              "values": [
+                {
+                  "id": "0",
+                  "label": {
+                    "en": "Errors Only"
+                  }
+                },
+                {
+                  "id": "1",
+                  "label": {
+                    "en": "Basic Information"
+                  }
+                },
+                {
+                  "id": "2",
+                  "label": {
+                    "en": "Detailed Information"
+                  }
+                },
+                {
+                  "id": "3",
+                  "label": {
+                    "en": "Full Information"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "replyEmail",
+              "type": "text",
+              "label": {
+                "en": "Your email address (optional)"
+              },
+              "value": "",
+              "hint": {
+                "en": "If you don't supply your email address, logs will be sent anonymously, but you won't get a reply."
+              }
+            }
+          ]
+        }
+      ],
       "platforms": [
         "local",
         "cloud"
@@ -2142,8 +3045,20 @@
         "volume_down",
         "channel_up",
         "channel_down",
-        "volume_mute"
-      ]
+        "volume_mute",
+        "button.send_log"
+      ],
+      "capabilitiesOptions": {
+        "button.send_log": {
+          "maintenanceAction": true,
+          "title": {
+            "en": "Send Diagnostics Log"
+          },
+          "desc": {
+            "en": "Send a diagnostics log to the developer"
+          }
+        }
+      }
     }
   ],
   "capabilities": {

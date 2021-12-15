@@ -12,7 +12,8 @@ class STBHubDevice extends HubDevice
      */
     async onInit()
     {
-        this.log('STBHubDevice has been initialized');
+        await super.onInit();
+
         if (!this.hasCapability('volume_mute'))
         {
             this.addCapability('volume_mute');
@@ -26,6 +27,8 @@ class STBHubDevice extends HubDevice
         this.registerCapabilityListener('channel_down', this.onCapabilityCommand.bind(this, 'channelSub'));
 
         this.setCapabilityValue('volume_mute', false).catch(this.error);
+
+        this.log('STBHubDevice has been initialized');
     }
 
 }

@@ -43,7 +43,7 @@ module.exports = {
     },
     async requestDeviceStatus({ homey, query })
     {
-        const retval = await homey.app.getDeviceStatus(query);
+        const retval = await homey.app.getDeviceStatus(query.deviceId);
         const data = JSON.stringify(retval, null, 2);
         homey.app.deviceStatusLog += data;
         return homey.app.deviceStatusLog;

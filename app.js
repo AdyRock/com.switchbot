@@ -328,52 +328,63 @@ class MyApp extends Homey.App
         return source.toString();
     }
 
-    updateLog(newMessage, errorLevel = 1)
+    updateLogEnabledSetting(logLevel)
     {
-        if (this.BLEHub != null)
-        {
-            const zeroPad = (num, places) => String(num).padStart(places, '0');
+        this.homey.app.logLevel = logLevel;
+        this.homey.settings.set('logLevel', logLevel);
 
-            if (errorLevel <= this.homey.app.logLevel)
+        const drivers = this.homey.drivers.getDrivers();
+        for (const driver of Object.values(drivers))
+        {
+            const devices = driver.getDevices();
+            for (const device of Object.values(devices))
             {
-                this.log(newMessage);
-
-                const nowTime = new Date(Date.now());
-
-                this.diagLog += zeroPad(nowTime.getHours().toString(), 2);
-                this.diagLog += ':';
-                this.diagLog += zeroPad(nowTime.getMinutes().toString(), 2);
-                this.diagLog += ':';
-                this.diagLog += zeroPad(nowTime.getSeconds().toString(), 2);
-                this.diagLog += '.';
-                this.diagLog += zeroPad(nowTime.getMilliseconds().toString(), 3);
-                this.diagLog += ': ';
-
-                if (errorLevel === 0)
+                if (device.updateLogEnabledSetting)
                 {
-                    this.diagLog += '!!!!!! ';
+                    device.updateLogEnabledSetting(logLevel);
                 }
-                else
-                {
-                    this.diagLog += '* ';
-                }
-                this.diagLog += newMessage;
-                this.diagLog += '\r\n';
-                if (this.diagLog.length > 60000)
-                {
-                    this.diagLog = this.diagLog.substr(this.diagLog.length - 60000);
-                }
-                this.homey.api.realtime('com.switchbot.logupdated', { log: this.diagLog });
             }
-        }
-        else if (errorLevel < 2)
-        {
-            // Connected via the cloud
-            this.log(newMessage);
         }
     }
 
-    async sendLog(logType)
+    updateLog(newMessage, errorLevel = 1)
+    {
+        const zeroPad = (num, places) => String(num).padStart(places, '0');
+
+        if (errorLevel <= this.homey.app.logLevel)
+        {
+            this.log(newMessage);
+
+            const nowTime = new Date(Date.now());
+
+            this.diagLog += zeroPad(nowTime.getHours().toString(), 2);
+            this.diagLog += ':';
+            this.diagLog += zeroPad(nowTime.getMinutes().toString(), 2);
+            this.diagLog += ':';
+            this.diagLog += zeroPad(nowTime.getSeconds().toString(), 2);
+            this.diagLog += '.';
+            this.diagLog += zeroPad(nowTime.getMilliseconds().toString(), 3);
+            this.diagLog += ': ';
+
+            if (errorLevel === 0)
+            {
+                this.diagLog += '!!!!!! ';
+            }
+            else
+            {
+                this.diagLog += '* ';
+            }
+            this.diagLog += newMessage;
+            this.diagLog += '\r\n';
+            if (this.diagLog.length > 60000)
+            {
+                this.diagLog = this.diagLog.substr(this.diagLog.length - 60000);
+            }
+            this.homey.api.realtime('com.switchbot.logupdated', { log: this.diagLog });
+        }
+    }
+
+    async sendLog(logType, replyAddress, deviceId)
     {
         let tries = 5;
         this.log('Send Log');
@@ -393,42 +404,59 @@ class MyApp extends Homey.App
                     subject = 'SwitchBot Status log';
                     text = this.deviceStatusLog;
                 }
-                else
+                else if (logType === 'deviceLog')
                 {
                     subject = 'SwitchBot device log';
                     text = this.detectedDevices;
+                }
+                else
+                {
+                    subject = 'SwitchBot Homey log';
+
+                    text = 'SwitchBot Information log\n\n';
+                    text += this.diagLog;
+
+                    text += '\n\n============================================\nSwitchBot detected devices log\n\n';
+                    text += this.detectedDevices;
+
+                    text += `\n\n============================================\nSwitchBot device Status ${deviceId}\n\n`;
+                    const retval = await this.getDeviceStatus(deviceId);
+                    text += JSON.stringify(retval, null, 2);
                 }
 
                 subject += `(${this.homeyHash} : ${Homey.manifest.version})`;
 
                 // create reusable transporter object using the default SMTP transport
                 const transporter = nodemailer.createTransport(
-                {
-                    host: Homey.env.MAIL_HOST, // Homey.env.MAIL_HOST,
-                    port: 465,
-                    ignoreTLS: false,
-                    secure: true, // true for 465, false for other ports
-                    auth:
                     {
-                        user: Homey.env.MAIL_USER, // generated ethereal user
-                        pass: Homey.env.MAIL_SECRET, // generated ethereal password
+                        host: Homey.env.MAIL_HOST, // Homey.env.MAIL_HOST,
+                        port: 465,
+                        ignoreTLS: false,
+                        secure: true, // true for 465, false for other ports
+                        auth:
+                        {
+                            user: Homey.env.MAIL_USER, // generated ethereal user
+                            pass: Homey.env.MAIL_SECRET, // generated ethereal password
+                        },
+                        tls:
+                        {
+                            // do not fail on invalid certs
+                            rejectUnauthorized: false,
+                        },
                     },
-                    tls:
-                    {
-                        // do not fail on invalid certs
-                        rejectUnauthorized: false,
-                    },
-                },
-);
+                );
+
                 // send mail with defined transport object
                 const response = await transporter.sendMail(
-                {
-                    from: `"Homey User" <${Homey.env.MAIL_USER}>`, // sender address
-                    to: Homey.env.MAIL_RECIPIENT, // list of receivers
-                    subject, // Subject line
-                    text, // plain text body
-                },
-);
+                    {
+                        from: `"Homey User" <${Homey.env.MAIL_USER}>`, // sender address
+                        to: Homey.env.MAIL_RECIPIENT, // list of receivers
+                        cc: replyAddress,
+                        subject, // Subject line
+                        text, // plain text body
+                    },
+                );
+
                 return {
                     error: response,
                     message: 'OK',
@@ -461,9 +489,9 @@ class MyApp extends Homey.App
     /// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // SwitchBot Hub
     //
-    async getDeviceStatus(body)
+    async getDeviceStatus(deviceId)
     {
-        return this.hub.getDeviceData(body.deviceId);
+        return this.hub.getDeviceData(deviceId);
     }
 
     async onHubPoll()

@@ -2,9 +2,9 @@
 
 'use strict';
 
-const Homey = require('homey');
+const HubDevice = require('../hub_device');
 
-class BotHubDevice extends Homey.Device
+class BotHubDevice extends HubDevice
 {
 
     /**
@@ -12,7 +12,7 @@ class BotHubDevice extends Homey.Device
      */
     async onInit()
     {
-        this.log('BotHubDevice has been initialized');
+        await super.onInit();
 
         try
         {
@@ -23,6 +23,8 @@ class BotHubDevice extends Homey.Device
             this.setUnavailable(err.message);
         }
         this.registerCapabilityListener('onoff', this.onCapabilityOnOff.bind(this));
+
+        this.log('BotHubDevice has been initialized');
     }
 
     /**
@@ -31,19 +33,6 @@ class BotHubDevice extends Homey.Device
     async onAdded()
     {
         this.log('BotHubDevice has been added');
-    }
-
-    /**
-     * onSettings is called when the user updates the device's settings.
-     * @param {object} event the onSettings event data
-     * @param {object} event.oldSettings The old settings object
-     * @param {object} event.newSettings The new settings object
-     * @param {string[]} event.changedKeys An array of keys changed since the previous version
-     * @returns {Promise<string|void>} return a custom message that will be displayed
-     */
-    async onSettings({ oldSettings, newSettings, changedKeys })
-    {
-        this.log('BotHubDevice settings where changed');
     }
 
     /**

@@ -2,9 +2,9 @@
 
 'use strict';
 
-const Homey = require('homey');
+const HubDevice = require('../hub_device');
 
-class ColorBulbHubDevice extends Homey.Device
+class ColorBulbHubDevice extends HubDevice
 {
 
     /**
@@ -12,7 +12,7 @@ class ColorBulbHubDevice extends Homey.Device
      */
     async onInit()
     {
-        this.log('ColorBulbHubDevice has been initialising');
+        await super.onInit();
 
         try
         {
@@ -27,6 +27,8 @@ class ColorBulbHubDevice extends Homey.Device
         this.registerCapabilityListener('light_mode', this.onCapabilityLightMode.bind(this));
         this.registerCapabilityListener('light_temperature', this.onCapabilityLightTemperature.bind(this));
         this.registerMultipleCapabilityListener(['light_hue', 'light_saturation'], this.onCapabilityLightHueSat.bind(this), 500);
+
+        this.log('ColorBulbHubDevice has been initialising');
     }
 
     // this method is called when the Homey device switches the device on or off

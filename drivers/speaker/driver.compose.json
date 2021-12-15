@@ -19,5 +19,8 @@
         "rewind",
         "forward"
     ],
-    "$extends": ["hubDriver"]
+    "$extends": [
+        "settingsCompose",
+        "hubDriver"
+    ]
 }

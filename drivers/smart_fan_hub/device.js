@@ -2,9 +2,9 @@
 
 'use strict';
 
-const Homey = require('homey');
+const HubDevice = require('../hub_device');
 
-class SmartFanHubDevice extends Homey.Device
+class SmartFanHubDevice extends HubDevice
 {
 
     /**
@@ -12,7 +12,7 @@ class SmartFanHubDevice extends Homey.Device
      */
     async onInit()
     {
-        this.log('SmartFanHubDevice has been initialising');
+        await super.onInit();
 
         try
         {
@@ -24,6 +24,8 @@ class SmartFanHubDevice extends Homey.Device
         }
         this.registerCapabilityListener('onoff', this.onCapabilityOnOff.bind(this));
         this.registerMultipleCapabilityListener(['smart_fan_mode', 'smart_fan_speed', 'smart_fan_shake_range'], this.onCapabilityFanSettings.bind(this));
+
+        this.log('SmartFanHubDevice has been initialising');
     }
 
     // this method is called when the Homey device switches the device on or off

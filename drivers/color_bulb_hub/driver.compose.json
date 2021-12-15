@@ -1,6 +1,5 @@
 {
-    "name":
-    {
+    "name": {
         "en": "Colour Bulb (HUB)"
     },
     "class": "light",
@@ -10,7 +9,28 @@
         "light_mode",
         "light_temperature",
         "light_hue",
-        "light_saturation"
+        "light_saturation",
+        "button.send_log"
     ],
-    "$extends": ["hubDriver"]
+    "capabilitiesOptions": {
+        "button.send_log": {
+            "maintenanceAction": true,
+            "title": {
+                "en": "Send Diagnostics Log"
+            },
+            "desc": {
+                "en": "Send a diagnostics log to the developer"
+            }
+        }
+    },
+    "energy": {
+        "approximation": {
+            "usageOn": 10,
+            "usageOff": 0.1
+        }
+    },
+    "$extends": [
+        "settingsCompose",
+        "hubDriver"
+    ]
 }

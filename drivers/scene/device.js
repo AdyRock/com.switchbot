@@ -1,8 +1,8 @@
 'use strict';
 
-const { Device } = require('homey');
+const HubDevice = require('../hub_device');
 
-class MyDevice extends Device
+class MyDevice extends HubDevice
 {
 
     /**
@@ -27,19 +27,6 @@ class MyDevice extends Device
     async onAdded()
     {
         this.log('MyDevice has been added');
-    }
-
-    /**
-     * onSettings is called when the user updates the device's settings.
-     * @param {object} event the onSettings event data
-     * @param {object} event.oldSettings The old settings object
-     * @param {object} event.newSettings The new settings object
-     * @param {string[]} event.changedKeys An array of keys changed since the previous version
-     * @returns {Promise<string|void>} return a custom message that will be displayed
-     */
-    async onSettings({ oldSettings, newSettings, changedKeys })
-    {
-        this.log('MyDevice settings where changed');
     }
 
     /**

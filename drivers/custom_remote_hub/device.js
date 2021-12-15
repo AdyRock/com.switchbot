@@ -14,6 +14,8 @@ class CustomRemoteHubDevice extends HubDevice
      */
     async onInit()
     {
+        await super.onInit();
+
         for (let i = 0; i < NUM_BUTTONS; i++)
         {
             this.registerCapabilityListener(`button.b${i}`, this.onCapabilityButtonPressed.bind(this, i));
@@ -32,7 +34,15 @@ class CustomRemoteHubDevice extends HubDevice
                 this.setButtons(buttons, false);
             });
         }
-    }
+
+        if (changedKeys.indexOf('logLevel') >= 0)
+        {
+            setImmediate(() =>
+            {
+                this.homey.app.updateLogEnabledSetting(newSettings.logLevel);
+            });
+        }
+     }
 
     async onCapabilityButtonPressed(buttonIdx)
     {

@@ -1,0 +1,60 @@
+{
+    "settings": [
+        {
+            "type": "group",
+            "label": {
+                "en": "Diagnostics"
+            },
+            "children": [
+                {
+                    "id": "logLevel",
+                    "type": "dropdown",
+                    "label": {
+                        "en": "Enable Logging"
+                    },
+                    "value": "Errors Only",
+                    "hint": {
+                        "en": "When enable the app will log communications with the Ambient server to help diagnose problems"
+                    },
+                    "values": [
+                        {
+                            "id": "0",
+                            "label": {
+                                "en": "Errors Only"
+                            }
+                        },
+                        {
+                            "id": "1",
+                            "label": {
+                                "en": "Basic Information"
+                            }
+                        },
+                        {
+                            "id": "2",
+                            "label": {
+                                "en": "Detailed Information"
+                            }
+                        },
+                        {
+                            "id": "3",
+                            "label": {
+                                "en": "Full Information"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "id": "replyEmail",
+                    "type": "text",
+                    "label": {
+                        "en": "Your email address (optional)"
+                    },
+                    "value": "",
+                    "hint": {
+                        "en": "If you don't supply your email address, logs will be sent anonymously, but you won't get a reply."
+                    }
+                }
+            ]
+        }
+    ]
+}

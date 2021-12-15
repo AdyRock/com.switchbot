@@ -2,9 +2,9 @@
 
 'use strict';
 
-const Homey = require('homey');
+const HubDevice = require('../hub_device');
 
-class CurtainsHubDevice extends Homey.Device
+class CurtainsHubDevice extends HubDevice
 {
 
     /**
@@ -12,7 +12,7 @@ class CurtainsHubDevice extends Homey.Device
      */
     async onInit()
     {
-        this.log('CurtainsHubDevice has been initialising');
+        await super.onInit();
 
         if (!this.hasCapability('open_close'))
         {
@@ -45,6 +45,7 @@ class CurtainsHubDevice extends Homey.Device
         }
         this.registerCapabilityListener('open_close', this.onCapabilityopenClose.bind(this));
         this.registerCapabilityListener('windowcoverings_set', this.onCapabilityPosition.bind(this));
+        this.log('CurtainsHubDevice has been initialising');
     }
 
     /**
@@ -73,6 +74,14 @@ class CurtainsHubDevice extends Homey.Device
         if (changedKeys.indexOf('motionMode') >= 0)
         {
             this.motionMode = Number(newSettings.motionMode);
+        }
+
+        if (changedKeys.indexOf('logLevel') >= 0)
+        {
+            setImmediate(() =>
+            {
+                this.homey.app.updateLogEnabledSetting(newSettings.logLevel);
+            });
         }
     }
 

@@ -2,9 +2,9 @@
 
 'use strict';
 
-const Homey = require('homey');
+const HubDevice = require('../hub_device');
 
-class PresenceHubDevice extends Homey.Device
+class PresenceHubDevice extends HubDevice
 {
 
     /**
@@ -12,6 +12,8 @@ class PresenceHubDevice extends Homey.Device
      */
     async onInit()
     {
+        await super.onInit();
+
         this.log('PresenceHubDevice has been initialising');
     }
 

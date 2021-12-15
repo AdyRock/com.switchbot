@@ -9,7 +9,22 @@
         "onoff",
         "smart_fan_speed",
         "smart_fan_mode",
-        "smart_fan_shake_range"
+        "smart_fan_shake_range",
+        "button.send_log"
     ],
-    "$extends": ["hubDriver"]
+    "capabilitiesOptions": {
+        "button.send_log": {
+            "maintenanceAction": true,
+            "title": {
+                "en": "Send Diagnostics Log"
+            },
+            "desc": {
+                "en": "Send a diagnostics log to the developer"
+            }
+        }
+    },
+    "$extends": [
+        "settingsCompose",
+        "hubDriver"
+    ]
 }

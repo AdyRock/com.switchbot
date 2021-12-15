@@ -12,7 +12,8 @@ class DVDHubDevice extends HubDevice
      */
     async onInit()
     {
-        this.log('DVDHubDevice has been initialized');
+        await super.onInit();
+
         this.registerCapabilityListener('power_on', this.onCapabilityCommand.bind(this, 'turnOn'));
         this.registerCapabilityListener('power_off', this.onCapabilityCommand.bind(this, 'turnOff'));
         this.registerCapabilityListener('volume_up', this.onCapabilityCommand.bind(this, 'volumeAdd'));
@@ -27,6 +28,8 @@ class DVDHubDevice extends HubDevice
         this.registerCapabilityListener('forward', this.onCapabilityCommand.bind(this, 'FastForward'));
 
         this.setCapabilityValue('volume_mute', false).catch(this.error);
+
+        this.log('DVDHubDevice has been initialized');
     }
 
 }

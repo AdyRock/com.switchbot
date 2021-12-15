@@ -2,9 +2,9 @@
 
 'use strict';
 
-const Homey = require('homey');
+const HubDevice = require('../hub_device');
 
-class TemperatureHubDevice extends Homey.Device
+class TemperatureHubDevice extends HubDevice
 {
 
     /**
@@ -12,7 +12,8 @@ class TemperatureHubDevice extends Homey.Device
      */
     async onInit()
     {
-        this.log('TemperatureHubDevice has been initialized');
+        await super.onInit();
+
         try
         {
             this.getHubDeviceValues();
@@ -21,6 +22,8 @@ class TemperatureHubDevice extends Homey.Device
         {
             this.setUnavailable(err.message);
         }
+
+        this.log('TemperatureHubDevice has been initialized');
     }
 
     /**
@@ -29,19 +32,6 @@ class TemperatureHubDevice extends Homey.Device
     async onAdded()
     {
         this.log('TemperatureHubDevice has been added');
-    }
-
-    /**
-     * onSettings is called when the user updates the device's settings.
-     * @param {object} event the onSettings event data
-     * @param {object} event.oldSettings The old settings object
-     * @param {object} event.newSettings The new settings object
-     * @param {string[]} event.changedKeys An array of keys changed since the previous version
-     * @returns {Promise<string|void>} return a custom message that will be displayed
-     */
-    async onSettings({ oldSettings, newSettings, changedKeys })
-    {
-        this.log('TemperatureHubDevice settings where changed');
     }
 
     /**

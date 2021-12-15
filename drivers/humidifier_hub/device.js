@@ -2,9 +2,9 @@
 
 'use strict';
 
-const Homey = require('homey');
+const HubDevice = require('../hub_device');
 
-class HumidityHubDevice extends Homey.Device
+class HumidityHubDevice extends HubDevice
 {
 
     /**
@@ -12,7 +12,8 @@ class HumidityHubDevice extends Homey.Device
      */
     async onInit()
     {
-        this.log('HumidityHubDevice has been initialising');
+        await super.onInit();
+
         if (!this.hasCapability('alarm_water'))
         {
             await this.addCapability('alarm_water');
@@ -28,6 +29,8 @@ class HumidityHubDevice extends Homey.Device
         }
         this.registerCapabilityListener('onoff', this.onCapabilityOnOff.bind(this));
         this.registerMultipleCapabilityListener(['nebulization_mode', 'nebulization_efficiency'], this.onCapabilityNebulization.bind(this));
+
+        this.log('HumidityHubDevice has been initialising');
     }
 
     // this method is called when the Homey device switches the device on or off

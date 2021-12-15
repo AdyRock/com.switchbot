@@ -7,7 +7,19 @@
     "class": "remote",
     "capabilities":
     [
+        "button.send_log"
     ],
+    "capabilitiesOptions": {
+        "button.send_log": {
+            "maintenanceAction": true,
+            "title": {
+                "en": "Send Diagnostics Log"
+            },
+            "desc": {
+                "en": "Send a diagnostics log to the developer"
+            }
+        }
+    },
     "platforms":
     [
         "local",
