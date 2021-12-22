@@ -232,7 +232,7 @@ class BLEDriver extends Homey.Driver
         { // WoHand
             sd = this._parseServiceDataForWoHand(buf);
         }
-        else if (model === 'T')
+        else if ((model === 'T') || (model === 'i'))
         { // WoSensorTH
             sd = this._parseServiceDataForWoSensorTH(buf);
         }

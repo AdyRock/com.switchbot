@@ -12,9 +12,10 @@ class TemperatureBLEDevice extends Homey.Device
      */
     async onInit()
     {
-        this.log('TemperatureBLEDevice has been initialized');
         this.bestRSSI = 100;
         this.bestHub = '';
+        this.homey.app.registerBLEPolling();
+        this.log('TemperatureBLEDevice has been initialized');
     }
 
     /**
@@ -53,6 +54,7 @@ class TemperatureBLEDevice extends Homey.Device
      */
     async onDeleted()
     {
+        this.homey.app.unregisterBLEPolling();
         await this.blePeripheral.disconnect();
         this.log('TemperatureBLEDevice has been deleted');
     }

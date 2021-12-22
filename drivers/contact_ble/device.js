@@ -12,7 +12,6 @@ class ContactBLEDevice extends Homey.Device
      */
     async onInit()
     {
-        this.log('ContactBLEDevice has been initialized');
         this.bestRSSI = 100;
         this.bestHub = '';
 
@@ -26,6 +25,9 @@ class ContactBLEDevice extends Homey.Device
             this.addCapability('entry_id');
             this.addCapability('exit_id');
         }
+
+        this.homey.app.registerBLEPolling();
+        this.log('ContactBLEDevice has been initialized');
     }
 
     /**
@@ -64,6 +66,7 @@ class ContactBLEDevice extends Homey.Device
      */
     async onDeleted()
     {
+        this.homey.app.unregisterBLEPolling();
         await this.blePeripheral.disconnect();
         this.log('ContactBLEDevice has been deleted');
     }

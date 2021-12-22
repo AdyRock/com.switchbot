@@ -95,14 +95,6 @@ class CurtainsHubDevice extends HubDevice
         this.log('CurtainsHubDevice was renamed');
     }
 
-    /**
-     * onDeleted is called when the user deleted the device.
-     */
-    async onDeleted()
-    {
-        this.log('CurtainsHubDevice has been deleted');
-    }
-
     // this method is called when the Homey device switches the device on or off
     async onCapabilityopenClose(value, opts)
     {

@@ -2,12 +2,12 @@
 
 'use strict';
 
-const Homey = require('homey');
+const { OAuth2Device } = require('homey-oauth2app');
 
-class HubDevice extends Homey.Device
+class HubDevice extends OAuth2Device
 {
 
-    async onInit()
+    async onOAuth2Init()
     {
         if (!this.hasCapability('button.send_log'))
         {
@@ -16,7 +16,19 @@ class HubDevice extends Homey.Device
 
         this.registerCapabilityListener('button.send_log', this.onCapabilitySendLog.bind(this));
         this.updateLogEnabledSetting(this.homey.settings.get('logLevel'));
+
+        this.homey.app.registerHUBPolling();
     }
+
+    /**
+     * onDeleted is called when the user deleted the device.
+     */
+     async onOAuth2Deleted()
+     {
+        this.homey.app.unregisterHUBPolling();
+
+        this.log('HubDevice has been deleted');
+     }
 
     updateLogEnabledSetting(level)
     {

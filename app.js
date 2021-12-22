@@ -9,19 +9,26 @@ if (process.env.DEBUG === '1')
 }
 
 const Homey = require('homey');
+const { OAuth2App } = require('homey-oauth2app');
 const nodemailer = require('nodemailer');
 const HubInterface = require('./lib/hub_interface');
 const BLEHubInterface = require('./lib/ble_hub_interface');
+const SwitchBotOAuth2Client = require('./lib/SwitchBotOAuth2Client');
 
 const MINIMUM_POLL_INTERVAL = 5; // in Seconds
 const BLE_POLLING_INTERVAL = 5000; // in milliSeconds
-class MyApp extends Homey.App
+class MyApp extends OAuth2App
 {
+
+    static OAUTH2_CLIENT = SwitchBotOAuth2Client; // Default: OAuth2Client
+    static OAUTH2_DEBUG = true; // Default: false
+    static OAUTH2_MULTI_SESSION = false; // Default: false
+    static OAUTH2_DRIVERS = ['contact_hub']; // Default: all drivers
 
     /**
      * onInit is called when the app is initialized.
      */
-    async onInit()
+    async onOAuth2Init()
     {
         this.log('SwitchBot has been initialized');
         this.diagLog = '';
@@ -79,10 +86,14 @@ class MyApp extends Homey.App
         }
 
         this.onHubPoll = this.onHubPoll.bind(this);
-        this.timerHubID = this.homey.setTimeout(this.onHubPoll, 10000);
+        this.hubDevices = 0;
+        this.timerHubID = null;
+        // this.timerHubID = this.homey.setTimeout(this.onHubPoll, 10000);
 
         this.onBLEPoll = this.onBLEPoll.bind(this);
-        this.timerID = this.homey.setTimeout(this.onBLEPoll, BLE_POLLING_INTERVAL);
+        this.bleDevices = 0;
+        this.bleTimerID = null;
+        // this.bleTimerID = this.homey.setTimeout(this.onBLEPoll, BLE_POLLING_INTERVAL);
 
         // Register flow cards
 
@@ -494,6 +505,25 @@ class MyApp extends Homey.App
         return this.hub.getDeviceData(deviceId);
     }
 
+    registerHUBPolling()
+    {
+        this.hubDevices++;
+        if (this.timerHubID === null)
+        {
+            this.timerHubID = this.homey.setTimeout(this.onHubPoll, MINIMUM_POLL_INTERVAL);
+        }
+    }
+
+    unregisterHUBPolling()
+    {
+        this.hubDevices--;
+        if ((this.hubDevices === 0) && (this.timerHubID !== null))
+        {
+            this.homey.clearTimeout(this.timerHubID);
+            this.timerHubID = null;
+        }
+    }
+
     async onHubPoll()
     {
         let nextInterval = MINIMUM_POLL_INTERVAL;
@@ -553,6 +583,25 @@ class MyApp extends Homey.App
         }
 
         this.timerHubID = this.homey.setTimeout(this.onHubPoll, nextInterval);
+    }
+
+    registerBLEPolling()
+    {
+        this.bleDevices++;
+        if (this.bleTimerID === null)
+        {
+            this.bleTimerID = this.homey.setTimeout(this.onBLEPoll, BLE_POLLING_INTERVAL);
+        }
+    }
+
+    unregisterBLEPolling()
+    {
+        this.bleDevices--;
+        if ((this.bleDevices === 0) && (this.bleTimerID !== null))
+        {
+            this.homey.clearTimeout(this.bleTimerID);
+            this.bleTimerID = null;
+        }
     }
 
     /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -622,7 +671,7 @@ class MyApp extends Homey.App
 
         this.homey.app.updateLog(`Next BLE polling interval = ${BLE_POLLING_INTERVAL}`, true);
 
-        this.timerID = this.homey.setTimeout(this.onBLEPoll, BLE_POLLING_INTERVAL);
+        this.bleTimerID = this.homey.setTimeout(this.onBLEPoll, BLE_POLLING_INTERVAL);
     }
 
 }

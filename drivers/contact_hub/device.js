@@ -10,9 +10,9 @@ class ContactHubDevice extends HubDevice
     /**
      * onInit is called when the device is initialized.
      */
-    async onInit()
+    async onOAuth2Init()
     {
-        await super.onInit();
+        await super.onOAuth2Init();
         this.log('ContactHubDevice has been initialising');
     }
 
@@ -34,21 +34,13 @@ class ContactHubDevice extends HubDevice
         this.log('ContactHubDevice was renamed');
     }
 
-    /**
-     * onDeleted is called when the user deleted the device.
-     */
-    async onDeleted()
-    {
-        this.log('ContactHubDevice has been deleted');
-    }
-
     async getHubDeviceValues()
     {
         const dd = this.getData();
 
         try
         {
-            const data = await this.driver.getDeviceData(dd.id);
+            const data = await this.driver.getDeviceData(this.oAuth2Client, dd.id);
             if (data)
             {
                 this.setAvailable();

@@ -13,8 +13,6 @@ class BotBLEDevice extends Homey.Device
      */
     async onInit()
     {
-        this.log('BotBLEDevice has been initialized');
-
         this._operateBot = this._operateBot.bind(this);
         this._operateBotLoop = this._operateBotLoop.bind(this);
 
@@ -27,6 +25,10 @@ class BotBLEDevice extends Homey.Device
 
         // register a capability listener
         this.registerCapabilityListener('onoff', this.onCapabilityOnOff.bind(this));
+
+        this.homey.app.registerBLEPolling();
+
+        this.log('BotBLEDevice has been initialized');
     }
 
     /**
@@ -68,6 +70,7 @@ class BotBLEDevice extends Homey.Device
      */
     async onDeleted()
     {
+        this.homey.app.unregisterBLEPolling();
         await this.blePeripheral.disconnect();
         this.log('BotBLEDevice has been deleted');
     }

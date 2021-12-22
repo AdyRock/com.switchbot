@@ -12,8 +12,6 @@ class CurtainsBLEDevice extends Homey.Device
      */
     async onInit()
     {
-        this.log('CurtainsBLEDevice has been initialized');
-
         if (!this.hasCapability('open_close'))
         {
             this.addCapability('open_close');
@@ -49,6 +47,10 @@ class CurtainsBLEDevice extends Homey.Device
         // register a capability listener
         this.registerCapabilityListener('open_close', this.onCapabilityopenClose.bind(this));
         this.registerCapabilityListener('windowcoverings_set', this.onCapabilityPosition.bind(this));
+
+        this.homey.app.registerBLEPolling();
+
+        this.log('CurtainsBLEDevice has been initialized');
     }
 
     /**
@@ -95,6 +97,7 @@ class CurtainsBLEDevice extends Homey.Device
      */
     async onDeleted()
     {
+        this.homey.app.unregisterBLEPolling();
         await this.blePeripheral.disconnect();
         this.log('CurtainsBLEDevice has been deleted');
     }

@@ -5,6 +5,7 @@
     "main": "app.js",
     "dependencies": {
         "crc-32": "^1.2.0",
+        "homey-oauth2app": "^3.2.5",
         "nodemailer": "^6.4.16"
     },
     "devDependencies": {

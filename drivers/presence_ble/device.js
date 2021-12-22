@@ -12,9 +12,10 @@ class PresenceBLEDevice extends Homey.Device
      */
     async onInit()
     {
-        this.log('PresenceBLEDevice has been initialized');
         this.bestRSSI = 100;
         this.bestHub = '';
+        this.homey.app.registerBLEPolling();
+        this.log('PresenceBLEDevice has been initialized');
     }
 
     /**
@@ -53,6 +54,7 @@ class PresenceBLEDevice extends Homey.Device
      */
     async onDeleted()
     {
+        this.homey.app.unregisterBLEPolling();
         await this.blePeripheral.disconnect();
         this.log('PresenceBLEDevice has been deleted');
     }

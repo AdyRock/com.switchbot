@@ -44,14 +44,6 @@ class TemperatureHubDevice extends HubDevice
         this.log('TemperatureHubDevice was renamed');
     }
 
-    /**
-     * onDeleted is called when the user deleted the device.
-     */
-    async onDeleted()
-    {
-        this.log('TemperatureHubDevice has been deleted');
-    }
-
     async getHubDeviceValues()
     {
         const dd = this.getData();

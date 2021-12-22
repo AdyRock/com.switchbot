@@ -10,13 +10,14 @@ class HubContactDriver extends HubDriver
     /**
      * onInit is called when the driver is initialized.
      */
-    async onInit()
+    async onOAuth2Init()
     {
-        super.onInit();
-        this.log('HubContactDriver has been initialized');
+        super.onOAuth2Init();
 
         // Device Triggers
         this.bright_changed_trigger = this.homey.flow.getDeviceTriggerCard('bright_changed');
+
+        this.log('HubContactDriver has been initialized');
     }
 
     bright_changed(device, bright)
@@ -29,9 +30,9 @@ class HubContactDriver extends HubDriver
             .catch(this.error);
     }
 
-    async onPairListDevices()
+    async onPairListDevices({ oAuth2Client })
     {
-        return this.getHUBDevices('Contact Sensor');
+        return this.getHUBDevices(oAuth2Client, 'Contact Sensor');
     }
 
 }

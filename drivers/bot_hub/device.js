@@ -45,14 +45,6 @@ class BotHubDevice extends HubDevice
         this.log('BotHubDevice was renamed');
     }
 
-    /**
-     * onDeleted is called when the user deleted the device.
-     */
-    async onDeleted()
-    {
-        this.log('BotHubDevice has been deleted');
-    }
-
     // this method is called when the Homey device has requested a position change ( 0 to 1)
     async onCapabilityOnOff(value, opts)
     {
