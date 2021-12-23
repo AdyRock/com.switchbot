@@ -32,7 +32,8 @@
     "pair":
     [
         {
-            "id": "my_connect"
+            "id": "login_oauth2",
+            "template": "login_oauth2"
         },
         {
             "id": "list_devices",
@@ -53,9 +54,6 @@
     [
         {
             "id": "my_repair"
-        },
-        {
-            "id": "define_capabilities"
         }
     ],
     "icon": "{{driverAssetsPath}}/icon.svg",

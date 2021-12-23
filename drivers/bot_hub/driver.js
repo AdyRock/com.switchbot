@@ -8,11 +8,11 @@ class HubBotDriver extends HubDriver
 {
 
     /**
-     * onInit is called when the driver is initialized.
+     * onOAuth2Init is called when the driver is initialized.
      */
-    async onInit()
+    async onOAuth2Init()
     {
-        super.onInit();
+        super.onOAuth2Init();
         this.log('HubBotDriver has been initialized');
     }
 
@@ -20,9 +20,9 @@ class HubBotDriver extends HubDriver
      * onPairListDevices is called when a user is adding a device and the 'list_devices' view is called.
      * This should return an array with the data of devices that are available for pairing.
      */
-    async onPairListDevices()
+    async onPairListDevices({ oAuth2Client })
     {
-        return this.getHUBDevices('Bot');
+        return this.getHUBDevices(oAuth2Client, 'Bot');
     }
 
 }

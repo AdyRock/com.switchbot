@@ -10,11 +10,11 @@ class CustomRemoteHubDevice extends HubDevice
 {
 
     /**
-     * onInit is called when the device is initialized.
+     * onOAuth2Init is called when the device is initialized.
      */
-    async onInit()
+    async onOAuth2Init()
     {
-        await super.onInit();
+        await super.onOAuth2Init();
 
         for (let i = 0; i < NUM_BUTTONS; i++)
         {

@@ -10,9 +10,9 @@ class AirConHubDevice extends HubDevice
     /**
      * onInit is called when the device is initialized.
      */
-    async onInit()
+    async onOAuth2Init()
     {
-        await super.onInit();
+        await super.onOAuth2Init();
 
         if (this.hasCapability('onoff'))
         {
@@ -138,9 +138,7 @@ class AirConHubDevice extends HubDevice
             commandType: 'command',
         };
 
-        const dd = this.getData();
-
-        return this.driver.setDeviceData(dd.id, data);
+        return super.setDeviceData(data);
     }
 
 }

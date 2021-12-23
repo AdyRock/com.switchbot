@@ -8,7 +8,7 @@ class ContactHubDevice extends HubDevice
 {
 
     /**
-     * onInit is called when the device is initialized.
+     * onOAuth2Init is called when the device is initialized.
      */
     async onOAuth2Init()
     {
@@ -36,11 +36,9 @@ class ContactHubDevice extends HubDevice
 
     async getHubDeviceValues()
     {
-        const dd = this.getData();
-
         try
         {
-            const data = await this.driver.getDeviceData(this.oAuth2Client, dd.id);
+            const data = await super.getHubDeviceValues();
             if (data)
             {
                 this.setAvailable();

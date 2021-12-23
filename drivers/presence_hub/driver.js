@@ -8,11 +8,11 @@ class HubPresenceDriver extends HubDriver
 {
 
     /**
-     * onInit is called when the driver is initialized.
+     * onOAuth2Init is called when the driver is initialized.
      */
-    async onInit()
+    async onOAuth2Init()
     {
-        super.onInit();
+        super.onOAuth2Init();
         this.log('HubPresenceDriver has been initialized');
 
         // Device Triggers
@@ -29,9 +29,9 @@ class HubPresenceDriver extends HubDriver
             .catch(this.error);
     }
 
-    async onPairListDevices()
+    async onPairListDevices({ oAuth2Client })
     {
-        return this.getHUBDevices('Motion Sensor');
+        return this.getHUBDevices(oAuth2Client, 'Motion Sensor');
     }
 
 }

@@ -8,11 +8,11 @@ class FanHubDevice extends HubDevice
 {
 
     /**
-     * onInit is called when the device is initialized.
+     * onOAuth2Init is called when the device is initialized.
      */
-    async onInit()
+    async onOAuth2Init()
     {
-        await super.onInit();
+        await super.onOAuth2Init();
         this.registerCapabilityListener('power_on', this.onCapabilityCommand.bind(this, 'turnOn'));
         this.registerCapabilityListener('power_off', this.onCapabilityCommand.bind(this, 'turnOff'));
         this.registerCapabilityListener('fan_swing', this.onCapabilityCommand.bind(this, 'swing'));

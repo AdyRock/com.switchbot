@@ -973,23 +973,25 @@
       ],
       "pair": [
         {
-          "id": "my_connect"
+          "id": "login_oauth2",
+          "template": "login_oauth2"
         },
         {
-          "id": "list_my_devices",
+          "id": "list_devices",
           "template": "list_devices",
           "navigation": {
-            "next": "add_my_devices"
+            "next": "add_devices"
           }
         },
         {
-          "id": "add_my_devices",
+          "id": "add_devices",
           "template": "add_devices"
         }
       ],
       "repair": [
         {
-          "id": "my_repair"
+          "id": "login_oauth2",
+          "template": "login_oauth2"
         }
       ],
       "icon": "/drivers/air_con_hub/assets/icon.svg",
@@ -1099,23 +1101,25 @@
       ],
       "pair": [
         {
-          "id": "my_connect"
+          "id": "login_oauth2",
+          "template": "login_oauth2"
         },
         {
-          "id": "list_my_devices",
+          "id": "list_devices",
           "template": "list_devices",
           "navigation": {
-            "next": "add_my_devices"
+            "next": "add_devices"
           }
         },
         {
-          "id": "add_my_devices",
+          "id": "add_devices",
           "template": "add_devices"
         }
       ],
       "repair": [
         {
-          "id": "my_repair"
+          "id": "login_oauth2",
+          "template": "login_oauth2"
         }
       ],
       "icon": "/drivers/bot_hub/assets/icon.svg",
@@ -1212,23 +1216,25 @@
       ],
       "pair": [
         {
-          "id": "my_connect"
+          "id": "login_oauth2",
+          "template": "login_oauth2"
         },
         {
-          "id": "list_my_devices",
+          "id": "list_devices",
           "template": "list_devices",
           "navigation": {
-            "next": "add_my_devices"
+            "next": "add_devices"
           }
         },
         {
-          "id": "add_my_devices",
+          "id": "add_devices",
           "template": "add_devices"
         }
       ],
       "repair": [
         {
-          "id": "my_repair"
+          "id": "login_oauth2",
+          "template": "login_oauth2"
         }
       ],
       "icon": "/drivers/color_bulb_hub/assets/icon.svg",
@@ -1386,38 +1392,6 @@
           ]
         }
       ],
-      "id": "contact_hub",
-      "name": {
-        "en": "Contact Sensor (HUB)"
-      },
-      "class": "sensor",
-      "capabilities": [
-        "alarm_motion",
-        "bright",
-        "alarm_contact",
-        "alarm_contact.left_open",
-        "button.send_log"
-      ],
-      "capabilitiesOptions": {
-        "alarm_contact.left_open": {
-          "title": "Left Open",
-          "insightsTitleTrue": {
-            "en": "Contact Left Open"
-          },
-          "insightsTitleFalse": {
-            "en": "Contact Closed"
-          }
-        },
-        "button.send_log": {
-          "maintenanceAction": true,
-          "title": {
-            "en": "Send Diagnostics Log"
-          },
-          "desc": {
-            "en": "Send a diagnostics log to the developer"
-          }
-        }
-      },
       "platforms": [
         "local",
         "cloud"
@@ -1452,6 +1426,38 @@
       "images": {
         "large": "/drivers/contact_hub/assets/images/large.jpg",
         "small": "/drivers/contact_hub/assets/images/small.jpg"
+      },
+      "id": "contact_hub",
+      "name": {
+        "en": "Contact Sensor (HUB)"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "alarm_motion",
+        "bright",
+        "alarm_contact",
+        "alarm_contact.left_open",
+        "button.send_log"
+      ],
+      "capabilitiesOptions": {
+        "alarm_contact.left_open": {
+          "title": "Left Open",
+          "insightsTitleTrue": {
+            "en": "Contact Left Open"
+          },
+          "insightsTitleFalse": {
+            "en": "Contact Closed"
+          }
+        },
+        "button.send_log": {
+          "maintenanceAction": true,
+          "title": {
+            "en": "Send Diagnostics Log"
+          },
+          "desc": {
+            "en": "Send a diagnostics log to the developer"
+          }
+        }
       }
     },
     {
@@ -1595,23 +1601,25 @@
       ],
       "pair": [
         {
-          "id": "my_connect"
+          "id": "login_oauth2",
+          "template": "login_oauth2"
         },
         {
-          "id": "list_my_devices",
+          "id": "list_devices",
           "template": "list_devices",
           "navigation": {
-            "next": "add_my_devices"
+            "next": "add_devices"
           }
         },
         {
-          "id": "add_my_devices",
+          "id": "add_devices",
           "template": "add_devices"
         }
       ],
       "repair": [
         {
-          "id": "my_repair"
+          "id": "login_oauth2",
+          "template": "login_oauth2"
         }
       ],
       "icon": "/drivers/curtains_hub/assets/icon.svg",
@@ -1671,7 +1679,8 @@
       ],
       "pair": [
         {
-          "id": "my_connect"
+          "id": "login_oauth2",
+          "template": "login_oauth2"
         },
         {
           "id": "list_devices",
@@ -1690,9 +1699,6 @@
       "repair": [
         {
           "id": "my_repair"
-        },
-        {
-          "id": "define_capabilities"
         }
       ],
       "icon": "/drivers/custom_remote_hub/assets/icon.svg",
@@ -1903,23 +1909,25 @@
       ],
       "pair": [
         {
-          "id": "my_connect"
+          "id": "login_oauth2",
+          "template": "login_oauth2"
         },
         {
-          "id": "list_my_devices",
+          "id": "list_devices",
           "template": "list_devices",
           "navigation": {
-            "next": "add_my_devices"
+            "next": "add_devices"
           }
         },
         {
-          "id": "add_my_devices",
+          "id": "add_devices",
           "template": "add_devices"
         }
       ],
       "repair": [
         {
-          "id": "my_repair"
+          "id": "login_oauth2",
+          "template": "login_oauth2"
         }
       ],
       "icon": "/drivers/dvd/assets/icon.svg",
@@ -2013,23 +2021,25 @@
       ],
       "pair": [
         {
-          "id": "my_connect"
+          "id": "login_oauth2",
+          "template": "login_oauth2"
         },
         {
-          "id": "list_my_devices",
+          "id": "list_devices",
           "template": "list_devices",
           "navigation": {
-            "next": "add_my_devices"
+            "next": "add_devices"
           }
         },
         {
-          "id": "add_my_devices",
+          "id": "add_devices",
           "template": "add_devices"
         }
       ],
       "repair": [
         {
-          "id": "my_repair"
+          "id": "login_oauth2",
+          "template": "login_oauth2"
         }
       ],
       "icon": "/drivers/fan_hub/assets/icon.svg",
@@ -2119,23 +2129,25 @@
       ],
       "pair": [
         {
-          "id": "my_connect"
+          "id": "login_oauth2",
+          "template": "login_oauth2"
         },
         {
-          "id": "list_my_devices",
+          "id": "list_devices",
           "template": "list_devices",
           "navigation": {
-            "next": "add_my_devices"
+            "next": "add_devices"
           }
         },
         {
-          "id": "add_my_devices",
+          "id": "add_devices",
           "template": "add_devices"
         }
       ],
       "repair": [
         {
-          "id": "my_repair"
+          "id": "login_oauth2",
+          "template": "login_oauth2"
         }
       ],
       "icon": "/drivers/humidifier_hub/assets/icon.svg",
@@ -2280,23 +2292,25 @@
       ],
       "pair": [
         {
-          "id": "my_connect"
+          "id": "login_oauth2",
+          "template": "login_oauth2"
         },
         {
-          "id": "list_my_devices",
+          "id": "list_devices",
           "template": "list_devices",
           "navigation": {
-            "next": "add_my_devices"
+            "next": "add_devices"
           }
         },
         {
-          "id": "add_my_devices",
+          "id": "add_devices",
           "template": "add_devices"
         }
       ],
       "repair": [
         {
-          "id": "my_repair"
+          "id": "login_oauth2",
+          "template": "login_oauth2"
         }
       ],
       "icon": "/drivers/presence_hub/assets/icon.svg",
@@ -2394,23 +2408,25 @@
       ],
       "pair": [
         {
-          "id": "my_connect"
+          "id": "login_oauth2",
+          "template": "login_oauth2"
         },
         {
-          "id": "list_my_devices",
+          "id": "list_devices",
           "template": "list_devices",
           "navigation": {
-            "next": "add_my_devices"
+            "next": "add_devices"
           }
         },
         {
-          "id": "add_my_devices",
+          "id": "add_devices",
           "template": "add_devices"
         }
       ],
       "repair": [
         {
-          "id": "my_repair"
+          "id": "login_oauth2",
+          "template": "login_oauth2"
         }
       ],
       "icon": "/drivers/scene/assets/icon.svg",
@@ -2507,23 +2523,25 @@
       ],
       "pair": [
         {
-          "id": "my_connect"
+          "id": "login_oauth2",
+          "template": "login_oauth2"
         },
         {
-          "id": "list_my_devices",
+          "id": "list_devices",
           "template": "list_devices",
           "navigation": {
-            "next": "add_my_devices"
+            "next": "add_devices"
           }
         },
         {
-          "id": "add_my_devices",
+          "id": "add_devices",
           "template": "add_devices"
         }
       ],
       "repair": [
         {
-          "id": "my_repair"
+          "id": "login_oauth2",
+          "template": "login_oauth2"
         }
       ],
       "icon": "/drivers/settop_box_hub/assets/icon.svg",
@@ -2626,23 +2644,25 @@
       ],
       "pair": [
         {
-          "id": "my_connect"
+          "id": "login_oauth2",
+          "template": "login_oauth2"
         },
         {
-          "id": "list_my_devices",
+          "id": "list_devices",
           "template": "list_devices",
           "navigation": {
-            "next": "add_my_devices"
+            "next": "add_devices"
           }
         },
         {
-          "id": "add_my_devices",
+          "id": "add_devices",
           "template": "add_devices"
         }
       ],
       "repair": [
         {
-          "id": "my_repair"
+          "id": "login_oauth2",
+          "template": "login_oauth2"
         }
       ],
       "icon": "/drivers/smart_fan_hub/assets/icon.svg",
@@ -2742,23 +2762,25 @@
       ],
       "pair": [
         {
-          "id": "my_connect"
+          "id": "login_oauth2",
+          "template": "login_oauth2"
         },
         {
-          "id": "list_my_devices",
+          "id": "list_devices",
           "template": "list_devices",
           "navigation": {
-            "next": "add_my_devices"
+            "next": "add_devices"
           }
         },
         {
-          "id": "add_my_devices",
+          "id": "add_devices",
           "template": "add_devices"
         }
       ],
       "repair": [
         {
-          "id": "my_repair"
+          "id": "login_oauth2",
+          "template": "login_oauth2"
         }
       ],
       "icon": "/drivers/speaker/assets/icon.svg",
@@ -2897,23 +2919,25 @@
       ],
       "pair": [
         {
-          "id": "my_connect"
+          "id": "login_oauth2",
+          "template": "login_oauth2"
         },
         {
-          "id": "list_my_devices",
+          "id": "list_devices",
           "template": "list_devices",
           "navigation": {
-            "next": "add_my_devices"
+            "next": "add_devices"
           }
         },
         {
-          "id": "add_my_devices",
+          "id": "add_devices",
           "template": "add_devices"
         }
       ],
       "repair": [
         {
-          "id": "my_repair"
+          "id": "login_oauth2",
+          "template": "login_oauth2"
         }
       ],
       "icon": "/drivers/temperature_hub/assets/icon.svg",
@@ -3011,23 +3035,25 @@
       ],
       "pair": [
         {
-          "id": "my_connect"
+          "id": "login_oauth2",
+          "template": "login_oauth2"
         },
         {
-          "id": "list_my_devices",
+          "id": "list_devices",
           "template": "list_devices",
           "navigation": {
-            "next": "add_my_devices"
+            "next": "add_devices"
           }
         },
         {
-          "id": "add_my_devices",
+          "id": "add_devices",
           "template": "add_devices"
         }
       ],
       "repair": [
         {
-          "id": "my_repair"
+          "id": "login_oauth2",
+          "template": "login_oauth2"
         }
       ],
       "icon": "/drivers/tv_hub/assets/icon.svg",

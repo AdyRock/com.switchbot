@@ -8,11 +8,11 @@ class STBHubDevice extends HubDevice
 {
 
     /**
-     * onInit is called when the device is initialized.
+     * onOAuth2Init is called when the device is initialized.
      */
-    async onInit()
+    async onOAuth2Init()
     {
-        await super.onInit();
+        await super.onOAuth2Init();
 
         if (!this.hasCapability('volume_mute'))
         {

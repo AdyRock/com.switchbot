@@ -8,7 +8,7 @@ class HubContactDriver extends HubDriver
 {
 
     /**
-     * onInit is called when the driver is initialized.
+     * onOAuth2Init is called when the driver is initialized.
      */
     async onOAuth2Init()
     {

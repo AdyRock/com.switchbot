@@ -18,9 +18,9 @@ class sceneDriver extends HubDriver
      * onPairListDevices is called when a user is adding a device and the 'list_devices' view is called.
      * This should return an array with the data of devices that are available for pairing.
      */
-     async onPairListDevices()
+     async onPairListDevices({ oAuth2Client })
      {
-         return this.getScenes();
+         return this.getScenes(oAuth2Client);
      }
 
  }

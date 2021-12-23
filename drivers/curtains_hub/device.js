@@ -8,11 +8,11 @@ class CurtainsHubDevice extends HubDevice
 {
 
     /**
-     * onInit is called when the device is initialized.
+     * onOAuth2Init is called when the device is initialized.
      */
-    async onInit()
+    async onOAuth2Init()
     {
-        await super.onInit();
+        await super.onOAuth2Init();
 
         if (!this.hasCapability('open_close'))
         {
@@ -176,17 +176,14 @@ class CurtainsHubDevice extends HubDevice
             commandType: 'command',
         };
 
-        const dd = this.getData();
-        return this.driver.setDeviceData(dd.id, data);
+        return super.setDeviceData(data);
     }
 
     async getHubDeviceValues()
     {
-        const dd = this.getData();
-
         try
         {
-            const data = await this.driver.getDeviceData(dd.id);
+            const data = await super.getHubDeviceValues();
             if (data)
             {
                 this.setAvailable();

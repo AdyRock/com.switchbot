@@ -8,23 +8,25 @@
     ],
     "pair": [
         {
-            "id": "my_connect"
+            "id": "login_oauth2",
+            "template": "login_oauth2"
         },
         {
-            "id": "list_my_devices",
+            "id": "list_devices",
             "template": "list_devices",
             "navigation": {
-                "next": "add_my_devices"
+                "next": "add_devices"
             }
         },
         {
-            "id": "add_my_devices",
+            "id": "add_devices",
             "template": "add_devices"
         }
     ],
     "repair": [
         {
-            "id": "my_repair"
+            "id": "login_oauth2",
+            "template": "login_oauth2"
         }
     ],
     "icon": "{{driverAssetsPath}}/icon.svg",

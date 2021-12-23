@@ -8,17 +8,17 @@ class HubCurtainDriver extends HubDriver
 {
 
     /**
-     * onInit is called when the driver is initialized.
+     * onOAuth2Init is called when the driver is initialized.
      */
-    async onInit()
+    async onOAuth2Init()
     {
-        super.onInit();
+        super.onOAuth2Init();
         this.log('HubCurtainDriver has been initialized');
     }
 
-    async onPairListDevices()
+    async onPairListDevices({ oAuth2Client })
     {
-        return this.getHUBDevices('Curtain');
+        return this.getHUBDevices(oAuth2Client, 'Curtain');
     }
 
 }

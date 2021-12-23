@@ -8,20 +8,11 @@ class TemperatureHubDevice extends HubDevice
 {
 
     /**
-     * onInit is called when the device is initialized.
+     * onOAuth2Init is called when the device is initialized.
      */
-    async onInit()
+    async onOAuth2Init()
     {
-        await super.onInit();
-
-        try
-        {
-            this.getHubDeviceValues();
-        }
-        catch (err)
-        {
-            this.setUnavailable(err.message);
-        }
+        await super.onOAuth2Init();
 
         this.log('TemperatureHubDevice has been initialized');
     }
@@ -46,11 +37,9 @@ class TemperatureHubDevice extends HubDevice
 
     async getHubDeviceValues()
     {
-        const dd = this.getData();
-
         try
         {
-            const data = await this.driver.getDeviceData(dd.id);
+            const data = await super.getHubDeviceValues();
             if (data)
             {
                 this.setAvailable();

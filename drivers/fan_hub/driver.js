@@ -8,11 +8,11 @@ class HubFanDriver extends HubDriver
 {
 
     /**
-     * onInit is called when the driver is initialized.
+     * onOAuth2Init is called when the driver is initialized.
      */
-    async onInit()
+    async onOAuth2Init()
     {
-        super.onInit();
+        super.onOAuth2Init();
         this.log('HubFanDriver has been initialized');
     }
 
@@ -20,9 +20,9 @@ class HubFanDriver extends HubDriver
      * onPairListDevices is called when a user is adding a device and the 'list_devices' view is called.
      * This should return an array with the data of devices that are available for pairing.
      */
-    async onPairListDevices()
+    async onPairListDevices({ oAuth2Client })
     {
-        return this.getHUBDevices('Fan', true);
+        return this.getHUBDevices(oAuth2Client, 'Fan', true);
     }
 
 }

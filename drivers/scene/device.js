@@ -6,19 +6,18 @@ class MyDevice extends HubDevice
 {
 
     /**
-     * onInit is called when the device is initialized.
+     * onOAuth2Init is called when the device is initialized.
      */
-    async onInit()
+    async onOAuth2Init()
     {
-        this.log('MyDevice has been initialized');
+        await super.onOAuth2Init();
         this.registerCapabilityListener('play_scene', this.onCapabilityStartScene.bind(this));
+        this.log('MyDevice has been initialized');
     }
 
     async onCapabilityStartScene(value, opts)
     {
-        const dd = this.getData();
-        const url = `scenes/${dd.id}/execute`;
-        await this.driver.PostURL(url);
+        await this.startScene();
     }
 
     /**

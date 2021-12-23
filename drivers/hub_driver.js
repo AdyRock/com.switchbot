@@ -4,157 +4,142 @@
 
 const { OAuth2Driver } = require('homey-oauth2app');
 
-const HubInterface = require('../lib/hub_interface');
-
 class HubDriver extends OAuth2Driver
 {
 
-    /**
-     * onInit is called when the driver is initialized.
-     */
-    async onOAuth2Init()
-    {
-        this.hub = new HubInterface(this.homey);
-    }
-
     async getHUBDevices(oAuth2Client, type, RemoteList = false)
     {
-        return this.hub.getHUBDevices(oAuth2Client, type, RemoteList);
+        const response = await oAuth2Client.getDevices();
+        if (response)
+        {
+            if (response.statusCode !== 100)
+            {
+                this.homey.app.updateLog(`Invalid response code: ${response.statusCode}`);
+                throw (new Error(`Invalid response code: ${response.statusCode}`));
+            }
+
+            const searchData = response.body;
+            this.homey.app.detectedDevices = this.homey.app.varToString(searchData);
+
+            if (type === '')
+            {
+                // Called from settings screen sp no need to process the data
+                return this.homey.app.detectedDevices;
+            }
+
+            if (this.homey.app.BLEHub)
+            {
+                // Running on a Homey Pro
+                this.homey.api.realtime('com.switchbot.detectedDevicesUpdated', { devices: this.homey.app.detectedDevices });
+            }
+
+            const devices = [];
+
+            if (RemoteList)
+            {
+                // Create an array of devices
+                for (const device of searchData.infraredRemoteList)
+                {
+                    if ((device.remoteType === type) || (device.remoteType === (`DIY ${type}`)))
+                    {
+                        this.homey.app.updateLog('Found device: ');
+                        this.homey.app.updateLog(device);
+
+                        let data = {};
+                        data = {
+                            id: device.deviceId,
+                        };
+
+                        // Add this device to the table
+                        devices.push(
+                            {
+                                name: device.deviceName,
+                                data,
+                            },
+                        );
+                    }
+                }
+            }
+            else
+            {
+                // Create an array of devices
+                for (const device of searchData.deviceList)
+                {
+                    if (device.deviceType === type)
+                    {
+                        if ((type !== 'Curtain') || (device.master === true))
+                        {
+                            this.homey.app.updateLog('Found device: ');
+                            this.homey.app.updateLog(device);
+
+                            let data = {};
+                            data = {
+                                id: device.deviceId,
+                            };
+
+                            // Add this device to the table
+                            devices.push(
+                                {
+                                    name: device.deviceName,
+                                    data,
+                                },
+                            );
+                        }
+                    }
+                }
+            }
+            return devices;
+        }
+
+        this.homey.app.updateLog('Getting API Key returned NULL');
+        throw (new Error('HTTPS Error: Nothing returned'));
     }
 
     async getScenes(oAuth2Client)
     {
-        return this.hub.getScenes(oAuth2Client);
+        const response = await oAuth2Client.getScenes();
+        if (response)
+        {
+            if (response.statusCode !== 100)
+            {
+                this.homey.app.updateLog(`Invalid response code: ${response.statusCode}`);
+                throw (new Error(`Invalid response code: ${response.statusCode}`));
+            }
+
+            const searchData = response.body;
+            this.homey.app.detectedDevices = this.homey.app.varToString(searchData);
+            if (this.homey.app.BLEHub)
+            {
+                this.homey.api.realtime('com.switchbot.detectedDevicesUpdated', { devices: this.homey.app.detectedDevices });
+            }
+
+            const devices = [];
+
+            // Create an array of devices
+            for (const device of searchData)
+            {
+                this.homey.app.updateLog('Found device: ');
+                this.homey.app.updateLog(device);
+
+                let data = {};
+                data = {
+                    id: device.sceneId,
+                };
+
+                // Add this device to the table
+                devices.push(
+                    {
+                        name: device.sceneName,
+                        data,
+                    },
+                );
+            }
+            return devices;
+        }
+
+        this.homey.app.updateLog('Getting API Key returned NULL');
+        throw (new Error('HTTPS Error: Nothing returned'));
     }
-
-    async getDeviceData(oAuth2Client, deviceId)
-    {
-        return this.hub.getDeviceData(oAuth2Client, deviceId);
-    }
-
-    async setDeviceData(oAuth2Client, deviceId, body)
-    {
-        return this.hub.setDeviceData(oAuth2Client, deviceId, body);
-    }
-
-    async GetURL(url)
-    {
-        return this.hub.GetURL(url);
-    }
-
-    async PostURL(url, body)
-    {
-        return this.hub.PostURL(url, body);
-    }
-
-    // async onPair(session)
-    // {
-    //     const oldAPICode = this.homey.app.BearerToken;
-    //     let device = {};
-    //     session.setHandler('list_devices', async () =>
-    //     {
-    //         try
-    //         {
-    //             const devices = await this.onPairListDevices();
-    //             this.homey.settings.set('BearerToken', this.homey.app.BearerToken);
-    //             return devices;
-    //         }
-    //         catch (err)
-    //         {
-    //             this.homey.app.BearerToken = oldAPICode;
-    //             throw new Error(err.message);
-    //         }
-    //     });
-
-    //     session.setHandler('list_devices_selection', async data =>
-    //     {
-    //         // User selected a device so cache the information required to validate it when the credentials are set
-    //         this.log('list_devices_selection: ', data);
-    //         device = data[0];
-    //     });
-
-    //     session.setHandler('api_code_setup', async () =>
-    //     {
-    //         return this.homey.app.BearerToken;
-    //     });
-
-    //     session.setHandler('api_connection', async data =>
-    //     {
-    //         if (data.api_token)
-    //         {
-    //             this.homey.app.BearerToken = data.api_token;
-    //             return true;
-    //         }
-
-    //         return false;
-    //     });
-
-    //     session.setHandler('set_buttons', async data =>
-    //     {
-    //         // Creat the full device descriptor
-    //         const capabilities = [];
-    //         const capabilitiesOptions = {};
-    //         const settings = {};
-
-    //         for (let i = 0; i < 12; i++)
-    //         {
-    //             if (data.buttons[i])
-    //             {
-    //                 settings[`button${i}`] = data.buttons[i];
-    //                 capabilities.push(`button.b${i}`);
-    //                 capabilitiesOptions[`button.b${i}`] = {};
-    //                 capabilitiesOptions[`button.b${i}`].title = { en: data.buttons[i] };
-    //             }
-    //         }
-
-    //         device.capabilities = capabilities;
-    //         device.capabilitiesOptions = capabilitiesOptions;
-    //         device.settings = settings;
-    //         this.log(JSON.stringify(device, null, 2));
-    //         return device;
-    //     });
-    // }
-
-    // async onRepair(session, device)
-    // {
-    //     // Argument socket is an EventEmitter, similar to Driver.onPair
-    //     // Argument device is a Homey.Device that's being repaired
-
-    //     session.setHandler('api_code_setup', async () =>
-    //     {
-    //         return this.homey.app.BearerToken;
-    //     });
-
-    //     session.setHandler('api_connection', async data =>
-    //     {
-    //         if (data.api_token)
-    //         {
-    //             this.homey.app.BearerToken = data.api_token;
-    //             if (device.getHubDeviceValues)
-    //             {
-    //                 await device.getHubDeviceValues();
-    //                 if (device.getAvailable())
-    //                 {
-    //                     this.homey.settings.set('BearerToken', this.homey.app.BearerToken);
-    //                 }
-    //             }
-    //             return true;
-    //         }
-
-    //         return false;
-    //     });
-
-    //     session.setHandler('get_buttons', async () =>
-    //     {
-    //         return device.getButtons();
-    //     });
-
-    //     session.setHandler('set_buttons', async data =>
-    //     {
-    //         await device.setButtons(data.buttons, true);
-    //         return true;
-    //     });
-    // }
 
 }
 
