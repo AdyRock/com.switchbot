@@ -39,7 +39,7 @@ class TemperatureHubDevice extends HubDevice
     {
         try
         {
-            const data = await super.getHubDeviceValues();
+            const data = await this._getHubDeviceValues();
             if (data)
             {
                 this.setAvailable();

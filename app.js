@@ -23,7 +23,24 @@ class MyApp extends OAuth2App
     static OAUTH2_CLIENT = SwitchBotOAuth2Client; // Default: OAuth2Client
     static OAUTH2_DEBUG = true; // Default: false
     static OAUTH2_MULTI_SESSION = false; // Default: false
-    static OAUTH2_DRIVERS = ['contact_hub']; // Default: all drivers
+    static OAUTH2_DRIVERS = [
+        'contact_hub',
+        'air_con_hub',
+        'bot_hub',
+        'color_bulb_hub',
+        'curtains_hub',
+        'custom_remote_hub',
+        'dvd',
+        'fan_hub',
+        'humidifier_hub',
+        'presence_hub',
+        'scene',
+        'settop_box_hub',
+        'smart_fan_hub',
+        'speaker',
+        'temperature_hub',
+        'tv_hub',
+    ]; // Default: all drivers
 
     /**
      * onInit is called when the app is initialized.

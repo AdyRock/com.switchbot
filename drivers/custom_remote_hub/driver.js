@@ -60,6 +60,8 @@ class HubCustomRemoteDriver extends HubDriver
             this.log(JSON.stringify(device, null, 2));
             return device;
         });
+
+        super.onPair(session);
     }
 
 }
