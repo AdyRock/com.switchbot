@@ -10,9 +10,9 @@ class AirConHubDevice extends HubDevice
     /**
      * onInit is called when the device is initialized.
      */
-    async onOAuth2Init()
+    async onInit()
     {
-        await super.onOAuth2Init();
+        await super.onInit();
 
         if (this.hasCapability('onoff'))
         {

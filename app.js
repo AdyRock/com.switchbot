@@ -73,8 +73,6 @@ class MyApp extends OAuth2App
             this.homey.settings.set('logLevel', this.logLevel);
         }
 
-        this.log(`SwitchBot has started with Key: ${this.BearerToken} Polling every ${MINIMUM_POLL_INTERVAL} seconds`);
-
         // Callback for app settings changed
         this.homey.settings.on('set', async function settingChanged(setting)
         {
@@ -412,7 +410,7 @@ class MyApp extends OAuth2App
         }
     }
 
-    async sendLog(logType, replyAddress, deviceId)
+    async sendLog(logType, replyAddress, deviceId, oAuth2Client)
     {
         let tries = 5;
         this.log('Send Log');
@@ -448,8 +446,21 @@ class MyApp extends OAuth2App
                     text += this.detectedDevices;
 
                     text += `\n\n============================================\nSwitchBot device Status ${deviceId}\n\n`;
-                    const retval = await this.getDeviceStatus(deviceId);
-                    text += JSON.stringify(retval, null, 2);
+                    let retval = null;
+                    if (oAuth2Client)
+                    {
+                        const data = await this.oAuth2Client.getDeviceData(deviceId);
+                        retval = data.body;
+                    }
+                    else
+                    {
+                        retval = await this.getDeviceStatus(deviceId);
+                    }
+
+                    if (retval)
+                    {
+                        text += JSON.stringify(retval, null, 2);
+                    }
                 }
 
                 subject += `(${this.homeyHash} : ${Homey.manifest.version})`;
@@ -543,63 +554,44 @@ class MyApp extends OAuth2App
 
     async onHubPoll()
     {
-        let nextInterval = MINIMUM_POLL_INTERVAL;
-        if (this.homey.app.BearerToken && (nextInterval > 0))
+        this.homey.app.updateLog('Polling hub');
+
+        if (this.timerHubID)
         {
-            this.homey.app.updateLog('Polling hub');
-            let totalHuBDevices = 0;
-            try
-            {
-                const promises = [];
+            this.homey.clearTimeout(this.timerHubID);
+            this.timerHubID = null;
+        }
 
-                const drivers = this.homey.drivers.getDrivers();
-                // eslint-disable-next-line no-restricted-syntax
-                for (const driver in drivers)
+        let totalHuBDevices = 0;
+        const promises = [];
+
+        const drivers = this.homey.drivers.getDrivers();
+        for (const driver of Object.values(drivers))
+        {
+            const devices = driver.getDevices();
+            for (const device of Object.values(devices))
+            {
+                if (device.getHubDeviceValues)
                 {
-                    if (Object.prototype.hasOwnProperty.call(drivers, driver))
-                    {
-                        const devices = this.homey.drivers.getDriver(driver).getDevices();
-                        const numDevices = devices.length;
-                        for (let i = 0; i < numDevices; i++)
-                        {
-                            const device = devices[i];
-                            if (device.getHubDeviceValues)
-                            {
-                                totalHuBDevices++;
-                                promises.push(device.getHubDeviceValues());
-                            }
-                        }
-                    }
-                }
-
-                await Promise.all(promises);
-            }
-            catch (err)
-            {
-                this.homey.app.updateLog(`Polling hub error${err.message}`);
-            }
-
-            if (totalHuBDevices > 0)
-            {
-                nextInterval *= (1000 * totalHuBDevices);
-                if (nextInterval < (8700 * totalHuBDevices))
-                {
-                    nextInterval = (8700 * totalHuBDevices);
+                    totalHuBDevices++;
+                    promises.push(device.getHubDeviceValues());
                 }
             }
-            else
+        }
+
+        await Promise.all(promises);
+
+        if (totalHuBDevices > 0)
+        {
+            let nextInterval = (MINIMUM_POLL_INTERVAL * 1000 * totalHuBDevices);
+            if (nextInterval < (8700 * totalHuBDevices))
             {
-                nextInterval = 60000;
+                nextInterval = (8700 * totalHuBDevices);
             }
 
             this.homey.app.updateLog(`Next HUB polling interval = ${nextInterval / 1000}s`, true);
+            this.timerHubID = this.homey.setTimeout(this.onHubPoll, nextInterval);
         }
-        else
-        {
-            nextInterval = 10000;
-        }
-
-        this.timerHubID = this.homey.setTimeout(this.onHubPoll, nextInterval);
     }
 
     registerBLEPolling()
@@ -631,46 +623,20 @@ class MyApp extends OAuth2App
         const promises = [];
         try
         {
-            const drivers = this.homey.drivers.getDrivers();
-            if (parseInt(this.homey.version, 10) < 6)
-            {
-                // clear BLE cache for each device
-                // eslint-disable-next-line no-restricted-syntax
-                for (const driver in drivers)
-                {
-                    if (Object.prototype.hasOwnProperty.call(drivers, driver))
-                    {
-                        const devices = this.homey.drivers.getDriver(driver).getDevices();
-
-                        for (let i = 0; i < devices.length; i++)
-                        {
-                            const device = devices[i];
-                            const { id } = device.getData();
-                            delete this.homey.ble.__advertisementsByPeripheralUUID[id];
-                        }
-                    }
-                }
-            }
-
             // Run discovery too fetch new data
-            this.homey.app.updateLog('BLE Starting Discovery');
             await this.homey.ble.discover(['cba20d00224d11e69fb80002a5d5c51b'], 2000);
             this.homey.app.updateLog('BLE Finished Discovery');
 
             // eslint-disable-next-line no-restricted-syntax
-            for (const driver in drivers)
+            const drivers = this.homey.drivers.getDrivers();
+            for (const driver of Object.values(drivers))
             {
-                if (Object.prototype.hasOwnProperty.call(drivers, driver))
+                const devices = driver.getDevices();
+                for (const device of Object.values(devices))
                 {
-                    const devices = this.homey.drivers.getDriver(driver).getDevices();
-
-                    for (let i = 0; i < devices.length; i++)
+                    if (device.getDeviceValues)
                     {
-                        const device = devices[i];
-                        if (device.getDeviceValues)
-                        {
-                            promises.push(device.getDeviceValues());
-                        }
+                        promises.push(device.getDeviceValues());
                     }
                 }
             }

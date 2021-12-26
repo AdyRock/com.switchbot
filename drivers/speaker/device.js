@@ -8,11 +8,11 @@ class SpeakerHubDevice extends HubDevice
 {
 
     /**
-     * onOAuth2Init is called when the device is initialized.
+     * onInit is called when the device is initialized.
      */
-    async onOAuth2Init()
+    async onInit()
     {
-        await super.onOAuth2Init();
+        await super.onInit();
 
         this.registerCapabilityListener('power_on', this.onCapabilityCommand.bind(this, 'turnOn'));
         this.registerCapabilityListener('power_off', this.onCapabilityCommand.bind(this, 'turnOff'));

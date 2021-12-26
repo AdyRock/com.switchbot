@@ -87,7 +87,7 @@ class HubDevice extends OAuth2Device
     async onCapabilitySendLog(value)
     {
         const dd = this.getData();
-        this.homey.app.sendLog('diag', this.getSetting('replyEmail'), dd.id);
+        this.homey.app.sendLog('diag', this.getSetting('replyEmail'), dd.id, this.oAuth2Client);
     }
 
     async onCapabilityCommand(command, value, opts)
@@ -103,15 +103,7 @@ class HubDevice extends OAuth2Device
             commandType: 'command',
         };
 
-        const dd = this.getData();
-
-        if (this.oAuth2Client)
-        {
-            const retData = await this.oAuth2Client.setDeviceData(dd.id, data);
-            return retData.body;
-        }
-
-        return this.driver.setDeviceData(dd.id, data);
+        return this.setDeviceData(data);
     }
 
     async _operateRemote(command)
@@ -122,15 +114,7 @@ class HubDevice extends OAuth2Device
             commandType: 'customize',
         };
 
-        const dd = this.getData();
-
-        if (this.oAuth2Client)
-        {
-            const retData = await this.oAuth2Client.setDeviceData(dd.id, data);
-            return retData.body;
-        }
-
-        return this.driver.setDeviceData(dd.id, data);
+        return this.setDeviceData(data);
     }
 
     async startScene()
@@ -143,7 +127,7 @@ class HubDevice extends OAuth2Device
             return retData.body;
         }
 
-        return this.driver.startScene(dd.id);
+        return this.homey.app.hub.startScene(dd.id);
     }
 
 }

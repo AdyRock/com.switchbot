@@ -10,9 +10,9 @@ class ColorBulbHubDevice extends HubDevice
     /**
      * onOAuth2Init is called when the device is initialized.
      */
-    async onOAuth2Init()
+    async onInit()
     {
-        await super.onOAuth2Init();
+        await super.onInit();
 
         this.registerCapabilityListener('onoff', this.onCapabilityOnOff.bind(this));
         this.registerCapabilityListener('dim', this.onCapabilityDim.bind(this));

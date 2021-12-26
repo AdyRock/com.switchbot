@@ -8,11 +8,11 @@ class CurtainsHubDevice extends HubDevice
 {
 
     /**
-     * onOAuth2Init is called when the device is initialized.
+     * onInit is called when the device is initialized.
      */
-    async onOAuth2Init()
+    async onInit()
     {
-        await super.onOAuth2Init();
+        await super.onInit();
 
         if (!this.hasCapability('open_close'))
         {
