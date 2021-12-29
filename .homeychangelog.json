@@ -118,5 +118,8 @@
   },
   "0.4.3": {
     "en": "Added support for custom remotes controls"
+  },
+  "1.0.0": {
+    "en": "Added support for connecting with your SwitchBot username and password instead of getting an API key"
   }
 }
