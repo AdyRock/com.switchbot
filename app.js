@@ -52,6 +52,11 @@ class MyApp extends OAuth2App
         this.homey.app.deviceStatusLog = '';
         this.BearerToken = this.homey.settings.get('BearerToken');
 
+        if (!this.apiCalls)
+        {
+            this.apiCalls = 1;
+        }
+
         if (process.env.DEBUG === '1')
         {
             this.homey.settings.set('debugMode', true);
@@ -103,12 +108,10 @@ class MyApp extends OAuth2App
         this.onHubPoll = this.onHubPoll.bind(this);
         this.hubDevices = 0;
         this.timerHubID = null;
-        // this.timerHubID = this.homey.setTimeout(this.onHubPoll, 10000);
 
         this.onBLEPoll = this.onBLEPoll.bind(this);
         this.bleDevices = 0;
         this.bleTimerID = null;
-        // this.bleTimerID = this.homey.setTimeout(this.onBLEPoll, BLE_POLLING_INTERVAL);
 
         // Register flow cards
 
@@ -538,7 +541,7 @@ class MyApp extends OAuth2App
         this.hubDevices++;
         if (this.timerHubID === null)
         {
-            this.timerHubID = this.homey.setTimeout(this.onHubPoll, MINIMUM_POLL_INTERVAL);
+            this.timerHubID = this.homey.setTimeout(this.onHubPoll, 1000);
         }
     }
 
@@ -591,6 +594,7 @@ class MyApp extends OAuth2App
 
             this.homey.app.updateLog(`Next HUB polling interval = ${nextInterval / 1000}s`, true);
             this.timerHubID = this.homey.setTimeout(this.onHubPoll, nextInterval);
+//            this.timerHubID = this.homey.setTimeout(this.onHubPoll, MINIMUM_POLL_INTERVAL * 1000);
         }
     }
 
