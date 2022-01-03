@@ -248,6 +248,10 @@ class BLEDriver extends Homey.Driver
         { // WoContact
             sd = this._parseServiceDataForWoContact(buf);
         }
+        else if (model === 'u')
+        { // WoBulb
+            sd = this._parseServiceDataForWoBulb(device.manufacturerData);
+        }
         else
         {
             return null;
@@ -429,6 +433,31 @@ class BLEDriver extends Homey.Driver
             buttonPresses: (byte8 & 0b00001111), // Increments every time button is pressed
             entryCount: ((byte8 >> 6) & 0b00000011), // Increments every time button is pressed
             exitCount: ((byte8 >> 4) & 0b00000011), // Increments every time button is pressed
+        };
+
+        return data;
+    }
+
+    _parseServiceDataForWoBulb(buf)
+    {
+        if ((buf.length !== 13) || (buf.readUInt8(1) !== 9) || (buf.readUInt8(0) !== 0x69))
+        {
+            return null;
+        }
+
+        const byte8 = buf.readUInt8(8);
+        const byte9 = buf.readUInt8(9);
+        const byte10 = buf.readUInt8(10);
+
+        this.log('Cd: ', buf);
+
+        const data = {
+            model: 'u',
+            modelName: 'WoBulb',
+            sequence: byte8,
+            on_off: ((byte9 & 0x80) === 0x80),
+            dim: (byte9 & 0x7F) / 100,
+            lightState: (byte10 & 0x03),
         };
 
         return data;

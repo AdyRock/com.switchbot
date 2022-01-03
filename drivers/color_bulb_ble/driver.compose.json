@@ -1,0 +1,47 @@
+{
+    "id": "color_bulb_ble",
+    "name": {
+        "en": "Colour Bulb (BLE)"
+    },
+    "platforms": [
+        "local",
+        "cloud"
+    ],
+    "connectivity": [
+        "ble"
+    ],
+    "class": "light",
+    "capabilities": [
+        "onoff",
+        "dim",
+        "light_mode",
+        "light_temperature",
+        "light_hue",
+        "light_saturation",
+        "rssi"
+    ],
+    "pair": [
+        {
+            "id": "list_my_devices",
+            "template": "list_devices",
+            "navigation": {
+                "next": "add_my_devices"
+            }
+        },
+        {
+            "id": "add_my_devices",
+            "template": "add_devices"
+        }
+    ],
+    "energy": {
+        "approximation": {
+            "usageOn": 10,
+            "usageOff": 0.1
+        }
+    },
+    "images": {
+        "large": "/drivers/colour_bulb_ble/assets/images/large.jpg",
+        "small": "/drivers/colour_bulb_ble/assets/images/small.jpg"
+    }
+
+}
