@@ -148,7 +148,7 @@ class ContactBLEDevice extends Homey.Device
             const dd = this.getData();
             for (const event of events)
             {
-                if (event.address && (event.address === dd.address))
+                if (event.address && (event.address === dd.address) && (event.serviceData.modelName === 'WoContact'))
                 {
                     this.setCapabilityValue('alarm_motion', (event.serviceData.motion === 1)).catch(this.error);
                     this.setCapabilityValue('alarm_contact', (event.serviceData.contact === 1)).catch(this.error);

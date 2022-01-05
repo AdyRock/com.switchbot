@@ -132,7 +132,7 @@ class PresenceBLEDevice extends Homey.Device
             const dd = this.getData();
             for (const event of events)
             {
-                if (event.address && (event.address === dd.address))
+                if (event.address && (event.address === dd.address) && (event.serviceData.modelName === 'WoPresence'))
                 {
                     this.setCapabilityValue('alarm_motion', (event.serviceData.motion === 1)).catch(this.error);
                     this.setCapabilityValue('bright', (event.serviceData.light === 1)).catch(this.error);

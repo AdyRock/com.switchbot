@@ -456,7 +456,7 @@ class BLEDriver extends Homey.Driver
             modelName: 'WoBulb',
             sequence: byte8,
             on_off: ((byte9 & 0x80) === 0x80),
-            dim: (byte9 & 0x7F) / 100,
+            dim: (byte9 & 0x7F),
             lightState: (byte10 & 0x03),
         };
 

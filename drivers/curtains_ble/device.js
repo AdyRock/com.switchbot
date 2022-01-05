@@ -374,7 +374,7 @@ class CurtainsBLEDevice extends Homey.Device
             const dd = this.getData();
             for (const event of events)
             {
-                if (event.address && (event.address === dd.address))
+                if (event.address && (event.address === dd.address) && (event.serviceData.modelName === 'WoCurtain'))
                 {
                     let position = event.serviceData.position / 100;
                     if (this.invertPosition)

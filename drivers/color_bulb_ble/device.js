@@ -49,7 +49,7 @@ class ColorBulbBLEDevice extends Homey.Device
     async onCapabilityOnOff(value, opts)
     {
         value = value ? 0x03 : 0x02;
-        this._operateBulb([0x47, 0x01, value]);
+        this._operateBulb([0x57, 0x0f, 0x47, 0x01, value]);
     }
 
     async onCapabilityLightMode(value, opts)
@@ -59,14 +59,14 @@ class ColorBulbBLEDevice extends Homey.Device
 
     async onCapabilityDim(value, opts)
     {
-        this._operateBulb([0x47, 0x01, 0x14, value * 100]);
+        this._operateBulb([0x57, 0x0f, 0x47, 0x01, 0x14, value * 100]);
     }
 
     async onCapabilityLightTemperature(value, opts)
     {
         // {2700-6500}
         const temperature = ((1 - value) * (6500 - 2700)) + 2700;
-        this._operateBulb([0x47, 0x01, 0x17, ((temperature / 256) & 0xFF), (temperature & 0xFF)]);
+        this._operateBulb([0x57, 0x0f, 0x47, 0x01, 0x17, ((temperature / 256) & 0xFF), (temperature & 0xFF)]);
     }
 
     async onCapabilityLightHueSat(capabilityValues, capabilityOptions)
@@ -75,7 +75,7 @@ class ColorBulbBLEDevice extends Homey.Device
         const dim = 0.5;
         const rgb = this.hslToRgb(capabilityValues.light_hue, capabilityValues.light_saturation, dim);
 
-        this._operateBulb([0x47, 0x01, 0x16, rgb[0], rgb[1], rgb[2]]);
+        this._operateBulb([0x57, 0x0f, 0x47, 0x01, 0x16, rgb[0], rgb[1], rgb[2]]);
     }
 
     hslToRgb(h, s, l)
@@ -197,19 +197,10 @@ class ColorBulbBLEDevice extends Homey.Device
         }
         this.sendingCommand = true;
 
-        const buffer = Buffer.alloc(20);
-        buffer[0] = 0x57;
-        buffer[1] = 0x0F;
-
-        for (let i = 0; i < bytes.length; i++)
-        {
-            buffer[i + 2] = bytes[i];
-        }
-
         if (this.homey.app.BLEHub)
         {
             const dd = this.getData();
-            if (await this.homey.app.BLEHub.sendBLEHubCommand(dd.address, buffer, this.bestHub))
+            if (await this.homey.app.BLEHub.sendBLEHubCommand(dd.address, bytes, this.bestHub))
             {
                 this.sendingCommand = false;
                 return;
@@ -222,7 +213,7 @@ class ColorBulbBLEDevice extends Homey.Device
         {
             try
             {
-                response = await this._operateBulbLoop(name, buffer);
+                response = await this._operateBulbLoop(name, bytes);
                 if (response === true)
                 {
                     this.homey.app.updateLog(`Command complete for ${name}`);
@@ -417,12 +408,12 @@ class ColorBulbBLEDevice extends Homey.Device
                     if (data.serviceData.on_off)
                     {
                         this.setCapabilityValue('onoff', true).catch(this.error);
-                        this.setCapabilityValue('dim', data.serviceData.dim).catch(this.error);
+                        this.setCapabilityValue('dim', data.serviceData.dim / 100).catch(this.error);
                         if (this.lastSequence !== data.serviceData.sequence)
                         {
                             // Read the data to get the rgb / temperature values
                             this.lastSequence = data.serviceData.sequence;
-                            this._operateBulb([0x48, 0x01]);
+                            this._operateBulb([0x57, 0x0f, 0x48, 0x01]);
                         }
                     }
                     else
@@ -460,15 +451,38 @@ class ColorBulbBLEDevice extends Homey.Device
             const dd = this.getData();
             for (const event of events)
             {
-                if (event.address && (event.address === dd.address))
+                if (event.address && (event.address === dd.address) && (event.serviceData.modelName === 'WoBulb'))
                 {
-                    if (event.hubMAC && ((event.rssi < this.bestRSSI) || (event.hubMAC === this.bestHub)))
+                    if (event.replyData)
                     {
-                        this.bestHub = event.hubMAC;
-                        this.bestRSSI = event.rssi;
+                        this.updateFromNotify(event.replyData);
                     }
+                    else
+                    {
+                        if (event.hubMAC && ((event.rssi < this.bestRSSI) || (event.hubMAC === this.bestHub)))
+                        {
+                            this.bestHub = event.hubMAC;
+                            this.bestRSSI = event.rssi;
+                        }
 
-                    this.setAvailable();
+                        if (event.serviceData.on_off)
+                        {
+                            this.setCapabilityValue('onoff', true).catch(this.error);
+                            this.setCapabilityValue('dim', event.serviceData.dim / 100).catch(this.error);
+                            if (this.lastSequence !== event.serviceData.sequence)
+                            {
+                                // Read the data to get the rgb / temperature values
+                                this.lastSequence = event.serviceData.sequence;
+                                this._operateBulb([0x57, 0x0f, 0x48, 0x01]);
+                            }
+                        }
+                        else
+                        {
+                            this.setCapabilityValue('onoff', false).catch(this.error);
+                        }
+
+                        this.setAvailable();
+                    }
                 }
             }
         }

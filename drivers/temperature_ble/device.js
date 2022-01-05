@@ -127,7 +127,7 @@ class TemperatureBLEDevice extends Homey.Device
             const dd = this.getData();
             for (const event of events)
             {
-                if (event.address && (event.address === dd.address))
+                if (event.address && (event.address === dd.address) && (event.serviceData.modelName === 'WoSensorTH'))
                 {
                     this.setCapabilityValue('measure_temperature', event.serviceData.temperature.c).catch(this.error);
                     this.setCapabilityValue('measure_humidity', event.serviceData.humidity).catch(this.error);
