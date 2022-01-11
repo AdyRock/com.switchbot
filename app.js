@@ -323,7 +323,7 @@ class MyApp extends OAuth2App
                 const stack = source.stack.replace('/\\n/g', '\n');
                 return `${source.message}\n${stack}`;
             }
-            if (typeof (source) === 'object')
+            if (typeof(source) === 'object')
             {
                 const getCircularReplacer = () =>
                 {
@@ -344,7 +344,7 @@ class MyApp extends OAuth2App
 
                 return JSON.stringify(source, getCircularReplacer(), 2);
             }
-            if (typeof (source) === 'string')
+            if (typeof(source) === 'string')
             {
                 return source;
             }
@@ -446,13 +446,13 @@ class MyApp extends OAuth2App
                     text += this.diagLog;
 
                     text += '\n\n============================================\nSwitchBot detected devices log\n\n';
-                    text += this.detectedDevices;
-
+                    text += await this.getHUBDevices();
                     text += `\n\n============================================\nSwitchBot device Status ${deviceId}\n\n`;
+
                     let retval = null;
                     if (oAuth2Client)
                     {
-                        const data = await this.oAuth2Client.getDeviceData(deviceId);
+                        const data = await oAuth2Client.getDeviceData(deviceId);
                         retval = data.body;
                     }
                     else
@@ -470,34 +470,32 @@ class MyApp extends OAuth2App
 
                 // create reusable transporter object using the default SMTP transport
                 const transporter = nodemailer.createTransport(
+                {
+                    host: Homey.env.MAIL_HOST, // Homey.env.MAIL_HOST,
+                    port: 465,
+                    ignoreTLS: false,
+                    secure: true, // true for 465, false for other ports
+                    auth:
                     {
-                        host: Homey.env.MAIL_HOST, // Homey.env.MAIL_HOST,
-                        port: 465,
-                        ignoreTLS: false,
-                        secure: true, // true for 465, false for other ports
-                        auth:
-                        {
-                            user: Homey.env.MAIL_USER, // generated ethereal user
-                            pass: Homey.env.MAIL_SECRET, // generated ethereal password
-                        },
-                        tls:
-                        {
-                            // do not fail on invalid certs
-                            rejectUnauthorized: false,
-                        },
+                        user: Homey.env.MAIL_USER, // generated ethereal user
+                        pass: Homey.env.MAIL_SECRET, // generated ethereal password
                     },
-                );
+                    tls:
+                    {
+                        // do not fail on invalid certs
+                        rejectUnauthorized: false,
+                    },
+                }, );
 
                 // send mail with defined transport object
                 const response = await transporter.sendMail(
-                    {
-                        from: `"Homey User" <${Homey.env.MAIL_USER}>`, // sender address
-                        to: Homey.env.MAIL_RECIPIENT, // list of receivers
-                        cc: replyAddress,
-                        subject, // Subject line
-                        text, // plain text body
-                    },
-                );
+                {
+                    from: `"Homey User" <${Homey.env.MAIL_USER}>`, // sender address
+                    to: Homey.env.MAIL_RECIPIENT, // list of receivers
+                    cc: replyAddress,
+                    subject, // Subject line
+                    text, // plain text body
+                }, );
 
                 return {
                     error: response,
@@ -534,6 +532,33 @@ class MyApp extends OAuth2App
     async getDeviceStatus(deviceId)
     {
         return this.hub.getDeviceData(deviceId);
+    }
+
+    async getHUBDevices()
+    {
+        // Find an OAuth session
+        const oAuth2Client = this.getFirstSavedOAuth2Client();
+        if (oAuth2Client)
+        {
+            const response = await oAuth2Client.getDevices();
+            if (response)
+            {
+                if (response.statusCode !== 100)
+                {
+                    this.homey.app.updateLog(`Invalid response code: ${response.statusCode}`);
+                    throw (new Error(`Invalid response code: ${response.statusCode}`));
+                }
+
+                const devices = response.body;
+                const scenes = await oAuth2Client.getScenes();
+                if (scenes)
+                {
+                    devices.sceneList = scenes.body;
+                }
+                return this.homey.app.varToString(devices);
+            }
+        }
+        return null;
     }
 
     registerHUBPolling()
@@ -594,7 +619,7 @@ class MyApp extends OAuth2App
 
             this.homey.app.updateLog(`Next HUB polling interval = ${nextInterval / 1000}s`, true);
             this.timerHubID = this.homey.setTimeout(this.onHubPoll, nextInterval);
-//            this.timerHubID = this.homey.setTimeout(this.onHubPoll, MINIMUM_POLL_INTERVAL * 1000);
+            //            this.timerHubID = this.homey.setTimeout(this.onHubPoll, MINIMUM_POLL_INTERVAL * 1000);
         }
     }
 
