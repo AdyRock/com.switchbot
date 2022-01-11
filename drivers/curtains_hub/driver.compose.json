@@ -21,6 +21,11 @@
             }
         }
     },
+    "energy": {
+        "batteries": [
+            "INTERNAL"
+        ]
+    },
     "$extends": [
         "settingsCompose",
         "hubDriver"

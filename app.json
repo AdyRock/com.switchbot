@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.switchbot",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "compatibility": ">=6.0.0",
   "platforms": [
     "local",
@@ -13,7 +13,7 @@
     "en": "SwitchBot"
   },
   "description": {
-    "en": "Give SwitchBot the power of Homey"
+    "en": "A simple way to make your entire home a Smart Home"
   },
   "tags": {
     "en": [
@@ -41,8 +41,8 @@
   },
   "source": "https://github.com/AdyRock/com.switchbot",
   "images": {
-    "large": "/assets/images/large.jpg",
-    "small": "/assets/images/small.jpg"
+    "large": "/assets/images/large.png",
+    "small": "/assets/images/small.png"
   },
   "author": {
     "name": "SwitchBot Global",
@@ -1001,7 +1001,7 @@
       },
       "id": "air_con_hub",
       "name": {
-        "en": "Air Conditioner (HUB Remote)"
+        "en": "Air Conditioner Remote"
       },
       "class": "remote",
       "capabilities": [
@@ -1146,6 +1146,11 @@
             "en": "Send a diagnostics log to the developer"
           }
         }
+      },
+      "energy": {
+        "batteries": [
+          "CR2"
+        ]
       }
     },
     {
@@ -1504,6 +1509,12 @@
             "en": "Send a diagnostics log to the developer"
           }
         }
+      },
+      "energy": {
+        "batteries": [
+          "AAA",
+          "AAA"
+        ]
       }
     },
     {
@@ -1694,12 +1705,17 @@
             "en": "Send a diagnostics log to the developer"
           }
         }
+      },
+      "energy": {
+        "batteries": [
+          "INTERNAL"
+        ]
       }
     },
     {
       "id": "custom_remote_hub",
       "name": {
-        "en": "Custom IR Remote (HUB)"
+        "en": "Custom IR Remote"
       },
       "class": "remote",
       "capabilities": [
@@ -1983,7 +1999,7 @@
       },
       "id": "dvd",
       "name": {
-        "en": "DVD (HUB Remote)"
+        "en": "DVD Remote"
       },
       "class": "remote",
       "capabilities": [
@@ -2095,7 +2111,7 @@
       },
       "id": "fan_hub",
       "name": {
-        "en": "Fan (HUB Remote)"
+        "en": "Fan Remote"
       },
       "class": "remote",
       "capabilities": [
@@ -2384,6 +2400,12 @@
             "en": "Send a diagnostics log to the developer"
           }
         }
+      },
+      "energy": {
+        "batteries": [
+          "AAA",
+          "AAA"
+        ]
       }
     },
     {
@@ -2597,7 +2619,7 @@
       },
       "id": "settop_box_hub",
       "name": {
-        "en": "Set Top Box (HUB Remote)"
+        "en": "Set Top Box Remote"
       },
       "class": "remote",
       "capabilities": [
@@ -2836,7 +2858,7 @@
       },
       "id": "speaker",
       "name": {
-        "en": "Speaker (HUB Remote)"
+        "en": "Speaker Remote"
       },
       "class": "remote",
       "capabilities": [
@@ -3109,7 +3131,7 @@
       },
       "id": "tv_hub",
       "name": {
-        "en": "TV (HUB Remote)"
+        "en": "TV Remote"
       },
       "class": "remote",
       "capabilities": [

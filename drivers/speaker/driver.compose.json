@@ -2,7 +2,7 @@
     "id": "settop_box_hub",
     "name":
     {
-        "en": "Speaker (HUB Remote)"
+        "en": "Speaker Remote"
     },
     "class": "remote",
     "capabilities": [

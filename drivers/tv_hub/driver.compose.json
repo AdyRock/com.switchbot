@@ -2,7 +2,7 @@
     "id": "tv_hub",
     "name":
     {
-        "en": "TV (HUB Remote)"
+        "en": "TV Remote"
     },
     "class": "remote",
     "capabilities": [

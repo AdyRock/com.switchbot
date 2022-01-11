@@ -2,7 +2,7 @@
     "id": "settop_box_hub",
     "name":
     {
-        "en": "Set Top Box (HUB Remote)"
+        "en": "Set Top Box Remote"
     },
     "class": "remote",
     "capabilities": [

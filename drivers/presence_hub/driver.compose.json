@@ -20,6 +20,12 @@
             }
         }
     },
+    "energy": {
+        "batteries": [
+            "AAA",
+            "AAA"
+        ]
+    },
     "$extends": [
         "settingsCompose",
         "hubDriver"

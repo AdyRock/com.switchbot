@@ -2,7 +2,7 @@
     "id": "fan_hub",
     "name":
     {
-        "en": "Fan (HUB Remote)"
+        "en": "Fan Remote"
     },
     "class": "remote",
     "capabilities": [

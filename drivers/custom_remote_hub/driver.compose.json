@@ -2,7 +2,7 @@
     "id": "custom_remote_hub",
     "name":
     {
-        "en": "Custom IR Remote (HUB)"
+        "en": "Custom IR Remote"
     },
     "class": "remote",
     "capabilities":

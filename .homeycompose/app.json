@@ -1,6 +1,6 @@
 {
     "id": "com.switchbot",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "compatibility": ">=6.0.0",
     "platforms": ["local", "cloud"],
     "sdk": 3,
@@ -11,7 +11,7 @@
     },
     "description":
     {
-        "en": "Give SwitchBot the power of Homey"
+        "en": "A simple way to make your entire home a Smart Home"
     },
     "tags":
     {
@@ -45,8 +45,8 @@
     "source": "https://github.com/AdyRock/com.switchbot",
     "images":
     {
-        "large": "/assets/images/large.jpg",
-        "small": "/assets/images/small.jpg"
+        "large": "/assets/images/large.png",
+        "small": "/assets/images/small.png"
     },
     "author":
     {

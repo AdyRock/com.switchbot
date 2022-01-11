@@ -2,7 +2,7 @@
     "id": "dvd",
     "name":
     {
-        "en": "DVD (HUB Remote)"
+        "en": "DVD Remote"
     },
     "class": "remote",
     "capabilities": [

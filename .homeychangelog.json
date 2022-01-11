@@ -121,5 +121,8 @@
   },
   "1.0.0": {
     "en": "Added support for connecting with your SwitchBot username and password instead of getting an API key"
+  },
+  "1.0.1": {
+    "en": "Added battery information to devices"
   }
 }

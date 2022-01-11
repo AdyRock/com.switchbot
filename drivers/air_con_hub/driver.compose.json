@@ -1,7 +1,7 @@
 {
     "id": "air_con_hub",
     "name": {
-        "en": "Air Conditioner (HUB Remote)"
+        "en": "Air Conditioner Remote"
     },
     "class": "remote",
     "capabilities": [
