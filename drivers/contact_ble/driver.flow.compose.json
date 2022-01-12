@@ -5,6 +5,9 @@
             "title": {
                 "en": "Button Press Changed"
             },
+            "hint":{
+                "en": "Run the flow when button on the sensor is pressed. The token is a number that is incremented by the sensor each time the button is press. It will wrap around to 0 when it incremets past 255."
+            },
             "platforms": ["local", "cloud"],
             "tokens": [
                 {
@@ -22,6 +25,9 @@
             "title": {
                 "en": "Entry ID Changed"
             },
+            "hint":{
+                "en": "Run the flow when the sensor detects an entry (contact break before motion). The token is a number that is incremented by the sensor each time an entry is detected. It will wrap around to 0 when it incremets past 255."
+            },
             "platforms": ["local", "cloud"],
             "tokens": [
                 {
@@ -38,6 +44,9 @@
             "id": "exit_id_changed",
             "title": {
                 "en": "Exit ID Changed"
+            },
+            "hint":{
+                "en": "Run the flow when the sensor detects an exit (contact break after motion). The token is a number that is incremented by the sensor each time an exit is detected. It will wrap around to 0 when it incremets past 255."
             },
             "platforms": ["local", "cloud"],
             "tokens": [

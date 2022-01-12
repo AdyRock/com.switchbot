@@ -40,8 +40,7 @@
         }
     },
     "images": {
-        "large": "/drivers/colour_bulb_ble/assets/images/large.jpg",
-        "small": "/drivers/colour_bulb_ble/assets/images/small.jpg"
+        "large": "/drivers/color_bulb_ble/assets/images/large.jpg",
+        "small": "/drivers/color_bulb_ble/assets/images/small.jpg"
     }
-
 }
