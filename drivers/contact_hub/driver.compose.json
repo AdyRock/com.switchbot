@@ -8,8 +8,7 @@
         "alarm_motion",
         "bright",
         "alarm_contact",
-        "alarm_contact.left_open",
-        "button.send_log"
+        "alarm_contact.left_open"
     ],
     "capabilitiesOptions": {
         "alarm_contact.left_open": {
@@ -20,15 +19,6 @@
             "insightsTitleFalse": {
                 "en": "Contact Closed"
             }
-        },
-        "button.send_log": {
-            "maintenanceAction": true,
-            "title": {
-                "en": "Send Diagnostics Log"
-            },
-            "desc": {
-                "en": "Send a diagnostics log to the developer"
-            }
         }
     },
     "energy": {
@@ -38,7 +28,6 @@
         ]
     },
     "$extends": [
-        "settingsCompose",
         "hubDriver"
     ]
 }

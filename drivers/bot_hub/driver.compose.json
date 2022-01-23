@@ -5,27 +5,14 @@
     },
     "class": "button",
     "capabilities": [
-        "onoff",
-        "button.send_log"
+        "onoff"
     ],
-    "capabilitiesOptions": {
-        "button.send_log": {
-            "maintenanceAction": true,
-            "title": {
-                "en": "Send Diagnostics Log"
-            },
-            "desc": {
-                "en": "Send a diagnostics log to the developer"
-            }
-        }
-    },
     "energy": {
         "batteries": [
             "CR2"
         ]
     },
     "$extends": [
-        "settingsCompose",
         "hubDriver"
     ],
     "settings": [

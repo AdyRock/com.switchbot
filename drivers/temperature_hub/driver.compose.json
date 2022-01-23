@@ -7,22 +7,9 @@
     "class": "sensor",
     "capabilities": [
         "measure_temperature",
-        "measure_humidity",
-        "button.send_log"
+        "measure_humidity"
     ],
-    "capabilitiesOptions": {
-        "button.send_log": {
-            "maintenanceAction": true,
-            "title": {
-                "en": "Send Diagnostics Log"
-            },
-            "desc": {
-                "en": "Send a diagnostics log to the developer"
-            }
-        }
-    },
     "$extends": [
-        "settingsCompose",
         "hubDriver"
     ]
 }

@@ -14,7 +14,6 @@
         "fan_speed_high"
     ],
     "$extends": [
-        "settingsCompose",
         "hubDriver"
     ]
 }

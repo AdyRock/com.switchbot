@@ -46,7 +46,7 @@ class BotHubDevice extends HubDevice
             if (value === true)
             {
                 await this._operateBot('press');
-                this.homey.setTimeout(() => this.setCapabilityValue('onoff', false), 1000).catch(this.error);
+                this.homey.setTimeout(() => this.setCapabilityValue('onoff', false).catch(this.error), 1000);
             }
         }
         else if (value)

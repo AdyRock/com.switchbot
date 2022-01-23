@@ -124,5 +124,8 @@
   },
   "1.0.1": {
     "en": "Added battery information to devices"
+  },
+  "1.0.2": {
+    "en": "Fixed setTimeout error."
   }
 }

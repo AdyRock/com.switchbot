@@ -75,14 +75,6 @@ class CurtainsHubDevice extends HubDevice
         {
             this.motionMode = Number(newSettings.motionMode);
         }
-
-        if (changedKeys.indexOf('logLevel') >= 0)
-        {
-            setImmediate(() =>
-            {
-                this.homey.app.updateLogEnabledSetting(newSettings.logLevel);
-            });
-        }
     }
 
     /**

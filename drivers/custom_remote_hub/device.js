@@ -34,14 +34,6 @@ class CustomRemoteHubDevice extends HubDevice
                 this.setButtons(buttons, false);
             });
         }
-
-        if (changedKeys.indexOf('logLevel') >= 0)
-        {
-            setImmediate(() =>
-            {
-                this.homey.app.updateLogEnabledSetting(newSettings.logLevel);
-            });
-        }
      }
 
     async onCapabilityButtonPressed(buttonIdx)

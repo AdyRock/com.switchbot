@@ -12,22 +12,9 @@
         "volume_down",
         "channel_up",
         "channel_down",
-        "volume_mute",
-        "button.send_log"
+        "volume_mute"
     ],
-    "capabilitiesOptions": {
-        "button.send_log": {
-            "maintenanceAction": true,
-            "title": {
-                "en": "Send Diagnostics Log"
-            },
-            "desc": {
-                "en": "Send a diagnostics log to the developer"
-            }
-        }
-    },
     "$extends": [
-        "settingsCompose",
         "hubDriver"
     ]
 }

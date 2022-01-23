@@ -357,25 +357,6 @@ class MyApp extends OAuth2App
         return source.toString();
     }
 
-    updateLogEnabledSetting(logLevel)
-    {
-        this.homey.app.logLevel = logLevel;
-        this.homey.settings.set('logLevel', logLevel);
-
-        const drivers = this.homey.drivers.getDrivers();
-        for (const driver of Object.values(drivers))
-        {
-            const devices = driver.getDevices();
-            for (const device of Object.values(devices))
-            {
-                if (device.updateLogEnabledSetting)
-                {
-                    device.updateLogEnabledSetting(logLevel);
-                }
-            }
-        }
-    }
-
     updateLog(newMessage, errorLevel = 1)
     {
         const zeroPad = (num, places) => String(num).padStart(places, '0');
@@ -397,6 +378,7 @@ class MyApp extends OAuth2App
 
             if (errorLevel === 0)
             {
+                this.error(newMessage);
                 this.diagLog += '!!!!!! ';
             }
             else

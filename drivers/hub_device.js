@@ -18,13 +18,11 @@ class HubDevice extends OAuth2Device
             this.log(err);
         }
 
-        if (!this.hasCapability('button.send_log'))
+        if (this.hasCapability('button.send_log'))
         {
-            this.addCapability('button.send_log');
+            this.removeCapability('button.send_log');
         }
 
-        this.registerCapabilityListener('button.send_log', this.onCapabilitySendLog.bind(this));
-        this.updateLogEnabledSetting(this.homey.settings.get('logLevel'));
         this.homey.app.registerHUBPolling();
     }
 
@@ -48,13 +46,7 @@ class HubDevice extends OAuth2Device
      */
     async onSettings({ oldSettings, newSettings, changedKeys })
     {
-        if (changedKeys.indexOf('logLevel') >= 0)
-        {
-            setImmediate(() =>
-            {
-                this.homey.app.updateLogEnabledSetting(Number(newSettings.logLevel));
-            });
-        }
+        // Called when settings changed
     }
 
     async setDeviceData(data)
@@ -80,11 +72,6 @@ class HubDevice extends OAuth2Device
         }
 
         return this.homey.app.hub.getDeviceData(dd.id);
-    }
-
-    updateLogEnabledSetting(level)
-    {
-        this.setSettings({ logLevel: level.toString() });
     }
 
     async onCapabilitySendLog(value)

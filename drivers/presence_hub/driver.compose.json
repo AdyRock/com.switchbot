@@ -6,20 +6,8 @@
     "class": "sensor",
     "capabilities": [
         "alarm_motion",
-        "bright",
-        "button.send_log"
+        "bright"
     ],
-    "capabilitiesOptions": {
-        "button.send_log": {
-            "maintenanceAction": true,
-            "title": {
-                "en": "Send Diagnostics Log"
-            },
-            "desc": {
-                "en": "Send a diagnostics log to the developer"
-            }
-        }
-    },
     "energy": {
         "batteries": [
             "AAA",
@@ -27,7 +15,6 @@
         ]
     },
     "$extends": [
-        "settingsCompose",
         "hubDriver"
     ]
 }
