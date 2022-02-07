@@ -1462,7 +1462,7 @@
           "label": {
             "en": "Motion Mode"
           },
-          "value": "0xff",
+          "value": "0",
           "values": [
             {
               "id": "0",

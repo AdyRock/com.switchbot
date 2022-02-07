@@ -127,5 +127,8 @@
   },
   "1.0.2": {
     "en": "Fixed setTimeout error."
+  },
+  "1.0.3": {
+    "en": "Chenged the default Curtain Motion mode to Performance."
   }
 }

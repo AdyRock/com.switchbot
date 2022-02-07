@@ -54,8 +54,14 @@ class HubDevice extends OAuth2Device
         const dd = this.getData();
         if (this.oAuth2Client)
         {
-            return this.oAuth2Client.setDeviceData(dd.id, data);
+            const result = await this.oAuth2Client.setDeviceData(dd.id, data);
+            if (result.statusCode !== 100)
+            {
+                throw new Error(result.message);
+            }
+            return true;
         }
+
         return this.homey.app.hub.setDeviceData(dd.id, data);
     }
 
