@@ -129,6 +129,9 @@
     "en": "Fixed setTimeout error."
   },
   "1.0.3": {
-    "en": "Chenged the default Curtain Motion mode to Performance., Report errors to contoll window when command fails."
+    "en": "Changed the default Curtain Motion mode to Performance. Report errors to contoll window when command fails."
+  },
+  "1.0.4": {
+    "en": "Improved action card titles."
   }
 }
