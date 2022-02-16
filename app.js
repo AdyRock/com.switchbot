@@ -287,6 +287,20 @@ class MyApp extends OAuth2App
             });
         });
 
+        const brightnessDownAction = this.homey.flow.getActionCard('brightness_down');
+        brightnessDownAction
+            .registerRunListener(async (args, state) =>
+            {
+                return args.device.onCapabilityCommand('brightnessDown');
+            });
+
+        const brightnessUpAction = this.homey.flow.getActionCard('brightness_up');
+        brightnessUpAction
+            .registerRunListener(async (args, state) =>
+            {
+                return args.device.onCapabilityCommand('brightnessUp');
+            });
+
         this.homey.app.updateLog('************** App has initialised. ***************');
     }
 
