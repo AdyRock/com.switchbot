@@ -44,7 +44,7 @@ class ContactHubDevice extends HubDevice
                 this.setAvailable();
 
                 this.setCapabilityValue('alarm_motion', data.moveDetected).catch(this.error);
-                this.setCapabilityValue('alarm_contact', data.openState === 'open').catch(this.error);
+                this.setCapabilityValue('alarm_contact', ((data.openState === 'open') || (data.openState === 'timeOutNotClose'))).catch(this.error);
                 this.setCapabilityValue('alarm_contact.left_open', data.openState === 'timeOutNotClose').catch(this.error);
 
                 const bright = (data.brightness === 'bright');

@@ -276,6 +276,11 @@ class BotBLEDevice extends Homey.Device
 
     async getDeviceValues()
     {
+        if (this.sendingCommand)
+        {
+            return;
+        }
+
         const name = this.getName();
         try
         {

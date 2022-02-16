@@ -133,5 +133,8 @@
   },
   "1.0.4": {
     "en": "Improved action card titles."
+  },
+  "1.0.5": {
+    "en": "Deprecated contact and motion sensor to allow the app to be published (these will be resurrected when a reliable notification method has been created)."
   }
 }

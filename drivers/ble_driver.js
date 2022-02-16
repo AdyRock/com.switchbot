@@ -75,7 +75,7 @@ class BLEDriver extends Homey.Driver
             //     await this.homey.app.Delay(500);
             // }
 
-            const bleAdvertisements = await this.homey.ble.discover([], 20000);
+            const bleAdvertisements = await this.homey.ble.discover([], 10000);
             this.homey.app.updateLog(`BLE Discovery: ${this.homey.app.varToString(bleAdvertisements)}`, 2);
 
             for (const bleAdvertisement of bleAdvertisements)
