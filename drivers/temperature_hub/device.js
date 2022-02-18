@@ -14,6 +14,9 @@ class TemperatureHubDevice extends HubDevice
     {
         await super.onInit();
 
+        const dd = this.getData();
+        this.homey.app.registerHomeyWebhook(dd.id);
+
         this.log('TemperatureHubDevice has been initialized');
     }
 
@@ -51,6 +54,31 @@ class TemperatureHubDevice extends HubDevice
         {
             this.log('getHubDeviceValues: ', err);
             this.setUnavailable(err.message);
+        }
+    }
+
+    async processWebhookMessage(message)
+    {
+        try
+        {
+            const dd = this.getData();
+            if (dd.id === message.context.deviceMac)
+            {
+                // message is for this device
+                let { temperature } = message.context;
+                if (message.context.scale !== 'CELSIUS')
+                {
+                    // Convert F to C
+                    temperature = ((temperature - 32) * 5) / 9;
+                }
+
+                this.setCapabilityValue('measure_temperature', temperature).catch(this.error);
+                this.setCapabilityValue('measure_humidity', message.context.humidity).catch(this.error);
+            }
+        }
+        catch (err)
+        {
+            this.homey.app.updateLog(`processWebhookMessage error ${err.message}`);
         }
     }
 

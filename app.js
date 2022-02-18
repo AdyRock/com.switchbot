@@ -51,6 +51,10 @@ class MyApp extends OAuth2App
         this.diagLog = '';
         this.homey.app.deviceStatusLog = '';
         this.BearerToken = this.homey.settings.get('BearerToken');
+        this.blePolling = false;
+        this.bleDiscovery = false;
+        this.devicesMACs = [];
+        this.webRegTimerID = null;
 
         if (!this.apiCalls)
         {
@@ -68,7 +72,10 @@ class MyApp extends OAuth2App
 
         this.hub = new HubInterface(this.homey);
 
-        this.homeyHash = await this.homey.cloud.getHomeyId();
+        this.homeyID = await this.homey.cloud.getHomeyId();
+        this.setupSwitchBotWebhook();
+
+        this.homeyHash = this.homeyID;
         this.homeyHash = this.hashCode(this.homeyHash).toString();
 
         this.logLevel = this.homey.settings.get('logLevel');
@@ -306,6 +313,7 @@ class MyApp extends OAuth2App
 
     async onUninit()
     {
+        await this.deleteSwitchBotWebhook();
         this.hub.destroy();
         if (this.BLEHub)
         {
@@ -337,7 +345,7 @@ class MyApp extends OAuth2App
                 const stack = source.stack.replace('/\\n/g', '\n');
                 return `${source.message}\n${stack}`;
             }
-            if (typeof(source) === 'object')
+            if (typeof (source) === 'object')
             {
                 const getCircularReplacer = () =>
                 {
@@ -358,7 +366,7 @@ class MyApp extends OAuth2App
 
                 return JSON.stringify(source, getCircularReplacer(), 2);
             }
-            if (typeof(source) === 'string')
+            if (typeof (source) === 'string')
             {
                 return source;
             }
@@ -481,7 +489,8 @@ class MyApp extends OAuth2App
                         // do not fail on invalid certs
                         rejectUnauthorized: false,
                     },
-                }, );
+                },
+);
 
                 // send mail with defined transport object
                 const response = await transporter.sendMail(
@@ -491,7 +500,8 @@ class MyApp extends OAuth2App
                     cc: replyAddress,
                     subject, // Subject line
                     text, // plain text body
-                }, );
+                },
+);
 
                 return {
                     error: response,
@@ -527,7 +537,161 @@ class MyApp extends OAuth2App
     //
     async getDeviceStatus(deviceId)
     {
+        const oAuth2Client = this.getFirstSavedOAuth2Client();
+        if (oAuth2Client)
+        {
+            const response = await oAuth2Client.getDeviceData(deviceId);
+            if (response)
+            {
+                if (response.statusCode !== 100)
+                {
+                    this.homey.app.updateLog(`Invalid response code: ${response.statusCode}`);
+                    throw (new Error(`Invalid response code: ${response.statusCode}`));
+                }
+
+                return response.body;
+            }
+        }
+
         return this.hub.getDeviceData(deviceId);
+    }
+
+    // Clear the webhook URL from the SwitchBot account
+    async deleteSwitchBotWebhook()
+    {
+        const oAuth2Client = this.getFirstSavedOAuth2Client();
+        if (oAuth2Client)
+        {
+            oAuth2Client.deleteWebhook(Homey.env.WEBHOOK_URL);
+        }
+    }
+
+    async processWebhookMessage(message)
+    {
+        this.updateLog(`Got a webhook message! ${this.varToString(message)}`);
+        const drivers = this.homey.drivers.getDrivers();
+        for (const driver of Object.values(drivers))
+        {
+            const devices = driver.getDevices();
+            for (const device of Object.values(devices))
+            {
+                if (device.processWebhookMessage)
+                {
+                    try
+                    {
+                        await device.processWebhookMessage(message);
+                    }
+                    catch (err)
+                    {
+                        this.updateLog(`Error processing webhook message! ${this.varToString(err)}`, 0);
+                    }
+                }
+            }
+        }
+    }
+
+    async registerHomeyWebhook(DeviceMAC)
+    {
+        if (this.webRegTimerID)
+        {
+            this.homey.clearTimeout(this.webRegTimerID);
+        }
+
+        // See if the LinkTap is already registered
+        if (this.devicesMACs.findIndex(device => device === DeviceMAC) >= 0)
+        {
+            // Already registered
+            return;
+        }
+
+        this.devicesMACs.push(DeviceMAC);
+
+        this.webRegTimerID = this.homey.setTimeout(async () => {
+            this.webRegTimerID = null;
+            const data = {
+                $keys: this.devicesMACs,
+            };
+
+            // Setup the webhook call back to receive push notifications
+            const id = Homey.env.WEBHOOK_ID;
+            const secret = Homey.env.WEBHOOK_SECRET;
+
+            if (this.homeyWebhook)
+            {
+                // Unregister the existing webhook
+                await this.homeyWebhook.unregister();
+                this.homeyWebhook = null;
+            }
+
+            this.homeyWebhook = await this.homey.cloud.createWebhook(id, secret, data);
+
+            this.homeyWebhook.on('message', async args =>
+            {
+                try
+                {
+                    await this.processWebhookMessage(args.body);
+                }
+                catch (err)
+                {
+                    this.updateLog(`Homey Webhook message error: ${err.message}`);
+                }
+            });
+
+            this.updateLog(`Homey Webhook registered for devices ${this.homey.app.varToString(data)}`);
+        }, 2000);
+    }
+
+    async setupSwitchBotWebhook()
+    {
+        try
+        {
+            // Fetch the first OAuth client to use for checking / setting webhook
+            const oAuth2Client = this.getFirstSavedOAuth2Client();
+            if (oAuth2Client)
+            {
+                // Fetch any exitsing webhook
+                const response1 = await oAuth2Client.getWebhook();
+                if (response1)
+                {
+                    if (response1.statusCode === 100)
+                    {
+                        // We got a valid response so make sure it is the correct webhook
+                        if (response1.body.urls[0] === Homey.env.WEBHOOK_URL)
+                        {
+                            return;
+                        }
+
+                        // Delete the current web hook so we can replace it with ours
+                        const response2 = await oAuth2Client.deleteWebhook(response1.body.urls[0]);
+                        if (response2)
+                        {
+                            if (response2.statusCode !== 100)
+                            {
+                                this.homey.app.updateLog(`Delete webhook: ${response1.body.urls[0]}\nInvalid response code: ${response2.statusCode}\nMessage: ${response2.message}`);
+                                return;
+                            }
+
+                            this.homey.app.updateLog(`Deleted old webhook: ${response1.body.urls[0]}`);
+                        }
+                    }
+                }
+
+                const response = await oAuth2Client.setWebhook(Homey.env.WEBHOOK_URL);
+                if (response)
+                {
+                    if (response.statusCode !== 100)
+                    {
+                        this.homey.app.updateLog(`Invalid response code: ${response.statusCode}\nMessage: ${response.message}`);
+                        return;
+                    }
+                    this.homey.app.updateLog('Registered SwitchBot webhook');
+                }
+            }
+        }
+        catch (err)
+        {
+            this.homey.app.updateLog(`Invalid response: ${err.message}`);
+        }
     }
 
     async getHUBDevices()
@@ -643,41 +807,49 @@ class MyApp extends OAuth2App
     //
     async onBLEPoll()
     {
-        this.homey.app.updateLog('\r\nPolling BLE Starting ------------------------------------');
-
-        const promises = [];
-        try
+        if (!this.bleDiscovery)
         {
-            // Run discovery too fetch new data
-            await this.homey.ble.discover(['cba20d00224d11e69fb80002a5d5c51b'], 2000);
-            this.homey.app.updateLog('BLE Finished Discovery');
+            this.blePolling = true;
+            this.updateLog('\r\nPolling BLE Starting ------------------------------------', 1);
 
-            // eslint-disable-next-line no-restricted-syntax
-            const drivers = this.homey.drivers.getDrivers();
-            for (const driver of Object.values(drivers))
+            const promises = [];
+            try
             {
-                const devices = driver.getDevices();
-                for (const device of Object.values(devices))
+                // Run discovery too fetch new data
+                await this.homey.ble.discover(['cba20d00224d11e69fb80002a5d5c51b'], 2000);
+                this.updateLog('BLE Finished Discovery');
+
+                // eslint-disable-next-line no-restricted-syntax
+                const drivers = this.homey.drivers.getDrivers();
+                for (const driver of Object.values(drivers))
                 {
-                    if (device.getDeviceValues)
+                    const devices = driver.getDevices();
+                    for (const device of Object.values(devices))
                     {
-                        promises.push(device.getDeviceValues());
+                        if (device.getDeviceValues)
+                        {
+                            promises.push(device.getDeviceValues());
+                        }
                     }
                 }
+
+                this.updateLog('Polling BLE: waiting for devices to update');
+                await Promise.all(promises);
+            }
+            catch (err)
+            {
+                this.updateLog(`BLE Polling Error: ${this.homey.app.varToString(err)}`);
             }
 
-            this.homey.app.updateLog('Polling BLE: waiting for devices to update');
-            await Promise.all(promises);
+            this.blePolling = false;
+            this.updateLog('------------------------------------ Polling BLE Finished\r\n');
         }
-        catch (err)
+        else
         {
-            this.homey.app.updateLog(`BLE Polling Error: ${this.homey.app.varToString(err)}`);
+            this.updateLog('Polling BLE skipped while discovery in progress\r\n', 1);
         }
 
-        // this.polling = false;
-        this.homey.app.updateLog('------------------------------------ Polling BLE Finished\r\n');
-
-        this.homey.app.updateLog(`Next BLE polling interval = ${BLE_POLLING_INTERVAL}`, true);
+        this.updateLog(`Next BLE polling interval = ${BLE_POLLING_INTERVAL}`, 1);
 
         this.bleTimerID = this.homey.setTimeout(this.onBLEPoll, BLE_POLLING_INTERVAL);
     }

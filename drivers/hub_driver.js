@@ -65,7 +65,16 @@ class HubDriver extends OAuth2Driver
                 // Create an array of devices
                 for (const device of searchData.deviceList)
                 {
-                    if (device.deviceType === type)
+                    let found = false;
+                    if (Array.isArray(type))
+                    {
+                        found = (type.findIndex(typeEntry => typeEntry === device.deviceType) >= 0);
+                    }
+                    else
+                    {
+                        found = (device.deviceType === type);
+                    }
+                    if (found)
                     {
                         if ((type !== 'Curtain') || (device.master === true))
                         {

@@ -13,6 +13,10 @@ class ContactHubDevice extends HubDevice
     async onInit()
     {
         await super.onInit();
+
+        const dd = this.getData();
+        this.homey.app.registerHomeyWebhook(dd.id);
+
         this.log('ContactHubDevice has been initialising');
     }
 
@@ -59,6 +63,23 @@ class ContactHubDevice extends HubDevice
         {
             this.log('getHubDeviceValues: ', err);
             this.setUnavailable(err.message);
+        }
+    }
+
+    async processWebhookMessage(message)
+    {
+        try
+        {
+            const dd = this.getData();
+            if (dd.id === message.context.deviceMac)
+            {
+                // message is for this device
+                this.setCapabilityValue('alarm_motion', message.context.detectionState === 'DETECTED').catch(this.error);
+            }
+        }
+        catch (err)
+        {
+            this.homey.app.updateLog(`processWebhookMessage error ${err.message}`);
         }
     }
 

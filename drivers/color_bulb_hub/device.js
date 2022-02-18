@@ -20,6 +20,9 @@ class ColorBulbHubDevice extends HubDevice
         this.registerCapabilityListener('light_temperature', this.onCapabilityLightTemperature.bind(this));
         this.registerMultipleCapabilityListener(['light_hue', 'light_saturation'], this.onCapabilityLightHueSat.bind(this), 500);
 
+        const dd = this.getData();
+        this.homey.app.registerHomeyWebhook(dd.id);
+
         this.log('ColorBulbHubDevice has been initialising');
     }
 
@@ -190,12 +193,14 @@ class ColorBulbHubDevice extends HubDevice
                 this.setCapabilityValue('onoff', data.power === 'on').catch(this.error);
                 this.setCapabilityValue('dim', data.brightness / 100).catch(this.error);
 
-                if (data.colorTemperature > 0)
+                if (data.colorTemperature > 2700)
                 {
+                    this.setCapabilityValue('light_mode', 'temperature').catch(this.error);
                     this.setCapabilityValue('light_temperature', 1 - (data.colorTemperature - 2700) / (6500 - 2700));
                 }
                 else
                 {
+                    this.setCapabilityValue('light_mode', 'color').catch(this.error);
                     const rgb = data.color.split(':');
                     const hsl = this.rgbToHsl(rgb[0], rgb[1], rgb[2]);
 
@@ -208,6 +213,38 @@ class ColorBulbHubDevice extends HubDevice
         {
             this.log('getHubDeviceValues: ', err);
             this.setUnavailable(err.message);
+        }
+    }
+
+    async processWebhookMessage(message)
+    {
+        try
+        {
+            const dd = this.getData();
+            if (dd.id === message.context.deviceMac)
+            {
+                // message is for this device
+                this.setCapabilityValue('onoff', message.context.powerState === 'ON').catch(this.error);
+                this.setCapabilityValue('dim', message.context.brightness / 100).catch(this.error);
+                if (message.context.colorTemperature >= 2700)
+                {
+                    this.setCapabilityValue('light_mode', 'temperature').catch(this.error);
+                    this.setCapabilityValue('light_temperature', 1 - (message.context.colorTemperature - 2700) / (6500 - 2700)).catch(this.error);
+                }
+                else
+                {
+                    this.setCapabilityValue('light_mode', 'color').catch(this.error);
+                    const rgb = message.context.color.split(':');
+                    const hsl = this.rgbToHsl(rgb[0], rgb[1], rgb[2]);
+
+                    this.setCapabilityValue('light_hue', hsl[0] / 360).catch(this.error);
+                    this.setCapabilityValue('light_saturation', hsl[1] / 100).catch(this.error);
+                }
+            }
+        }
+        catch (err)
+        {
+            this.homey.app.updateLog(`processWebhookMessage error ${err.message}`);
         }
     }
 

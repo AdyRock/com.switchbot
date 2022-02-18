@@ -22,6 +22,8 @@ class BLEDriver extends Homey.Driver
 
     async getBLEDevices(type)
     {
+        this.homey.app.bleDiscovery = true;
+        this.homey.app.updateLog('BLE Discovery started', 1);
         this.homey.app.detectedDevices = '';
         try
         {
@@ -69,13 +71,13 @@ class BLEDriver extends Homey.Driver
                 }
             }
 
-            // let retries = 10;
-            // while (this.polling && (retries-- > 0))
-            // {
-            //     await this.homey.app.Delay(500);
-            // }
+            let retries = 10;
+            while (this.homey.app.blePolling && (retries-- > 0))
+            {
+                await this.homey.app.Delay(500);
+            }
 
-            const bleAdvertisements = await this.homey.ble.discover([], 10000);
+            const bleAdvertisements = await this.homey.ble.discover([], 5000);
             this.homey.app.updateLog(`BLE Discovery: ${this.homey.app.varToString(bleAdvertisements)}`, 2);
 
             for (const bleAdvertisement of bleAdvertisements)
@@ -119,11 +121,14 @@ class BLEDriver extends Homey.Driver
                 }
             }
 
+            this.homey.app.updateLog('BLE Discovery finished', 1);
+            this.homey.app.bleDiscovery = false;
             return devices;
         }
         catch (err)
         {
             this.homey.app.updateLog(`BLE Discovery: ${this.homey.app.varToString(err)}`, 0);
+            this.homey.app.bleDiscovery = false;
             throw new Error(err.msg);
         }
     }
