@@ -183,11 +183,18 @@ class CurtainsBLEDevice extends Homey.Device
         let response = null;
         while (loops-- > 0)
         {
+            while (this.homey.app.bleBusy)
+            {
+                await this.homey.app.Delay(200);
+            }
+
+            this.homey.app.bleBusy = true;
             try
             {
                 response = await this._operateCurtainsLoop(name, bytes);
                 if (response === true)
                 {
+                    this.homey.app.bleBusy = false;
                     this.homey.app.updateLog(`Command complete for ${name}`);
                     this.sendingCommand = false;
                     return;
@@ -197,6 +204,9 @@ class CurtainsBLEDevice extends Homey.Device
             {
                 this.homey.app.updateLog(`_operateBot error: ${name} : ${this.homey.app.varToString(err)}`, 0);
             }
+
+            this.homey.app.bleBusy = false;
+
             if (loops > 0)
             {
                 this.homey.app.updateLog(`Retry command for ${name} in 2 seconds`);
@@ -204,9 +214,10 @@ class CurtainsBLEDevice extends Homey.Device
             }
         }
 
+        this.sendingCommand = false;
+
         if (response instanceof Error)
         {
-            this.sendingCommand = false;
             this.homey.app.updateLog(`!!!!!!! Command for ${name} failed\r\n`);
             throw response;
         }

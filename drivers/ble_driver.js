@@ -353,7 +353,7 @@ class BLEDriver extends Homey.Driver
 
     _parseServiceDataForWoCurtain(buf)
     {
-        if (buf.length !== 5)
+        if (buf.length < 5)
         {
             return null;
         }

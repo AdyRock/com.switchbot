@@ -190,6 +190,8 @@ class ColorBulbHubDevice extends HubDevice
             if (data)
             {
                 this.setAvailable();
+                this.homey.app.updateLog(`Bulb Hub got: ${this.homey.app.varToString(data)}`, 2);
+
                 this.setCapabilityValue('onoff', data.power === 'on').catch(this.error);
                 this.setCapabilityValue('dim', data.brightness / 100).catch(this.error);
 

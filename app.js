@@ -16,7 +16,7 @@ const BLEHubInterface = require('./lib/ble_hub_interface');
 const SwitchBotOAuth2Client = require('./lib/SwitchBotOAuth2Client');
 
 const MINIMUM_POLL_INTERVAL = 5; // in Seconds
-const BLE_POLLING_INTERVAL = 5000; // in milliSeconds
+const BLE_POLLING_INTERVAL = 30000; // in milliSeconds
 class MyApp extends OAuth2App
 {
 
@@ -52,7 +52,7 @@ class MyApp extends OAuth2App
         this.homey.app.deviceStatusLog = '';
         this.BearerToken = this.homey.settings.get('BearerToken');
         this.blePolling = false;
-        this.bleDiscovery = false;
+        this.bleBusy = false;
         this.devicesMACs = [];
         this.webRegTimerID = null;
 
@@ -85,6 +85,8 @@ class MyApp extends OAuth2App
             this.homey.settings.set('logLevel', this.logLevel);
         }
 
+        this.OAUTH2_DEBUG = (this.logLevel > 1);
+
         // Callback for app settings changed
         this.homey.settings.on('set', async function settingChanged(setting)
         {
@@ -92,6 +94,7 @@ class MyApp extends OAuth2App
             if (setting === 'logLevel')
             {
                 this.homey.app.logLevel = this.homey.settings.get('logLevel');
+                this.OAUTH2_DEBUG = (this.logLevel > 1);
             }
         });
 
@@ -389,14 +392,10 @@ class MyApp extends OAuth2App
 
             const nowTime = new Date(Date.now());
 
-            this.diagLog += zeroPad(nowTime.getHours().toString(), 2);
-            this.diagLog += ':';
-            this.diagLog += zeroPad(nowTime.getMinutes().toString(), 2);
-            this.diagLog += ':';
-            this.diagLog += zeroPad(nowTime.getSeconds().toString(), 2);
-            this.diagLog += '.';
-            this.diagLog += zeroPad(nowTime.getMilliseconds().toString(), 3);
-            this.diagLog += ': ';
+            this.diagLog += '\r\n* ';
+            this.diagLog += nowTime.toJSON();
+            this.diagLog += '\r\n';
+
 
             if (errorLevel === 0)
             {
@@ -597,7 +596,7 @@ class MyApp extends OAuth2App
             this.homey.clearTimeout(this.webRegTimerID);
         }
 
-        // See if the LinkTap is already registered
+        // See if the SwitchBot is already registered
         if (this.devicesMACs.findIndex(device => device === DeviceMAC) >= 0)
         {
             // Already registered
@@ -637,7 +636,7 @@ class MyApp extends OAuth2App
                 }
             });
 
-            this.updateLog(`Homey Webhook registered for devices ${this.homey.app.varToString(data)}`);
+            this.updateLog(`Homey Webhook registered for devices ${this.homey.app.varToString(data)}`, 2);
         }, 2000);
     }
 
@@ -667,11 +666,11 @@ class MyApp extends OAuth2App
                         {
                             if (response2.statusCode !== 100)
                             {
-                                this.homey.app.updateLog(`Delete webhook: ${response1.body.urls[0]}\nInvalid response code: ${response2.statusCode}\nMessage: ${response2.message}`);
+                                this.homey.app.updateLog(`Delete webhook: ${response1.body.urls[0]}\nInvalid response code: ${response2.statusCode}\nMessage: ${response2.message}`, 3);
                                 return;
                             }
 
-                            this.homey.app.updateLog(`Deleted old webhook: ${response1.body.urls[0]}`);
+                            this.homey.app.updateLog(`Deleted old webhook: ${response1.body.urls[0]}`, 3);
                         }
                     }
                 }
@@ -807,7 +806,7 @@ class MyApp extends OAuth2App
     //
     async onBLEPoll()
     {
-        if (!this.bleDiscovery)
+        if (!this.bleBusy)
         {
             this.blePolling = true;
             this.updateLog('\r\nPolling BLE Starting ------------------------------------', 1);

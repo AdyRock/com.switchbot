@@ -139,5 +139,14 @@
   },
   "1.0.6": {
     "en": "Revived contact and motion sensor. Added the Light remote"
+  },
+  "1.0.7": {
+    "en": "Added more diagnostics logging."
+  },
+  "1.0.8": {
+    "en": "Set remote airconditioner temperature limits to prevent invalid values being sent."
+  },
+  "1.0.9": {
+    "en": "Fix for curtain BLE data change with firmware version 3.9."
   }
 }

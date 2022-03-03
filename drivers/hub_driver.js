@@ -43,7 +43,7 @@ class HubDriver extends OAuth2Driver
                     if ((device.remoteType === type) || (device.remoteType === (`DIY ${type}`)))
                     {
                         this.homey.app.updateLog('Found device: ');
-                        this.homey.app.updateLog(device);
+                        this.homey.app.updateLog(this.homey.app.varToString(device));
 
                         let data = {};
                         data = {
@@ -79,7 +79,7 @@ class HubDriver extends OAuth2Driver
                         if ((type !== 'Curtain') || (device.master === true))
                         {
                             this.homey.app.updateLog('Found device: ');
-                            this.homey.app.updateLog(device);
+                            this.homey.app.updateLog(this.homey.app.varToString(device));
 
                             let data = {};
                             data = {
@@ -128,7 +128,7 @@ class HubDriver extends OAuth2Driver
             for (const device of searchData)
             {
                 this.homey.app.updateLog('Found device: ');
-                this.homey.app.updateLog(device);
+                this.homey.app.updateLog(this.homey.app.varToString(device));
 
                 let data = {};
                 data = {

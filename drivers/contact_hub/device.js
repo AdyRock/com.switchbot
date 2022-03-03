@@ -46,6 +46,7 @@ class ContactHubDevice extends HubDevice
             if (data)
             {
                 this.setAvailable();
+                this.homey.app.updateLog(`Contact Hub got:${this.homey.app.varToString(data)}`, 2);
 
                 this.setCapabilityValue('alarm_motion', data.moveDetected).catch(this.error);
                 this.setCapabilityValue('alarm_contact', ((data.openState === 'open') || (data.openState === 'timeOutNotClose'))).catch(this.error);
@@ -74,7 +75,7 @@ class ContactHubDevice extends HubDevice
             if (dd.id === message.context.deviceMac)
             {
                 // message is for this device
-                this.setCapabilityValue('alarm_motion', message.context.detectionState === 'DETECTED').catch(this.error);
+                this.setCapabilityValue('alarm_contact', message.context.detectionState === 'DETECTED').catch(this.error);
             }
         }
         catch (err)

@@ -45,18 +45,21 @@ class BotHubDevice extends HubDevice
         {
             if (value === true)
             {
-                await this._operateBot('press');
+                const result = await this._operateBot('press');
                 this.homey.setTimeout(() => this.setCapabilityValue('onoff', false).catch(this.error), 1000);
+                return result;
             }
         }
         else if (value)
         {
-            this._operateBot('turnOn');
+            return this._operateBot('turnOn');
         }
         else
         {
-            this._operateBot('turnOff');
+            return this._operateBot('turnOff');
         }
+
+        return true;
     }
 
     async _operateBot(command)
@@ -78,7 +81,8 @@ class BotHubDevice extends HubDevice
             if (data)
             {
                 this.setAvailable();
-                this.homey.app.updateLog(`Bot Hub got: ${data.power}`);
+                this.homey.app.updateLog(`Bot Hub got: ${this.homey.app.varToString(data)}`, 2);
+
                 const pushButton = this.getSetting('push_button');
                 if (pushButton)
                 {

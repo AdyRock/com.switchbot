@@ -166,6 +166,21 @@
 
             document.getElementById("defaultOpen").click();
 
+            Homey.api('GET', '/getLog/',
+            {
+                notify: true
+            }, function(err, result)
+            {
+                if (err)
+                {
+                    Homey.alert(err);
+                }
+                else
+                {
+                    infoLogElement.value = result;
+                }
+            });
+
             Homey.on('com.switchbot.logupdated', function(data)
             {
                 infoLogElement.value = data.log;
@@ -437,13 +452,13 @@
 
                 // Make the log text area fill the page
                 infoLogElement.setAttribute('cols', infoLogElement.parentElement.clientWidth / 8);
-                infoLogElement.style.height = (window.innerHeight - infoLogElement.offsetTop - 20) + 'px';
+                infoLogElement.style.height = (window.innerHeight - infoLogElement.offsetTop - 40) + 'px';
             }
             else if (tabPage == 'detected')
             {
                 // Make the detected devices text area fill the page
                 detectedDevicesElement.setAttribute('cols', detectedDevicesElement.parentElement.clientWidth / 8);
-                detectedDevicesElement.style.height = (window.innerHeight - detectedDevicesElement.offsetTop - 20) + 'px';
+                detectedDevicesElement.style.height = (window.innerHeight - detectedDevicesElement.offsetTop - 40) + 'px';
             }
             else if (tabPage == 'simulator')
             {
@@ -460,7 +475,7 @@
             {
                 // Make the detected devices text area fill the page
                 statusDataElement.setAttribute('cols', statusDataElement.parentElement.clientWidth / 8);
-                statusDataElement.style.height = (window.innerHeight - statusDataElement.offsetTop - 20) + 'px';
+                statusDataElement.style.height = (window.innerHeight - statusDataElement.offsetTop - 40) + 'px';
             }
         }
 

@@ -179,6 +179,8 @@ class CurtainsHubDevice extends HubDevice
             if (data)
             {
                 this.setAvailable();
+                this.homey.app.updateLog(`Curtain Hub got: ${this.homey.app.varToString(data)}`, 2);
+
                 let position = data.slidePosition / 100;
                 if (this.invertPosition)
                 {

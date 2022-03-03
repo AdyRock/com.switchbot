@@ -88,6 +88,8 @@ class HumidityHubDevice extends HubDevice
             if (data)
             {
                 this.setAvailable();
+                this.homey.app.updateLog(`Humidifier Hub got: ${this.homey.app.varToString(data)}`, 2);
+
                 this.setCapabilityValue('onoff', data.power === 'on').catch(this.error);
                 this.setCapabilityValue('nebulization_efficiency', data.nebulizationEfficiency).catch(this.error);
                 this.setCapabilityValue('nebulization_mode', data.auto).catch(this.error);

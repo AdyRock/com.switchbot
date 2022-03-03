@@ -51,18 +51,41 @@ class HubDevice extends OAuth2Device
 
     async setDeviceData(data)
     {
+        let result = null;
         const dd = this.getData();
         if (this.oAuth2Client)
         {
-            const result = await this.oAuth2Client.setDeviceData(dd.id, data);
+            try
+            {
+                this.homey.app.updateLog(`Sending ${this.homey.app.varToString(data)} to ${dd.id} using OAuth`, 2);
+                result = await this.oAuth2Client.setDeviceData(dd.id, data);
+            }
+            catch (err)
+            {
+                this.homey.app.updateLog(`Failed to send command to ${dd.id} using OAuth: ${this.homey.app.varToString(err)}`);
+                throw (err);
+            }
+
+            if (!result)
+            {
+                this.homey.app.updateLog(`Failed to send command to ${dd.id} using OAuth: Nothing returned`);
+                throw new Error('Nothing returned');
+            }
+
             if (result.statusCode !== 100)
             {
+                this.homey.app.updateLog(`Failed to send command to ${dd.id} using OAuth: ${result.message}`);
                 throw new Error(result.message);
             }
+
+            this.homey.app.updateLog(`Success sending command to ${dd.id} using OAuth`);
             return true;
         }
 
-        return this.homey.app.hub.setDeviceData(dd.id, data);
+        this.homey.app.updateLog(`Sending ${this.homey.app.varToString(data)} to ${dd.id} using API key`, 2);
+        result = await this.homey.app.hub.setDeviceData(dd.id, data);
+        this.homey.app.updateLog(`Success sending command to ${dd.id} using API key`);
+        return result;
     }
 
     async _getHubDeviceValues()

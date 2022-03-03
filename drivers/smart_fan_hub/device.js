@@ -76,6 +76,8 @@ class SmartFanHubDevice extends HubDevice
             if (data)
             {
                 this.setAvailable();
+                this.homey.app.updateLog(`Smart Fan Hub got: ${this.homey.app.varToString(data)}`, 2);
+
                 this.setCapabilityValue('onoff', data.power === 'on').catch(this.error);
                 this.setCapabilityValue('smart_fan_mode', data.mode).catch(this.error);
                 this.setCapabilityValue('smart_fan_speed', data.speed).catch(this.error);

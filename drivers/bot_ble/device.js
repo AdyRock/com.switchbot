@@ -164,11 +164,18 @@ class BotBLEDevice extends Homey.Device
         let response = null;
         while (loops-- > 0)
         {
+            while (this.homey.app.bleBusy)
+            {
+                await this.homey.app.Delay(200);
+            }
+
+            this.homey.app.bleBusy = true;
             try
             {
                 response = await this._operateBotLoop(name, bytes);
                 if (response.status && (response.status === true))
                 {
+                    this.homey.app.bleBusy = false;
                     this.homey.app.updateLog(`Command complete for ${name}`);
                     this.sendingCommand = false;
                     return;
@@ -178,6 +185,8 @@ class BotBLEDevice extends Homey.Device
             {
                 this.homey.app.updateLog(`_operateBot error: ${name} : ${this.homey.app.varToString(err)}`, 0);
             }
+
+            this.homey.app.bleBusy = false;
 
             if (loops > 0)
             {

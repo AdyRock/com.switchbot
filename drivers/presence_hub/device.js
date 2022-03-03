@@ -46,6 +46,7 @@ class PresenceHubDevice extends HubDevice
             if (data)
             {
                 this.setAvailable();
+                this.homey.app.updateLog(`Presence Hub got: ${this.homey.app.varToString(data)}`, 2);
 
                 this.setCapabilityValue('alarm_motion', data.moveDetected).catch(this.error);
 

@@ -46,6 +46,8 @@ class TemperatureHubDevice extends HubDevice
             if (data)
             {
                 this.setAvailable();
+                this.homey.app.updateLog(`Temperature Hub got: ${this.homey.app.varToString(data)}`, 2);
+
                 this.setCapabilityValue('measure_temperature', data.temperature).catch(this.error);
                 this.setCapabilityValue('measure_humidity', data.humidity).catch(this.error);
             }

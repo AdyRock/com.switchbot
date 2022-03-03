@@ -11,6 +11,12 @@
         "aircon_mode",
         "aircon_fan_speed"
     ],
+    "capabilitiesOptions": {
+        "target_temperature": {
+            "min": 16,
+            "max": 30
+        }
+    },
     "$extends": [
         "hubDriver"
     ]
