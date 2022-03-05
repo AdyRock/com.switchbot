@@ -148,5 +148,8 @@
   },
   "1.0.9": {
     "en": "Fix for curtain BLE data change with firmware version 3.9."
+  },
+  "1.1.0": {
+    "en": "Added webhook for faster response to: Contact Sensor (HUB) - Door contact open / close, Motion Sensor (HUB) - Presence detection, Temperature & Humidity (HUB) - Temperature / Humidity change"
   }
 }
