@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.switchbot",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "compatibility": ">=6.0.0",
   "platforms": [
     "local",
@@ -17,7 +17,17 @@
   },
   "tags": {
     "en": [
-      "Curtains"
+      "Curtains",
+      "Button presser",
+      "Temperature",
+      "Humidity",
+      "Motion sensor",
+      "Opening detector",
+      "Humidifier",
+      "Remote control",
+      "Air conditioner",
+      "Fan",
+      "Set top box"
     ]
   },
   "category": [
@@ -178,6 +188,76 @@
           }
         ],
         "id": "bright_true"
+      },
+      {
+        "title": {
+          "en": "Direction Changed"
+        },
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "connectivity": [
+          "cloud"
+        ],
+        "tokens": [
+          {
+            "name": "direction",
+            "title": {
+              "en": "Exited"
+            },
+            "type": "boolean",
+            "example": true
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=contact_hub"
+          }
+        ],
+        "id": "direction_changed"
+      },
+      {
+        "title": {
+          "en": "Someone entered"
+        },
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "hint": {
+          "en": "Motion was detected after the contact was opened."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=contact_hub"
+          }
+        ],
+        "id": "direction_false"
+      },
+      {
+        "title": {
+          "en": "Someone exited"
+        },
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "hint": {
+          "en": "Motion was detected before the contact was opened."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=contact_hub"
+          }
+        ],
+        "id": "direction_true"
       },
       {
         "id": "button_press_id_changed",
@@ -1326,7 +1406,8 @@
         "alarm_motion",
         "bright",
         "alarm_contact",
-        "alarm_contact.left_open"
+        "alarm_contact.left_open",
+        "direction"
       ],
       "capabilitiesOptions": {
         "alarm_contact.left_open": {
@@ -2485,6 +2566,22 @@
         "en": "Button Press ID"
       },
       "icon": "/assets/button_press.svg"
+    },
+    "direction": {
+      "type": "boolean",
+      "title": {
+        "en": "Someone Exited"
+      },
+      "getable": true,
+      "setable": false,
+      "insights": true,
+      "insightsTitleTrue": {
+        "en": "Someone Exited"
+      },
+      "insightsTitleFalse": {
+        "en": "Someone Entered"
+      },
+      "icon": "/assets/direction.svg"
     },
     "entry_id": {
       "type": "number",

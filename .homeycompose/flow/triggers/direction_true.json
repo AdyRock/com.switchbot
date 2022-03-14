@@ -1,0 +1,19 @@
+{
+    "title": {
+        "en": "Someone exited"
+    },
+    "platforms": [
+        "local",
+        "cloud"
+    ],
+    "hint": {
+        "en": "Motion was detected before the contact was opened."
+    },
+    "args": [
+        {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=contact_hub"
+        }
+    ]
+}

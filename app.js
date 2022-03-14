@@ -388,8 +388,6 @@ class MyApp extends OAuth2App
 
         if (errorLevel <= this.homey.app.logLevel)
         {
-            this.log(newMessage);
-
             const nowTime = new Date(Date.now());
 
             this.diagLog += '\r\n* ';
@@ -404,6 +402,7 @@ class MyApp extends OAuth2App
             }
             else
             {
+                this.log(newMessage);
                 this.diagLog += '* ';
             }
             this.diagLog += newMessage;

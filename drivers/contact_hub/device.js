@@ -13,6 +13,10 @@ class ContactHubDevice extends HubDevice
     async onInit()
     {
         await super.onInit();
+        if (!this.hasCapability('direction'))
+        {
+            this.addCapability('direction');
+        }
 
         const dd = this.getData();
         this.homey.app.registerHomeyWebhook(dd.id);
@@ -76,6 +80,15 @@ class ContactHubDevice extends HubDevice
             {
                 // message is for this device
                 this.setCapabilityValue('alarm_contact', message.context.detectionState === 'DETECTED').catch(this.error);
+                if (message.context.detectionState === 'DETECTED')
+                {
+                    this.setCapabilityValue('direction', message.context.doorMode === 'OUT_DOOR').catch(this.error);
+                    this.driver.direction_changed(this, message.context.doorMode === 'OUT_DOOR');
+                }
+                else
+                {
+                    this.setCapabilityValue('direction', null).catch(this.error);
+                }
             }
         }
         catch (err)

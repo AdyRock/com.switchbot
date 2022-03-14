@@ -179,7 +179,7 @@ class CurtainsBLEDevice extends Homey.Device
             }
         }
 
-        let loops = 5;
+        let loops = 3;
         let response = null;
         while (loops-- > 0)
         {
@@ -209,7 +209,7 @@ class CurtainsBLEDevice extends Homey.Device
 
             if (loops > 0)
             {
-                this.homey.app.updateLog(`Retry command for ${name} in 2 seconds`);
+                this.homey.app.updateLog(`Retry command (${4 - loops} of 3) for ${name} in 2 seconds`, 0);
                 await this.homey.app.Delay(2000);
             }
         }
@@ -218,7 +218,7 @@ class CurtainsBLEDevice extends Homey.Device
 
         if (response instanceof Error)
         {
-            this.homey.app.updateLog(`!!!!!!! Command for ${name} failed\r\n`);
+            this.homey.app.updateLog(`!!!!!!! Command for ${name} failed\r\n`, 0);
             throw response;
         }
     }
@@ -235,7 +235,7 @@ class CurtainsBLEDevice extends Homey.Device
             const bleAdvertisement = await this.homey.ble.find(dd.id);
             if (!bleAdvertisement)
             {
-                this.homey.app.updateLog(`BLE device ${name} not found`);
+                this.homey.app.updateLog(`BLE device ${name} not found`, 0);
                 return false;
             }
 
@@ -269,7 +269,7 @@ class CurtainsBLEDevice extends Homey.Device
             }
             catch (err)
             {
-                this.homey.app.updateLog(`Catch 2: ${name}: ${this.homey.app.varToString(err)}`);
+                this.homey.app.updateLog(`Catch 2: ${name}: ${this.homey.app.varToString(err)}`, 0);
                 sending = false;
                 return err;
                 // throw(err);
@@ -289,7 +289,7 @@ class CurtainsBLEDevice extends Homey.Device
         }
         catch (err)
         {
-            this.homey.app.updateLog(`Catch 1: ${name}: ${this.homey.app.varToString(err)}`);
+            this.homey.app.updateLog(`Catch 1: ${name}: ${err.toString()}`, 0);
             return err;
         }
         finally

@@ -16,6 +16,7 @@ class HubContactDriver extends HubDriver
 
         // Device Triggers
         this.bright_changed_trigger = this.homey.flow.getDeviceTriggerCard('bright_changed');
+        this.direction_changed_trigger = this.homey.flow.getDeviceTriggerCard('direction_changed');
 
         this.log('HubContactDriver has been initialized');
     }
@@ -27,6 +28,16 @@ class HubContactDriver extends HubDriver
         };
 
         this.bright_changed_trigger.trigger(device, tokens)
+            .catch(this.error);
+    }
+
+    direction_changed(device, direction)
+    {
+        const tokens = {
+            direction,
+        };
+
+        this.direction_changed_trigger.trigger(device, tokens)
             .catch(this.error);
     }
 

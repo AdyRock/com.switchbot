@@ -1,6 +1,6 @@
 {
     "id": "com.switchbot",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "compatibility": ">=6.0.0",
     "platforms": ["local", "cloud"],
     "sdk": 3,
@@ -16,7 +16,17 @@
     "tags":
     {
         "en": [
-            "Curtains"
+            "Curtains",
+            "Button presser",
+            "Temperature",
+            "Humidity",
+            "Motion sensor",
+            "Opening detector",
+            "Humidifier",
+            "Remote control",
+            "Air conditioner",
+            "Fan",
+            "Set top box"
         ]
     },
     "category": [

@@ -8,7 +8,8 @@
         "alarm_motion",
         "bright",
         "alarm_contact",
-        "alarm_contact.left_open"
+        "alarm_contact.left_open",
+        "direction"
     ],
     "capabilitiesOptions": {
         "alarm_contact.left_open": {
