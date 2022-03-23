@@ -1,6 +1,6 @@
 {
     "id": "com.switchbot",
-    "version": "1.1.1",
+    "version": "1.1.2",
     "compatibility": ">=6.0.0",
     "platforms": ["local", "cloud"],
     "sdk": 3,
@@ -26,7 +26,28 @@
             "Remote control",
             "Air conditioner",
             "Fan",
-            "Set top box"
+            "Set top box",
+            "Carrier",
+            "Daikin",
+            "De’Longhi",
+            "Electrolux",
+            "Frigidaire",
+            "Fujitronic",
+            "Fujitsu",
+            "General Electric",
+            "Haier",
+            "Hitachi",
+            "Honeywell",
+            "LG",
+            "Mitsubishi Electric",
+            "Panasonic",
+            "Pioneer",
+            "Samsung",
+            "Sanyo",
+            "Siemens",
+            "TCL",
+            "Toshiba",
+            "Whirlpool"
         ]
     },
     "category": [

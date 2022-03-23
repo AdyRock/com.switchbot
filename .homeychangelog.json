@@ -154,5 +154,8 @@
   },
   "1.1.1": {
     "en": "Added direction capability to Contact sensor that is true when someone exits and false when someone enters"
+  },
+  "1.1.2": {
+    "en": "Updated the tag list for supported IR Airconditioners that are supported by the SwitchBot hub."
   }
 }
