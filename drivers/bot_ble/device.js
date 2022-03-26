@@ -319,7 +319,19 @@ class BotBLEDevice extends Homey.Device
                     if (notification.status === true)
                     {
                         this.setCapabilityValue('measure_battery', notification.notificationData[1]).catch(this.error);
-                        this.operationMode = ((notification.notificationData[9] & 16) !== 0);
+                        const operationMode = ((notification.notificationData[9] & 16) !== 0);
+                        if (this.operationMode !== operationMode)
+                        {
+                            this.operationMode = operationMode;
+                            if (this.operationMode)
+                            {
+                                this.setClass('button');
+                            }
+                            else
+                            {
+                                this.setClass('socket');
+                            }
+                        }
                     }
                 }
                 else
@@ -341,7 +353,20 @@ class BotBLEDevice extends Homey.Device
                         this.homey.app.updateLog(`Parsed Bot BLE (${name}) ${this.homey.app.varToString(data)}`, 2);
 
                         this.setAvailable();
-                        this.operationMode = data.serviceData.mode;
+                        const operationMode = data.serviceData.mode;
+                        if (this.operationMode !== operationMode)
+                        {
+                            this.operationMode = operationMode;
+                            if (this.operationMode)
+                            {
+                                this.setClass('button');
+                            }
+                            else
+                            {
+                                this.setClass('socket');
+                            }
+                        }
+
                         if (this.operationMode)
                         {
                             this.setCapabilityValue('onoff', data.serviceData.state).catch(this.error);
@@ -389,7 +414,19 @@ class BotBLEDevice extends Homey.Device
                 {
                     this.homey.app.updateLog(`Got bot state of: ${event.serviceData.state}`);
 
-                    this.operationMode = event.serviceData.mode;
+                    if (this.operationMode !== event.serviceData.mode)
+                    {
+                        this.operationMode = event.serviceData.mode;
+                        if (this.operationMode)
+                        {
+                            this.setClass('button');
+                        }
+                        else
+                        {
+                            this.setClass('socket');
+                        }
+                    }
+
                     if (this.operationMode)
                     {
                         this.setCapabilityValue('onoff', (event.serviceData.state === 0)).catch(this.error);

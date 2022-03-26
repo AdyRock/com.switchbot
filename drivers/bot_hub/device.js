@@ -37,6 +37,22 @@ class BotHubDevice extends HubDevice
         this.log('BotHubDevice was renamed');
     }
 
+    async onSettings({ oldSettings, newSettings, changedKeys })
+    {
+        // Called when settings changed
+        if ((changedKeys.indexOf('push_button') >= 0) && (oldSettings.push_button !== newSettings.push_button))
+        {
+            if (newSettings.push_button)
+            {
+                this.setClass('button');
+            }
+            else
+            {
+                this.setClass('socket');
+            }
+        }
+    }
+
     // this method is called when the Homey device has requested a position change ( 0 to 1)
     async onCapabilityOnOff(value, opts)
     {
