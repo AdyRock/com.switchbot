@@ -157,5 +157,8 @@
   },
   "1.1.2": {
     "en": "Updated the tag list for supported IR Airconditioners that are supported by the SwitchBot hub."
+  },
+  "1.1.3": {
+    "en": "The Bot class is now set to socket when the Bot is in Switch mode so it can be added to HomeKit"
   }
 }
