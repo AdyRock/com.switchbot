@@ -21,7 +21,7 @@ class MyApp extends OAuth2App
 {
 
     static OAUTH2_CLIENT = SwitchBotOAuth2Client; // Default: OAuth2Client
-    static OAUTH2_DEBUG = false; // Default: false
+    static OAUTH2_DEBUG = true; // Default: false
     static OAUTH2_MULTI_SESSION = false; // Default: false
     static OAUTH2_DRIVERS = [
         'contact_hub',

@@ -7,7 +7,7 @@
         "cloud"
     ],
     "hint": {
-        "en": "Motion was detected before the contact was opened."
+        "en": "Button was pressed or Motion was detected; then the contact was opened."
     },
     "args": [
         {
