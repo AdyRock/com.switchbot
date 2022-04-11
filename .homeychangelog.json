@@ -163,5 +163,8 @@
   },
   "1.1.4": {
     "en": "Small changes to images and hint wording for publishing approval"
+  },
+  "1.1.5": {
+    "en": "Improved the error message shown for the device when a command fails."
   }
 }

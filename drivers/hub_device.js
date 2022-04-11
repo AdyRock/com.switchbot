@@ -63,7 +63,7 @@ class HubDevice extends OAuth2Device
             catch (err)
             {
                 this.homey.app.updateLog(`Failed to send command to ${dd.id} using OAuth: ${this.homey.app.varToString(err)}`);
-                throw (err);
+                throw (err.message);
             }
 
             if (!result)
@@ -74,8 +74,31 @@ class HubDevice extends OAuth2Device
 
             if (result.statusCode !== 100)
             {
-                this.homey.app.updateLog(`Failed to send command to ${dd.id} using OAuth: ${result.message}`);
-                throw new Error(result.message);
+                this.homey.app.updateLog(`Failed to send command to ${dd.id} using OAuth: ${result.statusCode}`);
+                if (result.statusCode === 152)
+                {
+                    throw new Error(`Error: Device not found by SwitchBot`);
+                }
+                else if (result.statusCode === 160)
+                {
+                    throw new Error(`Error: Command is not supported by SwitchBot`);
+                }
+                else if (result.statusCode === 161)
+                {
+                    throw new Error(`Error: SwitchBot device is offline`);
+                }
+                else if (result.statusCode === 171)
+                {
+                    throw new Error(`Error: SwitchBot hub is offline`);
+                }
+                else if (result.statusCode === 190)
+                {
+                    throw new Error(`Error: Device internal error due to device states not synchronized with server. Or command format is invalid.`);
+                }
+                else
+                {
+                    throw new Error(`Error: An unknown code (${result.statusCode}) returned by SwitchBot`);
+                }
             }
 
             this.homey.app.updateLog(`Success sending command to ${dd.id} using OAuth`);
