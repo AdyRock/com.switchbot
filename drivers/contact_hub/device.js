@@ -66,7 +66,7 @@ class ContactHubDevice extends HubDevice
         }
         catch (err)
         {
-            this.log('getHubDeviceValues: ', err);
+            this.homey.app.updateLog(`getHubDeviceValues: : ${this.homey.app.varToString(err)}`);
             this.setUnavailable(err.message);
         }
     }
@@ -88,6 +88,7 @@ class ContactHubDevice extends HubDevice
                 else
                 {
                     this.setCapabilityValue('direction', null).catch(this.error);
+                    this.setCapabilityValue('alarm_contact.left_open', false).catch(this.error);
                 }
             }
         }

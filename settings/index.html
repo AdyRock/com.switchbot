@@ -155,6 +155,9 @@
         // a method named 'onHomeyReady' must be present in your code
         function onHomeyReady(Homey)
         {
+            // Tell Homey we're ready to be displayed
+            Homey.ready();
+
             Homey.get('debugMode', function(err, debugMode)
             {
                 if (err) return Homey.alert(err);
@@ -184,11 +187,6 @@
             Homey.on('com.switchbot.logupdated', function(data)
             {
                 infoLogElement.value = data.log;
-            });
-
-            Homey.on('com.switchbot.detectedDevicesUpdated', function(data)
-            {
-                detectedDevicesElement.value = data.devices;
             });
 
             Homey.get('logLevel', function(err, logLevel)
@@ -414,9 +412,6 @@
                     }
                 });
             });
-
-            // Tell Homey we're ready to be displayed
-            Homey.ready();
         }
 
         function setPage(evt, tabPage)

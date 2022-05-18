@@ -121,7 +121,7 @@ class BotBLEDevice extends Homey.Device
             {
                 cmd = [0x57, 0x01, 0x02];
             }
-            this._operateBot(cmd);
+            await this._operateBot(cmd);
             return;
         }
 

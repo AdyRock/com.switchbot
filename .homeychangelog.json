@@ -166,5 +166,8 @@
   },
   "1.1.5": {
     "en": "Improved the error message shown for the device when a command fails."
+  },
+  "1.1.6": {
+    "en": "Fixed start scene flow card."
   }
 }

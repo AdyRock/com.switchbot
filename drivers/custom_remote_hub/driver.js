@@ -57,7 +57,7 @@ class HubCustomRemoteDriver extends HubDriver
             device.capabilities = capabilities;
             device.capabilitiesOptions = capabilitiesOptions;
             device.settings = settings;
-            this.log(JSON.stringify(device, null, 2));
+            this.homey.app.updateLog(`set_buttons: : ${this.homey.app.varToString(device)}`, 2);
             return device;
         });
 

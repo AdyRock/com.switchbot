@@ -54,7 +54,7 @@ class TemperatureHubDevice extends HubDevice
         }
         catch (err)
         {
-            this.log('getHubDeviceValues: ', err);
+            this.homey.app.updateLog(`getHubDeviceValues: : ${this.homey.app.varToString(err)}`);
             this.setUnavailable(err.message);
         }
     }

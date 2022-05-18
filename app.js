@@ -21,7 +21,7 @@ class MyApp extends OAuth2App
 {
 
     static OAUTH2_CLIENT = SwitchBotOAuth2Client; // Default: OAuth2Client
-    static OAUTH2_DEBUG = true; // Default: false
+    static OAUTH2_DEBUG = false; // Default: false
     static OAUTH2_MULTI_SESSION = false; // Default: false
     static OAUTH2_DRIVERS = [
         'contact_hub',
@@ -129,7 +129,7 @@ class MyApp extends OAuth2App
         operateAction
             .registerRunListener(async (args, state) =>
             {
-                this.log('activate_instant_mode');
+                //this.log('activate_instant_mode');
                 return args.device.onCapabilityAll(args);
             });
 
@@ -214,19 +214,22 @@ class MyApp extends OAuth2App
         startSceneAction
             .registerRunListener(async (args, state) =>
             {
-                this.log('activate_instant_mode');
+                //this.log('activate_instant_mode');
                 return args.device.onCapabilityStartScene();
             });
 
         const runSceneAction = this.homey.flow.getActionCard('run_scene');
         runSceneAction.registerRunListener(async (args, state) =>
         {
-            const url = `scenes/${args.scene.data.id}/execute`;
-            await this.hub.PostURL(url);
+            await this.runScene(args.scene.data.id);
         });
         runSceneAction.registerArgumentAutocompleteListener('scene', async (query, args) =>
         {
-            const results = await this.hub.getScenes();
+            const results = await this.getScenes();
+            if (query === '')
+            {
+                return results;
+            }
 
             // filter based on the query
             return results.filter(result =>
@@ -418,7 +421,7 @@ class MyApp extends OAuth2App
     async sendLog(logType, replyAddress, deviceId, oAuth2Client)
     {
         let tries = 5;
-        this.log('Send Log');
+        //this.log('Send Log');
         while (tries-- > 0)
         {
             try
@@ -718,6 +721,59 @@ class MyApp extends OAuth2App
         }
         return null;
     }
+
+    async runScene(id)
+    {
+        const oAuth2Client = this.getFirstSavedOAuth2Client();
+        if (oAuth2Client)
+        {
+            const retData = await oAuth2Client.startScene(id);
+            return retData.body;
+        }
+
+        return this.hub.startScene(id);
+    }
+
+    async getScenes()
+    {
+        // Find an OAuth session
+        const oAuth2Client = this.getFirstSavedOAuth2Client();
+        if (oAuth2Client)
+        {
+            const response = await oAuth2Client.getScenes();
+            if (response.statusCode !== 100)
+            {
+                this.homey.app.updateLog(`Invalid response code: ${response.statusCode}`);
+                throw (new Error(`Invalid response code: ${response.statusCode}`));
+            }
+
+            const searchData = response.body;
+            const scenes = [];
+
+            // Create an array of devices
+            for (const scene of searchData)
+            {
+                // Add this scene to the table
+                let data = {};
+                data = {
+                    id: scene.sceneId,
+                };
+
+                // Add this device to the table
+                scenes.push(
+                    {
+                        name: scene.sceneName,
+                        data,
+                    },
+                );
+            }
+            return scenes;
+
+        }
+
+        return await this.hub.getScenes();
+    }
+
 
     registerHUBPolling()
     {

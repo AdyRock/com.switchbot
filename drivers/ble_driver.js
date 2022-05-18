@@ -423,7 +423,7 @@ class BLEDriver extends Homey.Driver
         const byte7 = buf.readUInt8(7);
         const byte8 = buf.readUInt8(8);
 
-        this.log('Cd: ', buf);
+        //this.log('Cd: ', buf);
 
         const data = {
             model: 'C',
@@ -454,7 +454,7 @@ class BLEDriver extends Homey.Driver
         const byte9 = buf.readUInt8(9);
         const byte10 = buf.readUInt8(10);
 
-        this.log('Cd: ', buf);
+        //this.log('Cd: ', buf);
 
         const data = {
             model: 'u',
