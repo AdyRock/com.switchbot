@@ -285,7 +285,7 @@ class ColorBulbBLEDevice extends Homey.Device
                     this.homey.app.updateLog(`Getting notify characteristic for ${name}`);
                     const bleNotifyCharacteristic = await bleService.getCharacteristic('cba20003224d11e69fb80002a5d5c51b');
 
-                    bleNotifyCharacteristic.subscribeToNotifications(data =>
+                    await bleNotifyCharacteristic.subscribeToNotifications(data =>
                     {
                         if ((data.length === 11) && (data[0] === 1))
                         {
@@ -302,7 +302,7 @@ class ColorBulbBLEDevice extends Homey.Device
                 this.homey.app.updateLog(`Getting notify characteristic for ${name}`);
                 const bleNotifyCharacteristic = await bleService.getCharacteristic('cba20003224d11e69fb80002a5d5c51b');
 
-                bleNotifyCharacteristic.subscribeToNotifications(data =>
+                await bleNotifyCharacteristic.subscribeToNotifications(data =>
                 {
                     if ((data.length === 11) && (data[0] === 1))
                     {

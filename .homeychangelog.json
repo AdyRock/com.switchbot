@@ -169,5 +169,8 @@
   },
   "1.1.6": {
     "en": "Fixed start scene flow card."
+  },
+  "1.1.7": {
+    "en": "Reset Left Open capability when contact open cleared."
   }
 }

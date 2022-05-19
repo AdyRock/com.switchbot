@@ -48,6 +48,17 @@ class MyApp extends OAuth2App
     async onOAuth2Init()
     {
         this.log('SwitchBot has been initialized');
+
+        process.on('unhandledRejection', (reason, promise) =>
+        {
+            this.log('Unhandled Rejection at:', promise, 'reason:', reason);
+            this.logInformation('Unhandled Rejection',
+            {
+                message: promise,
+                stack: reason,
+            });
+        });
+
         this.diagLog = '';
         this.homey.app.deviceStatusLog = '';
         this.BearerToken = this.homey.settings.get('BearerToken');
