@@ -2,10 +2,10 @@
 
 'use strict';
 
-if (process.env.DEBUG === '1')
+//if (process.env.DEBUG === '1')
 {
     // eslint-disable-next-line node/no-unsupported-features/node-builtins, global-require
-    require('inspector').open(9222, '0.0.0.0', true);
+    require('inspector').open(9222, '0.0.0.0', false);
 }
 
 const Homey = require('homey');
@@ -52,7 +52,7 @@ class MyApp extends OAuth2App
         process.on('unhandledRejection', (reason, promise) =>
         {
             this.log('Unhandled Rejection at:', promise, 'reason:', reason);
-            this.logInformation('Unhandled Rejection',
+            this.updateLog('Unhandled Rejection',
             {
                 message: promise,
                 stack: reason,

@@ -84,6 +84,7 @@ class HubDriver extends OAuth2Driver
                             let data = {};
                             data = {
                                 id: device.deviceId,
+                                type: device.deviceType
                             };
 
                             // Add this device to the table

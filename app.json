@@ -1223,6 +1223,68 @@
       ]
     },
     {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        }
+      ],
+      "icon": "/drivers/camera_hub/assets/icon.svg",
+      "images": {
+        "large": "/drivers/camera_hub/assets/images/large.jpg",
+        "small": "/drivers/camera_hub/assets/images/small.jpg"
+      },
+      "id": "camera_hub",
+      "name": {
+        "en": "Camera Motion Sensor (HUB)"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "alarm_motion"
+      ],
+      "settings": [
+        {
+          "id": "duration",
+          "type": "number",
+          "label": {
+            "en": "Motion Duration",
+            "nl": "Bewegingsduur"
+          },
+          "value": 10,
+          "min": 1,
+          "max": 240,
+          "units": {
+            "en": "seconds",
+            "nl": "seconden"
+          }
+        }
+      ]
+    },
+    {
       "id": "color_bulb_ble",
       "name": {
         "en": "Colour Bulb (BLE)"
