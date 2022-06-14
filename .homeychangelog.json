@@ -172,5 +172,8 @@
   },
   "1.1.7": {
     "en": "Reset Left Open capability when contact open cleared."
+  },
+  "1.1.8": {
+    "en": "Added camera motion sensor."
   }
 }
