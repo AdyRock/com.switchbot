@@ -257,11 +257,18 @@ class CurtainsBLEDevice extends Homey.Device
                     this.homey.app.updateLog(`Getting notify characteristic for ${name}`);
                     const bleNotifyCharacteristic = await bleService.getCharacteristic('cba20003224d11e69fb80002a5d5c51b');
 
-                    await bleNotifyCharacteristic.subscribeToNotifications(data =>
+                    try
                     {
-                        sending = false;
-                        this.homey.app.updateLog(`received notification for ${name}: ${this.homey.app.varToString(data)}`);
-                    });
+                        await bleNotifyCharacteristic.subscribeToNotifications(data =>
+                        {
+                            sending = false;
+                            this.homey.app.updateLog(`received notification for ${name}: ${this.homey.app.varToString(data)}`);
+                        });
+                    }
+                    catch( err )
+                    {
+                        this.homey.app.updateLog(`subscribeToNotifications: ${name}: ${err.message}`, 0);
+                    }
                 }
 
                 this.homey.app.updateLog(`Writing data to ${name}`);

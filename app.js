@@ -618,23 +618,44 @@ class MyApp extends OAuth2App
 
         this.devicesMACs.push(DeviceMAC);
 
-        this.webRegTimerID = this.homey.setTimeout(async () => {
-            this.webRegTimerID = null;
-            const data = {
-                $keys: this.devicesMACs,
-            };
+        // Delay the actual registration to allow other devices to initialise and do them all at once
+        this.webRegTimerID = this.homey.setTimeout(() => this.doWebhookReg(), 2000);
+    }
 
-            // Setup the webhook call back to receive push notifications
-            const id = Homey.env.WEBHOOK_ID;
-            const secret = Homey.env.WEBHOOK_SECRET;
+    async doWebhookReg()
+    {
+        this.webRegTimerID = null;
+        const data = {
+            $keys: this.devicesMACs,
+        };
 
-            if (this.homeyWebhook)
+        // Setup the webhook call back to receive push notifications
+        const id = Homey.env.WEBHOOK_ID;
+        const secret = Homey.env.WEBHOOK_SECRET;
+
+        if (this.homeyWebhook)
+        {
+            // Unregister the existing webhook
+            try
             {
-                // Unregister the existing webhook
                 await this.homeyWebhook.unregister();
                 this.homeyWebhook = null;
             }
+            catch( err )
+            {
+                this.updateLog(`Homey Webhook failed to unregister, Error: ${err.message}`);
+                
+                // Try again later
+                if (!this.webRegTimerID)
+                {
+                    this.webRegTimerID = this.homey.setTimeout(() => this.doWebhookReg(), 2000);
+                }
+                return;
+            }
+        }
 
+        try
+        {
             this.homeyWebhook = await this.homey.cloud.createWebhook(id, secret, data);
 
             this.homeyWebhook.on('message', async args =>
@@ -646,11 +667,29 @@ class MyApp extends OAuth2App
                 catch (err)
                 {
                     this.updateLog(`Homey Webhook message error: ${err.message}`);
+
+                    // Try again later
+                    if (!this.webRegTimerID)
+                    {
+                        this.webRegTimerID = this.homey.setTimeout(() => this.doWebhookReg(), 2000);
+                    }
+                    return;
                 }
             });
 
             this.updateLog(`Homey Webhook registered for devices ${this.homey.app.varToString(data)}`, 2);
-        }, 2000);
+        }
+        catch( err )
+        {
+            this.updateLog(`Homey Webhook registration failed for devices ${this.homey.app.varToString(data)}, Error: ${err.message}`, 2);
+
+            // Try again later
+            if (!this.webRegTimerID)
+            {
+                this.webRegTimerID = this.homey.setTimeout(() => this.doWebhookReg(), 2000);
+            }
+            return;
+        }
     }
 
     async setupSwitchBotWebhook()

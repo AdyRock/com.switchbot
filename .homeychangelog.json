@@ -175,5 +175,8 @@
   },
   "1.1.8": {
     "en": "Added camera motion sensor."
+  },
+  "1.1.9": {
+    "en": "Fixed use of a function that is not available on older Homeys. Attempt to register webhook every 2 seconds if it fails due to Homey connection issues."
   }
 }
