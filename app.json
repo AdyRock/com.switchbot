@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.switchbot",
-  "version": "1.1.9",
+  "version": "1.1.10",
   "compatibility": ">=6.0.0",
   "platforms": [
     "local",
@@ -2368,6 +2368,60 @@
         "rewind",
         "forward"
       ]
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        }
+      ],
+      "icon": "/drivers/strip_light/assets/icon.svg",
+      "images": {
+        "large": "/drivers/strip_light/assets/images/large.jpg",
+        "small": "/drivers/strip_light/assets/images/small.jpg"
+      },
+      "name": {
+        "en": "Strip Light (HUB)"
+      },
+      "class": "light",
+      "capabilities": [
+        "onoff",
+        "dim",
+        "light_hue",
+        "light_saturation"
+      ],
+      "energy": {
+        "approximation": {
+          "usageOn": 15,
+          "usageOff": 0.1
+        }
+      },
+      "id": "strip_light"
     },
     {
       "id": "temperature_ble",

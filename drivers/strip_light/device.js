@@ -4,7 +4,7 @@
 
 const LightHubDevice = require('../light_hub_device');
 
-class ColorBulbHubDevice extends LightHubDevice
+class StripLightHubDevice extends LightHubDevice
 {
 
     /**
@@ -13,10 +13,9 @@ class ColorBulbHubDevice extends LightHubDevice
     async onInit()
     {
         await super.onInit();
-
-        this.log('ColorBulbHubDevice has been initialising');
+        this.log('StripLightHubDevice has been initialising');
     }
 
 }
 
-module.exports = ColorBulbHubDevice;
+module.exports = StripLightHubDevice;
