@@ -91,6 +91,10 @@ class HubDevice extends OAuth2Device
                 {
                     throw new Error(`Error: SwitchBot hub is offline`);
                 }
+                else if (result.statusCode === 174)
+                {
+                    throw new Error('Cloud option is not enabled in the SwitchBot app');
+                }
                 else if (result.statusCode === 190)
                 {
                     throw new Error(`Error: Device internal error due to device states not synchronized with server. Or command format is invalid.`);
