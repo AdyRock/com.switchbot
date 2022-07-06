@@ -1,0 +1,11 @@
+{
+    "type": "boolean",
+    "getable": false,
+    "setable": true,
+    "uiComponent": "button",
+    "title":
+    {
+        "en": "Power Off"
+    },
+    "icon": "/assets/power_off.svg"
+}

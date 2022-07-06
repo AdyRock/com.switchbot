@@ -1,0 +1,76 @@
+{
+    "actions": [
+        {
+            "id": "smart_fan_mode",
+            "title": {
+                "en": "Set fan mode"
+            },
+            "titleFormatted": {
+                "en": "Set the fan mode to [[fan_mode]], speed [[fan_speed]], shake range [[shake_range]]"
+            },
+            "platforms": ["local", "cloud"],
+            "args": [
+                {
+                    "name": "fan_mode",
+                    "title": { "en": "Mode" },
+                    "type": "dropdown",
+                    "values": [
+                        {
+                            "id": "1",
+                            "title": {
+                                "en": "Standard"
+                            }
+                        },
+                        {
+                            "id": "2",
+                            "title": {
+                                "en": "Natural"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "fan_speed",
+                    "title": { "en": "Speed" },
+                    "type": "dropdown",
+                    "values": [
+                        {
+                            "id": "1",
+                            "title": {
+                                "en": "1"
+                            }
+                        },
+                        {
+                            "id": "2",
+                            "title": {
+                                "en": "2"
+                            }
+                        },
+                        {
+                            "id": "3",
+                            "title": {
+                                "en": "3"
+                            }
+                        },
+                        {
+                            "id": "4",
+                            "title": {
+                                "en": "4"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "shake_range",
+                    "title": { "en": "Shake Range" },
+                    "type": "range",
+                    "min": 0,
+                    "max": 120,
+                    "step": 1,
+                    "label": "°",
+                    "labelDecimals": 0
+                }
+            ]
+        }
+    ]
+}

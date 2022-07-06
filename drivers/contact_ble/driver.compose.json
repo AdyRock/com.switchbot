@@ -1,0 +1,59 @@
+{
+    "id": "presence_ble",
+    "name": {
+        "en": "Contact Sensor (BLE)"
+    },
+    "platforms": [
+        "local",
+        "cloud"
+    ],
+    "connectivity": [
+        "ble"
+    ],
+    "class": "sensor",
+    "capabilities": [
+        "alarm_motion",
+        "bright",
+        "alarm_contact",
+        "alarm_contact.left_open",
+        "entry_id",
+        "exit_id",
+        "button_press_id",
+        "measure_battery",
+        "rssi"
+    ],
+    "capabilitiesOptions": {
+        "alarm_contact.left_open": {
+            "title": "Left Open",
+            "insightsTitleTrue": {
+                "en": "Contact Left Open"
+            },
+            "insightsTitleFalse": {
+                "en": "Contact Closed"
+            }
+        }
+    },
+    "pair": [
+        {
+            "id": "list_my_devices",
+            "template": "list_devices",
+            "navigation": {
+                "next": "add_my_devices"
+            }
+        },
+        {
+            "id": "add_my_devices",
+            "template": "add_devices"
+        }
+    ],
+    "energy": {
+        "batteries": [
+            "AAA",
+            "AAA"
+        ]
+    },
+    "images": {
+        "large": "/drivers/contact_ble/assets/images/large.jpg",
+        "small": "/drivers/contact_ble/assets/images/small.jpg"
+    }
+}

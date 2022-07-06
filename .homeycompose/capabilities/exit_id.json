@@ -1,0 +1,11 @@
+{
+    "type": "number",
+    "getable": true,
+    "setable": false,
+    "uiComponent": "sensor",
+    "title":
+    {
+        "en": "Exit ID"
+    },
+    "icon": "/assets/exit.svg" 
+}

@@ -1,0 +1,16 @@
+{
+    "type": "boolean",
+    "title": {
+        "en": "Someone Exited"
+    },
+    "getable": true,
+    "setable": false,
+    "insights": true,
+    "insightsTitleTrue": {
+        "en": "Someone Exited"
+    },
+    "insightsTitleFalse": {
+        "en": "Someone Entered"
+    },
+    "icon": "/assets/direction.svg"
+}

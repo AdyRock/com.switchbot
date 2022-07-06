@@ -1,0 +1,16 @@
+{
+    "title": {
+        "en": "Left Open"
+    },
+    "platforms": [
+        "local",
+        "cloud"
+    ],
+    "args": [
+      {
+        "type": "device",
+        "name": "device",
+        "filter": "driver_id=contact_ble|contact_hub"
+      }
+    ]
+}

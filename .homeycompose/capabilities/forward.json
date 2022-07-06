@@ -1,0 +1,11 @@
+{
+    "type": "boolean",
+    "getable": false,
+    "setable": true,
+    "uiComponent": "button",
+    "title":
+    {
+        "en": "Fast Forward"
+    },
+    "icon": "/assets/fast-forward.svg"
+}

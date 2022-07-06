@@ -1,29 +1,64 @@
 {
     "id": "curtains_hub",
-    "name":
-    {
+    "name": {
         "en": "Curtains (HUB)"
     },
     "class": "curtain",
     "capabilities": [
-        "windowcoverings_set"
+        "open_close",
+        "windowcoverings_set",
+        "position"
     ],
-    "pair": [
-    {
-        "id": "list_my_devices",
-        "template": "list_devices",
-        "navigation":
-        {
-            "next": "add_my_devices"
-        }
+    "energy": {
+        "batteries": [
+            "INTERNAL"
+        ]
     },
-    {
-        "id": "add_my_devices",
-        "template": "add_devices"
-    }],
-    "images":
-    {
-        "large": "/drivers/curtains_hub/assets/images/large.png",
-        "small": "/drivers/curtains_hub/assets/images/small.png"
-    }
+    "$extends": [
+        "hubDriver"
+    ],
+    "settings": [
+        {
+            "id": "invertPosition",
+            "type": "checkbox",
+            "label": {
+                "en": "Invert Open / Close Position"
+            },
+            "value": false,
+            "hint": {
+                "en": "Reverse the action of the position control."
+            }
+        },
+        {
+            "id": "motionMode",
+            "type": "radio",
+            "label": {
+                "en": "Motion Mode"
+            },
+            "value": "0",
+            "values": [
+                {
+                    "id": "0",
+                    "label": {
+                        "en": "Performance"
+                    }
+                },
+                {
+                    "id": "1",
+                    "label": {
+                        "en": "Silent"
+                    }
+                },
+                {
+                    "id": "0xff",
+                    "label": {
+                        "en": "Last Used"
+                    }
+                }
+            ],
+            "hint": {
+                "en": "Select the silent or performance mode of the motor."
+            }
+        }
+    ]
 }

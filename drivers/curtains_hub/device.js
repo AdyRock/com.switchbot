@@ -1,20 +1,51 @@
+/* jslint node: true */
+
 'use strict';
 
-const Homey = require('homey');
-const { ManagerBLE } = require('homey');
+const HubDevice = require('../hub_device');
 
-class CurtainsHubDevice extends Homey.Device
+class CurtainsHubDevice extends HubDevice
 {
+
     /**
      * onInit is called when the device is initialized.
      */
     async onInit()
     {
-        this.log('CurtainsHubDevice has been initialized');
-        this._driver = this.getDriver();
+        await super.onInit();
 
-        this.getDeviceValues();
+        if (!this.hasCapability('open_close'))
+        {
+            this.addCapability('open_close');
+        }
+        if (!this.hasCapability('position'))
+        {
+            this.addCapability('position');
+        }
+
+        this.invertPosition = this.getSetting('invertPosition');
+        if (this.invertPosition === null)
+        {
+            this.invertPosition = false;
+        }
+
+        this.motionMode = Number(this.getSetting('motionMode'));
+        if (this.motionMode === null)
+        {
+            this.motionMode = 2;
+        }
+
+        try
+        {
+            this.getHubDeviceValues();
+        }
+        catch (err)
+        {
+            this.setUnavailable(err.message);
+        }
+        this.registerCapabilityListener('open_close', this.onCapabilityopenClose.bind(this));
         this.registerCapabilityListener('windowcoverings_set', this.onCapabilityPosition.bind(this));
+        this.log('CurtainsHubDevice has been initialising');
     }
 
     /**
@@ -35,7 +66,15 @@ class CurtainsHubDevice extends Homey.Device
      */
     async onSettings({ oldSettings, newSettings, changedKeys })
     {
-        this.log('CurtainsHubDevice settings where changed');
+        if (changedKeys.indexOf('invertPosition') >= 0)
+        {
+            this.invertPosition = newSettings.invertPosition;
+        }
+
+        if (changedKeys.indexOf('motionMode') >= 0)
+        {
+            this.motionMode = Number(newSettings.motionMode);
+        }
     }
 
     /**
@@ -48,18 +87,28 @@ class CurtainsHubDevice extends Homey.Device
         this.log('CurtainsHubDevice was renamed');
     }
 
-    /**
-     * onDeleted is called when the user deleted the device.
-     */
-    async onDeleted()
+    // this method is called when the Homey device switches the device on or off
+    async onCapabilityopenClose(value, opts)
     {
-        this.log('CurtainsHubDevice has been deleted');
+        value = value ? 1 : 0;
+
+        if (this.invertPosition)
+        {
+            value = 1 - value;
+        }
+
+        return this.runToPos(value * 100, this.motionMode);
     }
 
     // this method is called when the Homey device has requested a position change ( 0 to 1)
     async onCapabilityPosition(value, opts)
     {
-        return await this.runToPos(value * 100);
+        if (this.invertPosition)
+        {
+            value = 1 - value;
+        }
+
+        return this.runToPos(value * 100, this.motionMode);
     }
 
     /* ------------------------------------------------------------------
@@ -105,45 +154,59 @@ class CurtainsHubDevice extends Homey.Device
      * - Promise object
      *   Nothing will be passed to the `resolve()`.
      * ---------------------------------------------------------------- */
-    async runToPos(percent, mode)
+    async runToPos(percent, mode = 0xff)
     {
-
-        if (mode == null)
-        {
-            mode = 0xff;
-        }
-        else
-        {
-            if (mode > 1) { mode = 0xff; }
-        }
-
-        return this._operateCurtain('setPosition', '0,' + mode + ',' + percent);
+        return this._operateCurtain('setPosition', `0,${mode},${percent}`);
     }
 
     async _operateCurtain(command, parameter)
     {
-        let data = {
-            "command": command,
-            "parameter": parameter,
-            "commandType": "command"        
-        }
+        this.setCapabilityValue('position', null).catch(this.error);
+        const data = {
+            command,
+            parameter,
+            commandType: 'command',
+        };
 
-        const dd = this.getData();
-
-
-        return this._driver.setDeviceData(dd.id, data);
+        return super.setDeviceData(data);
     }
 
-    async getDeviceValues()
+    async getHubDeviceValues()
     {
-        const dd = this.getData();
-
-        let data = await this._driver.getDeviceData(dd.id);
-        if (data)
+        try
         {
-            this.setCapabilityValue('windowcoverings_set', data.slidePosition / 100);
+            const data = await this._getHubDeviceValues();
+            if (data)
+            {
+                this.setAvailable();
+                this.homey.app.updateLog(`Curtain Hub got: ${this.homey.app.varToString(data)}`, 2);
+
+                let position = data.slidePosition / 100;
+                if (this.invertPosition)
+                {
+                    position = 1 - position;
+                }
+
+                if (position > 0.5)
+                {
+                    this.setCapabilityValue('open_close', true).catch(this.error);
+                }
+                else
+                {
+                    this.setCapabilityValue('open_close', false).catch(this.error);
+                }
+
+                this.setCapabilityValue('windowcoverings_set', position).catch(this.error);
+                this.setCapabilityValue('position', position * 100).catch(this.error);
+            }
+        }
+        catch (err)
+        {
+            this.homey.app.updateLog(`getHubDeviceValues: : ${this.homey.app.varToString(err)}`);
+            this.setUnavailable(err.message);
         }
     }
+
 }
 
 module.exports = CurtainsHubDevice;

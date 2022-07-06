@@ -1,0 +1,13 @@
+{
+    "title": {
+        "en": "Set to medium speed"
+    },
+    "args": [
+        {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=fan_hub"
+        }
+    ],
+    "platforms": ["local", "cloud"]
+}

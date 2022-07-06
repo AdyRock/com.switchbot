@@ -1,0 +1,22 @@
+{
+  "title": {
+    "en": "Run a Scene"
+  },
+  "titleFormatted": {
+      "en": "Run the '[[scene]]' scene"
+  },
+  "hint": {
+    "en": "Run a SwitchBot scene"
+  },
+  "args": [
+    {
+      "type": "autocomplete",
+      "name": "scene",
+      "title": { "en": "Scene Name" },
+      "placeholder": {
+        "en": "Scene Name"
+      }
+    }
+  ],
+  "platforms": ["local", "cloud"]
+}

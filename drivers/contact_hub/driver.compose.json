@@ -1,0 +1,34 @@
+{
+    "id": "contact_hub",
+    "name": {
+        "en": "Contact Sensor (HUB)"
+    },
+    "class": "sensor",
+    "capabilities": [
+        "alarm_motion",
+        "bright",
+        "alarm_contact",
+        "alarm_contact.left_open",
+        "direction"
+    ],
+    "capabilitiesOptions": {
+        "alarm_contact.left_open": {
+            "title": "Left Open",
+            "insightsTitleTrue": {
+                "en": "Contact Left Open"
+            },
+            "insightsTitleFalse": {
+                "en": "Contact Closed"
+            }
+        }
+    },
+    "energy": {
+        "batteries": [
+            "AAA",
+            "AAA"
+        ]
+    },
+    "$extends": [
+        "hubDriver"
+    ]
+}

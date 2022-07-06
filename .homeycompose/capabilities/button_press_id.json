@@ -1,0 +1,11 @@
+{
+    "type": "number",
+    "getable": true,
+    "setable": false,
+    "uiComponent": "sensor",
+    "title":
+    {
+        "en": "Button Press ID"
+    },
+    "icon": "/assets/button_press.svg" 
+}

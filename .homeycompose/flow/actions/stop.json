@@ -1,0 +1,13 @@
+{
+    "title": {
+        "en": "Stop"
+    },
+    "args": [
+        {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=dvd|speaker"
+        }
+    ],
+    "platforms": ["local", "cloud"]
+}

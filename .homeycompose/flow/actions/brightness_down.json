@@ -1,0 +1,13 @@
+{
+    "title": {
+        "en": "Decrease the brightness"
+    },
+    "args": [
+        {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=light_remote_hub"
+        }
+    ],
+    "platforms": ["local", "cloud"]
+}

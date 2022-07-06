@@ -1,0 +1,16 @@
+{
+    "type": "boolean",
+    "title": {
+        "en": "Bright"
+    },
+    "getable": true,
+    "setable": false,
+    "insights": true,
+    "insightsTitleTrue": {
+        "en": "Light is bright"
+    },
+    "insightsTitleFalse": {
+        "en": "Light is dim"
+    },
+    "icon": "/assets/sun.svg"
+}

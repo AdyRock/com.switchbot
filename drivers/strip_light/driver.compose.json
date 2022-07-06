@@ -1,0 +1,21 @@
+{
+    "name": {
+        "en": "Strip Light (HUB)"
+    },
+    "class": "light",
+    "capabilities": [
+        "onoff",
+        "dim",
+        "light_hue",
+        "light_saturation"
+    ],
+    "energy": {
+        "approximation": {
+            "usageOn": 15,
+            "usageOff": 0.1
+        }
+    },
+    "$extends": [
+        "hubDriver"
+    ]
+}

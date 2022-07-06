@@ -1,0 +1,13 @@
+{
+    "title": {
+        "en": "Turn Off"
+    },
+    "args": [
+        {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=dvd|tv_hub|air_con_hub|settop_box_hub|speaker|fan_hub|light_remote_hub"
+        }
+    ],
+    "platforms": ["local", "cloud"]
+}

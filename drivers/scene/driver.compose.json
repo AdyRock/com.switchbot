@@ -1,0 +1,12 @@
+{
+    "name": {
+        "en": "Scene"
+    },
+    "class": "other",
+    "capabilities": [
+        "play_scene"
+    ],
+    "$extends": [
+        "hubDriver"
+    ]
+}

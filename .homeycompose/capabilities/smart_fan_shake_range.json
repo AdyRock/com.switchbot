@@ -1,0 +1,17 @@
+{
+    "type": "number",
+    "getable": true,
+    "setable": true,
+    "uiComponent": "slider",
+    "units": {
+        "en": "°"
+    },
+    "min": 0,
+    "max": 120,
+    "step": 1,
+    "title":
+    {
+        "en": "Shake Range"
+    },
+    "icon": "/assets/rotate_range.svg"
+}

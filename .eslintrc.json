@@ -1,0 +1,9 @@
+{
+  "extends": "athom",
+  "rules":
+  {
+      "node/no-extraneous-require": "off",
+      "indent": "off",
+      "brace-style": "off"
+  }
+}

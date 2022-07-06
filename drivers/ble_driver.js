@@ -1,98 +1,135 @@
+/* jslint node: true */
+
 'use strict';
 
 const Homey = require('homey');
-const { ManagerBLE } = require('homey');
-
-const BLE_POLLING_INTERVAL = 10000
 
 class BLEDriver extends Homey.Driver
 {
+
     /**
      * onInit is called when the driver is initialized.
      */
     async onInit()
     {
         this.getBLEDevices = this.getBLEDevices.bind(this);
-        this.onPoll = this.onPoll.bind(this);
-        this.timerID = setTimeout(this.onPoll, BLE_POLLING_INTERVAL);
     }
 
-    async onPoll()
+    checkExist(devices, device)
     {
-        if (!this.discovering)
-        {
-            this.polling = true;
-             Homey.app.updateLog("Polling BLE");
-
-            const promises = [];
-            try
-            {
-                let devices = this.getDevices();
-                for (var i = 0; i < devices.length; i++)
-                {
-                    let device = devices[i];
-                    if (device.getDeviceValues)
-                    {
-                        promises.push(device.getDeviceValues());
-                    }
-                }
-
-                await Promise.all(promises);
-
-            }
-            catch (err)
-            {
-                Homey.app.updateLog("BLE Polling Error: " + Homey.app.varToString(err));
-            }
-
-            this.polling = false;
-        }
-
-        Homey.app.updateLog("Next BLE polling interval = " + BLE_POLLING_INTERVAL, true);
-
-        this.timerID = setTimeout(this.onPoll, BLE_POLLING_INTERVAL);
+        return devices.findIndex(device1 => device1.data.address === device.data.address);
     }
 
     async getBLEDevices(type)
     {
-        if (this.polling)
-        {
-            setTimeout(this.getBLEDevices, 500, type);
-            return;
-        }
-
+        this.homey.app.bleDiscovery = true;
+        this.homey.app.updateLog('BLE Discovery started', 1);
+        this.homey.app.detectedDevices = '';
         try
         {
-            this.discovering = true;
-
             const devices = [];
-            const bleAdvertisements = await ManagerBLE.discover();
-            Homey.app.detectedDevices = Homey.app.varToString(bleAdvertisements);
-            Homey.ManagerApi.realtime('com.switchbot.detectedDevicesUpdated', { 'devices': Homey.app.detectedDevices });
+
+            if (this.homey.app.BLEHub)
+            {
+                const searchData = await this.homey.app.BLEHub.getBLEHubDevices();
+                this.homey.app.updateLog(`BLE HUB Discovery: ${this.homey.app.varToString(searchData, 2)}`);
+
+                // Create an array of devices
+                for (const deviceData of searchData)
+                {
+                    try
+                    {
+                        if (deviceData.serviceData.model === type)
+                        {
+                            const id = deviceData.address.replace(/:/g, '');
+
+                            const data = {
+                                id,
+                                pid: id,
+                                address: deviceData.address,
+                                model: deviceData.serviceData.model,
+                                modelName: deviceData.serviceData.modelName,
+                            };
+
+                            const device = {
+                                name: deviceData.address,
+                                data,
+                            };
+
+                            this.homey.app.detectedDevices += '\r\nBLE Hub Found device:\r\n';
+                            this.homey.app.detectedDevices += this.homey.app.varToString(device);
+                            this.homey.api.realtime('com.switchbot.detectedDevicesUpdated', { devices: this.homey.app.detectedDevices });
+
+                            // Add this device to the table
+                            devices.push(device);
+                        }
+                    }
+                    catch (err)
+                    {
+                        this.homey.app.updateLog(`BLE Discovery: ${this.homey.app.varToString(err)}`, 0);
+                    }
+                }
+            }
+
+            let retries = 10;
+            while (this.homey.app.blePolling && (retries-- > 0))
+            {
+                await this.homey.app.Delay(500);
+            }
+
+            const bleAdvertisements = await this.homey.ble.discover([], 5000);
+            this.homey.app.updateLog(`BLE Discovery: ${this.homey.app.varToString(bleAdvertisements)}`, 2);
 
             for (const bleAdvertisement of bleAdvertisements)
             {
-                this.log("ServiceData: ", bleAdvertisement.serviceData);
-                let data = this.parse(bleAdvertisement);
-                if (data)
+                try
                 {
-                    Homey.app.updateLog("Parsed BLE: " + JSON.stringify(data, null, 2));
-                    if (data.serviceData.model === type)
+                    const deviceData = this.parse(bleAdvertisement);
+                    if (deviceData)
                     {
-                        devices.push(
+                        if (deviceData.serviceData.model === type)
                         {
-                            "name": bleAdvertisement.address,
-                            data
-                        })
+                            const device = {
+                                name: bleAdvertisement.address,
+                                data:
+                                {
+                                    id: deviceData.id,
+                                    pid: deviceData.pid,
+                                    address: deviceData.address,
+                                    model: deviceData.serviceData.model,
+                                    modelName: deviceData.serviceData.modelName,
+                                },
+                            };
+
+                            this.homey.app.detectedDevices += '\r\nBLE Homey Found device:\r\n';
+                            this.homey.app.detectedDevices += this.homey.app.varToString(device);
+                            if (this.homey.app.BLEHub)
+                            {
+                                this.homey.api.realtime('com.switchbot.detectedDevicesUpdated', { devices: this.homey.app.detectedDevices });
+                            }
+
+                            if (this.checkExist(devices, device) < 0)
+                            {
+                                devices.push(device);
+                            }
+                        }
                     }
                 }
-
+                catch (err)
+                {
+                    this.homey.app.updateLog(`BLE Discovery: ${this.homey.app.varToString(err)}`, 0);
+                }
             }
+
+            this.homey.app.updateLog('BLE Discovery finished', 1);
+            this.homey.app.bleDiscovery = false;
             return devices;
         }
-        finally
+        catch (err)
         {
-            this.discovering = false;
+            this.homey.app.updateLog(`BLE Discovery: ${this.homey.app.varToString(err)}`, 0);
+            this.homey.app.bleDiscovery = false;
+            throw new Error(err.msg);
         }
     }
 
@@ -106,7 +143,7 @@ class BLEDriver extends Homey.Driver
      * [Return value]
      * - An object as follows:
      *
-     * WoHand	
+     * WoHand
      * {
      *   id: 'c12e453e2008',
      *   address: 'c1:2e:45:3e:20:08',
@@ -149,40 +186,76 @@ class BLEDriver extends Homey.Driver
      *     lightLevel: 1
      *   }
      * }
-     * 
+     *
      * If the specified `device` does not represent any switchbot
      * device, this method will return `null`.
      * ---------------------------------------------------------------- */
     parse(device)
     {
-        if (!device || !device.serviceData || device.serviceData.length === 0)
+        if (!device)
         {
             return null;
         }
-        if (device.serviceData[0].uuid !== '0d00')
+        if (!device.serviceData || device.serviceData.length === 0)
+        {
+            if (device.localName === 'WoHand')
+            {
+                // looks like a bot device with no service data so make it up
+                const data = {
+                    id: device.uuid,
+                    pid: device.id,
+                    address: device.address,
+                    rssi: device.rssi,
+                    serviceData:
+                    {
+                        model: 'H',
+                        modelName: 'WoHand',
+                        mode: false,
+                        state: false,
+                        battery: 0,
+                    },
+                };
+                return data;
+            }
+            return null;
+        }
+
+        if ((device.serviceData[0].uuid !== '0d00') && (device.serviceData[0].uuid !== 'fd3d'))
         {
             return null;
         }
-        let buf = device.serviceData[0].data;
+        const buf = device.serviceData[0].data;
         if (!buf || !Buffer.isBuffer(buf) || buf.length < 3)
         {
             return null;
         }
 
-        let model = buf.slice(0, 1).toString('utf8');
+        const model = buf.slice(0, 1).toString('utf8');
         let sd = null;
 
         if (model === 'H')
         { // WoHand
             sd = this._parseServiceDataForWoHand(buf);
         }
-        else if (model === 'T')
+        else if ((model === 'T') || (model === 'i'))
         { // WoSensorTH
             sd = this._parseServiceDataForWoSensorTH(buf);
         }
         else if (model === 'c')
         { // WoCurtain
             sd = this._parseServiceDataForWoCurtain(buf);
+        }
+        else if (model === 's')
+        { // WoPresence
+            sd = this._parseServiceDataForWoPresence(buf);
+        }
+        else if (model === 'd')
+        { // WoContact
+            sd = this._parseServiceDataForWoContact(buf);
+        }
+        else if (model === 'u')
+        { // WoBulb
+            sd = this._parseServiceDataForWoBulb(device.manufacturerData);
         }
         else
         {
@@ -201,9 +274,9 @@ class BLEDriver extends Homey.Driver
             {
                 const str = device.advertisement.manufacturerData.toString('hex').slice(4);
                 address = str.substr(0, 2);
-                for (var i = 2; i < str.length; i += 2)
+                for (let i = 2; i < str.length; i += 2)
                 {
-                    address = address + ":" + str.substr(i, 2);
+                    address = `${address}:${str.substr(i, 2)}`;
                 }
                 // console.log("address", typeof(address), address);
             }
@@ -212,12 +285,12 @@ class BLEDriver extends Homey.Driver
         {
             address = address.replace(/-/g, ':');
         }
-        let data = {
+        const data = {
             id: device.uuid,
             pid: device.id,
-            address: address,
+            address,
             rssi: device.rssi,
-            serviceData: sd
+            serviceData: sd,
         };
         return data;
     }
@@ -228,19 +301,19 @@ class BLEDriver extends Homey.Driver
         {
             return null;
         }
-        let byte1 = buf.readUInt8(1);
-        let byte2 = buf.readUInt8(2);
+        const byte1 = buf.readUInt8(1);
+        const byte2 = buf.readUInt8(2);
 
-        let mode = (byte1 & 0b10000000) ? true : false; // Whether the light switch Add-on is used or not
-        let state = (byte1 & 0b01000000) ? true : false; // Whether the switch status is ON or OFF
-        let battery = byte2 & 0b01111111; // %
+        const mode = (byte1 & 0b10000000) !== 0; // Whether the light switch Add-on is used or not
+        const state = (byte1 & 0b01000000) === 0; // Whether the switch status is ON or OFF
+        const battery = byte2 & 0b01111111; // %
 
-        let data = {
+        const data = {
             model: 'H',
             modelName: 'WoHand',
-            mode: mode,
-            state: state,
-            battery: battery
+            mode,
+            state,
+            battery,
         };
 
         return data;
@@ -252,27 +325,27 @@ class BLEDriver extends Homey.Driver
         {
             return null;
         }
-        let byte2 = buf.readUInt8(2);
-        let byte3 = buf.readUInt8(3);
-        let byte4 = buf.readUInt8(4);
-        let byte5 = buf.readUInt8(5);
+        const byte2 = buf.readUInt8(2);
+        const byte3 = buf.readUInt8(3);
+        const byte4 = buf.readUInt8(4);
+        const byte5 = buf.readUInt8(5);
 
-        let temp_sign = (byte4 & 0b10000000) ? 1 : -1;
-        let temp_c = temp_sign * ((byte4 & 0b01111111) + (byte3 / 10));
-        let temp_f = (temp_c * 9 / 5) + 32;
-        temp_f = Math.round(temp_f * 10) / 10;
+        const tempSign = (byte4 & 0b10000000) ? 1 : -1;
+        const tempC = tempSign * ((byte4 & 0b01111111) + (byte3 / 10));
+        let tempF = ((tempC * 9) / 5) + 32;
+        tempF = Math.round(tempF * 10) / 10;
 
-        let data = {
+        const data = {
             model: 'T',
             modelName: 'WoSensorTH',
             temperature:
             {
-                c: temp_c,
-                f: temp_f
+                c: tempC,
+                f: tempF,
             },
-            fahrenheit: (byte5 & 0b10000000) ? true : false,
-            humidity: byte5 & 0b01111111,
-            battery: (byte2 & 0b01111111)
+            fahrenheit: !!((byte5 & 0b10000000)),
+            humidity: (byte5 & 0b01111111),
+            battery: (byte2 & 0b01111111),
         };
 
         return data;
@@ -280,31 +353,120 @@ class BLEDriver extends Homey.Driver
 
     _parseServiceDataForWoCurtain(buf)
     {
-        if (buf.length !== 5)
+        if (buf.length < 5)
         {
             return null;
         }
-        let byte1 = buf.readUInt8(1);
-        let byte2 = buf.readUInt8(2);
-        let byte3 = buf.readUInt8(3);
-        let byte4 = buf.readUInt8(4);
+        const byte1 = buf.readUInt8(1);
+        const byte2 = buf.readUInt8(2);
+        const byte3 = buf.readUInt8(3);
+        const byte4 = buf.readUInt8(4);
 
-        let calibration = byte1 & 0b01000000; // Whether the calibration is completed
-        let battery = byte2 & 0b01111111; // %
-        let currPosition = byte3 & 0b01111111; // current position %
-        let lightLevel = (byte4 >> 4) & 0b00001111; // light sensor level (1-10)
+        const calibration = byte1 & 0b01000000; // Whether the calibration is completed
+        const battery = (byte2 & 0b01111111); // %
+        const currPosition = (byte3 & 0b01111111); // current position %
+        const lightLevel = (byte4 >> 4) & 0b00001111; // light sensor level (1-10)
 
-        let data = {
+        const data = {
             model: 'c',
             modelName: 'WoCurtain',
-            calibration: calibration ? true : false,
-            battery: battery,
+            calibration: !!calibration,
+            battery,
             position: currPosition,
-            lightLevel: lightLevel
+            lightLevel,
         };
 
         return data;
     }
-}
 
+    _parseServiceDataForWoPresence(buf)
+    {
+        if (buf.length !== 6)
+        {
+            return null;
+        }
+
+        const byte1 = buf.readUInt8(1);
+        const byte2 = buf.readUInt8(2);
+        const byte3 = buf.readUInt8(3);
+        const byte4 = buf.readUInt8(4);
+        const byte5 = buf.readUInt8(5);
+
+        // console.log( "Pd: ", buf );
+
+        const data = {
+            model: 'P',
+            modelName: 'WoPresence',
+            battery: (byte2 & 0b01111111),
+            light: ((byte5 & 0b00000011) === 2),
+            range: ((byte5 >> 2) & 0b00000011),
+            motion: ((byte1 & 0b01000000) === 0b01000000),
+            lastMotion: (byte3 * 256) + byte4,
+        };
+
+        return data;
+    }
+
+    _parseServiceDataForWoContact(buf)
+    {
+        if (buf.length !== 9)
+        {
+            return null;
+        }
+
+        const byte1 = buf.readUInt8(1);
+        const byte2 = buf.readUInt8(2);
+        const byte3 = buf.readUInt8(3);
+        const byte4 = buf.readUInt8(4);
+        const byte5 = buf.readUInt8(5);
+        const byte6 = buf.readUInt8(6);
+        const byte7 = buf.readUInt8(7);
+        const byte8 = buf.readUInt8(8);
+
+        //this.log('Cd: ', buf);
+
+        const data = {
+            model: 'C',
+            modelName: 'WoContact',
+            motion: ((byte1 & 0b01000000) === 0b01000000),
+            battery: (byte2 & 0b01111111),
+            light: ((byte3 & 0b00000001) === 0b000000001),
+            contact: ((byte3 & 0b00000110) !== 0),
+            leftOpen: ((byte3 & 0b00000100) !== 0),
+            lastMotion: (byte4 * 256) + byte5,
+            lastContact: (byte6 * 256) + byte7,
+            buttonPresses: (byte8 & 0b00001111), // Increments every time button is pressed
+            entryCount: ((byte8 >> 6) & 0b00000011), // Increments every time button is pressed
+            exitCount: ((byte8 >> 4) & 0b00000011), // Increments every time button is pressed
+        };
+
+        return data;
+    }
+
+    _parseServiceDataForWoBulb(buf)
+    {
+        if ((buf.length !== 13) || (buf.readUInt8(1) !== 9) || (buf.readUInt8(0) !== 0x69))
+        {
+            return null;
+        }
+
+        const byte8 = buf.readUInt8(8);
+        const byte9 = buf.readUInt8(9);
+        const byte10 = buf.readUInt8(10);
+
+        //this.log('Cd: ', buf);
+
+        const data = {
+            model: 'u',
+            modelName: 'WoBulb',
+            sequence: byte8,
+            on_off: ((byte9 & 0x80) === 0x80),
+            dim: (byte9 & 0x7F),
+            lightState: (byte10 & 0x03),
+        };
+
+        return data;
+    }
+
+}
 module.exports = BLEDriver;

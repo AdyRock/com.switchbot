@@ -1,0 +1,11 @@
+{
+  "actions": [
+    {
+      "id": "start_scene",
+      "title": {
+        "en": "Start Scene"
+      },
+      "platforms": ["local", "cloud"]
+    }
+  ]
+}

@@ -1,14 +1,61 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.switchbot",
+<<<<<<< HEAD
   "version": "0.0.5",
   "compatibility": ">=4.0.0",
   "sdk": 2,
+=======
+  "version": "1.1.10",
+  "compatibility": ">=6.0.0",
+  "platforms": [
+    "local",
+    "cloud"
+  ],
+  "sdk": 3,
+  "brandColor": "#E0393A",
+>>>>>>> origin/SDK3
   "name": {
     "en": "SwitchBot"
   },
   "description": {
-    "en": "Adds support for SwitchBot BLE devices"
+    "en": "A simple way to make your entire home a Smart Home"
+  },
+  "tags": {
+    "en": [
+      "Curtains",
+      "Button presser",
+      "Temperature",
+      "Humidity",
+      "Motion sensor",
+      "Opening detector",
+      "Humidifier",
+      "Remote control",
+      "Air conditioner",
+      "Fan",
+      "Set top box",
+      "Carrier",
+      "Daikin",
+      "De’Longhi",
+      "Electrolux",
+      "Frigidaire",
+      "Fujitronic",
+      "Fujitsu",
+      "General Electric",
+      "Haier",
+      "Hitachi",
+      "Honeywell",
+      "LG",
+      "Mitsubishi Electric",
+      "Panasonic",
+      "Pioneer",
+      "Samsung",
+      "Sanyo",
+      "Siemens",
+      "TCL",
+      "Toshiba",
+      "Whirlpool"
+    ]
   },
   "category": [
     "appliances"
@@ -16,25 +63,1479 @@
   "permissions": [
     "homey:wireless:ble"
   ],
+  "support": "https://github.com/AdyRock/com.switchbot/issues",
+  "homepage": "https://www.switch-bot.com/",
+  "contributing": {
+    "donate": {
+      "paypal": {
+        "username": "adyrock"
+      }
+    }
+  },
+  "homeyCommunityTopicId": 42296,
+  "bugs": {
+    "url": "https://github.com/AdyRock/com.switchbot/issues"
+  },
+  "source": "https://github.com/AdyRock/com.switchbot",
   "images": {
     "large": "/assets/images/large.png",
     "small": "/assets/images/small.png"
   },
   "author": {
-    "name": "Adrian Rockall",
-    "email": "ady@rockall.plus.com"
+    "name": "SwitchBot Global",
+    "email": "integrations@wondertechlabs.com"
+  },
+  "contributors": {
+    "developers": [
+      {
+        "name": "Adrian Rockall",
+        "email": "ady@rockall.plus.com"
+      }
+    ]
+  },
+  "api": {
+    "getLog": {
+      "method": "get",
+      "path": "/getLog/"
+    },
+    "getDetect": {
+      "method": "get",
+      "path": "/getDetect/"
+    },
+    "clearLog": {
+      "method": "post",
+      "path": "/clearLog/"
+    },
+    "SendDeviceLog": {
+      "method": "post",
+      "path": "/SendDeviceLog/"
+    },
+    "SendInfoLog": {
+      "method": "post",
+      "path": "/SendInfoLog/"
+    },
+    "SendStatusLog": {
+      "method": "post",
+      "path": "/SendStatusLog/"
+    },
+    "clearStatusLog": {
+      "method": "post",
+      "path": "/clearStatusLog/"
+    },
+    "newData": {
+      "method": "post",
+      "path": "/newData/",
+      "public": true
+    },
+    "requestDeviceStatus": {
+      "method": "post",
+      "path": "/requestDeviceStatus/"
+    }
+  },
+  "flow": {
+    "triggers": [
+      {
+        "title": {
+          "en": "Left Open"
+        },
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=contact_ble|contact_hub"
+          }
+        ],
+        "id": "alarm_contact.left_open_true"
+      },
+      {
+        "title": {
+          "en": "Light Level Changed"
+        },
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "connectivity": [
+          "ble",
+          "cloud"
+        ],
+        "tokens": [
+          {
+            "name": "bright",
+            "title": {
+              "en": "Bright State"
+            },
+            "type": "boolean",
+            "example": true
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=contact_ble|contact_hub|presence_ble|presence_hub"
+          }
+        ],
+        "id": "bright_changed"
+      },
+      {
+        "title": {
+          "en": "Becomes Dim"
+        },
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=contact_ble|contact_hub|presence_ble|presence_hub"
+          }
+        ],
+        "id": "bright_false"
+      },
+      {
+        "title": {
+          "en": "Becomes bright"
+        },
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=contact_ble|contact_hub|presence_ble|presence_hub"
+          }
+        ],
+        "id": "bright_true"
+      },
+      {
+        "title": {
+          "en": "Direction Changed"
+        },
+        "deprecated": true,
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "connectivity": [
+          "cloud"
+        ],
+        "tokens": [
+          {
+            "name": "direction",
+            "title": {
+              "en": "Exited"
+            },
+            "type": "boolean",
+            "example": true
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=contact_hub"
+          }
+        ],
+        "id": "direction_changed"
+      },
+      {
+        "title": {
+          "en": "Someone entered"
+        },
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "hint": {
+          "en": "Motion was detected after the contact was opened."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=contact_hub"
+          }
+        ],
+        "id": "direction_false"
+      },
+      {
+        "title": {
+          "en": "Someone exited"
+        },
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "hint": {
+          "en": "Button was pressed or Motion was detected; then the contact was opened."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=contact_hub"
+          }
+        ],
+        "id": "direction_true"
+      },
+      {
+        "id": "button_press_id_changed",
+        "title": {
+          "en": "Button Press Changed"
+        },
+        "hint": {
+          "en": "Run the flow when button on the sensor is pressed. The token is a number that is incremented by the sensor each time the button is press. It will wrap around to 0 when it incremets past 255."
+        },
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "tokens": [
+          {
+            "name": "button_press_id",
+            "title": {
+              "en": "Button press ID"
+            },
+            "type": "number",
+            "example": 1
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=contact_ble"
+          }
+        ]
+      },
+      {
+        "id": "entry_id_changed",
+        "title": {
+          "en": "Entry ID Changed"
+        },
+        "hint": {
+          "en": "Run the flow when the sensor detects an entry (contact break before motion). The token is a number that is incremented by the sensor each time an entry is detected. It will wrap around to 0 when it incremets past 255."
+        },
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "tokens": [
+          {
+            "name": "entry_id",
+            "title": {
+              "en": "Entry ID"
+            },
+            "type": "number",
+            "example": 1
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=contact_ble"
+          }
+        ]
+      },
+      {
+        "id": "exit_id_changed",
+        "title": {
+          "en": "Exit ID Changed"
+        },
+        "hint": {
+          "en": "Run the flow when the sensor detects an exit (contact break after motion). The token is a number that is incremented by the sensor each time an exit is detected. It will wrap around to 0 when it incremets past 255."
+        },
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "tokens": [
+          {
+            "name": "exit_id",
+            "title": {
+              "en": "Exit ID"
+            },
+            "type": "number",
+            "example": 1
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=contact_ble"
+          }
+        ]
+      }
+    ],
+    "actions": [
+      {
+        "title": {
+          "en": "Decrease the brightness"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=light_remote_hub"
+          }
+        ],
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "id": "brightness_down"
+      },
+      {
+        "title": {
+          "en": "Increase the brightness"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=light_remote_hub"
+          }
+        ],
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "id": "brightness_up"
+      },
+      {
+        "title": {
+          "en": "Set to high speed"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=fan_hub"
+          }
+        ],
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "id": "fan_high_speed"
+      },
+      {
+        "title": {
+          "en": "Set to low speed"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=fan_hub"
+          }
+        ],
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "id": "fan_low_speed"
+      },
+      {
+        "title": {
+          "en": "Set to medium speed"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=fan_hub"
+          }
+        ],
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "id": "fan_medium_speed"
+      },
+      {
+        "title": {
+          "en": "Toggle swing mode"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=fan_hub"
+          }
+        ],
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "id": "fan_swing"
+      },
+      {
+        "title": {
+          "en": "Fast forward"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=dvd|speaker"
+          }
+        ],
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "id": "forward"
+      },
+      {
+        "title": {
+          "en": "Toggle Mute"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=dvd|speaker|tv_hub|settop_box_hub"
+          }
+        ],
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "id": "mute"
+      },
+      {
+        "title": {
+          "en": "Next"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=dvd|speaker"
+          }
+        ],
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "id": "next"
+      },
+      {
+        "title": {
+          "en": "Turn Off"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=dvd|tv_hub|air_con_hub|settop_box_hub|speaker|fan_hub|light_remote_hub"
+          }
+        ],
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "id": "off"
+      },
+      {
+        "title": {
+          "en": "Turn On"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=dvd|tv_hub|air_con_hub|settop_box_hub|speaker|fan_hub|light_remote_hub"
+          }
+        ],
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "id": "on"
+      },
+      {
+        "title": {
+          "en": "Pause"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=dvd|speaker"
+          }
+        ],
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "id": "pause"
+      },
+      {
+        "title": {
+          "en": "Play"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=dvd|speaker"
+          }
+        ],
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "id": "play"
+      },
+      {
+        "title": {
+          "en": "Previous"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=dvd|speaker"
+          }
+        ],
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "id": "prev"
+      },
+      {
+        "title": {
+          "en": "Rewind"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=dvd|speaker"
+          }
+        ],
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "id": "rewind"
+      },
+      {
+        "title": {
+          "en": "Run a Scene"
+        },
+        "titleFormatted": {
+          "en": "Run the '[[scene]]' scene"
+        },
+        "hint": {
+          "en": "Run a SwitchBot scene"
+        },
+        "args": [
+          {
+            "type": "autocomplete",
+            "name": "scene",
+            "title": {
+              "en": "Scene Name"
+            },
+            "placeholder": {
+              "en": "Scene Name"
+            }
+          }
+        ],
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "id": "run_scene"
+      },
+      {
+        "title": {
+          "en": "Set the channel"
+        },
+        "titleFormatted": {
+          "en": "Set the channel to '[[channel_number]]'"
+        },
+        "hint": {
+          "en": "Set the channel number"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=dvd|speaker|tv_hub|settop_box_hub"
+          },
+          {
+            "type": "number",
+            "name": "channel_number",
+            "title": {
+              "en": "Channel number"
+            },
+            "placeholder": {
+              "en": "Channel Number"
+            }
+          }
+        ],
+        "min": 1,
+        "max": 999,
+        "step": 1,
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "id": "set_channel"
+      },
+      {
+        "title": {
+          "en": "Stop"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=dvd|speaker"
+          }
+        ],
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "id": "stop"
+      },
+      {
+        "id": "operate_aircon",
+        "title": {
+          "en": "Operate air conditioner"
+        },
+        "titleFormatted": {
+          "en": "Switch Air conditioner [[onoff]], Mode is [[aircon_mode]] at [[target_temperature]] with the fan on [[aircon_fan_speed]]"
+        },
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=air_con_hub"
+          },
+          {
+            "name": "onoff",
+            "type": "dropdown",
+            "title": {
+              "en": "Power"
+            },
+            "values": [
+              {
+                "id": "on",
+                "title": {
+                  "en": "On"
+                }
+              },
+              {
+                "id": "off",
+                "title": {
+                  "en": "Off"
+                }
+              }
+            ]
+          },
+          {
+            "name": "aircon_mode",
+            "type": "dropdown",
+            "title": {
+              "en": "Mode"
+            },
+            "values": [
+              {
+                "id": "1",
+                "title": {
+                  "en": "Auto"
+                }
+              },
+              {
+                "id": "2",
+                "title": {
+                  "en": "Cool"
+                }
+              },
+              {
+                "id": "3",
+                "title": {
+                  "en": "Dry"
+                }
+              },
+              {
+                "id": "4",
+                "title": {
+                  "en": "Fan"
+                }
+              },
+              {
+                "id": "5",
+                "title": {
+                  "en": "Heat"
+                }
+              }
+            ]
+          },
+          {
+            "name": "target_temperature",
+            "title": {
+              "en": "Temperature"
+            },
+            "type": "range",
+            "min": 5,
+            "max": 40,
+            "step": 0.5,
+            "label": "°C",
+            "labelDecimals": 1
+          },
+          {
+            "name": "aircon_fan_speed",
+            "title": {
+              "en": "Speed"
+            },
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "1",
+                "title": {
+                  "en": "Auto"
+                }
+              },
+              {
+                "id": "2",
+                "title": {
+                  "en": "Low"
+                }
+              },
+              {
+                "id": "3",
+                "title": {
+                  "en": "Medium"
+                }
+              },
+              {
+                "id": "4",
+                "title": {
+                  "en": "High"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "send_custom_remote_command",
+        "title": {
+          "en": "Send a remote command"
+        },
+        "titleFormatted": {
+          "en": "Send the '[[command]]' commnad"
+        },
+        "hint": {
+          "en": "Send a custom remote command to the hub"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=custom_remote_hub"
+          },
+          {
+            "type": "autocomplete",
+            "name": "command",
+            "title": {
+              "en": "Command Name"
+            },
+            "placeholder": {
+              "en": "Command Name"
+            }
+          }
+        ],
+        "platforms": [
+          "local",
+          "cloud"
+        ]
+      },
+      {
+        "id": "nebulization_mode",
+        "title": {
+          "en": "Set nebulization mode"
+        },
+        "titleFormatted": {
+          "en": "Set the nebulization mode to [[mode]]"
+        },
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=humidifier_hub"
+          },
+          {
+            "name": "mode",
+            "type": "dropdown",
+            "title": {
+              "en": "Mode"
+            },
+            "values": [
+              {
+                "id": "0",
+                "title": {
+                  "en": "Manual"
+                }
+              },
+              {
+                "id": "1",
+                "title": {
+                  "en": "Auto"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "nebulization_efficiency",
+        "title": {
+          "en": "Set nebulization efficiency"
+        },
+        "titleFormatted": {
+          "en": "Set the nebulization efficiency to [[nebulization_efficiency]]"
+        },
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=humidifier_hub"
+          },
+          {
+            "name": "nebulization_efficiency",
+            "type": "range",
+            "title": {
+              "en": "Efficiency"
+            },
+            "placeholder": {
+              "en": "In %"
+            },
+            "label": "%",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "labelMultiplier": 1,
+            "labelDecimals": 0
+          }
+        ]
+      },
+      {
+        "id": "start_scene",
+        "title": {
+          "en": "Start Scene"
+        },
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=scene"
+          }
+        ]
+      },
+      {
+        "id": "smart_fan_mode",
+        "title": {
+          "en": "Set fan mode"
+        },
+        "titleFormatted": {
+          "en": "Set the fan mode to [[fan_mode]], speed [[fan_speed]], shake range [[shake_range]]"
+        },
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=smart_fan_hub"
+          },
+          {
+            "name": "fan_mode",
+            "title": {
+              "en": "Mode"
+            },
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "1",
+                "title": {
+                  "en": "Standard"
+                }
+              },
+              {
+                "id": "2",
+                "title": {
+                  "en": "Natural"
+                }
+              }
+            ]
+          },
+          {
+            "name": "fan_speed",
+            "title": {
+              "en": "Speed"
+            },
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "1",
+                "title": {
+                  "en": "1"
+                }
+              },
+              {
+                "id": "2",
+                "title": {
+                  "en": "2"
+                }
+              },
+              {
+                "id": "3",
+                "title": {
+                  "en": "3"
+                }
+              },
+              {
+                "id": "4",
+                "title": {
+                  "en": "4"
+                }
+              }
+            ]
+          },
+          {
+            "name": "shake_range",
+            "title": {
+              "en": "Shake Range"
+            },
+            "type": "range",
+            "min": 0,
+            "max": 120,
+            "step": 1,
+            "label": "°",
+            "labelDecimals": 0
+          }
+        ]
+      }
+    ]
   },
   "drivers": [
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        }
+      ],
+      "icon": "/drivers/air_con_hub/assets/icon.svg",
+      "images": {
+        "large": "/drivers/air_con_hub/assets/images/large.jpg",
+        "small": "/drivers/air_con_hub/assets/images/small.jpg"
+      },
+      "id": "air_con_hub",
+      "name": {
+        "en": "Air Conditioner Remote"
+      },
+      "class": "remote",
+      "capabilities": [
+        "power_on",
+        "power_off",
+        "target_temperature",
+        "aircon_mode",
+        "aircon_fan_speed"
+      ],
+      "capabilitiesOptions": {
+        "target_temperature": {
+          "min": 16,
+          "max": 30
+        }
+      }
+    },
+    {
+      "id": "bot_ble",
+      "name": {
+        "en": "Bot (BLE)"
+      },
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "ble"
+      ],
+      "class": "button",
+      "capabilities": [
+        "measure_battery",
+        "onoff",
+        "rssi"
+      ],
+      "pair": [
+        {
+          "id": "list_my_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_my_devices"
+          }
+        },
+        {
+          "id": "add_my_devices",
+          "template": "add_devices"
+        }
+      ],
+      "energy": {
+        "batteries": [
+          "CR2"
+        ]
+      },
+      "images": {
+        "large": "/drivers/bot_ble/assets/images/large.jpg",
+        "small": "/drivers/bot_ble/assets/images/small.jpg"
+      },
+      "settings": [
+        {
+          "id": "password",
+          "type": "password",
+          "label": {
+            "en": "Password"
+          },
+          "value": "",
+          "hint": {
+            "en": "The password that has been set in the SwitchBot app which is required to control the Bot.\r\nLeave this empty if no password is set."
+          }
+        }
+      ]
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        }
+      ],
+      "icon": "/drivers/bot_hub/assets/icon.svg",
+      "images": {
+        "large": "/drivers/bot_hub/assets/images/large.jpg",
+        "small": "/drivers/bot_hub/assets/images/small.jpg"
+      },
+      "id": "bot_hub",
+      "name": {
+        "en": "Bot (HUB)"
+      },
+      "class": "button",
+      "capabilities": [
+        "onoff"
+      ],
+      "energy": {
+        "batteries": [
+          "CR2"
+        ]
+      },
+      "settings": [
+        {
+          "id": "push_button",
+          "type": "checkbox",
+          "label": {
+            "en": "Push Button"
+          },
+          "value": false,
+          "hint": {
+            "en": "When ticked Bot produces a short press and then returns."
+          }
+        }
+      ]
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        }
+      ],
+      "icon": "/drivers/camera_hub/assets/icon.svg",
+      "images": {
+        "large": "/drivers/camera_hub/assets/images/large.jpg",
+        "small": "/drivers/camera_hub/assets/images/small.jpg"
+      },
+      "id": "camera_hub",
+      "name": {
+        "en": "Camera Motion Sensor (HUB)"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "alarm_motion"
+      ],
+      "settings": [
+        {
+          "id": "duration",
+          "type": "number",
+          "label": {
+            "en": "Motion Duration",
+            "nl": "Bewegingsduur"
+          },
+          "value": 10,
+          "min": 1,
+          "max": 240,
+          "units": {
+            "en": "seconds",
+            "nl": "seconden"
+          }
+        }
+      ]
+    },
+    {
+      "id": "color_bulb_ble",
+      "name": {
+        "en": "Colour Bulb (BLE)"
+      },
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "ble"
+      ],
+      "class": "light",
+      "capabilities": [
+        "onoff",
+        "dim",
+        "light_mode",
+        "light_temperature",
+        "light_hue",
+        "light_saturation",
+        "rssi"
+      ],
+      "pair": [
+        {
+          "id": "list_my_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_my_devices"
+          }
+        },
+        {
+          "id": "add_my_devices",
+          "template": "add_devices"
+        }
+      ],
+      "energy": {
+        "approximation": {
+          "usageOn": 10,
+          "usageOff": 0.1
+        }
+      },
+      "images": {
+        "large": "/drivers/color_bulb_ble/assets/images/large.jpg",
+        "small": "/drivers/color_bulb_ble/assets/images/small.jpg"
+      }
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        }
+      ],
+      "icon": "/drivers/color_bulb_hub/assets/icon.svg",
+      "images": {
+        "large": "/drivers/color_bulb_hub/assets/images/large.jpg",
+        "small": "/drivers/color_bulb_hub/assets/images/small.jpg"
+      },
+      "name": {
+        "en": "Colour Bulb (HUB)"
+      },
+      "class": "light",
+      "capabilities": [
+        "onoff",
+        "dim",
+        "light_mode",
+        "light_temperature",
+        "light_hue",
+        "light_saturation"
+      ],
+      "energy": {
+        "approximation": {
+          "usageOn": 10,
+          "usageOff": 0.1
+        }
+      },
+      "id": "color_bulb_hub"
+    },
+    {
+      "id": "contact_ble",
+      "name": {
+        "en": "Contact Sensor (BLE)"
+      },
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "ble"
+      ],
+      "class": "sensor",
+      "capabilities": [
+        "alarm_motion",
+        "bright",
+        "alarm_contact",
+        "alarm_contact.left_open",
+        "entry_id",
+        "exit_id",
+        "button_press_id",
+        "measure_battery",
+        "rssi"
+      ],
+      "capabilitiesOptions": {
+        "alarm_contact.left_open": {
+          "title": "Left Open",
+          "insightsTitleTrue": {
+            "en": "Contact Left Open"
+          },
+          "insightsTitleFalse": {
+            "en": "Contact Closed"
+          }
+        }
+      },
+      "pair": [
+        {
+          "id": "list_my_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_my_devices"
+          }
+        },
+        {
+          "id": "add_my_devices",
+          "template": "add_devices"
+        }
+      ],
+      "energy": {
+        "batteries": [
+          "AAA",
+          "AAA"
+        ]
+      },
+      "images": {
+        "large": "/drivers/contact_ble/assets/images/large.jpg",
+        "small": "/drivers/contact_ble/assets/images/small.jpg"
+      }
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        }
+      ],
+      "icon": "/drivers/contact_hub/assets/icon.svg",
+      "images": {
+        "large": "/drivers/contact_hub/assets/images/large.jpg",
+        "small": "/drivers/contact_hub/assets/images/small.jpg"
+      },
+      "id": "contact_hub",
+      "name": {
+        "en": "Contact Sensor (HUB)"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "alarm_motion",
+        "bright",
+        "alarm_contact",
+        "alarm_contact.left_open",
+        "direction"
+      ],
+      "capabilitiesOptions": {
+        "alarm_contact.left_open": {
+          "title": "Left Open",
+          "insightsTitleTrue": {
+            "en": "Contact Left Open"
+          },
+          "insightsTitleFalse": {
+            "en": "Contact Closed"
+          }
+        }
+      },
+      "energy": {
+        "batteries": [
+          "AAA",
+          "AAA"
+        ]
+      }
+    },
     {
       "id": "curtains_ble",
       "name": {
         "en": "Curtains (BLE)"
       },
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "ble"
+      ],
       "class": "curtain",
       "capabilities": [
+        "open_close",
         "measure_battery",
         "windowcoverings_set",
-        "rssi"
+        "rssi",
+        "position"
       ],
       "pair": [
         {
@@ -55,18 +1556,548 @@
         ]
       },
       "images": {
-        "large": "/drivers/curtains_ble/assets/images/large.png",
-        "small": "/drivers/curtains_ble/assets/images/small.png"
-      }
+        "large": "/drivers/curtains_ble/assets/images/large.jpg",
+        "small": "/drivers/curtains_ble/assets/images/small.jpg"
+      },
+      "settings": [
+        {
+          "id": "invertPosition",
+          "type": "checkbox",
+          "label": {
+            "en": "Invert Open / Close Position"
+          },
+          "value": false,
+          "hint": {
+            "en": "Reverse the action of the position control."
+          }
+        },
+        {
+          "id": "motionMode",
+          "type": "radio",
+          "label": {
+            "en": "Motion Mode"
+          },
+          "value": "0xff",
+          "values": [
+            {
+              "id": "0",
+              "label": {
+                "en": "Performance"
+              }
+            },
+            {
+              "id": "1",
+              "label": {
+                "en": "Silent"
+              }
+            },
+            {
+              "id": "0xff",
+              "label": {
+                "en": "Last Used"
+              }
+            }
+          ],
+          "hint": {
+            "en": "Select the silent or performance mode of the motor."
+          }
+        }
+      ]
     },
     {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        }
+      ],
+      "icon": "/drivers/curtains_hub/assets/icon.svg",
+      "images": {
+        "large": "/drivers/curtains_hub/assets/images/large.jpg",
+        "small": "/drivers/curtains_hub/assets/images/small.jpg"
+      },
       "id": "curtains_hub",
       "name": {
         "en": "Curtains (HUB)"
       },
       "class": "curtain",
       "capabilities": [
-        "windowcoverings_set"
+        "open_close",
+        "windowcoverings_set",
+        "position"
+      ],
+      "energy": {
+        "batteries": [
+          "INTERNAL"
+        ]
+      },
+      "settings": [
+        {
+          "id": "invertPosition",
+          "type": "checkbox",
+          "label": {
+            "en": "Invert Open / Close Position"
+          },
+          "value": false,
+          "hint": {
+            "en": "Reverse the action of the position control."
+          }
+        },
+        {
+          "id": "motionMode",
+          "type": "radio",
+          "label": {
+            "en": "Motion Mode"
+          },
+          "value": "0",
+          "values": [
+            {
+              "id": "0",
+              "label": {
+                "en": "Performance"
+              }
+            },
+            {
+              "id": "1",
+              "label": {
+                "en": "Silent"
+              }
+            },
+            {
+              "id": "0xff",
+              "label": {
+                "en": "Last Used"
+              }
+            }
+          ],
+          "hint": {
+            "en": "Select the silent or performance mode of the motor."
+          }
+        }
+      ]
+    },
+    {
+      "id": "custom_remote_hub",
+      "name": {
+        "en": "Custom IR Remote"
+      },
+      "class": "remote",
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "capabilities": [],
+      "pair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "define_capabilities"
+          },
+          "options": {
+            "singular": true
+          }
+        },
+        {
+          "id": "define_capabilities"
+        }
+      ],
+      "repair": [
+        {
+          "id": "my_repair"
+        }
+      ],
+      "icon": "/drivers/custom_remote_hub/assets/icon.svg",
+      "images": {
+        "large": "/drivers/custom_remote_hub/assets/images/large.jpg",
+        "small": "/drivers/custom_remote_hub/assets/images/small.jpg"
+      },
+      "settings": [
+        {
+          "id": "button0",
+          "type": "text",
+          "label": {
+            "en": "Command  1"
+          },
+          "value": "",
+          "hint": {
+            "en": "The command to assign to button 1. This is the name you gave the button when defining the remote. Leave it empty if there is no button 1."
+          }
+        },
+        {
+          "id": "button1",
+          "type": "text",
+          "label": {
+            "en": "Command  2"
+          },
+          "value": "",
+          "hint": {
+            "en": "The command to assign to button 2. Leave it empty if there is no button 2."
+          }
+        },
+        {
+          "id": "button2",
+          "type": "text",
+          "label": {
+            "en": "Command  3"
+          },
+          "value": "",
+          "hint": {
+            "en": "The command to assign to button 3. Leave it empty if there is no button 3."
+          }
+        },
+        {
+          "id": "button3",
+          "type": "text",
+          "label": {
+            "en": "Command  4"
+          },
+          "value": "",
+          "hint": {
+            "en": "The command to assign to button 4. Leave it empty if there is no button 4."
+          }
+        },
+        {
+          "id": "button4",
+          "type": "text",
+          "label": {
+            "en": "Command  5"
+          },
+          "value": "",
+          "hint": {
+            "en": "The command to assign to button 5. Leave it empty if there is no button 5."
+          }
+        },
+        {
+          "id": "button5",
+          "type": "text",
+          "label": {
+            "en": "Command  6"
+          },
+          "value": "",
+          "hint": {
+            "en": "The command to assign to button 6. Leave it empty if there is no button 6."
+          }
+        },
+        {
+          "id": "button6",
+          "type": "text",
+          "label": {
+            "en": "Command  7"
+          },
+          "value": "",
+          "hint": {
+            "en": "The command to assign to button 7. Leave it empty if there is no button 7."
+          }
+        },
+        {
+          "id": "button6",
+          "type": "text",
+          "label": {
+            "en": "Command  8"
+          },
+          "value": "",
+          "hint": {
+            "en": "The command to assign to button 8. Leave it empty if there is no button 8."
+          }
+        },
+        {
+          "id": "button8",
+          "type": "text",
+          "label": {
+            "en": "Command  9"
+          },
+          "value": "",
+          "hint": {
+            "en": "The command to assign to button 9. Leave it empty if there is no button 9."
+          }
+        },
+        {
+          "id": "button9",
+          "type": "text",
+          "label": {
+            "en": "Command  10"
+          },
+          "value": "",
+          "hint": {
+            "en": "The command to assign to button 10. Leave it empty if there is no button 10."
+          }
+        },
+        {
+          "id": "button10",
+          "type": "text",
+          "label": {
+            "en": "Command  11"
+          },
+          "value": "",
+          "hint": {
+            "en": "The command to assign to button 11. Leave it empty if there is no button 11."
+          }
+        },
+        {
+          "id": "button11",
+          "type": "text",
+          "label": {
+            "en": "Command  12"
+          },
+          "value": "",
+          "hint": {
+            "en": "The command to assign to button 12. Leave it empty if there is no button 12."
+          }
+        }
+      ]
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        }
+      ],
+      "icon": "/drivers/dvd/assets/icon.svg",
+      "images": {
+        "large": "/drivers/dvd/assets/images/large.jpg",
+        "small": "/drivers/dvd/assets/images/small.jpg"
+      },
+      "id": "dvd",
+      "name": {
+        "en": "DVD Remote"
+      },
+      "class": "remote",
+      "capabilities": [
+        "power_on",
+        "power_off",
+        "volume_mute",
+        "stop",
+        "play",
+        "pause",
+        "prev",
+        "next",
+        "rewind",
+        "forward"
+      ]
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        }
+      ],
+      "icon": "/drivers/fan_hub/assets/icon.svg",
+      "images": {
+        "large": "/drivers/fan_hub/assets/images/large.jpg",
+        "small": "/drivers/fan_hub/assets/images/small.jpg"
+      },
+      "id": "fan_hub",
+      "name": {
+        "en": "Fan Remote"
+      },
+      "class": "remote",
+      "capabilities": [
+        "power_on",
+        "power_off",
+        "fan_swing",
+        "fan_speed_low",
+        "fan_speed_middle",
+        "fan_speed_high"
+      ]
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        }
+      ],
+      "icon": "/drivers/humidifier_hub/assets/icon.svg",
+      "images": {
+        "large": "/drivers/humidifier_hub/assets/images/large.jpg",
+        "small": "/drivers/humidifier_hub/assets/images/small.jpg"
+      },
+      "id": "humidifier_hub",
+      "name": {
+        "en": "Humidifier (HUB)"
+      },
+      "class": "other",
+      "capabilities": [
+        "onoff",
+        "nebulization_mode",
+        "nebulization_efficiency",
+        "measure_temperature",
+        "measure_humidity",
+        "alarm_water"
+      ]
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        }
+      ],
+      "icon": "/drivers/light_remote_hub/assets/icon.svg",
+      "images": {
+        "large": "/drivers/light_remote_hub/assets/images/large.jpg",
+        "small": "/drivers/light_remote_hub/assets/images/small.jpg"
+      },
+      "id": "light_remote_hub",
+      "name": {
+        "en": "Light Remote"
+      },
+      "class": "remote",
+      "capabilities": [
+        "power_on",
+        "power_off",
+        "brightness_up",
+        "brightness_down"
+      ]
+    },
+    {
+      "id": "presence_ble",
+      "name": {
+        "en": "Motion Sensor (BLE)"
+      },
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "ble"
+      ],
+      "class": "sensor",
+      "capabilities": [
+        "alarm_motion",
+        "bright",
+        "measure_battery",
+        "rssi"
       ],
       "pair": [
         {
@@ -81,20 +2112,913 @@
           "template": "add_devices"
         }
       ],
+      "energy": {
+        "batteries": [
+          "AAA",
+          "AAA"
+        ]
+      },
       "images": {
-        "large": "/drivers/curtains_hub/assets/images/large.png",
-        "small": "/drivers/curtains_hub/assets/images/small.png"
+        "large": "/drivers/presence_ble/assets/images/large.jpg",
+        "small": "/drivers/presence_ble/assets/images/small.jpg"
       }
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        }
+      ],
+      "icon": "/drivers/presence_hub/assets/icon.svg",
+      "images": {
+        "large": "/drivers/presence_hub/assets/images/large.jpg",
+        "small": "/drivers/presence_hub/assets/images/small.jpg"
+      },
+      "id": "presence_hub",
+      "name": {
+        "en": "Motion Sensor (HUB)"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "alarm_motion",
+        "bright"
+      ],
+      "energy": {
+        "batteries": [
+          "AAA",
+          "AAA"
+        ]
+      }
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        }
+      ],
+      "icon": "/drivers/scene/assets/icon.svg",
+      "images": {
+        "large": "/drivers/scene/assets/images/large.jpg",
+        "small": "/drivers/scene/assets/images/small.jpg"
+      },
+      "name": {
+        "en": "Scene"
+      },
+      "class": "other",
+      "capabilities": [
+        "play_scene"
+      ],
+      "id": "scene"
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        }
+      ],
+      "icon": "/drivers/settop_box_hub/assets/icon.svg",
+      "images": {
+        "large": "/drivers/settop_box_hub/assets/images/large.jpg",
+        "small": "/drivers/settop_box_hub/assets/images/small.jpg"
+      },
+      "id": "settop_box_hub",
+      "name": {
+        "en": "Set Top Box Remote"
+      },
+      "class": "remote",
+      "capabilities": [
+        "power_on",
+        "power_off",
+        "volume_up",
+        "volume_down",
+        "channel_up",
+        "channel_down",
+        "volume_mute"
+      ]
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        }
+      ],
+      "icon": "/drivers/smart_fan_hub/assets/icon.svg",
+      "images": {
+        "large": "/drivers/smart_fan_hub/assets/images/large.jpg",
+        "small": "/drivers/smart_fan_hub/assets/images/small.jpg"
+      },
+      "id": "smart_fan_hub",
+      "name": {
+        "en": "Smart Fan (HUB)"
+      },
+      "class": "other",
+      "capabilities": [
+        "onoff",
+        "smart_fan_speed",
+        "smart_fan_mode",
+        "smart_fan_shake_range"
+      ]
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        }
+      ],
+      "icon": "/drivers/speaker/assets/icon.svg",
+      "images": {
+        "large": "/drivers/speaker/assets/images/large.jpg",
+        "small": "/drivers/speaker/assets/images/small.jpg"
+      },
+      "id": "speaker",
+      "name": {
+        "en": "Speaker Remote"
+      },
+      "class": "remote",
+      "capabilities": [
+        "power_on",
+        "power_off",
+        "volume_up",
+        "volume_down",
+        "volume_mute",
+        "stop",
+        "play",
+        "pause",
+        "prev",
+        "next",
+        "rewind",
+        "forward"
+      ]
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        }
+      ],
+      "icon": "/drivers/strip_light/assets/icon.svg",
+      "images": {
+        "large": "/drivers/strip_light/assets/images/large.jpg",
+        "small": "/drivers/strip_light/assets/images/small.jpg"
+      },
+      "name": {
+        "en": "Strip Light (HUB)"
+      },
+      "class": "light",
+      "capabilities": [
+        "onoff",
+        "dim",
+        "light_hue",
+        "light_saturation"
+      ],
+      "energy": {
+        "approximation": {
+          "usageOn": 15,
+          "usageOff": 0.1
+        }
+      },
+      "id": "strip_light"
+    },
+    {
+      "id": "temperature_ble",
+      "name": {
+        "en": "Temperature & Humidity (BLE)"
+      },
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "ble"
+      ],
+      "class": "sensor",
+      "capabilities": [
+        "measure_battery",
+        "measure_temperature",
+        "measure_humidity",
+        "rssi"
+      ],
+      "pair": [
+        {
+          "id": "list_my_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_my_devices"
+          }
+        },
+        {
+          "id": "add_my_devices",
+          "template": "add_devices"
+        }
+      ],
+      "energy": {
+        "batteries": [
+          "AAA",
+          "AAA"
+        ]
+      },
+      "images": {
+        "large": "/drivers/temperature_ble/assets/images/large.jpg",
+        "small": "/drivers/temperature_ble/assets/images/small.jpg"
+      }
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        }
+      ],
+      "icon": "/drivers/temperature_hub/assets/icon.svg",
+      "images": {
+        "large": "/drivers/temperature_hub/assets/images/large.jpg",
+        "small": "/drivers/temperature_hub/assets/images/small.jpg"
+      },
+      "id": "temperature_hub",
+      "name": {
+        "en": "Temperature & Humidity (HUB)"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "measure_temperature",
+        "measure_humidity"
+      ]
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        }
+      ],
+      "icon": "/drivers/tv_hub/assets/icon.svg",
+      "images": {
+        "large": "/drivers/tv_hub/assets/images/large.jpg",
+        "small": "/drivers/tv_hub/assets/images/small.jpg"
+      },
+      "id": "tv_hub",
+      "name": {
+        "en": "TV Remote"
+      },
+      "class": "remote",
+      "capabilities": [
+        "power_on",
+        "power_off",
+        "volume_up",
+        "volume_down",
+        "channel_up",
+        "channel_down",
+        "volume_mute"
+      ]
     }
   ],
   "capabilities": {
+    "aircon_fan_speed": {
+      "type": "enum",
+      "title": {
+        "en": "Fan Speed"
+      },
+      "values": [
+        {
+          "id": "1",
+          "title": {
+            "en": "Auto"
+          }
+        },
+        {
+          "id": "2",
+          "title": {
+            "en": "Low"
+          }
+        },
+        {
+          "id": "3",
+          "title": {
+            "en": "Medium"
+          }
+        },
+        {
+          "id": "4",
+          "title": {
+            "en": "High"
+          }
+        }
+      ],
+      "getable": true,
+      "setable": true,
+      "icon": "/assets/air_con_fan.svg"
+    },
+    "aircon_mode": {
+      "type": "enum",
+      "title": {
+        "en": "Mode"
+      },
+      "values": [
+        {
+          "id": "1",
+          "title": {
+            "en": "Auto"
+          }
+        },
+        {
+          "id": "2",
+          "title": {
+            "en": "Cool"
+          }
+        },
+        {
+          "id": "3",
+          "title": {
+            "en": "Dry"
+          }
+        },
+        {
+          "id": "4",
+          "title": {
+            "en": "Fan"
+          }
+        },
+        {
+          "id": "5",
+          "title": {
+            "en": "Heat"
+          }
+        }
+      ],
+      "getable": true,
+      "setable": true,
+      "icon": "/assets/air_con_mode.svg"
+    },
+    "arrow_up": {
+      "type": "boolean",
+      "getable": false,
+      "setable": true,
+      "uiComponent": "button",
+      "title": {
+        "en": "Up"
+      }
+    },
+    "back": {
+      "type": "boolean",
+      "getable": false,
+      "setable": true,
+      "uiComponent": "button",
+      "title": {
+        "en": "Back"
+      }
+    },
+    "bright": {
+      "type": "boolean",
+      "title": {
+        "en": "Bright"
+      },
+      "getable": true,
+      "setable": false,
+      "insights": true,
+      "insightsTitleTrue": {
+        "en": "Light is bright"
+      },
+      "insightsTitleFalse": {
+        "en": "Light is dim"
+      },
+      "icon": "/assets/sun.svg"
+    },
+    "brightness_down": {
+      "type": "boolean",
+      "getable": false,
+      "setable": true,
+      "uiComponent": "button",
+      "title": {
+        "en": "Brightness down"
+      },
+      "icon": "/assets/brightness.svg"
+    },
+    "brightness_up": {
+      "type": "boolean",
+      "getable": false,
+      "setable": true,
+      "uiComponent": "button",
+      "title": {
+        "en": "Brightness up"
+      },
+      "icon": "/assets/brightness.svg"
+    },
+    "button_press_id": {
+      "type": "number",
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "title": {
+        "en": "Button Press ID"
+      },
+      "icon": "/assets/button_press.svg"
+    },
+    "direction": {
+      "type": "boolean",
+      "title": {
+        "en": "Someone Exited"
+      },
+      "getable": true,
+      "setable": false,
+      "insights": true,
+      "insightsTitleTrue": {
+        "en": "Someone Exited"
+      },
+      "insightsTitleFalse": {
+        "en": "Someone Entered"
+      },
+      "icon": "/assets/direction.svg"
+    },
+    "entry_id": {
+      "type": "number",
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "title": {
+        "en": "Entry ID"
+      },
+      "icon": "/assets/entry.svg"
+    },
+    "exit_id": {
+      "type": "number",
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "title": {
+        "en": "Exit ID"
+      },
+      "icon": "/assets/exit.svg"
+    },
+    "fan_speed_high": {
+      "type": "boolean",
+      "getable": false,
+      "setable": true,
+      "uiComponent": "button",
+      "title": {
+        "en": "High Speed"
+      },
+      "icon": "/assets/fan_speed.svg"
+    },
+    "fan_speed_low": {
+      "type": "boolean",
+      "getable": false,
+      "setable": true,
+      "uiComponent": "button",
+      "title": {
+        "en": "Low Speed"
+      },
+      "icon": "/assets/fan_speed.svg"
+    },
+    "fan_speed_middle": {
+      "type": "boolean",
+      "getable": false,
+      "setable": true,
+      "uiComponent": "button",
+      "title": {
+        "en": "Medium Speed"
+      },
+      "icon": "/assets/fan_speed.svg"
+    },
+    "fan_swing": {
+      "type": "boolean",
+      "getable": false,
+      "setable": true,
+      "uiComponent": "button",
+      "title": {
+        "en": "Swing"
+      },
+      "icon": "/assets/rotate_range.svg"
+    },
+    "forward": {
+      "type": "boolean",
+      "getable": false,
+      "setable": true,
+      "uiComponent": "button",
+      "title": {
+        "en": "Fast Forward"
+      },
+      "icon": "/assets/fast-forward.svg"
+    },
+    "nebulization_efficiency": {
+      "type": "number",
+      "getable": true,
+      "setable": true,
+      "uiComponent": "slider",
+      "units": {
+        "en": "%"
+      },
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "title": {
+        "en": "Efficiency"
+      }
+    },
+    "nebulization_mode": {
+      "type": "boolean",
+      "getable": true,
+      "setable": true,
+      "uiComponent": "button",
+      "title": {
+        "en": "Auto"
+      },
+      "icon": "/assets/humidifier.svg"
+    },
+    "next": {
+      "type": "boolean",
+      "getable": false,
+      "setable": true,
+      "uiComponent": "button",
+      "title": {
+        "en": "Next"
+      },
+      "icon": "/assets/next.svg"
+    },
+    "open_close": {
+      "type": "boolean",
+      "title": {
+        "en": "Open / Close"
+      },
+      "getable": true,
+      "setable": true,
+      "uiQuickAction": true,
+      "uiComponent": "toggle"
+    },
+    "pause": {
+      "type": "boolean",
+      "getable": false,
+      "setable": true,
+      "uiComponent": "button",
+      "title": {
+        "en": "Pause"
+      },
+      "icon": "/assets/pause.svg"
+    },
+    "play": {
+      "type": "boolean",
+      "getable": false,
+      "setable": true,
+      "uiComponent": "button",
+      "title": {
+        "en": "Play"
+      },
+      "icon": "/assets/play.svg"
+    },
+    "play_scene": {
+      "type": "boolean",
+      "getable": false,
+      "setable": true,
+      "uiComponent": "button",
+      "title": {
+        "en": "Play Scene"
+      },
+      "icon": "/assets/play_scene.svg"
+    },
+    "position": {
+      "type": "number",
+      "title": {
+        "en": "Position Reading"
+      },
+      "units": {
+        "en": "%"
+      },
+      "getable": true,
+      "setable": false,
+      "icon": "/drivers/curtains_ble/assets/icon.svg"
+    },
+    "power_off": {
+      "type": "boolean",
+      "getable": false,
+      "setable": true,
+      "uiComponent": "button",
+      "title": {
+        "en": "Power Off"
+      },
+      "icon": "/assets/power_off.svg"
+    },
+    "power_on": {
+      "type": "boolean",
+      "getable": false,
+      "setable": true,
+      "uiComponent": "button",
+      "title": {
+        "en": "Power On"
+      },
+      "icon": "/assets/power_on.svg"
+    },
+    "prev": {
+      "type": "boolean",
+      "getable": false,
+      "setable": true,
+      "uiComponent": "button",
+      "title": {
+        "en": "Previous"
+      },
+      "icon": "/assets/prev.svg"
+    },
+    "rewind": {
+      "type": "boolean",
+      "getable": false,
+      "setable": true,
+      "uiComponent": "button",
+      "title": {
+        "en": "Rewind"
+      },
+      "icon": "/assets/rewind.svg"
+    },
     "rssi": {
       "type": "number",
       "title": {
         "en": "RSSI"
       },
+      "units": {
+        "en": "db"
+      },
       "getable": true,
-      "setable": false
+      "setable": false,
+      "icon": "/assets/signal_strength.svg"
+    },
+    "smart_fan_mode": {
+      "type": "enum",
+      "title": {
+        "en": "Mode"
+      },
+      "values": [
+        {
+          "id": "1",
+          "title": {
+            "en": "Standard"
+          }
+        },
+        {
+          "id": "2",
+          "title": {
+            "en": "Natural"
+          }
+        }
+      ],
+      "getable": true,
+      "setable": true,
+      "icon": "/assets/fan_mode.svg"
+    },
+    "smart_fan_shake_range": {
+      "type": "number",
+      "getable": true,
+      "setable": true,
+      "uiComponent": "slider",
+      "units": {
+        "en": "°"
+      },
+      "min": 0,
+      "max": 120,
+      "step": 1,
+      "title": {
+        "en": "Shake Range"
+      },
+      "icon": "/assets/rotate_range.svg"
+    },
+    "smart_fan_speed": {
+      "type": "enum",
+      "title": {
+        "en": "Fan Speed"
+      },
+      "values": [
+        {
+          "id": "1",
+          "title": {
+            "en": "1"
+          }
+        },
+        {
+          "id": "2",
+          "title": {
+            "en": "2"
+          }
+        },
+        {
+          "id": "3",
+          "title": {
+            "en": "3"
+          }
+        },
+        {
+          "id": "4",
+          "title": {
+            "en": "4"
+          }
+        }
+      ],
+      "getable": true,
+      "setable": true,
+      "icon": "/assets/air_con_fan.svg"
+    },
+    "stop": {
+      "type": "boolean",
+      "getable": false,
+      "setable": true,
+      "uiComponent": "button",
+      "title": {
+        "en": "Stop"
+      },
+      "icon": "/assets/stop.svg"
     }
   }
 }

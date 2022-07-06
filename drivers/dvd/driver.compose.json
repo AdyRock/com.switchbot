@@ -1,0 +1,23 @@
+{
+    "id": "dvd",
+    "name":
+    {
+        "en": "DVD Remote"
+    },
+    "class": "remote",
+    "capabilities": [
+        "power_on",
+        "power_off",
+        "volume_mute",
+        "stop",
+        "play",
+        "pause",
+        "prev",
+        "next",
+        "rewind",
+        "forward"
+    ],
+    "$extends": [
+        "hubDriver"
+    ]
+}

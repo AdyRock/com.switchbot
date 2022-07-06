@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="1100"
+   height="1100"
+   viewBox="0 0 291.04167 291.04168"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   sodipodi:docname="icon.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#cccccc"
+     borderopacity="1"
+     inkscape:pageshadow="0"
+     inkscape:pageopacity="1"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="1.0998546"
+     inkscape:cx="199.11723"
+     inkscape:cy="631.90171"
+     inkscape:window-width="3840"
+     inkscape:window-height="2066"
+     inkscape:window-x="-11"
+     inkscape:window-y="-11"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1"
+     units="px" />
+  <defs
+     id="defs2">
+    <pattern
+       id="EMFhbasepattern"
+       patternUnits="userSpaceOnUse"
+       width="6"
+       height="6"
+       x="0"
+       y="0" />
+    <pattern
+       id="EMFhbasepattern-4"
+       patternUnits="userSpaceOnUse"
+       width="6"
+       height="6"
+       x="0"
+       y="0" />
+    <pattern
+       id="EMFhbasepattern-0"
+       patternUnits="userSpaceOnUse"
+       width="6"
+       height="6"
+       x="0"
+       y="0" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:6;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:1;paint-order:stroke fill markers"
+       id="rect18524"
+       width="148.3299"
+       height="144.92783"
+       x="69.36396"
+       y="42.601204"
+       rx="36.018188"
+       ry="34.900883" />
+    <ellipse
+       style="font-variation-settings:normal;opacity:1;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:5.99999;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000;stop-opacity:1"
+       id="path18647"
+       cx="143.5289"
+       cy="115.06512"
+       rx="48.419468"
+       ry="49.923672" />
+    <path
+       id="rect18974"
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:6;stroke-linecap:square;stroke-linejoin:round;stroke-dashoffset:1;paint-order:stroke fill markers;stroke-miterlimit:4;stroke-dasharray:none"
+       d="m 128.6346,207.72538 26.95493,-0.36085 c 10.02445,-0.13419 15.24996,6.62282 20.62221,13.8517 l 19.72609,26.54336 c 5.37227,7.22889 -0.61353,8.67962 -10.63888,8.67962 h -84.81012 c -10.025359,0 -18.410089,0.38794 -12.924228,-6.75513 l 21.770868,-28.34757 c 5.48586,-7.14306 9.27467,-13.47694 19.29913,-13.61113 z"
+       sodipodi:nodetypes="sssssssss" />
+    <path
+       id="rect19500"
+       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:6.00001;stroke-linecap:square;stroke-linejoin:round;stroke-dashoffset:1;paint-order:markers fill stroke"
+       d="m 132.49099,199.43505 20.33289,-0.0729 c 0.0511,-1.7e-4 2.38555,2.84158 2.38555,2.84158 1.0065,1.02967 2.03038,2.01708 2.85785,3.25146 h -30.91013 c -0.0512,0 -0.13468,-0.0903 -0.0923,-0.13477 l 2.96219,-3.10589 c 0.0423,-0.0443 2.41281,-2.77929 2.464,-2.77944 z"
+       sodipodi:nodetypes="ssccsssss" />
+    <path
+       style="font-variation-settings:normal;opacity:0.99;fill:none;fill-opacity:1;stroke:#000000;stroke-width:5;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:1;stroke-opacity:1;paint-order:stroke fill markers;stop-color:#000000;stop-opacity:1"
+       d="m 136.51899,188.63368 -0.0601,8.8678"
+       id="path22936" />
+    <path
+       style="font-variation-settings:normal;opacity:0.99;fill:none;fill-opacity:1;stroke:#000000;stroke-width:5;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:1;stroke-opacity:1;paint-order:stroke fill markers;stop-color:#000000"
+       d="m 148.93799,188.58216 -0.0601,9.52073"
+       id="path22936-0" />
+  </g>
+</svg>

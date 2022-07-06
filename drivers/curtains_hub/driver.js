@@ -1,35 +1,26 @@
+/* jslint node: true */
+
 'use strict';
 
-const Homey = require('homey');
 const HubDriver = require('../hub_driver');
 
 class HubCurtainDriver extends HubDriver
 {
+
     /**
-     * onInit is called when the driver is initialized.
+     * onOAuth2Init is called when the driver is initialized.
      */
-    async onInit()
+    async onOAuth2Init()
     {
-        super.onInit();
+        super.onOAuth2Init();
         this.log('HubCurtainDriver has been initialized');
     }
 
-    /**
-     * onPairListDevices is called when a user is adding a device and the 'list_devices' view is called.
-     * This should return an array with the data of devices that are available for pairing.
-     */
-    onPairListDevices( data, callback )
+    async onPairListDevices({ oAuth2Client })
     {
-        this.getHUBDevices('Curtain').then( function( devices )
-        {
-            //console.log( devices );
-            callback( null, devices );
-
-        } ).catch( function( err )
-        {
-            callback( err, [] );
-        } );
+        return this.getHUBDevices(oAuth2Client, 'Curtain');
     }
+
 }
 
 module.exports = HubCurtainDriver;
