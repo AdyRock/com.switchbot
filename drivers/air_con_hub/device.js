@@ -14,6 +14,9 @@ class AirConHubDevice extends HubDevice
     {
         await super.onInit();
 
+        const dd = this.getData();
+        this.diy = dd.diy;
+
         if (this.hasCapability('onoff'))
         {
             this.removeCapability('onoff');
@@ -21,7 +24,26 @@ class AirConHubDevice extends HubDevice
             this.addCapability('power_off');
         }
 
-        this.registerMultipleCapabilityListener(['onoff', 'target_temperature', 'aircon_mode', 'aircon_fan_speed'], this.onCapabilityAll.bind(this));
+        if (this.diy)
+        {
+            if (this.hasCapability('target_temperature'))
+            {
+                this.removeCapability('target_temperature');
+            }
+            if (this.hasCapability('aircon_mode'))
+            {
+                this.removeCapability('aircon_mode');
+            }
+            if (this.hasCapability('aircon_fan_speed'))
+            {
+                this.removeCapability('aircon_fan_speed');
+            }
+        }
+        else
+        {
+            this.registerMultipleCapabilityListener(['onoff', 'target_temperature', 'aircon_mode', 'aircon_fan_speed'], this.onCapabilityAll.bind(this));
+        }
+
         this.registerCapabilityListener('power_off', this.onCapabilityPowerOff.bind(this));
         this.registerCapabilityListener('power_on', this.onCapabilityPowerOn.bind(this));
 
@@ -48,11 +70,33 @@ class AirConHubDevice extends HubDevice
 
     async onCapabilityPowerOff(value, opts)
     {
+        if (this.diy)
+        {
+            const data = {
+                command: 'turnOn',
+                parameter:  'default',
+                commandType: 'command',
+            };
+    
+            return super.setDeviceData(data);
+        }
+
         return this.onCapabilityAll({ power_off: true });
     }
 
     async onCapabilityPowerOn(value, opts)
     {
+        if (this.diy)
+        {
+            const data = {
+                command: 'turnOff',
+                parameter:  'default',
+                commandType: 'command',
+            };
+    
+            return super.setDeviceData(data);
+        }
+
         return this.onCapabilityAll({ power_on: true });
     }
 

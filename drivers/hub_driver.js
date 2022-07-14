@@ -46,9 +46,19 @@ class HubDriver extends OAuth2Driver
                         this.homey.app.updateLog(this.homey.app.varToString(device));
 
                         let data = {};
-                        data = {
-                            id: device.deviceId,
-                        };
+                        if (device.remoteType === (`DIY ${type}`))
+                        {
+                            data = {
+                                id: device.deviceId,
+                                diy: true
+                            };
+                        }
+                        else
+                        {
+                            data = {
+                                id: device.deviceId,
+                            };
+                        }
 
                         // Add this device to the table
                         devices.push(

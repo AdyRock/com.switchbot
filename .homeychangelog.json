@@ -180,6 +180,9 @@
     "en": "Fixed use of a function that is not available on older Homeys. Attempt to register webhook every 2 seconds if it fails due to Homey connection issues."
   },
   "1.1.10": {
-    "en": "Added support for Light Strips"
+    "en": "Added support for Light Strips."
+  },
+  "1.1.11": {
+    "en": "Fix for DIY Airconditioner (only supports on and off)."
   }
 }
