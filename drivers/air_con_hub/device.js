@@ -73,7 +73,7 @@ class AirConHubDevice extends HubDevice
         if (this.diy)
         {
             const data = {
-                command: 'turnOn',
+                command: 'turnOff',
                 parameter:  'default',
                 commandType: 'command',
             };
@@ -89,7 +89,7 @@ class AirConHubDevice extends HubDevice
         if (this.diy)
         {
             const data = {
-                command: 'turnOff',
+                command: 'turnOn',
                 parameter:  'default',
                 commandType: 'command',
             };

@@ -184,5 +184,8 @@
   },
   "1.1.11": {
     "en": "Fix for DIY Airconditioner (only supports on and off)."
+  },
+  "1.1.12": {
+    "en": "Reverse On / Off commands for DIY Airconditioner."
   }
 }
