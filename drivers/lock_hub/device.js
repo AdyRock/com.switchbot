@@ -81,7 +81,7 @@ class LockHubDevice extends HubDevice
                 this.setAvailable();
                 this.homey.app.updateLog(`Lock Hub got: ${this.homey.app.varToString(data)}`, 2);
 
-                this.setCapabilityValue('locked', data.lockState === 'locked ').catch(this.error);
+                this.setCapabilityValue('locked', data.lockState === 'locked').catch(this.error);
             }
         }
         catch (err)
@@ -99,7 +99,7 @@ class LockHubDevice extends HubDevice
             if (dd.id === message.context.deviceMac)
             {
                 // message is for this device
-                this.setCapabilityValue('lockState', message.context.detectionState === 'LOCKED').catch(this.error);
+                this.setCapabilityValue('locked', message.context.lockState === 'LOCKED').catch(this.error);
             }
         }
         catch (err)
