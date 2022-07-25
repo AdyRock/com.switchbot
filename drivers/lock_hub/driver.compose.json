@@ -1,0 +1,19 @@
+{
+    "id": "lock_hub",
+    "name": {
+        "en": "Lock (HUB)"
+    },
+    "class": "lock",
+    "capabilities": [
+        "locked"
+    ],
+    "energy": {
+        "batteries": [
+            "CR2",
+            "CR2"
+        ]
+    },
+    "$extends": [
+        "hubDriver"
+    ]
+}

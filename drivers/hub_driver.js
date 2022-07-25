@@ -9,7 +9,23 @@ class HubDriver extends OAuth2Driver
 
     async getHUBDevices(oAuth2Client, type, RemoteList = false)
     {
-        const response = await oAuth2Client.getDevices();
+        let response = null;
+
+        if (process.env.DEBUG === '1')
+        {
+            const simData = this.homey.settings.get('simData');
+            if (simData)
+            {
+                const bodyJSON = JSON.parse(simData);
+                response = { body: bodyJSON, statusCode: 100 };
+            }
+        }
+
+        if (response === null)
+        {
+            response = await oAuth2Client.getDevices();
+        }
+
         if (response)
         {
             if (response.statusCode !== 100)

@@ -2075,6 +2075,57 @@
       ]
     },
     {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        }
+      ],
+      "icon": "/drivers/lock_hub/assets/icon.svg",
+      "images": {
+        "large": "/drivers/lock_hub/assets/images/large.jpg",
+        "small": "/drivers/lock_hub/assets/images/small.jpg"
+      },
+      "id": "lock_hub",
+      "name": {
+        "en": "Lock (HUB)"
+      },
+      "class": "lock",
+      "capabilities": [
+        "locked"
+      ],
+      "energy": {
+        "batteries": [
+          "CR2",
+          "CR2"
+        ]
+      }
+    },
+    {
       "id": "presence_ble",
       "name": {
         "en": "Motion Sensor (BLE)"
