@@ -4,7 +4,7 @@
 
 const HubDevice = require('../hub_device');
 
-const NUM_BUTTONS = 12;
+const NUM_BUTTONS = 36;
 
 class CustomRemoteHubDevice extends HubDevice
 {
@@ -91,6 +91,30 @@ class CustomRemoteHubDevice extends HubDevice
                     button10: buttons[9],
                     button11: buttons[10],
                     button12: buttons[11],
+                    button13: buttons[12],
+                    button14: buttons[13],
+                    button15: buttons[14],
+                    button16: buttons[15],
+                    button17: buttons[16],
+                    button18: buttons[17],
+                    button19: buttons[18],
+                    button20: buttons[19],
+                    button21: buttons[20],
+                    button22: buttons[21],
+                    button23: buttons[22],
+                    button24: buttons[23],
+                    button25: buttons[24],
+                    button26: buttons[25],
+                    button27: buttons[26],
+                    button28: buttons[27],
+                    button29: buttons[28],
+                    button30: buttons[29],
+                    button31: buttons[30],
+                    button32: buttons[31],
+                    button33: buttons[32],
+                    button34: buttons[33],
+                    button35: buttons[34],
+                    button36: buttons[35],
                 },
             );
         }

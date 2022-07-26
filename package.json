@@ -1,6 +1,6 @@
 {
     "name": "com.switchbot",
-    "version": "1.1.12",
+    "version": "1.1.13",
     "description": "Adds support to Homey for SwitchBot devices",
     "main": "app.js",
     "dependencies": {
