@@ -189,6 +189,6 @@
     "en": "Reverse On / Off commands for DIY Airconditioner."
   },
   "1.1.13": {
-    "en": "Increased the number of buttons to 36 for a custom remote."
+    "en": "Increased the number of buttons to 36 for a custom remote. Added support for the SwitchBot Lock"
   }
 }
