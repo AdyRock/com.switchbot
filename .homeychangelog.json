@@ -190,5 +190,8 @@
   },
   "1.1.13": {
     "en": "Increased the number of buttons to 36 for a custom remote. Added support for the SwitchBot Lock"
+  },
+  "1.1.14": {
+    "en": "Change log levels. Updated Contact webhook for new format."
   }
 }
