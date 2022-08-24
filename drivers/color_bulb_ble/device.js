@@ -246,7 +246,7 @@ class ColorBulbBLEDevice extends Homey.Device
 
         if (response instanceof Error)
         {
-            this.homey.app.updateLog(`!!!!!!! Command for ${name} failed\r\n`);
+            this.homey.app.updateLog(`!!!!!!! Command for ${name} failed\r\n`, 0);
             throw response;
         }
     }
@@ -320,7 +320,7 @@ class ColorBulbBLEDevice extends Homey.Device
             }
             catch (err)
             {
-                this.homey.app.updateLog(`Catch 2: ${name}: ${this.homey.app.varToString(err)}`);
+                this.homey.app.updateLog(`Catch 2: ${name}: ${this.homey.app.varToString(err)}`, 0);
                 sending = false;
                 return err;
                 // throw(err);
@@ -340,7 +340,7 @@ class ColorBulbBLEDevice extends Homey.Device
         }
         catch (err)
         {
-            this.homey.app.updateLog(`Catch 1: ${name}: ${this.homey.app.varToString(err)}`);
+            this.homey.app.updateLog(`Catch 1: ${name}: ${this.homey.app.varToString(err)}`, 0);
             return err;
         }
         finally
@@ -400,15 +400,15 @@ class ColorBulbBLEDevice extends Homey.Device
 
             if (dd.id)
             {
-                this.homey.app.updateLog(`Finding Bulb BLE device ${name}`, 2);
+                this.homey.app.updateLog(`Finding Bulb BLE device ${name}`, 3);
                 const bleAdvertisement = await this.homey.ble.find(dd.id);
                 if (!bleAdvertisement)
                 {
-                    this.homey.app.updateLog(`BLE device ${name} not found`);
+                    this.homey.app.updateLog(`BLE device ${name} not found`, 0);
                     return;
                 }
 
-                this.homey.app.updateLog(this.homey.app.varToString(bleAdvertisement), 3);
+                this.homey.app.updateLog(this.homey.app.varToString(bleAdvertisement), 4);
                 const rssi = await bleAdvertisement.rssi;
                 this.setCapabilityValue('rssi', rssi).catch(this.error);
 
@@ -430,11 +430,11 @@ class ColorBulbBLEDevice extends Homey.Device
                     {
                         this.setCapabilityValue('onoff', false).catch(this.error);
                     }
-                    this.homey.app.updateLog(`Parsed Bulb BLE (${name}) ${this.homey.app.varToString(data)}`, 2);
+                    this.homey.app.updateLog(`Parsed Bulb BLE (${name}) ${this.homey.app.varToString(data)}`, 3);
                 }
                 else
                 {
-                    this.homey.app.updateLog(`Parsed Bulb BLE (${name}): No service data`, 1);
+                    this.homey.app.updateLog(`Parsed Bulb BLE (${name}): No service data`, 0);
                 }
             }
             else
@@ -448,14 +448,14 @@ class ColorBulbBLEDevice extends Homey.Device
         }
         finally
         {
-            this.homey.app.updateLog(`Finding Bulb device (${name}) --- COMPLETE`, 2);
+            this.homey.app.updateLog(`Finding Bulb device (${name}) --- COMPLETE`, 3);
         }
     }
 
     async syncBLEEvents(events)
     {
         const name = this.getName();
-        this.homey.app.updateLog(`syncEvents for (${name})`, 2);
+        this.homey.app.updateLog(`syncEvents for (${name})`, 3);
         try
         {
             const dd = this.getData();

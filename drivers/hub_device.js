@@ -57,24 +57,24 @@ class HubDevice extends OAuth2Device
         {
             try
             {
-                this.homey.app.updateLog(`Sending ${this.homey.app.varToString(data)} to ${dd.id} using OAuth`, 2);
+                this.homey.app.updateLog(`Sending ${this.homey.app.varToString(data)} to ${dd.id} using OAuth`, 3);
                 result = await this.oAuth2Client.setDeviceData(dd.id, data);
             }
             catch (err)
             {
-                this.homey.app.updateLog(`Failed to send command to ${dd.id} using OAuth: ${this.homey.app.varToString(err)}`);
+                this.homey.app.updateLog(`Failed to send command to ${dd.id} using OAuth: ${this.homey.app.varToString(err)}`, 0);
                 throw (err.message);
             }
 
             if (!result)
             {
-                this.homey.app.updateLog(`Failed to send command to ${dd.id} using OAuth: Nothing returned`);
+                this.homey.app.updateLog(`Failed to send command to ${dd.id} using OAuth: Nothing returned`, 0);
                 throw new Error('Nothing returned');
             }
 
             if (result.statusCode !== 100)
             {
-                this.homey.app.updateLog(`Failed to send command to ${dd.id} using OAuth: ${result.statusCode}`);
+                this.homey.app.updateLog(`Failed to send command to ${dd.id} using OAuth: ${result.statusCode}`, 0);
                 if (result.statusCode === 152)
                 {
                     throw new Error(`Error: Device not found by SwitchBot`);
@@ -109,7 +109,7 @@ class HubDevice extends OAuth2Device
             return true;
         }
 
-        this.homey.app.updateLog(`Sending ${this.homey.app.varToString(data)} to ${dd.id} using API key`, 2);
+        this.homey.app.updateLog(`Sending ${this.homey.app.varToString(data)} to ${dd.id} using API key`, 3);
         result = await this.homey.app.hub.setDeviceData(dd.id, data);
         this.homey.app.updateLog(`Success sending command to ${dd.id} using API key`);
         return result;

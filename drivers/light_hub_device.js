@@ -195,7 +195,7 @@ class LightHubDevice extends HubDevice
             if (data)
             {
                 this.setAvailable();
-                this.homey.app.updateLog(`Strip Light Hub got: ${this.homey.app.varToString(data)}`, 2);
+                this.homey.app.updateLog(`Strip Light Hub got: ${this.homey.app.varToString(data)}`, 3);
 
                 this.setCapabilityValue('onoff', data.power === 'on').catch(this.error);
                 this.setCapabilityValue('dim', data.brightness / 100).catch(this.error);
@@ -222,7 +222,7 @@ class LightHubDevice extends HubDevice
         }
         catch (err)
         {
-            this.homey.app.updateLog(`getHubDeviceValues: : ${this.homey.app.varToString(err)}`);
+            this.homey.app.updateLog(`getHubDeviceValues: : ${this.homey.app.varToString(err)}`, 0);
             this.setUnavailable(err.message);
         }
     }
@@ -258,7 +258,7 @@ class LightHubDevice extends HubDevice
         }
         catch (err)
         {
-            this.homey.app.updateLog(`processWebhookMessage error ${err.message}`);
+            this.homey.app.updateLog(`processWebhookMessage error ${err.message}`, 0);
         }
     }
 

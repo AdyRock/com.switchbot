@@ -46,7 +46,7 @@ class TemperatureHubDevice extends HubDevice
             if (data)
             {
                 this.setAvailable();
-                this.homey.app.updateLog(`Temperature Hub got: ${this.homey.app.varToString(data)}`, 2);
+                this.homey.app.updateLog(`Temperature Hub got: ${this.homey.app.varToString(data)}`, 3);
 
                 this.setCapabilityValue('measure_temperature', data.temperature).catch(this.error);
                 this.setCapabilityValue('measure_humidity', data.humidity).catch(this.error);
@@ -54,7 +54,7 @@ class TemperatureHubDevice extends HubDevice
         }
         catch (err)
         {
-            this.homey.app.updateLog(`getHubDeviceValues: : ${this.homey.app.varToString(err)}`);
+            this.homey.app.updateLog(`getHubDeviceValues: : ${this.homey.app.varToString(err)}`, 0);
             this.setUnavailable(err.message);
         }
     }
@@ -80,7 +80,7 @@ class TemperatureHubDevice extends HubDevice
         }
         catch (err)
         {
-            this.homey.app.updateLog(`processWebhookMessage error ${err.message}`);
+            this.homey.app.updateLog(`processWebhookMessage error ${err.message}`, 0);
         }
     }
 

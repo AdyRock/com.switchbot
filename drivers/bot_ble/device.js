@@ -197,7 +197,7 @@ class BotBLEDevice extends Homey.Device
 
         if (response instanceof Error)
         {
-            this.homey.app.updateLog(`!!!!!!! Command for ${name} failed\r\n`);
+            this.homey.app.updateLog(`!!!!!!! Command for ${name} failed\r\n`, 0);
             this.sendingCommand = false;
             throw response;
         }
@@ -217,7 +217,7 @@ class BotBLEDevice extends Homey.Device
             const bleAdvertisement = await this.homey.ble.find(dd.id);
             if (!bleAdvertisement)
             {
-                this.homey.app.updateLog(`BLE device ${name} not found`);
+                this.homey.app.updateLog(`BLE device ${name} not found`, 0);
                 return returnStatue;
             }
 
@@ -350,7 +350,7 @@ class BotBLEDevice extends Homey.Device
                     const data = this.driver.parse(bleAdvertisement);
                     if (data)
                     {
-                        this.homey.app.updateLog(`Parsed Bot BLE (${name}) ${this.homey.app.varToString(data)}`, 2);
+                        this.homey.app.updateLog(`Parsed Bot BLE (${name}) ${this.homey.app.varToString(data)}`, 3);
 
                         this.setAvailable();
                         const operationMode = data.serviceData.mode;
@@ -378,11 +378,11 @@ class BotBLEDevice extends Homey.Device
 
                         this.setCapabilityValue('measure_battery', data.serviceData.battery).catch(this.error);
 
-                        this.homey.app.updateLog(`Parsed Bot BLE (${name}): onoff = ${data.serviceData.state}, battery = ${data.serviceData.battery}`, 2);
+                        this.homey.app.updateLog(`Parsed Bot BLE (${name}): onoff = ${data.serviceData.state}, battery = ${data.serviceData.battery}`, 3);
                     }
                     else
                     {
-                        this.homey.app.updateLog(`Parsed Bot BLE (${name}): No service data`, 1);
+                        this.homey.app.updateLog(`Parsed Bot BLE (${name}): No service data`, 0);
                     }
                 }
             }
@@ -397,14 +397,14 @@ class BotBLEDevice extends Homey.Device
         }
         finally
         {
-            this.homey.app.updateLog(`Finding Bot device (${name}) --- COMPLETE`, 2);
+            this.homey.app.updateLog(`Finding Bot device (${name}) --- COMPLETE`, 3);
         }
     }
 
     async syncBLEEvents(events)
     {
         const name = this.getName();
-        this.homey.app.updateLog(`syncEvents for (${name})`, 2);
+        this.homey.app.updateLog(`syncEvents for (${name})`, 3);
         try
         {
             const dd = this.getData();

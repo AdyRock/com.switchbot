@@ -79,14 +79,14 @@ class LockHubDevice extends HubDevice
             if (data)
             {
                 this.setAvailable();
-                this.homey.app.updateLog(`Lock Hub got: ${this.homey.app.varToString(data)}`, 2);
+                this.homey.app.updateLog(`Lock Hub got: ${this.homey.app.varToString(data)}`, 3);
 
                 this.setCapabilityValue('locked', data.lockState === 'locked').catch(this.error);
             }
         }
         catch (err)
         {
-            this.homey.app.updateLog(`getHubDeviceValues: : ${this.homey.app.varToString(err)}`);
+            this.homey.app.updateLog(`getHubDeviceValues: : ${this.homey.app.varToString(err)}`, 0);
             this.setUnavailable(err.message);
         }
     }
@@ -104,7 +104,7 @@ class LockHubDevice extends HubDevice
         }
         catch (err)
         {
-            this.homey.app.updateLog(`processWebhookMessage error ${err.message}`);
+            this.homey.app.updateLog(`processWebhookMessage error ${err.message}`, 0);
         }
     }
 

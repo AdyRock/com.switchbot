@@ -209,7 +209,7 @@ class CurtainsBLEDevice extends Homey.Device
 
             if (loops > 0)
             {
-                this.homey.app.updateLog(`Retry command (${4 - loops} of 3) for ${name} in 2 seconds`, 0);
+                this.homey.app.updateLog(`Retry command (${4 - loops} of 3) for ${name} in 2 seconds`);
                 await this.homey.app.Delay(2000);
             }
         }
@@ -326,7 +326,7 @@ class CurtainsBLEDevice extends Homey.Device
 
             if (dd.id)
             {
-                this.homey.app.updateLog(`Finding Curtain BLE device ${name}`, 2);
+                this.homey.app.updateLog(`Finding Curtain BLE device ${name}`, 3);
                 const bleAdvertisement = await this.homey.ble.find(dd.id);
                 if (!bleAdvertisement)
                 {
@@ -334,14 +334,14 @@ class CurtainsBLEDevice extends Homey.Device
                     return;
                 }
 
-                this.homey.app.updateLog(this.homey.app.varToString(bleAdvertisement), 3);
+                this.homey.app.updateLog(this.homey.app.varToString(bleAdvertisement), 4);
                 const rssi = await bleAdvertisement.rssi;
                 this.setCapabilityValue('rssi', rssi).catch(this.error);
 
                 const data = this.driver.parse(bleAdvertisement);
                 if (data)
                 {
-                    this.homey.app.updateLog(`Parsed Curtain BLE (${name}) ${this.homey.app.varToString(data)}`, 2);
+                    this.homey.app.updateLog(`Parsed Curtain BLE (${name}) ${this.homey.app.varToString(data)}`, 3);
                     let position = data.serviceData.position / 100;
                     if (this.invertPosition)
                     {
@@ -361,11 +361,11 @@ class CurtainsBLEDevice extends Homey.Device
                     this.setCapabilityValue('position', position * 100).catch(this.error);
 
                     this.setCapabilityValue('measure_battery', data.serviceData.battery).catch(this.error);
-                    this.homey.app.updateLog(`Parsed Curtain BLE (${name}): position = ${data.serviceData.position}, battery = ${data.serviceData.battery}`, 2);
+                    this.homey.app.updateLog(`Parsed Curtain BLE (${name}): position = ${data.serviceData.position}, battery = ${data.serviceData.battery}`, 3);
                 }
                 else
                 {
-                    this.homey.app.updateLog(`Parsed Curtain BLE (${name}): No service data`, 1);
+                    this.homey.app.updateLog(`Parsed Curtain BLE (${name}): No service data`, 0);
                 }
             }
             else
@@ -379,14 +379,14 @@ class CurtainsBLEDevice extends Homey.Device
         }
         finally
         {
-            this.homey.app.updateLog(`Finding Curtain device (${name}) --- COMPLETE`, 2);
+            this.homey.app.updateLog(`Finding Curtain device (${name}) --- COMPLETE`, 3);
         }
     }
 
     async syncBLEEvents(events)
     {
         const name = this.getName();
-        this.homey.app.updateLog(`syncEvents for (${name})`, 2);
+        this.homey.app.updateLog(`syncEvents for (${name})`, 3);
         try
         {
             const dd = this.getData();
@@ -413,7 +413,7 @@ class CurtainsBLEDevice extends Homey.Device
 
                     this.setCapabilityValue('measure_battery', event.serviceData.battery).catch(this.error);
                     this.setCapabilityValue('rssi', event.rssi).catch(this.error);
-                    this.homey.app.updateLog(`Parsed Curtain BLE (${name}): position = ${event.serviceData.position}, battery = ${event.serviceData.battery}`, 2);
+                    this.homey.app.updateLog(`Parsed Curtain BLE (${name}): position = ${event.serviceData.position}, battery = ${event.serviceData.battery}`, 3);
 
                     if (event.hubMAC && ((event.rssi < this.bestRSSI) || (event.hubMAC === this.bestHub)))
                     {

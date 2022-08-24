@@ -78,7 +78,7 @@ class PresenceBLEDevice extends Homey.Device
 
             if (dd.id)
             {
-                this.homey.app.updateLog('Finding Presence BLE device', 2);
+                this.homey.app.updateLog('Finding Presence BLE device', 3);
                 const bleAdvertisement = await this.homey.ble.find(dd.id);
                 if (!bleAdvertisement)
                 {
@@ -87,14 +87,14 @@ class PresenceBLEDevice extends Homey.Device
                     return;
                 }
 
-                this.homey.app.updateLog(this.homey.app.varToString(bleAdvertisement), 3);
+                this.homey.app.updateLog(this.homey.app.varToString(bleAdvertisement), 4);
                 const rssi = await bleAdvertisement.rssi;
                 this.setCapabilityValue('rssi', rssi).catch(this.error);
 
                 const data = this.driver.parse(bleAdvertisement);
                 if (data)
                 {
-                    this.homey.app.updateLog(`Parsed Presence BLE: ${this.homey.app.varToString(data)}`, 2);
+                    this.homey.app.updateLog(`Parsed Presence BLE: ${this.homey.app.varToString(data)}`, 3);
                     this.setCapabilityValue('alarm_motion', data.serviceData.motion).catch(this.error);
                     if (this.getCapabilityValue('bright') !== data.serviceData.light)
                     {
@@ -103,11 +103,11 @@ class PresenceBLEDevice extends Homey.Device
                         this.driver.bright_changed(device, data.serviceData.light);
                     }
                     this.setCapabilityValue('measure_battery', data.serviceData.battery).catch(this.error);
-                    this.homey.app.updateLog(`Parsed Presence BLE: battery = ${data.serviceData.battery}`, 2);
+                    this.homey.app.updateLog(`Parsed Presence BLE: battery = ${data.serviceData.battery}`, 3);
                 }
                 else
                 {
-                    this.homey.app.updateLog('Parsed Presence BLE: No service data', 1);
+                    this.homey.app.updateLog('Parsed Presence BLE: No service data', 0);
                 }
             }
             else
@@ -121,7 +121,7 @@ class PresenceBLEDevice extends Homey.Device
         }
         finally
         {
-            this.homey.app.updateLog('Finding Presence BLE device --- COMPLETE', 2);
+            this.homey.app.updateLog('Finding Presence BLE device --- COMPLETE', 3);
         }
     }
 

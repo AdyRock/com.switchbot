@@ -50,7 +50,7 @@ class ContactHubDevice extends HubDevice
             if (data)
             {
                 this.setAvailable();
-                this.homey.app.updateLog(`Contact Hub got:${this.homey.app.varToString(data)}`, 2);
+                this.homey.app.updateLog(`Contact Hub got:${this.homey.app.varToString(data)}`, 3);
 
                 this.setCapabilityValue('alarm_motion', data.moveDetected).catch(this.error);
                 this.setCapabilityValue('alarm_contact', ((data.openState === 'open') || (data.openState === 'timeOutNotClose'))).catch(this.error);
@@ -66,7 +66,7 @@ class ContactHubDevice extends HubDevice
         }
         catch (err)
         {
-            this.homey.app.updateLog(`getHubDeviceValues: : ${this.homey.app.varToString(err)}`);
+            this.homey.app.updateLog(`getHubDeviceValues: : ${this.homey.app.varToString(err)}`, 0);
             this.setUnavailable(err.message);
         }
     }
@@ -79,8 +79,9 @@ class ContactHubDevice extends HubDevice
             if (dd.id === message.context.deviceMac)
             {
                 // message is for this device
-                this.setCapabilityValue('alarm_contact', message.context.detectionState === 'DETECTED').catch(this.error);
-                if (message.context.detectionState === 'DETECTED')
+                this.setCapabilityValue('alarm_motion', message.context.detectionState === 'DETECTED').catch(this.error);
+                this.setCapabilityValue('alarm_contact', message.context.openState === 'open').catch(this.error);
+                if (message.context.openState === 'open')
                 {
                     this.setCapabilityValue('direction', message.context.doorMode === 'OUT_DOOR').catch(this.error);
                     this.driver.direction_changed(this, message.context.doorMode === 'OUT_DOOR');
@@ -94,7 +95,7 @@ class ContactHubDevice extends HubDevice
         }
         catch (err)
         {
-            this.homey.app.updateLog(`processWebhookMessage error ${err.message}`);
+            this.homey.app.updateLog(`processWebhookMessage error ${err.message}`, 0);
         }
     }
 

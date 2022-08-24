@@ -97,7 +97,7 @@ class BotHubDevice extends HubDevice
             if (data)
             {
                 this.setAvailable();
-                this.homey.app.updateLog(`Bot Hub got: ${this.homey.app.varToString(data)}`, 2);
+                this.homey.app.updateLog(`Bot Hub got: ${this.homey.app.varToString(data)}`, 3);
 
                 const pushButton = this.getSetting('push_button');
                 if (pushButton)
@@ -112,7 +112,7 @@ class BotHubDevice extends HubDevice
         }
         catch (err)
         {
-            this.homey.app.updateLog(`getHubDeviceValues: : ${this.homey.app.varToString(err)}`);
+            this.homey.app.updateLog(`getHubDeviceValues: : ${this.homey.app.varToString(err)}`, 0);
             this.setUnavailable(err.message);
         }
     }

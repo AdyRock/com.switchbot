@@ -30,7 +30,7 @@ class HubDriver extends OAuth2Driver
         {
             if (response.statusCode !== 100)
             {
-                this.homey.app.updateLog(`Invalid response code: ${response.statusCode}`);
+                this.homey.app.updateLog(`Invalid response code: ${response.statusCode}`, 0);
                 throw (new Error(`Invalid response code: ${response.statusCode}`));
             }
 
@@ -127,7 +127,7 @@ class HubDriver extends OAuth2Driver
             return devices;
         }
 
-        this.homey.app.updateLog('Getting API Key returned NULL');
+        this.homey.app.updateLog('Getting API Key returned NULL', 0);
         throw (new Error('HTTPS Error: Nothing returned'));
     }
 
@@ -138,7 +138,7 @@ class HubDriver extends OAuth2Driver
         {
             if (response.statusCode !== 100)
             {
-                this.homey.app.updateLog(`Invalid response code: ${response.statusCode}`);
+                this.homey.app.updateLog(`Invalid response code: ${response.statusCode}`, 0);
                 throw (new Error(`Invalid response code: ${response.statusCode}`));
             }
 
@@ -173,7 +173,7 @@ class HubDriver extends OAuth2Driver
             return devices;
         }
 
-        this.homey.app.updateLog('Getting API Key returned NULL');
+        this.homey.app.updateLog('Getting API Key returned NULL', 0);
         throw (new Error('HTTPS Error: Nothing returned'));
     }
 

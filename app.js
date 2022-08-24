@@ -2,10 +2,10 @@
 
 'use strict';
 
-//if (process.env.DEBUG === '1')
+if (process.env.DEBUG === '1')
 {
     // eslint-disable-next-line node/no-unsupported-features/node-builtins, global-require
-    require('inspector').open(9224, '0.0.0.0', false);
+    require('inspector').open(9224, '0.0.0.0', true);
 }
 
 const Homey = require('homey');
@@ -108,7 +108,7 @@ class MyApp extends OAuth2App
             if (setting === 'logLevel')
             {
                 this.homey.app.logLevel = this.homey.settings.get('logLevel');
-                this.OAUTH2_DEBUG = (this.logLevel > 1);
+                this.OAUTH2_DEBUG = (this.logLevel > 2);
             }
         });
 
@@ -399,7 +399,7 @@ class MyApp extends OAuth2App
         return source.toString();
     }
 
-    updateLog(newMessage, errorLevel = 1)
+    updateLog(newMessage, errorLevel = 2)
     {
         const zeroPad = (num, places) => String(num).padStart(places, '0');
 
@@ -583,7 +583,7 @@ class MyApp extends OAuth2App
 
     async processWebhookMessage(message)
     {
-        this.updateLog(`Got a webhook message! ${this.varToString(message)}`);
+        this.updateLog(`Got a webhook message! ${this.varToString(message)}`, 1);
         const drivers = this.homey.drivers.getDrivers();
         for (const driver of Object.values(drivers))
         {
@@ -646,7 +646,7 @@ class MyApp extends OAuth2App
             }
             catch( err )
             {
-                this.updateLog(`Homey Webhook failed to unregister, Error: ${err.message}`);
+                this.updateLog(`Homey Webhook failed to unregister, Error: ${err.message}`, 0);
                 
                 // Try again later
                 if (!this.webRegTimerID)
@@ -669,7 +669,7 @@ class MyApp extends OAuth2App
                 }
                 catch (err)
                 {
-                    this.updateLog(`Homey Webhook message error: ${err.message}`);
+                    this.updateLog(`Homey Webhook message error: ${err.message}`, 1);
 
                     // Try again later
                     if (!this.webRegTimerID)
@@ -680,11 +680,11 @@ class MyApp extends OAuth2App
                 }
             });
 
-            this.updateLog(`Homey Webhook registered for devices ${this.homey.app.varToString(data)}`, 2);
+            this.updateLog(`Homey Webhook registered for devices ${this.homey.app.varToString(data)}`, 0);
         }
         catch( err )
         {
-            this.updateLog(`Homey Webhook registration failed for devices ${this.homey.app.varToString(data)}, Error: ${err.message}`, 2);
+            this.updateLog(`Homey Webhook registration failed for devices ${this.homey.app.varToString(data)}, Error: ${err.message}`, 0);
 
             // Try again later
             if (!this.webRegTimerID)
@@ -721,7 +721,7 @@ class MyApp extends OAuth2App
                         {
                             if (response2.statusCode !== 100)
                             {
-                                this.homey.app.updateLog(`Delete webhook: ${response1.body.urls[0]}\nInvalid response code: ${response2.statusCode}\nMessage: ${response2.message}`, 3);
+                                this.homey.app.updateLog(`Delete webhook: ${response1.body.urls[0]}\nInvalid response code: ${response2.statusCode}\nMessage: ${response2.message}`, 0);
                                 return;
                             }
 
@@ -735,16 +735,16 @@ class MyApp extends OAuth2App
                 {
                     if (response.statusCode !== 100)
                     {
-                        this.homey.app.updateLog(`Invalid response code: ${response.statusCode}\nMessage: ${response.message}`);
+                        this.homey.app.updateLog(`Invalid response code: ${response.statusCode}\nMessage: ${response.message}`, 0);
                         return;
                     }
-                    this.homey.app.updateLog('Registered SwitchBot webhook');
+                    this.homey.app.updateLog('Registered SwitchBot webhook', 1);
                 }
             }
         }
         catch (err)
         {
-            this.homey.app.updateLog(`Invalid response: ${err.message}`);
+            this.homey.app.updateLog(`Invalid response: ${err.message}`, 0);
         }
     }
 
@@ -759,7 +759,7 @@ class MyApp extends OAuth2App
             {
                 if (response.statusCode !== 100)
                 {
-                    this.homey.app.updateLog(`Invalid response code: ${response.statusCode}`);
+                    this.homey.app.updateLog(`Invalid response code: ${response.statusCode}`, 0);
                     throw (new Error(`Invalid response code: ${response.statusCode}`));
                 }
 
@@ -796,7 +796,7 @@ class MyApp extends OAuth2App
             const response = await oAuth2Client.getScenes();
             if (response.statusCode !== 100)
             {
-                this.homey.app.updateLog(`Invalid response code: ${response.statusCode}`);
+                this.homey.app.updateLog(`Invalid response code: ${response.statusCode}`, 0);
                 throw (new Error(`Invalid response code: ${response.statusCode}`));
             }
 
@@ -884,7 +884,7 @@ class MyApp extends OAuth2App
                 nextInterval = (8700 * totalHuBDevices);
             }
 
-            this.homey.app.updateLog(`Next HUB polling interval = ${nextInterval / 1000}s`, true);
+            this.homey.app.updateLog(`Next HUB polling interval = ${nextInterval / 1000}s`);
             this.timerHubID = this.homey.setTimeout(this.onHubPoll, nextInterval);
             //            this.timerHubID = this.homey.setTimeout(this.onHubPoll, MINIMUM_POLL_INTERVAL * 1000);
         }
@@ -917,7 +917,7 @@ class MyApp extends OAuth2App
         if (!this.bleBusy)
         {
             this.blePolling = true;
-            this.updateLog('\r\nPolling BLE Starting ------------------------------------', 1);
+            this.updateLog('\r\nPolling BLE Starting ------------------------------------');
 
             const promises = [];
             try
@@ -953,10 +953,10 @@ class MyApp extends OAuth2App
         }
         else
         {
-            this.updateLog('Polling BLE skipped while discovery in progress\r\n', 1);
+            this.updateLog('Polling BLE skipped while discovery in progress\r\n');
         }
 
-        this.updateLog(`Next BLE polling interval = ${BLE_POLLING_INTERVAL}`, 1);
+        this.updateLog(`Next BLE polling interval = ${BLE_POLLING_INTERVAL}`);
 
         this.bleTimerID = this.homey.setTimeout(this.onBLEPoll, BLE_POLLING_INTERVAL);
     }

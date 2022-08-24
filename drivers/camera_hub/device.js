@@ -72,7 +72,7 @@ class CameraHubDevice extends HubDevice
         }
         catch (err)
         {
-            this.homey.app.updateLog(`processWebhookMessage error ${err.message}`);
+            this.homey.app.updateLog(`processWebhookMessage error ${err.message}`, 0);
         }
     }
 

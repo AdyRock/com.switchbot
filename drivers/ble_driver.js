@@ -23,7 +23,7 @@ class BLEDriver extends Homey.Driver
     async getBLEDevices(type)
     {
         this.homey.app.bleDiscovery = true;
-        this.homey.app.updateLog('BLE Discovery started', 1);
+        this.homey.app.updateLog('BLE Discovery started');
         this.homey.app.detectedDevices = '';
         try
         {
@@ -32,7 +32,7 @@ class BLEDriver extends Homey.Driver
             if (this.homey.app.BLEHub)
             {
                 const searchData = await this.homey.app.BLEHub.getBLEHubDevices();
-                this.homey.app.updateLog(`BLE HUB Discovery: ${this.homey.app.varToString(searchData, 2)}`);
+                this.homey.app.updateLog(`BLE HUB Discovery: ${this.homey.app.varToString(searchData, 3)}`);
 
                 // Create an array of devices
                 for (const deviceData of searchData)
@@ -78,7 +78,7 @@ class BLEDriver extends Homey.Driver
             }
 
             const bleAdvertisements = await this.homey.ble.discover([], 5000);
-            this.homey.app.updateLog(`BLE Discovery: ${this.homey.app.varToString(bleAdvertisements)}`, 2);
+            this.homey.app.updateLog(`BLE Discovery: ${this.homey.app.varToString(bleAdvertisements)}`, 3);
 
             for (const bleAdvertisement of bleAdvertisements)
             {
@@ -121,7 +121,7 @@ class BLEDriver extends Homey.Driver
                 }
             }
 
-            this.homey.app.updateLog('BLE Discovery finished', 1);
+            this.homey.app.updateLog('BLE Discovery finished');
             this.homey.app.bleDiscovery = false;
             return devices;
         }

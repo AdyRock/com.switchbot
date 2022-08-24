@@ -78,7 +78,7 @@ class TemperatureBLEDevice extends Homey.Device
 
             if (dd.id)
             {
-                this.homey.app.updateLog('Finding Temperature BLE device', 2);
+                this.homey.app.updateLog('Finding Temperature BLE device', 3);
                 const bleAdvertisement = await this.homey.ble.find(dd.id);
                 if (!bleAdvertisement)
                 {
@@ -87,14 +87,14 @@ class TemperatureBLEDevice extends Homey.Device
                     return;
                 }
 
-                this.homey.app.updateLog(this.homey.app.varToString(bleAdvertisement), 3);
+                this.homey.app.updateLog(this.homey.app.varToString(bleAdvertisement), 4);
                 const rssi = await bleAdvertisement.rssi;
                 this.setCapabilityValue('rssi', rssi).catch(this.error);
 
                 const data = this.driver.parse(bleAdvertisement);
                 if (data)
                 {
-                    this.homey.app.updateLog(`Parsed Temperature BLE: ${this.homey.app.varToString(data)}`, 2);
+                    this.homey.app.updateLog(`Parsed Temperature BLE: ${this.homey.app.varToString(data)}`, 3);
                     this.setCapabilityValue('measure_temperature', data.serviceData.temperature.c).catch(this.error);
                     this.setCapabilityValue('measure_humidity', data.serviceData.humidity).catch(this.error);
                     this.setCapabilityValue('measure_battery', data.serviceData.battery).catch(this.error);
@@ -102,12 +102,12 @@ class TemperatureBLEDevice extends Homey.Device
                 }
                 else
                 {
-                    this.homey.app.updateLog('Parsed Temperature BLE: No service data', 1);
+                    this.homey.app.updateLog('Parsed Temperature BLE: No service data', 0);
                 }
             }
             else
             {
-                this.setUnavailable('SwitchBot BLE hub not detected');
+                this.setUnavailable('SwitchBot BLE hub not detected', 0);
             }
         }
         catch (err)
@@ -116,7 +116,7 @@ class TemperatureBLEDevice extends Homey.Device
         }
         finally
         {
-            this.homey.app.updateLog('Finding Temperature BLE device --- COMPLETE', 2);
+            this.homey.app.updateLog('Finding Temperature BLE device --- COMPLETE', 3);
         }
     }
 
