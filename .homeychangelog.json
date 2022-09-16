@@ -193,5 +193,8 @@
   },
   "1.1.14": {
     "en": "Change log levels. Updated Contact webhook for new format."
+  },
+  "1.1.15": {
+    "en": "Updated to API v1.1 so door lock can now be controlled."
   }
 }
