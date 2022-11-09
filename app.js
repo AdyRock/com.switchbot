@@ -51,6 +51,7 @@ class MyApp extends OAuth2App
     async onOAuth2Init()
     {
         this.log('SwitchBot has been initialized');
+        this.homey.app.logLevel = this.homey.settings.get('logLevel');
 
         process.on('unhandledRejection', (reason, promise) =>
         {
@@ -712,6 +713,7 @@ class MyApp extends OAuth2App
                         // We got a valid response so make sure it is the correct webhook
                         if (response1.body.urls[0] === Homey.env.WEBHOOK_URL)
                         {
+                            this.homey.app.updateLog('SwitchBot webhook already registered', 1);
                             return;
                         }
 
@@ -739,9 +741,15 @@ class MyApp extends OAuth2App
                         return;
                     }
                     this.homey.app.updateLog('Registered SwitchBot webhook', 1);
+                    return;
                 }
+                this.homey.app.updateLog('No response when registering the SwitchBot webhook', 0);
+                return;
             }
-        }
+
+            this.homey.app.updateLog('No OAuth client available to register the SwitchBot webhook', 0);
+            return;
+    }
         catch (err)
         {
             this.homey.app.updateLog(`Invalid response: ${err.message}`, 0);

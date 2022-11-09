@@ -196,5 +196,8 @@
   },
   "1.1.15": {
     "en": "Updated to API v1.1 so door lock can now be controlled."
+  },
+  "1.1.16": {
+    "en": "Restores loging level at start up. Added more webhook logging."
   }
 }
