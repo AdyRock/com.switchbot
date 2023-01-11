@@ -22,7 +22,7 @@ class HubTemperatureDriver extends HubDriver
      */
     async onPairListDevices({ oAuth2Client })
     {
-        return this.getHUBDevices(oAuth2Client, ['Meter', 'MeterPlus']);
+        return this.getHUBDevices(oAuth2Client, ['Meter', 'MeterPlus', 'Hub 2']);
     }
 
 }

@@ -97,7 +97,7 @@ class HubDevice extends OAuth2Device
                 }
                 else if (result.statusCode === 190)
                 {
-                    throw new Error(`Error: Device internal error due to device states not synchronized with server. Or command format is invalid.`);
+                    throw new Error(`Error: ${result.statusCode} ${result.message}`);
                 }
                 else
                 {
@@ -117,13 +117,18 @@ class HubDevice extends OAuth2Device
 
     async _getHubDeviceValues()
     {
-        this.homey.app.apiCalls++;
-//        this.log(`+++++++ #API calls ${this.homey.app.apiCalls} +++++++`);
-
         const dd = this.getData();
         if (this.oAuth2Client)
         {
             const data = await this.oAuth2Client.getDeviceData(dd.id);
+            if (data.statusCode != 100)
+            {
+                throw new Error(`${data.statusCode}: ${data.message} (${this.homey.app.apiCalls}) API calls`);
+            }
+
+            this.homey.app.apiCalls++;
+            this.homey.settings.set('apiCalls', this.homey.app.apiCalls);
+   
             return data.body;
         }
 

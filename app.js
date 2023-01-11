@@ -71,10 +71,24 @@ class MyApp extends OAuth2App
         this.devicesMACs = [];
         this.webRegTimerID = null;
 
+        this.apiCalls = this.homey.settings.get('apiCalls');
         if (!this.apiCalls)
         {
-            this.apiCalls = 1;
+            this.apiCalls = 0;
         }
+
+        // Set timer to reset the api counter at midnight
+        if (this.apiCountReset)
+        {
+            clearTimeout(this.apiCountReset);
+        }
+        const nowTime = new Date(Date.now());
+        let newTime = new Date(Date.now());
+        newTime.setDate(nowTime.getDate() + 1);
+        newTime.setHours(0);
+        newTime.setMinutes(0);
+        newTime = newTime - nowTime;
+        this.apiCountReset = this.homey.setTimeout(this.resetAPICount.bind(this), newTime.valueOf());
 
         if (process.env.DEBUG === '1')
         {
@@ -342,6 +356,14 @@ class MyApp extends OAuth2App
         }
     }
 
+    resetAPICount()
+    {
+        this.apiCalls = 0;
+
+        // Set timer to reset the count at midnight
+        this.apiCountReset = this.homey.setTimeout(this.authenticateCloudApi.bind(this), 86400 * 1000);
+    }
+
     hashCode(s)
     {
         let h = 0;
@@ -429,7 +451,11 @@ class MyApp extends OAuth2App
             {
                 this.diagLog = this.diagLog.substr(this.diagLog.length - 60000);
             }
-            this.homey.api.realtime('com.switchbot.logupdated', { log: this.diagLog });
+            
+            if (this.homeyIP)
+            {
+                this.homey.api.realtime('com.switchbot.logupdated', { log: this.diagLog });
+            }
         }
     }
 
@@ -561,8 +587,8 @@ class MyApp extends OAuth2App
             {
                 if (response.statusCode !== 100)
                 {
-                    this.homey.app.updateLog(`Invalid response code: ${response.statusCode}`);
-                    throw (new Error(`Invalid response code: ${response.statusCode}`));
+                    this.homey.app.updateLog(`Invalid response code: ${response.statusCode} ${response.message}`);
+                    throw (new Error(`Invalid response code: ${response.statusCode} ${response.message}`));
                 }
 
                 return response.body;
@@ -767,8 +793,8 @@ class MyApp extends OAuth2App
             {
                 if (response.statusCode !== 100)
                 {
-                    this.homey.app.updateLog(`Invalid response code: ${response.statusCode}`, 0);
-                    throw (new Error(`Invalid response code: ${response.statusCode}`));
+                    this.homey.app.updateLog(`Invalid response code: ${response.statusCode} ${response.message}`, 0);
+                    throw (new Error(`Invalid response code: ${response.statusCode} ${response.message}`));
                 }
 
                 const devices = response.body;

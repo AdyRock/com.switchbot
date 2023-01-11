@@ -41,7 +41,7 @@ class CustomRemoteHubDevice extends HubDevice
         const settings = this.getSettings();
         this._operateRemote(settings[`button${buttonIdx}`]).catch(err =>
             {
-                this.homey.app.updateLog(`getHubDeviceValues: : ${this.homey.app.varToString(err)}`, 0);
+                this.homey.app.updateLog(`Remote getHubDeviceValues: ${this.homey.app.varToString(err.message)}`, 0);
             });
     }
 

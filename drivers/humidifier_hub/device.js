@@ -100,8 +100,8 @@ class HumidityHubDevice extends HubDevice
         }
         catch (err)
         {
-            this.homey.app.updateLog(`getHubDeviceValues: : ${this.homey.app.varToString(err)}`, 0);
-            this.setUnavailable(err.message);
+            this.homey.app.updateLog(`Hunidifier getHubDeviceValues: ${this.homey.app.varToString(err.message)}`, 0);
+            this.setWarning(err.message);
         }
     }
 

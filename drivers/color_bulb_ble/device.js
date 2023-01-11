@@ -49,7 +49,7 @@ class ColorBulbBLEDevice extends Homey.Device
     async onCapabilityOnOff(value, opts)
     {
         value = value ? 0x03 : 0x02;
-        this._operateBulb([0x57, 0x0f, 0x47, 0x01, value]);
+        this._operateBulb([0x57, 0x0f, 0x47, 0x01, value]).catch(this.error);
     }
 
     async onCapabilityLightMode(value, opts)
@@ -59,14 +59,14 @@ class ColorBulbBLEDevice extends Homey.Device
 
     async onCapabilityDim(value, opts)
     {
-        this._operateBulb([0x57, 0x0f, 0x47, 0x01, 0x14, value * 100]);
+        this._operateBulb([0x57, 0x0f, 0x47, 0x01, 0x14, value * 100]).catch(this.error);
     }
 
     async onCapabilityLightTemperature(value, opts)
     {
         // {2700-6500}
         const temperature = ((1 - value) * (6500 - 2700)) + 2700;
-        this._operateBulb([0x57, 0x0f, 0x47, 0x01, 0x17, ((temperature / 256) & 0xFF), (temperature & 0xFF)]);
+        this._operateBulb([0x57, 0x0f, 0x47, 0x01, 0x17, ((temperature / 256) & 0xFF), (temperature & 0xFF)]).catch(this.error);
     }
 
     async onCapabilityLightHueSat(capabilityValues, capabilityOptions)
@@ -75,7 +75,7 @@ class ColorBulbBLEDevice extends Homey.Device
         const dim = 0.5;
         const rgb = this.hslToRgb(capabilityValues.light_hue, capabilityValues.light_saturation, dim);
 
-        this._operateBulb([0x57, 0x0f, 0x47, 0x01, 0x16, rgb[0], rgb[1], rgb[2]]);
+        this._operateBulb([0x57, 0x0f, 0x47, 0x01, 0x16, rgb[0], rgb[1], rgb[2]]).catch(this.error);
     }
 
     hslToRgb(h, s, l)

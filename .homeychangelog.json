@@ -198,6 +198,9 @@
     "en": "Updated to API v1.1 so door lock can now be controlled."
   },
   "1.1.16": {
-    "en": "Restores loging level at start up. Added more webhook logging."
+    "en": "Restores logging level at start up. Added more webhook logging."
+  },
+  "1.1.17": {
+    "en": "Added support for HUB 2 via Temperature & Humidity sensor."
   }
 }
