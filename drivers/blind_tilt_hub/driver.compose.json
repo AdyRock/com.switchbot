@@ -1,0 +1,18 @@
+{
+    "id": "curtains_hub",
+    "name": {
+        "en": "Blind Tilt (HUB)"
+    },
+    "class": "curtain",
+    "capabilities": [
+        "windowcoverings_tilt_set"
+    ],
+    "energy": {
+        "batteries": [
+            "INTERNAL"
+        ]
+    },
+    "$extends": [
+        "hubDriver"
+    ]
+}
