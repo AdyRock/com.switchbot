@@ -109,6 +109,7 @@ class BotHubDevice extends HubDevice
                     this.setCapabilityValue('onoff', data.power === 'on').catch(this.error);
                 }
             }
+            this.unsetWarning();
         }
         catch (err)
         {

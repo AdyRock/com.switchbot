@@ -205,5 +205,8 @@
   },
   "1.1.18": {
     "en": "Fixed an app crashing issue."
+  },
+  "1.1.19": {
+    "en": "Unset warnings when device recovers."
   }
 }

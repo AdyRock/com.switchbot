@@ -199,6 +199,7 @@ class CurtainsHubDevice extends HubDevice
                 this.setCapabilityValue('windowcoverings_set', position).catch(this.error);
                 this.setCapabilityValue('position', position * 100).catch(this.error);
             }
+            this.unsetWarning();
         }
         catch (err)
         {

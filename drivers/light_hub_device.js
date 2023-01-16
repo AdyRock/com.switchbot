@@ -218,6 +218,7 @@ class LightHubDevice extends HubDevice
                     this.setCapabilityValue('light_hue', hsl[0] / 360).catch(this.error);
                     this.setCapabilityValue('light_saturation', hsl[1] / 100).catch(this.error);
                 }
+                this.unsetWarning();
             }
         }
         catch (err)

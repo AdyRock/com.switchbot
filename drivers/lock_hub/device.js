@@ -83,6 +83,7 @@ class LockHubDevice extends HubDevice
 
                 this.setCapabilityValue('locked', data.lockState === 'locked').catch(this.error);
             }
+            this.unsetWarning();
         }
         catch (err)
         {

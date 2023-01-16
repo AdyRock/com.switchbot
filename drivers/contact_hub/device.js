@@ -63,6 +63,7 @@ class ContactHubDevice extends HubDevice
                     this.driver.bright_changed(this, bright);
                 }
             }
+            this.unsetWarning();
         }
         catch (err)
         {

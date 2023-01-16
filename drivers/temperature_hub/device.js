@@ -51,6 +51,7 @@ class TemperatureHubDevice extends HubDevice
                 this.setCapabilityValue('measure_temperature', data.temperature).catch(this.error);
                 this.setCapabilityValue('measure_humidity', data.humidity).catch(this.error);
             }
+            this.unsetWarning();
         }
         catch (err)
         {
