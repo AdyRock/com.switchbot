@@ -208,5 +208,8 @@
   },
   "1.1.19": {
     "en": "Unset warnings when device recovers."
+  },
+  "1.1.20": {
+    "en": "New icon for Blind Tilt device."
   }
 }
