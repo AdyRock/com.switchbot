@@ -88,7 +88,9 @@ class MyApp extends OAuth2App
         newTime.setHours(0);
         newTime.setMinutes(0);
         newTime = newTime - nowTime;
-        this.apiCountReset = this.homey.setTimeout(this.resetAPICount.bind(this), newTime.valueOf());
+        this.resetAPICount = this.resetAPICount.bind(this);
+        var resestIn = newTime.valueOf();
+        this.apiCountReset = this.homey.setTimeout(this.resetAPICount, resestIn);
 
         if (process.env.DEBUG === '1')
         {
@@ -119,7 +121,7 @@ class MyApp extends OAuth2App
         // Callback for app settings changed
         this.homey.settings.on('set', async function settingChanged(setting)
         {
-            this.homey.app.updateLog(`Setting ${setting} has changed.`);
+            this.homey.app.updateLog(`Setting ${setting} has changed.`, 3);
             if (setting === 'logLevel')
             {
                 this.homey.app.logLevel = this.homey.settings.get('logLevel');
@@ -361,7 +363,7 @@ class MyApp extends OAuth2App
         this.apiCalls = 0;
 
         // Set timer to reset the count at midnight
-        this.apiCountReset = this.homey.setTimeout(this.authenticateCloudApi.bind(this), 86400 * 1000);
+        this.apiCountReset = this.homey.setTimeout(this.resetAPICount, 86400 * 1000);
     }
 
     hashCode(s)
@@ -883,8 +885,7 @@ class MyApp extends OAuth2App
 
     async onHubPoll()
     {
-        this.homey.app.updateLog('Polling hub');
-
+        this.homey.app.updateLog(`Polling hub: ${this.homey.app.apiCalls} API calls today`);
         if (this.timerHubID)
         {
             this.homey.clearTimeout(this.timerHubID);
@@ -918,9 +919,9 @@ class MyApp extends OAuth2App
                 nextInterval = (8700 * totalHuBDevices);
             }
 
-            this.homey.app.updateLog(`Next HUB polling interval = ${nextInterval / 1000}s`);
+            this.homey.app.updateLog(`Next HUB polling interval = ${nextInterval / 1000}s: ${this.homey.app.apiCalls} API calls today`);
             this.timerHubID = this.homey.setTimeout(this.onHubPoll, nextInterval);
-            //            this.timerHubID = this.homey.setTimeout(this.onHubPoll, MINIMUM_POLL_INTERVAL * 1000);
+            // this.timerHubID = this.homey.setTimeout(this.onHubPoll, MINIMUM_POLL_INTERVAL * 1000);
         }
     }
 

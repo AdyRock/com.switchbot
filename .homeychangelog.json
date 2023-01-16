@@ -202,5 +202,8 @@
   },
   "1.1.17": {
     "en": "Added support for HUB 2 via Temperature & Humidity sensor."
+  },
+  "1.1.18": {
+    "en": "Fixed an app crashing issue."
   }
 }
