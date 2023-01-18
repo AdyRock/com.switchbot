@@ -61,6 +61,7 @@
                 {
                     "name": "windowcoverings_tilt_set",
                     "type": "range",
+                    "title": { "en": "Position" },
                     "min": 0,
                     "max": 1,
                     "step": 0.01,
