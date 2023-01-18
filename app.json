@@ -893,6 +893,9 @@
           "ru": "Установите позицию на",
           "pl": "Ustaw pozycję na"
         },
+        "titleFormatted": {
+          "en": "Set tilt position to [[windowcoverings_tilt_set]]"
+        },
         "hint": {
           "en": "Change the position to tilt up (100%), open (50%), tilt down (0%), or a value in between."
         },
