@@ -13,6 +13,10 @@ class HubBlindTiltDriver extends HubDriver
     async onOAuth2Init()
     {
         super.onOAuth2Init();
+
+        // Device Triggers
+        this.windowcoverings_tilt_set_changed = this.homey.flow.getDeviceTriggerCard('windowcoverings_tilt_set_changed');
+
         this.log('HubBlindTiltDriver has been initialized');
     }
 

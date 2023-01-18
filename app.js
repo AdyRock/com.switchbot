@@ -43,6 +43,7 @@ class MyApp extends OAuth2App
         'strip_light',
         'temperature_hub',
         'tv_hub',
+        "blind_tilt_hub"
     ]; // Default: all drivers
 
     /**
@@ -345,6 +346,13 @@ class MyApp extends OAuth2App
                 return args.device.onCapabilityCommand('brightnessUp');
             });
 
+        const tiltAction = this.homey.flow.getActionCard('windowcoverings_tilt_set');
+        tiltAction
+            .registerRunListener(async (args, state) =>
+            {
+                return args.device.onCapabilityPosition(args.windowcoverings_tilt_set);
+            });
+    
         this.homey.app.updateLog('************** App has initialised. ***************');
     }
 

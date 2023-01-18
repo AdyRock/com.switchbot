@@ -59,11 +59,11 @@ class BlindTiltHubDevice extends HubDevice
     // this method is called when the Homey device has requested a position change ( 0 to 1)
     async onCapabilityPosition(value, opts)
     {
-        if (value > 0.5)
+        if (value >= 0.5)
         {
-            return this._operateCurtain('setPosition', `down;${(1 - value) * 200}`);
+            return this._operateCurtain('setPosition', `up;${parseInt((1 - value) * 200)}`);
         }
-        return this._operateCurtain('setPosition', `up;${value * 200}`);
+        return this._operateCurtain('setPosition', `down;${parseInt(value * 200)}`);
     }
 
     async _operateCurtain(command, parameter)
