@@ -214,5 +214,8 @@
   },
   "1.1.21": {
     "en": "Fix direction for Tilt device. Add flow cards for Tilt device."
+  },
+  "1.1.22": {
+    "en": "Work around bug in API for Tilt device and convert 'setPosition: down;0' to 'closeDown'. Set deadzone in middle of slider to make it easier to select fully open."
   }
 }
