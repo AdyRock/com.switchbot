@@ -168,18 +168,35 @@ class BlindTiltBLEDevice extends Homey.Device
             throw new Error(`Still sending previous command for ${name}`);
         }
         this.sendingCommand = true;
+        let loops = 3;
+        const dd = this.getData();
 
-        if (this.homey.app.BLEHub)
+        if (this.bestHub === '' && this.homey.app.BLEHub)
         {
-            const dd = this.getData();
-            if (await this.homey.app.BLEHub.sendBLEHubCommand(dd.address, bytes, this.bestHub))
+            const deviceInfo = await this.homey.app.BLEHub.getBLEHubDevice(dd.address);
+            if (deviceInfo)
             {
+                this.bestHub = deviceInfo.hubMAC;
+            }
+        }
+        if (this.bestHub !== '')
+        {
+            // This device is being controlled by a BLE hub
+            if (this.homey.app.BLEHub && this.homey.app.BLEHub.IsBLEHubAvailable(this.bestHub))
+            {
+                while (loops-- > 0)
+                {
+                    if (await this.homey.app.BLEHub.sendBLEHubCommand(dd.address, bytes, this.bestHub))
+                    {
+                        break;
+                    }
+                }
                 this.sendingCommand = false;
+
                 return;
             }
         }
 
-        let loops = 3;
         let response = null;
         while (loops-- > 0)
         {
@@ -397,7 +414,7 @@ class BlindTiltBLEDevice extends Homey.Device
                 position = 1 - position;
             }
 
-            if (position > 0.5)
+            if (position > 0.2)
             {
                 this.setCapabilityValue('open_close', true).catch(this.error);
             }

@@ -282,7 +282,13 @@
         "id": "direction_true"
       },
       {
-        "id": "windowcoverings_tilt_set_changed",
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "connectivity": [
+          "ble"
+        ],
         "title": {
           "en": "Position changed",
           "nl": "Positie veranderd",
@@ -320,9 +326,10 @@
           {
             "type": "device",
             "name": "device",
-            "filter": "driver_id=blind_tilt_hub"
+            "filter": "driver_id=blind_tilt_ble|blind_tilt_hub"
           }
-        ]
+        ],
+        "id": "windowcoverings_tilt_set_changed"
       },
       {
         "id": "button_press_id_changed",
@@ -753,6 +760,50 @@
         "id": "stop"
       },
       {
+        "highlight": true,
+        "title": {
+          "en": "Set the position to",
+          "nl": "Zet de positie naar",
+          "de": "Setze die Position auf",
+          "fr": "Mettre la position sur",
+          "it": "Imposta la posizione su",
+          "sv": "Ställ in positionen till",
+          "no": "Innstill posisjonen til",
+          "es": "Configurar la posición como",
+          "da": "Indstil positionen til",
+          "ru": "Установите позицию на",
+          "pl": "Ustaw pozycję na"
+        },
+        "titleFormatted": {
+          "en": "Set tilt position to [[windowcoverings_tilt_set]]"
+        },
+        "hint": {
+          "en": "Change the position to tilt up (100%), open (50%), tilt down (0%), or a value in between."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=blind_tilt_ble|blind_tilt_hub"
+          },
+          {
+            "name": "windowcoverings_tilt_set",
+            "type": "range",
+            "title": {
+              "en": "Position"
+            },
+            "min": 0,
+            "max": 1,
+            "step": 0.01,
+            "value": 0.5,
+            "label": "%",
+            "labelMultiplier": 100,
+            "labelDecimals": 0
+          }
+        ],
+        "id": "windowcoverings_tilt_set"
+      },
+      {
         "id": "operate_aircon",
         "title": {
           "en": "Operate air conditioner"
@@ -874,50 +925,6 @@
                 }
               }
             ]
-          }
-        ]
-      },
-      {
-        "id": "windowcoverings_tilt_set",
-        "highlight": true,
-        "title": {
-          "en": "Set the position to",
-          "nl": "Zet de positie naar",
-          "de": "Setze die Position auf",
-          "fr": "Mettre la position sur",
-          "it": "Imposta la posizione su",
-          "sv": "Ställ in positionen till",
-          "no": "Innstill posisjonen til",
-          "es": "Configurar la posición como",
-          "da": "Indstil positionen til",
-          "ru": "Установите позицию на",
-          "pl": "Ustaw pozycję na"
-        },
-        "titleFormatted": {
-          "en": "Set tilt position to [[windowcoverings_tilt_set]]"
-        },
-        "hint": {
-          "en": "Change the position to tilt up (100%), open (50%), tilt down (0%), or a value in between."
-        },
-        "args": [
-          {
-            "type": "device",
-            "name": "device",
-            "filter": "driver_id=blind_tilt_hub"
-          },
-          {
-            "name": "windowcoverings_tilt_set",
-            "type": "range",
-            "title": {
-              "en": "Position"
-            },
-            "min": 0,
-            "max": 1,
-            "step": 0.01,
-            "value": 0.5,
-            "label": "%",
-            "labelMultiplier": 100,
-            "labelDecimals": 0
           }
         ]
       },

@@ -1,0 +1,49 @@
+{
+    "platforms": [
+        "local",
+        "cloud"
+    ],
+    "connectivity": [
+        "ble"
+    ],
+    "title": {
+        "en": "Position changed",
+        "nl": "Positie veranderd",
+        "de": "Position hat sich geändert",
+        "fr": "Position a été modifiée",
+        "it": "Posizione cambiata",
+        "sv": "Position ändrad",
+        "no": "Posisjon endret",
+        "es": "La posición ha cambiado",
+        "da": "Position ændret",
+        "ru": "Расположение изменилось",
+        "pl": "Zmiana pozycji"
+    },
+    "tokens": [
+        {
+            "name": "windowcoverings_tilt_set",
+            "type": "number",
+            "title": {
+                "en": "Position",
+                "nl": "Positie",
+                "de": "Position",
+                "fr": "Position",
+                "it": "Posizione",
+                "sv": "Position",
+                "no": "Posisjon",
+                "es": "Posición",
+                "da": "Position",
+                "ru": "Позиция",
+                "pl": "Pozycja"
+            },
+            "example": 0.5
+        }
+    ],
+    "args": [
+        {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=blind_tilt_ble|blind_tilt_hub"
+        }
+    ]
+}

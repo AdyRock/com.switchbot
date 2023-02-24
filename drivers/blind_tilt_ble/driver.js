@@ -13,6 +13,8 @@ class BLEBlindTiltDriver extends BLEDriver
     async onInit()
     {
         super.onInit();
+        // Device Triggers
+        this.windowcoverings_tilt_set_changed = this.homey.flow.getDeviceTriggerCard('windowcoverings_tilt_set_changed');
         this.log('BLEBlindTiltDriver has been initialized');
     }
 
