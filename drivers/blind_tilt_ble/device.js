@@ -105,7 +105,7 @@ class BlindTiltBLEDevice extends Homey.Device
     // this method is called when the Homey device switches the device on or off
     async onCapabilityopenClose(value, opts)
     {
-        value = value ? 1 : 0;
+        value = value ? 0.5 : 0;
 
         if (this.invertPosition)
         {
