@@ -257,6 +257,10 @@ class BLEDriver extends Homey.Driver
         { // WoBulb
             sd = this._parseServiceDataForWoBulb(device.manufacturerData);
         }
+        else if (model === 'x')
+        { // WoBulb
+            sd = this._parseServiceDataForWoTilt(buf);
+        }
         else
         {
             return null;
@@ -466,6 +470,42 @@ class BLEDriver extends Homey.Driver
         };
 
         return data;
+    }
+
+    _parseServiceDataForWoTilt(buf)
+    {
+        if (buf.length === 3)
+        {
+            const byte2 = buf.readUInt8(2);
+            const battery = (byte2 & 0b01111111); // %
+
+            const data = {
+                model: 'x',
+                modelName: 'WoBlindTilt',
+                battery,
+            };
+            return data;
+        }
+
+        if (buf.length !== 8)
+        {
+            return null;
+        }
+
+        const tilt = buf[6];
+        const moving = ((buf[5] & 0b00000011) !== 0);
+
+        return {
+            "battery": buf[1],
+            "firmware": buf[2] / 10.0,
+            "light": ((buf[4] & 0b00100000) !== 0),
+            "fault": ((buf[4] & 0b00001000) !== 0),
+            "solarPanel": ((buf[5] & 0b00001000) !== 0),
+            "calibrated": ((buf[5] & 0b00000100) !== 0),
+            "inMotion": moving,
+            "position": tilt,
+            "timers": buf[7],
+        };
     }
 
 }

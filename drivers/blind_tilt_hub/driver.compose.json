@@ -3,7 +3,7 @@
     "name": {
         "en": "Blind Tilt (HUB)"
     },
-    "class": "curtain",
+    "class": "blinds",
     "capabilities": [
         "windowcoverings_tilt_set"
     ],
