@@ -496,7 +496,7 @@ class BlindTiltBLEDevice extends Homey.Device
                         position = 1 - position;
                     }
 
-                    if (position > 0.5)
+                    if (position > 0.2)
                     {
                         this.setCapabilityValue('open_close', true).catch(this.error);
                     }
