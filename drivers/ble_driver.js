@@ -257,6 +257,10 @@ class BLEDriver extends Homey.Driver
         { // WoBulb
             sd = this._parseServiceDataForWoBulb(device.manufacturerData);
         }
+        else if (model === 'w')
+        { // WoBulb
+            sd = this._parseServiceDataForWoIOSensor(buf, device.manufacturerData);
+        }
         else if (model === 'x')
         { // WoBulb
             sd = this._parseServiceDataForWoTilt(buf);
@@ -353,6 +357,40 @@ class BLEDriver extends Homey.Driver
         };
 
         return data;
+    }
+
+    _parseServiceDataForWoIOSensor(buf, man)
+    {
+        if (man.length !== 13)
+        {
+            return null;
+        }
+        const byte2 = buf.readUInt8(2);
+
+        const byte10 = man.readUInt8(10);
+        const byte11 = man.readUInt8(11);
+        const byte12 = man.readUInt8(12);
+
+        const tempSign = (byte11 & 0b10000000) ? 1 : -1;
+        const tempC = tempSign * ((byte11 & 0b01111111) + (byte10 / 10));
+        let tempF = ((tempC * 9) / 5) + 32;
+        tempF = Math.round(tempF * 10) / 10;
+
+        const data = {
+            model: 'T',
+            modelName: 'WoIOSensor',
+            temperature:
+            {
+                c: tempC,
+                f: tempF,
+            },
+            fahrenheit: !!((byte12 & 0b10000000)),
+            humidity: (byte12 & 0b01111111),
+            battery: (byte2 & 0b01111111),
+        };
+
+        return data;
+
     }
 
     _parseServiceDataForWoCurtain(buf)
