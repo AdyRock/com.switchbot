@@ -37,8 +37,8 @@
         ]
     },
     "images": {
-        "large": "/drivers/curtains_ble/assets/images/large.jpg",
-        "small": "/drivers/curtains_ble/assets/images/small.jpg"
+        "large": "/drivers/blind_tilt_ble/assets/images/large.jpg",
+        "small": "/drivers/blind_tilt_ble/assets/images/small.jpg"
     },
     "settings": [
         {
