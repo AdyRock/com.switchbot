@@ -2,11 +2,11 @@
 
 'use strict';
 
-if (process.env.DEBUG === '1')
-{
-    // eslint-disable-next-line node/no-unsupported-features/node-builtins, global-require
-    require('inspector').open(9224, '0.0.0.0', true);
-}
+// if (process.env.DEBUG === '1')
+// {
+//     // eslint-disable-next-line node/no-unsupported-features/node-builtins, global-require
+//     require('inspector').open(9224, '0.0.0.0', false);
+// }
 
 const Homey = require('homey');
 const { OAuth2App } = require('homey-oauth2app');

@@ -78,7 +78,7 @@ class BLEDriver extends Homey.Driver
             }
 
             const bleAdvertisements = await this.homey.ble.discover([], 5000);
-            this.homey.app.updateLog(`BLE Discovery: ${this.homey.app.varToString(bleAdvertisements)}`, 3);
+            this.homey.app.updateLog(`BLE Discovery found: ${this.homey.app.varToString(bleAdvertisements)}`, 3);
 
             for (const bleAdvertisement of bleAdvertisements)
             {
@@ -220,7 +220,8 @@ class BLEDriver extends Homey.Driver
             return null;
         }
 
-        if ((device.serviceData[0].uuid !== '0d00') && (device.serviceData[0].uuid !== 'fd3d'))
+       let uuid = device.serviceData[0].uuid;
+        if ((uuid.search('0d00') < 0) && (uuid.search('fd3d') < 0))
         {
             return null;
         }

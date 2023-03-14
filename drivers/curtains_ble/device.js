@@ -179,7 +179,7 @@ class CurtainsBLEDevice extends Homey.Device
             }
         }
 
-        let loops = 3;
+        let loops = 5;
         let response = null;
         while (loops-- > 0)
         {
@@ -209,8 +209,8 @@ class CurtainsBLEDevice extends Homey.Device
 
             if (loops > 0)
             {
-                this.homey.app.updateLog(`Retry command (${4 - loops} of 3) for ${name} in 2 seconds`);
-                await this.homey.app.Delay(2000);
+                this.homey.app.updateLog(`Retry command (${4 - loops} of 3) for ${name} in 5 seconds`);
+                await this.homey.app.Delay(5000);
             }
         }
 
