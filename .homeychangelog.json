@@ -220,5 +220,8 @@
   },
   "1.1.23": {
     "en": "Added Tilt BLE device."
+  },
+  "1.1.24": {
+    "en": "Fix for Homey 2023 as it reports the long UUID instead of the short version."
   }
 }
