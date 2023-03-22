@@ -62,6 +62,16 @@ class ContactHubDevice extends HubDevice
                     this.setCapabilityValue('bright', bright).catch(this.error);
                     this.driver.bright_changed(this, bright);
                 }
+
+                if (data.battery)
+                {
+                    if (!this.hasCapability('measure_battery'))
+                    {
+                        await this.addCapability('measure_battery');
+                    }
+            
+                    this.setCapabilityValue('measure_battery', data.battery).catch(this.error);
+                }
             }
             this.unsetWarning();
         }
@@ -91,6 +101,16 @@ class ContactHubDevice extends HubDevice
                 {
                     this.setCapabilityValue('direction', null).catch(this.error);
                     this.setCapabilityValue('alarm_contact.left_open', false).catch(this.error);
+                }
+
+                if (message.context.battery)
+                {
+                    if (!this.hasCapability('measure_battery'))
+                    {
+                        await this.addCapability('measure_battery');
+                    }
+            
+                    this.setCapabilityValue('measure_battery', message.context.battery).catch(this.error);
                 }
             }
         }

@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.switchbot",
-  "version": "1.1.24",
+  "version": "1.1.25",
   "compatibility": ">=6.0.0",
   "platforms": [
     "local",
@@ -1241,8 +1241,8 @@
         ]
       },
       "images": {
-        "large": "/drivers/curtains_ble/assets/images/large.jpg",
-        "small": "/drivers/curtains_ble/assets/images/small.jpg"
+        "large": "/drivers/blind_tilt_ble/assets/images/large.jpg",
+        "small": "/drivers/blind_tilt_ble/assets/images/small.jpg"
       },
       "settings": [
         {

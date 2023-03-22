@@ -198,6 +198,16 @@ class CurtainsHubDevice extends HubDevice
 
                 this.setCapabilityValue('windowcoverings_set', position).catch(this.error);
                 this.setCapabilityValue('position', position * 100).catch(this.error);
+
+                if (data.battery)
+                {
+                    if (!this.hasCapability('measure_battery'))
+                    {
+                        await this.addCapability('measure_battery');
+                    }
+            
+                    this.setCapabilityValue('measure_battery', data.battery).catch(this.error);
+                }
             }
             this.unsetWarning();
         }

@@ -50,6 +50,16 @@ class TemperatureHubDevice extends HubDevice
 
                 this.setCapabilityValue('measure_temperature', data.temperature).catch(this.error);
                 this.setCapabilityValue('measure_humidity', data.humidity).catch(this.error);
+
+                if (data.battery)
+                {
+                    if (!this.hasCapability('measure_battery'))
+                    {
+                        await this.addCapability('measure_battery');
+                    }
+            
+                    this.setCapabilityValue('measure_battery', data.battery).catch(this.error);
+                }
             }
             this.unsetWarning();
         }
@@ -77,6 +87,16 @@ class TemperatureHubDevice extends HubDevice
 
                 this.setCapabilityValue('measure_temperature', temperature).catch(this.error);
                 this.setCapabilityValue('measure_humidity', message.context.humidity).catch(this.error);
+
+                if (message.context.battery)
+                {
+                    if (!this.hasCapability('measure_battery'))
+                    {
+                        await this.addCapability('measure_battery');
+                    }
+            
+                    this.setCapabilityValue('measure_battery', message.context.battery).catch(this.error);
+                }
             }
         }
         catch (err)

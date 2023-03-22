@@ -108,6 +108,16 @@ class BotHubDevice extends HubDevice
                 {
                     this.setCapabilityValue('onoff', data.power === 'on').catch(this.error);
                 }
+
+                if (data.battery)
+                {
+                    if (!this.hasCapability('measure_battery'))
+                    {
+                        await this.addCapability('measure_battery');
+                    }
+            
+                    this.setCapabilityValue('measure_battery', data.battery).catch(this.error);
+                }
             }
             this.unsetWarning();
         }

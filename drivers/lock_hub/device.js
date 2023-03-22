@@ -82,6 +82,16 @@ class LockHubDevice extends HubDevice
                 this.homey.app.updateLog(`Lock Hub got: ${this.homey.app.varToString(data)}`, 3);
 
                 this.setCapabilityValue('locked', data.lockState === 'locked').catch(this.error);
+
+                if (data.battery)
+                {
+                    if (!this.hasCapability('measure_battery'))
+                    {
+                        await this.addCapability('measure_battery');
+                    }
+            
+                    this.setCapabilityValue('measure_battery', data.battery).catch(this.error);
+                }
             }
             this.unsetWarning();
         }
@@ -101,6 +111,16 @@ class LockHubDevice extends HubDevice
             {
                 // message is for this device
                 this.setCapabilityValue('locked', message.context.lockState === 'LOCKED').catch(this.error);
+
+                if (message.context.battery)
+                {
+                    if (!this.hasCapability('measure_battery'))
+                    {
+                        await this.addCapability('measure_battery');
+                    }
+            
+                    this.setCapabilityValue('measure_battery', message.context.battery).catch(this.error);
+                }
             }
         }
         catch (err)

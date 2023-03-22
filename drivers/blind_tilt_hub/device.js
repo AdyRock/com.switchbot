@@ -102,6 +102,17 @@ class BlindTiltHubDevice extends HubDevice
 
                 let position = data.slidePosition / 100;
                 this.setCapabilityValue('windowcoverings_tilt_set', position).catch(this.error);
+
+                if (data.battery)
+                {
+                    if (!this.hasCapability('measure_battery'))
+                    {
+                        await this.addCapability('measure_battery');
+                    }
+            
+                    this.setCapabilityValue('measure_battery', data.battery).catch(this.error);
+                }
+
                 this.unsetWarning();
             }
         }

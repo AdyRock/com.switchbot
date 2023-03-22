@@ -223,5 +223,8 @@
   },
   "1.1.24": {
     "en": "Fix for Homey 2023 as it reports the long UUID instead of the short version."
+  },
+  "1.1.25": {
+    "en": "Added battery capability to devices when the data contains the required information."
   }
 }

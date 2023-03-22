@@ -56,6 +56,16 @@ class PresenceHubDevice extends HubDevice
                     this.setCapabilityValue('bright', bright).catch(this.error);
                     this.driver.bright_changed(this, bright);
                 }
+
+                if (data.battery)
+                {
+                    if (!this.hasCapability('measure_battery'))
+                    {
+                        await this.addCapability('measure_battery');
+                    }
+            
+                    this.setCapabilityValue('measure_battery', data.battery).catch(this.error);
+                }
             }
             this.unsetWarning();
         }
@@ -75,6 +85,16 @@ class PresenceHubDevice extends HubDevice
             {
                 // message is for this device
                 this.setCapabilityValue('alarm_motion', message.context.detectionState === 'DETECTED').catch(this.error);
+
+                if (message.context.battery)
+                {
+                    if (!this.hasCapability('measure_battery'))
+                    {
+                        await this.addCapability('measure_battery');
+                    }
+            
+                    this.setCapabilityValue('measure_battery', message.context.battery).catch(this.error);
+                }
             }
         }
         catch (err)
