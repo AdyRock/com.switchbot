@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.switchbot",
-  "version": "1.1.25",
+  "version": "1.1.26",
   "compatibility": ">=6.0.0",
   "platforms": [
     "local",
@@ -51,7 +51,8 @@
       "Whirlpool",
       "Blinds",
       "LED strip",
-      "Bulb"
+      "Bulb",
+      "IR remote"
     ]
   },
   "category": [
@@ -2717,6 +2718,57 @@
           "AAA"
         ]
       }
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        }
+      ],
+      "icon": "/drivers/projector_hub/assets/icon.svg",
+      "images": {
+        "large": "/drivers/projector_hub/assets/images/large.jpg",
+        "small": "/drivers/projector_hub/assets/images/small.jpg"
+      },
+      "id": "projector_hub",
+      "name": {
+        "en": "Projector Remote"
+      },
+      "class": "remote",
+      "capabilities": [
+        "power_on",
+        "power_off",
+        "volume_up",
+        "volume_down",
+        "channel_up",
+        "channel_down",
+        "volume_mute"
+      ]
     },
     {
       "platforms": [

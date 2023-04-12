@@ -226,5 +226,8 @@
   },
   "1.1.25": {
     "en": "Added battery capability to devices when the data contains the required information."
+  },
+  "1.1.26": {
+    "en": "Added Projector remote control."
   }
 }

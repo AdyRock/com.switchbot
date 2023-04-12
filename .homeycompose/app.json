@@ -1,6 +1,6 @@
 {
     "id": "com.switchbot",
-    "version": "1.1.25",
+    "version": "1.1.26",
     "compatibility": ">=6.0.0",
     "platforms": ["local", "cloud"],
     "sdk": 3,
@@ -50,7 +50,8 @@
             "Whirlpool",
             "Blinds",
             "LED strip",
-            "Bulb"
+            "Bulb",
+            "IR remote"
         ]
     },
     "category": [
