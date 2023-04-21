@@ -28,6 +28,7 @@ class BlindTiltBLEDevice extends Homey.Device
         this.bestRSSI = 100;
         this.bestHub = '';
         this.sendingCommand = false;
+        this.firmware = 2;
 
         this._operateBlind = this._operateBlind.bind(this);
         this._operateBotLoop = this._operateBlindLoop.bind(this);
@@ -445,7 +446,7 @@ class BlindTiltBLEDevice extends Homey.Device
                 const deviceInfo = await this.homey.app.BLEHub.getBLEHubDevice(dd.address);
                 if (deviceInfo)
                 {
-                    this.bestHub = deviceInfo.hubMAC;
+                    this.updateCapabilities(deviceInfo);
                 }
             }
             if (this.bestHub !== '')
@@ -453,10 +454,17 @@ class BlindTiltBLEDevice extends Homey.Device
                 // This device is being controlled by a BLE hub
                 if (this.homey.app.BLEHub && this.homey.app.BLEHub.IsBLEHubAvailable(this.bestHub))
                 {
-                    const bytes = [0x57, 0x02];
-                    if (await this.homey.app.BLEHub.sendBLEHubCommand(dd.address, bytes, this.bestHub))
+                    if (this.firmware < 2)
                     {
-                        this.sendingCommand = false;
+                        const bytes = [0x57, 0x02];
+                        if (await this.homey.app.BLEHub.sendBLEHubCommand(dd.address, bytes, this.bestHub))
+                        {
+                            this.sendingCommand = false;
+                            return;
+                        }
+                    }
+                    else
+                    {
                         return;
                     }
                 }
@@ -478,19 +486,29 @@ class BlindTiltBLEDevice extends Homey.Device
                 const rssi = await bleAdvertisement.rssi;
                 this.setCapabilityValue('rssi', rssi).catch(this.error);
 
-//                const data = this.driver.parse(bleAdvertisement);
-                const returnBytes = await this.getBlindInformation(name, bleAdvertisement);
-                if ((returnBytes instanceof Error) || (returnBytes === ''))
+                let data = null;
+                if (this.firmware >= 2)
                 {
-                    this.homey.app.updateLog(`BLE get information for ${name} failed: ${returnBytes.toString()}`, 0);
-                    return;
+                    // The blind / tilt firmware v2 returns the position in the manufacture data
+                    data = this.driver.parse(bleAdvertisement);
+                }
+                else
+                {
+                    // The blind / tilt firmware < 2 has to request the position
+                    const returnBytes = await this.getBlindInformation(name, bleAdvertisement);
+                    if ((returnBytes instanceof Error) || (returnBytes === ''))
+                    {
+                        this.homey.app.updateLog(`BLE get information for ${name} failed: ${returnBytes.toString()}`, 0);
+                        return;
+                    }
+
+                    data = this.driver._parseServiceDataForWoTilt(returnBytes);
                 }
 
-                const data = this.driver._parseServiceDataForWoTilt(returnBytes);
                 if (data)
                 {
                     this.homey.app.updateLog(`Parsed Blind Tilt BLE (${name}) ${this.homey.app.varToString(data)}`, 3);
-                    let position = data.position / 100;
+                    let position = data.serviceData.position / 100;
                     if (this.invertPosition)
                     {
                         position = 1 - position;
@@ -508,7 +526,7 @@ class BlindTiltBLEDevice extends Homey.Device
                     this.setCapabilityValue('windowcoverings_tilt_set', position).catch(this.error);
                     this.setCapabilityValue('position', position * 100).catch(this.error);
 
-                    this.setCapabilityValue('measure_battery', data.battery).catch(this.error);
+                    this.setCapabilityValue('measure_battery', data.serviceData.battery).catch(this.error);
                 }
                 else
                 {
@@ -547,17 +565,7 @@ class BlindTiltBLEDevice extends Homey.Device
                     }
                     else
                     {
-                        this.setCapabilityValue('measure_battery', event.serviceData.battery).catch(this.error);
-                        this.setCapabilityValue('rssi', event.rssi).catch(this.error);
-                        this.homey.app.updateLog(`Parsed Blind Tilt BLE (${name}): position = ${event.serviceData.position}, battery = ${event.serviceData.battery}`, 3);
-
-                        if (event.hubMAC && ((event.rssi < this.bestRSSI) || (event.hubMAC === this.bestHub)))
-                        {
-                            this.bestHub = event.hubMAC;
-                            this.bestRSSI = event.rssi;
-                        }
-
-                        this.setAvailable();
+                        this.updateCapabilities(event);
                     }
                 }
             }
@@ -566,6 +574,40 @@ class BlindTiltBLEDevice extends Homey.Device
         {
             this.homey.app.updateLog(`Error in Blind Tilt (${name}) syncEvents: ${this.homey.app.varToString(error)}`, 0);
         }
+    }
+
+    updateCapabilities(data)
+    {
+        let position = data.serviceData.position / 100;
+        if (this.invertPosition)
+        {
+            position = 1 - position;
+        }
+        this.setCapabilityValue('windowcoverings_tilt_set', position).catch(this.error);
+        this.setCapabilityValue('position', position * 100).catch(this.error);
+
+        if (position > 0.5)
+        {
+            this.setCapabilityValue('open_close', true).catch(this.error);
+        }
+        else
+        {
+            this.setCapabilityValue('open_close', false).catch(this.error);
+        }
+
+        this.setCapabilityValue('measure_battery', data.serviceData.battery).catch(this.error);
+        this.setCapabilityValue('rssi', data.rssi).catch(this.error);
+
+        const name = this.getName();
+        this.homey.app.updateLog(`Parsed Blind Tilt BLE (${name}): position = ${data.serviceData.position}, battery = ${data.serviceData.battery}`, 3);
+
+        if (data.hubMAC && ((data.rssi < this.bestRSSI) || (data.hubMAC === this.bestHub)))
+        {
+            this.bestHub = data.hubMAC;
+            this.bestRSSI = data.rssi;
+        }
+
+        this.setAvailable();
     }
 
 }

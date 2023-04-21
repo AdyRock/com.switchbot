@@ -28,6 +28,16 @@
         "type": "node",
         "request": "attach",
         "restart": true,
+        "name": "Attach to Homey Dev",
+        "address": "192.168.1.56",
+        "port": 9224,
+        "localRoot": "${workspaceFolder}",
+        "remoteRoot": "/"
+    },
+    {
+        "type": "node",
+        "request": "attach",
+        "restart": true,
         "name": "Attach to Homey USB",
         "address": "10.76.225.1",
         "port": 9224,

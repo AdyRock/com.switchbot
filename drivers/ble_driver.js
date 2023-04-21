@@ -220,7 +220,7 @@ class BLEDriver extends Homey.Driver
             return null;
         }
 
-       let uuid = device.serviceData[0].uuid;
+        let uuid = device.serviceData[0].uuid;
         if ((uuid.search('0d00') < 0) && (uuid.search('fd3d') < 0))
         {
             return null;
@@ -264,7 +264,7 @@ class BLEDriver extends Homey.Driver
         }
         else if (model === 'x')
         { // WoBulb
-            sd = this._parseServiceDataForWoTilt(buf);
+            sd = this._parseServiceDataForWoTilt(buf, device.manufacturerData);
         }
         else
         {
@@ -511,9 +511,9 @@ class BLEDriver extends Homey.Driver
         return data;
     }
 
-    _parseServiceDataForWoTilt(buf)
+    _parseServiceDataForWoTilt(buf, man)
     {
-        if (buf.length === 3)
+        if ((buf.length === 3) && (man.length != 13))
         {
             const byte2 = buf.readUInt8(2);
             const battery = (byte2 & 0b01111111); // %
@@ -522,6 +522,22 @@ class BLEDriver extends Homey.Driver
                 model: 'x',
                 modelName: 'WoBlindTilt',
                 battery,
+                version: 1
+            };
+            return data;
+        }
+        if ((buf.length === 3) && (man.length === 13))
+        {
+            const byte2 = buf.readUInt8(2);
+            const battery = (byte2 & 0b01111111); // %
+            const tilt = man[10];
+
+            const data = {
+                model: 'x',
+                modelName: 'WoBlindTilt',
+                battery,
+                position: tilt,
+                version: 2
             };
             return data;
         }
@@ -544,6 +560,7 @@ class BLEDriver extends Homey.Driver
             "inMotion": moving,
             "position": tilt,
             "timers": buf[7],
+            "version": 2
         };
     }
 
