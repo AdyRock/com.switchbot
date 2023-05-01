@@ -513,7 +513,7 @@ class BLEDriver extends Homey.Driver
 
     _parseServiceDataForWoTilt(buf, man)
     {
-        if ((buf.length === 3) && (man.length != 13))
+        if ((buf.length === 3) && ((man.length != 11) && (man.length != 13)))
         {
             const byte2 = buf.readUInt8(2);
             const battery = (byte2 & 0b01111111); // %
@@ -531,6 +531,21 @@ class BLEDriver extends Homey.Driver
             const byte2 = buf.readUInt8(2);
             const battery = (byte2 & 0b01111111); // %
             const tilt = man[10];
+
+            const data = {
+                model: 'x',
+                modelName: 'WoBlindTilt',
+                battery,
+                position: tilt,
+                version: 2
+            };
+            return data;
+        }
+        if ((buf.length === 3) && (man.length === 11))
+        {
+            const byte2 = buf.readUInt8(2);
+            const battery = (byte2 & 0b01111111); // %
+            const tilt = man[8];
 
             const data = {
                 model: 'x',

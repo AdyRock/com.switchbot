@@ -229,5 +229,8 @@
   },
   "1.1.26": {
     "en": "Added Projector remote control."
+  },
+  "1.1.27": {
+    "en": "Support for Tilt firmeware V2."
   }
 }

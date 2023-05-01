@@ -483,7 +483,7 @@ class BlindTiltBLEDevice extends Homey.Device
                 }
 
                 this.homey.app.updateLog(this.homey.app.varToString(bleAdvertisement), 4);
-                const rssi = await bleAdvertisement.rssi;
+                const rssi = bleAdvertisement.rssi;
                 this.setCapabilityValue('rssi', rssi).catch(this.error);
 
                 let data = null;

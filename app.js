@@ -959,6 +959,7 @@ class MyApp extends OAuth2App
     {
         if (!this.bleBusy)
         {
+            this.bleBusy = true;
             this.blePolling = true;
             this.updateLog('\r\nPolling BLE Starting ------------------------------------');
 
@@ -992,6 +993,7 @@ class MyApp extends OAuth2App
             }
 
             this.blePolling = false;
+            this.bleBusy = false;
             this.updateLog('------------------------------------ Polling BLE Finished\r\n');
         }
         else

@@ -6,6 +6,7 @@
     "units": {
         "en": "%"
     },
+    "decimals": 0,
     "getable": true,
     "setable": false,
     "icon": "/drivers/curtains_ble/assets/icon.svg"
