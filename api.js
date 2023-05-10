@@ -9,7 +9,18 @@ module.exports = {
     },
     async getDetect({ homey, query })
     {
-        homey.app.detectedDevices = await homey.app.getHUBDevices();
+        try
+        {
+            homey.app.detectedDevices = await homey.app.getHUBDevices();
+        }
+        catch(err)
+        {
+            console.log(err);
+            if (!homey.app.detectedDevices)
+            {
+                homey.app.detectedDevices = err.message;
+            }
+        }
         return homey.app.detectedDevices;
     },
     async clearLog({ homey, query })

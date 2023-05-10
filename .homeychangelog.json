@@ -232,5 +232,8 @@
   },
   "1.1.27": {
     "en": "Support for Tilt firmeware V2."
+  },
+  "1.1.28": {
+    "en": "Fix for Get Device Log when no devices were found during the Add Device stage."
   }
 }
