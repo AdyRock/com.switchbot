@@ -6,7 +6,7 @@
         {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=fan_hub"
+            "filter": "driver_id=fan_hub|air_purifier_remote_hub"
         }
     ],
     "platforms": ["local", "cloud"]
