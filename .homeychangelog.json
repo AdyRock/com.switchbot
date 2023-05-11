@@ -235,5 +235,8 @@
   },
   "1.1.28": {
     "en": "Fix for Get Device Log when no devices were found during the Add Device stage."
+  },
+  "1.1.29": {
+    "en": "Added Air Purifier Remote."
   }
 }
