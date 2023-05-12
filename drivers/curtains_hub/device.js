@@ -37,7 +37,7 @@ class CurtainsHubDevice extends HubDevice
 
         try
         {
-            this.getHubDeviceValues();
+            await this.getHubDeviceValues();
         }
         catch (err)
         {
@@ -46,6 +46,9 @@ class CurtainsHubDevice extends HubDevice
         this.registerCapabilityListener('open_close', this.onCapabilityopenClose.bind(this));
         this.registerCapabilityListener('windowcoverings_set', this.onCapabilityPosition.bind(this));
         this.log('CurtainsHubDevice has been initialising');
+
+        const dd = this.getData();
+        this.homey.app.registerHomeyWebhook(dd.id);
     }
 
     /**
@@ -215,6 +218,50 @@ class CurtainsHubDevice extends HubDevice
         {
             this.homey.app.updateLog(`Curtains getHubDeviceValues: ${this.homey.app.varToString(err.message)}`, 0);
             this.setWarning(err.message);
+        }
+    }
+
+    async processWebhookMessage(message)
+    {
+        try
+        {
+            const dd = this.getData();
+            if (dd.id === message.context.deviceMac)
+            {
+                // message is for this device
+                const data = message.context;
+                let position = data.slidePosition / 100;
+                if (this.invertPosition)
+                {
+                    position = 1 - position;
+                }
+
+                if (position > 0.5)
+                {
+                    this.setCapabilityValue('open_close', true).catch(this.error);
+                }
+                else
+                {
+                    this.setCapabilityValue('open_close', false).catch(this.error);
+                }
+
+                this.setCapabilityValue('windowcoverings_set', position).catch(this.error);
+                this.setCapabilityValue('position', position * 100).catch(this.error);
+
+                if (data.battery)
+                {
+                    if (!this.hasCapability('measure_battery'))
+                    {
+                        await this.addCapability('measure_battery');
+                    }
+            
+                    this.setCapabilityValue('measure_battery', data.battery).catch(this.error);
+                }
+            }
+        }
+        catch (err)
+        {
+            this.homey.app.updateLog(`processWebhookMessage error ${err.message}`, 0);
         }
     }
 

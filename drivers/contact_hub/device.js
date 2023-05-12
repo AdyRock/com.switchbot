@@ -18,6 +18,15 @@ class ContactHubDevice extends HubDevice
             this.addCapability('direction');
         }
 
+        try
+        {
+            await this.getHubDeviceValues();
+        }
+        catch (err)
+        {
+            this.setUnavailable(err.message);
+        }
+
         const dd = this.getData();
         this.homey.app.registerHomeyWebhook(dd.id);
 
@@ -91,7 +100,7 @@ class ContactHubDevice extends HubDevice
             {
                 // message is for this device
                 this.setCapabilityValue('alarm_motion', message.context.detectionState === 'DETECTED').catch(this.error);
-                this.setCapabilityValue('alarm_contact', message.context.openState === 'open').catch(this.error);
+                this.setCapabilityValue('alarm_contact', message.context.openState !== 'close').catch(this.error);
                 if (message.context.openState === 'open')
                 {
                     this.setCapabilityValue('direction', message.context.doorMode === 'OUT_DOOR').catch(this.error);
@@ -100,7 +109,7 @@ class ContactHubDevice extends HubDevice
                 else
                 {
                     this.setCapabilityValue('direction', null).catch(this.error);
-                    this.setCapabilityValue('alarm_contact.left_open', false).catch(this.error);
+                    this.setCapabilityValue('alarm_contact.left_open', message.context.openState === 'timeOutNotClose').catch(this.error);
                 }
 
                 if (message.context.battery)

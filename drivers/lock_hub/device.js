@@ -16,6 +16,15 @@ class LockHubDevice extends HubDevice
 
         this.registerCapabilityListener('locked', this.onCapabilityLocked.bind(this));
 
+        try
+        {
+            await this.getHubDeviceValues();
+        }
+        catch (err)
+        {
+            this.setUnavailable(err.message);
+        }
+
         const dd = this.getData();
         this.homey.app.registerHomeyWebhook(dd.id);
 

@@ -14,6 +14,15 @@ class PresenceHubDevice extends HubDevice
     {
         await super.onInit();
 
+        try
+        {
+            await this.getHubDeviceValues();
+        }
+        catch (err)
+        {
+            this.setUnavailable(err.message);
+        }
+
         const dd = this.getData();
         this.homey.app.registerHomeyWebhook(dd.id);
 
@@ -38,6 +47,11 @@ class PresenceHubDevice extends HubDevice
         this.log('PresenceHubDevice was renamed');
     }
 
+    async pollHubDeviceValues()
+    {
+        this.getHubDeviceValues();
+    }
+    
     async getHubDeviceValues()
     {
         try

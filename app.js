@@ -15,7 +15,7 @@ const HubInterface = require('./lib/hub_interface');
 const BLEHubInterface = require('./lib/ble_hub_interface');
 const SwitchBotOAuth2Client = require('./lib/SwitchBotOAuth2Client');
 
-const MINIMUM_POLL_INTERVAL = 5; // in Seconds
+const MINIMUM_POLL_INTERVAL = 15; // in Seconds
 const BLE_POLLING_INTERVAL = 30000; // in milliSeconds
 class MyApp extends OAuth2App
 {
@@ -909,10 +909,10 @@ class MyApp extends OAuth2App
             const devices = driver.getDevices();
             for (const device of Object.values(devices))
             {
-                if (device.getHubDeviceValues)
+                if (device.pollHubDeviceValues)
                 {
                     totalHuBDevices++;
-                    promises.push(device.getHubDeviceValues());
+                    promises.push(device.pollHubDeviceValues());
                 }
             }
         }
@@ -922,10 +922,6 @@ class MyApp extends OAuth2App
         if (totalHuBDevices > 0)
         {
             let nextInterval = (MINIMUM_POLL_INTERVAL * 1000 * totalHuBDevices);
-            if (nextInterval < (8700 * totalHuBDevices))
-            {
-                nextInterval = (8700 * totalHuBDevices);
-            }
 
             this.homey.app.updateLog(`Next HUB polling interval = ${nextInterval / 1000}s: ${this.homey.app.apiCalls} API calls today`);
             this.timerHubID = this.homey.setTimeout(this.onHubPoll, nextInterval);

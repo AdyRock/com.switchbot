@@ -15,6 +15,27 @@ class TemperatureHubDevice extends HubDevice
         await super.onInit();
 
         const dd = this.getData();
+        if (dd.type === 'Hub 2')
+        {
+            if (!this.hasCapability('measure_luminance'))
+            {
+                this.addCapability('measure_luminance').catch(this.error);
+            }
+        }
+        else if (this.hasCapability('measure_luminance'))
+        {
+            this.removeCapability('measure_luminance').catch(this.error);
+        }
+
+        try
+        {
+            await this.getHubDeviceValues();
+        }
+        catch (err)
+        {
+            this.setUnavailable(err.message);
+        }
+        
         this.homey.app.registerHomeyWebhook(dd.id);
 
         this.log('TemperatureHubDevice has been initialized');
@@ -50,6 +71,11 @@ class TemperatureHubDevice extends HubDevice
 
                 this.setCapabilityValue('measure_temperature', data.temperature).catch(this.error);
                 this.setCapabilityValue('measure_humidity', data.humidity).catch(this.error);
+
+                if (this.hasCapability('measure_luminance'))
+                {
+                    this.setCapabilityValue('measure_luminance', data.lightLevel).catch(this.error);
+                }
 
                 if (data.battery)
                 {
@@ -87,6 +113,11 @@ class TemperatureHubDevice extends HubDevice
 
                 this.setCapabilityValue('measure_temperature', temperature).catch(this.error);
                 this.setCapabilityValue('measure_humidity', message.context.humidity).catch(this.error);
+
+                if (this.hasCapability('measure_luminance'))
+                {
+                    this.setCapabilityValue('measure_luminance', message.context.lightLevel).catch(this.error);
+                }
 
                 if (message.context.battery)
                 {

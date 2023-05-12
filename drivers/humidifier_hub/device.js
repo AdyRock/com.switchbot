@@ -80,6 +80,11 @@ class HumidityHubDevice extends HubDevice
         return super.setDeviceData(data);
     }
 
+    async pollHubDeviceValues()
+    {
+        this.getHubDeviceValues();
+    }
+    
     async getHubDeviceValues()
     {
         try

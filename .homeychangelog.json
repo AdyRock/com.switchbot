@@ -238,5 +238,8 @@
   },
   "1.1.29": {
     "en": "Added Air Purifier Remote."
+  },
+  "1.1.30": {
+    "en": "Added luminance to Temperature and Humidity device when it is a Hub 2. Added webhook support for more devices and reduced polling"
   }
 }

@@ -16,13 +16,17 @@ class BlindTiltHubDevice extends HubDevice
 
         try
         {
-            this.getHubDeviceValues();
+            await this.getHubDeviceValues();
         }
         catch (err)
         {
             this.setUnavailable(err.message);
         }
         this.registerCapabilityListener('windowcoverings_tilt_set', this.onCapabilityPosition.bind(this));
+
+        const dd = this.getData();
+        this.homey.app.registerHomeyWebhook(dd.id);
+
         this.log('BlindTiltHubDevice has been initialising');
     }
 
@@ -90,6 +94,11 @@ class BlindTiltHubDevice extends HubDevice
         return super.setDeviceData(data);
     }
 
+    async pollHubDeviceValues()
+    {
+        this.getHubDeviceValues();
+    }
+
     async getHubDeviceValues()
     {
         try
@@ -120,6 +129,35 @@ class BlindTiltHubDevice extends HubDevice
         {
             this.homey.app.updateLog(`BlindTilt getHubDeviceValues: ${this.homey.app.varToString(err.message)}`, 0);
             this.setWarning(err.message);
+        }
+    }
+
+    async processWebhookMessage(message)
+    {
+        try
+        {
+            const dd = this.getData();
+            if (dd.id === message.context.deviceMac)
+            {
+                // message is for this device
+                const data = message.context;
+                let position = data.slidePosition / 100;
+                this.setCapabilityValue('windowcoverings_tilt_set', position).catch(this.error);
+
+                if (data.battery)
+                {
+                    if (!this.hasCapability('measure_battery'))
+                    {
+                        await this.addCapability('measure_battery');
+                    }
+            
+                    this.setCapabilityValue('measure_battery', data.battery).catch(this.error);
+                }
+            }
+        }
+        catch (err)
+        {
+            this.homey.app.updateLog(`processWebhookMessage error ${err.message}`, 0);
         }
     }
 

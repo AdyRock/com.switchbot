@@ -16,6 +16,18 @@ class BotHubDevice extends HubDevice
 
         this.registerCapabilityListener('onoff', this.onCapabilityOnOff.bind(this));
 
+        try
+        {
+            await this.getHubDeviceValues();
+        }
+        catch (err)
+        {
+            this.setUnavailable(err.message);
+        }
+
+        const dd = this.getData();
+        this.homey.app.registerHomeyWebhook(dd.id);
+
         this.log('BotHubDevice has been initialized');
     }
 
@@ -125,6 +137,41 @@ class BotHubDevice extends HubDevice
         {
             this.homey.app.updateLog(`Bot getHubDeviceValues: ${this.homey.app.varToString(err.message)}`, 0);
             this.setWarning(err.message);
+        }
+    }
+
+    async processWebhookMessage(message)
+    {
+        try
+        {
+            const dd = this.getData();
+            if (dd.id === message.context.deviceMac)
+            {
+                // message is for this device
+                const data = message.context;
+                if (data.deviceMode === 'pressMode')
+                {
+                    this.setCapabilityValue('onoff', false).catch(this.error);
+                }
+                else
+                {
+                    this.setCapabilityValue('onoff', data.power === 'on').catch(this.error);
+                }
+
+                if (data.battery)
+                {
+                    if (!this.hasCapability('measure_battery'))
+                    {
+                        await this.addCapability('measure_battery');
+                    }
+            
+                    this.setCapabilityValue('measure_battery', data.battery).catch(this.error);
+                }
+            }
+        }
+        catch (err)
+        {
+            this.homey.app.updateLog(`processWebhookMessage error ${err.message}`, 0);
         }
     }
 
