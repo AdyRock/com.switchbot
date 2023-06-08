@@ -5,7 +5,8 @@
     },
     "class": "lock",
     "capabilities": [
-        "locked"
+        "locked",
+        "alarm_generic"
     ],
     "energy": {
         "batteries": [

@@ -5,6 +5,10 @@
         "send": "Send Log",
         "getDevices": "Get HUB Devices"
     },
+    "capabilities":
+    {
+        "brightness": "Brightness"
+    },
     "pair":
     {
         "api_code":

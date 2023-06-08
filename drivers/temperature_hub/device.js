@@ -21,6 +21,8 @@ class TemperatureHubDevice extends HubDevice
             {
                 this.addCapability('measure_luminance').catch(this.error);
             }
+
+            this.setCapabilityOptions('measure_luminance', {"title": this.homey.__("capabilities.brightness"), "units": '%' }).catch(this.error);
         }
         else if (this.hasCapability('measure_luminance'))
         {
@@ -74,7 +76,7 @@ class TemperatureHubDevice extends HubDevice
 
                 if (this.hasCapability('measure_luminance'))
                 {
-                    this.setCapabilityValue('measure_luminance', data.lightLevel).catch(this.error);
+                    this.setCapabilityValue('measure_luminance', data.lightLevel * 5).catch(this.error);
                 }
 
                 if (data.battery)
@@ -116,7 +118,7 @@ class TemperatureHubDevice extends HubDevice
 
                 if (this.hasCapability('measure_luminance'))
                 {
-                    this.setCapabilityValue('measure_luminance', message.context.lightLevel).catch(this.error);
+                    this.setCapabilityValue('measure_luminance', message.context.lightLevel * 5).catch(this.error);
                 }
 
                 if (message.context.battery)

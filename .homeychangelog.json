@@ -241,5 +241,8 @@
   },
   "1.1.30": {
     "en": "Added luminance to Temperature and Humidity device when it is a Hub 2. Added webhook support for more devices and reduced polling"
+  },
+  "1.1.31": {
+    "en": "Added Alarm for door jammed. Changed Hub 2 luminance to Brightness as a percentage of it range."
   }
 }

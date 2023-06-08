@@ -16,6 +16,11 @@ class LockHubDevice extends HubDevice
 
         this.registerCapabilityListener('locked', this.onCapabilityLocked.bind(this));
 
+        if (!this.hasCapability('alarm_generic'))
+        {
+            this.addCapability('alarm_generic');
+        }
+
         try
         {
             await this.getHubDeviceValues();
@@ -91,6 +96,7 @@ class LockHubDevice extends HubDevice
                 this.homey.app.updateLog(`Lock Hub got: ${this.homey.app.varToString(data)}`, 3);
 
                 this.setCapabilityValue('locked', data.lockState === 'locked').catch(this.error);
+                this.setCapabilityValue('alarm_generic', data.lockState === 'JAMMED').catch(this.error);
 
                 if (data.battery)
                 {
@@ -120,6 +126,7 @@ class LockHubDevice extends HubDevice
             {
                 // message is for this device
                 this.setCapabilityValue('locked', message.context.lockState === 'LOCKED').catch(this.error);
+                this.setCapabilityValue('alarm_generic', data.lockState === 'JAMMED').catch(this.error);
 
                 if (message.context.battery)
                 {
