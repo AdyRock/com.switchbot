@@ -362,7 +362,7 @@ class BLEDriver extends Homey.Driver
 
     _parseServiceDataForWoIOSensor(buf, man)
     {
-        if (man.length !== 13)
+        if (man.length < 13)
         {
             return null;
         }
