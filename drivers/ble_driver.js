@@ -362,7 +362,7 @@ class BLEDriver extends Homey.Driver
 
     _parseServiceDataForWoIOSensor(buf, man)
     {
-        if (man.length < 13)
+        if (man.length !== 14)
         {
             return null;
         }
@@ -373,7 +373,7 @@ class BLEDriver extends Homey.Driver
         const byte12 = man.readUInt8(12);
 
         const tempSign = (byte11 & 0b10000000) ? 1 : -1;
-        const tempC = tempSign * ((byte11 & 0b01111111) + (byte10 / 10));
+        const tempC = tempSign * ((byte11 & 0b01111111) + ((byte10 & 0b01111111) / 10));
         let tempF = ((tempC * 9) / 5) + 32;
         tempF = Math.round(tempF * 10) / 10;
 
