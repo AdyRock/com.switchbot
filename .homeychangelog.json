@@ -250,5 +250,8 @@
   },
   "1.1.33": {
     "en": "Fix for new T & H I/O temperature data format."
+  },
+  "1.1.34": {
+    "en": "Enhanced performance for ESP32 BLE hub."
   }
 }
