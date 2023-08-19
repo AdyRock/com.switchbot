@@ -306,7 +306,7 @@ class BLEDriver extends Homey.Driver
 
     _parseServiceDataForWoHand(buf)
     {
-        if (buf.length !== 3)
+        if (buf.length < 3)
         {
             return null;
         }

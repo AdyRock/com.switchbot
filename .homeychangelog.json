@@ -253,5 +253,8 @@
   },
   "1.1.34": {
     "en": "Enhanced performance for ESP32 BLE hub."
+  },
+  "1.1.35": {
+    "en": "Update for new Bot BLE data format."
   }
 }
