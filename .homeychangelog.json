@@ -256,5 +256,8 @@
   },
   "1.1.35": {
     "en": "Update for new Bot BLE data format."
+  },
+  "1.1.36": {
+    "en": "Update for new Curtain 3 Hub data format."
   }
 }
