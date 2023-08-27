@@ -99,6 +99,14 @@ class HubDriver extends OAuth2Driver
                     else
                     {
                         found = (device.deviceType === type);
+
+                        if (!found)
+                        {
+                            if (type === 'Curtain')
+                            {
+                                found = ((device.curtainDevicesIds) && (device.master === true));
+                            }
+                        }
                     }
                     if (found)
                     {
