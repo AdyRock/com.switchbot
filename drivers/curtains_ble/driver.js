@@ -13,6 +13,8 @@ class BLECurtainDriver extends BLEDriver
     async onInit()
     {
         super.onInit();
+        this.light_level_changedTrigger = this.homey.flow.getDeviceTriggerCard('light_level_changed');
+
         this.log('BLECurtainDriver has been initialized');
     }
 
@@ -23,6 +25,11 @@ class BLECurtainDriver extends BLEDriver
     onPairListDevices()
     {
         return this.getBLEDevices('c');
+    }
+
+    async triggerLightLevelChanged(device, tokens, state)
+    {
+        this.light_level_changedTrigger.trigger(device, tokens, state).catch(this.error);
     }
 
 }

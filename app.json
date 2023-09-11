@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.switchbot",
-  "version": "1.1.36",
+  "version": "1.1.37",
   "compatibility": ">=6.0.0",
   "platforms": [
     "local",
@@ -284,6 +284,35 @@
           }
         ],
         "id": "direction_true"
+      },
+      {
+        "title": {
+          "en": "Light Level Changed"
+        },
+        "platforms": [
+          "local"
+        ],
+        "connectivity": [
+          "ble"
+        ],
+        "tokens": [
+          {
+            "name": "Light_level",
+            "title": {
+              "en": "Light Level"
+            },
+            "type": "number",
+            "example": "1 to 10"
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=curtains_ble"
+          }
+        ],
+        "id": "light_level_changed"
       },
       {
         "platforms": [
@@ -1810,6 +1839,7 @@
       "class": "curtain",
       "capabilities": [
         "open_close",
+        "light_level",
         "measure_battery",
         "windowcoverings_set",
         "rssi",
@@ -3442,6 +3472,18 @@
         "en": "Fast Forward"
       },
       "icon": "/assets/fast-forward.svg"
+    },
+    "light_level": {
+      "type": "number",
+      "title": {
+        "en": "Light Level"
+      },
+      "units": {
+        "en": ""
+      },
+      "getable": true,
+      "setable": false,
+      "icon": "/assets/brightness.svg"
     },
     "nebulization_efficiency": {
       "type": "number",

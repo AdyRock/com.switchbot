@@ -352,6 +352,12 @@ class MyApp extends OAuth2App
             {
                 return args.device.onCapabilityPosition(args.windowcoverings_tilt_set);
             });
+
+        let light_level_changedTrigger = this.homey.flow.getDeviceTriggerCard('light_level_changed');
+        light_level_changedTrigger.registerRunListener(async (args, state) =>
+            {
+                return true;
+            });
     
         this.homey.app.updateLog('************** App has initialised. ***************');
     }

@@ -259,5 +259,8 @@
   },
   "1.1.36": {
     "en": "Update for new Curtain 3 Hub data format."
+  },
+  "1.1.37": {
+    "en": "Added Light Level to curtains."
   }
 }

@@ -13,6 +13,7 @@
     "class": "curtain",
     "capabilities": [
         "open_close",
+        "light_level",
         "measure_battery",
         "windowcoverings_set",
         "rssi",

@@ -24,6 +24,10 @@ class CurtainsBLEDevice extends Homey.Device
         {
             this.removeCapability('onoff');
         }
+        if (!this.hasCapability('light_level'))
+        {
+            this.addCapability('light_level');
+        }
 
         this.bestRSSI = 100;
         this.bestHub = '';
@@ -357,6 +361,18 @@ class CurtainsBLEDevice extends Homey.Device
                         this.setCapabilityValue('open_close', false).catch(this.error);
                     }
 
+
+                    if (data.serviceData.lightLevel !== this.getCapabilityValue('light_level'))
+                    {
+                        this.setCapabilityValue('light_level', data.serviceData.lightLevel).catch(this.error);
+
+                        const tokens = {
+                            "light_level": data.serviceData.lightLevel
+                        };
+
+                        this.driver.triggerLightLevelChanged(this, tokens, null).catch(this.error);
+                    }
+
                     this.setCapabilityValue('windowcoverings_set', position).catch(this.error);
                     this.setCapabilityValue('position', position * 100).catch(this.error);
 
@@ -409,6 +425,17 @@ class CurtainsBLEDevice extends Homey.Device
                     else
                     {
                         this.setCapabilityValue('open_close', false).catch(this.error);
+                    }
+
+                    if (event.serviceData.lightLevel && event.serviceData.lightLevel !== this.getCapabilityValue('light_level'))
+                    {
+                        this.setCapabilityValue('light_level', event.serviceData.lightLevel).catch(this.error);
+
+                        const tokens = {
+                            "light_level": event.serviceData.lightLevel
+                        };
+
+                        this.driver.triggerLightLevelChanged(this, tokens, null).catch(this.error);
                     }
 
                     this.setCapabilityValue('measure_battery', event.serviceData.battery).catch(this.error);

@@ -1,0 +1,12 @@
+{
+    "type": "number",
+    "title": {
+        "en": "Light Level"
+    },
+    "units": {
+        "en": ""
+    },
+    "getable": true,
+    "setable": false,
+    "icon": "/assets/brightness.svg"
+}
