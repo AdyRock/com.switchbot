@@ -362,7 +362,7 @@ class CurtainsBLEDevice extends Homey.Device
                     }
 
 
-                    if (data.serviceData.lightLevel !== this.getCapabilityValue('light_level'))
+                    if ((data.serviceData.lightLevel) && data.serviceData.lightLevel !== this.getCapabilityValue('light_level'))
                     {
                         this.setCapabilityValue('light_level', data.serviceData.lightLevel).catch(this.error);
 

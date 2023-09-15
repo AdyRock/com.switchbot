@@ -262,5 +262,8 @@
   },
   "1.1.37": {
     "en": "Added Light Level to curtains."
+  },
+  "1.1.38": {
+    "en": "Fix for Curtains 3 hub not being found due to missing device type in API response. Fix for BLE Curtain 3 not being found due to changed device id field."
   }
 }

@@ -41,27 +41,31 @@ class BLEDriver extends Homey.Driver
                     {
                         if (deviceData.serviceData.model === type)
                         {
-                            const id = deviceData.address.replace(/:/g, '');
+                            if (deviceData.address)
+                            {
+                                const lcAddress = deviceData.address.toLowerCase();
+                                const id = lcAddress.replace(/:/g, '');
 
-                            const data = {
-                                id,
-                                pid: id,
-                                address: deviceData.address,
-                                model: deviceData.serviceData.model,
-                                modelName: deviceData.serviceData.modelName,
-                            };
+                                const data = {
+                                    id,
+                                    pid: id,
+                                    address: lcAddress,
+                                    model: deviceData.serviceData.model,
+                                    modelName: deviceData.serviceData.modelName,
+                                };
 
-                            const device = {
-                                name: deviceData.address,
-                                data,
-                            };
+                                const device = {
+                                    name: lcAddress,
+                                    data,
+                                };
 
-                            this.homey.app.detectedDevices += '\r\nBLE Hub Found device:\r\n';
-                            this.homey.app.detectedDevices += this.homey.app.varToString(device);
-                            this.homey.api.realtime('com.switchbot.detectedDevicesUpdated', { devices: this.homey.app.detectedDevices });
+                                this.homey.app.detectedDevices += '\r\nBLE Hub Found device:\r\n';
+                                this.homey.app.detectedDevices += this.homey.app.varToString(device);
+                                this.homey.api.realtime('com.switchbot.detectedDevicesUpdated', { devices: this.homey.app.detectedDevices });
 
-                            // Add this device to the table
-                            devices.push(device);
+                                // Add this device to the table
+                                devices.push(device);
+                            }
                         }
                     }
                     catch (err)
@@ -89,28 +93,32 @@ class BLEDriver extends Homey.Driver
                     {
                         if (deviceData.serviceData.model === type)
                         {
-                            const device = {
-                                name: bleAdvertisement.address,
-                                data:
+                            if (bleAdvertisement.address)
+                            {
+                                const lcAddress = bleAdvertisement.address.toLowerCase();
+                                const device = {
+                                    name: lcAddress,
+                                    data:
+                                    {
+                                        id: deviceData.id,
+                                        pid: deviceData.pid,
+                                        address: lcAddress,
+                                        model: deviceData.serviceData.model,
+                                        modelName: deviceData.serviceData.modelName,
+                                    },
+                                };
+
+                                this.homey.app.detectedDevices += '\r\nBLE Homey Found device:\r\n';
+                                this.homey.app.detectedDevices += this.homey.app.varToString(device);
+                                if (this.homey.app.BLEHub)
                                 {
-                                    id: deviceData.id,
-                                    pid: deviceData.pid,
-                                    address: deviceData.address,
-                                    model: deviceData.serviceData.model,
-                                    modelName: deviceData.serviceData.modelName,
-                                },
-                            };
+                                    this.homey.api.realtime('com.switchbot.detectedDevicesUpdated', { devices: this.homey.app.detectedDevices });
+                                }
 
-                            this.homey.app.detectedDevices += '\r\nBLE Homey Found device:\r\n';
-                            this.homey.app.detectedDevices += this.homey.app.varToString(device);
-                            if (this.homey.app.BLEHub)
-                            {
-                                this.homey.api.realtime('com.switchbot.detectedDevicesUpdated', { devices: this.homey.app.detectedDevices });
-                            }
-
-                            if (this.checkExist(devices, device) < 0)
-                            {
-                                devices.push(device);
+                                if (this.checkExist(devices, device) < 0)
+                                {
+                                    devices.push(device);
+                                }
                             }
                         }
                     }
@@ -242,7 +250,7 @@ class BLEDriver extends Homey.Driver
         { // WoSensorTH
             sd = this._parseServiceDataForWoSensorTH(buf);
         }
-        else if (model === 'c')
+        else if ((model === 'c') || (model === '{'))
         { // WoCurtain
             sd = this._parseServiceDataForWoCurtain(buf);
         }
