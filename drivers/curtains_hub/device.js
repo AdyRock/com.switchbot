@@ -174,6 +174,18 @@ class CurtainsHubDevice extends HubDevice
         return super.setDeviceData(data);
     }
 
+    async pollHubDeviceValues()
+    {
+        const dd = this.getData();
+        if (!dd.type)
+        {
+            this.getHubDeviceValues();
+            return true;
+        }
+
+        return false;
+    }
+
     async getHubDeviceValues()
     {
         try

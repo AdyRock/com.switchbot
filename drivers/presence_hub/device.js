@@ -50,6 +50,7 @@ class PresenceHubDevice extends HubDevice
     async pollHubDeviceValues()
     {
         this.getHubDeviceValues();
+        return true;
     }
     
     async getHubDeviceValues()

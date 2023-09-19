@@ -907,7 +907,6 @@ class MyApp extends OAuth2App
         }
 
         let totalHuBDevices = 0;
-        const promises = [];
 
         const drivers = this.homey.drivers.getDrivers();
         for (const driver of Object.values(drivers))
@@ -917,13 +916,13 @@ class MyApp extends OAuth2App
             {
                 if (device.pollHubDeviceValues)
                 {
-                    totalHuBDevices++;
-                    promises.push(device.pollHubDeviceValues());
+                    if (await device.pollHubDeviceValues())
+                    {
+                        totalHuBDevices++;
+                    }
                 }
             }
         }
-
-        await Promise.all(promises);
 
         if (totalHuBDevices > 0)
         {

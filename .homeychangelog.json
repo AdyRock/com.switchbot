@@ -265,5 +265,8 @@
   },
   "1.1.38": {
     "en": "Fix for Curtains 3 hub not being found due to missing device type in API response. Fix for BLE Curtain 3 not being found due to changed device id field."
+  },
+  "1.1.39": {
+    "en": "Polling added for Curtains 3 hub as they don't provide webhook data. Fix Light Level changed trigger."
   }
 }

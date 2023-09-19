@@ -10,7 +10,7 @@
     ],
     "tokens": [
         {
-            "name": "Light_level",
+            "name": "light_level",
             "title": {
                 "en": "Light Level"
             },
