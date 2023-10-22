@@ -1,31 +1,14 @@
 {
-    "id": "bot_hub",
+    "id": "plug_hub",
     "name": {
-        "en": "Bot (HUB)"
+        "en": "Plug (HUB)"
     },
-    "class": "button",
+    "class": "socket",
     "capabilities": [
-        "onoff"
+        "onoff",
+        "measure_power"
     ],
-    "energy": {
-        "batteries": [
-            "CR2"
-        ]
-    },
     "$extends": [
         "hubDriver"
-    ],
-    "settings": [
-        {
-            "id": "push_button",
-            "type": "checkbox",
-            "label": {
-                "en": "Push Button"
-            },
-            "value": false,
-            "hint": {
-                "en": "When ticked Bot produces a short press and then returns."
-            }
-        }
     ]
 }

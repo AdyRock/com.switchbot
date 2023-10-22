@@ -268,5 +268,8 @@
   },
   "1.1.39": {
     "en": "Polling added for Curtains 3 hub as they don't provide webhook data. Fix Light Level changed trigger."
+  },
+  "1.1.40": {
+    "en": "Added suport for Plug Mini."
   }
 }
