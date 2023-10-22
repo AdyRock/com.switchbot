@@ -1,7 +1,7 @@
 {
-    "id": "bot_hub",
+    "id": "plug_hub",
     "name": {
-        "en": "Bot (HUB)"
+        "en": "Plug (HUB)"
     },
     "class": "button",
     "capabilities": [

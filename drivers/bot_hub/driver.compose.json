@@ -1,7 +1,7 @@
 {
-    "id": "plug_hub",
+    "id": "bot_hub",
     "name": {
-        "en": "Plug (HUB)"
+        "en": "Bot (HUB)"
     },
     "class": "socket",
     "capabilities": [

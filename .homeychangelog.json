@@ -271,5 +271,8 @@
   },
   "1.1.40": {
     "en": "Added suport for Plug Mini."
+  },
+  "1.1.41": {
+    "en": "Fixed image for Plug Mini."
   }
 }
