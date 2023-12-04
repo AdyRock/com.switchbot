@@ -21,6 +21,11 @@ class LockHubDevice extends HubDevice
             this.addCapability('alarm_generic');
         }
 
+        if (!this.hasCapability('alarm_contact'))
+        {
+            this.addCapability('alarm_contact');
+        }
+
         try
         {
             await this.getHubDeviceValues();
@@ -96,7 +101,8 @@ class LockHubDevice extends HubDevice
                 this.homey.app.updateLog(`Lock Hub got: ${this.homey.app.varToString(data)}`, 3);
 
                 this.setCapabilityValue('locked', data.lockState === 'locked').catch(this.error);
-                this.setCapabilityValue('alarm_generic', data.lockState === 'JAMMED').catch(this.error);
+                this.setCapabilityValue('alarm_generic', data.lockState === 'jammed').catch(this.error);
+                this.setCapabilityValue('alarm_contact', data.doorState === 'open').catch(this.error);
 
                 if (data.battery)
                 {
@@ -117,6 +123,12 @@ class LockHubDevice extends HubDevice
         }
     }
 
+    async pollHubDeviceValues()
+    {
+        this.getHubDeviceValues();
+        return true;
+    }
+
     async processWebhookMessage(message)
     {
         try
@@ -126,7 +138,7 @@ class LockHubDevice extends HubDevice
             {
                 // message is for this device
                 this.setCapabilityValue('locked', message.context.lockState === 'LOCKED').catch(this.error);
-                this.setCapabilityValue('alarm_generic', data.lockState === 'JAMMED').catch(this.error);
+                this.setCapabilityValue('alarm_generic', message.context.lockState === 'JAMMED').catch(this.error);
 
                 if (message.context.battery)
                 {

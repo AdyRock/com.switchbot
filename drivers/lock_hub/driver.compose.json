@@ -6,8 +6,17 @@
     "class": "lock",
     "capabilities": [
         "locked",
-        "alarm_generic"
+        "alarm_generic",
+        "alarm_contact"
     ],
+    "capabilitiesOptions": {
+        "alarm_generic": {
+            "title": "Door Jammed"
+        },
+        "alarm_contact": {
+            "title": "Door Open"
+        }
+    },
     "energy": {
         "batteries": [
             "CR2",

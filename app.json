@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.switchbot",
-  "version": "1.1.41",
+  "version": "1.1.42",
   "compatibility": ">=6.0.0",
   "platforms": [
     "local",
@@ -2678,8 +2678,17 @@
       "class": "lock",
       "capabilities": [
         "locked",
-        "alarm_generic"
+        "alarm_generic",
+        "alarm_contact"
       ],
+      "capabilitiesOptions": {
+        "alarm_generic": {
+          "title": "Door Jammed"
+        },
+        "alarm_contact": {
+          "title": "Door Open"
+        }
+      },
       "energy": {
         "batteries": [
           "CR2",
