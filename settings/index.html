@@ -38,16 +38,16 @@
         <button class="tablinks" onclick="setPage(event, 'detected')" id="defaultOpen">Detected</button>
         <button class="tablinks" onclick="setPage(event, 'log')">Log</button>
         <button class="tablinks" onclick="setPage(event, 'status')" id="deviceStatusTab">Get Status</button>
-        <button class="tablinks" onclick="setPage(event, 'simulator')" id="simLogTab" style="visibility:hidden">Simulation Data</button>
+        <button class="tablinks" onclick="setPage(event, 'simulator')" id="simLogTab" style="display:none">Simulation Data</button>
     </div>
 
     <!-- detected-->
     <div id="detected" class="tabcontent">
         <fieldset>
             <p>
-                <button id="getDeviceLog" style="background-color:#1a0b9b;color:white;margin:10px 20px 5px 5px;" data-i18n="settings.getDevices"></button>
-                <button id="clearDeviceLog" style="background-color:#a5510d;color:white;margin:10px 20px 5px 5px;" data-i18n="settings.clear"></button>
-                <button id="sendDeviceLog" style="background-color:#0f9e16;color:white;margin:10px 20px 5px 5px;" data-i18n="settings.send"></button>
+                <button id="getDeviceLog" class="homey-button-small" data-i18n="settings.getDevices"></button>
+                <button id="clearDeviceLog" class="homey-button-small" data-i18n="settings.clear"></button>
+                <button id="sendDeviceLog" class="homey-button-small" data-i18n="settings.send"></button>
             </p>
             <div class="field row">
                 <textarea id="detectedDevices"></textarea>
@@ -61,8 +61,8 @@
             <p> Diagnostics Log
             </p>
             <div class="field row">
-                <label for="logLevel"><span data-i18n="settings.logLevel"></span></label>
-                <select id="logLevel">
+                <label class="homey-form-label" for="logLevel"><span data-i18n="settings.logLevel"></span></label>
+                <select class="homey-form-select" id="logLevel">
                     <option value=0>Errors Only</option>
                     <option value=1>Webhook Information</option>
                     <option value=2>Basic Information</option>
@@ -71,11 +71,9 @@
                 </select>
                 <P></P>
             </div>
-        </fieldset>
-        <fieldset>
             <p>
-                <button id="clearInfoLog" style="background-color:#a5510d;color:white;margin:5px 20px 5px 5px;" data-i18n="settings.clear"></button>
-                <button id="sendInfoLog" style="background-color:#0f9e16;color:white;margin:5px 20px 5px 5px;" data-i18n="settings.send"></button>
+                <button id="clearInfoLog" class="homey-button-small" data-i18n="settings.clear"></button>
+                <button id="sendInfoLog" class="homey-button-small" data-i18n="settings.send"></button>
             </p>
             <div class="field row">
                 <textarea id="infoLog"></textarea>
@@ -98,7 +96,7 @@
     <div id="simulator" class="tabcontent">
         <fieldset>
             <h1>For debug use only</h1>
-            <p><button id="useSim" style="background-color:#0f9e16;color:white;margin:5px 20px 5px 5px;">Activate</button><button id="clearSim" style="background-color:#a5510d;color:white;margin:5px 20px 5px 5px;">Clear Sim</button></p>
+            <p><button id="useSim" class="homey-button-small">Activate</button><button id="clearSim" style="background-color:#a5510d;color:white;margin:5px 20px 5px 5px;">Clear Sim</button></p>
             <div class="field row">
                 <textarea id="simData"></textarea>
             </div>
@@ -110,13 +108,14 @@
         <fieldset>
             <h1>For debug use only</h1>
             <div class="field row">
-                <label for="deviceID">Device ID</label>
-                <input id="deviceID" type="text" value="" />
+                <label class="homey-form-label" for="deviceID">Device ID</label>
+                <input class="homey-form-input" id="deviceID" type="text" value="" />
             </div>
+            <p></p>
             <p>
-                <button id="readStatus" style="background-color:#1a0b9b;color:white;margin:5px 20px 5px 5px;">Read Status</button>
-                <button id="clearStatusLog" style="background-color:#a5510d;color:white;margin:5px 20px 5px 5px;">Clear Status Log</button>
-                <button id="sendStatusLog" style="background-color:#0f9e16;color:white;margin:5px 20px 5px 5px;">Send Status Log</button>
+                <button id="readStatus" class="homey-button-small">Read Status</button>
+                <button id="clearStatusLog" class="homey-button-small">Clear Log</button>
+                <button id="sendStatusLog" class="homey-button-small">Send Log</button>
             </p>
             <div class="field row">
                 <textarea id="statusData"></textarea>
@@ -447,14 +446,14 @@
                 });
 
                 // Make the log text area fill the page
-                infoLogElement.setAttribute('cols', infoLogElement.parentElement.clientWidth / 8);
-                infoLogElement.style.height = (window.innerHeight - infoLogElement.offsetTop - 40) + 'px';
+                infoLogElement.style.width = (logLevel.offsetWidth) + 'px';
+                infoLogElement.style.height = (window.innerHeight - infoLogElement.offsetTop - 60) + 'px';
             }
             else if (tabPage == 'detected')
             {
                 // Make the detected devices text area fill the page
                 detectedDevicesElement.setAttribute('cols', detectedDevicesElement.parentElement.clientWidth / 8);
-                detectedDevicesElement.style.height = (window.innerHeight - detectedDevicesElement.offsetTop - 40) + 'px';
+                detectedDevicesElement.style.height = (window.innerHeight - detectedDevicesElement.offsetTop - 60) + 'px';
             }
             else if (tabPage == 'simulator')
             {
@@ -465,13 +464,13 @@
                 });
                 // Make the simulator text box fill the page
                 simDataElement.setAttribute('cols', simDataElement.parentElement.clientWidth / 8);
-                simDataElement.style.height = (window.innerHeight - simDataElement.offsetTop - 40) + 'px';
+                simDataElement.style.height = (window.innerHeight - simDataElement.offsetTop - 60) + 'px';
             }
             else if (tabPage == 'status')
             {
                 // Make the detected devices text area fill the page
-                statusDataElement.setAttribute('cols', statusDataElement.parentElement.clientWidth / 8);
-                statusDataElement.style.height = (window.innerHeight - statusDataElement.offsetTop - 40) + 'px';
+                statusDataElement.style.width = (deviceID.offsetWidth) + 'px';
+                statusDataElement.style.height = (window.innerHeight - statusDataElement.offsetTop - 60) + 'px';
             }
         }
 

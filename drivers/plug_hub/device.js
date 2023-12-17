@@ -90,10 +90,14 @@ class PlugHubDevice extends HubDevice
                 this.setAvailable();
                 this.homey.app.updateLog(`Plug Hub got: ${this.homey.app.varToString(data)}`, 3);
 
-                this.setCapabilityValue('onoff', data.power === 'on').catch(this.error);
+                if (data.power)
+                {
+                    this.setCapabilityValue('onoff', data.power === 'on').catch(this.error);
+                }
                 if (data.electricCurrent)
                 {
-                    this.setCapabilityValue('measure_power', data.electricCurrent).catch(this.error);
+                    this.setCapabilityValue('measure_current', data.electricCurrent).catch(this.error);
+                    this.setCapabilityValue('measure_voltage', data.voltage).catch(this.error);
                 }
             }
             this.unsetWarning();
@@ -105,6 +109,13 @@ class PlugHubDevice extends HubDevice
         }
     }
 
+    async pollHubDeviceValues()
+    {
+        // The webhook is only triggerd for the door contact so we need polling for the motion and bright state
+        this.getHubDeviceValues();
+        return true;
+    }
+
     async processWebhookMessage(message)
     {
         try
@@ -114,11 +125,9 @@ class PlugHubDevice extends HubDevice
             {
                 // message is for this device
                 const data = message.context;
-                this.setCapabilityValue('onoff', data.power === 'on').catch(this.error);
-
-                if (data.electricCurrent)
+                if (data.powerState)
                 {
-                    this.setCapabilityValue('measure_power', data.electricCurrent).catch(this.error);
+                    this.setCapabilityValue('onoff', data.powerState === 'ON').catch(this.error);
                 }
             }
         }
