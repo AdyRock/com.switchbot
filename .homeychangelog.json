@@ -277,5 +277,8 @@
   },
   "1.1.42": {
     "en": "Added door open alarm (not included in the webhook data so polled only). Added general alearm for Lock when it is jammed. Fix error when processing Lock webhook data."
+  },
+  "1.1.43": {
+    "en": "Added Open/Pause/Close capability to curtains."
   }
 }

@@ -28,6 +28,10 @@ class CurtainsBLEDevice extends Homey.Device
         {
             this.addCapability('light_level');
         }
+        if (!this.hasCapability('windowcoverings_state'))
+        {
+            this.addCapability('windowcoverings_state');
+        }
 
         this.bestRSSI = 100;
         this.bestHub = '';
@@ -51,6 +55,7 @@ class CurtainsBLEDevice extends Homey.Device
         // register a capability listener
         this.registerCapabilityListener('open_close', this.onCapabilityopenClose.bind(this));
         this.registerCapabilityListener('windowcoverings_set', this.onCapabilityPosition.bind(this));
+        this.registerCapabilityListener('windowcoverings_state', this.onCapabilityState.bind(this));
 
         this.homey.app.registerBLEPolling();
 
@@ -127,6 +132,25 @@ class CurtainsBLEDevice extends Homey.Device
             value = 1 - value;
         }
         return this.runToPos(value * 100, this.motionMode);
+    }
+
+    async onCapabilityState(value, opts)
+    {
+        if (value === 'idle')
+        {
+            await this.pause();
+            setImmediate(() => {
+                this.setCapabilityValue('windowcoverings_state', null).catch(this.error);
+            }, 1000);
+        }
+        else if (value === 'up')
+        {
+            return this.onCapabilityopenClose(true);
+        }
+        else if (value === 'down')
+        {
+            return this.onCapabilityopenClose(false);
+        }
     }
 
     /* ------------------------------------------------------------------
@@ -425,6 +449,19 @@ class CurtainsBLEDevice extends Homey.Device
                     else
                     {
                         this.setCapabilityValue('open_close', false).catch(this.error);
+                    }
+
+                    if (position === 0)
+                    {
+                        this.setCapabilityValue('windowcoverings_state', 'down').catch(this.error);
+                    }
+                    else if (position === 1)
+                    {
+                        this.setCapabilityValue('windowcoverings_state', 'up').catch(this.error);
+                    }
+                    else
+                    {
+                        this.setCapabilityValue('windowcoverings_state', null).catch(this.error);
                     }
 
                     if (event.serviceData.lightLevel && event.serviceData.lightLevel !== this.getCapabilityValue('light_level'))

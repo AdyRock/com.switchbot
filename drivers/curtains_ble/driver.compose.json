@@ -13,6 +13,7 @@
     "class": "curtain",
     "capabilities": [
         "open_close",
+        "windowcoverings_state",
         "light_level",
         "measure_battery",
         "windowcoverings_set",

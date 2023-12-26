@@ -22,6 +22,10 @@ class CurtainsHubDevice extends HubDevice
         {
             this.addCapability('position');
         }
+        if (!this.hasCapability('windowcoverings_state'))
+        {
+            this.addCapability('windowcoverings_state');
+        }
 
         this.invertPosition = this.getSetting('invertPosition');
         if (this.invertPosition === null)
@@ -45,10 +49,11 @@ class CurtainsHubDevice extends HubDevice
         }
         this.registerCapabilityListener('open_close', this.onCapabilityopenClose.bind(this));
         this.registerCapabilityListener('windowcoverings_set', this.onCapabilityPosition.bind(this));
-        this.log('CurtainsHubDevice has been initialising');
+        this.registerCapabilityListener('windowcoverings_state', this.onCapabilityState.bind(this));
 
         const dd = this.getData();
         this.homey.app.registerHomeyWebhook(dd.id);
+        this.log('CurtainsHubDevice has been initialising');
     }
 
     /**
@@ -114,6 +119,25 @@ class CurtainsHubDevice extends HubDevice
         return this.runToPos(value * 100, this.motionMode);
     }
 
+    async onCapabilityState(value, opts)
+    {
+        if (value === 'idle')
+        {
+            await this.stop();
+            setImmediate(() => {
+                this.setCapabilityValue('windowcoverings_state', null).catch(this.error);
+            }, 1000);
+        }
+        else if (value === 'up')
+        {
+            return this.open();
+        }
+        else if (value === 'down')
+        {
+            return this.close();
+        }
+    }
+
     /* ------------------------------------------------------------------
      * open()
      * - Open the curtain
@@ -144,6 +168,11 @@ class CurtainsHubDevice extends HubDevice
     close()
     {
         return this._operateCurtain('turnOff', 'default');
+    }
+
+    stop()
+    {
+        return this._operateCurtain('pause', 'default');
     }
 
     /* ------------------------------------------------------------------
