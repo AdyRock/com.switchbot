@@ -1,0 +1,10 @@
+{
+    "type": "string",
+    "title": {
+        "en": "Vaccum Status",
+        "nl": "Stofzuiger Status"
+    },
+    "getable": true,
+    "setable": false,
+    "icon": "/assets/robot-vacuum-cleaner.svg"
+}

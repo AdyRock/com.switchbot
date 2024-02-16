@@ -1,0 +1,13 @@
+{
+	"title": {
+		"en": "Start"
+	},
+	"args": [
+		{
+			"name": "device",
+			"type": "device",
+			"filter": "driver_id=robot_vaccum_hub"
+		}
+	],
+	"platforms": ["local", "cloud"]
+}

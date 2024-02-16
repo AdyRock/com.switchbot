@@ -1,0 +1,53 @@
+{
+	"id": "robot_vacum_hub",
+	"name": {
+		"en": "Robot Vaccum (HUB)"
+	},
+	"class": "vacuumcleaner",
+	"capabilities": [
+		"play",
+		"stop",
+		"robot_vaccum_dock",
+		"vaccum_power_level.quite",
+		"vaccum_power_level.normal",
+		"vaccum_power_level.strong",
+		"vaccum_power_level.max",
+		"robot_vaccum_state",
+		"measure_battery"
+	],
+	"capabilitiesOptions": {
+		"play": {
+			"title": {
+				"en": "Start"
+			}
+		},
+		"vaccum_power_level.quite": {
+			"title": {
+				"en": "Power Level Quite"
+			}
+		},
+		"vaccum_power_level.normal": {
+			"title": {
+				"en": "Power Level Normal"
+			}
+		},
+		"vaccum_power_level.strong": {
+			"title": {
+				"en": "Power Level Strong"
+			}
+		},
+		"vaccum_power_level.max": {
+			"title": {
+				"en": "Power Level Maximum"
+			}
+		}
+	},
+	"energy": {
+		"batteries": [
+			"INTERNAL"
+		]
+	},
+	"$extends": [
+		"hubDriver"
+	]
+}

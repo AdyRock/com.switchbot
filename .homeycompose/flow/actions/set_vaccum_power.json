@@ -1,0 +1,51 @@
+{
+    "title": {
+        "en": "Set the vaccum power level"
+    },
+    "titleFormatted": {
+        "en": "Set the power level to [[power]]"
+    },
+    "hint": {
+        "en": "Change the power level of the vaccum"
+    },
+    "args": [
+        {
+            "name": "power",
+            "type": "dropdown",
+            "title": {
+                "en": "Power Level"
+            },
+            "values": [
+                {
+                    "id": "0",
+                    "label": {
+                        "en": "Quiet"
+                    }
+                },
+                {
+                    "id": "1",
+                    "label": {
+                        "en": "Normal"
+                    }
+                },
+                {
+                    "id": "2",
+                    "label": {
+                        "en": "Strong"
+                    }
+                },
+                {
+                    "id": "3",
+                    "label": {
+                        "en": "Maximum"
+                    }
+                }
+            ]
+        },
+		{
+			"name": "device",
+			"type": "device",
+			"filter": "driver_id=robot_vaccum_hub"
+		}
+    ]
+}

@@ -315,6 +315,36 @@
         "id": "light_level_changed"
       },
       {
+        "title": {
+          "en": "Vaccum State Changed"
+        },
+        "platforms": [
+          "local"
+        ],
+        "connectivity": [
+          "local",
+          "cloud"
+        ],
+        "tokens": [
+          {
+            "name": "state",
+            "title": {
+              "en": "Vaccum State"
+            },
+            "type": "string",
+            "example": "Charging"
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=robot_vaccum_hub"
+          }
+        ],
+        "id": "vaccum_state_changed"
+      },
+      {
         "platforms": [
           "local",
           "cloud"
@@ -489,6 +519,23 @@
           "cloud"
         ],
         "id": "brightness_up"
+      },
+      {
+        "title": {
+          "en": "Dock"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=robot_vaccum_hub"
+          }
+        ],
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "id": "dock"
       },
       {
         "title": {
@@ -777,13 +824,82 @@
       },
       {
         "title": {
+          "en": "Set the vaccum power level"
+        },
+        "titleFormatted": {
+          "en": "Set the power level to [[power]]"
+        },
+        "hint": {
+          "en": "Change the power level of the vaccum"
+        },
+        "args": [
+          {
+            "name": "power",
+            "type": "dropdown",
+            "title": {
+              "en": "Power Level"
+            },
+            "values": [
+              {
+                "id": "0",
+                "label": {
+                  "en": "Quiet"
+                }
+              },
+              {
+                "id": "1",
+                "label": {
+                  "en": "Normal"
+                }
+              },
+              {
+                "id": "2",
+                "label": {
+                  "en": "Strong"
+                }
+              },
+              {
+                "id": "3",
+                "label": {
+                  "en": "Maximum"
+                }
+              }
+            ]
+          },
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=robot_vaccum_hub"
+          }
+        ],
+        "id": "set_vaccum_power"
+      },
+      {
+        "title": {
+          "en": "Start"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=robot_vaccum_hub"
+          }
+        ],
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "id": "start"
+      },
+      {
+        "title": {
           "en": "Stop"
         },
         "args": [
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=dvd|speaker"
+            "filter": "driver_id=dvd|speaker|robot_vaccum_hub"
           }
         ],
         "platforms": [
@@ -2922,6 +3038,91 @@
           "template": "login_oauth2"
         }
       ],
+      "icon": "/drivers/robot_vaccum_hub/assets/icon.svg",
+      "images": {
+        "large": "/drivers/robot_vaccum_hub/assets/images/large.jpg",
+        "small": "/drivers/robot_vaccum_hub/assets/images/small.jpg"
+      },
+      "id": "robot_vaccum_hub",
+      "name": {
+        "en": "Robot Vaccum (HUB)"
+      },
+      "class": "vacuumcleaner",
+      "capabilities": [
+        "play",
+        "stop",
+        "robot_vaccum_dock",
+        "vaccum_power_level.quite",
+        "vaccum_power_level.normal",
+        "vaccum_power_level.strong",
+        "vaccum_power_level.max",
+        "robot_vaccum_state",
+        "measure_battery"
+      ],
+      "capabilitiesOptions": {
+        "play": {
+          "title": {
+            "en": "Start"
+          }
+        },
+        "vaccum_power_level.quite": {
+          "title": {
+            "en": "Power Level Quite"
+          }
+        },
+        "vaccum_power_level.normal": {
+          "title": {
+            "en": "Power Level Normal"
+          }
+        },
+        "vaccum_power_level.strong": {
+          "title": {
+            "en": "Power Level Strong"
+          }
+        },
+        "vaccum_power_level.max": {
+          "title": {
+            "en": "Power Level Maximum"
+          }
+        }
+      },
+      "energy": {
+        "batteries": [
+          "INTERNAL"
+        ]
+      }
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        }
+      ],
       "icon": "/drivers/scene/assets/icon.svg",
       "images": {
         "large": "/drivers/scene/assets/images/large.jpg",
@@ -3654,6 +3855,27 @@
       },
       "icon": "/assets/rewind.svg"
     },
+    "robot_vaccum_dock": {
+      "type": "boolean",
+      "getable": false,
+      "setable": true,
+      "uiComponent": "button",
+      "title": {
+        "en": "Dock",
+        "nl": "Dock"
+      },
+      "icon": "/assets/home.svg"
+    },
+    "robot_vaccum_state": {
+      "type": "string",
+      "title": {
+        "en": "Vaccum Status",
+        "nl": "Stofzuiger Status"
+      },
+      "getable": true,
+      "setable": false,
+      "icon": "/assets/robot-vacuum-cleaner.svg"
+    },
     "rssi": {
       "type": "number",
       "title": {
@@ -3740,6 +3962,16 @@
       "setable": true,
       "icon": "/assets/air_con_fan.svg"
     },
+    "start": {
+      "type": "boolean",
+      "getable": false,
+      "setable": true,
+      "uiComponent": "button",
+      "title": {
+        "en": "Start"
+      },
+      "icon": "/assets/play.svg"
+    },
     "stop": {
       "type": "boolean",
       "getable": false,
@@ -3749,6 +3981,16 @@
         "en": "Stop"
       },
       "icon": "/assets/stop.svg"
+    },
+    "vaccum_power_level": {
+      "type": "boolean",
+      "getable": false,
+      "setable": true,
+      "uiComponent": "button",
+      "title": {
+        "en": "Power"
+      },
+      "icon": "/assets/fan_speed.svg"
     }
   }
 }
