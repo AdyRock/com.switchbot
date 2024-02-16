@@ -1,0 +1,91 @@
+{
+    "title": {
+        "en": "Vaccum State Changed"
+    },
+    "titleFormatted": {
+        "en": "Vaccum state changed to [[state]]"
+    },
+    "platforms": [
+        "local"
+    ],
+    "connectivity": [
+        "local",
+        "cloud"
+    ],
+    "args": [
+        {
+            "name": "state",
+            "title": {
+                "en": "Vaccum State"
+            },
+            "type": "dropdown",
+            "values": [
+                {
+                    "id": "StandBy",
+                    "title": {
+                        "en": "Standby"
+                    }
+                },
+                {
+                    "id": "Clearing",
+                    "title": {
+                        "en": "Clearing"
+                    }
+                },
+                {
+                    "id": "Paused",
+                    "title": {
+                        "en": "Paused"
+                    }
+                },
+                {
+                    "id": "GotoChargeBase",
+                    "title": {
+                        "en": "Going to Charge Base"
+                    }
+                },
+                {
+                    "id": "Charging",
+                    "title": {
+                        "en": "Charging"
+                    }
+                },
+                {
+                    "id": "ChargeDone",
+                    "title": {
+                        "en": "Charging Finished"
+                    }
+                },
+                {
+                    "id": "Dormant",
+                    "title": {
+                        "en": "Dormat"
+                    }
+                },
+                {
+                    "id": "InTrouble",
+                    "title": {
+                        "en": "In Trouble"
+                    }
+                },
+                {
+                    "id": "InRemoteControl",
+                    "title": {
+                        "en": "Remote Contolled"
+                    }
+                },
+                {
+                    "id": "InDustCollecting",
+                    "title": {
+                        "en": "Dust Collecting"
+                    }
+                }
+            ]
+        },
+        {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=robot_vaccum_hub"
+        }
+    ]
+}

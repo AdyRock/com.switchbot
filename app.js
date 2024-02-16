@@ -214,6 +214,13 @@ class MyApp extends OAuth2App
 				return args.device.onCapabilityCommand('stop');
 			});
 
+		const dockAction = this.homey.flow.getActionCard('dock');
+			dockAction
+				.registerRunListener(async (args, state) =>
+				{
+					return args.device.onCapabilityCommand('dock');
+				});
+
 		const prevAction = this.homey.flow.getActionCard('prev');
 		prevAction
 			.registerRunListener(async (args, state) =>
@@ -366,6 +373,15 @@ class MyApp extends OAuth2App
 			{
 				return args.device.onCapabilityPowerLevel(parseInt(args.power, 10));
 			});
+
+		/** * CONDITIONS ** */
+		this.conditionVaccumStateIs = this.homey.flow.getConditionCard('vaccum_state_is.');
+		this.conditionVaccumStateIs.registerRunListener((args) =>
+		{
+			const { device, state } = args;
+			const conditionMet = (device.getCapabilityValue('robot_vaccum_state') === state);
+			return Promise.resolve(conditionMet);
+		});
 
 		this.homey.app.updateLog('************** App has initialised. ***************');
 	}

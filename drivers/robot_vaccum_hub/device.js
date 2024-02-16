@@ -97,7 +97,12 @@ class VacuumHubDevice extends HubDevice
 						state: data.workingStatus,
 					};
 
-					this.driver.triggerLightLevelChanged(this, tokens, null).catch(this.error);
+					this.driver.triggerStateChanged(this, tokens, null).catch(this.error);
+
+                    const args = {
+                        state: data.workingStatus,
+                    };
+					this.driver.triggerStateChangedTo(this, null, args).catch(this.error);
 				}
 
 				if (data.battery)
