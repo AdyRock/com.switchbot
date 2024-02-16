@@ -286,5 +286,8 @@
     },
     "1.1.45": {
         "en": "Added trigger with drop list for state plus a condition card with the state to the Vaccum Cleaner. Fixed the dock command for the vacuum cleaner."
+    },
+    "1.1.46": {
+        "en": "Foxed spelling error defined in the API document."
     }
 }
