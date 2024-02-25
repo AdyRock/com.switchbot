@@ -1,6 +1,7 @@
 {
     "title": {
-        "en": "Light Level Changed"
+        "en": "Light Level Changed",
+        "no": "Endret lysnivå"
     },
     "platforms": [
         "local"
@@ -12,10 +13,14 @@
         {
             "name": "light_level",
             "title": {
-                "en": "Light Level"
+                "en": "Light Level",
+                "no": "Lysnivå"
             },
             "type": "number",
-            "example": "1 to 10"
+            "example": {
+                "en": "1 to 10",
+                "no": "1 til 10"
+            }
         }
     ],
     "args": [

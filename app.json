@@ -139,7 +139,8 @@
     "triggers": [
       {
         "title": {
-          "en": "Left Open"
+          "en": "Left Open",
+          "no": "Forblir åpen"
         },
         "platforms": [
           "local",
@@ -156,7 +157,8 @@
       },
       {
         "title": {
-          "en": "Light Level Changed"
+          "en": "Light Level Changed",
+          "no": "Endret lysnivå"
         },
         "platforms": [
           "local",
@@ -170,7 +172,8 @@
           {
             "name": "bright",
             "title": {
-              "en": "Bright State"
+              "en": "Bright State",
+              "no": "Lysnivå"
             },
             "type": "boolean",
             "example": true
@@ -187,7 +190,8 @@
       },
       {
         "title": {
-          "en": "Becomes Dim"
+          "en": "Becomes Dim",
+          "no": "Blir dimmet"
         },
         "platforms": [
           "local",
@@ -204,7 +208,8 @@
       },
       {
         "title": {
-          "en": "Becomes bright"
+          "en": "Becomes bright",
+          "no": "Blir lys"
         },
         "platforms": [
           "local",
@@ -221,7 +226,8 @@
       },
       {
         "title": {
-          "en": "Direction Changed"
+          "en": "Direction Changed",
+          "no": "Retning endret"
         },
         "deprecated": true,
         "platforms": [
@@ -235,7 +241,8 @@
           {
             "name": "direction",
             "title": {
-              "en": "Exited"
+              "en": "Exited",
+              "no": "Gikk ut"
             },
             "type": "boolean",
             "example": true
@@ -252,14 +259,16 @@
       },
       {
         "title": {
-          "en": "Someone entered"
+          "en": "Someone entered",
+          "no": "Noen kom inn"
         },
         "platforms": [
           "local",
           "cloud"
         ],
         "hint": {
-          "en": "Motion was detected after the contact was opened."
+          "en": "Motion was detected after the contact was opened.",
+          "no": "Bevegelse ble detektert etter at kontakten ble åpnet."
         },
         "args": [
           {
@@ -272,14 +281,16 @@
       },
       {
         "title": {
-          "en": "Someone exited"
+          "en": "Someone exited",
+          "no": "Noen gikk ut"
         },
         "platforms": [
           "local",
           "cloud"
         ],
         "hint": {
-          "en": "Button was pressed or Motion was detected; then the contact was opened."
+          "en": "Button was pressed or Motion was detected; then the contact was opened.",
+          "no": "Knappen ble trykket eller bevegelse ble detektert; kontakten ble åpnet etterpå."
         },
         "args": [
           {
@@ -292,7 +303,8 @@
       },
       {
         "title": {
-          "en": "Light Level Changed"
+          "en": "Light Level Changed",
+          "no": "Endret lysnivå"
         },
         "platforms": [
           "local"
@@ -304,10 +316,14 @@
           {
             "name": "light_level",
             "title": {
-              "en": "Light Level"
+              "en": "Light Level",
+              "no": "Lysnivå"
             },
             "type": "number",
-            "example": "1 to 10"
+            "example": {
+              "en": "1 to 10",
+              "no": "1 til 10"
+            }
           }
         ],
         "args": [
@@ -321,7 +337,8 @@
       },
       {
         "title": {
-          "en": "Vaccum State Changed"
+          "en": "Vaccum State Changed",
+          "no": "Støvsuger kjøremodus ble endret"
         },
         "platforms": [
           "local"
@@ -334,10 +351,14 @@
           {
             "name": "state",
             "title": {
-              "en": "Vaccum State"
+              "en": "Vaccum State",
+              "no": "Støvsuger kjøremodus"
             },
             "type": "string",
-            "example": "Charging"
+            "example": {
+              "en": "Charging",
+              "no": "Lader"
+            }
           }
         ],
         "args": [
@@ -351,10 +372,12 @@
       },
       {
         "title": {
-          "en": "Vaccum State Changed"
+          "en": "Vaccum State Changed",
+          "no": "Støvsuger kjøremodus ble endret"
         },
         "titleFormatted": {
-          "en": "Vaccum state changed to [[state]]"
+          "en": "Vaccum state changed to [[state]]",
+          "no": "Støvsuger kjøremodus ble endret til [[state]]"
         },
         "platforms": [
           "local"
@@ -367,68 +390,79 @@
           {
             "name": "state",
             "title": {
-              "en": "Vaccum State"
+              "en": "Vaccum State",
+              "no": "Støvsuger kjøremodus"
             },
             "type": "dropdown",
             "values": [
               {
                 "id": "StandBy",
                 "title": {
-                  "en": "Standby"
+                  "en": "Standby",
+                  "no": "Gjør ikke noe"
                 }
               },
               {
                 "id": "Cleaning",
                 "title": {
-                  "en": "Cleaning"
+                  "en": "Cleaning",
+                  "no": "Rengjør"
                 }
               },
               {
                 "id": "Paused",
                 "title": {
-                  "en": "Paused"
+                  "en": "Paused",
+                  "no": "Pauset"
                 }
               },
               {
                 "id": "GotoChargeBase",
                 "title": {
-                  "en": "Going to Charge Base"
+                  "en": "Going to Charge Base",
+                  "no": "På vei til ladestasjon"
                 }
               },
               {
                 "id": "Charging",
                 "title": {
-                  "en": "Charging"
+                  "en": "Charging",
+                  "no": "Lader"
                 }
               },
               {
                 "id": "ChargeDone",
                 "title": {
-                  "en": "Charging Finished"
+                  "en": "Charging Finished",
+                  "no": "Lading ferdig"
                 }
               },
               {
                 "id": "Dormant",
                 "title": {
-                  "en": "Dormat"
+                  "en": "Dormant",
+                  "no": "Sovende"
                 }
               },
               {
                 "id": "InTrouble",
                 "title": {
-                  "en": "In Trouble"
+                  "en": "In Trouble",
+                  "no": "Står fast"
                 }
               },
               {
                 "id": "InRemoteControl",
                 "title": {
-                  "en": "Remote Contolled"
+                  "en": "Remote Controlled",
+                  "no": "Fjernkontrollert"
                 }
               },
               {
                 "id": "InDustCollecting",
                 "title": {
-                  "en": "Dust Collecting"
+                  "en": "Dust Collecting",
+                  "no": "Samler støv"
                 }
               }
             ]

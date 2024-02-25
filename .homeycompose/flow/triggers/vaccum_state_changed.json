@@ -1,6 +1,7 @@
 {
     "title": {
-        "en": "Vaccum State Changed"
+        "en": "Vaccum State Changed",
+        "no": "Støvsuger kjøremodus ble endret"
     },
     "platforms": [
         "local"
@@ -13,10 +14,14 @@
         {
             "name": "state",
             "title": {
-                "en": "Vaccum State"
+                "en": "Vaccum State",
+                "no": "Støvsuger kjøremodus"
             },
             "type": "string",
-            "example": "Charging"
+            "example": {
+                "en": "Charging",
+                "no": "Lader"
+            }
         }
     ],
     "args": [

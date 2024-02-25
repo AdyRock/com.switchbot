@@ -1,6 +1,7 @@
 {
     "title": {
-        "en": "Light Level Changed"
+        "en": "Light Level Changed",
+        "no": "Endret lysnivå"
     },
     "platforms": [
         "local",
@@ -14,7 +15,8 @@
         {
             "name": "bright",
             "title": {
-                "en": "Bright State"
+                "en": "Bright State",
+                "no": "Lysnivå"
             },
             "type": "boolean",
             "example": true

@@ -1,13 +1,15 @@
 {
     "title": {
-        "en": "Someone exited"
+        "en": "Someone exited",
+        "no": "Noen gikk ut"
     },
     "platforms": [
         "local",
         "cloud"
     ],
     "hint": {
-        "en": "Button was pressed or Motion was detected; then the contact was opened."
+        "en": "Button was pressed or Motion was detected; then the contact was opened.",
+        "no": "Knappen ble trykket eller bevegelse ble detektert; kontakten ble åpnet etterpå."
     },
     "args": [
         {
