@@ -681,7 +681,8 @@
     "actions": [
       {
         "title": {
-          "en": "Decrease the brightness"
+          "en": "Decrease the brightness",
+          "no": "Senk lysstyrken"
         },
         "args": [
           {
@@ -698,7 +699,8 @@
       },
       {
         "title": {
-          "en": "Increase the brightness"
+          "en": "Increase the brightness",
+          "no": "Øk lysstyrken"
         },
         "args": [
           {
@@ -715,7 +717,8 @@
       },
       {
         "title": {
-          "en": "Dock"
+          "en": "Dock",
+          "no": "Dokk"
         },
         "args": [
           {
@@ -732,7 +735,8 @@
       },
       {
         "title": {
-          "en": "Set to high speed"
+          "en": "Set to high speed",
+          "no": "Sett til høy fart"
         },
         "args": [
           {
@@ -749,7 +753,8 @@
       },
       {
         "title": {
-          "en": "Set to low speed"
+          "en": "Set to low speed",
+          "no": "Sett til lav fart"
         },
         "args": [
           {
@@ -766,7 +771,8 @@
       },
       {
         "title": {
-          "en": "Set to medium speed"
+          "en": "Set to medium speed",
+          "no": "Sett til middels fart"
         },
         "args": [
           {
@@ -783,7 +789,8 @@
       },
       {
         "title": {
-          "en": "Toggle swing mode"
+          "en": "Toggle swing mode",
+          "no": "Skru av/på svingmodus"
         },
         "args": [
           {
@@ -800,7 +807,8 @@
       },
       {
         "title": {
-          "en": "Fast forward"
+          "en": "Fast forward",
+          "no": "Hopp forbi"
         },
         "args": [
           {
@@ -817,7 +825,8 @@
       },
       {
         "title": {
-          "en": "Toggle Mute"
+          "en": "Toggle Mute",
+          "no": "Skru av/på lyd"
         },
         "args": [
           {
@@ -834,7 +843,8 @@
       },
       {
         "title": {
-          "en": "Next"
+          "en": "Next",
+          "no": "Neste"
         },
         "args": [
           {
@@ -851,7 +861,8 @@
       },
       {
         "title": {
-          "en": "Turn Off"
+          "en": "Turn Off",
+          "no": "Skru av"
         },
         "args": [
           {
@@ -868,7 +879,8 @@
       },
       {
         "title": {
-          "en": "Turn On"
+          "en": "Turn On",
+          "no": "Skru på"
         },
         "args": [
           {
@@ -885,7 +897,8 @@
       },
       {
         "title": {
-          "en": "Pause"
+          "en": "Pause",
+          "no": "Pause"
         },
         "args": [
           {
@@ -902,7 +915,8 @@
       },
       {
         "title": {
-          "en": "Play"
+          "en": "Play",
+          "no": "Spill"
         },
         "args": [
           {
@@ -919,7 +933,8 @@
       },
       {
         "title": {
-          "en": "Previous"
+          "en": "Previous",
+          "no": "Forrige"
         },
         "args": [
           {
@@ -936,7 +951,8 @@
       },
       {
         "title": {
-          "en": "Rewind"
+          "en": "Rewind",
+          "no": "Spol tilbake"
         },
         "args": [
           {
@@ -953,23 +969,28 @@
       },
       {
         "title": {
-          "en": "Run a Scene"
+          "en": "Run a Scene",
+          "no": "Kjør en scene"
         },
         "titleFormatted": {
-          "en": "Run the '[[scene]]' scene"
+          "en": "Run the '[[scene]]' scene",
+          "no": "Kjør scenen [[scene]]"
         },
         "hint": {
-          "en": "Run a SwitchBot scene"
+          "en": "Run a SwitchBot scene",
+          "no": "Kjør en SwitchBot-scene"
         },
         "args": [
           {
             "type": "autocomplete",
             "name": "scene",
             "title": {
-              "en": "Scene Name"
+              "en": "Scene Name",
+              "no": "Scenenavn"
             },
             "placeholder": {
-              "en": "Scene Name"
+              "en": "Scene Name",
+              "no": "Scenenavn"
             }
           }
         ],
@@ -981,13 +1002,16 @@
       },
       {
         "title": {
-          "en": "Set the channel"
+          "en": "Set the channel",
+          "no": "Sett kanal"
         },
         "titleFormatted": {
-          "en": "Set the channel to '[[channel_number]]'"
+          "en": "Set the channel to '[[channel_number]]'",
+          "no": "Sett kanal til [[channel_number]]"
         },
         "hint": {
-          "en": "Set the channel number"
+          "en": "Set the channel number",
+          "no": "Sett kanalnummer"
         },
         "args": [
           {
@@ -999,10 +1023,12 @@
             "type": "number",
             "name": "channel_number",
             "title": {
-              "en": "Channel number"
+              "en": "Channel number",
+              "no": "Kanalnummer"
             },
             "placeholder": {
-              "en": "Channel Number"
+              "en": "Channel Number",
+              "no": "Kanalnummer"
             }
           }
         ],
@@ -1017,44 +1043,52 @@
       },
       {
         "title": {
-          "en": "Set the vaccum power level"
+          "en": "Set the vaccum power level",
+          "no": "Sett opp støvsuger styrken"
         },
         "titleFormatted": {
-          "en": "Set the power level to [[power]]"
+          "en": "Set the power level to [[power]]",
+          "no": "Sett støvsuger styrken til [[power]]"
         },
         "hint": {
-          "en": "Change the power level of the vaccum"
+          "en": "Change the power level of the vaccum",
+          "no": "Endre støvsuger styrken"
         },
         "args": [
           {
             "name": "power",
             "type": "dropdown",
             "title": {
-              "en": "Power Level"
+              "en": "Power Level",
+              "no": "Styrkenivå"
             },
             "values": [
               {
                 "id": "0",
                 "label": {
-                  "en": "Quiet"
+                  "en": "Quiet",
+                  "no": "Stille"
                 }
               },
               {
                 "id": "1",
                 "label": {
-                  "en": "Normal"
+                  "en": "Normal",
+                  "no": "Normal"
                 }
               },
               {
                 "id": "2",
                 "label": {
-                  "en": "Strong"
+                  "en": "Strong",
+                  "no": "Kraftig"
                 }
               },
               {
                 "id": "3",
                 "label": {
-                  "en": "Maximum"
+                  "en": "Maximum",
+                  "no": "Maksimal"
                 }
               }
             ]
@@ -1069,7 +1103,8 @@
       },
       {
         "title": {
-          "en": "Start"
+          "en": "Start",
+          "no": "Start"
         },
         "args": [
           {
@@ -1086,7 +1121,8 @@
       },
       {
         "title": {
-          "en": "Stop"
+          "en": "Stop",
+          "no": "Stopp"
         },
         "args": [
           {
@@ -1117,10 +1153,12 @@
           "pl": "Ustaw pozycję na"
         },
         "titleFormatted": {
-          "en": "Set tilt position to [[windowcoverings_tilt_set]]"
+          "en": "Set tilt position to [[windowcoverings_tilt_set]]",
+          "no": "Sett posisjonen til [[windowcoverings_tilt_set]]"
         },
         "hint": {
-          "en": "Change the position to tilt up (100%), open (50%), tilt down (0%), or a value in between."
+          "en": "Change the position to tilt up (100%), open (50%), tilt down (0%), or a value in between.",
+          "no": "Endre posisjonen til tilt opp (100%), åpen (50%), tilt ned (0%), eller en verdi i mellom."
         },
         "args": [
           {
@@ -1132,7 +1170,8 @@
             "name": "windowcoverings_tilt_set",
             "type": "range",
             "title": {
-              "en": "Position"
+              "en": "Position",
+              "no": "Posisjon"
             },
             "min": 0,
             "max": 1,
@@ -1614,7 +1653,7 @@
       "id": "air_purifier_remote_hub",
       "name": {
         "en": "Air Purifier Remote",
-        "de": "Luftrenser fjernkontroll"
+        "no": "Luftrenser fjernkontroll"
       },
       "class": "remote",
       "capabilities": [
@@ -2386,7 +2425,8 @@
     {
       "id": "custom_remote_hub",
       "name": {
-        "en": "Custom IR Remote"
+        "en": "Custom IR Remote",
+        "no": "Egendefinert IR-fjernkontroll"
       },
       "class": "remote",
       "platforms": [
@@ -2865,7 +2905,7 @@
       "id": "dvd",
       "name": {
         "en": "DVD Remote",
-        "de": "DVD fjernkontroll"
+        "no": "DVD fjernkontroll"
       },
       "class": "remote",
       "capabilities": [
@@ -2920,7 +2960,7 @@
       "id": "fan_hub",
       "name": {
         "en": "Fan Remote",
-        "de": "Vifte fjernkontroll"
+        "no": "Vifte fjernkontroll"
       },
       "class": "remote",
       "capabilities": [
@@ -3372,7 +3412,7 @@
         "vaccum_power_level.strong": {
           "title": {
             "en": "Power Level Strong",
-            "no": "Styrkenivå sterk"
+            "no": "Styrkenivå kraftig"
           }
         },
         "vaccum_power_level.max": {
@@ -4199,7 +4239,7 @@
       "uiComponent": "button",
       "title": {
         "en": "Rewind",
-        "no": "Tilbake"
+        "no": "Spol tilbake"
       },
       "icon": "/assets/rewind.svg"
     },
