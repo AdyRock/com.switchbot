@@ -5,7 +5,8 @@
     "uiComponent": "sensor",
     "title":
     {
-        "en": "Exit ID"
+        "en": "Exit ID",
+        "no": "Utgangs id"
     },
     "icon": "/assets/exit.svg" 
 }

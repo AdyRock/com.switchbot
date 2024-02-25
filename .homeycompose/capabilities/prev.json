@@ -5,7 +5,8 @@
     "uiComponent": "button",
     "title":
     {
-        "en": "Previous"
+        "en": "Previous",
+        "no": "Forrige"
     },
     "icon": "/assets/prev.svg"
 }

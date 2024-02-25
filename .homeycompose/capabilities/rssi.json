@@ -1,10 +1,12 @@
 {
     "type": "number",
     "title": {
-        "en": "RSSI"
+        "en": "RSSI",
+        "no": "RSSI"
     },
     "units": {
-        "en": "db"
+        "en": "db",
+        "no": "db"
     },
     "getable": true,
     "setable": false,

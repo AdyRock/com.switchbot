@@ -5,7 +5,8 @@
     "uiComponent": "button",
     "title":
     {
-        "en": "Power Off"
+        "en": "Power Off",
+        "no": "Av"
     },
     "icon": "/assets/power_off.svg"
 }

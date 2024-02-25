@@ -89,6 +89,11 @@
         "name": "Adrian Rockall",
         "email": "ady@rockall.plus.com"
       }
+    ],
+    "translators": [
+      {
+        "name": "Philip Østli"
+      }
     ]
   },
   "api": {
@@ -3671,31 +3676,36 @@
     "aircon_fan_speed": {
       "type": "enum",
       "title": {
-        "en": "Fan Speed"
+        "en": "Fan Speed",
+        "no": "Viftehastighet"
       },
       "values": [
         {
           "id": "1",
           "title": {
-            "en": "Auto"
+            "en": "Auto",
+            "no": "Auto"
           }
         },
         {
           "id": "2",
           "title": {
-            "en": "Low"
+            "en": "Low",
+            "no": "Lav"
           }
         },
         {
           "id": "3",
           "title": {
-            "en": "Medium"
+            "en": "Medium",
+            "no": "Middels"
           }
         },
         {
           "id": "4",
           "title": {
-            "en": "High"
+            "en": "High",
+            "no": "Høy"
           }
         }
       ],
@@ -3706,37 +3716,43 @@
     "aircon_mode": {
       "type": "enum",
       "title": {
-        "en": "Mode"
+        "en": "Mode",
+        "no": "Modus"
       },
       "values": [
         {
           "id": "1",
           "title": {
-            "en": "Auto"
+            "en": "Auto",
+            "no": "Auto"
           }
         },
         {
           "id": "2",
           "title": {
-            "en": "Cool"
+            "en": "Cool",
+            "no": "Kjøle"
           }
         },
         {
           "id": "3",
           "title": {
-            "en": "Dry"
+            "en": "Dry",
+            "no": "Tørke"
           }
         },
         {
           "id": "4",
           "title": {
-            "en": "Fan"
+            "en": "Fan",
+            "no": "Vifte"
           }
         },
         {
           "id": "5",
           "title": {
-            "en": "Heat"
+            "en": "Heat",
+            "no": "Varme"
           }
         }
       ],
@@ -3750,7 +3766,8 @@
       "setable": true,
       "uiComponent": "button",
       "title": {
-        "en": "Up"
+        "en": "Up",
+        "no": "Opp"
       }
     },
     "back": {
@@ -3759,22 +3776,26 @@
       "setable": true,
       "uiComponent": "button",
       "title": {
-        "en": "Back"
+        "en": "Back",
+        "no": "Tilbake"
       }
     },
     "bright": {
       "type": "boolean",
       "title": {
-        "en": "Bright"
+        "en": "Bright",
+        "no": "Lysstyrke"
       },
       "getable": true,
       "setable": false,
       "insights": true,
       "insightsTitleTrue": {
-        "en": "Light is bright"
+        "en": "Light is bright",
+        "no": "Lyst"
       },
       "insightsTitleFalse": {
-        "en": "Light is dim"
+        "en": "Light is dim",
+        "no": "Dimmet"
       },
       "icon": "/assets/sun.svg"
     },
@@ -3784,7 +3805,8 @@
       "setable": true,
       "uiComponent": "button",
       "title": {
-        "en": "Brightness down"
+        "en": "Brightness down",
+        "no": "Lysstyrke ned"
       },
       "icon": "/assets/brightness.svg"
     },
@@ -3794,7 +3816,8 @@
       "setable": true,
       "uiComponent": "button",
       "title": {
-        "en": "Brightness up"
+        "en": "Brightness up",
+        "no": "Lysstyrke opp"
       },
       "icon": "/assets/brightness.svg"
     },
@@ -3804,23 +3827,27 @@
       "setable": false,
       "uiComponent": "sensor",
       "title": {
-        "en": "Button Press ID"
+        "en": "Button Press ID",
+        "no": "Knappetrykk ID"
       },
       "icon": "/assets/button_press.svg"
     },
     "direction": {
       "type": "boolean",
       "title": {
-        "en": "Someone Exited"
+        "en": "Someone Exited",
+        "no": "Noen gikk ut"
       },
       "getable": true,
       "setable": false,
       "insights": true,
       "insightsTitleTrue": {
-        "en": "Someone Exited"
+        "en": "Someone Exited",
+        "no": "Noen gikk ut"
       },
       "insightsTitleFalse": {
-        "en": "Someone Entered"
+        "en": "Someone Entered",
+        "no": "Noen gikk inn"
       },
       "icon": "/assets/direction.svg"
     },
@@ -3830,7 +3857,8 @@
       "setable": false,
       "uiComponent": "sensor",
       "title": {
-        "en": "Entry ID"
+        "en": "Entry ID",
+        "no": "Inngangs id"
       },
       "icon": "/assets/entry.svg"
     },
@@ -3840,7 +3868,8 @@
       "setable": false,
       "uiComponent": "sensor",
       "title": {
-        "en": "Exit ID"
+        "en": "Exit ID",
+        "no": "Utgangs id"
       },
       "icon": "/assets/exit.svg"
     },
@@ -3850,7 +3879,8 @@
       "setable": true,
       "uiComponent": "button",
       "title": {
-        "en": "High Speed"
+        "en": "High Speed",
+        "no": "Høy hastighet"
       },
       "icon": "/assets/fan_speed.svg"
     },
@@ -3860,7 +3890,8 @@
       "setable": true,
       "uiComponent": "button",
       "title": {
-        "en": "Low Speed"
+        "en": "Low Speed",
+        "no": "Lav hastighet"
       },
       "icon": "/assets/fan_speed.svg"
     },
@@ -3870,7 +3901,8 @@
       "setable": true,
       "uiComponent": "button",
       "title": {
-        "en": "Medium Speed"
+        "en": "Medium Speed",
+        "no": "Middels hastighet"
       },
       "icon": "/assets/fan_speed.svg"
     },
@@ -3880,7 +3912,8 @@
       "setable": true,
       "uiComponent": "button",
       "title": {
-        "en": "Swing"
+        "en": "Swing",
+        "no": "Pendler"
       },
       "icon": "/assets/rotate_range.svg"
     },
@@ -3890,14 +3923,16 @@
       "setable": true,
       "uiComponent": "button",
       "title": {
-        "en": "Fast Forward"
+        "en": "Fast Forward",
+        "no": "Fort fremover"
       },
       "icon": "/assets/fast-forward.svg"
     },
     "light_level": {
       "type": "number",
       "title": {
-        "en": "Light Level"
+        "en": "Light Level",
+        "no": "Lysnivå"
       },
       "units": {
         "en": ""
@@ -3912,13 +3947,15 @@
       "setable": true,
       "uiComponent": "slider",
       "units": {
-        "en": "%"
+        "en": "%",
+        "no": "%"
       },
       "min": 0,
       "max": 100,
       "step": 1,
       "title": {
-        "en": "Efficiency"
+        "en": "Efficiency",
+        "no": "Effektivitet"
       }
     },
     "nebulization_mode": {
@@ -3927,7 +3964,8 @@
       "setable": true,
       "uiComponent": "button",
       "title": {
-        "en": "Auto"
+        "en": "Auto",
+        "no": "Auto"
       },
       "icon": "/assets/humidifier.svg"
     },
@@ -3937,14 +3975,16 @@
       "setable": true,
       "uiComponent": "button",
       "title": {
-        "en": "Next"
+        "en": "Next",
+        "no": "Neste"
       },
       "icon": "/assets/next.svg"
     },
     "open_close": {
       "type": "boolean",
       "title": {
-        "en": "Open / Close"
+        "en": "Open / Close",
+        "no": "Åpne / Lukke"
       },
       "getable": true,
       "setable": true,
@@ -3957,7 +3997,8 @@
       "setable": true,
       "uiComponent": "button",
       "title": {
-        "en": "Pause"
+        "en": "Pause",
+        "no": "Pause"
       },
       "icon": "/assets/pause.svg"
     },
@@ -3967,7 +4008,8 @@
       "setable": true,
       "uiComponent": "button",
       "title": {
-        "en": "Play"
+        "en": "Play",
+        "no": "Aktiver"
       },
       "icon": "/assets/play.svg"
     },
@@ -3977,17 +4019,20 @@
       "setable": true,
       "uiComponent": "button",
       "title": {
-        "en": "Play Scene"
+        "en": "Play Scene",
+        "no": "Aktiver scene"
       },
       "icon": "/assets/play_scene.svg"
     },
     "position": {
       "type": "number",
       "title": {
-        "en": "Position Reading"
+        "en": "Position Reading",
+        "no": "Posisjon"
       },
       "units": {
-        "en": "%"
+        "en": "%",
+        "no": "%"
       },
       "decimals": 0,
       "getable": true,
@@ -4000,7 +4045,8 @@
       "setable": true,
       "uiComponent": "button",
       "title": {
-        "en": "Power Off"
+        "en": "Power Off",
+        "no": "Av"
       },
       "icon": "/assets/power_off.svg"
     },
@@ -4010,7 +4056,8 @@
       "setable": true,
       "uiComponent": "button",
       "title": {
-        "en": "Power On"
+        "en": "Power On",
+        "no": "På"
       },
       "icon": "/assets/power_on.svg"
     },
@@ -4020,7 +4067,8 @@
       "setable": true,
       "uiComponent": "button",
       "title": {
-        "en": "Previous"
+        "en": "Previous",
+        "no": "Forrige"
       },
       "icon": "/assets/prev.svg"
     },
@@ -4030,7 +4078,8 @@
       "setable": true,
       "uiComponent": "button",
       "title": {
-        "en": "Rewind"
+        "en": "Rewind",
+        "no": "Tilbake"
       },
       "icon": "/assets/rewind.svg"
     },
@@ -4041,7 +4090,8 @@
       "uiComponent": "button",
       "title": {
         "en": "Dock",
-        "nl": "Dock"
+        "nl": "Dock",
+        "no": "Dokk"
       },
       "icon": "/assets/home.svg"
     },
@@ -4049,7 +4099,8 @@
       "type": "string",
       "title": {
         "en": "Vaccum Status",
-        "nl": "Stofzuiger Status"
+        "nl": "Stofzuiger Status",
+        "no": "Støvsuger status"
       },
       "getable": true,
       "setable": false,
@@ -4058,10 +4109,12 @@
     "rssi": {
       "type": "number",
       "title": {
-        "en": "RSSI"
+        "en": "RSSI",
+        "no": "RSSI"
       },
       "units": {
-        "en": "db"
+        "en": "db",
+        "no": "db"
       },
       "getable": true,
       "setable": false,
@@ -4070,19 +4123,22 @@
     "smart_fan_mode": {
       "type": "enum",
       "title": {
-        "en": "Mode"
+        "en": "Mode",
+        "no": "Modus"
       },
       "values": [
         {
           "id": "1",
           "title": {
-            "en": "Standard"
+            "en": "Standard",
+            "no": "Standard"
           }
         },
         {
           "id": "2",
           "title": {
-            "en": "Natural"
+            "en": "Natural",
+            "no": "Naturlig"
           }
         }
       ],
@@ -4102,14 +4158,16 @@
       "max": 120,
       "step": 1,
       "title": {
-        "en": "Shake Range"
+        "en": "Shake Range",
+        "no": "Bevegelsesutslag"
       },
       "icon": "/assets/rotate_range.svg"
     },
     "smart_fan_speed": {
       "type": "enum",
       "title": {
-        "en": "Fan Speed"
+        "en": "Fan Speed",
+        "no": "Viftehastighet"
       },
       "values": [
         {
@@ -4147,7 +4205,8 @@
       "setable": true,
       "uiComponent": "button",
       "title": {
-        "en": "Start"
+        "en": "Start",
+        "no": "Start"
       },
       "icon": "/assets/play.svg"
     },
@@ -4157,7 +4216,8 @@
       "setable": true,
       "uiComponent": "button",
       "title": {
-        "en": "Stop"
+        "en": "Stop",
+        "no": "Stopp"
       },
       "icon": "/assets/stop.svg"
     },
@@ -4167,7 +4227,8 @@
       "setable": true,
       "uiComponent": "button",
       "title": {
-        "en": "Power"
+        "en": "Power",
+        "no": "Styrke"
       },
       "icon": "/assets/fan_speed.svg"
     }

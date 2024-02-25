@@ -1,16 +1,19 @@
 {
     "type": "boolean",
     "title": {
-        "en": "Someone Exited"
+        "en": "Someone Exited",
+        "no": "Noen gikk ut"
     },
     "getable": true,
     "setable": false,
     "insights": true,
     "insightsTitleTrue": {
-        "en": "Someone Exited"
+        "en": "Someone Exited",
+        "no": "Noen gikk ut"
     },
     "insightsTitleFalse": {
-        "en": "Someone Entered"
+        "en": "Someone Entered",
+        "no": "Noen gikk inn"
     },
     "icon": "/assets/direction.svg"
 }

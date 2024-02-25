@@ -5,7 +5,8 @@
     "uiComponent": "button",
     "title":
     {
-        "en": "Power"
+        "en": "Power",
+        "no": "Styrke"
     },
     "icon": "/assets/fan_speed.svg"
 }

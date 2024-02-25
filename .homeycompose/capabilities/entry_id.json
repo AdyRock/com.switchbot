@@ -5,7 +5,8 @@
     "uiComponent": "sensor",
     "title":
     {
-        "en": "Entry ID"
+        "en": "Entry ID",
+        "no": "Inngangs id"
     },
     "icon": "/assets/entry.svg" 
 }

@@ -5,7 +5,8 @@
     "uiComponent": "button",
     "title":
     {
-        "en": "Swing"
+        "en": "Swing",
+        "no": "Pendler"
     },
     "icon": "/assets/rotate_range.svg"
 }

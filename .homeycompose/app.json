@@ -94,6 +94,11 @@
             "name": "Adrian Rockall",
             "email": "ady@rockall.plus.com"
           }
+        ],
+        "translators" : [
+          {
+            "name": "Philip Østli"
+          }
         ]
       },
         "api":

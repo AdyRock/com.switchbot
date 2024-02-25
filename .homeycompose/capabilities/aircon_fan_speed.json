@@ -1,31 +1,36 @@
 {
     "type": "enum",
     "title": {
-        "en": "Fan Speed"
+        "en": "Fan Speed",
+        "no": "Viftehastighet"
     },
     "values": [
         {
           "id": "1",
           "title": {
-            "en": "Auto"
+            "en": "Auto",
+            "no": "Auto"
           }
         },
         {
           "id": "2",
           "title": {
-            "en": "Low"
+            "en": "Low",
+            "no": "Lav"
           }
         },
         {
           "id": "3",
           "title": {
-            "en": "Medium"
+            "en": "Medium",
+            "no": "Middels"
           }
         },
         {
           "id": "4",
           "title": {
-            "en": "High"
+            "en": "High",
+            "no": "Høy"
           }
         }
       ],

@@ -5,7 +5,8 @@
     "uiComponent": "button",
     "title": {
         "en": "Dock",
-        "nl": "Dock"
+        "nl": "Dock",
+        "no": "Dokk"
     },
     "icon": "/assets/home.svg"
 }

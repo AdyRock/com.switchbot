@@ -1,10 +1,12 @@
 {
     "type": "number",
     "title": {
-        "en": "Position Reading"
+        "en": "Position Reading",
+        "no": "Posisjon"
     },
     "units": {
-        "en": "%"
+        "en": "%",
+        "no": "%"
     },
     "decimals": 0,
     "getable": true,

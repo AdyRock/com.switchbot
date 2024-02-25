@@ -1,16 +1,19 @@
 {
     "type": "boolean",
     "title": {
-        "en": "Bright"
+        "en": "Bright",
+        "no": "Lysstyrke"
     },
     "getable": true,
     "setable": false,
     "insights": true,
     "insightsTitleTrue": {
-        "en": "Light is bright"
+        "en": "Light is bright",
+        "no": "Lyst"
     },
     "insightsTitleFalse": {
-        "en": "Light is dim"
+        "en": "Light is dim",
+        "no": "Dimmet"
     },
     "icon": "/assets/sun.svg"
 }

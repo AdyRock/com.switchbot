@@ -5,7 +5,8 @@
     "uiComponent": "button",
     "title":
     {
-        "en": "Brightness up"
+        "en": "Brightness up",
+        "no": "Lysstyrke opp"
     },
     "icon": "/assets/brightness.svg"
 }
