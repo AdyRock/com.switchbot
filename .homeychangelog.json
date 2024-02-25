@@ -289,5 +289,8 @@
 	},
 	"1.1.46": {
 		"en": "Foxed spelling error defined in the API document."
-	}
+	},
+    "1.1.47": {
+        "en": "Added Curtain3 to list of curtain devices."
+    }
 }
