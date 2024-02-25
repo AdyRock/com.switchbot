@@ -16,7 +16,7 @@
             "title": "Connection Details",
             "intro": "Get the API code from the SwitchBot phone app",
             "intro1": "1. Open the SwitchBot phone app",
-            "intro2": "2. Go to Profile > Preference",
+            "intro2": "2. Go to Profile > Preferences",
             "intro3": "3. Tap App Version 10 times to show the Developer Options",
             "intro4": "4. Tap Developer Options",
             "intro5": "5. Tap Get Token",
@@ -30,7 +30,7 @@
         "button_code":
         {
             "title": "Define Buttons",
-            "instructions": "Enter the text for each button exactley as it appears on each button in the SwitchBot app",
+            "instructions": "Enter the text for each button exactly as it appears on each button in the SwitchBot app",
             "button1": "Command Code 1",
             "button2": "Command Code 2",
             "button3": "Command Code 3",

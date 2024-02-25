@@ -1,0 +1,72 @@
+{
+    "settings":
+    {
+        "clear": "Fjern logg",
+        "send": "Send logg",
+        "getDevices": "Hent HUB enheter"
+    },
+    "capabilities":
+    {
+        "brightness": "Lysstyrke"
+    },
+    "pair":
+    {
+        "api_code":
+        {
+            "title": "Tilkoblingsdetaljer",
+            "intro": "Finn API koden i SwitchBot telefonappen",
+            "intro1": "1. Åpne SwitchBot telefonappen",
+            "intro2": "2. Gå til Profile > Preferences",
+            "intro3": "3. Trykk på 'App Version' minst 10 ganger for å vise 'Developer Options'",
+            "intro4": "4. Trykk på 'Developer Options'",
+            "intro5": "5. Trykk 'Get Token'",
+            "api_code": "API kode",
+            "login": "Koble til",
+            "checking": "Sjekker forbindelsen",
+            "try_again": "Prøv igjen",
+            "correct": "Vellykket",
+            "adding": "Legger til enhet(er)"
+        },
+        "button_code":
+        {
+            "title": "Definer knapper",
+            "instructions": "Legg til teksten for hver knapp nøyaktig slik de er lagt inn i SwitchBot telefonappen",
+            "button1": "Command Code 1",
+            "button2": "Command Code 2",
+            "button3": "Command Code 3",
+            "button4": "Command Code 4",
+            "button5": "Command Code 5",
+            "button6": "Command Code 6",
+            "button7": "Command Code 7",
+            "button8": "Command Code 8",
+            "button9": "Command Code 9",
+            "button10": "Command Code 10",
+            "button11": "Command Code 11",
+            "button12": "Command Code 12",
+            "button13": "Command Code 13",
+            "button14": "Command Code 14",
+            "button15": "Command Code 15",
+            "button16": "Command Code 16",
+            "button17": "Command Code 17",
+            "button18": "Command Code 18",
+            "button19": "Command Code 19",
+            "button20": "Command Code 20",
+            "button21": "Command Code 21",
+            "button22": "Command Code 22",
+            "button23": "Command Code 23",
+            "button24": "Command Code 24",
+            "button25": "Command Code 25",
+            "button26": "Command Code 26",
+            "button27": "Command Code 27",
+            "button28": "Command Code 28",
+            "button29": "Command Code 29",
+            "button30": "Command Code 30",
+            "button31": "Command Code 31",
+            "button32": "Command Code 32",
+            "button33": "Command Code 33",
+            "button34": "Command Code 34",
+            "button35": "Command Code 35",
+            "button36": "Command Code 36"
+        }
+    }
+}
