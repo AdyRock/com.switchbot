@@ -53,7 +53,7 @@ class CurtainsHubDevice extends HubDevice
 
         const dd = this.getData();
         this.homey.app.registerHomeyWebhook(dd.id);
-        this.log('CurtainsHubDevice has been initialising');
+        this.log('CurtainsHubDevice has been initialized');
     }
 
     /**
