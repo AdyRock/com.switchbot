@@ -1,76 +1,89 @@
 {
     "title": {
-        "en": "The state !{{is|isn't}} [[state]]"
+        "en": "The state !{{is|isn't}} [[state]]",
+        "no": "Kjøremodus !{{er|er ikke}} [[state]]"
     },
     "titleFormatted": {
-        "en": "The state !{{is|isn't}} [[state]]"
+        "en": "The state !{{is|isn't}} [[state]]",
+        "no": "Kjøremodus !{{er|er ikke}} [[state]]"
     },
     "args": [
         {
             "name": "state",
             "title": {
-                "en": "Vaccum State"
+                "en": "Vaccum State",
+                "no": "Støvsuger kjøremodus"
             },
             "type": "dropdown",
             "values": [
                 {
                     "id": "StandBy",
                     "title": {
-                        "en": "Standby"
+                        "en": "Standby",
+                        "no": "Gjør ikke noe"
                     }
                 },
                 {
                     "id": "Cleaning",
                     "title": {
-                        "en": "Cleaning"
+                        "en": "Cleaning",
+                        "no": "Rengjør"
                     }
                 },
                 {
                     "id": "Paused",
                     "title": {
-                        "en": "Paused"
+                        "en": "Paused",
+                        "no": "Pauset"
                     }
                 },
                 {
                     "id": "GotoChargeBase",
                     "title": {
-                        "en": "Going to Charge Base"
+                        "en": "Going to Charge Base",
+                        "no": "På vei til ladestasjon"
                     }
                 },
                 {
                     "id": "Charging",
                     "title": {
-                        "en": "Charging"
+                        "en": "Charging",
+                        "no": "Lader"
                     }
                 },
                 {
                     "id": "ChargeDone",
                     "title": {
-                        "en": "Charging Finished"
+                        "en": "Charging Finished",
+                        "no": "Lading ferdig"
                     }
                 },
                 {
                     "id": "Dormant",
                     "title": {
-                        "en": "Dormat"
+                        "en": "Dormant",
+                        "no": "Sovende"
                     }
                 },
                 {
                     "id": "InTrouble",
                     "title": {
-                        "en": "In Trouble"
+                        "en": "In Trouble",
+                        "no": "Står fast"
                     }
                 },
                 {
                     "id": "InRemoteControl",
                     "title": {
-                        "en": "Remote Contolled"
+                        "en": "Remote Contolled",
+                        "no": "Fjernkontrollert"
                     }
                 },
                 {
                     "id": "InDustCollecting",
                     "title": {
-                        "en": "Dust Collecting"
+                        "en": "Dust Collecting",
+                        "no": "Samler støv"
                     }
                 }
             ]
