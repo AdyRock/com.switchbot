@@ -1,43 +1,51 @@
 {
     "title": {
-        "en": "Set the vaccum power level"
+        "en": "Set the vaccum power level",
+        "no": "Sett opp støvsuger styrken"
     },
     "titleFormatted": {
-        "en": "Set the power level to [[power]]"
+        "en": "Set the power level to [[power]]",
+        "no": "Sett støvsuger styrken til [[power]]"
     },
     "hint": {
-        "en": "Change the power level of the vaccum"
+        "en": "Change the power level of the vaccum",
+        "no": "Endre støvsuger styrken"
     },
     "args": [
         {
             "name": "power",
             "type": "dropdown",
             "title": {
-                "en": "Power Level"
+                "en": "Power Level",
+                "no": "Styrkenivå"
             },
             "values": [
                 {
                     "id": "0",
                     "label": {
-                        "en": "Quiet"
+                        "en": "Quiet",
+                        "no": "Stille"
                     }
                 },
                 {
                     "id": "1",
                     "label": {
-                        "en": "Normal"
+                        "en": "Normal",
+                        "no": "Normal"
                     }
                 },
                 {
                     "id": "2",
                     "label": {
-                        "en": "Strong"
+                        "en": "Strong",
+                        "no": "Kraftig"
                     }
                 },
                 {
                     "id": "3",
                     "label": {
-                        "en": "Maximum"
+                        "en": "Maximum",
+                        "no": "Maksimal"
                     }
                 }
             ]

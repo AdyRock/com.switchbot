@@ -1,20 +1,24 @@
 {
   "title": {
-    "en": "Run a Scene"
+    "en": "Run a Scene",
+    "no": "Kjør en scene"
   },
   "titleFormatted": {
-      "en": "Run the '[[scene]]' scene"
+      "en": "Run the '[[scene]]' scene",
+      "no": "Kjør scenen [[scene]]"
   },
   "hint": {
-    "en": "Run a SwitchBot scene"
+    "en": "Run a SwitchBot scene",
+    "no": "Kjør en SwitchBot-scene"
   },
   "args": [
     {
       "type": "autocomplete",
       "name": "scene",
-      "title": { "en": "Scene Name" },
+      "title": { "en": "Scene Name", "no": "Scenenavn" },
       "placeholder": {
-        "en": "Scene Name"
+        "en": "Scene Name",
+        "no": "Scenenavn"
       }
     }
   ],

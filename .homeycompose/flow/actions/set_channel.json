@@ -1,12 +1,15 @@
 {
     "title": {
-        "en": "Set the channel"
+        "en": "Set the channel",
+        "no": "Sett kanal"
     },
     "titleFormatted": {
-        "en": "Set the channel to '[[channel_number]]'"
+        "en": "Set the channel to '[[channel_number]]'",
+        "no": "Sett kanal til [[channel_number]]"
     },
     "hint": {
-        "en": "Set the channel number"
+        "en": "Set the channel number",
+        "no": "Sett kanalnummer"
     },
     "args": [
         {
@@ -17,9 +20,10 @@
         {
             "type": "number",
             "name": "channel_number",
-            "title": { "en": "Channel number" },
+            "title": { "en": "Channel number", "no": "Kanalnummer" },
             "placeholder": {
-                "en": "Channel Number"
+                "en": "Channel Number",
+                "no": "Kanalnummer"
             }
         }
     ],

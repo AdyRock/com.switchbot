@@ -14,10 +14,12 @@
         "pl": "Ustaw pozycję na"
     },
     "titleFormatted": {
-        "en": "Set tilt position to [[windowcoverings_tilt_set]]"
+        "en": "Set tilt position to [[windowcoverings_tilt_set]]",
+        "no": "Sett posisjonen til [[windowcoverings_tilt_set]]"
     },
     "hint": {
-        "en": "Change the position to tilt up (100%), open (50%), tilt down (0%), or a value in between."
+        "en": "Change the position to tilt up (100%), open (50%), tilt down (0%), or a value in between.",
+        "no": "Endre posisjonen til tilt opp (100%), åpen (50%), tilt ned (0%), eller en verdi i mellom."
     },
     "args": [
         {
@@ -28,7 +30,7 @@
         {
             "name": "windowcoverings_tilt_set",
             "type": "range",
-            "title": { "en": "Position" },
+            "title": { "en": "Position", "no": "Posisjon" },
             "min": 0,
             "max": 1,
             "step": 0.01,
