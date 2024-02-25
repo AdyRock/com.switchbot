@@ -13,7 +13,8 @@
     "en": "SwitchBot"
   },
   "description": {
-    "en": "A simple way to make your entire home a Smart Home"
+    "en": "A simple way to make your entire home a Smart Home",
+    "no": "En enkel måte å gjøre hele ditt hjem til et Smart Hjem."
   },
   "tags": {
     "en": [
@@ -337,7 +338,7 @@
       },
       {
         "title": {
-          "en": "Vaccum State Changed",
+          "en": "Vacuum State Changed",
           "no": "Støvsuger kjøremodus ble endret"
         },
         "platforms": [
@@ -351,7 +352,7 @@
           {
             "name": "state",
             "title": {
-              "en": "Vaccum State",
+              "en": "Vacuum State",
               "no": "Støvsuger kjøremodus"
             },
             "type": "string",
@@ -372,11 +373,11 @@
       },
       {
         "title": {
-          "en": "Vaccum State Changed",
+          "en": "Vacuum State Changed",
           "no": "Støvsuger kjøremodus ble endret"
         },
         "titleFormatted": {
-          "en": "Vaccum state changed to [[state]]",
+          "en": "Vacuum state changed to [[state]]",
           "no": "Støvsuger kjøremodus ble endret til [[state]]"
         },
         "platforms": [
@@ -390,7 +391,7 @@
           {
             "name": "state",
             "title": {
-              "en": "Vaccum State",
+              "en": "Vacuum State",
               "no": "Støvsuger kjøremodus"
             },
             "type": "dropdown",
@@ -639,7 +640,7 @@
           {
             "name": "state",
             "title": {
-              "en": "Vaccum State",
+              "en": "Vacuum State",
               "no": "Støvsuger kjøremodus"
             },
             "type": "dropdown",
@@ -703,7 +704,7 @@
               {
                 "id": "InRemoteControl",
                 "title": {
-                  "en": "Remote Contolled",
+                  "en": "Remote Controlled",
                   "no": "Fjernkontrollert"
                 }
               },
@@ -1090,7 +1091,7 @@
       },
       {
         "title": {
-          "en": "Set the vaccum power level",
+          "en": "Set the vacuum power level",
           "no": "Sett opp støvsuger styrken"
         },
         "titleFormatted": {
@@ -1098,7 +1099,7 @@
           "no": "Sett støvsuger styrken til [[power]]"
         },
         "hint": {
-          "en": "Change the power level of the vaccum",
+          "en": "Change the power level of the vacuum",
           "no": "Endre støvsuger styrken"
         },
         "args": [
@@ -1139,11 +1140,6 @@
                 }
               }
             ]
-          },
-          {
-            "name": "device",
-            "type": "device",
-            "filter": "driver_id=robot_vaccum_hub"
           }
         ],
         "id": "set_vaccum_power"
@@ -3422,7 +3418,7 @@
       },
       "id": "robot_vaccum_hub",
       "name": {
-        "en": "Robot Vaccum (HUB)",
+        "en": "Robot Vacuum (HUB)",
         "no": "Robotstøvsuger (HUB)"
       },
       "class": "vacuumcleaner",
@@ -4305,7 +4301,7 @@
     "robot_vaccum_state": {
       "type": "string",
       "title": {
-        "en": "Vaccum Status",
+        "en": "Vacuum Status",
         "nl": "Stofzuiger Status",
         "no": "Støvsuger status"
       },

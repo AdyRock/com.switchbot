@@ -1,7 +1,7 @@
 {
     "type": "string",
     "title": {
-        "en": "Vaccum Status",
+        "en": "Vacuum Status",
         "nl": "Stofzuiger Status",
         "no": "Støvsuger status"
     },

@@ -1,10 +1,10 @@
 {
     "title": {
-        "en": "Vaccum State Changed",
+        "en": "Vacuum State Changed",
         "no": "Støvsuger kjøremodus ble endret"
     },
     "titleFormatted": {
-        "en": "Vaccum state changed to [[state]]",
+        "en": "Vacuum state changed to [[state]]",
         "no": "Støvsuger kjøremodus ble endret til [[state]]"
     },
     "platforms": [
@@ -18,7 +18,7 @@
         {
             "name": "state",
             "title": {
-                "en": "Vaccum State",
+                "en": "Vacuum State",
                 "no": "Støvsuger kjøremodus"
             },
             "type": "dropdown",

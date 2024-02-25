@@ -1,7 +1,7 @@
 {
 	"id": "robot_vacum_hub",
 	"name": {
-		"en": "Robot Vaccum (HUB)",
+		"en": "Robot Vacuum (HUB)",
 		"no": "Robotstøvsuger (HUB)"
 	},
 	"class": "vacuumcleaner",

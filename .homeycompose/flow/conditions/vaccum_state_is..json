@@ -11,7 +11,7 @@
         {
             "name": "state",
             "title": {
-                "en": "Vaccum State",
+                "en": "Vacuum State",
                 "no": "Støvsuger kjøremodus"
             },
             "type": "dropdown",
@@ -75,7 +75,7 @@
                 {
                     "id": "InRemoteControl",
                     "title": {
-                        "en": "Remote Contolled",
+                        "en": "Remote Controlled",
                         "no": "Fjernkontrollert"
                     }
                 },
