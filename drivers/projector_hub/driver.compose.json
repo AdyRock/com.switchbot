@@ -2,7 +2,8 @@
     "id": "projector_hub",
     "name":
     {
-        "en": "Projector Remote"
+        "en": "Projector Remote",
+        "no": "Projektor fjernkontroll"
     },
     "class": "remote",
     "capabilities": [

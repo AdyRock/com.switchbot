@@ -1,7 +1,8 @@
 {
     "id": "bot_ble",
     "name": {
-        "en": "Bot (BLE)"
+        "en": "Bot (BLE)",
+        "no": "Bot (BLE)"
     },
     "platforms": [
         "local",
@@ -43,11 +44,13 @@
             "id": "password",
             "type": "password",
             "label": {
-                "en": "Password"
+                "en": "Password",
+                "no": "Passord"
             },
             "value": "",
             "hint": {
-                "en": "The password that has been set in the SwitchBot app which is required to control the Bot.\r\nLeave this empty if no password is set."
+                "en": "The password that has been set in the SwitchBot app which is required to control the Bot.\r\nLeave this empty if no password is set.",
+                "no": "Passordet som er angitt i SwitchBot appen som er nødvendig for å styre enheten.\r\nFjern dette feltet hvis det ikke er satt et passord."
             }
         }
     ]

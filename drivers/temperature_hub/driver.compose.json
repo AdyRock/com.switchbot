@@ -2,7 +2,8 @@
     "id": "temperature_hub",
     "name":
     {
-        "en": "Temperature & Humidity (HUB)"
+        "en": "Temperature & Humidity (HUB)",
+        "no": "Temperatur & Luftfuktighet (HUB)"
     },
     "class": "sensor",
     "capabilities": [

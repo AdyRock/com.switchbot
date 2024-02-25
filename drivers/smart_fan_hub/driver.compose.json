@@ -2,7 +2,8 @@
     "id": "smart_fan_hub",
     "name":
     {
-        "en": "Smart Fan (HUB)"
+        "en": "Smart Fan (HUB)",
+        "no": "Smart vifte (HUB)"
     },
     "class": "other",
     "capabilities": [

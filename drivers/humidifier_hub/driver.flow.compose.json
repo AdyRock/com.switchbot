@@ -3,7 +3,8 @@
         {
             "id": "nebulization_mode",
             "title": {
-                "en": "Set nebulization mode"
+                "en": "Set nebulization mode",
+                "no": "Sett nebuliseringssmodus"
             },
             "titleFormatted": {
                 "en": "Set the nebulization mode to [[mode]]"
@@ -13,18 +14,20 @@
                 {
                     "name": "mode",
                     "type": "dropdown",
-                    "title": { "en": "Mode" },
+                    "title": { "en": "Mode", "no": "Modus" },
                     "values": [
                         {
                             "id": "0",
                             "title": {
-                                "en": "Manual"
+                                "en": "Manual",
+                                "no": "Manuell"
                             }
                         },
                         {
                             "id": "1",
                             "title": {
-                                "en": "Auto"
+                                "en": "Auto",
+                                "no": "Automatisk"
                             }
                         }
                     ]
@@ -34,18 +37,20 @@
         {
             "id": "nebulization_efficiency",
             "title": {
-                "en": "Set nebulization efficiency"
+                "en": "Set nebulization efficiency",
+                "no": "Sett nebuliseringseffektivitet"
             },
             "titleFormatted": {
-                "en": "Set the nebulization efficiency to [[nebulization_efficiency]]"
+                "en": "Set the nebulization efficiency to [[nebulization_efficiency]]",
+                "no": "Sett nebuliseringseffektivitet til [[nebulization_efficiency]]"
             },
             "platforms": ["local", "cloud"],
             "args": [
                 {
                     "name": "nebulization_efficiency",
                     "type": "range",
-                    "title": { "en": "Efficiency" },
-                    "placeholder": { "en": "In %" },
+                    "title": { "en": "Efficiency", "no": "Effektivitet" },
+                    "placeholder": { "en": "In %", "no": "i %" },
                     "label": "%",
                     "min": 0,
                     "max": 100,

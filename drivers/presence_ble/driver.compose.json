@@ -1,7 +1,8 @@
 {
     "id": "presence_ble",
     "name": {
-        "en": "Motion Sensor (BLE)"
+        "en": "Motion Sensor (BLE)",
+        "no": "Bevegelsessensor (BLE)"
     },
     "platforms": [
         "local",

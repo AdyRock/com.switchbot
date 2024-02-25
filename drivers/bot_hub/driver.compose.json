@@ -1,7 +1,8 @@
 {
     "id": "bot_hub",
     "name": {
-        "en": "Bot (HUB)"
+        "en": "Bot (HUB)",
+        "no": "Bot (HUB)"
     },
     "class": "socket",
     "capabilities": [

@@ -2,7 +2,8 @@
     "id": "humidifier_hub",
     "name":
     {
-        "en": "Humidifier (HUB)"
+        "en": "Humidifier (HUB)",
+        "no": "Luftfukter (HUB)"
     },
     "class": "other",
     "capabilities": [

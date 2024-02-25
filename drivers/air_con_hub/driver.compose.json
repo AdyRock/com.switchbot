@@ -1,7 +1,8 @@
 {
     "id": "air_con_hub",
     "name": {
-        "en": "Air Conditioner Remote"
+        "en": "Air Conditioner Remote",
+        "no": "Varmepumpe fjernkontroll"
     },
     "class": "remote",
     "capabilities": [

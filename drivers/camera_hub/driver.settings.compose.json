@@ -5,7 +5,8 @@
         "label":
         {
             "en": "Motion Duration",
-            "nl": "Bewegingsduur"
+            "nl": "Bewegingsduur",
+            "no": "Bevegelsesvarighet"
         },
         "value": 10,
         "min": 1,
@@ -13,7 +14,8 @@
         "units":
         {
             "en": "seconds",
-            "nl": "seconden"
+            "nl": "seconden",
+            "no": "sekunder"
         }
     }
 ]

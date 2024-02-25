@@ -1,6 +1,7 @@
 {
     "name": {
-        "en": "Colour Bulb (HUB)"
+        "en": "Colour Bulb (HUB)",
+        "no": "Lyspære m/farger (HUB)"
     },
     "class": "light",
     "capabilities": [

@@ -2,7 +2,8 @@
     "id": "fan_hub",
     "name":
     {
-        "en": "Fan Remote"
+        "en": "Fan Remote",
+        "de": "Vifte fjernkontroll"
     },
     "class": "remote",
     "capabilities": [

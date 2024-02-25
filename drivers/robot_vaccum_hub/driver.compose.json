@@ -1,7 +1,8 @@
 {
 	"id": "robot_vacum_hub",
 	"name": {
-		"en": "Robot Vaccum (HUB)"
+		"en": "Robot Vaccum (HUB)",
+		"no": "Robotstøvsuger (HUB)"
 	},
 	"class": "vacuumcleaner",
 	"capabilities": [
@@ -18,27 +19,32 @@
 	"capabilitiesOptions": {
 		"play": {
 			"title": {
-				"en": "Start"
+				"en": "Start",
+				"no": "Start"
 			}
 		},
 		"vaccum_power_level.quite": {
 			"title": {
-				"en": "Power Level Quite"
+				"en": "Power Level Quite",
+				"no": "Styrkenivå stille"
 			}
 		},
 		"vaccum_power_level.normal": {
 			"title": {
-				"en": "Power Level Normal"
+				"en": "Power Level Normal",
+				"no": "Styrkenivå normal"
 			}
 		},
 		"vaccum_power_level.strong": {
 			"title": {
-				"en": "Power Level Strong"
+				"en": "Power Level Strong",
+				"no": "Styrkenivå sterk"
 			}
 		},
 		"vaccum_power_level.max": {
 			"title": {
-				"en": "Power Level Maximum"
+				"en": "Power Level Maximum",
+				"no": "Styrkenivå maximal"
 			}
 		}
 	},

@@ -2,7 +2,8 @@
     "id": "dvd",
     "name":
     {
-        "en": "DVD Remote"
+        "en": "DVD Remote",
+        "de": "DVD fjernkontroll"
     },
     "class": "remote",
     "capabilities": [

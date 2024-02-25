@@ -3,35 +3,39 @@
         {
             "id": "smart_fan_mode",
             "title": {
-                "en": "Set fan mode"
+                "en": "Set fan mode",
+                "no": "Sett viftemodus"
             },
             "titleFormatted": {
-                "en": "Set the fan mode to [[fan_mode]], speed [[fan_speed]], shake range [[shake_range]]"
+                "en": "Set the fan mode to [[fan_mode]], speed [[fan_speed]], shake range [[shake_range]]",
+                "no": "Sett viftemodus til [[fan_mode]], viftefart [[fan_speed]], bevegelsesutslag [[shake_range]]"
             },
             "platforms": ["local", "cloud"],
             "args": [
                 {
                     "name": "fan_mode",
-                    "title": { "en": "Mode" },
+                    "title": { "en": "Mode", "no": "Viftemodus" },
                     "type": "dropdown",
                     "values": [
                         {
                             "id": "1",
                             "title": {
-                                "en": "Standard"
+                                "en": "Standard",
+                                "no": "Standard"
                             }
                         },
                         {
                             "id": "2",
                             "title": {
-                                "en": "Natural"
+                                "en": "Natural",
+                                "no": "Naturlig"
                             }
                         }
                     ]
                 },
                 {
                     "name": "fan_speed",
-                    "title": { "en": "Speed" },
+                    "title": { "en": "Speed", "no": "Viftefart" },
                     "type": "dropdown",
                     "values": [
                         {
@@ -62,7 +66,7 @@
                 },
                 {
                     "name": "shake_range",
-                    "title": { "en": "Shake Range" },
+                    "title": { "en": "Shake Range", "no": "Bevegelsesutslag" },
                     "type": "range",
                     "min": 0,
                     "max": 120,

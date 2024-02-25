@@ -1,7 +1,8 @@
 {
     "id": "presence_ble",
     "name": {
-        "en": "Contact Sensor (BLE)"
+        "en": "Contact Sensor (BLE)",
+        "no": "Kontaktsensor (BLE)"
     },
     "platforms": [
         "local",
@@ -24,12 +25,17 @@
     ],
     "capabilitiesOptions": {
         "alarm_contact.left_open": {
-            "title": "Left Open",
+            "title": {
+                "en": "Left Open",
+                "no": "Fremdeles åpen"
+            },
             "insightsTitleTrue": {
-                "en": "Contact Left Open"
+                "en": "Contact Left Open",
+                "no": "Kontaktalarm fremdeles på"
             },
             "insightsTitleFalse": {
-                "en": "Contact Closed"
+                "en": "Contact Closed",
+                "no": "Kontaktalarm slått av"
             }
         }
     },

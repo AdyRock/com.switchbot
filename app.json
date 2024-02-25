@@ -494,10 +494,12 @@
       {
         "id": "button_press_id_changed",
         "title": {
-          "en": "Button Press Changed"
+          "en": "Button Press Changed",
+          "no": "Knapp trykket"
         },
         "hint": {
-          "en": "Run the flow when button on the sensor is pressed. The token is a number that is incremented by the sensor each time the button is press. It will wrap around to 0 when it incremets past 255."
+          "en": "Run the flow when button on the sensor is pressed. The token is a number that is incremented by the sensor each time the button is press. It will wrap around to 0 when it incremets past 255.",
+          "no": "Kjør flowen hvis knappen er trykket. Tagen er et tall som øker hver gang knappen er trykket. Den vil nullstilles etter 255. "
         },
         "platforms": [
           "local",
@@ -507,7 +509,8 @@
           {
             "name": "button_press_id",
             "title": {
-              "en": "Button press ID"
+              "en": "Button press ID",
+              "no": "Knapp trykket ID"
             },
             "type": "number",
             "example": 1
@@ -524,10 +527,12 @@
       {
         "id": "entry_id_changed",
         "title": {
-          "en": "Entry ID Changed"
+          "en": "Entry ID Changed",
+          "no": "Inngang ID endret"
         },
         "hint": {
-          "en": "Run the flow when the sensor detects an entry (contact break before motion). The token is a number that is incremented by the sensor each time an entry is detected. It will wrap around to 0 when it incremets past 255."
+          "en": "Run the flow when the sensor detects an entry (contact break before motion). The token is a number that is incremented by the sensor each time an entry is detected. It will wrap around to 0 when it incremets past 255.",
+          "no": "Kjør flowen hvis sensoren detekterer en inngang. Tagen er et tall som øker hver gang en inngang er detektert. Den vil nullstilles etter 255. "
         },
         "platforms": [
           "local",
@@ -537,7 +542,8 @@
           {
             "name": "entry_id",
             "title": {
-              "en": "Entry ID"
+              "en": "Entry ID",
+              "no": "Inngang ID"
             },
             "type": "number",
             "example": 1
@@ -554,10 +560,12 @@
       {
         "id": "exit_id_changed",
         "title": {
-          "en": "Exit ID Changed"
+          "en": "Exit ID Changed",
+          "no": "Utgang ID endret"
         },
         "hint": {
-          "en": "Run the flow when the sensor detects an exit (contact break after motion). The token is a number that is incremented by the sensor each time an exit is detected. It will wrap around to 0 when it incremets past 255."
+          "en": "Run the flow when the sensor detects an exit (contact break after motion). The token is a number that is incremented by the sensor each time an exit is detected. It will wrap around to 0 when it incremets past 255.",
+          "no": "Kjør flowen hvis sensoren detekterer en utgang. Tagen er et tall som øker hver gang en utgang er detektert. Den vil nullstilles etter 255. "
         },
         "platforms": [
           "local",
@@ -567,7 +575,8 @@
           {
             "name": "exit_id",
             "title": {
-              "en": "Exit ID"
+              "en": "Exit ID",
+              "no": "Utgang ID"
             },
             "type": "number",
             "example": 1
@@ -1139,10 +1148,12 @@
       {
         "id": "operate_aircon",
         "title": {
-          "en": "Operate air conditioner"
+          "en": "Operate air conditioner",
+          "no": "Styre varmepumpen"
         },
         "titleFormatted": {
-          "en": "Switch Air conditioner [[onoff]], Mode is [[aircon_mode]] at [[target_temperature]] with the fan on [[aircon_fan_speed]]"
+          "en": "Switch Air conditioner [[onoff]], Mode is [[aircon_mode]] at [[target_temperature]] with the fan on [[aircon_fan_speed]]",
+          "no": "Skru varmepumpe [[onoff]], modus er [[aircon_mode]] ved [[target_temperature]] med viften på [[aircon_fan_speed]]"
         },
         "platforms": [
           "local",
@@ -1158,19 +1169,22 @@
             "name": "onoff",
             "type": "dropdown",
             "title": {
-              "en": "Power"
+              "en": "Power",
+              "no": "Strøm"
             },
             "values": [
               {
                 "id": "on",
                 "title": {
-                  "en": "On"
+                  "en": "On",
+                  "no": "På"
                 }
               },
               {
                 "id": "off",
                 "title": {
-                  "en": "Off"
+                  "en": "Off",
+                  "no": "Av"
                 }
               }
             ]
@@ -1179,37 +1193,43 @@
             "name": "aircon_mode",
             "type": "dropdown",
             "title": {
-              "en": "Mode"
+              "en": "Mode",
+              "no": "Modus"
             },
             "values": [
               {
                 "id": "1",
                 "title": {
-                  "en": "Auto"
+                  "en": "Auto",
+                  "no": "Auto"
                 }
               },
               {
                 "id": "2",
                 "title": {
-                  "en": "Cool"
+                  "en": "Cool",
+                  "no": "Kjøle"
                 }
               },
               {
                 "id": "3",
                 "title": {
-                  "en": "Dry"
+                  "en": "Dry",
+                  "no": "Tørke"
                 }
               },
               {
                 "id": "4",
                 "title": {
-                  "en": "Fan"
+                  "en": "Fan",
+                  "no": "Vifte"
                 }
               },
               {
                 "id": "5",
                 "title": {
-                  "en": "Heat"
+                  "en": "Heat",
+                  "no": "Varme"
                 }
               }
             ]
@@ -1217,7 +1237,8 @@
           {
             "name": "target_temperature",
             "title": {
-              "en": "Temperature"
+              "en": "Temperature",
+              "no": "Temperatur"
             },
             "type": "range",
             "min": 5,
@@ -1229,32 +1250,37 @@
           {
             "name": "aircon_fan_speed",
             "title": {
-              "en": "Speed"
+              "en": "Speed",
+              "no": "Hastighet"
             },
             "type": "dropdown",
             "values": [
               {
                 "id": "1",
                 "title": {
-                  "en": "Auto"
+                  "en": "Auto",
+                  "no": "Auto"
                 }
               },
               {
                 "id": "2",
                 "title": {
-                  "en": "Low"
+                  "en": "Low",
+                  "no": "Lav"
                 }
               },
               {
                 "id": "3",
                 "title": {
-                  "en": "Medium"
+                  "en": "Medium",
+                  "no": "Middels"
                 }
               },
               {
                 "id": "4",
                 "title": {
-                  "en": "High"
+                  "en": "High",
+                  "no": "Høy"
                 }
               }
             ]
@@ -1297,7 +1323,8 @@
       {
         "id": "nebulization_mode",
         "title": {
-          "en": "Set nebulization mode"
+          "en": "Set nebulization mode",
+          "no": "Sett nebuliseringssmodus"
         },
         "titleFormatted": {
           "en": "Set the nebulization mode to [[mode]]"
@@ -1316,19 +1343,22 @@
             "name": "mode",
             "type": "dropdown",
             "title": {
-              "en": "Mode"
+              "en": "Mode",
+              "no": "Modus"
             },
             "values": [
               {
                 "id": "0",
                 "title": {
-                  "en": "Manual"
+                  "en": "Manual",
+                  "no": "Manuell"
                 }
               },
               {
                 "id": "1",
                 "title": {
-                  "en": "Auto"
+                  "en": "Auto",
+                  "no": "Automatisk"
                 }
               }
             ]
@@ -1338,10 +1368,12 @@
       {
         "id": "nebulization_efficiency",
         "title": {
-          "en": "Set nebulization efficiency"
+          "en": "Set nebulization efficiency",
+          "no": "Sett nebuliseringseffektivitet"
         },
         "titleFormatted": {
-          "en": "Set the nebulization efficiency to [[nebulization_efficiency]]"
+          "en": "Set the nebulization efficiency to [[nebulization_efficiency]]",
+          "no": "Sett nebuliseringseffektivitet til [[nebulization_efficiency]]"
         },
         "platforms": [
           "local",
@@ -1357,10 +1389,12 @@
             "name": "nebulization_efficiency",
             "type": "range",
             "title": {
-              "en": "Efficiency"
+              "en": "Efficiency",
+              "no": "Effektivitet"
             },
             "placeholder": {
-              "en": "In %"
+              "en": "In %",
+              "no": "i %"
             },
             "label": "%",
             "min": 0,
@@ -1374,7 +1408,8 @@
       {
         "id": "start_scene",
         "title": {
-          "en": "Start Scene"
+          "en": "Start Scene",
+          "no": "Aktiver scene"
         },
         "platforms": [
           "local",
@@ -1391,10 +1426,12 @@
       {
         "id": "smart_fan_mode",
         "title": {
-          "en": "Set fan mode"
+          "en": "Set fan mode",
+          "no": "Sett viftemodus"
         },
         "titleFormatted": {
-          "en": "Set the fan mode to [[fan_mode]], speed [[fan_speed]], shake range [[shake_range]]"
+          "en": "Set the fan mode to [[fan_mode]], speed [[fan_speed]], shake range [[shake_range]]",
+          "no": "Sett viftemodus til [[fan_mode]], viftefart [[fan_speed]], bevegelsesutslag [[shake_range]]"
         },
         "platforms": [
           "local",
@@ -1409,20 +1446,23 @@
           {
             "name": "fan_mode",
             "title": {
-              "en": "Mode"
+              "en": "Mode",
+              "no": "Viftemodus"
             },
             "type": "dropdown",
             "values": [
               {
                 "id": "1",
                 "title": {
-                  "en": "Standard"
+                  "en": "Standard",
+                  "no": "Standard"
                 }
               },
               {
                 "id": "2",
                 "title": {
-                  "en": "Natural"
+                  "en": "Natural",
+                  "no": "Naturlig"
                 }
               }
             ]
@@ -1430,7 +1470,8 @@
           {
             "name": "fan_speed",
             "title": {
-              "en": "Speed"
+              "en": "Speed",
+              "no": "Viftefart"
             },
             "type": "dropdown",
             "values": [
@@ -1463,7 +1504,8 @@
           {
             "name": "shake_range",
             "title": {
-              "en": "Shake Range"
+              "en": "Shake Range",
+              "no": "Bevegelsesutslag"
             },
             "type": "range",
             "min": 0,
@@ -1515,7 +1557,8 @@
       },
       "id": "air_con_hub",
       "name": {
-        "en": "Air Conditioner Remote"
+        "en": "Air Conditioner Remote",
+        "no": "Varmepumpe fjernkontroll"
       },
       "class": "remote",
       "capabilities": [
@@ -1570,7 +1613,8 @@
       },
       "id": "air_purifier_remote_hub",
       "name": {
-        "en": "Air Purifier Remote"
+        "en": "Air Purifier Remote",
+        "de": "Luftrenser fjernkontroll"
       },
       "class": "remote",
       "capabilities": [
@@ -1584,7 +1628,8 @@
     {
       "id": "blind_tilt_ble",
       "name": {
-        "en": "Blind Tilt (BLE)"
+        "en": "Blind Tilt (BLE)",
+        "no": "Markise m/tilt (BLE)"
       },
       "platforms": [
         "local",
@@ -1628,42 +1673,49 @@
           "id": "invertPosition",
           "type": "checkbox",
           "label": {
-            "en": "Invert Open / Close Position"
+            "en": "Invert Open / Close Position",
+            "no": "Inverter Åpen / Lukket posisjon"
           },
           "value": false,
           "hint": {
-            "en": "Reverse the action of the position control."
+            "en": "Reverse the action of the position control.",
+            "no": "Vend retningen for posisjonsvelgeren."
           }
         },
         {
           "id": "motionMode",
           "type": "radio",
           "label": {
-            "en": "Motion Mode"
+            "en": "Motion Mode",
+            "no": "Bevegelsesmodus"
           },
           "value": "0xff",
           "values": [
             {
               "id": "0",
               "label": {
-                "en": "Performance"
+                "en": "Performance",
+                "no": "Ytelse"
               }
             },
             {
               "id": "1",
               "label": {
-                "en": "Silent"
+                "en": "Silent",
+                "no": "Stille"
               }
             },
             {
               "id": "0xff",
               "label": {
-                "en": "Last Used"
+                "en": "Last Used",
+                "no": "Sist brukte"
               }
             }
           ],
           "hint": {
-            "en": "Select the silent or performance mode of the motor."
+            "en": "Select the silent or performance mode of the motor.",
+            "no": "Velg stille eller ytelse modus for motoren."
           }
         }
       ]
@@ -1706,7 +1758,8 @@
       },
       "id": "blind_tilt_hub",
       "name": {
-        "en": "Blind Tilt (HUB)"
+        "en": "Blind Tilt (HUB)",
+        "no": "Markise m/tilt (HUB)"
       },
       "class": "blinds",
       "capabilities": [
@@ -1721,7 +1774,8 @@
     {
       "id": "bot_ble",
       "name": {
-        "en": "Bot (BLE)"
+        "en": "Bot (BLE)",
+        "no": "Bot (BLE)"
       },
       "platforms": [
         "local",
@@ -1763,11 +1817,13 @@
           "id": "password",
           "type": "password",
           "label": {
-            "en": "Password"
+            "en": "Password",
+            "no": "Passord"
           },
           "value": "",
           "hint": {
-            "en": "The password that has been set in the SwitchBot app which is required to control the Bot.\r\nLeave this empty if no password is set."
+            "en": "The password that has been set in the SwitchBot app which is required to control the Bot.\r\nLeave this empty if no password is set.",
+            "no": "Passordet som er angitt i SwitchBot appen som er nødvendig for å styre enheten.\r\nFjern dette feltet hvis det ikke er satt et passord."
           }
         }
       ]
@@ -1810,7 +1866,8 @@
       },
       "id": "bot_hub",
       "name": {
-        "en": "Bot (HUB)"
+        "en": "Bot (HUB)",
+        "no": "Bot (HUB)"
       },
       "class": "socket",
       "capabilities": [
@@ -1856,7 +1913,8 @@
       },
       "id": "camera_hub",
       "name": {
-        "en": "Camera Motion Sensor (HUB)"
+        "en": "Camera Motion Sensor (HUB)",
+        "no": "Kamera bevegelsessensor (HUB)"
       },
       "class": "sensor",
       "capabilities": [
@@ -1868,14 +1926,16 @@
           "type": "number",
           "label": {
             "en": "Motion Duration",
-            "nl": "Bewegingsduur"
+            "nl": "Bewegingsduur",
+            "no": "Bevegelsesvarighet"
           },
           "value": 10,
           "min": 1,
           "max": 240,
           "units": {
             "en": "seconds",
-            "nl": "seconden"
+            "nl": "seconden",
+            "no": "sekunder"
           }
         }
       ]
@@ -1883,7 +1943,8 @@
     {
       "id": "color_bulb_ble",
       "name": {
-        "en": "Colour Bulb (BLE)"
+        "en": "Colour Bulb (BLE)",
+        "no": "Lyspære m/farger (BLE)"
       },
       "platforms": [
         "local",
@@ -1963,7 +2024,8 @@
         "small": "/drivers/color_bulb_hub/assets/images/small.jpg"
       },
       "name": {
-        "en": "Colour Bulb (HUB)"
+        "en": "Colour Bulb (HUB)",
+        "no": "Lyspære m/farger (HUB)"
       },
       "class": "light",
       "capabilities": [
@@ -1985,7 +2047,8 @@
     {
       "id": "contact_ble",
       "name": {
-        "en": "Contact Sensor (BLE)"
+        "en": "Contact Sensor (BLE)",
+        "no": "Kontaktsensor (BLE)"
       },
       "platforms": [
         "local",
@@ -2008,12 +2071,17 @@
       ],
       "capabilitiesOptions": {
         "alarm_contact.left_open": {
-          "title": "Left Open",
+          "title": {
+            "en": "Left Open",
+            "no": "Fremdeles åpen"
+          },
           "insightsTitleTrue": {
-            "en": "Contact Left Open"
+            "en": "Contact Left Open",
+            "no": "Kontaktalarm fremdeles på"
           },
           "insightsTitleFalse": {
-            "en": "Contact Closed"
+            "en": "Contact Closed",
+            "no": "Kontaktalarm slått av"
           }
         }
       },
@@ -2079,7 +2147,8 @@
       },
       "id": "contact_hub",
       "name": {
-        "en": "Contact Sensor (HUB)"
+        "en": "Contact Sensor (HUB)",
+        "no": "Kontaktsensor (HUB)"
       },
       "class": "sensor",
       "capabilities": [
@@ -2091,12 +2160,17 @@
       ],
       "capabilitiesOptions": {
         "alarm_contact.left_open": {
-          "title": "Left Open",
+          "title": {
+            "en": "Left Open",
+            "no": "Fremdeles åpen"
+          },
           "insightsTitleTrue": {
-            "en": "Contact Left Open"
+            "en": "Contact Left Open",
+            "no": "Kontaktalarm fremdeles på"
           },
           "insightsTitleFalse": {
-            "en": "Contact Closed"
+            "en": "Contact Closed",
+            "no": "Kontaktalarm slått av"
           }
         }
       },
@@ -2110,7 +2184,8 @@
     {
       "id": "curtains_ble",
       "name": {
-        "en": "Curtains (BLE)"
+        "en": "Curtains (BLE)",
+        "no": "Gardiner (BLE)"
       },
       "platforms": [
         "local",
@@ -2156,42 +2231,49 @@
           "id": "invertPosition",
           "type": "checkbox",
           "label": {
-            "en": "Invert Open / Close Position"
+            "en": "Invert Open / Close Position",
+            "no": "Inverter Åpen / Lukket posisjon"
           },
           "value": false,
           "hint": {
-            "en": "Reverse the action of the position control."
+            "en": "Reverse the action of the position control.",
+            "no": "Vend retningen for posisjonsvelgeren."
           }
         },
         {
           "id": "motionMode",
           "type": "radio",
           "label": {
-            "en": "Motion Mode"
+            "en": "Motion Mode",
+            "no": "Bevegelsesmodus"
           },
           "value": "0xff",
           "values": [
             {
               "id": "0",
               "label": {
-                "en": "Performance"
+                "en": "Performance",
+                "no": "Ytelse"
               }
             },
             {
               "id": "1",
               "label": {
-                "en": "Silent"
+                "en": "Silent",
+                "no": "Stille"
               }
             },
             {
               "id": "0xff",
               "label": {
-                "en": "Last Used"
+                "en": "Last Used",
+                "no": "Sist brukte"
               }
             }
           ],
           "hint": {
-            "en": "Select the silent or performance mode of the motor."
+            "en": "Select the silent or performance mode of the motor.",
+            "no": "Velg stille eller ytelsesmodus for motoren."
           }
         }
       ]
@@ -2234,7 +2316,8 @@
       },
       "id": "curtains_hub",
       "name": {
-        "en": "Curtains (HUB)"
+        "en": "Curtains (HUB)",
+        "no": "Gardiner (HUB)"
       },
       "class": "curtain",
       "capabilities": [
@@ -2253,42 +2336,49 @@
           "id": "invertPosition",
           "type": "checkbox",
           "label": {
-            "en": "Invert Open / Close Position"
+            "en": "Invert Open / Close Position",
+            "no": "Inverter Åpen / Lukket posisjon"
           },
           "value": false,
           "hint": {
-            "en": "Reverse the action of the position control."
+            "en": "Reverse the action of the position control.",
+            "no": "Vend retningen for posisjonsvelgeren."
           }
         },
         {
           "id": "motionMode",
           "type": "radio",
           "label": {
-            "en": "Motion Mode"
+            "en": "Motion Mode",
+            "no": "Bevegelsesmodus"
           },
           "value": "0",
           "values": [
             {
               "id": "0",
               "label": {
-                "en": "Performance"
+                "en": "Performance",
+                "no": "Ytelse"
               }
             },
             {
               "id": "1",
               "label": {
-                "en": "Silent"
+                "en": "Silent",
+                "no": "Stille"
               }
             },
             {
               "id": "0xff",
               "label": {
-                "en": "Last Used"
+                "en": "Last Used",
+                "no": "Sist brukte"
               }
             }
           ],
           "hint": {
-            "en": "Select the silent or performance mode of the motor."
+            "en": "Select the silent or performance mode of the motor.",
+            "no": "Velg stille eller ytelsesmodus for motoren."
           }
         }
       ]
@@ -2328,7 +2418,8 @@
       ],
       "repair": [
         {
-          "id": "my_repair"
+          "id": "login_oauth2",
+          "template": "login_oauth2"
         }
       ],
       "icon": "/drivers/custom_remote_hub/assets/icon.svg",
@@ -2773,7 +2864,8 @@
       },
       "id": "dvd",
       "name": {
-        "en": "DVD Remote"
+        "en": "DVD Remote",
+        "de": "DVD fjernkontroll"
       },
       "class": "remote",
       "capabilities": [
@@ -2827,7 +2919,8 @@
       },
       "id": "fan_hub",
       "name": {
-        "en": "Fan Remote"
+        "en": "Fan Remote",
+        "de": "Vifte fjernkontroll"
       },
       "class": "remote",
       "capabilities": [
@@ -2877,7 +2970,8 @@
       },
       "id": "humidifier_hub",
       "name": {
-        "en": "Humidifier (HUB)"
+        "en": "Humidifier (HUB)",
+        "no": "Luftfukter (HUB)"
       },
       "class": "other",
       "capabilities": [
@@ -2927,7 +3021,8 @@
       },
       "id": "light_remote_hub",
       "name": {
-        "en": "Light Remote"
+        "en": "Light Remote",
+        "no": "Lysfjernkontroll"
       },
       "class": "remote",
       "capabilities": [
@@ -2975,7 +3070,8 @@
       },
       "id": "lock_hub",
       "name": {
-        "en": "Lock (HUB)"
+        "en": "Lock (HUB)",
+        "no": "Lås (HUB)"
       },
       "class": "lock",
       "capabilities": [
@@ -2985,10 +3081,16 @@
       ],
       "capabilitiesOptions": {
         "alarm_generic": {
-          "title": "Door Jammed"
+          "title": {
+            "en": "Door Jammed",
+            "no": "Dør blokkert"
+          }
         },
         "alarm_contact": {
-          "title": "Door Open"
+          "title": {
+            "en": "Door Open",
+            "no": "Dør åpen"
+          }
         }
       },
       "energy": {
@@ -3036,7 +3138,8 @@
       },
       "id": "plug_hub",
       "name": {
-        "en": "Plug (HUB)"
+        "en": "Plug (HUB)",
+        "no": "Plugg (HUB)"
       },
       "class": "socket",
       "capabilities": [
@@ -3048,7 +3151,8 @@
     {
       "id": "presence_ble",
       "name": {
-        "en": "Motion Sensor (BLE)"
+        "en": "Motion Sensor (BLE)",
+        "no": "Bevegelsessensor (BLE)"
       },
       "platforms": [
         "local",
@@ -3126,7 +3230,8 @@
       },
       "id": "presence_hub",
       "name": {
-        "en": "Motion Sensor (HUB)"
+        "en": "Motion Sensor (HUB)",
+        "no": "Bevegelsessensor (HUB)"
       },
       "class": "sensor",
       "capabilities": [
@@ -3178,7 +3283,8 @@
       },
       "id": "projector_hub",
       "name": {
-        "en": "Projector Remote"
+        "en": "Projector Remote",
+        "no": "Projektor fjernkontroll"
       },
       "class": "remote",
       "capabilities": [
@@ -3229,7 +3335,8 @@
       },
       "id": "robot_vaccum_hub",
       "name": {
-        "en": "Robot Vaccum (HUB)"
+        "en": "Robot Vaccum (HUB)",
+        "no": "Robotstøvsuger (HUB)"
       },
       "class": "vacuumcleaner",
       "capabilities": [
@@ -3246,27 +3353,32 @@
       "capabilitiesOptions": {
         "play": {
           "title": {
-            "en": "Start"
+            "en": "Start",
+            "no": "Start"
           }
         },
         "vaccum_power_level.quite": {
           "title": {
-            "en": "Power Level Quite"
+            "en": "Power Level Quite",
+            "no": "Styrkenivå stille"
           }
         },
         "vaccum_power_level.normal": {
           "title": {
-            "en": "Power Level Normal"
+            "en": "Power Level Normal",
+            "no": "Styrkenivå normal"
           }
         },
         "vaccum_power_level.strong": {
           "title": {
-            "en": "Power Level Strong"
+            "en": "Power Level Strong",
+            "no": "Styrkenivå sterk"
           }
         },
         "vaccum_power_level.max": {
           "title": {
-            "en": "Power Level Maximum"
+            "en": "Power Level Maximum",
+            "no": "Styrkenivå maximal"
           }
         }
       },
@@ -3313,7 +3425,8 @@
         "small": "/drivers/scene/assets/images/small.jpg"
       },
       "name": {
-        "en": "Scene"
+        "en": "Scene",
+        "no": "Scene"
       },
       "class": "other",
       "capabilities": [
@@ -3359,7 +3472,8 @@
       },
       "id": "settop_box_hub",
       "name": {
-        "en": "Set Top Box Remote"
+        "en": "Set Top Box Remote",
+        "no": "TV-mottaker fjernkontroll"
       },
       "class": "remote",
       "capabilities": [
@@ -3410,7 +3524,8 @@
       },
       "id": "smart_fan_hub",
       "name": {
-        "en": "Smart Fan (HUB)"
+        "en": "Smart Fan (HUB)",
+        "no": "Smart vifte (HUB)"
       },
       "class": "other",
       "capabilities": [
@@ -3458,7 +3573,8 @@
       },
       "id": "speaker",
       "name": {
-        "en": "Speaker Remote"
+        "en": "Speaker Remote",
+        "no": "Høyttaler fjernkontroll"
       },
       "class": "remote",
       "capabilities": [
@@ -3513,7 +3629,8 @@
         "small": "/drivers/strip_light/assets/images/small.jpg"
       },
       "name": {
-        "en": "Strip Light (HUB)"
+        "en": "Strip Light (HUB)",
+        "no": "Lysstripe (HUB)"
       },
       "class": "light",
       "capabilities": [
@@ -3533,7 +3650,8 @@
     {
       "id": "temperature_ble",
       "name": {
-        "en": "Temperature & Humidity (BLE)"
+        "en": "Temperature & Humidity (BLE)",
+        "no": "Temperatur & Luftfuktighet (BLE)"
       },
       "platforms": [
         "local",
@@ -3611,7 +3729,8 @@
       },
       "id": "temperature_hub",
       "name": {
-        "en": "Temperature & Humidity (HUB)"
+        "en": "Temperature & Humidity (HUB)",
+        "no": "Temperatur & Luftfuktighet (HUB)"
       },
       "class": "sensor",
       "capabilities": [
@@ -3658,7 +3777,8 @@
       },
       "id": "tv_hub",
       "name": {
-        "en": "TV Remote"
+        "en": "TV Remote",
+        "no": "TV-fjernkontroll"
       },
       "class": "remote",
       "capabilities": [

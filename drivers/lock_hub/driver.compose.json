@@ -1,7 +1,8 @@
 {
     "id": "lock_hub",
     "name": {
-        "en": "Lock (HUB)"
+        "en": "Lock (HUB)",
+        "no": "Lås (HUB)"
     },
     "class": "lock",
     "capabilities": [
@@ -11,10 +12,16 @@
     ],
     "capabilitiesOptions": {
         "alarm_generic": {
-            "title": "Door Jammed"
+            "title": {
+                "en": "Door Jammed",
+                "no": "Dør blokkert"
+            }
         },
         "alarm_contact": {
-            "title": "Door Open"
+            "title": {
+                "en": "Door Open",
+                "no": "Dør åpen"
+            }
         }
     },
     "energy": {

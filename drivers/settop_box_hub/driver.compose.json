@@ -2,7 +2,8 @@
     "id": "settop_box_hub",
     "name":
     {
-        "en": "Set Top Box Remote"
+        "en": "Set Top Box Remote",
+        "no": "TV-mottaker fjernkontroll"
     },
     "class": "remote",
     "capabilities": [

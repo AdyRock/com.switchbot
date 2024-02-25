@@ -1,6 +1,7 @@
 {
     "name": {
-        "en": "Strip Light (HUB)"
+        "en": "Strip Light (HUB)",
+        "no": "Lysstripe (HUB)"
     },
     "class": "light",
     "capabilities": [

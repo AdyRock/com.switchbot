@@ -1,7 +1,8 @@
 {
     "id": "curtains_hub",
     "name": {
-        "en": "Blind Tilt (HUB)"
+        "en": "Blind Tilt (HUB)",
+        "no": "Markise m/tilt (HUB)"
     },
     "class": "blinds",
     "capabilities": [

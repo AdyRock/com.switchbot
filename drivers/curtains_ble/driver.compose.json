@@ -1,7 +1,8 @@
 {
     "id": "curtains_ble",
     "name": {
-        "en": "Curtains (BLE)"
+        "en": "Curtains (BLE)",
+        "no": "Gardiner (BLE)"
     },
     "platforms": [
         "local",
@@ -47,42 +48,49 @@
             "id": "invertPosition",
             "type": "checkbox",
             "label": {
-                "en": "Invert Open / Close Position"
+                "en": "Invert Open / Close Position",
+                "no": "Inverter Åpen / Lukket posisjon"
             },
             "value": false,
             "hint": {
-                "en": "Reverse the action of the position control."
+                "en": "Reverse the action of the position control.",
+                "no": "Vend retningen for posisjonsvelgeren."
             }
         },
         {
             "id": "motionMode",
             "type": "radio",
             "label": {
-                "en": "Motion Mode"
+                "en": "Motion Mode",
+                "no": "Bevegelsesmodus"
             },
             "value": "0xff",
             "values": [
                 {
                     "id": "0",
                     "label": {
-                        "en": "Performance"
+                        "en": "Performance",
+                        "no": "Ytelse"
                     }
                 },
                 {
                     "id": "1",
                     "label": {
-                        "en": "Silent"
+                        "en": "Silent",
+                        "no": "Stille"
                     }
                 },
                 {
                     "id": "0xff",
                     "label": {
-                        "en": "Last Used"
+                        "en": "Last Used",
+                        "no": "Sist brukte"
                     }
                 }
             ],
             "hint": {
-                "en": "Select the silent or performance mode of the motor."
+                "en": "Select the silent or performance mode of the motor.",
+                "no": "Velg stille eller ytelsesmodus for motoren."
             }
         }
     ]

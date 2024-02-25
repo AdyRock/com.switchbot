@@ -3,7 +3,8 @@
     {
       "id": "start_scene",
       "title": {
-        "en": "Start Scene"
+        "en": "Start Scene",
+        "no": "Aktiver scene"
       },
       "platforms": ["local", "cloud"]
     }

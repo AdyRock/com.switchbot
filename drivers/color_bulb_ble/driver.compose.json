@@ -1,7 +1,8 @@
 {
     "id": "color_bulb_ble",
     "name": {
-        "en": "Colour Bulb (BLE)"
+        "en": "Colour Bulb (BLE)",
+        "no": "Lyspære m/farger (BLE)"
     },
     "platforms": [
         "local",

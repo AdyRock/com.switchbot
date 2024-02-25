@@ -2,7 +2,8 @@
     "id": "speaker",
     "name":
     {
-        "en": "Speaker Remote"
+        "en": "Speaker Remote",
+        "no": "Høyttaler fjernkontroll"
     },
     "class": "remote",
     "capabilities": [

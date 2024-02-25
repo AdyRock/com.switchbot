@@ -2,7 +2,8 @@
     "id": "tv_hub",
     "name":
     {
-        "en": "TV Remote"
+        "en": "TV Remote",
+        "no": "TV-fjernkontroll"
     },
     "class": "remote",
     "capabilities": [

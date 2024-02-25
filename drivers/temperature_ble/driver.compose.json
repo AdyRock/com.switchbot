@@ -1,7 +1,8 @@
 {
     "id": "temperature_ble",
     "name": {
-        "en": "Temperature & Humidity (BLE)"
+        "en": "Temperature & Humidity (BLE)",
+        "no": "Temperatur & Luftfuktighet (BLE)"
     },
     "platforms": [
         "local",

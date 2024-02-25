@@ -1,7 +1,8 @@
 {
     "id": "presence_hub",
     "name": {
-        "en": "Motion Sensor (HUB)"
+        "en": "Motion Sensor (HUB)",
+        "no": "Bevegelsessensor (HUB)"
     },
     "class": "sensor",
     "capabilities": [

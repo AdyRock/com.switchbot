@@ -1,6 +1,7 @@
 {
     "name": {
-        "en": "Scene"
+        "en": "Scene",
+        "no": "Scene"
     },
     "class": "other",
     "capabilities": [

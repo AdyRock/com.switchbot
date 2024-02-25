@@ -2,7 +2,8 @@
     "id": "light_remote_hub",
     "name":
     {
-        "en": "Light Remote"
+        "en": "Light Remote",
+        "no": "Lysfjernkontroll"
     },
     "class": "remote",
     "capabilities": [
