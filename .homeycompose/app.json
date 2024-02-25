@@ -1,4 +1,150 @@
 {
+	"id": "com.switchbot",
+	"version": "1.1.47",
+	"compatibility": ">=6.0.0",
+	"platforms": ["local", "cloud"],
+	"sdk": 3,
+	"brandColor": "#E0393A",
+	"name":
+	{
+		"en": "SwitchBot"
+	},
+	"description":
+	{
+		"en": "A simple way to make your entire home a Smart Home"
+	},
+	"tags":
+	{
+		"en": [
+			"Curtains",
+			"Button presser",
+			"Temperature",
+			"Humidity",
+			"Motion sensor",
+			"Opening detector",
+			"Humidifier",
+			"Remote control",
+			"Air conditioner",
+			"Fan",
+			"Set top box",
+			"Carrier",
+			"Daikin",
+			"De’Longhi",
+			"Electrolux",
+			"Frigidaire",
+			"Fujitronic",
+			"Fujitsu",
+			"General Electric",
+			"Haier",
+			"Hitachi",
+			"Honeywell",
+			"LG",
+			"Mitsubishi Electric",
+			"Panasonic",
+			"Pioneer",
+			"Samsung",
+			"Sanyo",
+			"Siemens",
+			"TCL",
+			"Toshiba",
+			"Whirlpool",
+			"Blinds",
+			"LED strip",
+			"Bulb",
+			"IR remote"
+		]
+	},
+	"category": [
+		"appliances"
+	],
+	"permissions": [
+		"homey:wireless:ble"
+	],
+	"support": "https://github.com/AdyRock/com.switchbot/issues",
+	"homepage": "https://www.switch-bot.com/",
+	"contributing":
+	{
+		"donate":
+		{
+			"paypal":
+			{
+				"username": "adyrock"
+			}
+		}
+	},
+	"homeyCommunityTopicId": 42296,
+	"bugs":
+	{
+		"url": "https://github.com/AdyRock/com.switchbot/issues"
+	},
+	"source": "https://github.com/AdyRock/com.switchbot",
+	"images":
+	{
+		"large": "/assets/images/large.png",
+		"small": "/assets/images/small.png"
+	},
+	"author":
+	{
+		"name": "SwitchBot Global",
+		"email": "integrations@wondertechlabs.com"
+	},
+	"contributors": {
+		"developers": [
+		  {
+			"name": "Adrian Rockall",
+			"email": "ady@rockall.plus.com"
+		  }
+		]
+	  },
+		"api":
+	{
+		"getLog":
+		{
+			"method": "get",
+			"path": "/getLog/"
+		},
+		"getDetect":
+		{
+			"method": "get",
+			"path": "/getDetect/"
+		},
+		"clearLog":
+		{
+			"method": "post",
+			"path": "/clearLog/"
+		},
+		"SendDeviceLog":
+		{
+			"method": "post",
+			"path": "/SendDeviceLog/"
+		},
+		"SendInfoLog":
+		{
+			"method": "post",
+			"path": "/SendInfoLog/"
+		},
+		"SendStatusLog":
+		{
+			"method": "post",
+			"path": "/SendStatusLog/"
+		},
+		"clearStatusLog":
+		{
+			"method": "post",
+			"path": "/clearStatusLog/"
+		},
+		"newData":
+		{
+			"method": "post",
+			"path": "/newData/",
+			"public": true
+		},
+		"requestDeviceStatus":
+		{
+			"method": "post",
+			"path": "/requestDeviceStatus/"
+		}
+	}
     "id": "com.switchbot",
     "version": "1.1.46",
     "compatibility": ">=6.0.0",

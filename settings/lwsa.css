@@ -1,37 +1,37 @@
 /* Style the tab */
 .tab {
-    overflow: hidden;
-    border: 1px solid #ccc;
-    background-color: #d1ddeb;
+	overflow: hidden;
+	border: 1px solid #ccc;
+	background-color: #d1ddeb;
   }
   
   /* Style the buttons that are used to open the tab content */
   .tab button {
-    float: left;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    padding: 14px 16px;
-    transition: 0.3s;
-    color: #c8cfd9;
+	float: left;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	padding: 14px 16px;
+	transition: 0.3s;
+	color: #c8cfd9;
   }
   
   /* Change background color of buttons on hover */
   .tab button:hover {
-    background-color: #73859c !important;
-    color: white !important;
+	background-color: #73859c !important;
+	color: white !important;
   }
   
   /* Create an active/current tablink class */
   .active {
-    background-color: #4a6e9b !important;
-    color: white !important;
+	background-color: #4a6e9b !important;
+	color: white !important;
   }
   
   /* Style the tab content */
   .tabcontent {
-    display: none;
-    padding: 6px 12px;
-    border: 1px solid #ccc;
-    border-top: none;
+	display: none;
+	padding: 6px 12px;
+	border: 1px solid #ccc;
+	border-top: none;
   }

@@ -7,183 +7,183 @@ const HubDevice = require('../hub_device');
 class AirConHubDevice extends HubDevice
 {
 
-    /**
-     * onInit is called when the device is initialized.
-     */
-    async onInit()
-    {
-        await super.onInit();
+	/**
+	 * onInit is called when the device is initialized.
+	 */
+	async onInit()
+	{
+		await super.onInit();
 
-        const dd = this.getData();
-        this.diy = dd.diy;
+		const dd = this.getData();
+		this.diy = dd.diy;
 
-        if (this.hasCapability('onoff'))
-        {
-            this.removeCapability('onoff');
-            this.addCapability('power_on');
-            this.addCapability('power_off');
-        }
+		if (this.hasCapability('onoff'))
+		{
+			this.removeCapability('onoff');
+			this.addCapability('power_on');
+			this.addCapability('power_off');
+		}
 
-        if (this.diy)
-        {
-            if (this.hasCapability('target_temperature'))
-            {
-                this.removeCapability('target_temperature');
-            }
-            if (this.hasCapability('aircon_mode'))
-            {
-                this.removeCapability('aircon_mode');
-            }
-            if (this.hasCapability('aircon_fan_speed'))
-            {
-                this.removeCapability('aircon_fan_speed');
-            }
-        }
-        else
-        {
-            this.registerMultipleCapabilityListener(['onoff', 'target_temperature', 'aircon_mode', 'aircon_fan_speed'], this.onCapabilityAll.bind(this));
-        }
+		if (this.diy)
+		{
+			if (this.hasCapability('target_temperature'))
+			{
+				this.removeCapability('target_temperature');
+			}
+			if (this.hasCapability('aircon_mode'))
+			{
+				this.removeCapability('aircon_mode');
+			}
+			if (this.hasCapability('aircon_fan_speed'))
+			{
+				this.removeCapability('aircon_fan_speed');
+			}
+		}
+		else
+		{
+			this.registerMultipleCapabilityListener(['onoff', 'target_temperature', 'aircon_mode', 'aircon_fan_speed'], this.onCapabilityAll.bind(this));
+		}
 
-        this.registerCapabilityListener('power_off', this.onCapabilityPowerOff.bind(this));
-        this.registerCapabilityListener('power_on', this.onCapabilityPowerOn.bind(this));
+		this.registerCapabilityListener('power_off', this.onCapabilityPowerOff.bind(this));
+		this.registerCapabilityListener('power_on', this.onCapabilityPowerOn.bind(this));
 
-        let temp = this.getCapabilityValue('target_temperature');
-        if (temp === null)
-        {
-            this.setCapabilityValue('target_temperature', 21).catch(this.error);
-        }
+		let temp = this.getCapabilityValue('target_temperature');
+		if (temp === null)
+		{
+			this.setCapabilityValue('target_temperature', 21).catch(this.error);
+		}
 
-        temp = this.getCapabilityValue('aircon_mode');
-        if (temp === null)
-        {
-            this.setCapabilityValue('aircon_mode', '2').catch(this.error);
-        }
+		temp = this.getCapabilityValue('aircon_mode');
+		if (temp === null)
+		{
+			this.setCapabilityValue('aircon_mode', '2').catch(this.error);
+		}
 
-        temp = this.getCapabilityValue('aircon_fan_speed');
-        if (temp === null)
-        {
-            this.setCapabilityValue('aircon_fan_speed', '2').catch(this.error);
-        }
+		temp = this.getCapabilityValue('aircon_fan_speed');
+		if (temp === null)
+		{
+			this.setCapabilityValue('aircon_fan_speed', '2').catch(this.error);
+		}
 
-        this.log('AirConHubDevice has been initialized');
-    }
+		this.log('AirConHubDevice has been initialized');
+	}
 
-    async onCapabilityPowerOff(value, opts)
-    {
-        if (this.diy)
-        {
-            const data = {
-                command: 'turnOff',
-                parameter:  'default',
-                commandType: 'command',
-            };
-    
-            return super.setDeviceData(data);
-        }
+	async onCapabilityPowerOff(value, opts)
+	{
+		if (this.diy)
+		{
+			const data = {
+				command: 'turnOff',
+				parameter: 'default',
+				commandType: 'command',
+			};
 
-        return this.onCapabilityAll({ power_off: true });
-    }
+			return super.setDeviceData(data);
+		}
 
-    async onCapabilityPowerOn(value, opts)
-    {
-        if (this.diy)
-        {
-            const data = {
-                command: 'turnOn',
-                parameter:  'default',
-                commandType: 'command',
-            };
-    
-            return super.setDeviceData(data);
-        }
+		return this.onCapabilityAll({ power_off: true });
+	}
 
-        return this.onCapabilityAll({ power_on: true });
-    }
+	async onCapabilityPowerOn(value, opts)
+	{
+		if (this.diy)
+		{
+			const data = {
+				command: 'turnOn',
+				parameter: 'default',
+				commandType: 'command',
+			};
 
-    async onCapabilityCommand(command)
-    {
-        if (command === 'turnOn')
-        {
-            return this.onCapabilityPowerOn();
-        }
+			return super.setDeviceData(data);
+		}
 
-            return this.onCapabilityPowerOff();
-    }
+		return this.onCapabilityAll({ power_on: true });
+	}
 
-    // this method is called when the Homey device has requested a value change
-    async onCapabilityAll(valueOj, optsObj)
-    {
-        let temp;
-        let mode;
-        let fan;
-        let onOff = 'on';
+	async onCapabilityCommand(command)
+	{
+		if (command === 'turnOn')
+		{
+			return this.onCapabilityPowerOn();
+		}
 
-        if (valueOj.onoff !== undefined && valueOj.onOff === false)
-        {
-            onOff = 'off';
-        }
+			return this.onCapabilityPowerOff();
+	}
 
-        if (valueOj.power_off)
-        {
-            onOff = 'off';
-        }
+	// this method is called when the Homey device has requested a value change
+	async onCapabilityAll(valueOj, optsObj)
+	{
+		let temp;
+		let mode;
+		let fan;
+		let onOff = 'on';
 
-        if (valueOj.target_temperature)
-        {
-            temp = valueOj.target_temperature;
-        }
-        else
-        {
-            temp = this.getCapabilityValue('target_temperature');
-            if (temp === null)
-            {
-                temp = 22;
-            }
-        }
+		if (valueOj.onoff !== undefined && valueOj.onOff === false)
+		{
+			onOff = 'off';
+		}
 
-        if (valueOj.aircon_mode)
-        {
-            mode = valueOj.aircon_mode;
-        }
-        else
-        {
-            mode = this.getCapabilityValue('aircon_mode');
-            if (mode === null)
-            {
-                mode = '2';
-            }
-        }
+		if (valueOj.power_off)
+		{
+			onOff = 'off';
+		}
 
-        if (valueOj.aircon_fan_speed)
-        {
-            fan = valueOj.aircon_fan_speed;
-        }
-        else
-        {
-            fan = this.getCapabilityValue('aircon_fan_speed');
-            if (fan === null)
-            {
-                fan = '2';
-            }
-        }
+		if (valueOj.target_temperature)
+		{
+			temp = valueOj.target_temperature;
+		}
+		else
+		{
+			temp = this.getCapabilityValue('target_temperature');
+			if (temp === null)
+			{
+				temp = 22;
+			}
+		}
 
-        mode = Number(mode);
-        fan = Number(fan);
+		if (valueOj.aircon_mode)
+		{
+			mode = valueOj.aircon_mode;
+		}
+		else
+		{
+			mode = this.getCapabilityValue('aircon_mode');
+			if (mode === null)
+			{
+				mode = '2';
+			}
+		}
 
-        const parameters = `${temp},${mode},${fan},${onOff}`;
-        return this._operateDevice(parameters);
-    }
+		if (valueOj.aircon_fan_speed)
+		{
+			fan = valueOj.aircon_fan_speed;
+		}
+		else
+		{
+			fan = this.getCapabilityValue('aircon_fan_speed');
+			if (fan === null)
+			{
+				fan = '2';
+			}
+		}
 
-    async _operateDevice(parameters)
-    {
-        const data = {
-            command: 'setAll',
-            parameter: parameters,
-            commandType: 'command',
-        };
+		mode = Number(mode);
+		fan = Number(fan);
 
-        return super.setDeviceData(data);
-    }
+		const parameters = `${temp},${mode},${fan},${onOff}`;
+		return this._operateDevice(parameters);
+	}
+
+	async _operateDevice(parameters)
+	{
+		const data = {
+			command: 'setAll',
+			parameter: parameters,
+			commandType: 'command',
+		};
+
+		return super.setDeviceData(data);
+	}
 
 }
 

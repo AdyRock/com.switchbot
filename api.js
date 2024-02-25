@@ -3,61 +3,60 @@
 'use strict';
 
 module.exports = {
-    async getLog({ homey, query })
-    {
-        return homey.app.diagLog;
-    },
-    async getDetect({ homey, query })
-    {
-        try
-        {
-            homey.app.detectedDevices = await homey.app.getHUBDevices();
-        }
-        catch(err)
-        {
-            console.log(err);
-            if (!homey.app.detectedDevices)
-            {
-                homey.app.detectedDevices = err.message;
-            }
-        }
-        return homey.app.detectedDevices;
-    },
-    async clearLog({ homey, query })
-    {
-        homey.app.diagLog = '';
-        return 'OK';
-    },
-    async SendDeviceLog({ homey, query })
-    {
-        return homey.app.sendLog('deviceLog');
-    },
-    async SendInfoLog({ homey, query })
-    {
-        return homey.app.sendLog('infoLog');
-    },
-    async SendStatusLog({ homey, query })
-    {
-        return homey.app.sendLog('statusLog');
-    },
-    async clearStatusLog({ homey, query })
-    {
-        homey.app.deviceStatusLog = '';
-        return 'OK';
-    },
-    async newData({ homey, body })
-    {
-        if (homey.app.BLEHub)
-        {
-            homey.app.BLEHub.newBLEHubData(body);
-        }
-        return 'OK';
-    },
-    async requestDeviceStatus({ homey, query })
-    {
-        const retval = await homey.app.getDeviceStatus(query.deviceId);
-        const data = JSON.stringify(retval, null, 2);
-        homey.app.deviceStatusLog += data;
-        return homey.app.deviceStatusLog;
-    },
+	async getLog({ homey, query })
+	{
+		return homey.app.diagLog;
+	},
+	async getDetect({ homey, query })
+	{
+		try
+		{
+			homey.app.detectedDevices = await homey.app.getHUBDevices();
+		}
+		catch (err)
+		{
+			if (!homey.app.detectedDevices)
+			{
+				homey.app.detectedDevices = err.message;
+			}
+		}
+		return homey.app.detectedDevices;
+	},
+	async clearLog({ homey, query })
+	{
+		homey.app.diagLog = '';
+		return 'OK';
+	},
+	async SendDeviceLog({ homey, query })
+	{
+		return homey.app.sendLog('deviceLog');
+	},
+	async SendInfoLog({ homey, query })
+	{
+		return homey.app.sendLog('infoLog');
+	},
+	async SendStatusLog({ homey, query })
+	{
+		return homey.app.sendLog('statusLog');
+	},
+	async clearStatusLog({ homey, query })
+	{
+		homey.app.deviceStatusLog = '';
+		return 'OK';
+	},
+	async newData({ homey, body })
+	{
+		if (homey.app.BLEHub)
+		{
+			homey.app.BLEHub.newBLEHubData(body);
+		}
+		return 'OK';
+	},
+	async requestDeviceStatus({ homey, query })
+	{
+		const retval = await homey.app.getDeviceStatus(query.deviceId);
+		const data = JSON.stringify(retval, null, 2);
+		homey.app.deviceStatusLog += data;
+		return homey.app.deviceStatusLog;
+	},
 };

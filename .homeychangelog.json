@@ -298,4 +298,8 @@
         "en": "Fixed spelling error defined in the API document.",
         "no": "Utbedret stavefeil i API-dokumentet."
     }
+    ,"1.1.47": {
+        "en": "Added Curtain3 to list of curtain devices.",
+        "no": "Lagt til 3. gen Gardiner i listen over gardiner.
+    }
 }
