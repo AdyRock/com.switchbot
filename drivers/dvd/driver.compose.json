@@ -3,7 +3,7 @@
     "name":
     {
         "en": "DVD Remote",
-        "de": "DVD fjernkontroll"
+        "no": "DVD fjernkontroll"
     },
     "class": "remote",
     "capabilities": [

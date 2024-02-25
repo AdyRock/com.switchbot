@@ -2,7 +2,8 @@
     "id": "custom_remote_hub",
     "name":
     {
-        "en": "Custom IR Remote"
+        "en": "Custom IR Remote",
+        "no": "Egendefinert IR-fjernkontroll"
     },
     "class": "remote",
     "platforms":

@@ -3,7 +3,7 @@
     "name":
     {
         "en": "Air Purifier Remote",
-        "de": "Luftrenser fjernkontroll"
+        "no": "Luftrenser fjernkontroll"
     },
     "class": "remote",
     "capabilities": [
