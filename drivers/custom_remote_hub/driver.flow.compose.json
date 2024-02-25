@@ -1,32 +1,32 @@
 {
-    "actions": [
-        {
-            "id": "send_custom_remote_command",
-            "title": {
-                "en": "Send a remote command"
-            },
-            "titleFormatted": {
-                "en": "Send the '[[command]]' commnad"
-            },
-            "hint": {
-                "en": "Send a custom remote command to the hub"
-            },
-            "args": [
-                {
-                    "type": "autocomplete",
-                    "name": "command",
-                    "title": {
-                        "en": "Command Name"
-                    },
-                    "placeholder": {
-                        "en": "Command Name"
-                    }
-                }
-            ],
-            "platforms": [
-                "local",
-                "cloud"
-            ]
-        }
-    ]
+	"actions": [
+		{
+			"id": "send_custom_remote_command",
+			"title": {
+				"en": "Send a remote command"
+			},
+			"titleFormatted": {
+				"en": "Send the '[[command]]' commnad"
+			},
+			"hint": {
+				"en": "Send a custom remote command to the hub"
+			},
+			"args": [
+				{
+					"type": "autocomplete",
+					"name": "command",
+					"title": {
+						"en": "Command Name"
+					},
+					"placeholder": {
+						"en": "Command Name"
+					}
+				}
+			],
+			"platforms": [
+				"local",
+				"cloud"
+			]
+		}
+	]
 }

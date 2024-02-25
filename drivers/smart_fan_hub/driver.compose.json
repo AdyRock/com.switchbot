@@ -1,17 +1,17 @@
 {
-    "id": "smart_fan_hub",
-    "name":
-    {
-        "en": "Smart Fan (HUB)"
-    },
-    "class": "other",
-    "capabilities": [
-        "onoff",
-        "smart_fan_speed",
-        "smart_fan_mode",
-        "smart_fan_shake_range"
-    ],
-    "$extends": [
-        "hubDriver"
-    ]
+	"id": "smart_fan_hub",
+	"name":
+	{
+		"en": "Smart Fan (HUB)"
+	},
+	"class": "other",
+	"capabilities": [
+		"onoff",
+		"smart_fan_speed",
+		"smart_fan_mode",
+		"smart_fan_shake_range"
+	],
+	"$extends": [
+		"hubDriver"
+	]
 }

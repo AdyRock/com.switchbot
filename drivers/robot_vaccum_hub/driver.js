@@ -15,8 +15,8 @@ class HubVacuumDriver extends HubDriver
 		super.onOAuth2Init();
 
 		// Device Triggers
-        this.stateChangedTrigger = this.homey.flow.getDeviceTriggerCard('vaccum_state_changed');
-        this.stateChangedToTrigger = this.homey.flow.getDeviceTriggerCard('vaccum_state_changed_to');
+		this.stateChangedTrigger = this.homey.flow.getDeviceTriggerCard('vaccum_state_changed');
+		this.stateChangedToTrigger = this.homey.flow.getDeviceTriggerCard('vaccum_state_changed_to');
 
 		this.log('HubVacuumDriver has been initialized');
 	}
@@ -26,15 +26,15 @@ class HubVacuumDriver extends HubDriver
 		return this.getHUBDevices(oAuth2Client, ['WoSweeper', 'WoSweeperMini']);
 	}
 
-    async triggerStateChanged(device, tokens, state)
-    {
-        this.stateChangedTrigger.trigger(device, tokens, state).catch(this.error);
-    }
+	async triggerStateChanged(device, tokens, state)
+	{
+		this.stateChangedTrigger.trigger(device, tokens, state).catch(this.error);
+	}
 
-    async triggerStateChangedTo(device, tokens, state)
-    {
-        this.stateChangedToTrigger.trigger(device, tokens, state).catch(this.error);
-    }
+	async triggerStateChangedTo(device, tokens, state)
+	{
+		this.stateChangedToTrigger.trigger(device, tokens, state).catch(this.error);
+	}
 
 }
 

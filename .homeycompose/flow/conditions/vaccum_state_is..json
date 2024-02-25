@@ -1,84 +1,84 @@
 {
-    "title": {
-        "en": "The state !{{is|isn't}} [[state]]"
-    },
-    "titleFormatted": {
-        "en": "The state !{{is|isn't}} [[state]]"
-    },
-    "args": [
-        {
-            "name": "state",
-            "title": {
-                "en": "Vaccum State"
-            },
-            "type": "dropdown",
-            "values": [
-                {
-                    "id": "StandBy",
-                    "title": {
-                        "en": "Standby"
-                    }
-                },
-                {
-                    "id": "Cleaning",
-                    "title": {
-                        "en": "Cleaning"
-                    }
-                },
-                {
-                    "id": "Paused",
-                    "title": {
-                        "en": "Paused"
-                    }
-                },
-                {
-                    "id": "GotoChargeBase",
-                    "title": {
-                        "en": "Going to Charge Base"
-                    }
-                },
-                {
-                    "id": "Charging",
-                    "title": {
-                        "en": "Charging"
-                    }
-                },
-                {
-                    "id": "ChargeDone",
-                    "title": {
-                        "en": "Charging Finished"
-                    }
-                },
-                {
-                    "id": "Dormant",
-                    "title": {
-                        "en": "Dormat"
-                    }
-                },
-                {
-                    "id": "InTrouble",
-                    "title": {
-                        "en": "In Trouble"
-                    }
-                },
-                {
-                    "id": "InRemoteControl",
-                    "title": {
-                        "en": "Remote Contolled"
-                    }
-                },
-                {
-                    "id": "InDustCollecting",
-                    "title": {
-                        "en": "Dust Collecting"
-                    }
-                }
-            ]
-        },
-        {
-            "name": "device",
-            "type": "device",
-            "filter": "driver_id=robot_vaccum_hub"
-        }
-    ]
+	"title": {
+		"en": "The state !{{is|isn't}} [[state]]"
+	},
+	"titleFormatted": {
+		"en": "The state !{{is|isn't}} [[state]]"
+	},
+	"args": [
+		{
+			"name": "state",
+			"title": {
+				"en": "Vaccum State"
+			},
+			"type": "dropdown",
+			"values": [
+				{
+					"id": "StandBy",
+					"title": {
+						"en": "Standby"
+					}
+				},
+				{
+					"id": "Cleaning",
+					"title": {
+						"en": "Cleaning"
+					}
+				},
+				{
+					"id": "Paused",
+					"title": {
+						"en": "Paused"
+					}
+				},
+				{
+					"id": "GotoChargeBase",
+					"title": {
+						"en": "Going to Charge Base"
+					}
+				},
+				{
+					"id": "Charging",
+					"title": {
+						"en": "Charging"
+					}
+				},
+				{
+					"id": "ChargeDone",
+					"title": {
+						"en": "Charging Finished"
+					}
+				},
+				{
+					"id": "Dormant",
+					"title": {
+						"en": "Dormat"
+					}
+				},
+				{
+					"id": "InTrouble",
+					"title": {
+						"en": "In Trouble"
+					}
+				},
+				{
+					"id": "InRemoteControl",
+					"title": {
+						"en": "Remote Contolled"
+					}
+				},
+				{
+					"id": "InDustCollecting",
+					"title": {
+						"en": "Dust Collecting"
+					}
+				}
+			]
+		},
+		{
+			"name": "device",
+			"type": "device",
+			"filter": "driver_id=robot_vaccum_hub"
+		}
+	]
 }

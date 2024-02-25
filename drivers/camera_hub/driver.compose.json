@@ -1,13 +1,13 @@
 {
-    "id": "camera_hub",
-    "name": {
-        "en": "Camera Motion Sensor (HUB)"
-    },
-    "class": "sensor",
-    "capabilities": [
-        "alarm_motion"
-    ],
-    "$extends": [
-        "hubDriver"
-    ]
+	"id": "camera_hub",
+	"name": {
+		"en": "Camera Motion Sensor (HUB)"
+	},
+	"class": "sensor",
+	"capabilities": [
+		"alarm_motion"
+	],
+	"$extends": [
+		"hubDriver"
+	]
 }

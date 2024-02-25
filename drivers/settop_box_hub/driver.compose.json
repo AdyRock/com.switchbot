@@ -1,20 +1,20 @@
 {
-    "id": "settop_box_hub",
-    "name":
-    {
-        "en": "Set Top Box Remote"
-    },
-    "class": "remote",
-    "capabilities": [
-        "power_on",
-        "power_off",
-        "volume_up",
-        "volume_down",
-        "channel_up",
-        "channel_down",
-        "volume_mute"
-    ],
-    "$extends": [
-        "hubDriver"
-    ]
+	"id": "settop_box_hub",
+	"name":
+	{
+		"en": "Set Top Box Remote"
+	},
+	"class": "remote",
+	"capabilities": [
+		"power_on",
+		"power_off",
+		"volume_up",
+		"volume_down",
+		"channel_up",
+		"channel_down",
+		"volume_mute"
+	],
+	"$extends": [
+		"hubDriver"
+	]
 }

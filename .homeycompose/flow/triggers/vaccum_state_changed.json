@@ -1,29 +1,29 @@
 {
-    "title": {
-        "en": "Vaccum State Changed"
-    },
-    "platforms": [
-        "local"
-    ],
-    "connectivity": [
-        "local",
-        "cloud"
-    ],
-    "tokens": [
-        {
-            "name": "state",
-            "title": {
-                "en": "Vaccum State"
-            },
-            "type": "string",
-            "example": "Charging"
-        }
-    ],
-    "args": [
-        {
-            "type": "device",
-            "name": "device",
-            "filter": "driver_id=robot_vaccum_hub"
-        }
-    ]
+	"title": {
+		"en": "Vaccum State Changed"
+	},
+	"platforms": [
+		"local"
+	],
+	"connectivity": [
+		"local",
+		"cloud"
+	],
+	"tokens": [
+		{
+			"name": "state",
+			"title": {
+				"en": "Vaccum State"
+			},
+			"type": "string",
+			"example": "Charging"
+		}
+	],
+	"args": [
+		{
+			"type": "device",
+			"name": "device",
+			"filter": "driver_id=robot_vaccum_hub"
+		}
+	]
 }

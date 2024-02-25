@@ -1,14 +1,14 @@
 {
-    "id": "bot_hub",
-    "name": {
-        "en": "Bot (HUB)"
-    },
-    "class": "socket",
-    "capabilities": [
-        "onoff",
-        "measure_power"
-    ],
-    "$extends": [
-        "hubDriver"
-    ]
+	"id": "bot_hub",
+	"name": {
+		"en": "Bot (HUB)"
+	},
+	"class": "socket",
+	"capabilities": [
+		"onoff",
+		"measure_power"
+	],
+	"$extends": [
+		"hubDriver"
+	]
 }

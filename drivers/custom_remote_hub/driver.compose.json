@@ -1,52 +1,52 @@
 {
-    "id": "custom_remote_hub",
-    "name":
-    {
-        "en": "Custom IR Remote"
-    },
-    "class": "remote",
-    "platforms":
-    [
-        "local",
-        "cloud"
-    ],
-    "connectivity":
-    [
-        "cloud"
-    ],
-    "capabilities": [
-    ],
-    "pair":
-    [
-        {
-            "id": "login_oauth2",
-            "template": "login_oauth2"
-        },
-        {
-            "id": "list_devices",
-            "template": "list_devices",
-            "navigation":
-            {
-                "next": "define_capabilities"
-            },
-            "options": {
-                "singular": true
-            }
-        },
-        {
-            "id": "define_capabilities"
-        }
-    ],
-    "repair":
-    [
-        {
-            "id": "my_repair"
-        }
-    ],
-    "icon": "{{driverAssetsPath}}/icon.svg",
-    "images": 
-    {
-        "large": "{{driverAssetsPath}}/images/large.jpg",
-        "small": "{{driverAssetsPath}}/images/small.jpg"
-    }
+	"id": "custom_remote_hub",
+	"name":
+	{
+		"en": "Custom IR Remote"
+	},
+	"class": "remote",
+	"platforms":
+	[
+		"local",
+		"cloud"
+	],
+	"connectivity":
+	[
+		"cloud"
+	],
+	"capabilities": [
+	],
+	"pair":
+	[
+		{
+			"id": "login_oauth2",
+			"template": "login_oauth2"
+		},
+		{
+			"id": "list_devices",
+			"template": "list_devices",
+			"navigation":
+			{
+				"next": "define_capabilities"
+			},
+			"options": {
+				"singular": true
+			}
+		},
+		{
+			"id": "define_capabilities"
+		}
+	],
+	"repair":
+	[
+		{
+			"id": "my_repair"
+		}
+	],
+	"icon": "{{driverAssetsPath}}/icon.svg",
+	"images": 
+	{
+		"large": "{{driverAssetsPath}}/images/large.jpg",
+		"small": "{{driverAssetsPath}}/images/small.jpg"
+	}
 }

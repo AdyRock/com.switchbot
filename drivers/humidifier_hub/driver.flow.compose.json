@@ -1,59 +1,59 @@
 {
-    "actions": [
-        {
-            "id": "nebulization_mode",
-            "title": {
-                "en": "Set nebulization mode"
-            },
-            "titleFormatted": {
-                "en": "Set the nebulization mode to [[mode]]"
-            },
-            "platforms": ["local", "cloud"],
-            "args": [
-                {
-                    "name": "mode",
-                    "type": "dropdown",
-                    "title": { "en": "Mode" },
-                    "values": [
-                        {
-                            "id": "0",
-                            "title": {
-                                "en": "Manual"
-                            }
-                        },
-                        {
-                            "id": "1",
-                            "title": {
-                                "en": "Auto"
-                            }
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "id": "nebulization_efficiency",
-            "title": {
-                "en": "Set nebulization efficiency"
-            },
-            "titleFormatted": {
-                "en": "Set the nebulization efficiency to [[nebulization_efficiency]]"
-            },
-            "platforms": ["local", "cloud"],
-            "args": [
-                {
-                    "name": "nebulization_efficiency",
-                    "type": "range",
-                    "title": { "en": "Efficiency" },
-                    "placeholder": { "en": "In %" },
-                    "label": "%",
-                    "min": 0,
-                    "max": 100,
-                    "step": 1,
-                    "labelMultiplier": 1,
-                    "labelDecimals": 0
-                }
-            ]
-        }
-    ]
+	"actions": [
+		{
+			"id": "nebulization_mode",
+			"title": {
+				"en": "Set nebulization mode"
+			},
+			"titleFormatted": {
+				"en": "Set the nebulization mode to [[mode]]"
+			},
+			"platforms": ["local", "cloud"],
+			"args": [
+				{
+					"name": "mode",
+					"type": "dropdown",
+					"title": { "en": "Mode" },
+					"values": [
+						{
+							"id": "0",
+							"title": {
+								"en": "Manual"
+							}
+						},
+						{
+							"id": "1",
+							"title": {
+								"en": "Auto"
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"id": "nebulization_efficiency",
+			"title": {
+				"en": "Set nebulization efficiency"
+			},
+			"titleFormatted": {
+				"en": "Set the nebulization efficiency to [[nebulization_efficiency]]"
+			},
+			"platforms": ["local", "cloud"],
+			"args": [
+				{
+					"name": "nebulization_efficiency",
+					"type": "range",
+					"title": { "en": "Efficiency" },
+					"placeholder": { "en": "In %" },
+					"label": "%",
+					"min": 0,
+					"max": 100,
+					"step": 1,
+					"labelMultiplier": 1,
+					"labelDecimals": 0
+				}
+			]
+		}
+	]
 }

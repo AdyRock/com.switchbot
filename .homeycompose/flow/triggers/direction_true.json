@@ -1,19 +1,19 @@
 {
-    "title": {
-        "en": "Someone exited"
-    },
-    "platforms": [
-        "local",
-        "cloud"
-    ],
-    "hint": {
-        "en": "Button was pressed or Motion was detected; then the contact was opened."
-    },
-    "args": [
-        {
-            "type": "device",
-            "name": "device",
-            "filter": "driver_id=contact_hub"
-        }
-    ]
+	"title": {
+		"en": "Someone exited"
+	},
+	"platforms": [
+		"local",
+		"cloud"
+	],
+	"hint": {
+		"en": "Button was pressed or Motion was detected; then the contact was opened."
+	},
+	"args": [
+		{
+			"type": "device",
+			"name": "device",
+			"filter": "driver_id=contact_hub"
+		}
+	]
 }

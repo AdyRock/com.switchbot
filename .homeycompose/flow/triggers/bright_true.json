@@ -1,16 +1,16 @@
 {
-    "title": {
-        "en": "Becomes bright"
-    },
-    "platforms": [
-        "local",
-        "cloud"
-    ],
-    "args": [
-        {
-            "type": "device",
-            "name": "device",
-            "filter": "driver_id=contact_ble|contact_hub|presence_ble|presence_hub"
-        }
-    ]
+	"title": {
+		"en": "Becomes bright"
+	},
+	"platforms": [
+		"local",
+		"cloud"
+	],
+	"args": [
+		{
+			"type": "device",
+			"name": "device",
+			"filter": "driver_id=contact_ble|contact_hub|presence_ble|presence_hub"
+		}
+	]
 }

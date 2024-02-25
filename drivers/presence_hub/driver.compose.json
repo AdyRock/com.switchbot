@@ -1,20 +1,20 @@
 {
-    "id": "presence_hub",
-    "name": {
-        "en": "Motion Sensor (HUB)"
-    },
-    "class": "sensor",
-    "capabilities": [
-        "alarm_motion",
-        "bright"
-    ],
-    "energy": {
-        "batteries": [
-            "AAA",
-            "AAA"
-        ]
-    },
-    "$extends": [
-        "hubDriver"
-    ]
+	"id": "presence_hub",
+	"name": {
+		"en": "Motion Sensor (HUB)"
+	},
+	"class": "sensor",
+	"capabilities": [
+		"alarm_motion",
+		"bright"
+	],
+	"energy": {
+		"batteries": [
+			"AAA",
+			"AAA"
+		]
+	},
+	"$extends": [
+		"hubDriver"
+	]
 }

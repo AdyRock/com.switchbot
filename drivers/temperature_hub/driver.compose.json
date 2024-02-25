@@ -1,16 +1,16 @@
 {
-    "id": "temperature_hub",
-    "name":
-    {
-        "en": "Temperature & Humidity (HUB)"
-    },
-    "class": "sensor",
-    "capabilities": [
-        "measure_temperature",
-        "measure_humidity",
-        "measure_luminance"
-    ],
-    "$extends": [
-        "hubDriver"
-    ]
+	"id": "temperature_hub",
+	"name":
+	{
+		"en": "Temperature & Humidity (HUB)"
+	},
+	"class": "sensor",
+	"capabilities": [
+		"measure_temperature",
+		"measure_humidity",
+		"measure_luminance"
+	],
+	"$extends": [
+		"hubDriver"
+	]
 }

@@ -1,65 +1,65 @@
 {
-    "id": "curtains_hub",
-    "name": {
-        "en": "Curtains (HUB)"
-    },
-    "class": "curtain",
-    "capabilities": [
-        "open_close",
-        "windowcoverings_state",
-        "windowcoverings_set",
-        "position"
-    ],
-    "energy": {
-        "batteries": [
-            "INTERNAL"
-        ]
-    },
-    "$extends": [
-        "hubDriver"
-    ],
-    "settings": [
-        {
-            "id": "invertPosition",
-            "type": "checkbox",
-            "label": {
-                "en": "Invert Open / Close Position"
-            },
-            "value": false,
-            "hint": {
-                "en": "Reverse the action of the position control."
-            }
-        },
-        {
-            "id": "motionMode",
-            "type": "radio",
-            "label": {
-                "en": "Motion Mode"
-            },
-            "value": "0",
-            "values": [
-                {
-                    "id": "0",
-                    "label": {
-                        "en": "Performance"
-                    }
-                },
-                {
-                    "id": "1",
-                    "label": {
-                        "en": "Silent"
-                    }
-                },
-                {
-                    "id": "0xff",
-                    "label": {
-                        "en": "Last Used"
-                    }
-                }
-            ],
-            "hint": {
-                "en": "Select the silent or performance mode of the motor."
-            }
-        }
-    ]
+	"id": "curtains_hub",
+	"name": {
+		"en": "Curtains (HUB)"
+	},
+	"class": "curtain",
+	"capabilities": [
+		"open_close",
+		"windowcoverings_state",
+		"windowcoverings_set",
+		"position"
+	],
+	"energy": {
+		"batteries": [
+			"INTERNAL"
+		]
+	},
+	"$extends": [
+		"hubDriver"
+	],
+	"settings": [
+		{
+			"id": "invertPosition",
+			"type": "checkbox",
+			"label": {
+				"en": "Invert Open / Close Position"
+			},
+			"value": false,
+			"hint": {
+				"en": "Reverse the action of the position control."
+			}
+		},
+		{
+			"id": "motionMode",
+			"type": "radio",
+			"label": {
+				"en": "Motion Mode"
+			},
+			"value": "0",
+			"values": [
+				{
+					"id": "0",
+					"label": {
+						"en": "Performance"
+					}
+				},
+				{
+					"id": "1",
+					"label": {
+						"en": "Silent"
+					}
+				},
+				{
+					"id": "0xff",
+					"label": {
+						"en": "Last Used"
+					}
+				}
+			],
+			"hint": {
+				"en": "Select the silent or performance mode of the motor."
+			}
+		}
+	]
 }

@@ -1,29 +1,29 @@
 {
-    "id": "lock_hub",
-    "name": {
-        "en": "Lock (HUB)"
-    },
-    "class": "lock",
-    "capabilities": [
-        "locked",
-        "alarm_generic",
-        "alarm_contact"
-    ],
-    "capabilitiesOptions": {
-        "alarm_generic": {
-            "title": "Door Jammed"
-        },
-        "alarm_contact": {
-            "title": "Door Open"
-        }
-    },
-    "energy": {
-        "batteries": [
-            "CR2",
-            "CR2"
-        ]
-    },
-    "$extends": [
-        "hubDriver"
-    ]
+	"id": "lock_hub",
+	"name": {
+		"en": "Lock (HUB)"
+	},
+	"class": "lock",
+	"capabilities": [
+		"locked",
+		"alarm_generic",
+		"alarm_contact"
+	],
+	"capabilitiesOptions": {
+		"alarm_generic": {
+			"title": "Door Jammed"
+		},
+		"alarm_contact": {
+			"title": "Door Open"
+		}
+	},
+	"energy": {
+		"batteries": [
+			"CR2",
+			"CR2"
+		]
+	},
+	"$extends": [
+		"hubDriver"
+	]
 }
