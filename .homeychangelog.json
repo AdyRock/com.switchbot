@@ -267,27 +267,35 @@
         "en": "Fix for Curtains 3 hub not being found due to missing device type in API response. Fix for BLE Curtain 3 not being found due to changed device id field."
     },
     "1.1.39": {
-        "en": "Polling added for Curtains 3 hub as they don't provide webhook data. Fix Light Level changed trigger."
+        "en": "Polling added for Curtains 3 hub as they don't provide webhook data. Fix Light Level changed trigger.",
+        "no": "Lagt til tidsbestemt datasamling for 3. gen Gardiner. De gir ikke webhook data enda. Rettet triggeren 'Endret lysnivå'."
     },
     "1.1.40": {
-        "en": "Added suport for Plug Mini."
+        "en": "Added support for Plug Mini.",
+        "no": "Lagt til støtte for Plug Mini."
     },
     "1.1.41": {
-        "en": "Fixed image for Plug Mini."
+        "en": "Fixed image for Plug Mini.",
+        "no": "Rettet bilde for Plug Mini."
     },
     "1.1.42": {
-        "en": "Added door open alarm (not included in the webhook data so polled only). Added general alearm for Lock when it is jammed. Fix error when processing Lock webhook data."
+        "en": "Added door open alarm (not included in the webhook data so polled only). Added general alarm for Lock when it is jammed. Fix error when processing Lock webhook data.",
+        "no": "Lagt til 'dør åpen' alarm (finnes ikke i webhook-dataene). Lagt til generell alarm for Lås, når den har satt seg fast. Fikset feil under prossesering av webhook-data fra Lås."
     },
     "1.1.43": {
-        "en": "Added Open/Pause/Close capability to curtains. Fix Plug Min (US) and Plug Mini (JP) detection"
+        "en": "Added Open/Pause/Close capability to curtains. Fix Plug Min (US) and Plug Mini (JP) detection",
+        "no": "Lagt til Åpen/Pauset/Lukket egenskap for gardiner. Fikset Plug Mini (USA) og Plug Mini (JP) deteksjon"
     },
     "1.1.44": {
-        "en": "Added support for the Vaccum Cleaner."
+        "en": "Added support for the Vaccum Cleaner.",
+        "no": "Lagt til støvsuger."
     },
     "1.1.45": {
-        "en": "Added trigger with drop list for state plus a condition card with the state to the Vaccum Cleaner. Fixed the dock command for the vacuum cleaner."
+        "en": "Added trigger with drop list for state plus a condition card with the state to the Vaccum Cleaner. Fixed the dock command for the vacuum cleaner.",
+        "no": "Lagt til trigger med nedtrekksliste for støvsugerkjøremodus pluss et tilstandskort for støvsuger. Endret dokk kommandoen for støvsuger."
     },
     "1.1.46": {
-        "en": "Foxed spelling error defined in the API document."
+        "en": "Fixed spelling error defined in the API document.",
+        "no": "Utbedret stavefeil i API-dokumentet."
     }
 }
