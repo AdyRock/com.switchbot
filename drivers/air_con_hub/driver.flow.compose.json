@@ -1,113 +1,126 @@
 {
-	"actions": [
-		{
-			"id": "operate_aircon",
-			"title": {
-				"en": "Operate air conditioner"
-			},
-			"titleFormatted": {
-				"en": "Switch Air conditioner [[onoff]], Mode is [[aircon_mode]] at [[target_temperature]] with the fan on [[aircon_fan_speed]]"
-			},
-			"platforms": ["local", "cloud"],
-			"args": [
-				{
-					"name": "onoff",
-					"type": "dropdown",
-					"title": { "en": "Power" },
-					"values": [
-						{
-							"id": "on",
-							"title": {
-								"en": "On"
-							}
-						},
-						{
-							"id": "off",
-							"title": {
-								"en": "Off"
-							}
-						}
-					]
-				},
-				{
-					"name": "aircon_mode",
-					"type": "dropdown",
-					"title": { "en": "Mode" },
-					"values": [
-						{
-							"id": "1",
-							"title": {
-								"en": "Auto"
-							}
-						},
-						{
-							"id": "2",
-							"title": {
-								"en": "Cool"
-							}
-						},
-						{
-							"id": "3",
-							"title": {
-								"en": "Dry"
-							}
-						},
-						{
-							"id": "4",
-							"title": {
-								"en": "Fan"
-							}
-						},
-						{
-							"id": "5",
-							"title": {
-								"en": "Heat"
-							}
-						}
-					]
-				},
-				{
-					"name": "target_temperature",
-					"title": { "en": "Temperature" },
-					"type": "range",
-					"min": 5,
-					"max": 40,
-					"step": 0.5,
-					"label": "°C",
-					"labelDecimals": 1
-				},
-				{
-					"name": "aircon_fan_speed",
-					"title": { "en": "Speed" },
-					"type": "dropdown",
-					"values": [
-						{
-							"id": "1",
-							"title": {
-								"en": "Auto"
-							}
-						},
-						{
-							"id": "2",
-							"title": {
-								"en": "Low"
-							}
-						},
-						{
-							"id": "3",
-							"title": {
-								"en": "Medium"
-							}
-						},
-						{
-							"id": "4",
-							"title": {
-								"en": "High"
-							}
-						}
-					]
-				}
-			]
-		}
-	]
+  "actions": [
+    {
+      "id": "operate_aircon",
+      "title": {
+        "en": "Operate air conditioner",
+        "no": "Styre varmepumpen"
+      },
+      "titleFormatted": {
+        "en": "Switch Air conditioner [[onoff]], Mode is [[aircon_mode]] at [[target_temperature]] with the fan on [[aircon_fan_speed]]",
+        "no": "Skru varmepumpe [[onoff]], modus er [[aircon_mode]] ved [[target_temperature]] med viften på [[aircon_fan_speed]]"
+      },
+      "platforms": ["local", "cloud"],
+      "args": [
+        {
+          "name": "onoff",
+          "type": "dropdown",
+          "title": {"en": "Power", "no": "Strøm"},
+          "values": [
+            {
+              "id": "on",
+              "title": {
+                "en": "On",
+                "no": "På"
+              }
+            },
+            {
+              "id": "off",
+              "title": {
+                "en": "Off",
+                "no": "Av"
+              }
+            }
+          ]
+        },
+        {
+          "name": "aircon_mode",
+          "type": "dropdown",
+          "title": {"en": "Mode", "no": "Modus"},
+          "values": [
+            {
+              "id": "1",
+              "title": {
+                "en": "Auto",
+                "no": "Auto"
+              }
+            },
+            {
+              "id": "2",
+              "title": {
+                "en": "Cool",
+                "no": "Kjøle"
+              }
+            },
+            {
+              "id": "3",
+              "title": {
+                "en": "Dry",
+                "no": "Tørke"
+              }
+            },
+            {
+              "id": "4",
+              "title": {
+                "en": "Fan",
+                "no": "Vifte"
+              }
+            },
+            {
+              "id": "5",
+              "title": {
+                "en": "Heat",
+                "no": "Varme"
+              }
+            }
+          ]
+        },
+        {
+          "name": "target_temperature",
+          "title": {"en": "Temperature", "no": "Temperatur"},
+          "type": "range",
+          "min": 5,
+          "max": 40,
+          "step": 0.5,
+          "label": "°C",
+          "labelDecimals": 1
+        },
+        {
+          "name": "aircon_fan_speed",
+          "title": {"en": "Speed", "no": "Hastighet"},
+          "type": "dropdown",
+          "values": [
+            {
+              "id": "1",
+              "title": {
+                "en": "Auto",
+                "no": "Auto"
+              }
+            },
+            {
+              "id": "2",
+              "title": {
+                "en": "Low",
+                "no": "Lav"
+              }
+            },
+            {
+              "id": "3",
+              "title": {
+                "en": "Medium",
+                "no": "Middels"
+              }
+            },
+            {
+              "id": "4",
+              "title": {
+                "en": "High",
+                "no": "Høy"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }

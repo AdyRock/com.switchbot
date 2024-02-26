@@ -5,7 +5,8 @@
     "uiComponent": "button",
     "title":
     {
-        "en": "Play"
+        "en": "Play",
+        "no": "Aktiver"
     },
     "icon": "/assets/play.svg"
 }

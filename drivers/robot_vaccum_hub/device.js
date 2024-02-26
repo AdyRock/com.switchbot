@@ -87,7 +87,7 @@ class VacuumHubDevice extends HubDevice
 			if (data)
 			{
 				this.setAvailable();
-				this.homey.app.updateLog(`Vaccum Hub got: ${this.homey.app.varToString(data)}`, 3);
+				this.homey.app.updateLog(`Vacuum Hub got: ${this.homey.app.varToString(data)}`, 3);
 
 				if (data.workingStatus && data.workingStatus !== this.getCapabilityValue('robot_vaccum_state'))
 				{

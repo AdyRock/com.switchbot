@@ -5,7 +5,8 @@
     "uiComponent": "button",
     "title":
     {
-        "en": "Fast Forward"
+        "en": "Fast Forward",
+        "no": "Fort fremover"
     },
     "icon": "/assets/fast-forward.svg"
 }

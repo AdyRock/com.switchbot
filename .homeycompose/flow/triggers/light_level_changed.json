@@ -1,28 +1,33 @@
 {
-	"title": {
-		"en": "Light Level Changed"
-	},
-	"platforms": [
-		"local"
-	],
-	"connectivity": [
-		"ble"
-	],
-	"tokens": [
-		{
-			"name": "light_level",
-			"title": {
-				"en": "Light Level"
-			},
-			"type": "number",
-			"example": "1 to 10"
-		}
-	],
-	"args": [
-		{
-			"type": "device",
-			"name": "device",
-			"filter": "driver_id=curtains_ble"
-		}
-	]
+    "title": {
+        "en": "Light Level Changed",
+        "no": "Endret lysnivå"
+    },
+    "platforms": [
+        "local"
+    ],
+    "connectivity": [
+        "ble"
+    ],
+    "tokens": [
+        {
+            "name": "light_level",
+            "title": {
+                "en": "Light Level",
+                "no": "Lysnivå"
+            },
+            "type": "number",
+            "example": {
+                "en": "1 to 10",
+                "no": "1 til 10"
+            }
+        }
+    ],
+    "args": [
+        {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=curtains_ble"
+        }
+    ]
 }

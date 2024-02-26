@@ -1,19 +1,20 @@
 {
-	"id": "fan_hub",
-	"name":
-	{
-		"en": "Fan Remote"
-	},
-	"class": "remote",
-	"capabilities": [
-		"power_on",
-		"power_off",
-		"fan_swing",
-		"fan_speed_low",
-		"fan_speed_middle",
-		"fan_speed_high"
-	],
-	"$extends": [
-		"hubDriver"
-	]
+    "id": "fan_hub",
+    "name":
+    {
+        "en": "Fan Remote",
+        "no": "Vifte fjernkontroll"
+    },
+    "class": "remote",
+    "capabilities": [
+        "power_on",
+        "power_off",
+        "fan_swing",
+        "fan_speed_low",
+        "fan_speed_middle",
+        "fan_speed_high"
+    ],
+    "$extends": [
+        "hubDriver"
+    ]
 }

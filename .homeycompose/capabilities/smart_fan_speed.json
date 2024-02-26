@@ -1,7 +1,8 @@
 {
     "type": "enum",
     "title": {
-        "en": "Fan Speed"
+        "en": "Fan Speed",
+        "no": "Viftehastighet"
     },
     "values": [
         {

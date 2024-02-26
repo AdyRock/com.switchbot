@@ -1,23 +1,24 @@
 {
-	"name": {
-		"en": "Colour Bulb (HUB)"
-	},
-	"class": "light",
-	"capabilities": [
-		"onoff",
-		"dim",
-		"light_mode",
-		"light_temperature",
-		"light_hue",
-		"light_saturation"
-	],
-	"energy": {
-		"approximation": {
-			"usageOn": 10,
-			"usageOff": 0.1
-		}
-	},
-	"$extends": [
-		"hubDriver"
-	]
+    "name": {
+        "en": "Colour Bulb (HUB)",
+        "no": "Lyspære m/farger (HUB)"
+    },
+    "class": "light",
+    "capabilities": [
+        "onoff",
+        "dim",
+        "light_mode",
+        "light_temperature",
+        "light_hue",
+        "light_saturation"
+    ],
+    "energy": {
+        "approximation": {
+            "usageOn": 10,
+            "usageOff": 0.1
+        }
+    },
+    "$extends": [
+        "hubDriver"
+    ]
 }

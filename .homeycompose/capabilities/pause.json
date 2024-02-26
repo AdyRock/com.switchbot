@@ -5,7 +5,8 @@
     "uiComponent": "button",
     "title":
     {
-        "en": "Pause"
+        "en": "Pause",
+        "no": "Pause"
     },
     "icon": "/assets/pause.svg"
 }

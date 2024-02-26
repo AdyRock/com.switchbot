@@ -5,7 +5,8 @@
     "uiComponent": "button",
     "title":
     {
-        "en": "Next"
+        "en": "Next",
+        "no": "Neste"
     },
     "icon": "/assets/next.svg"
 }

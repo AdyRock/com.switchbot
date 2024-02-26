@@ -1,87 +1,95 @@
 {
-	"id": "blind_tilt_ble",
-	"name": {
-		"en": "Blind Tilt (BLE)"
-	},
-	"platforms": [
-		"local",
-		"cloud"
-	],
-	"connectivity": [
-		"ble"
-	],
-	"class": "blinds",
-	"capabilities": [
-		"open_close",
-		"measure_battery",
-		"windowcoverings_tilt_set",
-		"rssi",
-		"position"
-	],
-	"pair": [
-		{
-			"id": "list_my_devices",
-			"template": "list_devices",
-			"navigation": {
-				"next": "add_my_devices"
-			}
-		},
-		{
-			"id": "add_my_devices",
-			"template": "add_devices"
-		}
-	],
-	"energy": {
-		"batteries": [
-			"INTERNAL"
-		]
-	},
-	"images": {
-		"large": "/drivers/blind_tilt_ble/assets/images/large.jpg",
-		"small": "/drivers/blind_tilt_ble/assets/images/small.jpg"
-	},
-	"settings": [
-		{
-			"id": "invertPosition",
-			"type": "checkbox",
-			"label": {
-				"en": "Invert Open / Close Position"
-			},
-			"value": false,
-			"hint": {
-				"en": "Reverse the action of the position control."
-			}
-		},
-		{
-			"id": "motionMode",
-			"type": "radio",
-			"label": {
-				"en": "Motion Mode"
-			},
-			"value": "0xff",
-			"values": [
-				{
-					"id": "0",
-					"label": {
-						"en": "Performance"
-					}
-				},
-				{
-					"id": "1",
-					"label": {
-						"en": "Silent"
-					}
-				},
-				{
-					"id": "0xff",
-					"label": {
-						"en": "Last Used"
-					}
-				}
-			],
-			"hint": {
-				"en": "Select the silent or performance mode of the motor."
-			}
-		}
-	]
+    "id": "blind_tilt_ble",
+    "name": {
+        "en": "Blind Tilt (BLE)",
+        "no": "Markise m/tilt (BLE)"
+    },
+    "platforms": [
+        "local",
+        "cloud"
+    ],
+    "connectivity": [
+        "ble"
+    ],
+    "class": "blinds",
+    "capabilities": [
+        "open_close",
+        "measure_battery",
+        "windowcoverings_tilt_set",
+        "rssi",
+        "position"
+    ],
+    "pair": [
+        {
+            "id": "list_my_devices",
+            "template": "list_devices",
+            "navigation": {
+                "next": "add_my_devices"
+            }
+        },
+        {
+            "id": "add_my_devices",
+            "template": "add_devices"
+        }
+    ],
+    "energy": {
+        "batteries": [
+            "INTERNAL"
+        ]
+    },
+    "images": {
+        "large": "/drivers/blind_tilt_ble/assets/images/large.jpg",
+        "small": "/drivers/blind_tilt_ble/assets/images/small.jpg"
+    },
+    "settings": [
+        {
+            "id": "invertPosition",
+            "type": "checkbox",
+            "label": {
+                "en": "Invert Open / Close Position",
+                "no": "Inverter Åpen / Lukket posisjon"
+            },
+            "value": false,
+            "hint": {
+                "en": "Reverse the action of the position control.",
+                "no": "Vend retningen for posisjonsvelgeren."
+            }
+        },
+        {
+            "id": "motionMode",
+            "type": "radio",
+            "label": {
+                "en": "Motion Mode",
+                "no": "Bevegelsesmodus"
+            },
+            "value": "0xff",
+            "values": [
+                {
+                    "id": "0",
+                    "label": {
+                        "en": "Performance",
+                        "no": "Ytelse"
+                    }
+                },
+                {
+                    "id": "1",
+                    "label": {
+                        "en": "Silent",
+                        "no": "Stille"
+                    }
+                },
+                {
+                    "id": "0xff",
+                    "label": {
+                        "en": "Last Used",
+                        "no": "Sist brukte"
+                    }
+                }
+            ],
+            "hint": {
+                "en": "Select the silent or performance mode of the motor.",
+                "no": "Velg stille eller ytelse modus for motoren."
+            }
+        }
+    ]
 }

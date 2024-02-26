@@ -1,19 +1,20 @@
 {
-	"id": "humidifier_hub",
-	"name":
-	{
-		"en": "Humidifier (HUB)"
-	},
-	"class": "other",
-	"capabilities": [
-		"onoff",
-		"nebulization_mode",
-		"nebulization_efficiency",
-		"measure_temperature",
-		"measure_humidity",
-		"alarm_water"
-	],
-	"$extends": [
-		"hubDriver"
-	]
+    "id": "humidifier_hub",
+    "name":
+    {
+        "en": "Humidifier (HUB)",
+        "no": "Luftfukter (HUB)"
+    },
+    "class": "other",
+    "capabilities": [
+        "onoff",
+        "nebulization_mode",
+        "nebulization_efficiency",
+        "measure_temperature",
+        "measure_humidity",
+        "alarm_water"
+    ],
+    "$extends": [
+        "hubDriver"
+    ]
 }

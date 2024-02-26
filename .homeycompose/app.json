@@ -11,7 +11,8 @@
 	},
 	"description":
 	{
-		"en": "A simple way to make your entire home a Smart Home"
+		"en": "A simple way to make your entire home a Smart Home",
+        "no": "En enkel måte å gjøre hele ditt hjem til et Smart Hjem."
 	},
 	"tags":
 	{
@@ -94,7 +95,12 @@
 			"name": "Adrian Rockall",
 			"email": "ady@rockall.plus.com"
 		  }
-		]
+		],
+        "translators" : [
+          {
+            "name": "Philip Østli"
+          }
+        ]
 	  },
 		"api":
 	{

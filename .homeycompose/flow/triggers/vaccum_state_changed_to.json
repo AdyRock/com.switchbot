@@ -1,91 +1,104 @@
 {
-	"title": {
-		"en": "Vaccum State Changed"
-	},
-	"titleFormatted": {
-		"en": "Vaccum state changed to [[state]]"
-	},
-	"platforms": [
-		"local"
-	],
-	"connectivity": [
-		"local",
-		"cloud"
-	],
-	"args": [
-		{
-			"name": "state",
-			"title": {
-				"en": "Vaccum State"
-			},
-			"type": "dropdown",
-			"values": [
-				{
-					"id": "StandBy",
-					"title": {
-						"en": "Standby"
-					}
-				},
-				{
-					"id": "Cleaning",
-					"title": {
-						"en": "Cleaning"
-					}
-				},
-				{
-					"id": "Paused",
-					"title": {
-						"en": "Paused"
-					}
-				},
-				{
-					"id": "GotoChargeBase",
-					"title": {
-						"en": "Going to Charge Base"
-					}
-				},
-				{
-					"id": "Charging",
-					"title": {
-						"en": "Charging"
-					}
-				},
-				{
-					"id": "ChargeDone",
-					"title": {
-						"en": "Charging Finished"
-					}
-				},
-				{
-					"id": "Dormant",
-					"title": {
-						"en": "Dormat"
-					}
-				},
-				{
-					"id": "InTrouble",
-					"title": {
-						"en": "In Trouble"
-					}
-				},
-				{
-					"id": "InRemoteControl",
-					"title": {
-						"en": "Remote Contolled"
-					}
-				},
-				{
-					"id": "InDustCollecting",
-					"title": {
-						"en": "Dust Collecting"
-					}
-				}
-			]
-		},
-		{
-			"type": "device",
-			"name": "device",
-			"filter": "driver_id=robot_vaccum_hub"
-		}
-	]
+    "title": {
+        "en": "Vacuum State Changed",
+        "no": "Støvsuger kjøremodus ble endret"
+    },
+    "titleFormatted": {
+        "en": "Vacuum state changed to [[state]]",
+        "no": "Støvsuger kjøremodus ble endret til [[state]]"
+    },
+    "platforms": [
+        "local"
+    ],
+    "connectivity": [
+        "local",
+        "cloud"
+    ],
+    "args": [
+        {
+            "name": "state",
+            "title": {
+                "en": "Vacuum State",
+                "no": "Støvsuger kjøremodus"
+            },
+            "type": "dropdown",
+            "values": [
+                {
+                    "id": "StandBy",
+                    "title": {
+                        "en": "Standby",
+                        "no": "Gjør ikke noe"
+                    }
+                },
+                {
+                    "id": "Cleaning",
+                    "title": {
+                        "en": "Cleaning",
+                        "no": "Rengjør"
+                    }
+                },
+                {
+                    "id": "Paused",
+                    "title": {
+                        "en": "Paused",
+                        "no": "Pauset"
+                    }
+                },
+                {
+                    "id": "GotoChargeBase",
+                    "title": {
+                        "en": "Going to Charge Base",
+                        "no": "På vei til ladestasjon"
+                    }
+                },
+                {
+                    "id": "Charging",
+                    "title": {
+                        "en": "Charging",
+                        "no": "Lader"
+                    }
+                },
+                {
+                    "id": "ChargeDone",
+                    "title": {
+                        "en": "Charging Finished",
+                        "no": "Lading ferdig"
+                    }
+                },
+                {
+                    "id": "Dormant",
+                    "title": {
+                        "en": "Dormant",
+                        "no": "Sovende"
+                    }
+                },
+                {
+                    "id": "InTrouble",
+                    "title": {
+                        "en": "In Trouble",
+                        "no": "Står fast"
+                    }
+                },
+                {
+                    "id": "InRemoteControl",
+                    "title": {
+                        "en": "Remote Controlled",
+                        "no": "Fjernkontrollert"
+                    }
+                },
+                {
+                    "id": "InDustCollecting",
+                    "title": {
+                        "en": "Dust Collecting",
+                        "no": "Samler støv"
+                    }
+                }
+            ]
+        },
+        {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=robot_vaccum_hub"
+        }
+    ]
 }

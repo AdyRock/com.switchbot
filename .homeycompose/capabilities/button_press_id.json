@@ -5,7 +5,8 @@
     "uiComponent": "sensor",
     "title":
     {
-        "en": "Button Press ID"
+        "en": "Button Press ID",
+        "no": "Knappetrykk ID"
     },
     "icon": "/assets/button_press.svg" 
 }

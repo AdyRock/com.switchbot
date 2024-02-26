@@ -1,16 +1,17 @@
 {
-	"title": {
-		"en": "Becomes Dim"
-	},
-	"platforms": [
-		"local",
-		"cloud"
-	],
-	"args": [
-		{
-			"type": "device",
-			"name": "device",
-			"filter": "driver_id=contact_ble|contact_hub|presence_ble|presence_hub"
-		}
-	]
+    "title": {
+        "en": "Becomes Dim",
+        "no": "Blir dimmet"
+    },
+    "platforms": [
+        "local",
+        "cloud"
+    ],
+    "args": [
+        {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=contact_ble|contact_hub|presence_ble|presence_hub"
+        }
+    ]
 }

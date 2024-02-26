@@ -5,7 +5,8 @@
     "uiComponent": "button",
     "title":
     {
-        "en": "Stop"
+        "en": "Stop",
+        "no": "Stopp"
     },
     "icon": "/assets/stop.svg"
 }

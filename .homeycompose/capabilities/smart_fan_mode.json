@@ -1,19 +1,22 @@
 {
     "type": "enum",
     "title": {
-        "en": "Mode"
+        "en": "Mode",
+        "no": "Modus"
     },
     "values": [
         {
           "id": "1",
           "title": {
-            "en": "Standard"
+            "en": "Standard",
+            "no": "Standard"
           }
         },
         {
           "id": "2",
           "title": {
-            "en": "Natural"
+            "en": "Natural",
+            "no": "Naturlig"
           }
         }
       ],

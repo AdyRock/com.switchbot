@@ -1,51 +1,55 @@
 {
-	"title": {
-		"en": "Set the vaccum power level"
-	},
-	"titleFormatted": {
-		"en": "Set the power level to [[power]]"
-	},
-	"hint": {
-		"en": "Change the power level of the vaccum"
-	},
-	"args": [
-		{
-			"name": "power",
-			"type": "dropdown",
-			"title": {
-				"en": "Power Level"
-			},
-			"values": [
-				{
-					"id": "0",
-					"label": {
-						"en": "Quiet"
-					}
-				},
-				{
-					"id": "1",
-					"label": {
-						"en": "Normal"
-					}
-				},
-				{
-					"id": "2",
-					"label": {
-						"en": "Strong"
-					}
-				},
-				{
-					"id": "3",
-					"label": {
-						"en": "Maximum"
-					}
-				}
-			]
-		},
-		{
-			"name": "device",
-			"type": "device",
-			"filter": "driver_id=robot_vaccum_hub"
-		}
-	]
+    "title": {
+        "en": "Set the vacuum power level",
+        "no": "Sett opp støvsuger styrken"
+    },
+    "titleFormatted": {
+        "en": "Set the power level to [[power]]",
+        "no": "Sett støvsuger styrken til [[power]]"
+    },
+    "hint": {
+        "en": "Change the power level of the vacuum",
+        "no": "Endre støvsuger styrken"
+    },
+    "args": [
+        {
+            "name": "power",
+            "type": "dropdown",
+            "title": {
+                "en": "Power Level",
+                "no": "Styrkenivå"
+            },
+            "values": [
+                {
+                    "id": "0",
+                    "label": {
+                        "en": "Quiet",
+                        "no": "Stille"
+                    }
+                },
+                {
+                    "id": "1",
+                    "label": {
+                        "en": "Normal",
+                        "no": "Normal"
+                    }
+                },
+                {
+                    "id": "2",
+                    "label": {
+                        "en": "Strong",
+                        "no": "Kraftig"
+                    }
+                },
+                {
+                    "id": "3",
+                    "label": {
+                        "en": "Maximum",
+                        "no": "Maksimal"
+                    }
+                }
+            ]
+        }
+    ]
 }
+	

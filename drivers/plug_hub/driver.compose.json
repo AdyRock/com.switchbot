@@ -1,15 +1,16 @@
 {
-	"id": "plug_hub",
-	"name": {
-		"en": "Plug (HUB)"
-	},
-	"class": "socket",
-	"capabilities": [
-		"onoff",
-		"measure_current",
-		"measure_voltage"
-	],
-	"$extends": [
-		"hubDriver"
-	]
+    "id": "plug_hub",
+    "name": {
+        "en": "Plug (HUB)",
+        "no": "Plugg (HUB)"
+    },
+    "class": "socket",
+    "capabilities": [
+        "onoff",
+        "measure_current",
+        "measure_voltage"
+    ],
+    "$extends": [
+        "hubDriver"
+    ]
 }

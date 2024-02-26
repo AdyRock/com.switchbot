@@ -5,7 +5,8 @@
     "uiComponent": "button",
     "title":
     {
-        "en": "Low Speed"
+        "en": "Low Speed",
+        "no": "Lav hastighet"
     },
     "icon": "/assets/fan_speed.svg"
 }

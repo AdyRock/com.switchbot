@@ -1,34 +1,32 @@
 {
-	"id": "contact_hub",
-	"name": {
-		"en": "Contact Sensor (HUB)"
-	},
-	"class": "sensor",
-	"capabilities": [
-		"alarm_motion",
-		"bright",
-		"alarm_contact",
-		"alarm_contact.left_open",
-		"direction"
-	],
-	"capabilitiesOptions": {
-		"alarm_contact.left_open": {
-			"title": "Left Open",
-			"insightsTitleTrue": {
-				"en": "Contact Left Open"
-			},
-			"insightsTitleFalse": {
-				"en": "Contact Closed"
-			}
-		}
-	},
-	"energy": {
-		"batteries": [
-			"AAA",
-			"AAA"
-		]
-	},
-	"$extends": [
-		"hubDriver"
-	]
+  "id": "contact_hub",
+  "name": {
+    "en": "Contact Sensor (HUB)",
+    "no": "Kontaktsensor (HUB)"
+  },
+  "class": "sensor",
+  "capabilities": [
+    "alarm_motion",
+    "bright",
+    "alarm_contact",
+    "alarm_contact.left_open",
+    "direction"
+  ],
+  "capabilitiesOptions": {
+    "alarm_contact.left_open": {
+      "title": {"en": "Left Open", "no": "Fremdeles åpen"},
+      "insightsTitleTrue": {
+        "en": "Contact Left Open",
+        "no": "Kontaktalarm fremdeles på"
+      },
+      "insightsTitleFalse": {
+        "en": "Contact Closed",
+        "no": "Kontaktalarm slått av"
+      }
+    }
+  },
+  "energy": {
+    "batteries": ["AAA", "AAA"]
+  },
+  "$extends": ["hubDriver"]
 }

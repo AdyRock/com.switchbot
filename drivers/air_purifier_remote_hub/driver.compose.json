@@ -2,7 +2,8 @@
     "id": "air_purifier_remote_hub",
     "name":
     {
-        "en": "Air Purifier Remote"
+        "en": "Air Purifier Remote",
+        "no": "Luftrenser fjernkontroll"
     },
     "class": "remote",
     "capabilities": [

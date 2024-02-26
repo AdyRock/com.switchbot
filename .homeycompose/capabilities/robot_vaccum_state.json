@@ -1,8 +1,9 @@
 {
     "type": "string",
     "title": {
-        "en": "Vaccum Status",
-        "nl": "Stofzuiger Status"
+        "en": "Vacuum Status",
+        "nl": "Stofzuiger Status",
+        "no": "Støvsuger status"
     },
     "getable": true,
     "setable": false,

@@ -1,25 +1,26 @@
 {
-	"id": "settop_box_hub",
-	"name":
-	{
-		"en": "Speaker Remote"
-	},
-	"class": "remote",
-	"capabilities": [
-		"power_on",
-		"power_off",
-		"volume_up",
-		"volume_down",
-		"volume_mute",
-		"stop",
-		"play",
-		"pause",
-		"prev",
-		"next",
-		"rewind",
-		"forward"
-	],
-	"$extends": [
-		"hubDriver"
-	]
+    "id": "speaker",
+    "name":
+    {
+        "en": "Speaker Remote",
+        "no": "Høyttaler fjernkontroll"
+    },
+    "class": "remote",
+    "capabilities": [
+        "power_on",
+        "power_off",
+        "volume_up",
+        "volume_down",
+        "volume_mute",
+        "stop",
+        "play",
+        "pause",
+        "prev",
+        "next",
+        "rewind",
+        "forward"
+    ],
+    "$extends": [
+        "hubDriver"
+    ]
 }

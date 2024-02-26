@@ -1,19 +1,21 @@
 {
-	"title": {
-		"en": "Someone exited"
-	},
-	"platforms": [
-		"local",
-		"cloud"
-	],
-	"hint": {
-		"en": "Button was pressed or Motion was detected; then the contact was opened."
-	},
-	"args": [
-		{
-			"type": "device",
-			"name": "device",
-			"filter": "driver_id=contact_hub"
-		}
-	]
+    "title": {
+        "en": "Someone exited",
+        "no": "Noen gikk ut"
+    },
+    "platforms": [
+        "local",
+        "cloud"
+    ],
+    "hint": {
+        "en": "Button was pressed or Motion was detected; then the contact was opened.",
+        "no": "Knappen ble trykket eller bevegelse ble detektert; kontakten ble åpnet etterpå."
+    },
+    "args": [
+        {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=contact_hub"
+        }
+    ]
 }

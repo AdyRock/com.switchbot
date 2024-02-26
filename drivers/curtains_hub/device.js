@@ -51,10 +51,10 @@ class CurtainsHubDevice extends HubDevice
 		this.registerCapabilityListener('windowcoverings_set', this.onCapabilityPosition.bind(this));
 		this.registerCapabilityListener('windowcoverings_state', this.onCapabilityState.bind(this));
 
-		const dd = this.getData();
-		this.homey.app.registerHomeyWebhook(dd.id);
-		this.log('CurtainsHubDevice has been initialising');
-	}
+        const dd = this.getData();
+        this.homey.app.registerHomeyWebhook(dd.id);
+        this.log('CurtainsHubDevice has been initialized');
+    }
 
 	/**
 	 * onAdded is called when the user adds the device, called just after pairing.

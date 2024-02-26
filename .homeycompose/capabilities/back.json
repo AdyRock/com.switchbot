@@ -5,6 +5,7 @@
     "uiComponent": "button",
     "title":
     {
-        "en": "Back"
+        "en": "Back",
+        "no": "Tilbake"
     }
 }

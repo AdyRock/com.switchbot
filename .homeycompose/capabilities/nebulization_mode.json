@@ -5,7 +5,8 @@
     "uiComponent": "button",
     "title":
     {
-        "en": "Auto"
+        "en": "Auto",
+        "no": "Auto"
     },
     "icon": "/assets/humidifier.svg"
 }

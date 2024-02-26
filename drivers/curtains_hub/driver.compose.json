@@ -1,65 +1,73 @@
 {
-	"id": "curtains_hub",
-	"name": {
-		"en": "Curtains (HUB)"
-	},
-	"class": "curtain",
-	"capabilities": [
-		"open_close",
-		"windowcoverings_state",
-		"windowcoverings_set",
-		"position"
-	],
-	"energy": {
-		"batteries": [
-			"INTERNAL"
-		]
-	},
-	"$extends": [
-		"hubDriver"
-	],
-	"settings": [
-		{
-			"id": "invertPosition",
-			"type": "checkbox",
-			"label": {
-				"en": "Invert Open / Close Position"
-			},
-			"value": false,
-			"hint": {
-				"en": "Reverse the action of the position control."
-			}
-		},
-		{
-			"id": "motionMode",
-			"type": "radio",
-			"label": {
-				"en": "Motion Mode"
-			},
-			"value": "0",
-			"values": [
-				{
-					"id": "0",
-					"label": {
-						"en": "Performance"
-					}
-				},
-				{
-					"id": "1",
-					"label": {
-						"en": "Silent"
-					}
-				},
-				{
-					"id": "0xff",
-					"label": {
-						"en": "Last Used"
-					}
-				}
-			],
-			"hint": {
-				"en": "Select the silent or performance mode of the motor."
-			}
-		}
-	]
+    "id": "curtains_hub",
+    "name": {
+        "en": "Curtains (HUB)",
+        "no": "Gardiner (HUB)"
+    },
+    "class": "curtain",
+    "capabilities": [
+        "open_close",
+        "windowcoverings_state",
+        "windowcoverings_set",
+        "position"
+    ],
+    "energy": {
+        "batteries": [
+            "INTERNAL"
+        ]
+    },
+    "$extends": [
+        "hubDriver"
+    ],
+    "settings": [
+        {
+            "id": "invertPosition",
+            "type": "checkbox",
+            "label": {
+                "en": "Invert Open / Close Position",
+                "no": "Inverter Åpen / Lukket posisjon"
+            },
+            "value": false,
+            "hint": {
+                "en": "Reverse the action of the position control.",
+                "no": "Vend retningen for posisjonsvelgeren."
+            }
+        },
+        {
+            "id": "motionMode",
+            "type": "radio",
+            "label": {
+                "en": "Motion Mode",
+                "no": "Bevegelsesmodus"
+            },
+            "value": "0",
+            "values": [
+                {
+                    "id": "0",
+                    "label": {
+                        "en": "Performance",
+                        "no": "Ytelse"
+                    }
+                },
+                {
+                    "id": "1",
+                    "label": {
+                        "en": "Silent",
+                        "no": "Stille"
+                    }
+                },
+                {
+                    "id": "0xff",
+                    "label": {
+                        "en": "Last Used",
+                        "no": "Sist brukte"
+                    }
+                }
+            ],
+            "hint": {
+                "en": "Select the silent or performance mode of the motor.",
+                "no": "Velg stille eller ytelsesmodus for motoren."
+            }
+        }
+    ]
 }

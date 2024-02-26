@@ -5,7 +5,8 @@
     "uiComponent": "button",
     "title":
     {
-        "en": "High Speed"
+        "en": "High Speed",
+        "no": "Høy hastighet"
     },
     "icon": "/assets/fan_speed.svg"
 }

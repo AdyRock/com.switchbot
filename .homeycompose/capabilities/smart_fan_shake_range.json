@@ -11,7 +11,8 @@
     "step": 1,
     "title":
     {
-        "en": "Shake Range"
+        "en": "Shake Range",
+        "no": "Bevegelsesutslag"
     },
     "icon": "/assets/rotate_range.svg"
 }

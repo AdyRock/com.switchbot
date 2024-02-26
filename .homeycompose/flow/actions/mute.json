@@ -1,6 +1,7 @@
 {
     "title": {
-        "en": "Toggle Mute"
+        "en": "Toggle Mute",
+        "no": "Skru av/på lyd"
     },
     "args": [
         {

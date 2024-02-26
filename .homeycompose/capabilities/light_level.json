@@ -1,7 +1,8 @@
 {
     "type": "number",
     "title": {
-        "en": "Light Level"
+        "en": "Light Level",
+        "no": "Lysnivå"
     },
     "units": {
         "en": ""
