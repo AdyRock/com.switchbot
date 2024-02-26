@@ -18,7 +18,7 @@ class HubCurtainDriver extends HubDriver
 
 	async onPairListDevices({ oAuth2Client })
 	{
-		return this.getHUBDevices(oAuth2Client, ['Curtain', 'Curtains3']);
+		return this.getHUBDevices(oAuth2Client, ['Curtain', 'Curtain3']);
 	}
 
 }
