@@ -2,5 +2,7 @@
     "cSpell.words": [
         "unmute"
     ],
-    "cSpell.suggestionMenuType": "quickFix"
+	"cSpell.suggestionMenuType": "quickFix",
+	"editor.detectIndentation": false,
+	"editor.insertSpaces": false
 }

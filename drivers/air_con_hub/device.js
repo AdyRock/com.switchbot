@@ -107,7 +107,7 @@ class AirConHubDevice extends HubDevice
 			return this.onCapabilityPowerOn();
 		}
 
-			return this.onCapabilityPowerOff();
+		return this.onCapabilityPowerOff();
 	}
 
 	// this method is called when the Homey device has requested a value change
