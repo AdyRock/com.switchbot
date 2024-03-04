@@ -305,5 +305,9 @@
 	"1.1.48": {
         "en": "Added Curtain3 to list of curtain devices. Added Norwegian translations thanks to Philip Østli",
         "no": "Lagt til 3. gen Gardiner i listen over gardiner. Lagt til norske oversettelser takket være Philip Østli"
+	},
+	"1.1.49": {
+		"en": "Added Flow action card to move curtains at performance or quiet speed (thanks to Dennie de Groot)",
+		"no": "Lagt til flyt-handlingskort for å flytte gardiner i ytelses- eller stillemodus (takk til Dennie de Groot)"
 	}
 }

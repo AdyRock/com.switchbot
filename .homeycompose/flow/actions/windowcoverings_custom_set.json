@@ -1,7 +1,7 @@
 {
   "id": "windowcoverings_custom_set",
   "title": {
-    "en": "Set the position to",
+    "en": "Set the position at selected spreed",
     "nl": "Zet de positie naar",
     "de": "Setze die Position auf",
     "fr": "Mettre la position sur",
@@ -13,8 +13,21 @@
     "ru": "Установите позицию на",
     "pl": "Ustaw pozycję na"
   },
+  "titleFormatted": {
+	"en": "Set the position to [[percentage]] at [[speed]] speed",
+	"nl": "Zet de positie naar [[percentage]] op [[speed]] snelheid",
+	"de": "Setze die Position auf [[percentage]] bei [[speed]] Geschwindigkeit",
+	"fr": "Mettre la position sur [[percentage]] à la vitesse [[speed]]",
+	"it": "Imposta la posizione su [[percentage]] a velocità [[speed]]",
+	"sv": "Ställ in positionen till [[percentage]] vid [[speed]] hastighet",
+	"no": "Innstill posisjonen til [[percentage]] ved [[speed]] hastighet",
+	"es": "Configurar la posición como [[percentage]] a velocidad [[speed]]",
+	"da": "Indstil positionen til [[percentage]] ved [[speed]] hastighed",
+	"ru": "Установите позицию на [[percentage]] при скорости [[speed]]",
+	"pl": "Ustaw pozycję na [[percentage]] przy prędkości [[speed]]"
+  },
   "hint": {
-    "en": "Change the position to open (100%), closed (0%), or a value in between.",
+    "en": "Change the position to open (100%), closed (0%), or a value in betwee at the selected speed.",
     "nl": "Verander de positie naar open (100%), gesloten (0%), of een een waarde daartussen.",
     "ru": "Измените позицию на открытую (100%), закрытую (0%) или между этими значениями.",
     "pl": "Zmień pozycję na rozchylone (100%), zasunięte (0%) lub wartość pomiędzy."

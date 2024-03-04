@@ -134,9 +134,13 @@ class CurtainsBLEDevice extends Homey.Device
 		let mode = this.motionMode;
 
 		if (opts === 'fast')
+		{
 			mode = 0;
+		}
 		else if (opts === 'slow')
+		{
 			mode = 1;
+		}
 
 		if (this.invertPosition)
 		{
