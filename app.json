@@ -1205,6 +1205,10 @@
           },
           {
             "name": "percentage",
+            "title": {
+              "en": "Position",
+              "nl": "Positie"
+            },
             "type": "range",
             "min": 0,
             "max": 1,
@@ -1216,6 +1220,10 @@
           },
           {
             "name": "speed",
+            "title": {
+              "en": "Speed",
+              "nl": "Snelheid"
+            },
             "type": "dropdown",
             "value": "fast",
             "values": [

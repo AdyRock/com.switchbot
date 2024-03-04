@@ -1,53 +1,62 @@
 {
-  "id": "windowcoverings_custom_set",
-  "title": {
-    "en": "Set the position at selected spreed",
-    "nl": "Zet de positie op geselecteerde snelheid"
-  },
-  "titleFormatted": {
-	"en": "Set the position to [[percentage]] at [[speed]] speed",
-	"nl": "Zet de positie op [[percentage]] bij [[speed]] snelheid"
-  },
-  "hint": {
-    "en": "Change the position to open (100%), closed (0%), or a value in betwee at the selected speed.",
-    "nl": "Verander de positie naar open (100%), gesloten (0%), of een waarde daar tussenin op de geselecteerde snelheid."
-  },
-  "args": [
-    {
-      "name": "device",
-      "type": "device",
-      "filter": "driver_id=curtains_ble"
-    },
-    {
-      "name": "percentage",
-      "type": "range",
-      "min": 0,
-      "max": 1,
-      "step": 0.01,
-      "value": 0.5,
-      "label": "%",
-      "labelMultiplier": 100,
-      "labelDecimals": 0
-    },
-    {
-      "name": "speed",
-      "type": "dropdown",
-      "value": "fast",
-      "values": [
-        {
-          "id": "fast",
-          "title": {
-            "en": "Performance",
-            "no": "Ytelse"}
-        },
-        {
-          "id": "slow",
-          "title": { 
-            "en": "Silent",
-            "no": "Stille"
-          }
-        }
-      ]
-    }
-  ]
+	"id": "windowcoverings_custom_set",
+	"title": {
+		"en": "Set the position at selected spreed",
+		"nl": "Zet de positie op geselecteerde snelheid"
+	},
+	"titleFormatted": {
+		"en": "Set the position to [[percentage]] at [[speed]] speed",
+		"nl": "Zet de positie op [[percentage]] bij [[speed]] snelheid"
+	},
+	"hint": {
+		"en": "Change the position to open (100%), closed (0%), or a value in betwee at the selected speed.",
+		"nl": "Verander de positie naar open (100%), gesloten (0%), of een waarde daar tussenin op de geselecteerde snelheid."
+	},
+	"args": [
+		{
+			"name": "device",
+			"type": "device",
+			"filter": "driver_id=curtains_ble"
+		},
+		{
+			"name": "percentage",
+			"title": {
+				"en": "Position",
+				"nl": "Positie"
+			},
+			"type": "range",
+			"min": 0,
+			"max": 1,
+			"step": 0.01,
+			"value": 0.5,
+			"label": "%",
+			"labelMultiplier": 100,
+			"labelDecimals": 0
+		},
+		{
+			"name": "speed",
+			"title": {
+				"en": "Speed",
+				"nl": "Snelheid"
+			},
+			"type": "dropdown",
+			"value": "fast",
+			"values": [
+				{
+					"id": "fast",
+					"title": {
+						"en": "Performance",
+						"no": "Ytelse"
+					}
+				},
+				{
+					"id": "slow",
+					"title": {
+						"en": "Silent",
+						"no": "Stille"
+					}
+				}
+			]
+		}
+	]
 }
