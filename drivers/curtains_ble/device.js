@@ -57,6 +57,10 @@ class CurtainsBLEDevice extends Homey.Device
 		this.registerCapabilityListener('windowcoverings_set', this.onCapabilityPosition.bind(this));
 		this.registerCapabilityListener('windowcoverings_state', this.onCapabilityState.bind(this));
 
+		this.homey.flow.getActionCard('windowcoverings_custom_set').registerRunListener(async (args, state) => {
+			await this.onCapabilityPosition(args.percentage, args.speed);
+		});
+
 		this.homey.app.registerBLEPolling();
 
 		this.log('CurtainsBLEDevice has been initialized');
@@ -127,11 +131,18 @@ class CurtainsBLEDevice extends Homey.Device
 	// this method is called when the Homey device has requested a position change ( 0 to 1)
 	async onCapabilityPosition(value, opts)
 	{
+		let mode = this.motionMode;
+
+		if (opts === 'fast')
+			mode = 0;
+		else if (opts === 'slow')
+			mode = 1;
+
 		if (this.invertPosition)
 		{
 			value = 1 - value;
 		}
-		return this.runToPos(value * 100, this.motionMode);
+		return this.runToPos(value * 100, mode);
 	}
 
 	async onCapabilityState(value, opts)
