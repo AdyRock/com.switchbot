@@ -309,5 +309,9 @@
 	"1.1.49": {
 		"en": "Added Flow action card to move curtains at performance or quiet speed (thanks to Dennie de Groot)",
 		"no": "Lagt til flyt-handlingskort for å flytte gardiner i ytelses- eller stillemodus (takk til Dennie de Groot)"
+	},
+	"1.1.50": {
+		"en": "Reduce Error information in the log. Added initial support for the Lock Pro. Changed the trigger card for vacuum to use 'clearing' instead of 'cleaning'.",
+		"no": "Redusert feilinformasjon i loggen. Lagt til initial støtte for Lock Pro. Endret utløserkortet for støvsuger til å bruke 'clearing' i stedet for 'cleaning'."
 	}
 }
