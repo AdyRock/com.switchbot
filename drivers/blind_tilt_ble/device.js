@@ -220,7 +220,7 @@ class BlindTiltBLEDevice extends Homey.Device
 			}
 			catch (err)
 			{
-				this.homey.app.updateLog(`_operateBot error: ${name} : ${this.homey.app.varToString(err)}`, 0);
+				this.homey.app.updateLog(`_operateBot error: ${name} : ${err.message}`, 0);
 			}
 
 			this.homey.app.bleBusy = false;
@@ -294,7 +294,7 @@ class BlindTiltBLEDevice extends Homey.Device
 			}
 			catch (err)
 			{
-				this.homey.app.updateLog(`Catch 2: ${name}: ${this.homey.app.varToString(err)}`, 0);
+				this.homey.app.updateLog(`Catch 2: ${name}: ${err.message}`, 0);
 				sending = false;
 				return err;
 				// throw(err);
@@ -540,7 +540,7 @@ class BlindTiltBLEDevice extends Homey.Device
 		}
 		catch (err)
 		{
-			this.homey.app.updateLog(this.homey.app.varToString(err), 0);
+			this.homey.app.updateLog(err.message, 0);
 		}
 		finally
 		{

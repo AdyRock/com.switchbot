@@ -230,7 +230,7 @@ class ColorBulbBLEDevice extends Homey.Device
 			}
 			catch (err)
 			{
-				this.homey.app.updateLog(`_operateBulb error: ${name} : ${this.homey.app.varToString(err)}`, 0);
+				this.homey.app.updateLog(`_operateBulb error: ${name} : ${err.message}`, 0);
 			}
 
 			this.homey.app.bleBusy = false;
@@ -320,7 +320,7 @@ class ColorBulbBLEDevice extends Homey.Device
 			}
 			catch (err)
 			{
-				this.homey.app.updateLog(`Catch 2: ${name}: ${this.homey.app.varToString(err)}`, 0);
+				this.homey.app.updateLog(`Catch 2: ${name}: ${err.message}`, 0);
 				sending = false;
 				return err;
 				// throw(err);
@@ -340,7 +340,7 @@ class ColorBulbBLEDevice extends Homey.Device
 		}
 		catch (err)
 		{
-			this.homey.app.updateLog(`Catch 1: ${name}: ${this.homey.app.varToString(err)}`, 0);
+			this.homey.app.updateLog(`Catch 1: ${name}: ${err.message}`, 0);
 			return err;
 		}
 		finally
@@ -444,7 +444,7 @@ class ColorBulbBLEDevice extends Homey.Device
 		}
 		catch (err)
 		{
-			this.homey.app.updateLog(this.homey.app.varToString(err), 0);
+			this.homey.app.updateLog(err.message, 0);
 		}
 		finally
 		{

@@ -117,7 +117,7 @@ class PresenceBLEDevice extends Homey.Device
 		}
 		catch (err)
 		{
-			this.homey.app.updateLog(this.homey.app.varToString(err), 0);
+			this.homey.app.updateLog(err.message, 0);
 		}
 		finally
 		{

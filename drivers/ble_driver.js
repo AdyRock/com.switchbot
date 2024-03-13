@@ -70,7 +70,7 @@ class BLEDriver extends Homey.Driver
 					}
 					catch (err)
 					{
-						this.homey.app.updateLog(`BLE Discovery: ${this.homey.app.varToString(err)}`, 0);
+						this.homey.app.updateLog(`BLE Discovery: ${err.message}`, 0);
 					}
 				}
 			}
@@ -125,7 +125,7 @@ class BLEDriver extends Homey.Driver
 				}
 				catch (err)
 				{
-					this.homey.app.updateLog(`BLE Discovery: ${this.homey.app.varToString(err)}`, 0);
+					this.homey.app.updateLog(`BLE Discovery: ${err.message}`, 0);
 				}
 			}
 
@@ -135,7 +135,7 @@ class BLEDriver extends Homey.Driver
 		}
 		catch (err)
 		{
-			this.homey.app.updateLog(`BLE Discovery: ${this.homey.app.varToString(err)}`, 0);
+			this.homey.app.updateLog(`BLE Discovery: ${err.message}`, 0);
 			this.homey.app.bleDiscovery = false;
 			throw new Error(err.msg);
 		}

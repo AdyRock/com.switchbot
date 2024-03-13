@@ -383,7 +383,7 @@ class MyApp extends OAuth2App
 			return Promise.resolve(conditionMet);
 		});
 
-		this.homey.app.updateLog('************** App has initialised. ***************');
+		this.homey.app.updateLog('****** App has initialised. ******');
 	}
 
 	async onUninit()
@@ -662,7 +662,7 @@ class MyApp extends OAuth2App
 					}
 					catch (err)
 					{
-						this.updateLog(`Error processing webhook message! ${this.varToString(err)}`, 0);
+						this.updateLog(`Error processing webhook message! ${err.message}`, 0);
 					}
 				}
 			}
@@ -743,7 +743,7 @@ class MyApp extends OAuth2App
 				}
 			});
 
-			this.updateLog(`Homey Webhook registered for devices ${this.homey.app.varToString(data)}`, 0);
+			this.updateLog(`Homey Webhook registered for devices ${this.homey.app.varToString(data)}`, 1);
 		}
 		catch (err)
 		{
@@ -978,7 +978,7 @@ class MyApp extends OAuth2App
 		{
 			this.bleBusy = true;
 			this.blePolling = true;
-			this.updateLog('\r\nPolling BLE Starting ------------------------------------');
+			this.updateLog('\r\n------ Polling BLE Starting ------');
 
 			const promises = [];
 			try
@@ -1006,12 +1006,12 @@ class MyApp extends OAuth2App
 			}
 			catch (err)
 			{
-				this.updateLog(`BLE Polling Error: ${this.homey.app.varToString(err)}`);
+				this.updateLog(`BLE Polling Error: ${err.message}`);
 			}
 
 			this.blePolling = false;
 			this.bleBusy = false;
-			this.updateLog('------------------------------------ Polling BLE Finished\r\n');
+			this.updateLog('------ Polling BLE Finished ------\r\n');
 		}
 		else
 		{
