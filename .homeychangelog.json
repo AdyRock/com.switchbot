@@ -313,5 +313,9 @@
 	"1.1.50": {
 		"en": "Reduce Error information in the log. Added initial support for the Lock Pro. Changed the trigger card for vacuum to use 'clearing' instead of 'cleaning'.",
 		"no": "Redusert feilinformasjon i loggen. Lagt til initial støtte for Lock Pro. Endret utløserkortet for støvsuger til å bruke 'clearing' i stedet for 'cleaning'."
+	},
+	"1.1.51": {
+		"en": "Added setting for curtain devices to change the class type to blind for better Google integration.",
+		"no": "Lagt til innstilling for gardiner for å endre klassetype til blind for bedre Google-integrasjon."
 	}
 }
