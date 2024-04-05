@@ -104,10 +104,10 @@
 			},
 			"value": "curtain",
 			"hint": {
-				"en": "The default is curtain. If you want to use this device as a blind, select blind.",
-				"de": "Standardmäßig ist dies ein Vorhang. Wenn Sie dieses Gerät als Jalousie verwenden möchten, wählen Sie Jalousie.",
-				"nl": "Standaard is dit een gordijn. Als u dit apparaat als een blind wilt gebruiken, selecteert u blind.",
-				"it": "Il valore predefinito è tenda. Se si desidera utilizzare questo dispositivo come tapparella, selezionare tapparella."
+				"en": "The default is curtain. If you want to use this device in Google Home, etc, select blind.",
+				"de": "Standardmäßig ist Vorhang ausgewählt. Wenn Sie dieses Gerät in Google Home usw. verwenden möchten, wählen Sie Jalousie.",
+				"nl": "Standaard is gordijn geselecteerd. Als u dit apparaat in Google Home, enz. wilt gebruiken, selecteert u blind.",
+				"it": "Per impostazione predefinita è selezionato tenda. Se si desidera utilizzare questo dispositivo in Google Home, ecc., Selezionare tapparella."
 			},
 			"values": [
 				{
@@ -120,7 +120,7 @@
 					}
 				},
 				{
-					"id": "blind",
+					"id": "blinds",
 					"label": {
 						"en": "Blind",
 						"de": "Jalousie",
