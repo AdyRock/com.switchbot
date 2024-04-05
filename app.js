@@ -54,16 +54,6 @@ class MyApp extends OAuth2App
 		this.log('SwitchBot has been initialized');
 		this.homey.app.logLevel = this.homey.settings.get('logLevel');
 
-		process.on('unhandledRejection', (reason, promise) =>
-		{
-			this.log('Unhandled Rejection at:', promise, 'reason:', reason);
-			this.updateLog('Unhandled Rejection',
-			{
-				message: promise,
-				stack: reason,
-			});
-		});
-
 		this.diagLog = '';
 		this.homey.app.deviceStatusLog = '';
 		this.BearerToken = this.homey.settings.get('BearerToken');
@@ -389,11 +379,6 @@ class MyApp extends OAuth2App
 	async onUninit()
 	{
 		await this.deleteSwitchBotWebhook();
-		this.hub.destroy();
-		if (this.BLEHub)
-		{
-			this.BLEHub.destroy();
-		}
 	}
 
 	resetAPICount()

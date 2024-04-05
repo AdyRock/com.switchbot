@@ -93,6 +93,11 @@ class CurtainsBLEDevice extends Homey.Device
 		{
 			this.motionMode = Number(newSettings.motionMode);
 		}
+
+		if (changedKeys.indexOf('classType') >= 0)
+		{
+			this.setClass(newSettings.classType);
+		}
 	}
 
 	/**
