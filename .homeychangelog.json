@@ -317,5 +317,9 @@
 	"1.1.51": {
 		"en": "Added setting for curtain devices to change the class type to blind for better Google integration.",
 		"no": "Lagt til innstilling for gardiner for å endre klassetype til blind for bedre Google-integrasjon."
+	},
+	"1.1.52": {
+		"en": "Trigger On/Off Flow card in Bot Press Mode, Added support for the Robot Vacuum Cleaner S10",
+		"no": "Utløser On/Off flytkort i Bot Press-modus, Lagt til støtte for Robotstøvsuger S10"
 	}
 }
