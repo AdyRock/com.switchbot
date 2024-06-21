@@ -23,7 +23,7 @@ class HubVacuumDriver extends HubDriver
 
 	async onPairListDevices({ oAuth2Client })
 	{
-		return this.getHUBDevices(oAuth2Client, ['WoSweeper', 'WoSweeperMini', 'Robot Vacuum Cleaner S10']);
+		return this.getHUBDevices(oAuth2Client, ['WoSweeper', 'WoSweeperMini', 'Robot Vacuum Cleaner S10', 'K10+']);
 	}
 
 	async triggerStateChanged(device, tokens, state)
