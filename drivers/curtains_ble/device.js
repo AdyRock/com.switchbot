@@ -57,10 +57,6 @@ class CurtainsBLEDevice extends Homey.Device
 		this.registerCapabilityListener('windowcoverings_set', this.onCapabilityPosition.bind(this));
 		this.registerCapabilityListener('windowcoverings_state', this.onCapabilityState.bind(this));
 
-		this.homey.flow.getActionCard('windowcoverings_custom_set').registerRunListener(async (args, state) => {
-			await this.onCapabilityPosition(args.percentage, args.speed);
-		});
-
 		this.homey.app.registerBLEPolling();
 
 		this.log('CurtainsBLEDevice has been initialized');

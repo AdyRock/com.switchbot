@@ -116,12 +116,23 @@ class CurtainsHubDevice extends HubDevice
 	// this method is called when the Homey device has requested a position change ( 0 to 1)
 	async onCapabilityPosition(value, opts)
 	{
+		let mode = this.motionMode;
+
+		if (opts === 'fast')
+		{
+			mode = 0;
+		}
+		else if (opts === 'slow')
+		{
+			mode = 1;
+		}
+
 		if (this.invertPosition)
 		{
 			value = 1 - value;
 		}
 
-		return this.runToPos(value * 100, this.motionMode);
+		return this.runToPos(value * 100, mode);
 	}
 
 	async onCapabilityState(value, opts)

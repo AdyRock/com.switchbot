@@ -364,6 +364,13 @@ class MyApp extends OAuth2App
 				return args.device.onCapabilityPowerLevel(parseInt(args.power, 10));
 			});
 
+		const windowCoversAction = this.homey.flow.getActionCard('windowcoverings_custom_set');
+		windowCoversAction
+		.registerRunListener(async (args, state) =>
+			{
+				return args.device.onCapabilityPosition(args.percentage, args.speed);
+			});
+
 		/** * CONDITIONS ** */
 		this.conditionVaccumStateIs = this.homey.flow.getConditionCard('vaccum_state_is.');
 		this.conditionVaccumStateIs.registerRunListener((args) =>

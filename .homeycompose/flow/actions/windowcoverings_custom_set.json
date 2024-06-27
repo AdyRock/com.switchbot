@@ -16,7 +16,7 @@
 		{
 			"name": "device",
 			"type": "device",
-			"filter": "driver_id=curtains_ble"
+			"filter": "driver_id=curtains_ble|curtains_hub"
 		},
 		{
 			"name": "percentage",
