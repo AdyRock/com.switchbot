@@ -98,7 +98,7 @@ class LockHubDevice extends HubDevice
 
 				this.setCapabilityValue('locked', data.lockState === 'locked').catch(this.error);
 				this.setCapabilityValue('alarm_generic', data.lockState === 'jammed').catch(this.error);
-				this.setCapabilityValue('alarm_contact', data.doorState === 'open').catch(this.error);
+				this.setCapabilityValue('alarm_contact', (data.doorState === 'open') || (data.doorState === 'opened')).catch(this.error);
 
 				if (data.battery)
 				{

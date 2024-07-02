@@ -329,5 +329,9 @@
 	"1.1.54": {
 		"en": "Added Flow action card to move curtains at performance or quiet speed for the HUB variant",
 		"no": "Lagt til flyt-handlingskort for å flytte gardiner i ytelses- eller stillemodus for HUB-varianten"
+	},
+	"1.1.55": {
+		"en": "Fix Lock open state detection as the API has changed the data format",
+		"no": "Fiks for låsens åpne tilstandsdeteksjon da API-en har endret dataformatet"
 	}
 }
