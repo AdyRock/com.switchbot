@@ -333,5 +333,9 @@
 	"1.1.55": {
 		"en": "Fix Lock open state detection as the API has changed the data format",
 		"no": "Fiks for låsens åpne tilstandsdeteksjon da API-en har endret dataformatet"
+	},
+	"1.1.56": {
+		"en": "Added support for the SwitchBot Water Leak detector",
+		"no": "Lagt til støtte for SwitchBot vannlekkasjedetektor"
 	}
 }

@@ -148,7 +148,7 @@ class ContactBLEDevice extends Homey.Device
 			const dd = this.getData();
 			for (const event of events)
 			{
-				if (event.address && (event.address === dd.address) && (event.serviceData.modelName === 'WoContact'))
+				if (event.address && (event.address.localeCompare(dd.address, 'en', { sensitivity: 'base' }) === 0) && (event.serviceData.modelName === 'WoContact'))
 				{
 					this.setCapabilityValue('alarm_motion', (event.serviceData.motion === 1)).catch(this.error);
 					this.setCapabilityValue('alarm_contact', (event.serviceData.contact === 1)).catch(this.error);
@@ -167,7 +167,7 @@ class ContactBLEDevice extends Homey.Device
 					this.setCapabilityValue('measure_battery', event.serviceData.battery).catch(this.error);
 					this.setCapabilityValue('rssi', event.rssi).catch(this.error);
 
-					if (event.hubMAC && ((event.rssi < this.bestRSSI) || (event.hubMAC === this.bestHub)))
+					if (event.hubMAC && ((event.rssi < this.bestRSSI) || (event.hubMAC.localeCompare(this.bestHub, 'en', { sensitivity: 'base' }) === 0)))
 					{
 						this.bestHub = event.hubMAC;
 						this.bestRSSI = event.rssi;

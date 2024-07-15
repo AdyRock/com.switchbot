@@ -413,7 +413,7 @@ class BotBLEDevice extends Homey.Device
 			const dd = this.getData();
 			for (const event of events)
 			{
-				if (event.address && (event.address === dd.address))
+				if (event.address && (event.address.localeCompare(dd.address, 'en', { sensitivity: 'base' }) === 0))
 				{
 					this.homey.app.updateLog(`Got bot state of: ${event.serviceData.state}`);
 
@@ -442,7 +442,7 @@ class BotBLEDevice extends Homey.Device
 					this.setCapabilityValue('measure_battery', event.serviceData.battery).catch(this.error);
 					this.setCapabilityValue('rssi', event.rssi).catch(this.error);
 
-					if (event.hubMAC && ((event.rssi < this.bestRSSI) || (event.hubMAC === this.bestHub)))
+					if (event.hubMAC && ((event.rssi < this.bestRSSI) || (event.hubMAC.localeCompare(this.bestHub, 'en', { sensitivity: 'base' }) === 0)))
 					{
 						this.bestHub = event.hubMAC;
 						this.bestRSSI = event.rssi;

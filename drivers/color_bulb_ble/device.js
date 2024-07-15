@@ -461,7 +461,7 @@ class ColorBulbBLEDevice extends Homey.Device
 			const dd = this.getData();
 			for (const event of events)
 			{
-				if (event.address && (event.address === dd.address) && (event.serviceData.modelName === 'WoBulb'))
+				if (event.address && (event.address.localeCompare(dd.address, 'en', { sensitivity: 'base' }) === 0) && (event.serviceData.modelName === 'WoBulb'))
 				{
 					if (event.replyData)
 					{
@@ -469,7 +469,7 @@ class ColorBulbBLEDevice extends Homey.Device
 					}
 					else
 					{
-						if (event.hubMAC && ((event.rssi < this.bestRSSI) || (event.hubMAC === this.bestHub)))
+						if (event.hubMAC && ((event.rssi < this.bestRSSI) || (event.hubMAC.localeCompare(this.bestHub, 'en', { sensitivity: 'base' }) === 0)))
 						{
 							this.bestHub = event.hubMAC;
 							this.bestRSSI = event.rssi;

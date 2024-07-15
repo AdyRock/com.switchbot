@@ -1,0 +1,16 @@
+{
+  "id": "water_leak_hub",
+  "name": {
+    "en": "Water Leak Detector (HUB)",
+    "no": "Vannlekkasjevarsler (HUB)"
+  },
+  "class": "sensor",
+  "capabilities": [
+    "alarm_water",
+	"measure_battery"
+  ],
+  "energy": {
+    "batteries": ["AAA", "AAA"]
+  },
+  "$extends": ["hubDriver"]
+}

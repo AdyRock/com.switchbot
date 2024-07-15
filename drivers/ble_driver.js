@@ -17,7 +17,7 @@ class BLEDriver extends Homey.Driver
 
 	checkExist(devices, device)
 	{
-		return devices.findIndex((device1) => device1.data.address === device.data.address);
+		return devices.findIndex((device1) => device1.data.address.localeCompare(device.data.address, 'en', { sensitivity: 'base' }) === 0);
 	}
 
 	async getBLEDevices(type)
@@ -273,6 +273,10 @@ class BLEDriver extends Homey.Driver
 		else if (model === 'x')
 		{ // WoBulb
 			sd = this._parseServiceDataForWoTilt(buf, device.manufacturerData);
+		}
+		else if (model === '&')
+		{ // WoWaterLeak
+			sd = this._parseServiceDataForWaterLeak(buf, device.manufacturerData);
 		}
 		else
 		{
@@ -584,6 +588,28 @@ class BLEDriver extends Homey.Driver
 			timers: buf[7],
 			version: 2,
 		};
+	}
+
+	_parseServiceDataForWaterLeak(buf, man)
+	{
+		if (buf.length !== 3 || man.length < 11)
+		{
+			return null;
+		}
+
+		const byte2 = buf.readUInt8(2);
+		const battery = (byte2 & 0b01111111); // %
+
+		const state = man.readUInt8(10);
+
+		const data = {
+			model: '&',
+			modelName: 'WoWaterLeak',
+			status: (state & 1) !== 0,
+			battery,
+		};
+
+		return data;
 	}
 
 }

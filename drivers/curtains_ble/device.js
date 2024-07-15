@@ -449,7 +449,7 @@ class CurtainsBLEDevice extends Homey.Device
 			const dd = this.getData();
 			for (const event of events)
 			{
-				if (event.address && (event.address === dd.address) && (event.serviceData.modelName === 'WoCurtain'))
+				if (event.address && (event.address.localeCompare(dd.address, 'en', { sensitivity: 'base' }) === 0) && (event.serviceData.modelName === 'WoCurtain'))
 				{
 					let position = event.serviceData.position / 100;
 					if (this.invertPosition)
@@ -496,7 +496,7 @@ class CurtainsBLEDevice extends Homey.Device
 					this.setCapabilityValue('rssi', event.rssi).catch(this.error);
 					this.homey.app.updateLog(`Parsed Curtain BLE (${name}): position = ${event.serviceData.position}, battery = ${event.serviceData.battery}`, 3);
 
-					if (event.hubMAC && ((event.rssi < this.bestRSSI) || (event.hubMAC === this.bestHub)))
+					if (event.hubMAC && ((event.rssi < this.bestRSSI) || (event.hubMAC.localeCompare(this.bestHub, 'en', { sensitivity: 'base' }) === 0)))
 					{
 						this.bestHub = event.hubMAC;
 						this.bestRSSI = event.rssi;

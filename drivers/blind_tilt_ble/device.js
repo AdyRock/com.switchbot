@@ -557,7 +557,7 @@ class BlindTiltBLEDevice extends Homey.Device
 			const dd = this.getData();
 			for (const event of events)
 			{
-				if (event.address && (event.address === dd.address) && (event.serviceData.modelName === 'WoBlindTilt'))
+				if (event.address && (event.address.localeCompare(dd.address, 'en', { sensitivity: 'base' }) === 0) && (event.serviceData.modelName === 'WoBlindTilt'))
 				{
 					if (event.replyData)
 					{

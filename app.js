@@ -669,7 +669,7 @@ class MyApp extends OAuth2App
 		}
 
 		// See if the SwitchBot is already registered
-		if (this.devicesMACs.findIndex((device) => device === DeviceMAC) >= 0)
+		if (this.devicesMACs.findIndex((device) => device.localeCompare(DeviceMAC, 'en', { sensitivity: 'base' }) === 0) >= 0)
 		{
 			// Already registered
 			return;
@@ -764,7 +764,7 @@ class MyApp extends OAuth2App
 					if (response1.statusCode === 100)
 					{
 						// We got a valid response so make sure it is the correct webhook
-						if (response1.body.urls[0] === Homey.env.WEBHOOK_URL)
+						if (response1.body.urls[0].localeCompare(Homey.env.WEBHOOK_URL, 'en', { sensitivity: 'base' }) === 0)
 						{
 							this.homey.app.updateLog('SwitchBot webhook already registered', 1);
 							return;

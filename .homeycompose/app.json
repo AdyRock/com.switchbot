@@ -1,6 +1,6 @@
 {
 	"id": "com.switchbot",
-	"version": "1.1.55",
+	"version": "1.1.56",
 	"compatibility": ">=6.0.0",
 	"platforms": ["local", "cloud"],
 	"sdk": 3,
@@ -52,7 +52,10 @@
 			"Blinds",
 			"LED strip",
 			"Bulb",
-			"IR remote"
+			"IR remote",
+			"Water Leak",
+			"Lock",
+			"Vacuum cleaner"
 		]
 	},
 	"category": [

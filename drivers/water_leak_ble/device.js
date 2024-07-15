@@ -4,7 +4,7 @@
 
 const Homey = require('homey');
 
-class TemperatureBLEDevice extends Homey.Device
+class WaterLeakBLEDevice extends Homey.Device
 {
 
 	/**
@@ -14,9 +14,9 @@ class TemperatureBLEDevice extends Homey.Device
 	{
 		this.bestRSSI = 100;
 		this.bestHub = '';
+
 		this.homey.app.registerBLEPolling();
-		this.log('TemperatureBLEDevice has been initialized');
-		this.deviceNotFound = false;
+		this.log('WaterLeakBLEDevice has been initialized');
 	}
 
 	/**
@@ -24,7 +24,7 @@ class TemperatureBLEDevice extends Homey.Device
 	 */
 	async onAdded()
 	{
-		this.log('TemperatureBLEDevice has been added');
+		this.log('WaterLeakBLEDevice has been added');
 	}
 
 	/**
@@ -37,7 +37,7 @@ class TemperatureBLEDevice extends Homey.Device
 	 */
 	async onSettings({ oldSettings, newSettings, changedKeys })
 	{
-		this.log('TemperatureBLEDevice settings where changed');
+		this.log('WaterLeakBLEDevice settings where changed');
 	}
 
 	/**
@@ -47,7 +47,7 @@ class TemperatureBLEDevice extends Homey.Device
 	 */
 	async onRenamed(name)
 	{
-		this.log('TemperatureBLEDevice was renamed');
+		this.log('WaterLeakBLEDevice was renamed');
 	}
 
 	/**
@@ -57,7 +57,7 @@ class TemperatureBLEDevice extends Homey.Device
 	{
 		this.homey.app.unregisterBLEPolling();
 		await this.blePeripheral.disconnect();
-		this.log('TemperatureBLEDevice has been deleted');
+		this.log('WaterLeakBLEDevice has been deleted');
 	}
 
 	async getDeviceValues()
@@ -79,7 +79,7 @@ class TemperatureBLEDevice extends Homey.Device
 
 			if (dd.id)
 			{
-				this.homey.app.updateLog('Finding Temperature BLE device', 3);
+				this.homey.app.updateLog('Finding Water Leak BLE device', 3);
 				const bleAdvertisement = await this.homey.ble.find(dd.id);
 				if (!bleAdvertisement)
 				{
@@ -89,37 +89,33 @@ class TemperatureBLEDevice extends Homey.Device
 				}
 
 				this.homey.app.updateLog(this.homey.app.varToString(bleAdvertisement), 4);
-				const rssi = await bleAdvertisement.rssi;
+				const { rssi } = bleAdvertisement;
 				this.setCapabilityValue('rssi', rssi).catch(this.error);
 
 				const data = this.driver.parse(bleAdvertisement);
 				if (data)
 				{
-					this.homey.app.updateLog(`Parsed Temperature BLE: ${this.homey.app.varToString(data)}`, 3);
-					this.setCapabilityValue('measure_temperature', data.serviceData.temperature.c).catch(this.error);
-					this.setCapabilityValue('measure_humidity', data.serviceData.humidity).catch(this.error);
+					this.homey.app.updateLog(`Parsed Water Leak BLE: ${this.homey.app.varToString(data)}`, 3);
+					this.setCapabilityValue('alarm_water', data.serviceData.status).catch(this.error);
 					this.setCapabilityValue('measure_battery', data.serviceData.battery).catch(this.error);
-					this.homey.app.updateLog(`Parsed Temperature BLE: temperature = ${data.serviceData.temperature.c}, humidity = ${data.serviceData.humidity}, battery = ${data.serviceData.battery}`, 2);
-					this.deviceNotFound = false;
 				}
 				else
 				{
-					this.homey.app.updateLog('Parsed Temperature BLE: No service data', 0);
+					this.homey.app.updateLog('Parsed Water Leak BLE: No service data', 0);
 				}
 			}
 			else
 			{
-				this.setUnavailable('SwitchBot BLE hub not detected', 0);
+				this.setUnavailable('SwitchBot BLE hub not detected');
 			}
 		}
 		catch (err)
 		{
-			this.homey.app.updateLog(err.message, this.deviceNotFound ? 2 : 0);
-			this.deviceNotFound = true;
+			this.homey.app.updateLog(err.message, 0);
 		}
 		finally
 		{
-			this.homey.app.updateLog('Finding Temperature BLE device --- COMPLETE', 3);
+			this.homey.app.updateLog('Finding Water Leak BLE device --- COMPLETE', 3);
 		}
 	}
 
@@ -130,10 +126,9 @@ class TemperatureBLEDevice extends Homey.Device
 			const dd = this.getData();
 			for (const event of events)
 			{
-				if (event.address && (event.address.localeCompare(dd.address, 'en', { sensitivity: 'base' }) === 0) && ((event.serviceData.modelName === 'WoSensorTH') || (event.serviceData.modelName === 'WoIOSensor')))
+				if (event.address && (event.address.localeCompare(dd.address, 'en', { sensitivity: 'base' }) === 0) && (event.serviceData.modelName === 'WoWaterLeak'))
 				{
-					this.setCapabilityValue('measure_temperature', event.serviceData.temperature.c).catch(this.error);
-					this.setCapabilityValue('measure_humidity', event.serviceData.humidity).catch(this.error);
+					this.setCapabilityValue('alarm_water', (event.serviceData.status === 1)).catch(this.error);
 					this.setCapabilityValue('measure_battery', event.serviceData.battery).catch(this.error);
 					this.setCapabilityValue('rssi', event.rssi).catch(this.error);
 
@@ -149,10 +144,10 @@ class TemperatureBLEDevice extends Homey.Device
 		}
 		catch (error)
 		{
-			this.homey.app.updateLog(`Error in temperature syncEvents: ${this.homey.app.varToString(error)}`, 0);
+			this.homey.app.updateLog(`Error in Water Leak syncEvents: ${this.homey.app.varToString(error)}`, 0);
 		}
 	}
 
 }
 
-module.exports = TemperatureBLEDevice;
+module.exports = WaterLeakBLEDevice;
