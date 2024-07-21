@@ -344,7 +344,7 @@ class BotBLEDevice extends Homey.Device
 						return;
 					}
 
-					this.homey.app.updateLog(this.homey.app.varToString(bleAdvertisement), 3);
+					this.homey.app.updateLog(this.homey.app.varToString(bleAdvertisement), 4);
 					const rssi = await bleAdvertisement.rssi;
 					this.setCapabilityValue('rssi', rssi).catch(this.error);
 

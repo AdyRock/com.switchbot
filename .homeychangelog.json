@@ -337,5 +337,9 @@
 	"1.1.56": {
 		"en": "Added support for the SwitchBot Water Leak detector",
 		"no": "Lagt til støtte for SwitchBot vannlekkasjedetektor"
-	}
+	},
+	"1.1.57": {
+		"en": "Fix possible issue with BLE temperature reading too high. Improve log function.",
+		"no": "Fiks mulig problem med at BLE-temperaturlesning er for høy. Forbedre loggfunksjonen."
+	},
 }

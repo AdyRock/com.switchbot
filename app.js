@@ -427,6 +427,11 @@ class MyApp extends OAuth2App
 					const seen = new WeakSet();
 					return (key, value) =>
 					{
+						if (key.startsWith('_'))
+						{
+							return '...';
+						}
+
 						if (typeof value === 'object' && value !== null)
 						{
 							if (seen.has(value))
