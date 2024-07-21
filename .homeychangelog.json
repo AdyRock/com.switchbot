@@ -341,5 +341,5 @@
 	"1.1.57": {
 		"en": "Fix possible issue with BLE temperature reading too high. Improve log function.",
 		"no": "Fiks mulig problem med at BLE-temperaturlesning er for høy. Forbedre loggfunksjonen."
-	},
+	}
 }
