@@ -1,18 +1,37 @@
 {
-    "type": "number",
-    "getable": true,
-    "setable": true,
-    "uiComponent": "slider",
-    "units": {
-        "en": "%",
-        "no": "%"
-    },
-    "min": 0,
-    "max": 100,
-    "step": 1,
-    "title":
-    {
-        "en": "Efficiency",
-        "no": "Effektivitet"
-    }
+  "type": "number",
+  "getable": true,
+  "setable": true,
+  "uiComponent": "slider",
+  "units": {
+    "en": "%",
+    "no": "%",
+    "nl": "%",
+    "da": "%",
+    "de": "%",
+    "es": "%",
+    "fr": "%",
+    "it": "%",
+    "sv": "%",
+    "pl": "%",
+    "ru": "%",
+    "ko": "%"
+  },
+  "min": 0,
+  "max": 100,
+  "step": 1,
+  "title": {
+    "en": "Efficiency",
+    "no": "Effektivitet",
+    "nl": "Efficiëntie",
+    "da": "Effektivitet",
+    "de": "Effizienz",
+    "es": "Eficiencia",
+    "fr": "Efficacité",
+    "it": "Efficienza",
+    "sv": "Effektivitet",
+    "pl": "Wydajność",
+    "ru": "Эффективность",
+    "ko": "효율성"
+  }
 }

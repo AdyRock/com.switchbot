@@ -1,12 +1,21 @@
 {
-    "type": "boolean",
-    "getable": false,
-    "setable": true,
-    "uiComponent": "button",
-    "title":
-    {
-        "en": "Play Scene",
-        "no": "Aktiver scene"
-    },
-    "icon": "/assets/play_scene.svg"
+  "type": "boolean",
+  "getable": false,
+  "setable": true,
+  "uiComponent": "button",
+  "title": {
+    "en": "Play Scene",
+    "no": "Aktiver scene",
+    "nl": "Speel scène",
+    "da": "Afspil scene",
+    "de": "Szene abspielen",
+    "es": "Reproducir escena",
+    "fr": "Lancer la scène",
+    "it": "Riproduci scena",
+    "sv": "Spela scen",
+    "pl": "Odtwórz scenę",
+    "ru": "Воспроизвести сцену",
+    "ko": "장면 재생"
+  },
+  "icon": "/assets/play_scene.svg"
 }

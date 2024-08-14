@@ -1,26 +1,35 @@
 {
-    "id": "speaker",
-    "name":
-    {
-        "en": "Speaker Remote",
-        "no": "Høyttaler fjernkontroll"
-    },
-    "class": "remote",
-    "capabilities": [
-        "power_on",
-        "power_off",
-        "volume_up",
-        "volume_down",
-        "volume_mute",
-        "stop",
-        "play",
-        "pause",
-        "prev",
-        "next",
-        "rewind",
-        "forward"
-    ],
-    "$extends": [
-        "hubDriver"
-    ]
+  "id": "speaker",
+  "name": {
+    "en": "Speaker Remote",
+    "no": "Høyttaler fjernkontroll",
+    "nl": "Speaker Afstandsbediening",
+    "da": "Højttalerfjernbetjening",
+    "de": "Lautsprecherfernbedienung",
+    "es": "Mando a distancia de altavoz",
+    "fr": "Télécommande de haut-parleur",
+    "it": "Telecomando per altoparlante",
+    "sv": "Högtalarfjärrkontroll",
+    "pl": "Pilot do głośnika",
+    "ru": "Пульт для колонки",
+    "ko": "스피커 리모컨"
+  },
+  "class": "remote",
+  "capabilities": [
+    "power_on",
+    "power_off",
+    "volume_up",
+    "volume_down",
+    "volume_mute",
+    "stop",
+    "play",
+    "pause",
+    "prev",
+    "next",
+    "rewind",
+    "forward"
+  ],
+  "$extends": [
+    "hubDriver"
+  ]
 }

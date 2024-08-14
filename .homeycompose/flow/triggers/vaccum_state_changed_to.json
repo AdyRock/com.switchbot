@@ -1,104 +1,234 @@
 {
-    "title": {
-        "en": "Vacuum State Changed",
-        "no": "Støvsuger kjøremodus ble endret"
-    },
-    "titleFormatted": {
-        "en": "Vacuum state changed to [[state]]",
-        "no": "Støvsuger kjøremodus ble endret til [[state]]"
-    },
-    "platforms": [
-        "local"
-    ],
-    "connectivity": [
-        "local",
-        "cloud"
-    ],
-    "args": [
+  "title": {
+    "en": "Vacuum State Changed",
+    "no": "Støvsuger kjøremodus ble endret",
+    "nl": "Stofzuigerstatus gewijzigd",
+    "da": "Støvsugerstatus ændret",
+    "de": "Staubsaugerstatus geändert",
+    "es": "Estado de la aspiradora cambiado",
+    "fr": "État de l'aspirateur modifié",
+    "it": "Stato dell'aspirapolvere cambiato",
+    "sv": "Dammsugarens status ändrad",
+    "pl": "Stan odkurzacza zmieniony",
+    "ru": "Состояние пылесоса изменено",
+    "ko": "청소기 상태 변경됨"
+  },
+  "titleFormatted": {
+    "en": "Vacuum state changed to [[state]]",
+    "no": "Støvsuger kjøremodus ble endret til [[state]]",
+    "nl": "Stofzuigerstatus gewijzigd naar [[state]]",
+    "da": "Støvsugerstatus ændret til [[state]]",
+    "de": "Staubsaugerstatus geändert zu [[state]]",
+    "es": "Estado de la aspiradora cambiado a [[state]]",
+    "fr": "État de l'aspirateur modifié en [[state]]",
+    "it": "Stato dell'aspirapolvere cambiato in [[state]]",
+    "sv": "Dammsugarens status ändrad till [[state]]",
+    "pl": "Stan odkurzacza zmieniony na [[state]]",
+    "ru": "Состояние пылесоса изменено на [[state]]",
+    "ko": "청소기 상태가 [[state]]로 변경됨"
+  },
+  "platforms": [
+    "local"
+  ],
+  "connectivity": [
+    "local",
+    "cloud"
+  ],
+  "args": [
+    {
+      "name": "state",
+      "title": {
+        "en": "Vacuum State",
+        "no": "Støvsuger kjøremodus",
+        "nl": "Stofzuigerstatus",
+        "da": "Støvsugerstatus",
+        "de": "Staubsaugerstatus",
+        "es": "Estado de la aspiradora",
+        "fr": "État de l'aspirateur",
+        "it": "Stato dell'aspirapolvere",
+        "sv": "Dammsugarens status",
+        "pl": "Stan odkurzacza",
+        "ru": "Состояние пылесоса",
+        "ko": "청소기 상태"
+      },
+      "type": "dropdown",
+      "values": [
         {
-            "name": "state",
-            "title": {
-                "en": "Vacuum State",
-                "no": "Støvsuger kjøremodus"
-            },
-            "type": "dropdown",
-            "values": [
-                {
-                    "id": "StandBy",
-                    "title": {
-                        "en": "Standby",
-                        "no": "Gjør ikke noe"
-                    }
-                },
-                {
-                    "id": "Clearing",
-                    "title": {
-                        "en": "Cleaning",
-                        "no": "Rengjør"
-                    }
-                },
-                {
-                    "id": "Paused",
-                    "title": {
-                        "en": "Paused",
-                        "no": "Pauset"
-                    }
-                },
-                {
-                    "id": "GotoChargeBase",
-                    "title": {
-                        "en": "Going to Charge Base",
-                        "no": "På vei til ladestasjon"
-                    }
-                },
-                {
-                    "id": "Charging",
-                    "title": {
-                        "en": "Charging",
-                        "no": "Lader"
-                    }
-                },
-                {
-                    "id": "ChargeDone",
-                    "title": {
-                        "en": "Charging Finished",
-                        "no": "Lading ferdig"
-                    }
-                },
-                {
-                    "id": "Dormant",
-                    "title": {
-                        "en": "Dormant",
-                        "no": "Sovende"
-                    }
-                },
-                {
-                    "id": "InTrouble",
-                    "title": {
-                        "en": "In Trouble",
-                        "no": "Står fast"
-                    }
-                },
-                {
-                    "id": "InRemoteControl",
-                    "title": {
-                        "en": "Remote Controlled",
-                        "no": "Fjernkontrollert"
-                    }
-                },
-                {
-                    "id": "InDustCollecting",
-                    "title": {
-                        "en": "Dust Collecting",
-                        "no": "Samler støv"
-                    }
-                }
-            ]
+          "id": "StandBy",
+          "title": {
+            "en": "Standby",
+            "no": "Gjør ikke noe",
+            "nl": "Standby",
+            "da": "Standby",
+            "de": "Standby",
+            "es": "En espera",
+            "fr": "Veille",
+            "it": "Standby",
+            "sv": "Standby",
+            "pl": "Gotowość",
+            "ru": "Режим ожидания",
+            "ko": "대기"
+          }
         },
         {
-            "type": "device",
-            "name": "device",
-            "filter": "driver_id=robot_vaccum_hub"
+          "id": "Clearing",
+          "title": {
+            "en": "Cleaning",
+            "no": "Rengjør",
+            "nl": "Schoonmaken",
+            "da": "Rengøring",
+            "de": "Reinigung",
+            "es": "Limpiando",
+            "fr": "Nettoyage",
+            "it": "Pulizia",
+            "sv": "Rengöring",
+            "pl": "Sprzątanie",
+            "ru": "Уборка",
+            "ko": "청소 중"
+          }
+        },
+        {
+          "id": "Paused",
+          "title": {
+            "en": "Paused",
+            "no": "Pauset",
+            "nl": "Gepauzeerd",
+            "da": "Pauset",
+            "de": "Pausiert",
+            "es": "Pausado",
+            "fr": "En pause",
+            "it": "In pausa",
+            "sv": "Pausad",
+            "pl": "Wstrzymano",
+            "ru": "Пауза",
+            "ko": "일시 중지됨"
+          }
+        },
+        {
+          "id": "GotoChargeBase",
+          "title": {
+            "en": "Going to Charge Base",
+            "no": "På vei til ladestasjon",
+            "nl": "Onderweg naar oplaadstation",
+            "da": "På vej til ladestation",
+            "de": "Zum Ladegerät fahren",
+            "es": "Yendo a la estación de carga",
+            "fr": "Se rend à la base de chargement",
+            "it": "Verso la base di ricarica",
+            "sv": "På väg till laddstation",
+            "pl": "Idzie do stacji ładującej",
+            "ru": "Едет на зарядку",
+            "ko": "충전 베이스로 이동 중"
+          }
+        },
+        {
+          "id": "Charging",
+          "title": {
+            "en": "Charging",
+            "no": "Lader",
+            "nl": "Opladen",
+            "da": "Lader",
+            "de": "Lädt",
+            "es": "Cargando",
+            "fr": "En charge",
+            "it": "In carica",
+            "sv": "Laddar",
+            "pl": "Ładowanie",
+            "ru": "Зарядка",
+            "ko": "충전 중"
+          }
+        },
+        {
+          "id": "ChargeDone",
+          "title": {
+            "en": "Charging Finished",
+            "no": "Lading ferdig",
+            "nl": "Opladen voltooid",
+            "da": "Opladning fuldført",
+            "de": "Laden abgeschlossen",
+            "es": "Carga finalizada",
+            "fr": "Chargement terminé",
+            "it": "Ricarica completata",
+            "sv": "Laddning klar",
+            "pl": "Ładowanie zakończone",
+            "ru": "Зарядка завершена",
+            "ko": "충전 완료"
+          }
+        },
+        {
+          "id": "Dormant",
+          "title": {
+            "en": "Dormant",
+            "no": "Sovende",
+            "nl": "Inactief",
+            "da": "Dvaletilstand",
+            "de": "Schlafend",
+            "es": "Inactivo",
+            "fr": "En sommeil",
+            "it": "Dormiente",
+            "sv": "Slumrande",
+            "pl": "Uśpiony",
+            "ru": "Без действия",
+            "ko": "휴면 중"
+          }
+        },
+        {
+          "id": "InTrouble",
+          "title": {
+            "en": "In Trouble",
+            "no": "Står fast",
+            "nl": "In moeilijkheden",
+            "da": "I problemer",
+            "de": "In Schwierigkeiten",
+            "es": "En problemas",
+            "fr": "En difficulté",
+            "it": "In difficoltà",
+            "sv": "I trubbel",
+            "pl": "Ma kłopoty",
+            "ru": "Заело",
+            "ko": "문제 발생"
+          }
+        },
+        {
+          "id": "InRemoteControl",
+          "title": {
+            "en": "Remote Controlled",
+            "no": "Fjernkontrollert",
+            "nl": "Op afstand bestuurd",
+            "da": "Fjernstyret",
+            "de": "Fernbedient",
+            "es": "Controlado remotamente",
+            "fr": "Commandé à distance",
+            "it": "Controllo remoto",
+            "sv": "Fjärrstyrd",
+            "pl": "Sterowany zdalnie",
+            "ru": "Пульт управления",
+            "ko": "원격 제어됨"
+          }
+        },
+        {
+          "id": "InDustCollecting",
+          "title": {
+            "en": "Dust Collecting",
+            "no": "Samler støv",
+            "nl": "Stof verzamelen",
+            "da": "Indsamling af støv",
+            "de": "Staubsammlung",
+            "es": "Recogida de polvo",
+            "fr": "Collecte de poussière",
+            "it": "Raccolta polvere",
+            "sv": "Insamling av damm",
+            "pl": "Zbieranie kurzu",
+            "ru": "Сбор пыли",
+            "ko": "먼지 수집 중"
+          }
         }
-    ]
+      ]
+    },
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=robot_vaccum_hub"
+    }
+  ]
 }

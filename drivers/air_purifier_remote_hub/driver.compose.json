@@ -1,19 +1,28 @@
 {
-    "id": "air_purifier_remote_hub",
-    "name":
-    {
-        "en": "Air Purifier Remote",
-        "no": "Luftrenser fjernkontroll"
-    },
-    "class": "remote",
-    "capabilities": [
-        "power_on",
-        "power_off",
-        "fan_speed_low",
-        "fan_speed_middle",
-        "fan_speed_high"
-    ],
-    "$extends": [
-        "hubDriver"
-    ]
+  "id": "air_purifier_remote_hub",
+  "name": {
+    "en": "Air Purifier Remote",
+    "no": "Luftrenser fjernkontroll",
+    "nl": "Luchtreiniger Afstandsbediening",
+    "da": "Luftrenser Fjernbetjening",
+    "de": "Luftreiniger Fernbedienung",
+    "es": "Mando a Distancia del Purificador de Aire",
+    "fr": "Télécommande Purificateur d'Air",
+    "it": "Telecomando per Purificatore d'Aria",
+    "sv": "Fjärrkontroll för Luftrenare",
+    "pl": "Pilot do Oczyszczacza Powietrza",
+    "ru": "Пульт от Очистителя Воздуха",
+    "ko": "공기 청정기 리모컨"
+  },
+  "class": "remote",
+  "capabilities": [
+    "power_on",
+    "power_off",
+    "fan_speed_low",
+    "fan_speed_middle",
+    "fan_speed_high"
+  ],
+  "$extends": [
+    "hubDriver"
+  ]
 }

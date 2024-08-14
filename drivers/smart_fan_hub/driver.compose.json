@@ -1,18 +1,27 @@
 {
-    "id": "smart_fan_hub",
-    "name":
-    {
-        "en": "Smart Fan (HUB)",
-        "no": "Smart vifte (HUB)"
-    },
-    "class": "other",
-    "capabilities": [
-        "onoff",
-        "smart_fan_speed",
-        "smart_fan_mode",
-        "smart_fan_shake_range"
-    ],
-    "$extends": [
-        "hubDriver"
-    ]
+  "id": "smart_fan_hub",
+  "name": {
+    "en": "Smart Fan (HUB)",
+    "no": "Smart vifte (HUB)",
+    "nl": "Slimme Ventilator (HUB)",
+    "da": "Smart Ventilator (HUB)",
+    "de": "Smarter Ventilator (HUB)",
+    "es": "Ventilador Inteligente (HUB)",
+    "fr": "Ventilateur Intelligent (HUB)",
+    "it": "Ventilatore Intelligente (HUB)",
+    "sv": "Smart Fläkt (HUB)",
+    "pl": "Inteligentny Wentylator (HUB)",
+    "ru": "Умный Вентилятор (HUB)",
+    "ko": "스마트 팬 (HUB)"
+  },
+  "class": "other",
+  "capabilities": [
+    "onoff",
+    "smart_fan_speed",
+    "smart_fan_mode",
+    "smart_fan_shake_range"
+  ],
+  "$extends": [
+    "hubDriver"
+  ]
 }

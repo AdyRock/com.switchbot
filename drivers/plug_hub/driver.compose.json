@@ -1,16 +1,26 @@
 {
-    "id": "plug_hub",
-    "name": {
-        "en": "Plug (HUB)",
-        "no": "Plugg (HUB)"
-    },
-    "class": "socket",
-    "capabilities": [
-        "onoff",
-        "measure_current",
-        "measure_voltage"
-    ],
-    "$extends": [
-        "hubDriver"
-    ]
+  "id": "plug_hub",
+  "name": {
+    "en": "Plug (HUB)",
+    "no": "Plugg (HUB)",
+    "nl": "Plug (HUB)",
+    "da": "Stik (HUB)",
+    "de": "Stecker (HUB)",
+    "es": "Enchufe (HUB)",
+    "fr": "Prise (HUB)",
+    "it": "Spina (HUB)",
+    "sv": "Kontakt (HUB)",
+    "pl": "Wtyczka (HUB)",
+    "ru": "Разъем (HUB)",
+    "ko": "플러그 (HUB)"
+  },
+  "class": "socket",
+  "capabilities": [
+    "onoff",
+    "measure_current",
+    "measure_voltage"
+  ],
+  "$extends": [
+    "hubDriver"
+  ]
 }

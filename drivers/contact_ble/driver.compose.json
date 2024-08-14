@@ -1,65 +1,105 @@
 {
-    "id": "presence_ble",
-    "name": {
-        "en": "Contact Sensor (BLE)",
-        "no": "Kontaktsensor (BLE)"
-    },
-    "platforms": [
-        "local",
-        "cloud"
-    ],
-    "connectivity": [
-        "ble"
-    ],
-    "class": "sensor",
-    "capabilities": [
-        "alarm_motion",
-        "bright",
-        "alarm_contact",
-        "alarm_contact.left_open",
-        "entry_id",
-        "exit_id",
-        "button_press_id",
-        "measure_battery",
-        "rssi"
-    ],
-    "capabilitiesOptions": {
-        "alarm_contact.left_open": {
-            "title": {
-                "en": "Left Open",
-                "no": "Fremdeles åpen"
-            },
-            "insightsTitleTrue": {
-                "en": "Contact Left Open",
-                "no": "Kontaktalarm fremdeles på"
-            },
-            "insightsTitleFalse": {
-                "en": "Contact Closed",
-                "no": "Kontaktalarm slått av"
-            }
-        }
-    },
-    "pair": [
-        {
-            "id": "list_my_devices",
-            "template": "list_devices",
-            "navigation": {
-                "next": "add_my_devices"
-            }
-        },
-        {
-            "id": "add_my_devices",
-            "template": "add_devices"
-        }
-    ],
-    "energy": {
-        "batteries": [
-            "AAA",
-            "AAA"
-        ]
-    },
-    "images": {
-        "large": "/drivers/contact_ble/assets/images/large.jpg",
-        "small": "/drivers/contact_ble/assets/images/small.jpg"
+  "id": "presence_ble",
+  "name": {
+    "en": "Contact Sensor (BLE)",
+    "no": "Kontaktsensor (BLE)",
+    "nl": "Contactsensor (BLE)",
+    "da": "Kontakt Sensor (BLE)",
+    "de": "Kontaktsensor (BLE)",
+    "es": "Sensor de contacto (BLE)",
+    "fr": "Capteur de contact (BLE)",
+    "it": "Sensore di contatto (BLE)",
+    "sv": "Kontaktsensor (BLE)",
+    "pl": "Czujnik kontaktu (BLE)",
+    "ru": "Датчик контакта (BLE)",
+    "ko": "접촉 센서 (BLE)"
+  },
+  "platforms": [
+    "local",
+    "cloud"
+  ],
+  "connectivity": [
+    "ble"
+  ],
+  "class": "sensor",
+  "capabilities": [
+    "alarm_motion",
+    "bright",
+    "alarm_contact",
+    "alarm_contact.left_open",
+    "entry_id",
+    "exit_id",
+    "button_press_id",
+    "measure_battery",
+    "rssi"
+  ],
+  "capabilitiesOptions": {
+    "alarm_contact.left_open": {
+      "title": {
+        "en": "Left Open",
+        "no": "Fremdeles åpen",
+        "nl": "Open gelaten",
+        "da": "Efterladt åben",
+        "de": "Offen gelassen",
+        "es": "Dejado abierto",
+        "fr": "Laissé ouvert",
+        "it": "Lasciato aperto",
+        "sv": "Lämnad öppen",
+        "pl": "Pozostawiony otwarty",
+        "ru": "Оставлен открытым",
+        "ko": "열린 상태"
+      },
+      "insightsTitleTrue": {
+        "en": "Contact Left Open",
+        "no": "Kontaktalarm fremdeles på",
+        "nl": "Contact open gelaten",
+        "da": "Kontakt åben",
+        "de": "Kontakt offen gelassen",
+        "es": "Contacto abierto",
+        "fr": "Contact laissé ouvert",
+        "it": "Contatto lasciato aperto",
+        "sv": "Kontakt lämnad öppen",
+        "pl": "Kontakt pozostał otwarty",
+        "ru": "Контакт оставлен открытым",
+        "ko": "접촉이 열린 상태"
+      },
+      "insightsTitleFalse": {
+        "en": "Contact Closed",
+        "no": "Kontaktalarm slått av",
+        "nl": "Contact gesloten",
+        "da": "Kontakt lukket",
+        "de": "Kontakt geschlossen",
+        "es": "Contacto cerrado",
+        "fr": "Contact fermé",
+        "it": "Contatto chiuso",
+        "sv": "Kontakt stängd",
+        "pl": "Kontakt zamknięty",
+        "ru": "Контакт закрыт",
+        "ko": "접촉이 닫힌 상태"
+      }
     }
+  },
+  "pair": [
+    {
+      "id": "list_my_devices",
+      "template": "list_devices",
+      "navigation": {
+        "next": "add_my_devices"
+      }
+    },
+    {
+      "id": "add_my_devices",
+      "template": "add_devices"
+    }
+  ],
+  "energy": {
+    "batteries": [
+      "AAA",
+      "AAA"
+    ]
+  },
+  "images": {
+    "large": "/drivers/contact_ble/assets/images/large.jpg",
+    "small": "/drivers/contact_ble/assets/images/small.jpg"
+  }
 }

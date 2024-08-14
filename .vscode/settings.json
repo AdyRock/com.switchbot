@@ -1,8 +1,8 @@
 {
-    "cSpell.words": [
-        "unmute"
-    ],
-	"cSpell.suggestionMenuType": "quickFix",
-	"editor.detectIndentation": false,
-	"editor.insertSpaces": false
+  "cSpell.words": [
+    "unmute"
+  ],
+  "cSpell.suggestionMenuType": "quickFix",
+  "editor.detectIndentation": false,
+  "editor.insertSpaces": false
 }

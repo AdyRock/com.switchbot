@@ -1,11 +1,20 @@
 {
-    "type": "boolean",
-    "getable": false,
-    "setable": true,
-    "uiComponent": "button",
-    "title":
-    {
-        "en": "Up",
-        "no": "Opp"
-    }
+  "type": "boolean",
+  "getable": false,
+  "setable": true,
+  "uiComponent": "button",
+  "title": {
+    "en": "Up",
+    "no": "Opp",
+    "nl": "Omhoog",
+    "da": "Op",
+    "de": "Oben",
+    "es": "Arriba",
+    "fr": "Haut",
+    "it": "Su",
+    "sv": "Upp",
+    "pl": "Do góry",
+    "ru": "Вверх",
+    "ko": "위로"
+  }
 }

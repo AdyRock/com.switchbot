@@ -1,62 +1,130 @@
 {
-	"id": "windowcoverings_custom_set",
-	"title": {
-		"en": "Set the position at selected spreed",
-		"nl": "Zet de positie op geselecteerde snelheid"
-	},
-	"titleFormatted": {
-		"en": "Set the position to [[percentage]] at [[speed]] speed",
-		"nl": "Zet de positie op [[percentage]] bij [[speed]] snelheid"
-	},
-	"hint": {
-		"en": "Change the position to open (100%), closed (0%), or a value in betwee at the selected speed.",
-		"nl": "Verander de positie naar open (100%), gesloten (0%), of een waarde daar tussenin op de geselecteerde snelheid."
-	},
-	"args": [
-		{
-			"name": "device",
-			"type": "device",
-			"filter": "driver_id=curtains_ble|curtains_hub"
-		},
-		{
-			"name": "percentage",
-			"title": {
-				"en": "Position",
-				"nl": "Positie"
-			},
-			"type": "range",
-			"min": 0,
-			"max": 1,
-			"step": 0.01,
-			"value": 0.5,
-			"label": "%",
-			"labelMultiplier": 100,
-			"labelDecimals": 0
-		},
-		{
-			"name": "speed",
-			"title": {
-				"en": "Speed",
-				"nl": "Snelheid"
-			},
-			"type": "dropdown",
-			"value": "fast",
-			"values": [
-				{
-					"id": "fast",
-					"title": {
-						"en": "Performance",
-						"no": "Ytelse"
-					}
-				},
-				{
-					"id": "slow",
-					"title": {
-						"en": "Silent",
-						"no": "Stille"
-					}
-				}
-			]
-		}
-	]
+  "id": "windowcoverings_custom_set",
+  "title": {
+    "en": "Set the position at selected spreed",
+    "nl": "Zet de positie op geselecteerde snelheid",
+    "da": "Indstil positionen ved valgt hastighed",
+    "de": "Stellen Sie die Position bei ausgewählter Geschwindigkeit ein",
+    "es": "Establecer la posición a la velocidad seleccionada",
+    "fr": "Définir la position à la vitesse sélectionnée",
+    "it": "Imposta la posizione alla velocità selezionata",
+    "no": "Sett posisjonen ved valgt hastighet",
+    "sv": "Ställ in positionen vid vald hastighet",
+    "pl": "Ustaw pozycję przy wybranej prędkości",
+    "ru": "Установите положение на выбранной скорости",
+    "ko": "선택한 속도로 위치 설정"
+  },
+  "titleFormatted": {
+    "en": "Set the position to [[percentage]] at [[speed]] speed",
+    "nl": "Zet de positie op [[percentage]] bij [[speed]] snelheid",
+    "da": "Indstil positionen til [[percentage]] ved [[speed]] hastighed",
+    "de": "Stellen Sie die Position auf [[percentage]] bei [[speed]] Geschwindigkeit ein",
+    "es": "Establezca la posición en [[percentage]] a la velocidad de [[speed]]",
+    "fr": "Réglez la position sur [[percentage]] à la vitesse de [[speed]]",
+    "it": "Imposta la posizione su [[percentage]] alla velocità di [[speed]]",
+    "no": "Sett posisjonen til [[percentage]] ved [[speed]] hastighet",
+    "sv": "Ställ in positionen till [[percentage]] vid hastigheten [[speed]]",
+    "pl": "Ustaw pozycję na [[percentage]] przy prędkości [[speed]]",
+    "ru": "Установите положение на [[percentage]] при скорости [[speed]]",
+    "ko": "[[speed]] 속도로 [[percentage]] 위치를 설정하세요"
+  },
+  "hint": {
+    "en": "Change the position to open (100%), closed (0%), or a value in betwee at the selected speed.",
+    "nl": "Verander de positie naar open (100%), gesloten (0%), of een waarde daar tussenin op de geselecteerde snelheid.",
+    "da": "Skift positionen til åben (100%), lukket (0%) eller en værdi derimellem ved den valgte hastighed.",
+    "de": "Ändern Sie die Position auf offen (100%), geschlossen (0%) oder einen Wert dazwischen bei der ausgewählten Geschwindigkeit.",
+    "es": "Cambie la posición a abierto (100%), cerrado (0%) o un valor intermedio a la velocidad seleccionada.",
+    "fr": "Changez la position pour ouverte (100 %), fermée (0 %) ou une valeur intermédiaire à la vitesse sélectionnée.",
+    "it": "Modifica la posizione in aperta (100%), chiusa (0%) o un valore intermedio alla velocità selezionata.",
+    "no": "Endre posisjonen til åpen (100%), lukket (0%) eller en verdi mellom ved valgt hastighet.",
+    "sv": "Ändra positionen till öppen (100%), stängd (0%) eller ett värde däremellan vid vald hastighet.",
+    "pl": "Zmień pozycję na otwartą (100%), zamkniętą (0%) lub wartość pośrednią przy wybranej prędkości.",
+    "ru": "Измените положение на открытое (100%), закрытое (0%) или промежуточное значение на выбранной скорости.",
+    "ko": "위치를 완전히 열림(100%), 닫힘(0%) 또는 선택한 속도에서 중간 값으로 변경하세요."
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=curtains_ble|curtains_hub"
+    },
+    {
+      "name": "percentage",
+      "title": {
+        "en": "Position",
+        "nl": "Positie",
+        "da": "Position",
+        "de": "Position",
+        "es": "Posición",
+        "fr": "Position",
+        "it": "Posizione",
+        "no": "Posisjon",
+        "sv": "Position",
+        "pl": "Pozycja",
+        "ru": "Позиция",
+        "ko": "위치"
+      },
+      "type": "range",
+      "min": 0,
+      "max": 1,
+      "step": 0.01,
+      "value": 0.5,
+      "label": "%",
+      "labelMultiplier": 100,
+      "labelDecimals": 0
+    },
+    {
+      "name": "speed",
+      "title": {
+        "en": "Speed",
+        "nl": "Snelheid",
+        "da": "Hastighed",
+        "de": "Geschwindigkeit",
+        "es": "Velocidad",
+        "fr": "Vitesse",
+        "it": "Velocità",
+        "no": "Hastighet",
+        "sv": "Hastighet",
+        "pl": "Prędkość",
+        "ru": "Скорость",
+        "ko": "속도"
+      },
+      "type": "dropdown",
+      "value": "fast",
+      "values": [
+        {
+          "id": "fast",
+          "title": {
+            "en": "Performance",
+            "no": "Ytelse",
+            "da": "Ydelse",
+            "de": "Leistung",
+            "es": "Rendimiento",
+            "fr": "Performance",
+            "it": "Prestazioni",
+            "sv": "Prestanda",
+            "pl": "Wydajność",
+            "ru": "Производительность",
+            "ko": "성능"
+          }
+        },
+        {
+          "id": "slow",
+          "title": {
+            "en": "Silent",
+            "no": "Stille",
+            "da": "Stille",
+            "de": "Leise",
+            "es": "Silencioso",
+            "fr": "Silencieux",
+            "it": "Silenzioso",
+            "sv": "Tyst",
+            "pl": "Cichy",
+            "ru": "Тихо",
+            "ko": "조용히"
+          }
+        }
+      ]
+    }
+  ]
 }

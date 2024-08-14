@@ -1,0 +1,67 @@
+{
+  "settings": {
+    "clear": "Borrar Registro",
+    "send": "Enviar Registro",
+    "getDevices": "Obtener Dispositivos HUB"
+  },
+  "capabilities": {
+    "brightness": "Brillo"
+  },
+  "pair": {
+    "api_code": {
+      "title": "Detalles de Conexión",
+      "intro": "Obtén el código API desde la aplicación móvil de SwitchBot",
+      "intro1": "1. Abre la aplicación móvil de SwitchBot",
+      "intro2": "2. Ve a Perfil > Preferencias",
+      "intro3": "3. Toca la Versión de la App 10 veces para mostrar las Opciones de Desarrollador",
+      "intro4": "4. Toca Opciones de Desarrollador",
+      "intro5": "5. Toca Obtener Token",
+      "api_code": "Código API",
+      "login": "Conectar",
+      "checking": "Comprobando conexión",
+      "try_again": "Inténtalo de nuevo",
+      "correct": "Conexión exitosa",
+      "adding": "Agregando dispositivo(s)"
+    },
+    "button_code": {
+      "title": "Definir Botones",
+      "instructions": "Introduce el texto para cada botón exactamente como aparece en cada botón en la aplicación SwitchBot",
+      "button1": "Código de Comando 1",
+      "button2": "Código de Comando 2",
+      "button3": "Código de Comando 3",
+      "button4": "Código de Comando 4",
+      "button5": "Código de Comando 5",
+      "button6": "Código de Comando 6",
+      "button7": "Código de Comando 7",
+      "button8": "Código de Comando 8",
+      "button9": "Código de Comando 9",
+      "button10": "Código de Comando 10",
+      "button11": "Código de Comando 11",
+      "button12": "Código de Comando 12",
+      "button13": "Código de Comando 13",
+      "button14": "Código de Comando 14",
+      "button15": "Código de Comando 15",
+      "button16": "Código de Comando 16",
+      "button17": "Código de Comando 17",
+      "button18": "Código de Comando 18",
+      "button19": "Código de Comando 19",
+      "button20": "Código de Comando 20",
+      "button21": "Código de Comando 21",
+      "button22": "Código de Comando 22",
+      "button23": "Código de Comando 23",
+      "button24": "Código de Comando 24",
+      "button25": "Código de Comando 25",
+      "button26": "Código de Comando 26",
+      "button27": "Código de Comando 27",
+      "button28": "Código de Comando 28",
+      "button29": "Código de Comando 29",
+      "button30": "Código de Comando 30",
+      "button31": "Código de Comando 31",
+      "button32": "Código de Comando 32",
+      "button33": "Código de Comando 33",
+      "button34": "Código de Comando 34",
+      "button35": "Código de Comando 35",
+      "button36": "Código de Comando 36"
+    }
+  }
+}

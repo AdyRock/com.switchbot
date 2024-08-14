@@ -1,11 +1,20 @@
 {
-    "type": "boolean",
-    "getable": false,
-    "setable": true,
-    "uiComponent": "button",
-    "title":
-    {
-        "en": "Back",
-        "no": "Tilbake"
-    }
+  "type": "boolean",
+  "getable": false,
+  "setable": true,
+  "uiComponent": "button",
+  "title": {
+    "en": "Back",
+    "no": "Tilbake",
+    "nl": "Terug",
+    "da": "Tilbage",
+    "de": "Zurück",
+    "es": "Atrás",
+    "fr": "Retour",
+    "it": "Indietro",
+    "sv": "Tillbaka",
+    "pl": "Wstecz",
+    "ru": "Назад",
+    "ko": "뒤로"
+  }
 }

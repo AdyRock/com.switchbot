@@ -1,12 +1,21 @@
 {
-    "type": "boolean",
-    "getable": false,
-    "setable": true,
-    "uiComponent": "button",
-    "title":
-    {
-        "en": "Rewind",
-        "no": "Spol tilbake"
-    },
-    "icon": "/assets/rewind.svg"
+  "type": "boolean",
+  "getable": false,
+  "setable": true,
+  "uiComponent": "button",
+  "title": {
+    "en": "Rewind",
+    "no": "Spol tilbake",
+    "nl": "Terugspoelen",
+    "da": "Spol tilbage",
+    "de": "Zurückspulen",
+    "es": "Rebobinar",
+    "fr": "Rembobiner",
+    "it": "Riavvolgere",
+    "sv": "Spola tillbaka",
+    "pl": "Cofnij",
+    "ru": "Перемотать",
+    "ko": "되감기"
+  },
+  "icon": "/assets/rewind.svg"
 }

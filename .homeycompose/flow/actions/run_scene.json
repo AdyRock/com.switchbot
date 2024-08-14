@@ -1,26 +1,82 @@
 {
   "title": {
     "en": "Run a Scene",
-    "no": "Kjør en scene"
+    "no": "Kjør en scene",
+    "nl": "Voer een scene uit",
+    "da": "Kør en scene",
+    "de": "Eine Szene ausführen",
+    "es": "Ejecutar una escena",
+    "fr": "Lancer une scène",
+    "it": "Esegui una scena",
+    "sv": "Kör en scen",
+    "pl": "Uruchom scenę",
+    "ru": "Запустить сцену",
+    "ko": "장면 실행"
   },
   "titleFormatted": {
-      "en": "Run the '[[scene]]' scene",
-      "no": "Kjør scenen [[scene]]"
+    "en": "Run the '[[scene]]' scene",
+    "no": "Kjør scenen [[scene]]",
+    "nl": "Voer de '[[scene]]' scene uit",
+    "da": "Kør '[[scene]]' scenen",
+    "de": "Führe die '[[scene]]'-Szene aus",
+    "es": "Ejecuta la escena '[[scene]]'",
+    "fr": "Lancez la scène '[[scene]]'",
+    "it": "Esegui la scena '[[scene]]'",
+    "sv": "Kör scenen '[[scene]]'",
+    "pl": "Uruchom scenę '[[scene]]'",
+    "ru": "Запустить сцену '[[scene]]'",
+    "ko": "'[[scene]]' 장면 실행"
   },
   "hint": {
     "en": "Run a SwitchBot scene",
-    "no": "Kjør en SwitchBot-scene"
+    "no": "Kjør en SwitchBot-scene",
+    "nl": "Voer een SwitchBot-scene uit",
+    "da": "Kør en SwitchBot-scene",
+    "de": "Führe eine SwitchBot-Szene aus",
+    "es": "Ejecuta una escena de SwitchBot",
+    "fr": "Lancez une scène SwitchBot",
+    "it": "Esegui una scena SwitchBot",
+    "sv": "Kör en SwitchBot-scen",
+    "pl": "Uruchom scenę SwitchBot",
+    "ru": "Запустите сцену SwitchBot",
+    "ko": "SwitchBot 장면 실행"
   },
   "args": [
     {
       "type": "autocomplete",
       "name": "scene",
-      "title": { "en": "Scene Name", "no": "Scenenavn" },
+      "title": {
+        "en": "Scene Name",
+        "no": "Scenenavn",
+        "nl": "Scenenaam",
+        "da": "Scenenavn",
+        "de": "Szenenname",
+        "es": "Nombre de la escena",
+        "fr": "Nom de la scène",
+        "it": "Nome della scena",
+        "sv": "Scennamn",
+        "pl": "Nazwa sceny",
+        "ru": "Название сцены",
+        "ko": "장면 이름"
+      },
       "placeholder": {
         "en": "Scene Name",
-        "no": "Scenenavn"
+        "no": "Scenenavn",
+        "nl": "Scenenaam",
+        "da": "Scenenavn",
+        "de": "Szenenname",
+        "es": "Nombre de la escena",
+        "fr": "Nom de la scène",
+        "it": "Nome della scena",
+        "sv": "Scennamn",
+        "pl": "Nazwa sceny",
+        "ru": "Название сцены",
+        "ko": "장면 이름"
       }
     }
   ],
-  "platforms": ["local", "cloud"]
+  "platforms": [
+    "local",
+    "cloud"
+  ]
 }

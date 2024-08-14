@@ -1,13 +1,33 @@
 {
-    "type": "number",
-    "title": {
-        "en": "Light Level",
-        "no": "Lysnivå"
-    },
-    "units": {
-        "en": ""
-    },
-    "getable": true,
-    "setable": false,
-    "icon": "/assets/brightness.svg"
+  "type": "number",
+  "title": {
+    "en": "Light Level",
+    "no": "Lysnivå",
+    "nl": "Lichtniveau",
+    "da": "Lysniveau",
+    "de": "Lichtniveau",
+    "es": "Nivel de luz",
+    "fr": "Niveau de lumière",
+    "it": "Livello di luce",
+    "sv": "Ljusstyrka",
+    "pl": "Poziom światła",
+    "ru": "Уровень света",
+    "ko": "조도 레벨"
+  },
+  "units": {
+    "en": "",
+    "nl": "",
+    "da": "",
+    "de": "",
+    "es": "",
+    "fr": "",
+    "it": "",
+    "sv": "",
+    "pl": "",
+    "ru": "",
+    "ko": ""
+  },
+  "getable": true,
+  "setable": false,
+  "icon": "/assets/brightness.svg"
 }

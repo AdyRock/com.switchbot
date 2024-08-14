@@ -1,55 +1,134 @@
 {
-    "title": {
-        "en": "Set the vacuum power level",
-        "no": "Sett opp støvsuger styrken"
-    },
-    "titleFormatted": {
-        "en": "Set the power level to [[power]]",
-        "no": "Sett støvsuger styrken til [[power]]"
-    },
-    "hint": {
-        "en": "Change the power level of the vacuum",
-        "no": "Endre støvsuger styrken"
-    },
-    "args": [
+  "title": {
+    "en": "Set the vacuum power level",
+    "no": "Sett opp støvsuger styrken",
+    "nl": "Stel het stofzuigerniveau in",
+    "da": "Indstil støvsugerens effektniveau",
+    "de": "Stellen Sie die Saugleistung ein",
+    "es": "Ajustar el nivel de potencia del aspirador",
+    "fr": "Régler le niveau de puissance de l'aspirateur",
+    "it": "Imposta il livello di potenza dell'aspirapolvere",
+    "sv": "Ställ in sugkraftsnivån",
+    "pl": "Ustaw poziom mocy odkurzacza",
+    "ru": "Установите уровень мощности пылесоса",
+    "ko": "진공기 세기 설정"
+  },
+  "titleFormatted": {
+    "en": "Set the power level to [[power]]",
+    "no": "Sett støvsuger styrken til [[power]]",
+    "nl": "Stel het vermogen in op [[power]]",
+    "da": "Indstil effektniveauet til [[power]]",
+    "de": "Stellen Sie die Leistung auf [[power]] ein",
+    "es": "Ajustar el nivel de potencia a [[power]]",
+    "fr": "Régler le niveau de puissance à [[power]]",
+    "it": "Imposta il livello di potenza a [[power]]",
+    "sv": "Ställ in kraftnivån till [[power]]",
+    "pl": "Ustaw poziom mocy na [[power]]",
+    "ru": "Установите уровень мощности на [[power]]",
+    "ko": "세기를 [[power]]로 설정"
+  },
+  "hint": {
+    "en": "Change the power level of the vacuum",
+    "no": "Endre støvsuger styrken",
+    "nl": "Wijzig het vermogen van de stofzuiger",
+    "da": "Skift effektniveauet på støvsugeren",
+    "de": "Ändern Sie die Saugleistung des Staubsaugers",
+    "es": "Cambia el nivel de potencia del aspirador",
+    "fr": "Changer le niveau de puissance de l'aspirateur",
+    "it": "Cambia il livello di potenza dell'aspirapolvere",
+    "sv": "Ändra sugkraftsnivån på dammsugaren",
+    "pl": "Zmień poziom mocy odkurzacza",
+    "ru": "Измените уровень мощности пылесоса",
+    "ko": "진공기 세기를 변경"
+  },
+  "args": [
+    {
+      "name": "power",
+      "type": "dropdown",
+      "title": {
+        "en": "Power Level",
+        "no": "Styrkenivå",
+        "nl": "Vermogensniveau",
+        "da": "Effektniveau",
+        "de": "Leistungsstufe",
+        "es": "Nivel de Potencia",
+        "fr": "Niveau de Puissance",
+        "it": "Livello di potenza",
+        "sv": "Kraftnivå",
+        "pl": "Poziom mocy",
+        "ru": "Уровень мощности",
+        "ko": "전력 수준"
+      },
+      "values": [
         {
-            "name": "power",
-            "type": "dropdown",
-            "title": {
-                "en": "Power Level",
-                "no": "Styrkenivå"
-            },
-            "values": [
-                {
-                    "id": "0",
-                    "label": {
-                        "en": "Quiet",
-                        "no": "Stille"
-                    }
-                },
-                {
-                    "id": "1",
-                    "label": {
-                        "en": "Normal",
-                        "no": "Normal"
-                    }
-                },
-                {
-                    "id": "2",
-                    "label": {
-                        "en": "Strong",
-                        "no": "Kraftig"
-                    }
-                },
-                {
-                    "id": "3",
-                    "label": {
-                        "en": "Maximum",
-                        "no": "Maksimal"
-                    }
-                }
-            ]
+          "id": "0",
+          "label": {
+            "en": "Quiet",
+            "no": "Stille",
+            "nl": "Stil",
+            "da": "Stille",
+            "de": "Leise",
+            "es": "Silencioso",
+            "fr": "Silencieux",
+            "it": "Silenzioso",
+            "sv": "Tyst",
+            "pl": "Cichy",
+            "ru": "Тихий",
+            "ko": "조용히"
+          }
+        },
+        {
+          "id": "1",
+          "label": {
+            "en": "Normal",
+            "no": "Normal",
+            "nl": "Normaal",
+            "da": "Normal",
+            "de": "Normal",
+            "es": "Normal",
+            "fr": "Normal",
+            "it": "Normale",
+            "sv": "Normal",
+            "pl": "Normalny",
+            "ru": "Нормальный",
+            "ko": "보통"
+          }
+        },
+        {
+          "id": "2",
+          "label": {
+            "en": "Strong",
+            "no": "Kraftig",
+            "nl": "Sterk",
+            "da": "Stærk",
+            "de": "Stark",
+            "es": "Fuerte",
+            "fr": "Fort",
+            "it": "Forte",
+            "sv": "Stark",
+            "pl": "Silny",
+            "ru": "Сильный",
+            "ko": "강하다"
+          }
+        },
+        {
+          "id": "3",
+          "label": {
+            "en": "Maximum",
+            "no": "Maksimal",
+            "nl": "Maximaal",
+            "da": "Maksimal",
+            "de": "Maximal",
+            "es": "Máximo",
+            "fr": "Maximum",
+            "it": "Massimo",
+            "sv": "Maximal",
+            "pl": "Maksymalny",
+            "ru": "Максимальный",
+            "ko": "최대한"
+          }
         }
-    ]
+      ]
+    }
+  ]
 }
-	

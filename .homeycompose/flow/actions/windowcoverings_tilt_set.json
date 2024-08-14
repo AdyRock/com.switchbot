@@ -1,43 +1,76 @@
 {
-    "highlight": true,
-    "title": {
-        "en": "Set the position to",
-        "nl": "Zet de positie naar",
-        "de": "Setze die Position auf",
-        "fr": "Mettre la position sur",
-        "it": "Imposta la posizione su",
-        "sv": "Ställ in positionen till",
-        "no": "Innstill posisjonen til",
-        "es": "Configurar la posición como",
-        "da": "Indstil positionen til",
-        "ru": "Установите позицию на",
-        "pl": "Ustaw pozycję na"
+  "highlight": true,
+  "title": {
+    "en": "Set the position to",
+    "nl": "Zet de positie naar",
+    "de": "Setze die Position auf",
+    "fr": "Mettre la position sur",
+    "it": "Imposta la posizione su",
+    "sv": "Ställ in positionen till",
+    "no": "Innstill posisjonen til",
+    "es": "Configurar la posición como",
+    "da": "Indstil positionen til",
+    "ru": "Установите позицию на",
+    "pl": "Ustaw pozycję na"
+  },
+  "titleFormatted": {
+    "en": "Set tilt position to [[windowcoverings_tilt_set]]",
+    "no": "Sett posisjonen til [[windowcoverings_tilt_set]]",
+    "nl": "Zet de hellingspositie op [[windowcoverings_tilt_set]]",
+    "da": "Indstil vippepositionen til [[windowcoverings_tilt_set]]",
+    "de": "Setze die Neigungsposition auf [[windowcoverings_tilt_set]]",
+    "es": "Configura la posición de inclinación a [[windowcoverings_tilt_set]]",
+    "fr": "Mettre la position d'inclinaison sur [[windowcoverings_tilt_set]]",
+    "it": "Imposta la posizione di inclinazione su [[windowcoverings_tilt_set]]",
+    "sv": "Ställ in lutningspositionen till [[windowcoverings_tilt_set]]",
+    "pl": "Ustaw pozycję nachylenia na [[windowcoverings_tilt_set]]",
+    "ru": "Установите положение наклона на [[windowcoverings_tilt_set]]",
+    "ko": "[[windowcoverings_tilt_set]]로 기울기 위치 설정"
+  },
+  "hint": {
+    "en": "Change the position to tilt up (100%), open (50%), tilt down (0%), or a value in between.",
+    "no": "Endre posisjonen til tilt opp (100%), åpen (50%), tilt ned (0%), eller en verdi i mellom.",
+    "nl": "Verander de positie naar omhoog kantelen (100%), open (50%), omlaag kantelen (0%), of een waarde daartussenin.",
+    "da": "Skift positionen til tilt op (100%), åben (50%), tilt ned (0%), eller en værdi derimellem.",
+    "de": "Ändere die Position auf nach oben kippen (100%), offen (50%), nach unten kippen (0%) oder einen Wert dazwischen.",
+    "es": "Cambia la posición a inclinación arriba (100%), abierto (50%), inclinación abajo (0%), o un valor intermedio.",
+    "fr": "Changez la position pour incliner vers le haut (100%), ouvert (50%), incliner vers le bas (0%) ou une valeur entre les deux.",
+    "it": "Cambia la posizione per inclinare verso l'alto (100%), aprire (50%), inclinare verso il basso (0%) o un valore intermedio.",
+    "sv": "Ändra positionen till att luta uppåt (100%), öppet (50%), luta nedåt (0%), eller ett värde däremellan.",
+    "pl": "Zmień pozycję na nachylenie w górę (100%), otwarte (50%), nachylenie w dół (0%) lub wartość pośrednią.",
+    "ru": "Измените положение на наклон вверх (100%), открыто (50%), наклон вниз (0%) или значение между ними.",
+    "ko": "위로 기울이기 (100%), 열기 (50%), 아래로 기울이기 (0%) 또는 그 사이 값으로 위치를 변경하십시오."
+  },
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=blind_tilt_ble|blind_tilt_hub"
     },
-    "titleFormatted": {
-        "en": "Set tilt position to [[windowcoverings_tilt_set]]",
-        "no": "Sett posisjonen til [[windowcoverings_tilt_set]]"
-    },
-    "hint": {
-        "en": "Change the position to tilt up (100%), open (50%), tilt down (0%), or a value in between.",
-        "no": "Endre posisjonen til tilt opp (100%), åpen (50%), tilt ned (0%), eller en verdi i mellom."
-    },
-    "args": [
-        {
-            "type": "device",
-            "name": "device",
-            "filter": "driver_id=blind_tilt_ble|blind_tilt_hub"
-        },
-        {
-            "name": "windowcoverings_tilt_set",
-            "type": "range",
-            "title": { "en": "Position", "no": "Posisjon" },
-            "min": 0,
-            "max": 1,
-            "step": 0.01,
-            "value": 0.5,
-            "label": "%",
-            "labelMultiplier": 100,
-            "labelDecimals": 0
-        }
-    ]
+    {
+      "name": "windowcoverings_tilt_set",
+      "type": "range",
+      "title": {
+        "en": "Position",
+        "no": "Posisjon",
+        "nl": "Positie",
+        "da": "Position",
+        "de": "Position",
+        "es": "Posición",
+        "fr": "Position",
+        "it": "Posizione",
+        "sv": "Position",
+        "pl": "Pozycja",
+        "ru": "Позиция",
+        "ko": "위치"
+      },
+      "min": 0,
+      "max": 1,
+      "step": 0.01,
+      "value": 0.5,
+      "label": "%",
+      "labelMultiplier": 100,
+      "labelDecimals": 0
+    }
+  ]
 }

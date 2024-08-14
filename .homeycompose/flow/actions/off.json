@@ -1,14 +1,27 @@
 {
-    "title": {
-        "en": "Turn Off",
-        "no": "Skru av"
-    },
-    "args": [
-        {
-            "name": "device",
-            "type": "device",
-            "filter": "driver_id=dvd|tv_hub|air_con_hub|settop_box_hub|speaker|fan_hub|light_remote_hub|air_purifier_remote_hub"
-        }
-    ],
-    "platforms": ["local", "cloud"]
+  "title": {
+    "en": "Turn Off",
+    "no": "Skru av",
+    "nl": "Uitzetten",
+    "da": "Sluk",
+    "de": "Ausschalten",
+    "es": "Apagar",
+    "fr": "Éteindre",
+    "it": "Spegnere",
+    "sv": "Stäng av",
+    "pl": "Wyłącz",
+    "ru": "Выключить",
+    "ko": "끄다"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=dvd|tv_hub|air_con_hub|settop_box_hub|speaker|fan_hub|light_remote_hub|air_purifier_remote_hub"
+    }
+  ],
+  "platforms": [
+    "local",
+    "cloud"
+  ]
 }

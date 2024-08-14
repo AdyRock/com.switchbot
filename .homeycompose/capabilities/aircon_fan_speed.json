@@ -1,40 +1,90 @@
 {
-    "type": "enum",
-    "title": {
-        "en": "Fan Speed",
-        "no": "Viftehastighet"
+  "type": "enum",
+  "title": {
+    "en": "Fan Speed",
+    "no": "Viftehastighet",
+    "nl": "Ventilatorsnelheid",
+    "da": "Ventilatorhastighed",
+    "de": "Lüftergeschwindigkeit",
+    "es": "Velocidad del ventilador",
+    "fr": "Vitesse du ventilateur",
+    "it": "Velocità della ventola",
+    "sv": "Fläkthastighet",
+    "pl": "Prędkość wentylatora",
+    "ru": "Скорость вентилятора",
+    "ko": "팬 속도"
+  },
+  "values": [
+    {
+      "id": "1",
+      "title": {
+        "en": "Auto",
+        "no": "Auto",
+        "nl": "Auto",
+        "da": "Auto",
+        "de": "Auto",
+        "es": "Auto",
+        "fr": "Auto",
+        "it": "Auto",
+        "sv": "Auto",
+        "pl": "Auto",
+        "ru": "Авто",
+        "ko": "자동"
+      }
     },
-    "values": [
-        {
-          "id": "1",
-          "title": {
-            "en": "Auto",
-            "no": "Auto"
-          }
-        },
-        {
-          "id": "2",
-          "title": {
-            "en": "Low",
-            "no": "Lav"
-          }
-        },
-        {
-          "id": "3",
-          "title": {
-            "en": "Medium",
-            "no": "Middels"
-          }
-        },
-        {
-          "id": "4",
-          "title": {
-            "en": "High",
-            "no": "Høy"
-          }
-        }
-      ],
-    "getable": true,
-    "setable": true,
-    "icon": "/assets/air_con_fan.svg"
+    {
+      "id": "2",
+      "title": {
+        "en": "Low",
+        "no": "Lav",
+        "nl": "Laag",
+        "da": "Lav",
+        "de": "Niedrig",
+        "es": "Bajo",
+        "fr": "Bas",
+        "it": "Basso",
+        "sv": "Låg",
+        "pl": "Niski",
+        "ru": "Низкий",
+        "ko": "낮음"
+      }
+    },
+    {
+      "id": "3",
+      "title": {
+        "en": "Medium",
+        "no": "Middels",
+        "nl": "Medium",
+        "da": "Mellem",
+        "de": "Mittel",
+        "es": "Medio",
+        "fr": "Moyen",
+        "it": "Medio",
+        "sv": "Mellan",
+        "pl": "Średni",
+        "ru": "Средний",
+        "ko": "중간"
+      }
+    },
+    {
+      "id": "4",
+      "title": {
+        "en": "High",
+        "no": "Høy",
+        "nl": "Hoog",
+        "da": "Høj",
+        "de": "Hoch",
+        "es": "Alto",
+        "fr": "Élevé",
+        "it": "Alto",
+        "sv": "Hög",
+        "pl": "Wysoki",
+        "ru": "Высокий",
+        "ko": "높음"
+      }
+    }
+  ],
+  "getable": true,
+  "setable": true,
+  "icon": "/assets/air_con_fan.svg"
 }

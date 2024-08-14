@@ -1,11 +1,21 @@
 {
-    "type": "boolean",
-    "title": {
-        "en": "Open / Close",
-        "no": "Åpne / Lukke"
-    },
-    "getable": true,
-    "setable": true,
-    "uiQuickAction": true,
-    "uiComponent": "toggle"
+  "type": "boolean",
+  "title": {
+    "en": "Open / Close",
+    "no": "Åpne / Lukke",
+    "nl": "Openen / Sluiten",
+    "da": "Åbn / Luk",
+    "de": "Öffnen / Schließen",
+    "es": "Abrir / Cerrar",
+    "fr": "Ouvrir / Fermer",
+    "it": "Apri / Chiudi",
+    "sv": "Öppna / Stänga",
+    "pl": "Otwórz / Zamknij",
+    "ru": "Открыть / Закрыть",
+    "ko": "열기 / 닫기"
+  },
+  "getable": true,
+  "setable": true,
+  "uiQuickAction": true,
+  "uiComponent": "toggle"
 }

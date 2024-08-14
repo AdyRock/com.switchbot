@@ -1,14 +1,27 @@
 {
-    "title": {
-        "en": "Increase the brightness",
-        "no": "Øk lysstyrken"
-    },
-    "args": [
-        {
-            "name": "device",
-            "type": "device",
-            "filter": "driver_id=light_remote_hub"
-        }
-    ],
-    "platforms": ["local", "cloud"]
+  "title": {
+    "en": "Increase the brightness",
+    "no": "Øk lysstyrken",
+    "nl": "Verhoog de helderheid",
+    "da": "Øg lysstyrken",
+    "de": "Erhöhe die Helligkeit",
+    "es": "Aumentar el brillo",
+    "fr": "Augmenter la luminosité",
+    "it": "Aumenta la luminosità",
+    "sv": "Öka ljusstyrkan",
+    "pl": "Zwiększ jasność",
+    "ru": "Увеличьте яркость",
+    "ko": "밝기 증가"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=light_remote_hub"
+    }
+  ],
+  "platforms": [
+    "local",
+    "cloud"
+  ]
 }

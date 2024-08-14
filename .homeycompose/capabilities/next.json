@@ -1,12 +1,21 @@
 {
-    "type": "boolean",
-    "getable": false,
-    "setable": true,
-    "uiComponent": "button",
-    "title":
-    {
-        "en": "Next",
-        "no": "Neste"
-    },
-    "icon": "/assets/next.svg"
+  "type": "boolean",
+  "getable": false,
+  "setable": true,
+  "uiComponent": "button",
+  "title": {
+    "en": "Next",
+    "no": "Neste",
+    "nl": "Volgende",
+    "da": "Næste",
+    "de": "Weiter",
+    "es": "Siguiente",
+    "fr": "Suivant",
+    "it": "Avanti",
+    "sv": "Nästa",
+    "pl": "Następny",
+    "ru": "Далее",
+    "ko": "다음"
+  },
+  "icon": "/assets/next.svg"
 }

@@ -1,14 +1,27 @@
 {
-    "title": {
-        "en": "Set to medium speed",
-        "no": "Sett til middels fart"
-    },
-    "args": [
-        {
-            "name": "device",
-            "type": "device",
-            "filter": "driver_id=fan_hub|air_purifier_remote_hub"
-        }
-    ],
-    "platforms": ["local", "cloud"]
+  "title": {
+    "en": "Set to medium speed",
+    "no": "Sett til middels fart",
+    "nl": "Zet op gemiddelde snelheid",
+    "da": "Indstil til mellemhastighed",
+    "de": "Auf mittlere Geschwindigkeit einstellen",
+    "es": "Configurar a velocidad media",
+    "fr": "Réglez à vitesse moyenne",
+    "it": "Imposta a velocità media",
+    "sv": "Ställ in på medelhastighet",
+    "pl": "Ustaw na średnią prędkość",
+    "ru": "Установить на среднюю скорость",
+    "ko": "중간 속도로 설정"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=fan_hub|air_purifier_remote_hub"
+    }
+  ],
+  "platforms": [
+    "local",
+    "cloud"
+  ]
 }

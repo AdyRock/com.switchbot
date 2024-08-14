@@ -1,12 +1,21 @@
 {
-    "type": "number",
-    "getable": true,
-    "setable": false,
-    "uiComponent": "sensor",
-    "title":
-    {
-        "en": "Button Press ID",
-        "no": "Knappetrykk ID"
-    },
-    "icon": "/assets/button_press.svg" 
+  "type": "number",
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "title": {
+    "en": "Button Press ID",
+    "no": "Knappetrykk ID",
+    "nl": "Knopdruk ID",
+    "da": "Knap Tryk ID",
+    "de": "Tastendruck ID",
+    "es": "ID de presión del botón",
+    "fr": "ID Pression Bouton",
+    "it": "ID di pressione del pulsante",
+    "sv": "Knapptryck ID",
+    "pl": "ID Naciśnięcia Przycisku",
+    "ru": "ИД нажатия кнопки",
+    "ko": "버튼 누름 ID"
+  },
+  "icon": "/assets/button_press.svg"
 }

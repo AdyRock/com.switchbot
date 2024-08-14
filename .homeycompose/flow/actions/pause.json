@@ -1,14 +1,27 @@
 {
-    "title": {
-        "en": "Pause",
-        "no": "Pause"
-    },
-    "args": [
-        {
-            "name": "device",
-            "type": "device",
-            "filter": "driver_id=dvd|speaker"
-        }
-    ],
-    "platforms": ["local", "cloud"]
+  "title": {
+    "en": "Pause",
+    "no": "Pause",
+    "nl": "Pauze",
+    "da": "Pause",
+    "de": "Pause",
+    "es": "Pausa",
+    "fr": "Pause",
+    "it": "Pausa",
+    "sv": "Paus",
+    "pl": "Pauza",
+    "ru": "Пауза",
+    "ko": "일시 중지"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=dvd|speaker"
+    }
+  ],
+  "platforms": [
+    "local",
+    "cloud"
+  ]
 }

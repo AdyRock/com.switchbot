@@ -1,12 +1,21 @@
 {
-    "type": "boolean",
-    "getable": false,
-    "setable": true,
-    "uiComponent": "button",
-    "title":
-    {
-        "en": "Stop",
-        "no": "Stopp"
-    },
-    "icon": "/assets/stop.svg"
+  "type": "boolean",
+  "getable": false,
+  "setable": true,
+  "uiComponent": "button",
+  "title": {
+    "en": "Stop",
+    "no": "Stopp",
+    "nl": "Stoppen",
+    "da": "Stop",
+    "de": "Stopp",
+    "es": "Detener",
+    "fr": "Arrêter",
+    "it": "Ferma",
+    "sv": "Stopp",
+    "pl": "Zatrzymaj",
+    "ru": "Стоп",
+    "ko": "중지"
+  },
+  "icon": "/assets/stop.svg"
 }

@@ -1,57 +1,87 @@
 {
-    "id": "bot_ble",
-    "name": {
-        "en": "Bot (BLE)",
-        "no": "Bot (BLE)"
+  "id": "bot_ble",
+  "name": {
+    "en": "Bot (BLE)",
+    "no": "Bot (BLE)",
+    "nl": "Bot (BLE)",
+    "da": "Bot (BLE)",
+    "de": "Bot (BLE)",
+    "es": "Bot (BLE)",
+    "fr": "Bot (BLE)",
+    "it": "Bot (BLE)",
+    "sv": "Bot (BLE)",
+    "pl": "Bot (BLE)",
+    "ru": "Bot (BLE)",
+    "ko": "로봇 (BLE)"
+  },
+  "platforms": [
+    "local",
+    "cloud"
+  ],
+  "connectivity": [
+    "ble"
+  ],
+  "class": "button",
+  "capabilities": [
+    "measure_battery",
+    "onoff",
+    "rssi"
+  ],
+  "pair": [
+    {
+      "id": "list_my_devices",
+      "template": "list_devices",
+      "navigation": {
+        "next": "add_my_devices"
+      }
     },
-    "platforms": [
-        "local",
-        "cloud"
-    ],
-    "connectivity": [
-        "ble"
-    ],
-    "class": "button",
-    "capabilities": [
-        "measure_battery",
-        "onoff",
-        "rssi"
-    ],
-    "pair": [
-        {
-            "id": "list_my_devices",
-            "template": "list_devices",
-            "navigation": {
-                "next": "add_my_devices"
-            }
-        },
-        {
-            "id": "add_my_devices",
-            "template": "add_devices"
-        }
-    ],
-    "energy": {
-        "batteries": [
-            "CR2"
-        ]
-    },
-    "images": {
-        "large": "/drivers/bot_ble/assets/images/large.jpg",
-        "small": "/drivers/bot_ble/assets/images/small.jpg"
-    },
-    "settings": [
-        {
-            "id": "password",
-            "type": "password",
-            "label": {
-                "en": "Password",
-                "no": "Passord"
-            },
-            "value": "",
-            "hint": {
-                "en": "The password that has been set in the SwitchBot app which is required to control the Bot.\r\nLeave this empty if no password is set.",
-                "no": "Passordet som er angitt i SwitchBot appen som er nødvendig for å styre enheten.\r\nFjern dette feltet hvis det ikke er satt et passord."
-            }
-        }
+    {
+      "id": "add_my_devices",
+      "template": "add_devices"
+    }
+  ],
+  "energy": {
+    "batteries": [
+      "CR2"
     ]
+  },
+  "images": {
+    "large": "/drivers/bot_ble/assets/images/large.jpg",
+    "small": "/drivers/bot_ble/assets/images/small.jpg"
+  },
+  "settings": [
+    {
+      "id": "password",
+      "type": "password",
+      "label": {
+        "en": "Password",
+        "no": "Passord",
+        "nl": "Wachtwoord",
+        "da": "Adgangskode",
+        "de": "Passwort",
+        "es": "Contraseña",
+        "fr": "Mot de passe",
+        "it": "Password",
+        "sv": "Lösenord",
+        "pl": "Hasło",
+        "ru": "Пароль",
+        "ko": "비밀번호"
+      },
+      "value": "",
+      "hint": {
+        "en": "The password that has been set in the SwitchBot app which is required to control the Bot.\r\nLeave this empty if no password is set.",
+        "no": "Passordet som er angitt i SwitchBot appen som er nødvendig for å styre enheten.\r\nFjern dette feltet hvis det ikke er satt et passord.",
+        "nl": "Het wachtwoord dat is ingesteld in de SwitchBot-app en nodig is om de Bot te bedienen.\r\nLaat dit leeg als er geen wachtwoord is ingesteld.",
+        "da": "Adgangskoden, der er indstillet i SwitchBot-appen, som er nødvendig for at styre Bot.\r\nLad dette stå tomt, hvis der ikke er indstillet en adgangskode.",
+        "de": "Das Passwort, das in der SwitchBot-App festgelegt wurde und erforderlich ist, um den Bot zu steuern.\r\nLass dieses Feld leer, wenn kein Passwort festgelegt ist.",
+        "es": "La contraseña que se ha configurado en la aplicación SwitchBot y que es necesaria para controlar el Bot.\r\nDeja este campo vacío si no se ha establecido ninguna contraseña.",
+        "fr": "Le mot de passe défini dans l'application SwitchBot, requis pour contrôler le Bot.\r\nLaissez vide si aucun mot de passe n'est défini.",
+        "it": "La password impostata nell'app SwitchBot necessaria per controllare il Bot.\r\nLascia vuoto se non è impostata alcuna password.",
+        "sv": "Lösenordet som har ställts in i SwitchBot-appen och som behövs för att kontrollera Bot.\r\nLämna detta tomt om inget lösenord är inställt.",
+        "pl": "Hasło ustawione w aplikacji SwitchBot wymagane do kontrolowania Bota.\r\nPozostaw to pole puste, jeśli hasło nie zostało ustawione.",
+        "ru": "Пароль, установленный в приложении SwitchBot, необходимый для управления ботом.\r\nОставьте это поле пустым, если пароль не установлен.",
+        "ko": "SwitchBot 앱에서 설정한 비밀번호로 로봇을 제어하는 데 필요합니다.\r\n비밀번호가 설정되어 있지 않으면 이 필드를 비워 두십시오."
+      }
+    }
+  ]
 }

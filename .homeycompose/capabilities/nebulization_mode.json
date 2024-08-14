@@ -1,12 +1,21 @@
 {
-    "type": "boolean",
-    "getable": true,
-    "setable": true,
-    "uiComponent": "button",
-    "title":
-    {
-        "en": "Auto",
-        "no": "Auto"
-    },
-    "icon": "/assets/humidifier.svg"
+  "type": "boolean",
+  "getable": true,
+  "setable": true,
+  "uiComponent": "button",
+  "title": {
+    "en": "Auto",
+    "no": "Auto",
+    "nl": "Auto",
+    "da": "Auto",
+    "de": "Auto",
+    "es": "Auto",
+    "fr": "Auto",
+    "it": "Auto",
+    "sv": "Auto",
+    "pl": "Auto",
+    "ru": "Авто",
+    "ko": "자동"
+  },
+  "icon": "/assets/humidifier.svg"
 }

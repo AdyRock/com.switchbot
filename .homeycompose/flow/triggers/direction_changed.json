@@ -1,32 +1,52 @@
 {
-    "title": {
-        "en": "Direction Changed",
-        "no": "Retning endret"
-    },
-    "deprecated": true,
-    "platforms": [
-        "local",
-        "cloud"
-    ],
-    "connectivity": [
-        "cloud"
-    ],
-    "tokens": [
-        {
-            "name": "direction",
-            "title": {
-                "en": "Exited",
-                "no": "Gikk ut"
-            },
-            "type": "boolean",
-            "example": true
-        }
-    ],
-    "args": [
-        {
-            "type": "device",
-            "name": "device",
-            "filter": "driver_id=contact_hub"
-        }
-    ]
+  "title": {
+    "en": "Direction Changed",
+    "no": "Retning endret",
+    "nl": "Richting Veranderd",
+    "da": "Retning Ændret",
+    "de": "Richtung Geändert",
+    "es": "Dirección Cambiada",
+    "fr": "Direction Changée",
+    "it": "Direzione Cambiata",
+    "sv": "Riktning Ändrad",
+    "pl": "Kierunek Zmieniony",
+    "ru": "Направление Изменено",
+    "ko": "방향 변경됨"
+  },
+  "deprecated": true,
+  "platforms": [
+    "local",
+    "cloud"
+  ],
+  "connectivity": [
+    "cloud"
+  ],
+  "tokens": [
+    {
+      "name": "direction",
+      "title": {
+        "en": "Exited",
+        "no": "Gikk ut",
+        "nl": "Verlaten",
+        "da": "Forladt",
+        "de": "Verlassen",
+        "es": "Salido",
+        "fr": "Sorti",
+        "it": "Uscito",
+        "sv": "Lämnat",
+        "pl": "Opuszczony",
+        "ru": "Вышел",
+        "ko": "나갔다"
+      },
+      "type": "boolean",
+      "example": true
+    }
+  ],
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=contact_hub"
+    }
+  ]
 }

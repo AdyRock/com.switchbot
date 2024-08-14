@@ -1,141 +1,311 @@
 {
-	"actions": [
-		{
-			"id": "operate_aircon",
-			"title": {
-				"en": "Operate air conditioner",
-				"no": "Styre varmepumpen"
-			},
-			"titleFormatted": {
-				"en": "Switch Air conditioner [[onoff]], Mode is [[aircon_mode]] at [[target_temperature]] with the fan on [[aircon_fan_speed]]",
-				"no": "Skru varmepumpe [[onoff]], modus er [[aircon_mode]] ved [[target_temperature]] med viften på [[aircon_fan_speed]]"
-			},
-			"platforms": [
-				"local",
-				"cloud"
-			],
-			"args": [
-				{
-					"name": "onoff",
-					"type": "dropdown",
-					"title": {
-						"en": "Power",
-						"no": "Strøm"
-					},
-					"values": [
-						{
-							"id": "on",
-							"title": {
-								"en": "On",
-								"no": "På"
-							}
-						},
-						{
-							"id": "off",
-							"title": {
-								"en": "Off",
-								"no": "Av"
-							}
-						}
-					]
-				},
-				{
-					"name": "aircon_mode",
-					"type": "dropdown",
-					"title": {
-						"en": "Mode",
-						"no": "Modus"
-					},
-					"values": [
-						{
-							"id": "1",
-							"title": {
-								"en": "Auto",
-								"no": "Auto"
-							}
-						},
-						{
-							"id": "2",
-							"title": {
-								"en": "Cool",
-								"no": "Kjøle"
-							}
-						},
-						{
-							"id": "3",
-							"title": {
-								"en": "Dry",
-								"no": "Tørke"
-							}
-						},
-						{
-							"id": "4",
-							"title": {
-								"en": "Fan",
-								"no": "Vifte"
-							}
-						},
-						{
-							"id": "5",
-							"title": {
-								"en": "Heat",
-								"no": "Varme"
-							}
-						}
-					]
-				},
-				{
-					"name": "target_temperature",
-					"title": {
-						"en": "Temperature",
-						"no": "Temperatur"
-					},
-					"type": "range",
-					"min": 5,
-					"max": 40,
-					"step": 0.5,
-					"label": "°C",
-					"labelDecimals": 1
-				},
-				{
-					"name": "aircon_fan_speed",
-					"title": {
-						"en": "Speed",
-						"no": "Hastighet"
-					},
-					"type": "dropdown",
-					"values": [
-						{
-							"id": "1",
-							"title": {
-								"en": "Auto",
-								"no": "Auto"
-							}
-						},
-						{
-							"id": "2",
-							"title": {
-								"en": "Low",
-								"no": "Lav"
-							}
-						},
-						{
-							"id": "3",
-							"title": {
-								"en": "Medium",
-								"no": "Middels"
-							}
-						},
-						{
-							"id": "4",
-							"title": {
-								"en": "High",
-								"no": "Høy"
-							}
-						}
-					]
-				}
-			]
-		}
-	]
+  "actions": [
+    {
+      "id": "operate_aircon",
+      "title": {
+        "en": "Operate air conditioner",
+        "no": "Styre varmepumpen",
+        "nl": "Airconditioner bedienen",
+        "da": "Betjene aircondition",
+        "de": "Klimaanlage bedienen",
+        "es": "Operar aire acondicionado",
+        "fr": "Utiliser le climatiseur",
+        "it": "Comanda condizionatore",
+        "sv": "Styr luftkonditioneringen",
+        "pl": "Obsługa klimatyzatora",
+        "ru": "Управление кондиционером",
+        "ko": "에어컨 작동"
+      },
+      "titleFormatted": {
+        "en": "Switch Air conditioner [[onoff]], Mode is [[aircon_mode]] at [[target_temperature]] with the fan on [[aircon_fan_speed]]",
+        "no": "Skru varmepumpe [[onoff]], modus er [[aircon_mode]] ved [[target_temperature]] med viften på [[aircon_fan_speed]]",
+        "nl": "Zet de airconditioner [[onoff]], modus is [[aircon_mode]] bij [[target_temperature]] met de ventilator op [[aircon_fan_speed]]",
+        "da": "Skift aircondition [[onoff]], mode er [[aircon_mode]] ved [[target_temperature]] med ventilatoren på [[aircon_fan_speed]]",
+        "de": "Schalten Sie die Klimaanlage [[onoff]], Modus ist [[aircon_mode]] bei [[target_temperature]] mit dem Ventilator auf [[aircon_fan_speed]]",
+        "es": "Apaga/enciende el aire acondicionado [[onoff]], el modo es [[aircon_mode]] a [[target_temperature]] con el ventilador en [[aircon_fan_speed]]",
+        "fr": "Allumez/éteignez le climatiseur [[onoff]], le mode est [[aircon_mode]] à [[target_temperature]] avec le ventilateur sur [[aircon_fan_speed]]",
+        "it": "Accendi/spegni il condizionatore [[onoff]], la modalità è [[aircon_mode]] a [[target_temperature]] con la ventola su [[aircon_fan_speed]]",
+        "sv": "Sätt på/stäng av luftkonditioneringen [[onoff]], läge [[aircon_mode]] vid [[target_temperature]] med fläkten på [[aircon_fan_speed]]",
+        "pl": "Włącz/wyłącz klimatyzator [[onoff]], tryb to [[aircon_mode]], temperatura: [[target_temperature]], prędkość wentylatora: [[aircon_fan_speed]]",
+        "ru": "Включите/выключите кондиционер [[onoff]], режим - [[aircon_mode]], температура - [[target_temperature]], скорость вентилятора - [[aircon_fan_speed]]",
+        "ko": "에어컨 켜기/끄기 [[onoff]], 모드 [[aircon_mode]], 온도 [[target_temperature]] 팬 속도 [[aircon_fan_speed]]"
+      },
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "args": [
+        {
+          "name": "onoff",
+          "type": "dropdown",
+          "title": {
+            "en": "Power",
+            "no": "Strøm",
+            "nl": "Stroom",
+            "da": "Strøm",
+            "de": "Strom",
+            "es": "Poder",
+            "fr": "Puissance",
+            "it": "Energia",
+            "sv": "Ström",
+            "pl": "Zasilanie",
+            "ru": "Мощность",
+            "ko": "전원"
+          },
+          "values": [
+            {
+              "id": "on",
+              "title": {
+                "en": "On",
+                "no": "På",
+                "nl": "Aan",
+                "da": "Tændt",
+                "de": "An",
+                "es": "Encendido",
+                "fr": "Allumé",
+                "it": "Acceso",
+                "sv": "På",
+                "pl": "Włączony",
+                "ru": "Вкл.",
+                "ko": "켜기"
+              }
+            },
+            {
+              "id": "off",
+              "title": {
+                "en": "Off",
+                "no": "Av",
+                "nl": "Uit",
+                "da": "Slukket",
+                "de": "Aus",
+                "es": "Apagado",
+                "fr": "Éteint",
+                "it": "Spento",
+                "sv": "Av",
+                "pl": "Wyłączony",
+                "ru": "Выкл.",
+                "ko": "끄기"
+              }
+            }
+          ]
+        },
+        {
+          "name": "aircon_mode",
+          "type": "dropdown",
+          "title": {
+            "en": "Mode",
+            "no": "Modus",
+            "nl": "Modus",
+            "da": "Tilstand",
+            "de": "Modus",
+            "es": "Modo",
+            "fr": "Mode",
+            "it": "Modalità",
+            "sv": "Läge",
+            "pl": "Tryb",
+            "ru": "Режим",
+            "ko": "모드"
+          },
+          "values": [
+            {
+              "id": "1",
+              "title": {
+                "en": "Auto",
+                "no": "Auto",
+                "nl": "Auto",
+                "da": "Auto",
+                "de": "Auto",
+                "es": "Auto",
+                "fr": "Auto",
+                "it": "Auto",
+                "sv": "Auto",
+                "pl": "Auto",
+                "ru": "Авто",
+                "ko": "자동"
+              }
+            },
+            {
+              "id": "2",
+              "title": {
+                "en": "Cool",
+                "no": "Kjøle",
+                "nl": "Koel",
+                "da": "Køl",
+                "de": "Kühlen",
+                "es": "Fresco",
+                "fr": "Frais",
+                "it": "Raffreddare",
+                "sv": "Kyl",
+                "pl": "Chłodzić",
+                "ru": "Охлаждение",
+                "ko": "냉방"
+              }
+            },
+            {
+              "id": "3",
+              "title": {
+                "en": "Dry",
+                "no": "Tørke",
+                "nl": "Droog",
+                "da": "Tør",
+                "de": "Trocken",
+                "es": "Secar",
+                "fr": "Sécher",
+                "it": "Asciugare",
+                "sv": "Torr",
+                "pl": "Suszyć",
+                "ru": "Сушить",
+                "ko": "건조"
+              }
+            },
+            {
+              "id": "4",
+              "title": {
+                "en": "Fan",
+                "no": "Vifte",
+                "nl": "Ventilator",
+                "da": "Blæser",
+                "de": "Lüfter",
+                "es": "Ventilador",
+                "fr": "Ventilateur",
+                "it": "Ventilatore",
+                "sv": "Fläkt",
+                "pl": "Wentylator",
+                "ru": "Вентилятор",
+                "ko": "팬"
+              }
+            },
+            {
+              "id": "5",
+              "title": {
+                "en": "Heat",
+                "no": "Varme",
+                "nl": "Warmte",
+                "da": "Varme",
+                "de": "Heizen",
+                "es": "Calor",
+                "fr": "Chaleur",
+                "it": "Riscaldare",
+                "sv": "Värme",
+                "pl": "Ogrzewać",
+                "ru": "Тепло",
+                "ko": "난방"
+              }
+            }
+          ]
+        },
+        {
+          "name": "target_temperature",
+          "title": {
+            "en": "Temperature",
+            "no": "Temperatur",
+            "nl": "Temperatuur",
+            "da": "Temperatur",
+            "de": "Temperatur",
+            "es": "Temperatura",
+            "fr": "Température",
+            "it": "Temperatura",
+            "sv": "Temperatur",
+            "pl": "Temperatura",
+            "ru": "Температура",
+            "ko": "온도"
+          },
+          "type": "range",
+          "min": 5,
+          "max": 40,
+          "step": 0.5,
+          "label": "°C",
+          "labelDecimals": 1
+        },
+        {
+          "name": "aircon_fan_speed",
+          "title": {
+            "en": "Speed",
+            "no": "Hastighet",
+            "nl": "Snelheid",
+            "da": "Hastighed",
+            "de": "Geschwindigkeit",
+            "es": "Velocidad",
+            "fr": "Vitesse",
+            "it": "Velocità",
+            "sv": "Hastighet",
+            "pl": "Prędkość",
+            "ru": "Скорость",
+            "ko": "속도"
+          },
+          "type": "dropdown",
+          "values": [
+            {
+              "id": "1",
+              "title": {
+                "en": "Auto",
+                "no": "Auto",
+                "nl": "Auto",
+                "da": "Auto",
+                "de": "Auto",
+                "es": "Auto",
+                "fr": "Auto",
+                "it": "Auto",
+                "sv": "Auto",
+                "pl": "Auto",
+                "ru": "Авто",
+                "ko": "자동"
+              }
+            },
+            {
+              "id": "2",
+              "title": {
+                "en": "Low",
+                "no": "Lav",
+                "nl": "Laag",
+                "da": "Lav",
+                "de": "Niedrig",
+                "es": "Bajo",
+                "fr": "Faible",
+                "it": "Bassa",
+                "sv": "Låg",
+                "pl": "Niska",
+                "ru": "Низкая",
+                "ko": "낮음"
+              }
+            },
+            {
+              "id": "3",
+              "title": {
+                "en": "Medium",
+                "no": "Middels",
+                "nl": "Medium",
+                "da": "Mellem",
+                "de": "Mittel",
+                "es": "Medio",
+                "fr": "Moyen",
+                "it": "Media",
+                "sv": "Medelhög",
+                "pl": "Średnia",
+                "ru": "Средняя",
+                "ko": "중간"
+              }
+            },
+            {
+              "id": "4",
+              "title": {
+                "en": "High",
+                "no": "Høy",
+                "nl": "Hoog",
+                "da": "Høj",
+                "de": "Hoch",
+                "es": "Alto",
+                "fr": "Élevé",
+                "it": "Alta",
+                "sv": "Hög",
+                "pl": "Wysoka",
+                "ru": "Высокая",
+                "ko": "높음"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }

@@ -1,14 +1,27 @@
 {
-	"title": {
-		"en": "Play",
-		"no": "Spill"
-	},
-	"args": [
-		{
-			"name": "device",
-			"type": "device",
-			"filter": "driver_id=dvd|speaker"
-		}
-	],
-	"platforms": ["local", "cloud"]
+  "title": {
+    "en": "Play",
+    "no": "Spill",
+    "nl": "Spelen",
+    "da": "Spil",
+    "de": "Abspielen",
+    "es": "Jugar",
+    "fr": "Jouer",
+    "it": "Riprodurre",
+    "sv": "Spela",
+    "pl": "Graj",
+    "ru": "Играть",
+    "ko": "재생"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=dvd|speaker"
+    }
+  ],
+  "platforms": [
+    "local",
+    "cloud"
+  ]
 }

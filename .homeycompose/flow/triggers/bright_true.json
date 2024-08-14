@@ -1,17 +1,27 @@
 {
-    "title": {
-        "en": "Becomes bright",
-        "no": "Blir lys"
-    },
-    "platforms": [
-        "local",
-        "cloud"
-    ],
-    "args": [
-        {
-            "type": "device",
-            "name": "device",
-            "filter": "driver_id=contact_ble|contact_hub|presence_ble|presence_hub"
-        }
-    ]
+  "title": {
+    "en": "Becomes bright",
+    "no": "Blir lys",
+    "nl": "Wordt helder",
+    "da": "Bliver lys",
+    "de": "Wird hell",
+    "es": "Se vuelve brillante",
+    "fr": "Devient brillant",
+    "it": "Diventa luminoso",
+    "sv": "Blir ljus",
+    "pl": "Staje się jasny",
+    "ru": "Становится ярким",
+    "ko": "밝아짐"
+  },
+  "platforms": [
+    "local",
+    "cloud"
+  ],
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=contact_ble|contact_hub|presence_ble|presence_hub"
+    }
+  ]
 }

@@ -1,59 +1,119 @@
 {
-	"id": "robot_vacum_hub",
-	"name": {
-		"en": "Robot Vacuum (HUB)",
-		"no": "Robotstøvsuger (HUB)"
-	},
-	"class": "vacuumcleaner",
-	"capabilities": [
-		"play",
-		"stop",
-		"robot_vaccum_dock",
-		"vaccum_power_level.quite",
-		"vaccum_power_level.normal",
-		"vaccum_power_level.strong",
-		"vaccum_power_level.max",
-		"robot_vaccum_state",
-		"measure_battery"
-	],
-	"capabilitiesOptions": {
-		"play": {
-			"title": {
-				"en": "Start",
-				"no": "Start"
-			}
-		},
-		"vaccum_power_level.quite": {
-			"title": {
-				"en": "Power Level Quite",
-				"no": "Styrkenivå stille"
-			}
-		},
-		"vaccum_power_level.normal": {
-			"title": {
-				"en": "Power Level Normal",
-				"no": "Styrkenivå normal"
-			}
-		},
-		"vaccum_power_level.strong": {
-			"title": {
-				"en": "Power Level Strong",
-				"no": "Styrkenivå kraftig"
-			}
-		},
-		"vaccum_power_level.max": {
-			"title": {
-				"en": "Power Level Maximum",
-				"no": "Styrkenivå maximal"
-			}
-		}
-	},
-	"energy": {
-		"batteries": [
-			"INTERNAL"
-		]
-	},
-	"$extends": [
-		"hubDriver"
-	]
+  "id": "robot_vacum_hub",
+  "name": {
+    "en": "Robot Vacuum (HUB)",
+    "no": "Robotstøvsuger (HUB)",
+    "nl": "Robotstofzuiger (HUB)",
+    "da": "Robotstøvsuger (HUB)",
+    "de": "Roboterstaubsauger (HUB)",
+    "es": "Aspiradora Robot (HUB)",
+    "fr": "Aspirateur Robot (HUB)",
+    "it": "Aspirapolvere Robot (HUB)",
+    "sv": "Robotdammsugare (HUB)",
+    "pl": "Odkurzacz robotyczny (HUB)",
+    "ru": "Робот-пылесос (HUB)",
+    "ko": "로봇 청소기 (HUB)"
+  },
+  "class": "vacuumcleaner",
+  "capabilities": [
+    "play",
+    "stop",
+    "robot_vaccum_dock",
+    "vaccum_power_level.quite",
+    "vaccum_power_level.normal",
+    "vaccum_power_level.strong",
+    "vaccum_power_level.max",
+    "robot_vaccum_state",
+    "measure_battery"
+  ],
+  "capabilitiesOptions": {
+    "play": {
+      "title": {
+        "en": "Start",
+        "no": "Start",
+        "nl": "Start",
+        "da": "Start",
+        "de": "Start",
+        "es": "Comenzar",
+        "fr": "Commencer",
+        "it": "Inizio",
+        "sv": "Starta",
+        "pl": "Start",
+        "ru": "Старт",
+        "ko": "시작"
+      }
+    },
+    "vaccum_power_level.quite": {
+      "title": {
+        "en": "Power Level Quite",
+        "no": "Styrkenivå stille",
+        "nl": "Vermogensniveau Stil",
+        "da": "Strømstyrkeniveau Stille",
+        "de": "Leistungsstufe Leise",
+        "es": "Nivel de Potencia Silencioso",
+        "fr": "Niveau de Puissance Silencieux",
+        "it": "Livello di Potenza Silenzioso",
+        "sv": "Effektnivå Tyst",
+        "pl": "Poziom głośności Cisza",
+        "ru": "Уровень мощности Тихо",
+        "ko": "저소음 모드"
+      }
+    },
+    "vaccum_power_level.normal": {
+      "title": {
+        "en": "Power Level Normal",
+        "no": "Styrkenivå normal",
+        "nl": "Vermogensniveau Normaal",
+        "da": "Strømstyrkeniveau Normal",
+        "de": "Leistungsstufe Normal",
+        "es": "Nivel de Potencia Normal",
+        "fr": "Niveau de Puissance Normal",
+        "it": "Livello di Potenza Normale",
+        "sv": "Effektnivå Normal",
+        "pl": "Poziom mocy Normalny",
+        "ru": "Уровень мощности Нормально",
+        "ko": "일반 모드"
+      }
+    },
+    "vaccum_power_level.strong": {
+      "title": {
+        "en": "Power Level Strong",
+        "no": "Styrkenivå kraftig",
+        "nl": "Vermogensniveau Sterk",
+        "da": "Strømstyrkeniveau Stærk",
+        "de": "Leistungsstufe Stark",
+        "es": "Nivel de Potencia Fuerte",
+        "fr": "Niveau de Puissance Fort",
+        "it": "Livello di Potenza Forte",
+        "sv": "Effektnivå Stark",
+        "pl": "Poziom mocy Silny",
+        "ru": "Уровень мощности Сильно",
+        "ko": "강력 모드"
+      }
+    },
+    "vaccum_power_level.max": {
+      "title": {
+        "en": "Power Level Maximum",
+        "no": "Styrkenivå maximal",
+        "nl": "Vermogensniveau Maximaal",
+        "da": "Strømstyrkeniveau Maksimal",
+        "de": "Leistungsstufe Maximal",
+        "es": "Nivel de Potencia Máximo",
+        "fr": "Niveau de Puissance Maximum",
+        "it": "Livello di Potenza Massimo",
+        "sv": "Effektnivå Maximal",
+        "pl": "Poziom mocy Maksymalny",
+        "ru": "Уровень мощности Максимальный",
+        "ko": "최대 모드"
+      }
+    }
+  },
+  "energy": {
+    "batteries": [
+      "INTERNAL"
+    ]
+  },
+  "$extends": [
+    "hubDriver"
+  ]
 }

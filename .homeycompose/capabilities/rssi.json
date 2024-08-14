@@ -1,14 +1,34 @@
 {
-    "type": "number",
-    "title": {
-        "en": "RSSI",
-        "no": "RSSI"
-    },
-    "units": {
-        "en": "db",
-        "no": "db"
-    },
-    "getable": true,
-    "setable": false,
-    "icon": "/assets/signal_strength.svg"
+  "type": "number",
+  "title": {
+    "en": "RSSI",
+    "no": "RSSI",
+    "nl": "RSSI",
+    "da": "RSSI",
+    "de": "RSSI",
+    "es": "RSSI",
+    "fr": "RSSI",
+    "it": "RSSI",
+    "sv": "RSSI",
+    "pl": "RSSI",
+    "ru": "RSSI",
+    "ko": "RSSI"
+  },
+  "units": {
+    "en": "db",
+    "no": "db",
+    "nl": "db",
+    "da": "db",
+    "de": "db",
+    "es": "db",
+    "fr": "db",
+    "it": "db",
+    "sv": "db",
+    "pl": "db",
+    "ru": "db",
+    "ko": "db"
+  },
+  "getable": true,
+  "setable": false,
+  "icon": "/assets/signal_strength.svg"
 }

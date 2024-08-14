@@ -1,80 +1,162 @@
 {
-    "actions": [
+  "actions": [
+    {
+      "id": "smart_fan_mode",
+      "title": {
+        "en": "Set fan mode",
+        "no": "Sett viftemodus",
+        "nl": "Zet ventilatormodus",
+        "da": "Indstil ventilatormodus",
+        "de": "Ventilatormodus einstellen",
+        "es": "Configurar modo de ventilador",
+        "fr": "Régler le mode ventilateur",
+        "it": "Imposta modalità ventilatore",
+        "sv": "Ställ in fläktläge",
+        "pl": "Ustaw tryb wentylatora",
+        "ru": "Установить режим вентилятора",
+        "ko": "팬 모드 설정"
+      },
+      "titleFormatted": {
+        "en": "Set the fan mode to [[fan_mode]], speed [[fan_speed]], shake range [[shake_range]]",
+        "no": "Sett viftemodus til [[fan_mode]], viftefart [[fan_speed]], bevegelsesutslag [[shake_range]]",
+        "nl": "Stel ventilatormodus in op [[fan_mode]], snelheid [[fan_speed]], schudbereik [[shake_range]]",
+        "da": "Indstil ventilatormodus til [[fan_mode]], hastighed [[fan_speed]], rystebredde [[shake_range]]",
+        "de": "Ventilatormodus auf [[fan_mode]] einstellen, Geschwindigkeit [[fan_speed]], Schwingbereich [[shake_range]]",
+        "es": "Configura el modo de ventilador a [[fan_mode]], velocidad [[fan_speed]], rango de oscilación [[shake_range]]",
+        "fr": "Réglez le mode ventilateur sur [[fan_mode]], vitesse [[fan_speed]], plage de mouvement [[shake_range]]",
+        "it": "Imposta la modalità ventilatore su [[fan_mode]], velocità [[fan_speed]], gamma di oscillazione [[shake_range]]",
+        "sv": "Ställ in fläktläge till [[fan_mode]], hastighet [[fan_speed]], skakrörelse [[shake_range]]",
+        "pl": "Ustaw tryb wentylatora na [[fan_mode]], prędkość [[fan_speed]], zakres bujania [[shake_range]]",
+        "ru": "Установите режим вентилятора на [[fan_mode]], скорость [[fan_speed]], диапазон качания [[shake_range]]",
+        "ko": "팬 모드를 [[fan_mode]]로 설정, 속도 [[fan_speed]], 흔들림 범위 [[shake_range]]"
+      },
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "args": [
         {
-            "id": "smart_fan_mode",
-            "title": {
-                "en": "Set fan mode",
-                "no": "Sett viftemodus"
+          "name": "fan_mode",
+          "title": {
+            "en": "Mode",
+            "no": "Viftemodus",
+            "nl": "Modus",
+            "da": "Modus",
+            "de": "Modus",
+            "es": "Modo",
+            "fr": "Mode",
+            "it": "Modalità",
+            "sv": "Läge",
+            "pl": "Tryb",
+            "ru": "Режим",
+            "ko": "모드"
+          },
+          "type": "dropdown",
+          "values": [
+            {
+              "id": "1",
+              "title": {
+                "en": "Standard",
+                "no": "Standard",
+                "nl": "Standaard",
+                "da": "Standard",
+                "de": "Standard",
+                "es": "Estándar",
+                "fr": "Standard",
+                "it": "Standard",
+                "sv": "Standard",
+                "pl": "Standard",
+                "ru": "Стандартный",
+                "ko": "표준"
+              }
             },
-            "titleFormatted": {
-                "en": "Set the fan mode to [[fan_mode]], speed [[fan_speed]], shake range [[shake_range]]",
-                "no": "Sett viftemodus til [[fan_mode]], viftefart [[fan_speed]], bevegelsesutslag [[shake_range]]"
+            {
+              "id": "2",
+              "title": {
+                "en": "Natural",
+                "no": "Naturlig",
+                "nl": "Natuurlijk",
+                "da": "Naturlig",
+                "de": "Natürlich",
+                "es": "Natural",
+                "fr": "Naturel",
+                "it": "Naturale",
+                "sv": "Naturlig",
+                "pl": "Naturalny",
+                "ru": "Естественный",
+                "ko": "자연풍"
+              }
+            }
+          ]
+        },
+        {
+          "name": "fan_speed",
+          "title": {
+            "en": "Speed",
+            "no": "Viftefart",
+            "nl": "Snelheid",
+            "da": "Hastighed",
+            "de": "Geschwindigkeit",
+            "es": "Velocidad",
+            "fr": "Vitesse",
+            "it": "Velocità",
+            "sv": "Hastighet",
+            "pl": "Prędkość",
+            "ru": "Скорость",
+            "ko": "속도"
+          },
+          "type": "dropdown",
+          "values": [
+            {
+              "id": "1",
+              "title": {
+                "en": "1"
+              }
             },
-            "platforms": ["local", "cloud"],
-            "args": [
-                {
-                    "name": "fan_mode",
-                    "title": { "en": "Mode", "no": "Viftemodus" },
-                    "type": "dropdown",
-                    "values": [
-                        {
-                            "id": "1",
-                            "title": {
-                                "en": "Standard",
-                                "no": "Standard"
-                            }
-                        },
-                        {
-                            "id": "2",
-                            "title": {
-                                "en": "Natural",
-                                "no": "Naturlig"
-                            }
-                        }
-                    ]
-                },
-                {
-                    "name": "fan_speed",
-                    "title": { "en": "Speed", "no": "Viftefart" },
-                    "type": "dropdown",
-                    "values": [
-                        {
-                            "id": "1",
-                            "title": {
-                                "en": "1"
-                            }
-                        },
-                        {
-                            "id": "2",
-                            "title": {
-                                "en": "2"
-                            }
-                        },
-                        {
-                            "id": "3",
-                            "title": {
-                                "en": "3"
-                            }
-                        },
-                        {
-                            "id": "4",
-                            "title": {
-                                "en": "4"
-                            }
-                        }
-                    ]
-                },
-                {
-                    "name": "shake_range",
-                    "title": { "en": "Shake Range", "no": "Bevegelsesutslag" },
-                    "type": "range",
-                    "min": 0,
-                    "max": 120,
-                    "step": 1,
-                    "label": "°",
-                    "labelDecimals": 0
-                }
-            ]
+            {
+              "id": "2",
+              "title": {
+                "en": "2"
+              }
+            },
+            {
+              "id": "3",
+              "title": {
+                "en": "3"
+              }
+            },
+            {
+              "id": "4",
+              "title": {
+                "en": "4"
+              }
+            }
+          ]
+        },
+        {
+          "name": "shake_range",
+          "title": {
+            "en": "Shake Range",
+            "no": "Bevegelsesutslag",
+            "nl": "Schudbereik",
+            "da": "Rystebredde",
+            "de": "Schwingbereich",
+            "es": "Rango de oscilación",
+            "fr": "Plage de mouvement",
+            "it": "Gamma di oscillazione",
+            "sv": "Skakrörelse",
+            "pl": "Zakres bujania",
+            "ru": "Диапазон качания",
+            "ko": "흔들림 범위"
+          },
+          "type": "range",
+          "min": 0,
+          "max": 120,
+          "step": 1,
+          "label": "°",
+          "labelDecimals": 0
         }
-    ]
+      ]
+    }
+  ]
 }

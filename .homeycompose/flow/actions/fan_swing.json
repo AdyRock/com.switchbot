@@ -1,14 +1,27 @@
 {
-    "title": {
-        "en": "Toggle swing mode",
-        "no": "Skru av/på svingmodus"
-    },
-    "args": [
-        {
-            "name": "device",
-            "type": "device",
-            "filter": "driver_id=fan_hub"
-        }
-    ],
-    "platforms": ["local", "cloud"]
+  "title": {
+    "en": "Toggle swing mode",
+    "no": "Skru av/på svingmodus",
+    "nl": "Zet de swingmodus aan/uit",
+    "da": "Skift svingtilstand",
+    "de": "Schwenkmodus umschalten",
+    "es": "Alternar modo oscilación",
+    "fr": "Activer/désactiver le mode oscillation",
+    "it": "Attiva/disattiva modalità oscillazione",
+    "sv": "Aktivera/inaktivera svängläge",
+    "pl": "Przełącz tryb wachlowania",
+    "ru": "Переключить режим качания",
+    "ko": "스윙 모드 전환"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=fan_hub"
+    }
+  ],
+  "platforms": [
+    "local",
+    "cloud"
+  ]
 }

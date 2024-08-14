@@ -1,0 +1,67 @@
+{
+  "settings": {
+    "clear": "Wyczyść Logi",
+    "send": "Wyślij Logi",
+    "getDevices": "Pobierz urządzenia HUB"
+  },
+  "capabilities": {
+    "brightness": "Jasność"
+  },
+  "pair": {
+    "api_code": {
+      "title": "Szczegóły połączenia",
+      "intro": "Uzyskaj kod API z aplikacji SwitchBot na telefonie",
+      "intro1": "1. Otwórz aplikację SwitchBot na telefonie",
+      "intro2": "2. Przejdź do Profil > Preferencje",
+      "intro3": "3. Stuknij wersję aplikacji 10 razy, aby wyświetlić opcje programisty",
+      "intro4": "4. Stuknij Opcje programisty",
+      "intro5": "5. Stuknij Pobierz token",
+      "api_code": "Kod API",
+      "login": "Połącz",
+      "checking": "Sprawdzanie połączenia",
+      "try_again": "Spróbuj ponownie",
+      "correct": "Pomyślnie",
+      "adding": "Dodawanie urządzenia(ń)"
+    },
+    "button_code": {
+      "title": "Zdefiniuj przyciski",
+      "instructions": "Wprowadź tekst dla każdego przycisku dokładnie tak, jak pojawia się w aplikacji SwitchBot",
+      "button1": "Kod polecenia 1",
+      "button2": "Kod polecenia 2",
+      "button3": "Kod polecenia 3",
+      "button4": "Kod polecenia 4",
+      "button5": "Kod polecenia 5",
+      "button6": "Kod polecenia 6",
+      "button7": "Kod polecenia 7",
+      "button8": "Kod polecenia 8",
+      "button9": "Kod polecenia 9",
+      "button10": "Kod polecenia 10",
+      "button11": "Kod polecenia 11",
+      "button12": "Kod polecenia 12",
+      "button13": "Kod polecenia 13",
+      "button14": "Kod polecenia 14",
+      "button15": "Kod polecenia 15",
+      "button16": "Kod polecenia 16",
+      "button17": "Kod polecenia 17",
+      "button18": "Kod polecenia 18",
+      "button19": "Kod polecenia 19",
+      "button20": "Kod polecenia 20",
+      "button21": "Kod polecenia 21",
+      "button22": "Kod polecenia 22",
+      "button23": "Kod polecenia 23",
+      "button24": "Kod polecenia 24",
+      "button25": "Kod polecenia 25",
+      "button26": "Kod polecenia 26",
+      "button27": "Kod polecenia 27",
+      "button28": "Kod polecenia 28",
+      "button29": "Kod polecenia 29",
+      "button30": "Kod polecenia 30",
+      "button31": "Kod polecenia 31",
+      "button32": "Kod polecenia 32",
+      "button33": "Kod polecenia 33",
+      "button34": "Kod polecenia 34",
+      "button35": "Kod polecenia 35",
+      "button36": "Kod polecenia 36"
+    }
+  }
+}

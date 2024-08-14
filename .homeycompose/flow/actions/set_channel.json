@@ -1,34 +1,90 @@
 {
-    "title": {
-        "en": "Set the channel",
-        "no": "Sett kanal"
+  "title": {
+    "en": "Set the channel",
+    "no": "Sett kanal",
+    "nl": "Stel het kanaal in",
+    "da": "Indstil kanalen",
+    "de": "Stelle den Kanal ein",
+    "es": "Configure el canal",
+    "fr": "Définir le canal",
+    "it": "Imposta il canale",
+    "sv": "Ställ in kanalen",
+    "pl": "Ustaw kanał",
+    "ru": "Установить канал",
+    "ko": "채널 설정"
+  },
+  "titleFormatted": {
+    "en": "Set the channel to '[[channel_number]]'",
+    "no": "Sett kanal til [[channel_number]]",
+    "nl": "Stel het kanaal in op '[[channel_number]]'",
+    "da": "Indstil kanalen til '[[channel_number]]'",
+    "de": "Stelle den Kanal auf '[[channel_number]]' ein",
+    "es": "Configure el canal a '[[channel_number]]'",
+    "fr": "Définir le canal sur '[[channel_number]]'",
+    "it": "Imposta il canale su '[[channel_number]]'",
+    "sv": "Ställ in kanalen till '[[channel_number]]'",
+    "pl": "Ustaw kanał na '[[channel_number]]'",
+    "ru": "Установить канал на '[[channel_number]]'",
+    "ko": "'[[channel_number]]'번 채널로 설정"
+  },
+  "hint": {
+    "en": "Set the channel number",
+    "no": "Sett kanalnummer",
+    "nl": "Stel het kanaalnummer in",
+    "da": "Indstil kanalnummeret",
+    "de": "Stelle die Kanalnummer ein",
+    "es": "Configura el número de canal",
+    "fr": "Définir le numéro du canal",
+    "it": "Imposta il numero del canale",
+    "sv": "Ställ in kanalnumret",
+    "pl": "Ustaw numer kanału",
+    "ru": "Установите номер канала",
+    "ko": "채널 번호 설정"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=dvd|speaker|tv_hub|settop_box_hub"
     },
-    "titleFormatted": {
-        "en": "Set the channel to '[[channel_number]]'",
-        "no": "Sett kanal til [[channel_number]]"
-    },
-    "hint": {
-        "en": "Set the channel number",
-        "no": "Sett kanalnummer"
-    },
-    "args": [
-        {
-            "name": "device",
-            "type": "device",
-            "filter": "driver_id=dvd|speaker|tv_hub|settop_box_hub"
-        },
-        {
-            "type": "number",
-            "name": "channel_number",
-            "title": { "en": "Channel number", "no": "Kanalnummer" },
-            "placeholder": {
-                "en": "Channel Number",
-                "no": "Kanalnummer"
-            }
-        }
-    ],
-    "min": 1,
-    "max": 999,
-    "step": 1,
-    "platforms": ["local", "cloud"]
+    {
+      "type": "number",
+      "name": "channel_number",
+      "title": {
+        "en": "Channel number",
+        "no": "Kanalnummer",
+        "nl": "Kanaalnummer",
+        "da": "Kanalnummer",
+        "de": "Kanalnummer",
+        "es": "Número de canal",
+        "fr": "Numéro de canal",
+        "it": "Numero del canale",
+        "sv": "Kanalnummer",
+        "pl": "Numer kanału",
+        "ru": "Номер канала",
+        "ko": "채널 번호"
+      },
+      "placeholder": {
+        "en": "Channel Number",
+        "no": "Kanalnummer",
+        "nl": "Kanaalnummer",
+        "da": "Kanalnummer",
+        "de": "Kanalnummer",
+        "es": "Número de Canal",
+        "fr": "Numéro de canal",
+        "it": "Numero del canale",
+        "sv": "Kanalnummer",
+        "pl": "Numer kanału",
+        "ru": "Номер канала",
+        "ko": "채널 번호"
+      }
+    }
+  ],
+  "min": 1,
+  "max": 999,
+  "step": 1,
+  "platforms": [
+    "local",
+    "cloud"
+  ]
 }
