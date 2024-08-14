@@ -1,47 +1,107 @@
 {
-    "type": "enum",
-    "title": {
-        "en": "Mode",
-        "no": "Modus"
+  "type": "enum",
+  "title": {
+    "en": "Mode",
+    "no": "Modus",
+    "nl": "Modus",
+    "da": "Tilstand",
+    "de": "Modus",
+    "es": "Modo",
+    "fr": "Mode",
+    "it": "Modalità",
+    "sv": "Läge",
+    "pl": "Tryb",
+    "ru": "Режим",
+    "ko": "모드"
+  },
+  "values": [
+    {
+      "id": "1",
+      "title": {
+        "en": "Auto",
+        "no": "Auto",
+        "nl": "Auto",
+        "da": "Auto",
+        "de": "Auto",
+        "es": "Automático",
+        "fr": "Auto",
+        "it": "Auto",
+        "sv": "Automatisk",
+        "pl": "Auto",
+        "ru": "Авто",
+        "ko": "자동"
+      }
     },
-    "values": [
-        {
-          "id": "1",
-          "title": {
-            "en": "Auto",
-            "no": "Auto"
-          }
-        },
-        {
-          "id": "2",
-          "title": {
-            "en": "Cool",
-            "no": "Kjøle"
-          }
-        },
-        {
-          "id": "3",
-          "title": {
-            "en": "Dry",
-            "no": "Tørke"
-          }
-        },
-        {
-          "id": "4",
-          "title": {
-            "en": "Fan",
-            "no": "Vifte"
-          }
-        },
-        {
-          "id": "5",
-          "title": {
-            "en": "Heat",
-            "no": "Varme"
-          }
-        }
-      ],
-    "getable": true,
-    "setable": true,
-    "icon": "/assets/air_con_mode.svg"
+    {
+      "id": "2",
+      "title": {
+        "en": "Cool",
+        "no": "Kjøle",
+        "nl": "Koel",
+        "da": "Køl",
+        "de": "Kühlen",
+        "es": "Frío",
+        "fr": "Froid",
+        "it": "Fresco",
+        "sv": "Kyla",
+        "pl": "Chłodzenie",
+        "ru": "Охлаждение",
+        "ko": "냉방"
+      }
+    },
+    {
+      "id": "3",
+      "title": {
+        "en": "Dry",
+        "no": "Tørke",
+        "nl": "Droog",
+        "da": "Tør",
+        "de": "Trocken",
+        "es": "Seco",
+        "fr": "Sec",
+        "it": "Asciutto",
+        "sv": "Torr",
+        "pl": "Suszenie",
+        "ru": "Осушение",
+        "ko": "건조"
+      }
+    },
+    {
+      "id": "4",
+      "title": {
+        "en": "Fan",
+        "no": "Vifte",
+        "nl": "Ventilator",
+        "da": "Fan",
+        "de": "Ventilator",
+        "es": "Ventilador",
+        "fr": "Ventilateur",
+        "it": "Ventilatore",
+        "sv": "Fläkt",
+        "pl": "Wentylator",
+        "ru": "Вентилятор",
+        "ko": "선풍기"
+      }
+    },
+    {
+      "id": "5",
+      "title": {
+        "en": "Heat",
+        "no": "Varme",
+        "nl": "Verwarm",
+        "da": "Varme",
+        "de": "Heizen",
+        "es": "Calor",
+        "fr": "Chaleur",
+        "it": "Riscaldamento",
+        "sv": "Värme",
+        "pl": "Ogrzewanie",
+        "ru": "Обогрев",
+        "ko": "난방"
+      }
+    }
+  ],
+  "getable": true,
+  "setable": true,
+  "icon": "/assets/air_con_mode.svg"
 }

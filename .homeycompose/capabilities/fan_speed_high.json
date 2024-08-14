@@ -1,12 +1,21 @@
 {
-    "type": "boolean",
-    "getable": false,
-    "setable": true,
-    "uiComponent": "button",
-    "title":
-    {
-        "en": "High Speed",
-        "no": "Høy hastighet"
-    },
-    "icon": "/assets/fan_speed.svg"
+  "type": "boolean",
+  "getable": false,
+  "setable": true,
+  "uiComponent": "button",
+  "title": {
+    "en": "High Speed",
+    "no": "Høy hastighet",
+    "nl": "Hoge snelheid",
+    "da": "Høj hastighed",
+    "de": "Hohe Geschwindigkeit",
+    "es": "Alta velocidad",
+    "fr": "Haute vitesse",
+    "it": "Alta velocità",
+    "sv": "Hög hastighet",
+    "pl": "Wysoka prędkość",
+    "ru": "Высокая скорость",
+    "ko": "고속"
+  },
+  "icon": "/assets/fan_speed.svg"
 }

@@ -1,12 +1,21 @@
 {
-    "type": "boolean",
-    "getable": false,
-    "setable": true,
-    "uiComponent": "button",
-    "title":
-    {
-        "en": "Pause",
-        "no": "Pause"
-    },
-    "icon": "/assets/pause.svg"
+  "type": "boolean",
+  "getable": false,
+  "setable": true,
+  "uiComponent": "button",
+  "title": {
+    "en": "Pause",
+    "no": "Pause",
+    "nl": "Pauze",
+    "da": "Pause",
+    "de": "Pause",
+    "es": "Pausa",
+    "fr": "Pause",
+    "it": "Pausa",
+    "sv": "Paus",
+    "pl": "Pauza",
+    "ru": "Пауза",
+    "ko": "일시 중지"
+  },
+  "icon": "/assets/pause.svg"
 }

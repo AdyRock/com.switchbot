@@ -1,26 +1,56 @@
 {
-    "type": "enum",
-    "title": {
-        "en": "Mode",
-        "no": "Modus"
+  "type": "enum",
+  "title": {
+    "en": "Mode",
+    "no": "Modus",
+    "nl": "Modus",
+    "da": "Tilstand",
+    "de": "Modus",
+    "es": "Modo",
+    "fr": "Mode",
+    "it": "Modalità",
+    "sv": "Läge",
+    "pl": "Tryb",
+    "ru": "Режим",
+    "ko": "모드"
+  },
+  "values": [
+    {
+      "id": "1",
+      "title": {
+        "en": "Standard",
+        "no": "Standard",
+        "nl": "Standaard",
+        "da": "Standard",
+        "de": "Standard",
+        "es": "Estándar",
+        "fr": "Standard",
+        "it": "Standard",
+        "sv": "Standard",
+        "pl": "Standardowy",
+        "ru": "Стандартный",
+        "ko": "표준"
+      }
     },
-    "values": [
-        {
-          "id": "1",
-          "title": {
-            "en": "Standard",
-            "no": "Standard"
-          }
-        },
-        {
-          "id": "2",
-          "title": {
-            "en": "Natural",
-            "no": "Naturlig"
-          }
-        }
-      ],
-    "getable": true,
-    "setable": true,
-    "icon": "/assets/fan_mode.svg"
+    {
+      "id": "2",
+      "title": {
+        "en": "Natural",
+        "no": "Naturlig",
+        "nl": "Natuurlijk",
+        "da": "Naturlig",
+        "de": "Natürlich",
+        "es": "Natural",
+        "fr": "Naturel",
+        "it": "Naturale",
+        "sv": "Naturlig",
+        "pl": "Naturalny",
+        "ru": "Естественный",
+        "ko": "자연스러운"
+      }
+    }
+  ],
+  "getable": true,
+  "setable": true,
+  "icon": "/assets/fan_mode.svg"
 }

@@ -1,13 +1,23 @@
 {
-    "name": {
-        "en": "Scene",
-        "no": "Scene"
-    },
-    "class": "other",
-    "capabilities": [
-        "play_scene"
-    ],
-    "$extends": [
-        "hubDriver"
-    ]
+  "name": {
+    "en": "Scene",
+    "no": "Scene",
+    "nl": "Scène",
+    "da": "Scene",
+    "de": "Szene",
+    "es": "Escena",
+    "fr": "Scène",
+    "it": "Scena",
+    "sv": "Scen",
+    "pl": "Scena",
+    "ru": "Сцена",
+    "ko": "장면"
+  },
+  "class": "other",
+  "capabilities": [
+    "play_scene"
+  ],
+  "$extends": [
+    "hubDriver"
+  ]
 }

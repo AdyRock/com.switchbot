@@ -1,14 +1,24 @@
 {
-    "id": "camera_hub",
-    "name": {
-        "en": "Camera Motion Sensor (HUB)",
-        "no": "Kamera bevegelsessensor (HUB)"
-    },
-    "class": "sensor",
-    "capabilities": [
-        "alarm_motion"
-    ],
-    "$extends": [
-        "hubDriver"
-    ]
+  "id": "camera_hub",
+  "name": {
+    "en": "Camera Motion Sensor (HUB)",
+    "no": "Kamera bevegelsessensor (HUB)",
+    "nl": "Camerabewegingssensor (HUB)",
+    "da": "Kamera Bevægelsessensor (HUB)",
+    "de": "Kamera Bewegungssensor (HUB)",
+    "es": "Sensor de movimiento de cámara (HUB)",
+    "fr": "Capteur de mouvement de caméra (HUB)",
+    "it": "Sensore di movimento della telecamera (HUB)",
+    "sv": "Kamera Rörelsesensor (HUB)",
+    "pl": "Czujnik ruchu kamery (HUB)",
+    "ru": "Датчик движения камеры (HUB)",
+    "ko": "카메라 모션 센서 (HUB)"
+  },
+  "class": "sensor",
+  "capabilities": [
+    "alarm_motion"
+  ],
+  "$extends": [
+    "hubDriver"
+  ]
 }

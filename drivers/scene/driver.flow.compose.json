@@ -4,9 +4,22 @@
       "id": "start_scene",
       "title": {
         "en": "Start Scene",
-        "no": "Aktiver scene"
+        "no": "Aktiver scene",
+        "nl": "Begin Scène",
+        "da": "Start Scene",
+        "de": "Szene Starten",
+        "es": "Iniciar Escena",
+        "fr": "Démarrer la Scène",
+        "it": "Avvia Scena",
+        "sv": "Starta Scen",
+        "pl": "Rozpocznij Scenę",
+        "ru": "Запустить Сцену",
+        "ko": "장면 시작"
       },
-      "platforms": ["local", "cloud"]
+      "platforms": [
+        "local",
+        "cloud"
+      ]
     }
   ]
 }

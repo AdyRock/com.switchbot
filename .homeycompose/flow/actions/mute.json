@@ -1,14 +1,27 @@
 {
-    "title": {
-        "en": "Toggle Mute",
-        "no": "Skru av/på lyd"
-    },
-    "args": [
-        {
-            "name": "device",
-            "type": "device",
-            "filter": "driver_id=dvd|speaker|tv_hub|settop_box_hub"
-        }
-    ],
-    "platforms": ["local", "cloud"]
+  "title": {
+    "en": "Toggle Mute",
+    "no": "Skru av/på lyd",
+    "nl": "Geluid aan/uit",
+    "da": "Slå lyd fra/til",
+    "de": "Stummschaltung umschalten",
+    "es": "Silencio activado/desactivado",
+    "fr": "Activer/désactiver le son",
+    "it": "Attiva/disattiva audio",
+    "sv": "Växla tyst läge",
+    "pl": "Przełącz wyciszenie",
+    "ru": "Переключить звук",
+    "ko": "음소거 전환"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=dvd|speaker|tv_hub|settop_box_hub"
+    }
+  ],
+  "platforms": [
+    "local",
+    "cloud"
+  ]
 }

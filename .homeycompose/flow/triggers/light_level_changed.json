@@ -1,33 +1,63 @@
 {
-    "title": {
-        "en": "Light Level Changed",
-        "no": "Endret lysnivå"
-    },
-    "platforms": [
-        "local"
-    ],
-    "connectivity": [
-        "ble"
-    ],
-    "tokens": [
-        {
-            "name": "light_level",
-            "title": {
-                "en": "Light Level",
-                "no": "Lysnivå"
-            },
-            "type": "number",
-            "example": {
-                "en": "1 to 10",
-                "no": "1 til 10"
-            }
-        }
-    ],
-    "args": [
-        {
-            "type": "device",
-            "name": "device",
-            "filter": "driver_id=curtains_ble"
-        }
-    ]
+  "title": {
+    "en": "Light Level Changed",
+    "no": "Endret lysnivå",
+    "nl": "Lichtniveau Veranderd",
+    "da": "Lysniveau Ændret",
+    "de": "Lichtniveau Geändert",
+    "es": "Nivel de Luz Cambiado",
+    "fr": "Niveau de Lumière Changé",
+    "it": "Livello di Luce Cambiato",
+    "sv": "Ljusnivå Ändrad",
+    "pl": "Poziom Światła Zmieniony",
+    "ru": "Уровень Света Изменен",
+    "ko": "조도 변경됨"
+  },
+  "platforms": [
+    "local"
+  ],
+  "connectivity": [
+    "ble"
+  ],
+  "tokens": [
+    {
+      "name": "light_level",
+      "title": {
+        "en": "Light Level",
+        "no": "Lysnivå",
+        "nl": "Lichtniveau",
+        "da": "Lysniveau",
+        "de": "Lichtniveau",
+        "es": "Nivel de Luz",
+        "fr": "Niveau de Lumière",
+        "it": "Livello di Luce",
+        "sv": "Ljusnivå",
+        "pl": "Poziom Światła",
+        "ru": "Уровень Света",
+        "ko": "조도"
+      },
+      "type": "number",
+      "example": {
+        "en": "1 to 10",
+        "no": "1 til 10",
+        "nl": "1 tot 10",
+        "da": "1 til 10",
+        "de": "1 bis 10",
+        "es": "1 a 10",
+        "fr": "1 à 10",
+        "it": "1 a 10",
+        "sv": "1 till 10",
+        "pl": "1 do 10",
+        "ru": "1 до 10",
+        "ko": "1에서 10"
+      }
+    }
+  ],
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=curtains_ble"
+    }
+  ]
 }

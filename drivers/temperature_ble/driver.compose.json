@@ -1,44 +1,54 @@
 {
-    "id": "temperature_ble",
-    "name": {
-        "en": "Temperature & Humidity (BLE)",
-        "no": "Temperatur & Luftfuktighet (BLE)"
+  "id": "temperature_ble",
+  "name": {
+    "en": "Temperature & Humidity (BLE)",
+    "no": "Temperatur & Luftfuktighet (BLE)",
+    "nl": "Temperatuur & Vochtigheid (BLE)",
+    "da": "Temperatur & Fugtighed (BLE)",
+    "de": "Temperatur & Luftfeuchtigkeit (BLE)",
+    "es": "Temperatura & Humedad (BLE)",
+    "fr": "Température & Humidité (BLE)",
+    "it": "Temperatura & Umidità (BLE)",
+    "sv": "Temperatur & Luftfuktighet (BLE)",
+    "pl": "Temperatura i Wilgotność (BLE)",
+    "ru": "Температура и Влажность (BLE)",
+    "ko": "온도 및 습도 (BLE)"
+  },
+  "platforms": [
+    "local",
+    "cloud"
+  ],
+  "connectivity": [
+    "ble"
+  ],
+  "class": "sensor",
+  "capabilities": [
+    "measure_battery",
+    "measure_temperature",
+    "measure_humidity",
+    "rssi"
+  ],
+  "pair": [
+    {
+      "id": "list_my_devices",
+      "template": "list_devices",
+      "navigation": {
+        "next": "add_my_devices"
+      }
     },
-    "platforms": [
-        "local",
-        "cloud"
-    ],
-    "connectivity": [
-        "ble"
-    ],
-    "class": "sensor",
-    "capabilities": [
-        "measure_battery",
-        "measure_temperature",
-        "measure_humidity",
-        "rssi"
-    ],
-    "pair": [
-        {
-            "id": "list_my_devices",
-            "template": "list_devices",
-            "navigation": {
-                "next": "add_my_devices"
-            }
-        },
-        {
-            "id": "add_my_devices",
-            "template": "add_devices"
-        }
-    ],
-    "energy": {
-        "batteries": [
-            "AAA",
-            "AAA"
-        ]
-    },
-    "images": {
-        "large": "/drivers/temperature_ble/assets/images/large.jpg",
-        "small": "/drivers/temperature_ble/assets/images/small.jpg"
+    {
+      "id": "add_my_devices",
+      "template": "add_devices"
     }
+  ],
+  "energy": {
+    "batteries": [
+      "AAA",
+      "AAA"
+    ]
+  },
+  "images": {
+    "large": "/drivers/temperature_ble/assets/images/large.jpg",
+    "small": "/drivers/temperature_ble/assets/images/small.jpg"
+  }
 }

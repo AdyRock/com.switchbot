@@ -1,36 +1,86 @@
 {
-    "type": "enum",
-    "title": {
-        "en": "Fan Speed",
-        "no": "Viftehastighet"
+  "type": "enum",
+  "title": {
+    "en": "Fan Speed",
+    "no": "Viftehastighet",
+    "nl": "Ventilatorsnelheid",
+    "da": "Ventilatorhastighed",
+    "de": "Lüftergeschwindigkeit",
+    "es": "Velocidad del ventilador",
+    "fr": "Vitesse du ventilateur",
+    "it": "Velocità della ventola",
+    "sv": "Fläkthastighet",
+    "pl": "Prędkość wentylatora",
+    "ru": "Скорость вентилятора",
+    "ko": "팬 속도"
+  },
+  "values": [
+    {
+      "id": "1",
+      "title": {
+        "en": "1",
+        "nl": "1",
+        "da": "1",
+        "de": "1",
+        "es": "1",
+        "fr": "1",
+        "it": "1",
+        "sv": "1",
+        "pl": "1",
+        "ru": "1",
+        "ko": "1"
+      }
     },
-    "values": [
-        {
-          "id": "1",
-          "title": {
-            "en": "1"
-          }
-        },
-        {
-          "id": "2",
-          "title": {
-            "en": "2"
-          }
-        },
-        {
-          "id": "3",
-          "title": {
-            "en": "3"
-          }
-        },
-        {
-          "id": "4",
-          "title": {
-            "en": "4"
-          }
-        }
-      ],
-    "getable": true,
-    "setable": true,
-    "icon": "/assets/air_con_fan.svg"
+    {
+      "id": "2",
+      "title": {
+        "en": "2",
+        "nl": "2",
+        "da": "2",
+        "de": "2",
+        "es": "2",
+        "fr": "2",
+        "it": "2",
+        "sv": "2",
+        "pl": "2",
+        "ru": "2",
+        "ko": "2"
+      }
+    },
+    {
+      "id": "3",
+      "title": {
+        "en": "3",
+        "nl": "3",
+        "da": "3",
+        "de": "3",
+        "es": "3",
+        "fr": "3",
+        "it": "3",
+        "sv": "3",
+        "pl": "3",
+        "ru": "3",
+        "ko": "3"
+      }
+    },
+    {
+      "id": "4",
+      "title": {
+        "en": "4",
+        "nl": "4",
+        "da": "4",
+        "de": "4",
+        "es": "4",
+        "fr": "4",
+        "it": "4",
+        "sv": "4",
+        "pl": "4",
+        "ru": "4",
+        "ko": "4"
+      }
+    }
+  ],
+  "getable": true,
+  "setable": true,
+  "icon": "/assets/air_con_fan.svg"
 }

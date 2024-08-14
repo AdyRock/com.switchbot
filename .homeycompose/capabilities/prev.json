@@ -1,12 +1,21 @@
 {
-    "type": "boolean",
-    "getable": false,
-    "setable": true,
-    "uiComponent": "button",
-    "title":
-    {
-        "en": "Previous",
-        "no": "Forrige"
-    },
-    "icon": "/assets/prev.svg"
+  "type": "boolean",
+  "getable": false,
+  "setable": true,
+  "uiComponent": "button",
+  "title": {
+    "en": "Previous",
+    "no": "Forrige",
+    "nl": "Vorige",
+    "da": "Forrige",
+    "de": "Zurück",
+    "es": "Anterior",
+    "fr": "Précédent",
+    "it": "Precedente",
+    "sv": "Föregående",
+    "pl": "Poprzedni",
+    "ru": "Предыдущий",
+    "ko": "이전"
+  },
+  "icon": "/assets/prev.svg"
 }

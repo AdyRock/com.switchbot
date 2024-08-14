@@ -1,0 +1,67 @@
+{
+  "settings": {
+    "clear": "Protokoll löschen",
+    "send": "Protokoll senden",
+    "getDevices": "HUB-Geräte abrufen"
+  },
+  "capabilities": {
+    "brightness": "Helligkeit"
+  },
+  "pair": {
+    "api_code": {
+      "title": "Verbindungsdetails",
+      "intro": "Holen Sie sich den API-Code aus der SwitchBot-App",
+      "intro1": "1. Öffnen Sie die SwitchBot-App",
+      "intro2": "2. Gehen Sie zu Profil > Einstellungen",
+      "intro3": "3. Tippen Sie 10-mal auf App-Version, um die Entwickleroptionen anzuzeigen",
+      "intro4": "4. Tippen Sie auf Entwickleroptionen",
+      "intro5": "5. Tippen Sie auf Token abrufen",
+      "api_code": "API-Code",
+      "login": "Verbinden",
+      "checking": "Verbindung wird überprüft",
+      "try_again": "Erneut versuchen",
+      "correct": "Erfolgreich",
+      "adding": "Gerät(e) hinzufügen"
+    },
+    "button_code": {
+      "title": "Tasten definieren",
+      "instructions": "Geben Sie den Text für jede Taste genau so ein, wie er in der SwitchBot-App erscheint",
+      "button1": "Befehls-Code 1",
+      "button2": "Befehls-Code 2",
+      "button3": "Befehls-Code 3",
+      "button4": "Befehls-Code 4",
+      "button5": "Befehls-Code 5",
+      "button6": "Befehls-Code 6",
+      "button7": "Befehls-Code 7",
+      "button8": "Befehls-Code 8",
+      "button9": "Befehls-Code 9",
+      "button10": "Befehls-Code 10",
+      "button11": "Befehls-Code 11",
+      "button12": "Befehls-Code 12",
+      "button13": "Befehls-Code 13",
+      "button14": "Befehls-Code 14",
+      "button15": "Befehls-Code 15",
+      "button16": "Befehls-Code 16",
+      "button17": "Befehls-Code 17",
+      "button18": "Befehls-Code 18",
+      "button19": "Befehls-Code 19",
+      "button20": "Befehls-Code 20",
+      "button21": "Befehls-Code 21",
+      "button22": "Befehls-Code 22",
+      "button23": "Befehls-Code 23",
+      "button24": "Befehls-Code 24",
+      "button25": "Befehls-Code 25",
+      "button26": "Befehls-Code 26",
+      "button27": "Befehls-Code 27",
+      "button28": "Befehls-Code 28",
+      "button29": "Befehls-Code 29",
+      "button30": "Befehls-Code 30",
+      "button31": "Befehls-Code 31",
+      "button32": "Befehls-Code 32",
+      "button33": "Befehls-Code 33",
+      "button34": "Befehls-Code 34",
+      "button35": "Befehls-Code 35",
+      "button36": "Befehls-Code 36"
+    }
+  }
+}

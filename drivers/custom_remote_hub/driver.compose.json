@@ -1,54 +1,56 @@
 {
-    "id": "custom_remote_hub",
-    "name":
+  "id": "custom_remote_hub",
+  "name": {
+    "en": "Custom IR Remote",
+    "no": "Egendefinert IR-fjernkontroll",
+    "nl": "Aangepaste IR-afstandsbediening",
+    "da": "Tilpasset IR-fjernbetjening",
+    "de": "Benutzerdefinierte IR-Fernbedienung",
+    "es": "Mando IR personalizado",
+    "fr": "Télécommande IR personnalisée",
+    "it": "Telecomando IR personalizzato",
+    "sv": "Anpassad IR-fjärrkontroll",
+    "pl": "Niestandardowy pilot IR",
+    "ru": "Пользовательский ИК-пульт",
+    "ko": "사용자 지정 IR 리모컨"
+  },
+  "class": "remote",
+  "platforms": [
+    "local",
+    "cloud"
+  ],
+  "connectivity": [
+    "cloud"
+  ],
+  "capabilities": [],
+  "pair": [
     {
-        "en": "Custom IR Remote",
-        "no": "Egendefinert IR-fjernkontroll"
+      "id": "login_oauth2",
+      "template": "login_oauth2"
     },
-    "class": "remote",
-    "platforms":
-    [
-        "local",
-        "cloud"
-    ],
-    "connectivity":
-    [
-        "cloud"
-    ],
-    "capabilities": [
-    ],
-    "pair":
-    [
-        {
-            "id": "login_oauth2",
-            "template": "login_oauth2"
-        },
-        {
-            "id": "list_devices",
-            "template": "list_devices",
-            "navigation":
-            {
-                "next": "define_capabilities"
-            },
-            "options": {
-                "singular": true
-            }
-        },
-        {
-            "id": "define_capabilities"
-        }
-    ],
-    "repair":
-    [
-        {
-            "id": "login_oauth2",
-            "template": "login_oauth2"
-        }
-    ],
-    "icon": "{{driverAssetsPath}}/icon.svg",
-    "images": 
     {
-        "large": "{{driverAssetsPath}}/images/large.jpg",
-        "small": "{{driverAssetsPath}}/images/small.jpg"
+      "id": "list_devices",
+      "template": "list_devices",
+      "navigation": {
+        "next": "define_capabilities"
+      },
+      "options": {
+        "singular": true
+      }
+    },
+    {
+      "id": "define_capabilities"
     }
+  ],
+  "repair": [
+    {
+      "id": "login_oauth2",
+      "template": "login_oauth2"
+    }
+  ],
+  "icon": "{{driverAssetsPath}}/icon.svg",
+  "images": {
+    "large": "{{driverAssetsPath}}/images/large.jpg",
+    "small": "{{driverAssetsPath}}/images/small.jpg"
+  }
 }

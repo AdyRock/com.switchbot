@@ -1,14 +1,27 @@
 {
-    "title": {
-        "en": "Turn On",
-        "no": "Skru på"
-    },
-    "args": [
-        {
-            "name": "device",
-            "type": "device",
-            "filter": "driver_id=dvd|tv_hub|air_con_hub|settop_box_hub|speaker|fan_hub|light_remote_hub|air_purifier_remote_hub"
-        }
-    ],
-    "platforms": ["local", "cloud"]
+  "title": {
+    "en": "Turn On",
+    "no": "Skru på",
+    "nl": "Zet aan",
+    "da": "Tænd",
+    "de": "Einschalten",
+    "es": "Encender",
+    "fr": "Allumer",
+    "it": "Accendi",
+    "sv": "Slå på",
+    "pl": "Włącz",
+    "ru": "Включить",
+    "ko": "켜기"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=dvd|tv_hub|air_con_hub|settop_box_hub|speaker|fan_hub|light_remote_hub|air_purifier_remote_hub"
+    }
+  ],
+  "platforms": [
+    "local",
+    "cloud"
+  ]
 }

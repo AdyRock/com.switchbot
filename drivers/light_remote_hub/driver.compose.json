@@ -1,18 +1,27 @@
 {
-    "id": "light_remote_hub",
-    "name":
-    {
-        "en": "Light Remote",
-        "no": "Lysfjernkontroll"
-    },
-    "class": "remote",
-    "capabilities": [
-        "power_on",
-        "power_off",
-        "brightness_up",
-        "brightness_down"
-    ],
-    "$extends": [
-        "hubDriver"
-    ]
+  "id": "light_remote_hub",
+  "name": {
+    "en": "Light Remote",
+    "no": "Lysfjernkontroll",
+    "nl": "Lichtafstandsbediening",
+    "da": "Lys Fjernbetjening",
+    "de": "Lichtfernbedienung",
+    "es": "Mando a Distancia de Luz",
+    "fr": "Télécommande Lumineuse",
+    "it": "Telecomando Luci",
+    "sv": "Ljuskontroll",
+    "pl": "Pilot zdalnego sterowania światłem",
+    "ru": "Пульт Света",
+    "ko": "조명 리모콘"
+  },
+  "class": "remote",
+  "capabilities": [
+    "power_on",
+    "power_off",
+    "brightness_up",
+    "brightness_down"
+  ],
+  "$extends": [
+    "hubDriver"
+  ]
 }

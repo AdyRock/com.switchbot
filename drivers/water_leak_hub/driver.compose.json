@@ -2,15 +2,30 @@
   "id": "water_leak_hub",
   "name": {
     "en": "Water Leak Detector (HUB)",
-    "no": "Vannlekkasjevarsler (HUB)"
+    "no": "Vannlekkasjevarsler (HUB)",
+    "nl": "Waterlekdetector (HUB)",
+    "da": "Vandlækagedetektor (HUB)",
+    "de": "Wasserleckdetektor (HUB)",
+    "es": "Detector de fugas de agua (HUB)",
+    "fr": "Détecteur de fuite d'eau (HUB)",
+    "it": "Rilevatore di perdite d'acqua (HUB)",
+    "sv": "Vattenläckagedetektor (HUB)",
+    "pl": "Detektor wycieków wody (HUB)",
+    "ru": "Датчик утечки воды (HUB)",
+    "ko": "물 누수 감지기 (HUB)"
   },
   "class": "sensor",
   "capabilities": [
     "alarm_water",
-	"measure_battery"
+    "measure_battery"
   ],
   "energy": {
-    "batteries": ["AAA", "AAA"]
+    "batteries": [
+      "AAA",
+      "AAA"
+    ]
   },
-  "$extends": ["hubDriver"]
+  "$extends": [
+    "hubDriver"
+  ]
 }

@@ -1,17 +1,27 @@
 {
-    "title": {
-        "en": "Becomes Dim",
-        "no": "Blir dimmet"
-    },
-    "platforms": [
-        "local",
-        "cloud"
-    ],
-    "args": [
-        {
-            "type": "device",
-            "name": "device",
-            "filter": "driver_id=contact_ble|contact_hub|presence_ble|presence_hub"
-        }
-    ]
+  "title": {
+    "en": "Becomes Dim",
+    "no": "Blir dimmet",
+    "nl": "Wordt Dim",
+    "da": "Bliver Dæmpet",
+    "de": "Wird Dämmerig",
+    "es": "Se Vuelve Tenue",
+    "fr": "Devient Sombre",
+    "it": "Diventa Fioco",
+    "sv": "Blir Dim",
+    "pl": "Staje Się Przyciemniony",
+    "ru": "Становится Слабым",
+    "ko": "어두워짐"
+  },
+  "platforms": [
+    "local",
+    "cloud"
+  ],
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=contact_ble|contact_hub|presence_ble|presence_hub"
+    }
+  ]
 }

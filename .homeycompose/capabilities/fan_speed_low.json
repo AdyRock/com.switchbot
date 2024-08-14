@@ -1,12 +1,21 @@
 {
-    "type": "boolean",
-    "getable": false,
-    "setable": true,
-    "uiComponent": "button",
-    "title":
-    {
-        "en": "Low Speed",
-        "no": "Lav hastighet"
-    },
-    "icon": "/assets/fan_speed.svg"
+  "type": "boolean",
+  "getable": false,
+  "setable": true,
+  "uiComponent": "button",
+  "title": {
+    "en": "Low Speed",
+    "no": "Lav hastighet",
+    "nl": "Lage Snelheid",
+    "da": "Lav Hastighed",
+    "de": "Niedrige Geschwindigkeit",
+    "es": "Baja Velocidad",
+    "fr": "Basse Vitesse",
+    "it": "Bassa Velocità",
+    "sv": "Låg Hastighet",
+    "pl": "Niska Prędkość",
+    "ru": "Низкая Скорость",
+    "ko": "낮은 속도"
+  },
+  "icon": "/assets/fan_speed.svg"
 }

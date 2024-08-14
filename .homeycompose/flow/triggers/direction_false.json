@@ -1,21 +1,41 @@
 {
-    "title": {
-        "en": "Someone entered",
-        "no": "Noen kom inn"
-    },
-    "platforms": [
-        "local",
-        "cloud"
-    ],
-    "hint": {
-        "en": "Motion was detected after the contact was opened.",
-        "no": "Bevegelse ble detektert etter at kontakten ble åpnet."
-    },
-    "args": [
-        {
-            "type": "device",
-            "name": "device",
-            "filter": "driver_id=contact_hub"
-        }
-    ]
+  "title": {
+    "en": "Someone entered",
+    "no": "Noen kom inn",
+    "nl": "Iemand is binnengekomen",
+    "da": "Nogen gik ind",
+    "de": "Jemand ist eingetreten",
+    "es": "Alguien entró",
+    "fr": "Quelqu'un est entré",
+    "it": "Qualcuno è entrato",
+    "sv": "Någon gick in",
+    "pl": "Ktoś wszedł",
+    "ru": "Кто-то вошел",
+    "ko": "누군가 들어왔습니다"
+  },
+  "platforms": [
+    "local",
+    "cloud"
+  ],
+  "hint": {
+    "en": "Motion was detected after the contact was opened.",
+    "no": "Bevegelse ble detektert etter at kontakten ble åpnet.",
+    "nl": "Beweging werd gedetecteerd nadat het contact werd geopend.",
+    "da": "Bevægelse blev registreret, efter kontakten blev åbnet.",
+    "de": "Bewegung wurde erkannt, nachdem der Kontakt geöffnet wurde.",
+    "es": "El movimiento fue detectado después de que se abrió el contacto.",
+    "fr": "Le mouvement a été détecté après l'ouverture du contact.",
+    "it": "Il movimento è stato rilevato dopo l'apertura del contatto.",
+    "sv": "Rörelse upptäcktes efter att kontakten öppnades.",
+    "pl": "Wykryto ruch po otwarciu kontaktu.",
+    "ru": "Движение было обнаружено после открытия контакта.",
+    "ko": "접촉이 열린 후 움직임이 감지되었습니다."
+  },
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=contact_hub"
+    }
+  ]
 }

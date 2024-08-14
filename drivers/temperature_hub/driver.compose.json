@@ -1,17 +1,26 @@
 {
-    "id": "temperature_hub",
-    "name":
-    {
-        "en": "Temperature & Humidity (HUB)",
-        "no": "Temperatur & Luftfuktighet (HUB)"
-    },
-    "class": "sensor",
-    "capabilities": [
-        "measure_temperature",
-        "measure_humidity",
-        "measure_luminance"
-    ],
-    "$extends": [
-        "hubDriver"
-    ]
+  "id": "temperature_hub",
+  "name": {
+    "en": "Temperature & Humidity (HUB)",
+    "no": "Temperatur & Luftfuktighet (HUB)",
+    "nl": "Temperatuur & Vochtigheid (HUB)",
+    "da": "Temperatur & Fugtighed (HUB)",
+    "de": "Temperatur & Luftfeuchtigkeit (HUB)",
+    "es": "Temperatura y Humedad (HUB)",
+    "fr": "Température et Humidité (HUB)",
+    "it": "Temperatura e Umidità (HUB)",
+    "sv": "Temperatur & Fuktighet (HUB)",
+    "pl": "Temperatura i Wilgotność (HUB)",
+    "ru": "Температура и Влажность (HUB)",
+    "ko": "온도 및 습도 (HUB)"
+  },
+  "class": "sensor",
+  "capabilities": [
+    "measure_temperature",
+    "measure_humidity",
+    "measure_luminance"
+  ],
+  "$extends": [
+    "hubDriver"
+  ]
 }

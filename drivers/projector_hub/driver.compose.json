@@ -1,21 +1,30 @@
 {
-    "id": "projector_hub",
-    "name":
-    {
-        "en": "Projector Remote",
-        "no": "Projektor fjernkontroll"
-    },
-    "class": "remote",
-    "capabilities": [
-        "power_on",
-        "power_off",
-        "volume_up",
-        "volume_down",
-        "channel_up",
-        "channel_down",
-        "volume_mute"
-    ],
-    "$extends": [
-        "hubDriver"
-    ]
+  "id": "projector_hub",
+  "name": {
+    "en": "Projector Remote",
+    "no": "Projektor fjernkontroll",
+    "nl": "Projector Afstandsbediening",
+    "da": "Projektorfjernbetjening",
+    "de": "Projektor-Fernbedienung",
+    "es": "Mando de Proyector",
+    "fr": "Télécommande de projecteur",
+    "it": "Telecomando Proiettore",
+    "sv": "Projektorfjärrkontroll",
+    "pl": "Pilot do projektora",
+    "ru": "Пульт проектора",
+    "ko": "프로젝터 리모컨"
+  },
+  "class": "remote",
+  "capabilities": [
+    "power_on",
+    "power_off",
+    "volume_up",
+    "volume_down",
+    "channel_up",
+    "channel_down",
+    "volume_mute"
+  ],
+  "$extends": [
+    "hubDriver"
+  ]
 }

@@ -1,19 +1,29 @@
 {
-    "id": "curtains_hub",
-    "name": {
-        "en": "Blind Tilt (HUB)",
-        "no": "Markise m/tilt (HUB)"
-    },
-    "class": "blinds",
-    "capabilities": [
-        "windowcoverings_tilt_set"
-    ],
-    "energy": {
-        "batteries": [
-            "INTERNAL"
-        ]
-    },
-    "$extends": [
-        "hubDriver"
+  "id": "curtains_hub",
+  "name": {
+    "en": "Blind Tilt (HUB)",
+    "no": "Markise m/tilt (HUB)",
+    "nl": "Blind Tilt (HUB)",
+    "da": "Blind Tilt (HUB)",
+    "de": "Blind Tilt (HUB)",
+    "es": "Blind Tilt (HUB)",
+    "fr": "Blind Tilt (HUB)",
+    "it": "Blind Tilt (HUB)",
+    "sv": "Blind Tilt (HUB)",
+    "pl": "Blind Tilt (HUB)",
+    "ru": "Blind Tilt (HUB)",
+    "ko": "Blind Tilt (HUB)"
+  },
+  "class": "blinds",
+  "capabilities": [
+    "windowcoverings_tilt_set"
+  ],
+  "energy": {
+    "batteries": [
+      "INTERNAL"
     ]
+  },
+  "$extends": [
+    "hubDriver"
+  ]
 }

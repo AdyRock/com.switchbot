@@ -1,12 +1,21 @@
 {
-    "type": "boolean",
-    "getable": false,
-    "setable": true,
-    "uiComponent": "button",
-    "title":
-    {
-        "en": "Swing",
-        "no": "Pendler"
-    },
-    "icon": "/assets/rotate_range.svg"
+  "type": "boolean",
+  "getable": false,
+  "setable": true,
+  "uiComponent": "button",
+  "title": {
+    "en": "Swing",
+    "no": "Pendler",
+    "nl": "Schommel",
+    "da": "Sving",
+    "de": "Schwingen",
+    "es": "Oscilar",
+    "fr": "Balancer",
+    "it": "Oscillare",
+    "sv": "Svänga",
+    "pl": "Kołysać",
+    "ru": "Качание",
+    "ko": "스윙"
+  },
+  "icon": "/assets/rotate_range.svg"
 }

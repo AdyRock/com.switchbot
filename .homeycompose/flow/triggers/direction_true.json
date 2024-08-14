@@ -1,21 +1,41 @@
 {
-    "title": {
-        "en": "Someone exited",
-        "no": "Noen gikk ut"
-    },
-    "platforms": [
-        "local",
-        "cloud"
-    ],
-    "hint": {
-        "en": "Button was pressed or Motion was detected; then the contact was opened.",
-        "no": "Knappen ble trykket eller bevegelse ble detektert; kontakten ble åpnet etterpå."
-    },
-    "args": [
-        {
-            "type": "device",
-            "name": "device",
-            "filter": "driver_id=contact_hub"
-        }
-    ]
+  "title": {
+    "en": "Someone exited",
+    "no": "Noen gikk ut",
+    "nl": "Iemand is vertrokken",
+    "da": "Nogen gik ud",
+    "de": "Jemand ist herausgegangen",
+    "es": "Alguien ha salido",
+    "fr": "Quelqu'un est sorti",
+    "it": "Qualcuno è uscito",
+    "sv": "Någon gick ut",
+    "pl": "Ktoś wyszedł",
+    "ru": "Кто-то вышел",
+    "ko": "누군가 나갔습니다"
+  },
+  "platforms": [
+    "local",
+    "cloud"
+  ],
+  "hint": {
+    "en": "Button was pressed or Motion was detected; then the contact was opened.",
+    "no": "Knappen ble trykket eller bevegelse ble detektert; kontakten ble åpnet etterpå.",
+    "nl": "De knop werd ingedrukt of beweging werd gedetecteerd; daarna werd het contact geopend.",
+    "da": "Knappen blev trykket eller bevægelse blev registreret; derefter blev kontakten åbnet.",
+    "de": "Der Knopf wurde gedrückt oder eine Bewegung wurde erkannt; dann wurde der Kontakt geöffnet.",
+    "es": "Se pulsó el botón o se detectó movimiento; luego se abrió el contacto.",
+    "fr": "Le bouton a été pressé ou un mouvement a été détecté; ensuite, le contact s'est ouvert.",
+    "it": "Il pulsante è stato premuto o è stato rilevato un movimento; poi il contatto è stato aperto.",
+    "sv": "Knappen trycktes eller rörelse upptäcktes; sedan öppnades kontakten.",
+    "pl": "Przycisk został naciśnięty lub wykryto ruch; następnie otwarto kontakt.",
+    "ru": "Кнопка была нажата или было обнаружено движение; затем был открыт контакт.",
+    "ko": "버튼이 눌리거나 모션이 감지되었습니다; 그 후에 접촉이 열렸습니다."
+  },
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=contact_hub"
+    }
+  ]
 }

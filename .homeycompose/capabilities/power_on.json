@@ -1,12 +1,21 @@
 {
-    "type": "boolean",
-    "getable": false,
-    "setable": true,
-    "uiComponent": "button",
-    "title":
-    {
-        "en": "Power On",
-        "no": "På"
-    },
-    "icon": "/assets/power_on.svg"
+  "type": "boolean",
+  "getable": false,
+  "setable": true,
+  "uiComponent": "button",
+  "title": {
+    "en": "Power On",
+    "no": "På",
+    "nl": "Aanzetten",
+    "da": "Tænd",
+    "de": "Einschalten",
+    "es": "Encender",
+    "fr": "Allumer",
+    "it": "Accendi",
+    "sv": "Sätt på",
+    "pl": "Włącz",
+    "ru": "Включить",
+    "ko": "켜기"
+  },
+  "icon": "/assets/power_on.svg"
 }

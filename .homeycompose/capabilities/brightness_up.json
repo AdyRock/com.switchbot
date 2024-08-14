@@ -1,12 +1,21 @@
 {
-    "type": "boolean",
-    "getable": false,
-    "setable": true,
-    "uiComponent": "button",
-    "title":
-    {
-        "en": "Brightness up",
-        "no": "Lysstyrke opp"
-    },
-    "icon": "/assets/brightness.svg"
+  "type": "boolean",
+  "getable": false,
+  "setable": true,
+  "uiComponent": "button",
+  "title": {
+    "en": "Brightness up",
+    "no": "Lysstyrke opp",
+    "nl": "Heldere",
+    "da": "Lysstyrke op",
+    "de": "Helligkeit erhöhen",
+    "es": "Subir el brillo",
+    "fr": "Augmenter la luminosité",
+    "it": "Aumenta la luminosità",
+    "sv": "Öka ljusstyrkan",
+    "pl": "Zwiększ jasność",
+    "ru": "Повысить яркость",
+    "ko": "밝기 올리기"
+  },
+  "icon": "/assets/brightness.svg"
 }

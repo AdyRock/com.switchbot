@@ -1,14 +1,27 @@
 {
-	"title": {
-		"en": "Dock",
-		"no": "Dokk"
-	},
-	"args": [
-		{
-			"name": "device",
-			"type": "device",
-			"filter": "driver_id=robot_vaccum_hub"
-		}
-	],
-	"platforms": ["local", "cloud"]
+  "title": {
+    "en": "Dock",
+    "no": "Dokk",
+    "nl": "Dock",
+    "da": "Dock",
+    "de": "Dock",
+    "es": "Dock",
+    "fr": "Dock",
+    "it": "Dock",
+    "sv": "Dock",
+    "pl": "Dock",
+    "ru": "Dock",
+    "ko": "Dock"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=robot_vaccum_hub"
+    }
+  ],
+  "platforms": [
+    "local",
+    "cloud"
+  ]
 }

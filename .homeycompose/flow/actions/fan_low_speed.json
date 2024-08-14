@@ -1,14 +1,27 @@
 {
-    "title": {
-        "en": "Set to low speed",
-        "no": "Sett til lav fart"
-    },
-    "args": [
-        {
-            "name": "device",
-            "type": "device",
-            "filter": "driver_id=fan_hub|air_purifier_remote_hub"
-        }
-    ],
-    "platforms": ["local", "cloud"]
+  "title": {
+    "en": "Set to low speed",
+    "no": "Sett til lav fart",
+    "nl": "Zet op lage snelheid",
+    "da": "Indstil til lav hastighed",
+    "de": "Auf niedrige Geschwindigkeit einstellen",
+    "es": "Establecer a baja velocidad",
+    "fr": "Réglez sur basse vitesse",
+    "it": "Imposta a bassa velocità",
+    "sv": "Ställ in låg hastighet",
+    "pl": "Ustaw na niską prędkość",
+    "ru": "Установить на низкую скорость",
+    "ko": "저속으로 설정"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=fan_hub|air_purifier_remote_hub"
+    }
+  ],
+  "platforms": [
+    "local",
+    "cloud"
+  ]
 }
