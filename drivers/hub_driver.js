@@ -23,7 +23,14 @@ class HubDriver extends OAuth2Driver
 
 		if (response === null)
 		{
-			response = await oAuth2Client.getDevices();
+			if (this.homey.app.openToken)
+			{
+				response = await this.homey.app.getHUBDevices();
+			}
+			else
+			{
+				response = await oAuth2Client.getDevices();
+			}
 		}
 
 		if (response)

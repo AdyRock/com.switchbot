@@ -14,10 +14,9 @@
     "ru": "Bot (HUB)",
     "ko": "Bot (HUB)"
   },
-  "class": "socket",
+  "class": "button",
   "capabilities": [
-    "onoff",
-    "measure_power"
+    "onoff"
   ],
   "$extends": [
     "hubDriver"

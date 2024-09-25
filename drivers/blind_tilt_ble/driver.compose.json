@@ -1,175 +1,232 @@
 {
-  "id": "blind_tilt_ble",
-  "name": {
-    "en": "Blind Tilt (BLE)",
-    "no": "Markise m/tilt (BLE)",
-    "nl": "Rolgordijn Kantelen (BLE)",
-    "da": "Rullegardin Tilt (BLE)",
-    "de": "Rollo Neigen (BLE)",
-    "es": "Inclinación Persiana (BLE)",
-    "fr": "Inclinaison Store (BLE)",
-    "it": "Inclinazione Tenda (BLE)",
-    "sv": "Rullgardin Lutning (BLE)",
-    "pl": "Przechylanie Rolety (BLE)",
-    "ru": "Наклон Жалюзи (BLE)",
-    "ko": "블라인드 기울이기 (BLE)"
-  },
-  "platforms": [
-    "local",
-    "cloud"
-  ],
-  "connectivity": [
-    "ble"
-  ],
-  "class": "blinds",
-  "capabilities": [
-    "open_close",
-    "measure_battery",
-    "windowcoverings_tilt_set",
-    "rssi",
-    "position"
-  ],
-  "pair": [
-    {
-      "id": "list_my_devices",
-      "template": "list_devices",
-      "navigation": {
-        "next": "add_my_devices"
-      }
-    },
-    {
-      "id": "add_my_devices",
-      "template": "add_devices"
-    }
-  ],
-  "energy": {
-    "batteries": [
-      "INTERNAL"
-    ]
-  },
-  "images": {
-    "large": "/drivers/blind_tilt_ble/assets/images/large.jpg",
-    "small": "/drivers/blind_tilt_ble/assets/images/small.jpg"
-  },
-  "settings": [
-    {
-      "id": "invertPosition",
-      "type": "checkbox",
-      "label": {
-        "en": "Invert Open / Close Position",
-        "no": "Inverter Åpen / Lukket posisjon",
-        "nl": "Positie Open/Dicht Omkeren",
-        "da": "Omvend Åben/Luk Position",
-        "de": "Öffnen/Schließen Position umkehren",
-        "es": "Invertir Posición Abierto/Cerrado",
-        "fr": "Inverser Position Ouvert/Fermé",
-        "it": "Inverti Posizione Aperto/Chiuso",
-        "sv": "Omvänd Öppen/Stängd Position",
-        "pl": "Odwróć Pozycję Otwórz/Zamknij",
-        "ru": "Инвертировать Открыть/Закрыть Позицию",
-        "ko": "열림/닫힘 위치 반전"
-      },
-      "value": false,
-      "hint": {
-        "en": "Reverse the action of the position control.",
-        "no": "Vend retningen for posisjonsvelgeren.",
-        "nl": "Keer de actie van de positiebesturing om.",
-        "da": "Omvend handlingen for positionskontrollen.",
-        "de": "Umkehren der Aktion der Positionssteuerung.",
-        "es": "Invierte la acción del control de posición.",
-        "fr": "Inverser l'action du contrôle de position.",
-        "it": "Inverti l'azione del controllo della posizione.",
-        "sv": "Omvänd riktning för positionskontrollen.",
-        "pl": "Odwróć działanie regulatora pozycji.",
-        "ru": "Инвертировать действие регулировки положения.",
-        "ko": "위치 제어 동작 반전."
-      }
-    },
-    {
-      "id": "motionMode",
-      "type": "radio",
-      "label": {
-        "en": "Motion Mode",
-        "no": "Bevegelsesmodus",
-        "nl": "Bewegingsmodus",
-        "da": "Bevægelsestilstand",
-        "de": "Bewegungsmodus",
-        "es": "Modo de Movimiento",
-        "fr": "Mode Mouvement",
-        "it": "Modalità Movimento",
-        "sv": "Rörelseläge",
-        "pl": "Tryb Ruchu",
-        "ru": "Режим Движения",
-        "ko": "모션 모드"
-      },
-      "value": "0xff",
-      "values": [
-        {
-          "id": "0",
-          "label": {
-            "en": "Performance",
-            "no": "Ytelse",
-            "nl": "Prestatie",
-            "da": "Ydelse",
-            "de": "Leistung",
-            "es": "Rendimiento",
-            "fr": "Performance",
-            "it": "Prestazione",
-            "sv": "Prestanda",
-            "pl": "Wydajność",
-            "ru": "Производительность",
-            "ko": "성능"
-          }
-        },
-        {
-          "id": "1",
-          "label": {
-            "en": "Silent",
-            "no": "Stille",
-            "nl": "Stil",
-            "da": "Stille",
-            "de": "Leise",
-            "es": "Silencioso",
-            "fr": "Silencieux",
-            "it": "Silenzioso",
-            "sv": "Tyst",
-            "pl": "Cichy",
-            "ru": "Тихий",
-            "ko": "조용한"
-          }
-        },
-        {
-          "id": "0xff",
-          "label": {
-            "en": "Last Used",
-            "no": "Sist brukte",
-            "nl": "Laatst Gebruikt",
-            "da": "Sidst Brugt",
-            "de": "Zuletzt Verwendet",
-            "es": "Último Usado",
-            "fr": "Dernier Utilisé",
-            "it": "Ultimo Usato",
-            "sv": "Senast Använda",
-            "pl": "Ostatnio Używany",
-            "ru": "Последний Использованный",
-            "ko": "마지막 사용"
-          }
-        }
-      ],
-      "hint": {
-        "en": "Select the silent or performance mode of the motor.",
-        "no": "Velg stille eller ytelse modus for motoren.",
-        "nl": "Selecteer de stille of prestatiewijze van de motor.",
-        "da": "Vælg den stille eller ydeevne tilstand af motoren.",
-        "de": "Wählen Sie den leisen oder Leistungsmodus des Motors.",
-        "es": "Seleccione el modo silencioso o de rendimiento del motor.",
-        "fr": "Sélectionnez le mode silencieux ou performance du moteur.",
-        "it": "Selezionare la modalità silenziosa o di prestazione del motore.",
-        "sv": "Välj tyst eller prestandaläge för motorn.",
-        "pl": "Wybierz tryb cichy lub wydajności silnika.",
-        "ru": "Выберите тихий или производительный режим мотора.",
-        "ko": "모터의 저소음 또는 성능 모드를 선택하세요."
-      }
-    }
-  ]
+	"id": "blind_tilt_ble",
+	"name": {
+		"en": "Blind Tilt (BLE)",
+		"no": "Markise m/tilt (BLE)",
+		"nl": "Rolgordijn Kantelen (BLE)",
+		"da": "Rullegardin Tilt (BLE)",
+		"de": "Rollo Neigen (BLE)",
+		"es": "Inclinación Persiana (BLE)",
+		"fr": "Inclinaison Store (BLE)",
+		"it": "Inclinazione Tenda (BLE)",
+		"sv": "Rullgardin Lutning (BLE)",
+		"pl": "Przechylanie Rolety (BLE)",
+		"ru": "Наклон Жалюзи (BLE)",
+		"ko": "블라인드 기울이기 (BLE)"
+	},
+	"platforms": [
+		"local",
+		"cloud"
+	],
+	"connectivity": [
+		"ble"
+	],
+	"class": "blinds",
+	"capabilities": [
+		"open_close",
+		"measure_battery",
+		"windowcoverings_tilt_set",
+		"rssi",
+		"position"
+	],
+	"pair": [
+		{
+			"id": "list_my_devices",
+			"template": "list_devices",
+			"navigation": {
+				"next": "add_my_devices"
+			}
+		},
+		{
+			"id": "add_my_devices",
+			"template": "add_devices"
+		}
+	],
+	"energy": {
+		"batteries": [
+			"INTERNAL"
+		]
+	},
+	"images": {
+		"large": "/drivers/blind_tilt_ble/assets/images/large.jpg",
+		"small": "/drivers/blind_tilt_ble/assets/images/small.jpg"
+	},
+	"settings": [
+		{
+			"id": "invertPosition",
+			"type": "checkbox",
+			"label": {
+				"en": "Invert Open / Close Position",
+				"no": "Inverter Åpen / Lukket posisjon",
+				"nl": "Positie Open/Dicht Omkeren",
+				"da": "Omvend Åben/Luk Position",
+				"de": "Öffnen/Schließen Position umkehren",
+				"es": "Invertir Posición Abierto/Cerrado",
+				"fr": "Inverser Position Ouvert/Fermé",
+				"it": "Inverti Posizione Aperto/Chiuso",
+				"sv": "Omvänd Öppen/Stängd Position",
+				"pl": "Odwróć Pozycję Otwórz/Zamknij",
+				"ko": "열림/닫힘 위치 반전"
+			},
+			"value": false,
+			"hint": {
+				"en": "Reverse the action of the position control.",
+				"no": "Vend retningen for posisjonsvelgeren.",
+				"nl": "Keer de actie van de positiebesturing om.",
+				"da": "Omvend handlingen for positionskontrollen.",
+				"de": "Umkehren der Aktion der Positionssteuerung.",
+				"es": "Invierte la acción del control de posición.",
+				"fr": "Inverser l'action du contrôle de position.",
+				"it": "Inverti l'azione del controllo della posizione.",
+				"sv": "Omvänd riktning för positionskontrollen.",
+				"pl": "Odwróć działanie regulatora pozycji.",
+				"ko": "위치 제어 동작 반전."
+			}
+		},
+		{
+			"id": "closePosition",
+			"type": "radio",
+			"label": {
+				"en": "Invert Open / Close Position",
+				"no": "Inverter Åpen / Lukket posisjon",
+				"nl": "Positie Open/Dicht Omkeren",
+				"da": "Omvend Åben/Luk Position",
+				"de": "Öffnen/Schließen Position umkehren",
+				"es": "Invertir Posición Abierto/Cerrado",
+				"fr": "Inverser Position Ouvert/Fermé",
+				"it": "Inverti Posizione Aperto/Chiuso",
+				"sv": "Omvänd Öppen/Stängd Position",
+				"pl": "Odwróć Pozycję Otwórz/Zamknij",
+				"ko": "열림/닫힘 위치 반전"
+			},
+			"values": [
+				{
+					"id": "up",
+					"label": {
+						"en": "Tilt up to open",
+						"no": "Vipp opp for å åpne",
+						"nl": "Kantel omhoog om te openen",
+						"da": "Vip op for at åbne",
+						"de": "Neigen Sie nach oben, um zu öffnen",
+						"es": "Inclinar hacia arriba para abrir",
+						"fr": "Inclinez vers le haut pour ouvrir",
+						"it": "Inclina verso l'alto per aprire",
+						"sv": "Luta uppåt för att öppna",
+						"pl": "Nachyl w górę, aby otworzyć",
+						"ko": "열기 위해 위로 기울이기"
+					}
+				},
+				{
+					"id": "down",
+					"label": {
+						"en": "Tilt Down to Open",
+						"no": "Vipp ned for å åpne",
+						"nl": "Kantel omlaag om te openen",
+						"da": "Vip ned for at åbne",
+						"de": "Neigen Sie nach unten, um zu öffnen",
+						"es": "Inclinar hacia abajo para abrir",
+						"fr": "Inclinez vers le bas pour ouvrir",
+						"it": "Inclina verso il basso per aprire",
+						"sv": "Luta ner för att öppna",
+						"pl": "Nachyl w dół, aby otworzyć",
+						"ko": "열기 위해 아래로 기울이기"
+					}
+				}
+			],
+			"hint": {
+				"en": "Reverse the action of the position control.",
+				"no": "Vend retningen for posisjonsvelgeren.",
+				"nl": "Keer de actie van de positiebesturing om.",
+				"da": "Omvend handlingen for positionskontrollen.",
+				"de": "Umkehren der Aktion der Positionssteuerung.",
+				"es": "Invierte la acción del control de posición.",
+				"fr": "Inverser l'action du contrôle de position.",
+				"it": "Inverti l'azione del controllo della posizione.",
+				"sv": "Omvänd riktning för positionskontrollen.",
+				"pl": "Odwróć działanie regulatora pozycji.",
+				"ko": "위치 제어 동작 반전."
+			}
+		},
+		{
+			"id": "motionMode",
+			"type": "radio",
+			"label": {
+				"en": "Motion Mode",
+				"no": "Bevegelsesmodus",
+				"nl": "Bewegingsmodus",
+				"da": "Bevægelsestilstand",
+				"de": "Bewegungsmodus",
+				"es": "Modo de Movimiento",
+				"fr": "Mode Mouvement",
+				"it": "Modalità Movimento",
+				"sv": "Rörelseläge",
+				"pl": "Tryb Ruchu",
+				"ko": "모션 모드"
+			},
+			"value": "0xff",
+			"values": [
+				{
+					"id": "0",
+					"label": {
+						"en": "Performance",
+						"no": "Ytelse",
+						"nl": "Prestatie",
+						"da": "Ydelse",
+						"de": "Leistung",
+						"es": "Rendimiento",
+						"fr": "Performance",
+						"it": "Prestazione",
+						"sv": "Prestanda",
+						"pl": "Wydajność",
+						"ko": "성능"
+					}
+				},
+				{
+					"id": "1",
+					"label": {
+						"en": "Silent",
+						"no": "Stille",
+						"nl": "Stil",
+						"da": "Stille",
+						"de": "Leise",
+						"es": "Silencioso",
+						"fr": "Silencieux",
+						"it": "Silenzioso",
+						"sv": "Tyst",
+						"pl": "Cichy",
+						"ko": "조용한"
+					}
+				},
+				{
+					"id": "0xff",
+					"label": {
+						"en": "Last Used",
+						"no": "Sist brukte",
+						"nl": "Laatst Gebruikt",
+						"da": "Sidst Brugt",
+						"de": "Zuletzt Verwendet",
+						"es": "Último Usado",
+						"fr": "Dernier Utilisé",
+						"it": "Ultimo Usato",
+						"sv": "Senast Använda",
+						"pl": "Ostatnio Używany",
+						"ko": "마지막 사용"
+					}
+				}
+			],
+			"hint": {
+				"en": "Select the silent or performance mode of the motor.",
+				"no": "Velg stille eller ytelse modus for motoren.",
+				"nl": "Selecteer de stille of prestatiewijze van de motor.",
+				"da": "Vælg den stille eller ydeevne tilstand af motoren.",
+				"de": "Wählen Sie den leisen oder Leistungsmodus des Motors.",
+				"es": "Seleccione el modo silencioso o de rendimiento del motor.",
+				"fr": "Sélectionnez le mode silencieux ou performance du moteur.",
+				"it": "Selezionare la modalità silenziosa o di prestazione del motore.",
+				"sv": "Välj tyst eller prestandaläge för motorn.",
+				"pl": "Wybierz tryb cichy lub wydajności silnika.",
+				"ko": "모터의 저소음 또는 성능 모드를 선택하세요."
+			}
+		}
+	]
 }

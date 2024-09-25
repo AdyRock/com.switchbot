@@ -45,6 +45,12 @@ class BlindTiltBLEDevice extends Homey.Device
 			this.motionMode = 2;
 		}
 
+		this.closePosition = Number(this.getSetting('closePosition'));
+		if (this.closePosition === null)
+		{
+			this.closePosition = 'down';
+		}
+
 		// register a capability listener
 		this.registerCapabilityListener('open_close', this.onCapabilityopenClose.bind(this));
 		this.registerCapabilityListener('windowcoverings_tilt_set', this.onCapabilityPosition.bind(this));
@@ -81,6 +87,11 @@ class BlindTiltBLEDevice extends Homey.Device
 		{
 			this.motionMode = Number(newSettings.motionMode);
 		}
+
+		if (changedKeys.indexOf('closePosition') >= 0)
+		{
+			this.closePosition = Number(newSettings.closePosition);
+		}
 	}
 
 	/**
@@ -106,7 +117,14 @@ class BlindTiltBLEDevice extends Homey.Device
 	// this method is called when the Homey device switches the device on or off
 	async onCapabilityopenClose(value, opts)
 	{
-		value = value ? 0.5 : 0;
+		if (value === true)
+		{
+			value = 0.5;
+		}
+		else
+		{
+			value = this.closePosition ? 1 : 0;
+		}
 
 		if (this.invertPosition)
 		{
@@ -415,7 +433,7 @@ class BlindTiltBLEDevice extends Homey.Device
 				position = 1 - position;
 			}
 
-			if (position > 0.2)
+			if ((position > 0.2) && (position < 0.8))
 			{
 				this.setCapabilityValue('open_close', true).catch(this.error);
 			}

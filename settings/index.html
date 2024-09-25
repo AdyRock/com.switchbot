@@ -38,6 +38,7 @@
 		<button class="tablinks" onclick="setPage(event, 'detected')" id="defaultOpen">Detected</button>
 		<button class="tablinks" onclick="setPage(event, 'log')">Log</button>
 		<button class="tablinks" onclick="setPage(event, 'status')" id="deviceStatusTab">Get Status</button>
+		<button class="tablinks" onclick="setPage(event, 'appSettings')" id="appSettingsTab" style="display:none">App Settings</button>
 		<button class="tablinks" onclick="setPage(event, 'simulator')" id="simLogTab" style="display:none">Simulation Data</button>
 	</div>
 
@@ -123,6 +124,25 @@
 		</fieldset>
 	</div>
 
+	<!--APP SETTINGS PAGE -->
+	<div id="appSettings" class="tabcontent">
+		<fieldset>
+			<h1>For debug use only</h1>
+			<div class="field row">
+				<label class="homey-form-label" for="openToken">Open Token</label>
+				<input class="homey-form-input" id="openToken" type="text" value="" />
+			</div>
+			<div class="field row">
+				<label class="homey-form-label" for="openSecret">Open Secret</label>
+				<input class="homey-form-input" id="openSecret" type="text" value="" />
+			</div>
+			<p></p>
+			<p>
+				<button id="saveSettings" class="homey-button-small">Save</button>
+			</p>
+		</fieldset>
+	</div>
+
 	<script type="text/javascript">
 		// Create the busy indicator
 		var busyi;
@@ -152,6 +172,11 @@
 		var sendStatusLogElement = document.getElementById('sendStatusLog');
 		var clearStatusLogElement = document.getElementById('clearStatusLog');
 
+		// App settings tab
+		var openTokenIDElement = document.getElementById('openToken');
+		var openSecretElement = document.getElementById('openSecret');
+		var saveSettingsElement = document.getElementById('saveSettings');
+
 		// a method named 'onHomeyReady' must be present in your code
 		function onHomeyReady(Homey)
 		{
@@ -164,7 +189,7 @@
 				if (debugMode)
 				{
 					document.getElementById("simLogTab").style.display = "block";
-
+					document.getElementById("appSettingsTab").style.display = "block";
 				}
 			});
 
@@ -413,6 +438,25 @@
 					}
 				});
 			});
+
+			saveSettingsElement.addEventListener('click', function(e)
+			{
+				Homey.set('openToken', openTokenIDElement.value, function(err)
+				{
+					if (err)
+					{
+						return Homey.alert(err);
+					}
+				});
+
+				Homey.set('openSecret', openSecretElement.value, function(err)
+				{
+					if (err)
+					{
+						return Homey.alert(err);
+					}
+				});
+			});
 		}
 
 		function setPage(evt, tabPage)
@@ -472,6 +516,20 @@
 				// Make the detected devices text area fill the page
 				statusDataElement.style.width = (deviceID.offsetWidth) + 'px';
 				statusDataElement.style.height = (window.innerHeight - statusDataElement.offsetTop - 60) + 'px';
+			}
+			else if (tabPage == 'appSettings')
+			{
+				Homey.get('openToken', function(err, openToken)
+				{
+					if (err) return Homey.alert(err);
+					openTokenIDElement.value = openToken;
+				});
+
+				Homey.get('openSecret', function(err, openSecret)
+				{
+					if (err) return Homey.alert(err);
+					openSecretElement.value = openSecret;
+				});
 			}
 		}
 

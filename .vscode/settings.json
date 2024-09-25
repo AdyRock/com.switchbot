@@ -4,5 +4,6 @@
   ],
   "cSpell.suggestionMenuType": "quickFix",
   "editor.detectIndentation": false,
-  "editor.insertSpaces": false
+"editor.insertSpaces": false,
+"search.useIgnoreFiles": true
 }

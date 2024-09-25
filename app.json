@@ -3614,7 +3614,6 @@
             "it": "Inverti Posizione Aperto/Chiuso",
             "sv": "Omvänd Öppen/Stängd Position",
             "pl": "Odwróć Pozycję Otwórz/Zamknij",
-            "ru": "Инвертировать Открыть/Закрыть Позицию",
             "ko": "열림/닫힘 위치 반전"
           },
           "value": false,
@@ -3629,7 +3628,70 @@
             "it": "Inverti l'azione del controllo della posizione.",
             "sv": "Omvänd riktning för positionskontrollen.",
             "pl": "Odwróć działanie regulatora pozycji.",
-            "ru": "Инвертировать действие регулировки положения.",
+            "ko": "위치 제어 동작 반전."
+          }
+        },
+        {
+          "id": "closePosition",
+          "type": "radio",
+          "label": {
+            "en": "Invert Open / Close Position",
+            "no": "Inverter Åpen / Lukket posisjon",
+            "nl": "Positie Open/Dicht Omkeren",
+            "da": "Omvend Åben/Luk Position",
+            "de": "Öffnen/Schließen Position umkehren",
+            "es": "Invertir Posición Abierto/Cerrado",
+            "fr": "Inverser Position Ouvert/Fermé",
+            "it": "Inverti Posizione Aperto/Chiuso",
+            "sv": "Omvänd Öppen/Stängd Position",
+            "pl": "Odwróć Pozycję Otwórz/Zamknij",
+            "ko": "열림/닫힘 위치 반전"
+          },
+          "values": [
+            {
+              "id": "up",
+              "label": {
+                "en": "Tilt up to open",
+                "no": "Vipp opp for å åpne",
+                "nl": "Kantel omhoog om te openen",
+                "da": "Vip op for at åbne",
+                "de": "Neigen Sie nach oben, um zu öffnen",
+                "es": "Inclinar hacia arriba para abrir",
+                "fr": "Inclinez vers le haut pour ouvrir",
+                "it": "Inclina verso l'alto per aprire",
+                "sv": "Luta uppåt för att öppna",
+                "pl": "Nachyl w górę, aby otworzyć",
+                "ko": "열기 위해 위로 기울이기"
+              }
+            },
+            {
+              "id": "down",
+              "label": {
+                "en": "Tilt Down to Open",
+                "no": "Vipp ned for å åpne",
+                "nl": "Kantel omlaag om te openen",
+                "da": "Vip ned for at åbne",
+                "de": "Neigen Sie nach unten, um zu öffnen",
+                "es": "Inclinar hacia abajo para abrir",
+                "fr": "Inclinez vers le bas pour ouvrir",
+                "it": "Inclina verso il basso per aprire",
+                "sv": "Luta ner för att öppna",
+                "pl": "Nachyl w dół, aby otworzyć",
+                "ko": "열기 위해 아래로 기울이기"
+              }
+            }
+          ],
+          "hint": {
+            "en": "Reverse the action of the position control.",
+            "no": "Vend retningen for posisjonsvelgeren.",
+            "nl": "Keer de actie van de positiebesturing om.",
+            "da": "Omvend handlingen for positionskontrollen.",
+            "de": "Umkehren der Aktion der Positionssteuerung.",
+            "es": "Invierte la acción del control de posición.",
+            "fr": "Inverser l'action du contrôle de position.",
+            "it": "Inverti l'azione del controllo della posizione.",
+            "sv": "Omvänd riktning för positionskontrollen.",
+            "pl": "Odwróć działanie regulatora pozycji.",
             "ko": "위치 제어 동작 반전."
           }
         },
@@ -3647,7 +3709,6 @@
             "it": "Modalità Movimento",
             "sv": "Rörelseläge",
             "pl": "Tryb Ruchu",
-            "ru": "Режим Движения",
             "ko": "모션 모드"
           },
           "value": "0xff",
@@ -3665,7 +3726,6 @@
                 "it": "Prestazione",
                 "sv": "Prestanda",
                 "pl": "Wydajność",
-                "ru": "Производительность",
                 "ko": "성능"
               }
             },
@@ -3682,7 +3742,6 @@
                 "it": "Silenzioso",
                 "sv": "Tyst",
                 "pl": "Cichy",
-                "ru": "Тихий",
                 "ko": "조용한"
               }
             },
@@ -3699,7 +3758,6 @@
                 "it": "Ultimo Usato",
                 "sv": "Senast Använda",
                 "pl": "Ostatnio Używany",
-                "ru": "Последний Использованный",
                 "ko": "마지막 사용"
               }
             }
@@ -3715,7 +3773,6 @@
             "it": "Selezionare la modalità silenziosa o di prestazione del motore.",
             "sv": "Välj tyst eller prestandaläge för motorn.",
             "pl": "Wybierz tryb cichy lub wydajności silnika.",
-            "ru": "Выберите тихий или производительный режим мотора.",
             "ko": "모터의 저소음 또는 성능 모드를 선택하세요."
           }
         }
@@ -3920,10 +3977,9 @@
         "ru": "Bot (HUB)",
         "ko": "Bot (HUB)"
       },
-      "class": "socket",
+      "class": "button",
       "capabilities": [
-        "onoff",
-        "measure_power"
+        "onoff"
       ]
     },
     {

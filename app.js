@@ -56,7 +56,8 @@ class MyApp extends OAuth2App
 
 		this.diagLog = '';
 		this.homey.app.deviceStatusLog = '';
-		this.BearerToken = this.homey.settings.get('BearerToken');
+		this.openToken = this.homey.settings.get('openToken');
+		this.openSecret = this.homey.settings.get('openSecret');
 		this.blePolling = false;
 		this.bleBusy = false;
 		this.devicesMACs = [];
@@ -117,6 +118,14 @@ class MyApp extends OAuth2App
 			{
 				this.homey.app.logLevel = this.homey.settings.get('logLevel');
 				this.OAUTH2_DEBUG = (this.logLevel > 2);
+			}
+			else if (setting === 'openToken')
+			{
+				this.openToken = this.homey.settings.get('openToken');
+			}
+			else if (setting === 'openSecret')
+			{
+				this.openSecret = this.homey.settings.get('openSecret');
 			}
 		});
 
@@ -816,28 +825,36 @@ class MyApp extends OAuth2App
 	async getHUBDevices()
 	{
 		// Find an OAuth session
-		const oAuth2Client = this.getFirstSavedOAuth2Client();
-		if (oAuth2Client)
+		try
 		{
-			const response = await oAuth2Client.getDevices();
-			if (response)
+			const oAuth2Client = this.getFirstSavedOAuth2Client();
+			if (oAuth2Client)
 			{
-				if (response.statusCode !== 100)
+				const response = await oAuth2Client.getDevices();
+				if (response)
 				{
-					this.homey.app.updateLog(`Invalid response code: ${response.statusCode} ${response.message}`, 0);
-					throw (new Error(`Invalid response code: ${response.statusCode} ${response.message}`));
-				}
+					if (response.statusCode !== 100)
+					{
+						this.homey.app.updateLog(`Invalid response code: ${response.statusCode} ${response.message}`, 0);
+						throw (new Error(`Invalid response code: ${response.statusCode} ${response.message}`));
+					}
 
-				const devices = response.body;
-				const scenes = await oAuth2Client.getScenes();
-				if (scenes)
-				{
-					devices.sceneList = scenes.body;
+					const devices = response.body;
+					const scenes = await oAuth2Client.getScenes();
+					if (scenes)
+					{
+						devices.sceneList = scenes.body;
+					}
+					return this.homey.app.varToString(devices);
 				}
-				return this.homey.app.varToString(devices);
 			}
 		}
-		return null;
+		catch (err)
+		{
+		}
+
+		const response = await this.hub.getDevices();
+		return response;
 	}
 
 	async runScene(id)

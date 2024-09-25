@@ -152,11 +152,17 @@ class CurtainsBLEDevice extends Homey.Device
 
 	async onCapabilityState(value, opts)
 	{
+		if (this.pollTimer)
+		{
+			this.homey.clearTimeout(this.pollTimer);
+			this.pollTimer = null;
+		}
+
 		if (value === 'idle')
 		{
 			await this.pause();
-			setImmediate(() => {
-				this.setCapabilityValue('windowcoverings_state', null).catch(this.error);
+			this.pollTimer = this.homey.setTimeout(() => {
+				this.getHubDeviceValues().catch(this.error);
 			}, 1000);
 		}
 		else if (value === 'up')
@@ -403,6 +409,19 @@ class CurtainsBLEDevice extends Homey.Device
 						this.setCapabilityValue('open_close', false).catch(this.error);
 					}
 
+					if (position === 0)
+					{
+						this.setCapabilityValue('windowcoverings_state', 'up').catch(this.error);
+					}
+					else if (position === 1)
+					{
+						this.setCapabilityValue('windowcoverings_state', 'down').catch(this.error);
+					}
+					else
+					{
+						this.setCapabilityValue('windowcoverings_state', null).catch(this.error);
+					}
+
 					if ((data.serviceData.lightLevel) && data.serviceData.lightLevel !== this.getCapabilityValue('light_level'))
 					{
 						this.setCapabilityValue('light_level', data.serviceData.lightLevel).catch(this.error);
@@ -451,6 +470,12 @@ class CurtainsBLEDevice extends Homey.Device
 			{
 				if (event.address && (event.address.localeCompare(dd.address, 'en', { sensitivity: 'base' }) === 0) && (event.serviceData.modelName === 'WoCurtain'))
 				{
+					if (this.pollTimer)
+					{
+						this.homey.clearTimeout(this.pollTimer);
+						this.pollTimer = null;
+					}
+
 					let position = event.serviceData.position / 100;
 					if (this.invertPosition)
 					{
@@ -470,11 +495,11 @@ class CurtainsBLEDevice extends Homey.Device
 
 					if (position === 0)
 					{
-						this.setCapabilityValue('windowcoverings_state', 'down').catch(this.error);
+						this.setCapabilityValue('windowcoverings_state', 'up').catch(this.error);
 					}
 					else if (position === 1)
 					{
-						this.setCapabilityValue('windowcoverings_state', 'up').catch(this.error);
+						this.setCapabilityValue('windowcoverings_state', 'down').catch(this.error);
 					}
 					else
 					{
