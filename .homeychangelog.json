@@ -345,5 +345,9 @@
 	"1.1.58": {
 		"en": "Added more translation via OpenAI",
 		"no": "Lagt til flere oversettelser via OpenAI"
+	},
+	"2.0.0": {
+		"en": "Updated login during pairing for new servers",
+		"no": "Oppdatert innlogging under tilkobling til nye servere"
 	}
 }
