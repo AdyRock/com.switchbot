@@ -349,5 +349,9 @@
 	"2.0.0": {
 		"en": "Updated login during pairing for new servers",
 		"no": "Oppdatert innlogging under tilkobling til nye servere"
+	},
+	"2.0.1": {
+		"en": "Fixed text for blind advances settings",
+		"no": "Fikset tekst for avanserte innstillinger for blinde"
 	}
 }
