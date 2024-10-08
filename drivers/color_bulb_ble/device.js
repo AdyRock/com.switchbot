@@ -64,6 +64,7 @@ class ColorBulbBLEDevice extends Homey.Device
 
 	async onCapabilityLightTemperature(value, opts)
 	{
+		this.setCapabilityValue('light_mode', 'temperature').catch(this.error);
 		// {2700-6500}
 		const temperature = ((1 - value) * (6500 - 2700)) + 2700;
 		this._operateBulb([0x57, 0x0f, 0x47, 0x01, 0x17, ((temperature / 256) & 0xFF), (temperature & 0xFF)]).catch(this.error);
@@ -71,9 +72,24 @@ class ColorBulbBLEDevice extends Homey.Device
 
 	async onCapabilityLightHueSat(capabilityValues, capabilityOptions)
 	{
+		this.setCapabilityValue('light_mode', 'color').catch(this.error);
+
 		// Convert Hue, Saturation, Dim to RGB
 		const dim = 0.5;
-		const rgb = this.hslToRgb(capabilityValues.light_hue, capabilityValues.light_saturation, dim);
+		let hue = capabilityValues.light_hue;
+		let sat = capabilityValues.light_saturation;
+
+		if (!hue)
+		{
+			hue = this.getCapabilityValue('light_hue');
+		}
+
+		if (!sat)
+		{
+			sat = this.getCapabilityValue('light_saturation');
+		}
+
+		const rgb = this.hslToRgb(hue, sat, dim);
 
 		this._operateBulb([0x57, 0x0f, 0x47, 0x01, 0x16, rgb[0], rgb[1], rgb[2]]).catch(this.error);
 	}
