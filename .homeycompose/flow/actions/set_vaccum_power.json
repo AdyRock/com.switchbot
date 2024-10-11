@@ -13,6 +13,11 @@
     },
     "args": [
         {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=robot_vaccum_hub"
+        },
+        {
             "name": "power",
             "type": "dropdown",
             "title": {
