@@ -1,154 +1,575 @@
 {
-	"id": "com.switchbot",
-	"version": "1.1.47",
-	"compatibility": ">=6.0.0",
-	"platforms": ["local", "cloud"],
-	"sdk": 3,
-	"brandColor": "#E0393A",
-	"name":
-	{
-		"en": "SwitchBot"
-	},
-	"description":
-	{
-		"en": "A simple way to make your entire home a Smart Home",
-        "no": "En enkel måte å gjøre hele ditt hjem til et Smart Hjem."
-	},
-	"tags":
-	{
-		"en": [
-			"Curtains",
-			"Button presser",
-			"Temperature",
-			"Humidity",
-			"Motion sensor",
-			"Opening detector",
-			"Humidifier",
-			"Remote control",
-			"Air conditioner",
-			"Fan",
-			"Set top box",
-			"Carrier",
-			"Daikin",
-			"De’Longhi",
-			"Electrolux",
-			"Frigidaire",
-			"Fujitronic",
-			"Fujitsu",
-			"General Electric",
-			"Haier",
-			"Hitachi",
-			"Honeywell",
-			"LG",
-			"Mitsubishi Electric",
-			"Panasonic",
-			"Pioneer",
-			"Samsung",
-			"Sanyo",
-			"Siemens",
-			"TCL",
-			"Toshiba",
-			"Whirlpool",
-			"Blinds",
-			"LED strip",
-			"Bulb",
-			"IR remote"
-		]
-	},
-	"category": [
-		"appliances"
-	],
-	"permissions": [
-		"homey:wireless:ble"
-	],
-	"support": "https://github.com/AdyRock/com.switchbot/issues",
-	"homepage": "https://www.switch-bot.com/",
-	"contributing":
-	{
-		"donate":
-		{
-			"paypal":
-			{
-				"username": "adyrock"
-			}
-		}
-	},
-	"homeyCommunityTopicId": 42296,
-	"bugs":
-	{
-		"url": "https://github.com/AdyRock/com.switchbot/issues"
-	},
-	"source": "https://github.com/AdyRock/com.switchbot",
-	"images":
-	{
-		"large": "/assets/images/large.png",
-		"small": "/assets/images/small.png"
-	},
-	"author":
-	{
-		"name": "SwitchBot Global",
-		"email": "integrations@wondertechlabs.com"
-	},
-	"contributors": {
-		"developers": [
-		  {
-			"name": "Adrian Rockall",
-			"email": "ady@rockall.plus.com"
-		  }
-		],
-        "translators" : [
-          {
-            "name": "Philip Østli"
-          }
-        ]
-	  },
-		"api":
-	{
-		"getLog":
-		{
-			"method": "get",
-			"path": "/getLog/"
-		},
-		"getDetect":
-		{
-			"method": "get",
-			"path": "/getDetect/"
-		},
-		"clearLog":
-		{
-			"method": "post",
-			"path": "/clearLog/"
-		},
-		"SendDeviceLog":
-		{
-			"method": "post",
-			"path": "/SendDeviceLog/"
-		},
-		"SendInfoLog":
-		{
-			"method": "post",
-			"path": "/SendInfoLog/"
-		},
-		"SendStatusLog":
-		{
-			"method": "post",
-			"path": "/SendStatusLog/"
-		},
-		"clearStatusLog":
-		{
-			"method": "post",
-			"path": "/clearStatusLog/"
-		},
-		"newData":
-		{
-			"method": "post",
-			"path": "/newData/",
-			"public": true
-		},
-		"requestDeviceStatus":
-		{
-			"method": "post",
-			"path": "/requestDeviceStatus/"
-		}
-	}
+  "id": "com.switchbot",
+  "version": "2.0.1",
+  "compatibility": ">=6.0.0",
+  "platforms": [
+    "local",
+    "cloud"
+  ],
+  "sdk": 3,
+  "brandColor": "#E0393A",
+  "name": {
+    "en": "SwitchBot",
+    "nl": "SwitchBot",
+    "da": "SwitchBot",
+    "de": "SwitchBot",
+    "es": "SwitchBot",
+    "fr": "SwitchBot",
+    "it": "SwitchBot",
+    "no": "SwitchBot",
+    "sv": "SwitchBot",
+    "pl": "SwitchBot",
+    "ru": "SwitchBot",
+    "ko": "SwitchBot"
+  },
+  "description": {
+    "en": "A simple way to make your entire home a Smart Home",
+    "no": "En enkel måte å gjøre hele ditt hjem til et Smart Hjem.",
+    "nl": "Een eenvoudige manier om van je hele huis een slim huis te maken",
+    "da": "En enkel måde at gøre hele dit hjem til et smart hjem",
+    "de": "Eine einfache Möglichkeit, Ihr gesamtes Zuhause zu einem Smart Home zu machen",
+    "es": "Una manera sencilla de convertir toda tu casa en un hogar inteligente",
+    "fr": "Une façon simple de rendre toute votre maison intelligente",
+    "it": "Un modo semplice per rendere tutta la tua casa una casa intelligente",
+    "sv": "Ett enkelt sätt att göra hela ditt hem till ett smart hem",
+    "pl": "Prosty sposób na uczynienie całego domu inteligentnym domem",
+    "ru": "Простой способ сделать весь ваш дом умным домом",
+    "ko": "전체 집을 스마트 홈으로 만드는 간단한 방법"
+  },
+  "tags": {
+    "en": [
+      "Curtains",
+      "Button presser",
+      "Temperature",
+      "Humidity",
+      "Motion sensor",
+      "Opening detector",
+      "Humidifier",
+      "Remote control",
+      "Air conditioner",
+      "Fan",
+      "Set top box",
+      "Carrier",
+      "Daikin",
+      "De’Longhi",
+      "Electrolux",
+      "Frigidaire",
+      "Fujitronic",
+      "Fujitsu",
+      "General Electric",
+      "Haier",
+      "Hitachi",
+      "Honeywell",
+      "LG",
+      "Mitsubishi Electric",
+      "Panasonic",
+      "Pioneer",
+      "Samsung",
+      "Sanyo",
+      "Siemens",
+      "TCL",
+      "Toshiba",
+      "Whirlpool",
+      "Blinds",
+      "LED strip",
+      "Bulb",
+      "IR remote",
+      "Water Leak",
+      "Lock",
+      "Vacuum cleaner"
+    ],
+    "nl": [
+      "Gordijnen",
+      "Knop indrukker",
+      "Temperatuur",
+      "Luchtvochtigheid",
+      "Bewegingssensor",
+      "Opening detector",
+      "Luchtbevochtiger",
+      "Afstandsbediening",
+      "Airconditioner",
+      "Ventilator",
+      "Settopbox",
+      "Carrier",
+      "Daikin",
+      "De’Longhi",
+      "Electrolux",
+      "Frigidaire",
+      "Fujitronic",
+      "Fujitsu",
+      "General Electric",
+      "Haier",
+      "Hitachi",
+      "Honeywell",
+      "LG",
+      "Mitsubishi Electric",
+      "Panasonic",
+      "Pioneer",
+      "Samsung",
+      "Sanyo",
+      "Siemens",
+      "TCL",
+      "Toshiba",
+      "Whirlpool",
+      "Rolgordijnen",
+      "LED-strip",
+      "Lamp",
+      "IR-afstandsbediening",
+      "Waterlek",
+      "Slot",
+      "Stofzuiger"
+    ],
+    "da": [
+      "Gardiner",
+      "Knap trykker",
+      "Temperatur",
+      "Luftfugtighed",
+      "Bevægelsessensor",
+      "Åbningsdetektor",
+      "Luftfugter",
+      "Fjernbetjening",
+      "Klimaanlæg",
+      "Ventilator",
+      "Set top box",
+      "Bærer",
+      "Daikin",
+      "De’Longhi",
+      "Electrolux",
+      "Frigidaire",
+      "Fujitronic",
+      "Fujitsu",
+      "General Electric",
+      "Haier",
+      "Hitachi",
+      "Honeywell",
+      "LG",
+      "Mitsubishi Electric",
+      "Panasonic",
+      "Pioneer",
+      "Samsung",
+      "Sanyo",
+      "Siemens",
+      "TCL",
+      "Toshiba",
+      "Whirlpool",
+      "Persienner",
+      "LED strip",
+      "Pære",
+      "IR-fjernbetjening",
+      "Vandlækage",
+      "Lås",
+      "Støvsuger"
+    ],
+    "de": [
+      "Vorhänge",
+      "Knopfdrucker",
+      "Temperatur",
+      "Luftfeuchtigkeit",
+      "Bewegungssensor",
+      "Öffnungsdetektor",
+      "Luftbefeuchter",
+      "Fernbedienung",
+      "Klimaanlage",
+      "Ventilator",
+      "Set-Top-Box",
+      "Carrier",
+      "Daikin",
+      "De’Longhi",
+      "Electrolux",
+      "Frigidaire",
+      "Fujitronic",
+      "Fujitsu",
+      "General Electric",
+      "Haier",
+      "Hitachi",
+      "Honeywell",
+      "LG",
+      "Mitsubishi Electric",
+      "Panasonic",
+      "Pioneer",
+      "Samsung",
+      "Sanyo",
+      "Siemens",
+      "TCL",
+      "Toshiba",
+      "Whirlpool",
+      "Jalousien",
+      "LED-Streifen",
+      "Glühbirne",
+      "IR-Fernbedienung",
+      "Wasserleck",
+      "Schloss",
+      "Staubsauger"
+    ],
+    "es": [
+      "Cortinas",
+      "Pulsador de botón",
+      "Temperatura",
+      "Humedad",
+      "Sensor de movimiento",
+      "Detector de apertura",
+      "Humidificador",
+      "Mando a distancia",
+      "Aire acondicionado",
+      "Ventilador",
+      "Decodificador",
+      "Carrier",
+      "Daikin",
+      "De’Longhi",
+      "Electrolux",
+      "Frigidaire",
+      "Fujitronic",
+      "Fujitsu",
+      "General Electric",
+      "Haier",
+      "Hitachi",
+      "Honeywell",
+      "LG",
+      "Mitsubishi Electric",
+      "Panasonic",
+      "Pioneer",
+      "Samsung",
+      "Sanyo",
+      "Siemens",
+      "TCL",
+      "Toshiba",
+      "Whirlpool",
+      "Persianas",
+      "Tira LED",
+      "Bombilla",
+      "Mando a distancia IR",
+      "Fuga de agua",
+      "Cerradura",
+      "Aspiradora"
+    ],
+    "fr": [
+      "Rideaux",
+      "Presse-bouton",
+      "Température",
+      "Humidité",
+      "Capteur de mouvement",
+      "Détecteur d'ouverture",
+      "Humidificateur",
+      "Télécommande",
+      "Climatiseur",
+      "Ventilateur",
+      "Décodeur",
+      "Transporteur",
+      "Daikin",
+      "De’Longhi",
+      "Electrolux",
+      "Frigidaire",
+      "Fujitronic",
+      "Fujitsu",
+      "General Electric",
+      "Haier",
+      "Hitachi",
+      "Honeywell",
+      "LG",
+      "Mitsubishi Electric",
+      "Panasonic",
+      "Pioneer",
+      "Samsung",
+      "Sanyo",
+      "Siemens",
+      "TCL",
+      "Toshiba",
+      "Whirlpool",
+      "Stores",
+      "Bande LED",
+      "Ampoule",
+      "IR télécommande",
+      "Fuite d'eau",
+      "Serrure",
+      "Aspirateur"
+    ],
+    "it": [
+      "Tende",
+      "Pressatore di pulsanti",
+      "Temperatura",
+      "Umidità",
+      "Sensore di movimento",
+      "Rilevatore di apertura",
+      "Umidificatore",
+      "Telecomando",
+      "Condizionatore",
+      "Ventilatore",
+      "Set top box",
+      "Carrier",
+      "Daikin",
+      "De’Longhi",
+      "Electrolux",
+      "Frigidaire",
+      "Fujitronic",
+      "Fujitsu",
+      "General Electric",
+      "Haier",
+      "Hitachi",
+      "Honeywell",
+      "LG",
+      "Mitsubishi Electric",
+      "Panasonic",
+      "Pioneer",
+      "Samsung",
+      "Sanyo",
+      "Siemens",
+      "TCL",
+      "Toshiba",
+      "Whirlpool",
+      "Tapparelle",
+      "Striscia LED",
+      "Lampadina",
+      "Telecomando IR",
+      "Perdite d'acqua",
+      "Serratura",
+      "Aspirapolvere"
+    ],
+    "sv": [
+      "Gardiner",
+      "Knapptryckare",
+      "Temperatur",
+      "Luftfuktighet",
+      "Rörelsesensor",
+      "Öppningsdetektor",
+      "Luftfuktare",
+      "Fjärrkontroll",
+      "Luftkonditionering",
+      "Fläkt",
+      "Set-top-box",
+      "Carrier",
+      "Daikin",
+      "De’Longhi",
+      "Electrolux",
+      "Frigidaire",
+      "Fujitronic",
+      "Fujitsu",
+      "General Electric",
+      "Haier",
+      "Hitachi",
+      "Honeywell",
+      "LG",
+      "Mitsubishi Electric",
+      "Panasonic",
+      "Pioneer",
+      "Samsung",
+      "Sanyo",
+      "Siemens",
+      "TCL",
+      "Toshiba",
+      "Whirlpool",
+      "Persienner",
+      "LED-remsa",
+      "Glödlampa",
+      "IR-fjärrkontroll",
+      "Vattenläcka",
+      "Lås",
+      "Dammsugare"
+    ],
+    "pl": [
+      "Zasłony",
+      "Przycisk prasy",
+      "Temperatura",
+      "Wilgotność",
+      "Czujnik ruchu",
+      "Detektor otwarcia",
+      "Nawilżacz",
+      "Pilot",
+      "Klimatyzator",
+      "Ventylator",
+      "Set top box",
+      "Carrier",
+      "Daikin",
+      "De’Longhi",
+      "Electrolux",
+      "Frigidaire",
+      "Fujitronic",
+      "Fujitsu",
+      "General Electric",
+      "Haier",
+      "Hitachi",
+      "Honeywell",
+      "LG",
+      "Mitsubishi Electric",
+      "Panasonic",
+      "Pioneer",
+      "Samsung",
+      "Sanyo",
+      "Siemens",
+      "TCL",
+      "Toshiba",
+      "Whirlpool",
+      "Rolety",
+      "Taśma LED",
+      "Żarówka",
+      "Pilot IR",
+      "Wyciek wody",
+      "Zamek",
+      "Odkurzacz"
+    ],
+    "ru": [
+      "Шторы",
+      "Нажиматель кнопок",
+      "Температура",
+      "Влажность",
+      "Датчик движения",
+      "Детектор открытия",
+      "Увлажнитель",
+      "Пульт дистанционного управления",
+      "Кондиционер",
+      "Вентилятор",
+      "Приставка",
+      "Carrier",
+      "Daikin",
+      "De’Longhi",
+      "Electrolux",
+      "Frigidaire",
+      "Fujitronic",
+      "Fujitsu",
+      "General Electric",
+      "Haier",
+      "Hitachi",
+      "Honeywell",
+      "LG",
+      "Mitsubishi Electric",
+      "Panasonic",
+      "Pioneer",
+      "Samsung",
+      "Sanyo",
+      "Siemens",
+      "TCL",
+      "Toshiba",
+      "Whirlpool",
+      "Жалюзи",
+      "Светодиодная лента",
+      "Лампочка",
+      "ИК-пульт",
+      "Утечка воды",
+      "Замок",
+      "Пылесос"
+    ],
+    "ko": [
+      "커튼",
+      "버튼 누르기",
+      "온도",
+      "습도",
+      "동작 센서",
+      "개방 감지기",
+      "가습기",
+      "리모컨",
+      "에어컨",
+      "팬",
+      "셋톱 박스",
+      "캐리어",
+      "다이킨",
+      "데롱기",
+      "일렉트로룩스",
+      "프리지데어",
+      "후지트로닉",
+      "후지쯔",
+      "제너럴 일렉트릭",
+      "하이얼",
+      "히타치",
+      "하니웰",
+      "LG",
+      "미쓰비시 전기",
+      "파나소닉",
+      "파이오니어",
+      "삼성",
+      "산요",
+      "지멘스",
+      "TCL",
+      "도시바",
+      "월풀",
+      "블라인드",
+      "LED 스트립",
+      "전구",
+      "IR 리모컨",
+      "누수",
+      "잠금 장치",
+      "진공청소기"
+    ]
+  },
+  "category": [
+    "appliances"
+  ],
+  "permissions": [
+    "homey:wireless:ble"
+  ],
+  "support": "https://github.com/AdyRock/com.switchbot/issues",
+  "homepage": "https://www.switch-bot.com/",
+  "contributing": {
+    "donate": {
+      "paypal": {
+        "username": "adyrock"
+      }
+    }
+  },
+  "homeyCommunityTopicId": 42296,
+  "bugs": {
+    "url": "https://github.com/AdyRock/com.switchbot/issues"
+  },
+  "source": "https://github.com/AdyRock/com.switchbot",
+  "images": {
+    "large": "/assets/images/large.png",
+    "small": "/assets/images/small.png"
+  },
+  "author": {
+    "name": "SwitchBot Global",
+    "email": "integrations@wondertechlabs.com"
+  },
+  "contributors": {
+    "developers": [
+      {
+        "name": "Adrian Rockall",
+        "email": "ady@rockall.plus.com"
+      },
+      {
+        "name": "Dennie de Groot"
+      }
+    ],
+    "translators": [
+      {
+        "name": "Philip Østli"
+      }
+    ]
+  },
+  "api": {
+    "getLog": {
+      "method": "get",
+      "path": "/getLog/"
+    },
+    "getDetect": {
+      "method": "get",
+      "path": "/getDetect/"
+    },
+    "clearLog": {
+      "method": "post",
+      "path": "/clearLog/"
+    },
+    "SendDeviceLog": {
+      "method": "post",
+      "path": "/SendDeviceLog/"
+    },
+    "SendInfoLog": {
+      "method": "post",
+      "path": "/SendInfoLog/"
+    },
+    "SendStatusLog": {
+      "method": "post",
+      "path": "/SendStatusLog/"
+    },
+    "clearStatusLog": {
+      "method": "post",
+      "path": "/clearStatusLog/"
+    },
+    "newData": {
+      "method": "post",
+      "path": "/newData/",
+      "public": true
+    },
+    "requestDeviceStatus": {
+      "method": "post",
+      "path": "/requestDeviceStatus/"
+    }
+  }
 }

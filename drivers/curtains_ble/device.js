@@ -89,6 +89,11 @@ class CurtainsBLEDevice extends Homey.Device
 		{
 			this.motionMode = Number(newSettings.motionMode);
 		}
+
+		if (changedKeys.indexOf('classType') >= 0)
+		{
+			this.setClass(newSettings.classType);
+		}
 	}
 
 	/**
@@ -127,20 +132,37 @@ class CurtainsBLEDevice extends Homey.Device
 	// this method is called when the Homey device has requested a position change ( 0 to 1)
 	async onCapabilityPosition(value, opts)
 	{
+		let mode = this.motionMode;
+
+		if (opts === 'fast')
+		{
+			mode = 0;
+		}
+		else if (opts === 'slow')
+		{
+			mode = 1;
+		}
+
 		if (this.invertPosition)
 		{
 			value = 1 - value;
 		}
-		return this.runToPos(value * 100, this.motionMode);
+		return this.runToPos(value * 100, mode);
 	}
 
 	async onCapabilityState(value, opts)
 	{
+		if (this.pollTimer)
+		{
+			this.homey.clearTimeout(this.pollTimer);
+			this.pollTimer = null;
+		}
+
 		if (value === 'idle')
 		{
 			await this.pause();
-			setImmediate(() => {
-				this.setCapabilityValue('windowcoverings_state', null).catch(this.error);
+			this.pollTimer = this.homey.setTimeout(() => {
+				this.getHubDeviceValues().catch(this.error);
 			}, 1000);
 		}
 		else if (value === 'up')
@@ -232,7 +254,7 @@ class CurtainsBLEDevice extends Homey.Device
 			}
 			catch (err)
 			{
-				this.homey.app.updateLog(`_operateBot error: ${name} : ${this.homey.app.varToString(err)}`, 0);
+				this.homey.app.updateLog(`_operateBot error: ${name} : ${err.message}`, 0);
 			}
 
 			this.homey.app.bleBusy = false;
@@ -306,7 +328,7 @@ class CurtainsBLEDevice extends Homey.Device
 			}
 			catch (err)
 			{
-				this.homey.app.updateLog(`Catch 2: ${name}: ${this.homey.app.varToString(err)}`, 0);
+				this.homey.app.updateLog(`Catch 2: ${name}: ${err.message}`, 0);
 				sending = false;
 				return err;
 				// throw(err);
@@ -387,6 +409,19 @@ class CurtainsBLEDevice extends Homey.Device
 						this.setCapabilityValue('open_close', false).catch(this.error);
 					}
 
+					if (position === 0)
+					{
+						this.setCapabilityValue('windowcoverings_state', 'up').catch(this.error);
+					}
+					else if (position === 1)
+					{
+						this.setCapabilityValue('windowcoverings_state', 'down').catch(this.error);
+					}
+					else
+					{
+						this.setCapabilityValue('windowcoverings_state', null).catch(this.error);
+					}
+
 					if ((data.serviceData.lightLevel) && data.serviceData.lightLevel !== this.getCapabilityValue('light_level'))
 					{
 						this.setCapabilityValue('light_level', data.serviceData.lightLevel).catch(this.error);
@@ -416,7 +451,7 @@ class CurtainsBLEDevice extends Homey.Device
 		}
 		catch (err)
 		{
-			this.homey.app.updateLog(this.homey.app.varToString(err), 0);
+			this.homey.app.updateLog(err.message, 2);
 		}
 		finally
 		{
@@ -433,8 +468,14 @@ class CurtainsBLEDevice extends Homey.Device
 			const dd = this.getData();
 			for (const event of events)
 			{
-				if (event.address && (event.address === dd.address) && (event.serviceData.modelName === 'WoCurtain'))
+				if (event.address && (event.address.localeCompare(dd.address, 'en', { sensitivity: 'base' }) === 0) && (event.serviceData.modelName === 'WoCurtain'))
 				{
+					if (this.pollTimer)
+					{
+						this.homey.clearTimeout(this.pollTimer);
+						this.pollTimer = null;
+					}
+
 					let position = event.serviceData.position / 100;
 					if (this.invertPosition)
 					{
@@ -454,11 +495,11 @@ class CurtainsBLEDevice extends Homey.Device
 
 					if (position === 0)
 					{
-						this.setCapabilityValue('windowcoverings_state', 'down').catch(this.error);
+						this.setCapabilityValue('windowcoverings_state', 'up').catch(this.error);
 					}
 					else if (position === 1)
 					{
-						this.setCapabilityValue('windowcoverings_state', 'up').catch(this.error);
+						this.setCapabilityValue('windowcoverings_state', 'down').catch(this.error);
 					}
 					else
 					{
@@ -480,7 +521,7 @@ class CurtainsBLEDevice extends Homey.Device
 					this.setCapabilityValue('rssi', event.rssi).catch(this.error);
 					this.homey.app.updateLog(`Parsed Curtain BLE (${name}): position = ${event.serviceData.position}, battery = ${event.serviceData.battery}`, 3);
 
-					if (event.hubMAC && ((event.rssi < this.bestRSSI) || (event.hubMAC === this.bestHub)))
+					if (event.hubMAC && ((event.rssi < this.bestRSSI) || (event.hubMAC.localeCompare(this.bestHub, 'en', { sensitivity: 'base' }) === 0)))
 					{
 						this.bestHub = event.hubMAC;
 						this.bestRSSI = event.rssi;

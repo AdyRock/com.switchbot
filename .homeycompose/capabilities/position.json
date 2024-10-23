@@ -1,15 +1,25 @@
 {
-    "type": "number",
-    "title": {
-        "en": "Position Reading",
-        "no": "Posisjon"
-    },
-    "units": {
-        "en": "%",
-        "no": "%"
-    },
-    "decimals": 0,
-    "getable": true,
-    "setable": false,
-    "icon": "/drivers/curtains_ble/assets/icon.svg"
+  "type": "number",
+  "title": {
+    "en": "Position Reading",
+    "no": "Posisjon",
+    "nl": "Positielezing",
+    "da": "Positionslæsning",
+    "de": "Positionsanzeige",
+    "es": "Lectura de posición",
+    "fr": "Lecture de position",
+    "it": "Lettura della posizione",
+    "sv": "Positionsavläsning",
+    "pl": "Odczyt pozycji",
+    "ru": "Чтение позиции",
+    "ko": "위치 판독"
+  },
+  "units": {
+    "en": "%",
+    "no": "%"
+  },
+  "decimals": 0,
+  "getable": true,
+  "setable": false,
+  "icon": "/drivers/curtains_ble/assets/icon.svg"
 }

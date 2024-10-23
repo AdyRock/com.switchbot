@@ -45,6 +45,12 @@ class BlindTiltBLEDevice extends Homey.Device
 			this.motionMode = 2;
 		}
 
+		this.closePosition = Number(this.getSetting('closePosition'));
+		if (this.closePosition === null)
+		{
+			this.closePosition = 'down';
+		}
+
 		// register a capability listener
 		this.registerCapabilityListener('open_close', this.onCapabilityopenClose.bind(this));
 		this.registerCapabilityListener('windowcoverings_tilt_set', this.onCapabilityPosition.bind(this));
@@ -81,6 +87,16 @@ class BlindTiltBLEDevice extends Homey.Device
 		{
 			this.motionMode = Number(newSettings.motionMode);
 		}
+
+		if (changedKeys.indexOf('closePosition') >= 0)
+		{
+			this.closePosition = Number(newSettings.closePosition);
+		}
+
+		setImmediate(() =>
+		{
+			this.getDeviceValues(true);
+		});
 	}
 
 	/**
@@ -106,11 +122,13 @@ class BlindTiltBLEDevice extends Homey.Device
 	// this method is called when the Homey device switches the device on or off
 	async onCapabilityopenClose(value, opts)
 	{
-		value = value ? 0.5 : 0;
-
-		if (this.invertPosition)
+		if (value !== this.invertPosition)
 		{
-			value = 1 - value;
+			value = 0.5;
+		}
+		else
+		{
+			value = this.closePosition ? 1 : 0;
 		}
 
 		return this.runToPos(value * 100, this.motionMode);
@@ -220,7 +238,7 @@ class BlindTiltBLEDevice extends Homey.Device
 			}
 			catch (err)
 			{
-				this.homey.app.updateLog(`_operateBot error: ${name} : ${this.homey.app.varToString(err)}`, 0);
+				this.homey.app.updateLog(`_operateBot error: ${name} : ${err.message}`, 0);
 			}
 
 			this.homey.app.bleBusy = false;
@@ -294,7 +312,7 @@ class BlindTiltBLEDevice extends Homey.Device
 			}
 			catch (err)
 			{
-				this.homey.app.updateLog(`Catch 2: ${name}: ${this.homey.app.varToString(err)}`, 0);
+				this.homey.app.updateLog(`Catch 2: ${name}: ${err.message}`, 0);
 				sending = false;
 				return err;
 				// throw(err);
@@ -409,19 +427,15 @@ class BlindTiltBLEDevice extends Homey.Device
 		if (data)
 		{
 			this.homey.app.updateLog(`Parsed Blind Tilt BLE (${name}) ${this.homey.app.varToString(data)}`, 3);
-			let position = data.position / 100;
-			if (this.invertPosition)
-			{
-				position = 1 - position;
-			}
+			const position = data.position / 100;
 
-			if (position > 0.2)
+			if ((position > 0.2) && (position < 0.8))
 			{
-				this.setCapabilityValue('open_close', true).catch(this.error);
+				this.setCapabilityValue('open_close', !this.invertPosition).catch(this.error);
 			}
 			else
 			{
-				this.setCapabilityValue('open_close', false).catch(this.error);
+				this.setCapabilityValue('open_close', this.invertPosition).catch(this.error);
 			}
 
 			this.setCapabilityValue('windowcoverings_tilt_set', position).catch(this.error);
@@ -435,13 +449,13 @@ class BlindTiltBLEDevice extends Homey.Device
 		}
 }
 
-	async getDeviceValues()
+	async getDeviceValues(ForceUpdate = false)
 	{
 		const name = this.getName();
 		try
 		{
 			const dd = this.getData();
-			if (this.bestHub === '' && this.homey.app.BLEHub)
+			if (((this.bestHub === '') || ForceUpdate) && this.homey.app.BLEHub)
 			{
 				const deviceInfo = await this.homey.app.BLEHub.getBLEHubDevice(dd.address);
 				if (deviceInfo)
@@ -508,19 +522,15 @@ class BlindTiltBLEDevice extends Homey.Device
 				if (data)
 				{
 					this.homey.app.updateLog(`Parsed Blind Tilt BLE (${name}) ${this.homey.app.varToString(data)}`, 3);
-					let position = data.serviceData.position / 100;
-					if (this.invertPosition)
-					{
-						position = 1 - position;
-					}
+					const position = data.serviceData.position / 100;
 
-					if (position > 0.2)
+					if ((position > 0.2) && (position < 0.8))
 					{
-						this.setCapabilityValue('open_close', true).catch(this.error);
+						this.setCapabilityValue('open_close', !this.invertPosition).catch(this.error);
 					}
 					else
 					{
-						this.setCapabilityValue('open_close', false).catch(this.error);
+						this.setCapabilityValue('open_close', this.invertPosition).catch(this.error);
 					}
 
 					this.setCapabilityValue('windowcoverings_tilt_set', position).catch(this.error);
@@ -540,7 +550,7 @@ class BlindTiltBLEDevice extends Homey.Device
 		}
 		catch (err)
 		{
-			this.homey.app.updateLog(this.homey.app.varToString(err), 0);
+			this.homey.app.updateLog(err.message, 0);
 		}
 		finally
 		{
@@ -557,7 +567,7 @@ class BlindTiltBLEDevice extends Homey.Device
 			const dd = this.getData();
 			for (const event of events)
 			{
-				if (event.address && (event.address === dd.address) && (event.serviceData.modelName === 'WoBlindTilt'))
+				if (event.address && (event.address.localeCompare(dd.address, 'en', { sensitivity: 'base' }) === 0) && (event.serviceData.modelName === 'WoBlindTilt'))
 				{
 					if (event.replyData)
 					{
@@ -578,21 +588,17 @@ class BlindTiltBLEDevice extends Homey.Device
 
 	updateCapabilities(data)
 	{
-		let position = data.serviceData.position / 100;
-		if (this.invertPosition)
-		{
-			position = 1 - position;
-		}
+		const position = data.serviceData.position / 100;
 		this.setCapabilityValue('windowcoverings_tilt_set', position).catch(this.error);
 		this.setCapabilityValue('position', position * 100).catch(this.error);
 
-		if (position > 0.5)
+		if ((position > 0.2) && (position < 0.8))
 		{
-			this.setCapabilityValue('open_close', true).catch(this.error);
+			this.setCapabilityValue('open_close', !this.invertPosition).catch(this.error);
 		}
 		else
 		{
-			this.setCapabilityValue('open_close', false).catch(this.error);
+			this.setCapabilityValue('open_close', this.invertPosition).catch(this.error);
 		}
 
 		this.setCapabilityValue('measure_battery', data.serviceData.battery).catch(this.error);

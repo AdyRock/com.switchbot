@@ -16,6 +16,7 @@ class TemperatureBLEDevice extends Homey.Device
 		this.bestHub = '';
 		this.homey.app.registerBLEPolling();
 		this.log('TemperatureBLEDevice has been initialized');
+		this.deviceNotFound = false;
 	}
 
 	/**
@@ -99,6 +100,7 @@ class TemperatureBLEDevice extends Homey.Device
 					this.setCapabilityValue('measure_humidity', data.serviceData.humidity).catch(this.error);
 					this.setCapabilityValue('measure_battery', data.serviceData.battery).catch(this.error);
 					this.homey.app.updateLog(`Parsed Temperature BLE: temperature = ${data.serviceData.temperature.c}, humidity = ${data.serviceData.humidity}, battery = ${data.serviceData.battery}`, 2);
+					this.deviceNotFound = false;
 				}
 				else
 				{
@@ -112,7 +114,8 @@ class TemperatureBLEDevice extends Homey.Device
 		}
 		catch (err)
 		{
-			this.homey.app.updateLog(this.homey.app.varToString(err), 0);
+			this.homey.app.updateLog(err.message, this.deviceNotFound ? 2 : 0);
+			this.deviceNotFound = true;
 		}
 		finally
 		{
@@ -127,14 +130,14 @@ class TemperatureBLEDevice extends Homey.Device
 			const dd = this.getData();
 			for (const event of events)
 			{
-				if (event.address && (event.address === dd.address) && ((event.serviceData.modelName === 'WoSensorTH') || (event.serviceData.modelName === 'WoIOSensor')))
+				if (event.address && (event.address.localeCompare(dd.address, 'en', { sensitivity: 'base' }) === 0) && ((event.serviceData.modelName === 'WoSensorTH') || (event.serviceData.modelName === 'WoIOSensor')))
 				{
 					this.setCapabilityValue('measure_temperature', event.serviceData.temperature.c).catch(this.error);
 					this.setCapabilityValue('measure_humidity', event.serviceData.humidity).catch(this.error);
 					this.setCapabilityValue('measure_battery', event.serviceData.battery).catch(this.error);
 					this.setCapabilityValue('rssi', event.rssi).catch(this.error);
 
-					if (event.hubMAC && ((event.rssi < this.bestRSSI) || (event.hubMAC === this.bestHub)))
+					if (event.hubMAC && ((event.rssi < this.bestRSSI) || (event.hubMAC.localeCompare(this.bestHub, 'en', { sensitivity: 'base' }) === 0)))
 					{
 						this.bestHub = event.hubMAC;
 						this.bestRSSI = event.rssi;

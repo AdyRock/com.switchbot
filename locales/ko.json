@@ -1,0 +1,67 @@
+{
+  "settings": {
+    "clear": "로그 지우기",
+    "send": "로그 보내기",
+    "getDevices": "HUB 장치 가져오기"
+  },
+  "capabilities": {
+    "brightness": "밝기"
+  },
+  "pair": {
+    "api_code": {
+      "title": "연결 세부 정보",
+      "intro": "SwitchBot 휴대폰 앱에서 API 코드를 가져오세요",
+      "intro1": "1. SwitchBot 휴대폰 앱을 엽니다",
+      "intro2": "2. 프로필 > 설정으로 이동합니다",
+      "intro3": "3. 앱 버전을 10번 탭하여 개발자 옵션을 표시합니다",
+      "intro4": "4. 개발자 옵션을 탭합니다",
+      "intro5": "5. 토큰 가져오기를 탭합니다",
+      "api_code": "API 코드",
+      "login": "연결",
+      "checking": "연결 확인 중",
+      "try_again": "다시 시도",
+      "correct": "성공",
+      "adding": "장치 추가 중"
+    },
+    "button_code": {
+      "title": "버튼 정의",
+      "instructions": "SwitchBot 앱의 각 버튼에 표시되는 텍스트를 정확히 입력하세요",
+      "button1": "명령 코드 1",
+      "button2": "명령 코드 2",
+      "button3": "명령 코드 3",
+      "button4": "명령 코드 4",
+      "button5": "명령 코드 5",
+      "button6": "명령 코드 6",
+      "button7": "명령 코드 7",
+      "button8": "명령 코드 8",
+      "button9": "명령 코드 9",
+      "button10": "명령 코드 10",
+      "button11": "명령 코드 11",
+      "button12": "명령 코드 12",
+      "button13": "명령 코드 13",
+      "button14": "명령 코드 14",
+      "button15": "명령 코드 15",
+      "button16": "명령 코드 16",
+      "button17": "명령 코드 17",
+      "button18": "명령 코드 18",
+      "button19": "명령 코드 19",
+      "button20": "명령 코드 20",
+      "button21": "명령 코드 21",
+      "button22": "명령 코드 22",
+      "button23": "명령 코드 23",
+      "button24": "명령 코드 24",
+      "button25": "명령 코드 25",
+      "button26": "명령 코드 26",
+      "button27": "명령 코드 27",
+      "button28": "명령 코드 28",
+      "button29": "명령 코드 29",
+      "button30": "명령 코드 30",
+      "button31": "명령 코드 31",
+      "button32": "명령 코드 32",
+      "button33": "명령 코드 33",
+      "button34": "명령 코드 34",
+      "button35": "명령 코드 35",
+      "button36": "명령 코드 36"
+    }
+  }
+}

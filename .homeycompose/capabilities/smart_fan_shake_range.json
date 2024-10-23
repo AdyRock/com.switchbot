@@ -1,18 +1,38 @@
 {
-    "type": "number",
-    "getable": true,
-    "setable": true,
-    "uiComponent": "slider",
-    "units": {
-        "en": "°"
-    },
-    "min": 0,
-    "max": 120,
-    "step": 1,
-    "title":
-    {
-        "en": "Shake Range",
-        "no": "Bevegelsesutslag"
-    },
-    "icon": "/assets/rotate_range.svg"
+  "type": "number",
+  "getable": true,
+  "setable": true,
+  "uiComponent": "slider",
+  "units": {
+    "en": "°",
+    "nl": "°",
+    "da": "°",
+    "de": "°",
+    "es": "°",
+    "fr": "°",
+    "it": "°",
+    "no": "°",
+    "sv": "°",
+    "pl": "°",
+    "ru": "°",
+    "ko": "°"
+  },
+  "min": 0,
+  "max": 120,
+  "step": 1,
+  "title": {
+    "en": "Shake Range",
+    "no": "Bevegelsesutslag",
+    "nl": "Schudbereik",
+    "da": "Rysteområde",
+    "de": "Schüttelbereich",
+    "es": "Rango de agitación",
+    "fr": "Plage de secousse",
+    "it": "Intervallo di scuotimento",
+    "sv": "Skakningsintervall",
+    "pl": "Zakres wstrząsania",
+    "ru": "Диапазон тряски",
+    "ko": "흔들기 범위"
+  },
+  "icon": "/assets/rotate_range.svg"
 }

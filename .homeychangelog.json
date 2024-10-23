@@ -297,9 +297,61 @@
     "1.1.46": {
         "en": "Fixed spelling error defined in the API document.",
         "no": "Utbedret stavefeil i API-dokumentet."
-    }
-    ,"1.1.47": {
+    },
+    "1.1.47": {
         "en": "Added Curtain3 to list of curtain devices.",
         "no": "Lagt til 3. gen Gardiner i listen over gardiner."
-    }
+    },
+	"1.1.48": {
+        "en": "Added Curtain3 to list of curtain devices. Added Norwegian translations thanks to Philip Østli",
+        "no": "Lagt til 3. gen Gardiner i listen over gardiner. Lagt til norske oversettelser takket være Philip Østli"
+	},
+	"1.1.49": {
+		"en": "Added Flow action card to move curtains at performance or quiet speed (thanks to Dennie de Groot)",
+		"no": "Lagt til flyt-handlingskort for å flytte gardiner i ytelses- eller stillemodus (takk til Dennie de Groot)"
+	},
+	"1.1.50": {
+		"en": "Reduce Error information in the log. Added initial support for the Lock Pro. Changed the trigger card for vacuum to use 'clearing' instead of 'cleaning'.",
+		"no": "Redusert feilinformasjon i loggen. Lagt til initial støtte for Lock Pro. Endret utløserkortet for støvsuger til å bruke 'clearing' i stedet for 'cleaning'."
+	},
+	"1.1.51": {
+		"en": "Added setting for curtain devices to change the class type to blind for better Google integration.",
+		"no": "Lagt til innstilling for gardiner for å endre klassetype til blind for bedre Google-integrasjon."
+	},
+	"1.1.52": {
+		"en": "Trigger On/Off Flow card in Bot Press Mode, Added support for the Robot Vacuum Cleaner S10",
+		"no": "Utløser On/Off flytkort i Bot Press-modus, Lagt til støtte for Robotstøvsuger S10"
+	},
+	"1.1.53": {
+		"en": "Added support for the Robot Vacuum Cleaner K10+",
+		"no": "Lagt til støtte for Robotstøvsuger K10+"
+	},
+	"1.1.54": {
+		"en": "Added Flow action card to move curtains at performance or quiet speed for the HUB variant",
+		"no": "Lagt til flyt-handlingskort for å flytte gardiner i ytelses- eller stillemodus for HUB-varianten"
+	},
+	"1.1.55": {
+		"en": "Fix Lock open state detection as the API has changed the data format",
+		"no": "Fiks for låsens åpne tilstandsdeteksjon da API-en har endret dataformatet"
+	},
+	"1.1.56": {
+		"en": "Added support for the SwitchBot Water Leak detector",
+		"no": "Lagt til støtte for SwitchBot vannlekkasjedetektor"
+	},
+	"1.1.57": {
+		"en": "Fix possible issue with BLE temperature reading too high. Improve log function.",
+		"no": "Fiks mulig problem med at BLE-temperaturlesning er for høy. Forbedre loggfunksjonen."
+	},
+	"1.1.58": {
+		"en": "Added more translation via OpenAI",
+		"no": "Lagt til flere oversettelser via OpenAI"
+	},
+	"2.0.0": {
+		"en": "Updated login during pairing for new servers",
+		"no": "Oppdatert innlogging under tilkobling til nye servere"
+	},
+	"2.0.1": {
+		"en": "Fixed text for blind advances settings",
+		"no": "Fikset tekst for avanserte innstillinger for blinde"
+	}
 }

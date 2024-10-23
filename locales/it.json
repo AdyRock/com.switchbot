@@ -1,0 +1,67 @@
+{
+  "settings": {
+    "clear": "Cancella Log",
+    "send": "Invia Log",
+    "getDevices": "Ottieni Dispositivi HUB"
+  },
+  "capabilities": {
+    "brightness": "Luminosità"
+  },
+  "pair": {
+    "api_code": {
+      "title": "Dettagli di Connessione",
+      "intro": "Ottieni il codice API dall'app SwitchBot",
+      "intro1": "1. Apri l'app SwitchBot",
+      "intro2": "2. Vai su Profilo > Preferenze",
+      "intro3": "3. Tocca Versione dell'App 10 volte per visualizzare le Opzioni Sviluppatore",
+      "intro4": "4. Tocca Opzioni Sviluppatore",
+      "intro5": "5. Tocca Ottieni Token",
+      "api_code": "Codice API",
+      "login": "Connetti",
+      "checking": "Verifica connessione",
+      "try_again": "Riprova",
+      "correct": "Connessione riuscita",
+      "adding": "Aggiunta dispositivo/i"
+    },
+    "button_code": {
+      "title": "Definisci Pulsanti",
+      "instructions": "Inserisci il testo per ogni pulsante esattamente come appare nell'app SwitchBot",
+      "button1": "Codice Comando 1",
+      "button2": "Codice Comando 2",
+      "button3": "Codice Comando 3",
+      "button4": "Codice Comando 4",
+      "button5": "Codice Comando 5",
+      "button6": "Codice Comando 6",
+      "button7": "Codice Comando 7",
+      "button8": "Codice Comando 8",
+      "button9": "Codice Comando 9",
+      "button10": "Codice Comando 10",
+      "button11": "Codice Comando 11",
+      "button12": "Codice Comando 12",
+      "button13": "Codice Comando 13",
+      "button14": "Codice Comando 14",
+      "button15": "Codice Comando 15",
+      "button16": "Codice Comando 16",
+      "button17": "Codice Comando 17",
+      "button18": "Codice Comando 18",
+      "button19": "Codice Comando 19",
+      "button20": "Codice Comando 20",
+      "button21": "Codice Comando 21",
+      "button22": "Codice Comando 22",
+      "button23": "Codice Comando 23",
+      "button24": "Codice Comando 24",
+      "button25": "Codice Comando 25",
+      "button26": "Codice Comando 26",
+      "button27": "Codice Comando 27",
+      "button28": "Codice Comando 28",
+      "button29": "Codice Comando 29",
+      "button30": "Codice Comando 30",
+      "button31": "Codice Comando 31",
+      "button32": "Codice Comando 32",
+      "button33": "Codice Comando 33",
+      "button34": "Codice Comando 34",
+      "button35": "Codice Comando 35",
+      "button36": "Codice Comando 36"
+    }
+  }
+}

@@ -1,12 +1,21 @@
 {
-    "type": "boolean",
-    "getable": false,
-    "setable": true,
-    "uiComponent": "button",
-    "title": {
-        "en": "Dock",
-        "nl": "Dock",
-        "no": "Dokk"
-    },
-    "icon": "/assets/home.svg"
+  "type": "boolean",
+  "getable": false,
+  "setable": true,
+  "uiComponent": "button",
+  "title": {
+    "en": "Dock",
+    "nl": "Dock",
+    "no": "Dokk",
+    "da": "Dock",
+    "de": "Dock",
+    "es": "Muelle",
+    "fr": "Dock",
+    "it": "Molo",
+    "sv": "Docka",
+    "pl": "Zacumować",
+    "ru": "Пристыковать",
+    "ko": "도킹"
+  },
+  "icon": "/assets/home.svg"
 }

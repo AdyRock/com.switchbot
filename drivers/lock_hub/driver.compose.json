@@ -1,36 +1,66 @@
 {
-    "id": "lock_hub",
-    "name": {
-        "en": "Lock (HUB)",
-        "no": "Lås (HUB)"
+  "id": "lock_hub",
+  "name": {
+    "en": "Lock (HUB)",
+    "no": "Lås (HUB)",
+    "nl": "Slot (HUB)",
+    "da": "Lås (HUB)",
+    "de": "Schloss (HUB)",
+    "es": "Cerradura (HUB)",
+    "fr": "Serrure (HUB)",
+    "it": "Serratura (HUB)",
+    "sv": "Lås (HUB)",
+    "pl": "Zamek (HUB)",
+    "ru": "Замок (HUB)",
+    "ko": "잠금 장치 (HUB)"
+  },
+  "class": "lock",
+  "capabilities": [
+    "locked",
+    "alarm_generic",
+    "alarm_contact"
+  ],
+  "capabilitiesOptions": {
+    "alarm_generic": {
+      "title": {
+        "en": "Door Jammed",
+        "no": "Dør blokkert",
+        "nl": "Deur Vastgelopen",
+        "da": "Dør Fastklemt",
+        "de": "Tür blockiert",
+        "es": "Puerta Atascada",
+        "fr": "Porte Bloquée",
+        "it": "Porta Bloccata",
+        "sv": "Dörr Fastnat",
+        "pl": "Drzwi Zacięte",
+        "ru": "Дверь Заклинило",
+        "ko": "문이 막힘"
+      }
     },
-    "class": "lock",
-    "capabilities": [
-        "locked",
-        "alarm_generic",
-        "alarm_contact"
-    ],
-    "capabilitiesOptions": {
-        "alarm_generic": {
-            "title": {
-                "en": "Door Jammed",
-                "no": "Dør blokkert"
-            }
-        },
-        "alarm_contact": {
-            "title": {
-                "en": "Door Open",
-                "no": "Dør åpen"
-            }
-        }
-    },
-    "energy": {
-        "batteries": [
-            "CR2",
-            "CR2"
-        ]
-    },
-    "$extends": [
-        "hubDriver"
+    "alarm_contact": {
+      "title": {
+        "en": "Door Open",
+        "no": "Dør åpen",
+        "nl": "Deur Open",
+        "da": "Dør Åben",
+        "de": "Tür Offen",
+        "es": "Puerta Abierta",
+        "fr": "Porte Ouverte",
+        "it": "Porta Aperta",
+        "sv": "Dörr Öppen",
+        "pl": "Drzwi Otwarte",
+        "ru": "Дверь Открыта",
+        "ko": "문 열림"
+      }
+    }
+  },
+  "energy": {
+    "batteries": [
+      "CR2",
+      "CR2"
     ]
+  },
+  "$extends": [
+    "hubDriver"
+  ]
 }

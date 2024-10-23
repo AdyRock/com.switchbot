@@ -1,0 +1,53 @@
+{
+  "id": "water_leak_ble",
+  "name": {
+    "en": "Water Leak Sensor (BLE)",
+    "no": "Kontaktsensor (BLE)",
+    "nl": "Waterleksensor (BLE)",
+    "da": "Vandlækagesensor (BLE)",
+    "de": "Wassersensor (BLE)",
+    "es": "Sensor de fuga de agua (BLE)",
+    "fr": "Capteur de fuite d'eau (BLE)",
+    "it": "Sensore di perdita d'acqua (BLE)",
+    "sv": "Vattenläckagesensor (BLE)",
+    "pl": "Czujnik wycieku wody (BLE)",
+    "ru": "Датчик утечки воды (BLE)",
+    "ko": "물 누수 센서 (BLE)"
+  },
+  "platforms": [
+    "local",
+    "cloud"
+  ],
+  "connectivity": [
+    "ble"
+  ],
+  "class": "sensor",
+  "capabilities": [
+    "alarm_water",
+    "measure_battery",
+    "rssi"
+  ],
+  "pair": [
+    {
+      "id": "list_my_devices",
+      "template": "list_devices",
+      "navigation": {
+        "next": "add_my_devices"
+      }
+    },
+    {
+      "id": "add_my_devices",
+      "template": "add_devices"
+    }
+  ],
+  "energy": {
+    "batteries": [
+      "AAA",
+      "AAA"
+    ]
+  },
+  "images": {
+    "large": "/drivers/water_leak_ble/assets/images/large.jpg",
+    "small": "/drivers/water_leak_ble/assets/images/small.jpg"
+  }
+}

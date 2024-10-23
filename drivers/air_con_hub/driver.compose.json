@@ -1,24 +1,34 @@
 {
-    "id": "air_con_hub",
-    "name": {
-        "en": "Air Conditioner Remote",
-        "no": "Varmepumpe fjernkontroll"
-    },
-    "class": "remote",
-    "capabilities": [
-        "power_on",
-        "power_off",
-        "target_temperature",
-        "aircon_mode",
-        "aircon_fan_speed"
-    ],
-    "capabilitiesOptions": {
-        "target_temperature": {
-            "min": 16,
-            "max": 30
-        }
-    },
-    "$extends": [
-        "hubDriver"
-    ]
+  "id": "air_con_hub",
+  "name": {
+    "en": "Air Conditioner Remote",
+    "no": "Varmepumpe fjernkontroll",
+    "nl": "Airconditioner afstandsbediening",
+    "da": "Aircondition-fjernbetjening",
+    "de": "Klimaanlagen-Fernbedienung",
+    "es": "Mando a distancia del aire acondicionado",
+    "fr": "Télécommande de climatiseur",
+    "it": "Telecomando del condizionatore",
+    "sv": "Fjärrkontroll för luftkonditionering",
+    "pl": "Pilot do klimatyzatora",
+    "ru": "Пульт для кондиционера",
+    "ko": "에어컨 리모컨"
+  },
+  "class": "remote",
+  "capabilities": [
+    "power_on",
+    "power_off",
+    "target_temperature",
+    "aircon_mode",
+    "aircon_fan_speed"
+  ],
+  "capabilitiesOptions": {
+    "target_temperature": {
+      "min": 16,
+      "max": 30
+    }
+  },
+  "$extends": [
+    "hubDriver"
+  ]
 }

@@ -83,6 +83,11 @@ class CurtainsHubDevice extends HubDevice
 		{
 			this.motionMode = Number(newSettings.motionMode);
 		}
+
+		if (changedKeys.indexOf('classType') >= 0)
+		{
+			this.setClass(newSettings.classType);
+		}
 	}
 
 	/**
@@ -111,21 +116,38 @@ class CurtainsHubDevice extends HubDevice
 	// this method is called when the Homey device has requested a position change ( 0 to 1)
 	async onCapabilityPosition(value, opts)
 	{
+		let mode = this.motionMode;
+
+		if (opts === 'fast')
+		{
+			mode = 0;
+		}
+		else if (opts === 'slow')
+		{
+			mode = 1;
+		}
+
 		if (this.invertPosition)
 		{
 			value = 1 - value;
 		}
 
-		return this.runToPos(value * 100, this.motionMode);
+		return this.runToPos(value * 100, mode);
 	}
 
 	async onCapabilityState(value, opts)
 	{
+		if (this.pollTimer)
+		{
+			this.homey.clearTimeout(this.pollTimer);
+			this.pollTimer = null;
+		}
+
 		if (value === 'idle')
 		{
 			await this.stop();
-			setImmediate(() => {
-				this.setCapabilityValue('windowcoverings_state', null).catch(this.error);
+			this.pollTimer = this.homey.setTimeout(() => {
+				this.getHubDeviceValues().catch(this.error);
 			}, 1000);
 		}
 		else if (value === 'up')
@@ -242,6 +264,19 @@ class CurtainsHubDevice extends HubDevice
 					this.setCapabilityValue('open_close', false).catch(this.error);
 				}
 
+				if (position === 0)
+				{
+					this.setCapabilityValue('windowcoverings_state', 'up').catch(this.error);
+				}
+				else if (position === 1)
+				{
+					this.setCapabilityValue('windowcoverings_state', 'down').catch(this.error);
+				}
+				else
+				{
+					this.setCapabilityValue('windowcoverings_state', data.moving ? null : 'idle').catch(this.error);
+				}
+
 				this.setCapabilityValue('windowcoverings_set', position).catch(this.error);
 				this.setCapabilityValue('position', position * 100).catch(this.error);
 
@@ -272,6 +307,12 @@ class CurtainsHubDevice extends HubDevice
 			if (dd.id === message.context.deviceMac)
 			{
 				// message is for this device
+				if (this.pollTimer)
+				{
+					this.homey.clearTimeout(this.pollTimer);
+					this.pollTimer = null;
+				}
+
 				const data = message.context;
 				let position = data.slidePosition / 100;
 				if (this.invertPosition)
@@ -290,6 +331,22 @@ class CurtainsHubDevice extends HubDevice
 
 				this.setCapabilityValue('windowcoverings_set', position).catch(this.error);
 				this.setCapabilityValue('position', position * 100).catch(this.error);
+
+				if (position === 0)
+				{
+					this.setCapabilityValue('windowcoverings_state', 'up').catch(this.error);
+				}
+				else if (position === 1)
+				{
+					this.setCapabilityValue('windowcoverings_state', 'down').catch(this.error);
+				}
+				else
+				{
+					this.setCapabilityValue('windowcoverings_state', null).catch(this.error);
+					this.pollTimer = this.homey.setTimeout(() => {
+						this.getHubDeviceValues().catch(this.error);
+					}, 2000);
+				}
 
 				if (data.battery)
 				{

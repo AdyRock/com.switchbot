@@ -2,7 +2,17 @@
   "id": "contact_hub",
   "name": {
     "en": "Contact Sensor (HUB)",
-    "no": "Kontaktsensor (HUB)"
+    "no": "Kontaktsensor (HUB)",
+    "nl": "Contactsensor (HUB)",
+    "da": "Kontaktsensor (HUB)",
+    "de": "Kontaktsensor (HUB)",
+    "es": "Sensor de contacto (HUB)",
+    "fr": "Capteur de contact (HUB)",
+    "it": "Sensore di contatto (HUB)",
+    "sv": "Kontaktsensor (HUB)",
+    "pl": "Czujnik kontaktu (HUB)",
+    "ru": "Датчик контакта (HUB)",
+    "ko": "접촉 센서 (HUB)"
   },
   "class": "sensor",
   "capabilities": [
@@ -14,19 +24,57 @@
   ],
   "capabilitiesOptions": {
     "alarm_contact.left_open": {
-      "title": {"en": "Left Open", "no": "Fremdeles åpen"},
+      "title": {
+        "en": "Left Open",
+        "no": "Fremdeles åpen",
+        "nl": "Gelaten open",
+        "da": "Efterladt åben",
+        "de": "Offen gelassen",
+        "es": "Dejado abierto",
+        "fr": "Laissé ouvert",
+        "it": "Lasciato aperto",
+        "sv": "Lämnat öppen",
+        "pl": "Pozostawiono otwarte",
+        "ru": "Оставлено открытым",
+        "ko": "열림 상태로 둠"
+      },
       "insightsTitleTrue": {
         "en": "Contact Left Open",
-        "no": "Kontaktalarm fremdeles på"
+        "no": "Kontaktalarm fremdeles på",
+        "nl": "Contact gelaten open",
+        "da": "Kontakt efterladt åben",
+        "de": "Kontakt offen gelassen",
+        "es": "Contacto dejado abierto",
+        "fr": "Contact laissé ouvert",
+        "it": "Contatto lasciato aperto",
+        "sv": "Kontakt lämnat öppen",
+        "pl": "Kontakt pozostawiony otwarty",
+        "ru": "Контакт оставлен открытым",
+        "ko": "접촉이 열림 상태로 유지됨"
       },
       "insightsTitleFalse": {
         "en": "Contact Closed",
-        "no": "Kontaktalarm slått av"
+        "no": "Kontaktalarm slått av",
+        "nl": "Contact gesloten",
+        "da": "Kontakt lukket",
+        "de": "Kontakt geschlossen",
+        "es": "Contacto cerrado",
+        "fr": "Contact fermé",
+        "it": "Contatto chiuso",
+        "sv": "Kontakt stängd",
+        "pl": "Kontakt zamknięty",
+        "ru": "Контакт закрыт",
+        "ko": "접촉이 닫힘"
       }
     }
   },
   "energy": {
-    "batteries": ["AAA", "AAA"]
+    "batteries": [
+      "AAA",
+      "AAA"
+    ]
   },
-  "$extends": ["hubDriver"]
+  "$extends": [
+    "hubDriver"
+  ]
 }

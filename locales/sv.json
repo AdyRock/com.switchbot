@@ -1,0 +1,67 @@
+{
+  "settings": {
+    "clear": "Rensa Log",
+    "send": "Skicka Log",
+    "getDevices": "Hämta HUB-enheter"
+  },
+  "capabilities": {
+    "brightness": "Ljusstyrka"
+  },
+  "pair": {
+    "api_code": {
+      "title": "Anslutningsdetaljer",
+      "intro": "Hämta API-koden från SwitchBot mobilapp",
+      "intro1": "1. Öppna SwitchBot mobilapp",
+      "intro2": "2. Gå till Profil > Inställningar",
+      "intro3": "3. Tryck på Appversion 10 gånger för att visa Utvecklaralternativ",
+      "intro4": "4. Tryck på Utvecklaralternativ",
+      "intro5": "5. Tryck på Hämta Token",
+      "api_code": "API-kod",
+      "login": "Anslut",
+      "checking": "Kontrollerar anslutning",
+      "try_again": "Försök igen",
+      "correct": "Lyckades",
+      "adding": "Lägger till enhet(er)"
+    },
+    "button_code": {
+      "title": "Definiera Knapp",
+      "instructions": "Ange texten för varje knapp exakt som den visas på varje knapp i SwitchBot-appen",
+      "button1": "Kommandokod 1",
+      "button2": "Kommandokod 2",
+      "button3": "Kommandokod 3",
+      "button4": "Kommandokod 4",
+      "button5": "Kommandokod 5",
+      "button6": "Kommandokod 6",
+      "button7": "Kommandokod 7",
+      "button8": "Kommandokod 8",
+      "button9": "Kommandokod 9",
+      "button10": "Kommandokod 10",
+      "button11": "Kommandokod 11",
+      "button12": "Kommandokod 12",
+      "button13": "Kommandokod 13",
+      "button14": "Kommandokod 14",
+      "button15": "Kommandokod 15",
+      "button16": "Kommandokod 16",
+      "button17": "Kommandokod 17",
+      "button18": "Kommandokod 18",
+      "button19": "Kommandokod 19",
+      "button20": "Kommandokod 20",
+      "button21": "Kommandokod 21",
+      "button22": "Kommandokod 22",
+      "button23": "Kommandokod 23",
+      "button24": "Kommandokod 24",
+      "button25": "Kommandokod 25",
+      "button26": "Kommandokod 26",
+      "button27": "Kommandokod 27",
+      "button28": "Kommandokod 28",
+      "button29": "Kommandokod 29",
+      "button30": "Kommandokod 30",
+      "button31": "Kommandokod 31",
+      "button32": "Kommandokod 32",
+      "button33": "Kommandokod 33",
+      "button34": "Kommandokod 34",
+      "button35": "Kommandokod 35",
+      "button36": "Kommandokod 36"
+    }
+  }
+}

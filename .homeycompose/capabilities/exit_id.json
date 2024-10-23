@@ -1,12 +1,21 @@
 {
-    "type": "number",
-    "getable": true,
-    "setable": false,
-    "uiComponent": "sensor",
-    "title":
-    {
-        "en": "Exit ID",
-        "no": "Utgangs id"
-    },
-    "icon": "/assets/exit.svg" 
+  "type": "number",
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "title": {
+    "en": "Exit ID",
+    "no": "Utgangs id",
+    "nl": "Exit ID",
+    "da": "Exit ID",
+    "de": "Exit ID",
+    "es": "ID de salida",
+    "fr": "ID de sortie",
+    "it": "ID di uscita",
+    "sv": "Exit ID",
+    "pl": "ID wyjścia",
+    "ru": "ID выхода",
+    "ko": "출구 ID"
+  },
+  "icon": "/assets/exit.svg"
 }

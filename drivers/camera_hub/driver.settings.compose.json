@@ -1,21 +1,37 @@
 [
-    {
-        "id": "duration",
-        "type": "number",
-        "label":
-        {
-            "en": "Motion Duration",
-            "nl": "Bewegingsduur",
-            "no": "Bevegelsesvarighet"
-        },
-        "value": 10,
-        "min": 1,
-        "max": 240,
-        "units":
-        {
-            "en": "seconds",
-            "nl": "seconden",
-            "no": "sekunder"
-        }
+  {
+    "id": "duration",
+    "type": "number",
+    "label": {
+      "en": "Motion Duration",
+      "nl": "Bewegingsduur",
+      "no": "Bevegelsesvarighet",
+      "da": "Bevægelsesvarighed",
+      "de": "Bewegungsdauer",
+      "es": "Duración del movimiento",
+      "fr": "Durée du mouvement",
+      "it": "Durata del movimento",
+      "sv": "Rörelsens varaktighet",
+      "pl": "Czas trwania ruchu",
+      "ru": "Длительность движения",
+      "ko": "이동 시간"
+    },
+    "value": 10,
+    "min": 1,
+    "max": 240,
+    "units": {
+      "en": "seconds",
+      "nl": "seconden",
+      "no": "sekunder",
+      "da": "sekunder",
+      "de": "Sekunden",
+      "es": "segundos",
+      "fr": "secondes",
+      "it": "secondi",
+      "sv": "sekunder",
+      "pl": "sekundy",
+      "ru": "секунды",
+      "ko": "초"
     }
+  }
 ]

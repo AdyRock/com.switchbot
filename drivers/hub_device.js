@@ -62,7 +62,7 @@ class HubDevice extends OAuth2Device
 			}
 			catch (err)
 			{
-				this.homey.app.updateLog(`Failed to send command to ${dd.id} using OAuth: ${this.homey.app.varToString(err)}`, 0);
+				this.homey.app.updateLog(`Failed to send command to ${dd.id} using OAuth: ${err.message}`, 0);
 				throw (err.message);
 			}
 

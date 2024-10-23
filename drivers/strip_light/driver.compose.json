@@ -1,22 +1,32 @@
 {
-    "name": {
-        "en": "Strip Light (HUB)",
-        "no": "Lysstripe (HUB)"
-    },
-    "class": "light",
-    "capabilities": [
-        "onoff",
-        "dim",
-        "light_hue",
-        "light_saturation"
-    ],
-    "energy": {
-        "approximation": {
-            "usageOn": 15,
-            "usageOff": 0.1
-        }
-    },
-    "$extends": [
-        "hubDriver"
-    ]
+  "name": {
+    "en": "Strip Light (HUB)",
+    "no": "Lysstripe (HUB)",
+    "nl": "Ledstrip (HUB)",
+    "da": "Lysstrip (HUB)",
+    "de": "Lichtleiste (HUB)",
+    "es": "Tira de luz (HUB)",
+    "fr": "Bande lumineuse (HUB)",
+    "it": "Striscia luminosa (HUB)",
+    "sv": "Ljuslist (HUB)",
+    "pl": "Pasek świetlny (HUB)",
+    "ru": "Световая полоса (HUB)",
+    "ko": "스트립 라이트 (HUB)"
+  },
+  "class": "light",
+  "capabilities": [
+    "onoff",
+    "dim",
+    "light_hue",
+    "light_saturation"
+  ],
+  "energy": {
+    "approximation": {
+      "usageOn": 15,
+      "usageOff": 0.1
+    }
+  },
+  "$extends": [
+    "hubDriver"
+  ]
 }

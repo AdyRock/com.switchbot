@@ -1,15 +1,24 @@
 {
-    "id": "bot_hub",
-    "name": {
-        "en": "Bot (HUB)",
-        "no": "Bot (HUB)"
-    },
-    "class": "socket",
-    "capabilities": [
-        "onoff",
-        "measure_power"
-    ],
-    "$extends": [
-        "hubDriver"
-    ]
+  "id": "bot_hub",
+  "name": {
+    "en": "Bot (HUB)",
+    "no": "Bot (HUB)",
+    "nl": "Bot (HUB)",
+    "da": "Bot (HUB)",
+    "de": "Bot (HUB)",
+    "es": "Bot (HUB)",
+    "fr": "Bot (HUB)",
+    "it": "Bot (HUB)",
+    "sv": "Bot (HUB)",
+    "pl": "Bot (HUB)",
+    "ru": "Bot (HUB)",
+    "ko": "Bot (HUB)"
+  },
+  "class": "button",
+  "capabilities": [
+    "onoff"
+  ],
+  "$extends": [
+    "hubDriver"
+  ]
 }

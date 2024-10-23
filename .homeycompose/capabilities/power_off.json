@@ -1,12 +1,21 @@
 {
-    "type": "boolean",
-    "getable": false,
-    "setable": true,
-    "uiComponent": "button",
-    "title":
-    {
-        "en": "Power Off",
-        "no": "Av"
-    },
-    "icon": "/assets/power_off.svg"
+  "type": "boolean",
+  "getable": false,
+  "setable": true,
+  "uiComponent": "button",
+  "title": {
+    "en": "Power Off",
+    "no": "Av",
+    "nl": "Uitschakelen",
+    "da": "Sluk",
+    "de": "Ausschalten",
+    "es": "Apagar",
+    "fr": "Éteindre",
+    "it": "Spegni",
+    "sv": "Stäng av",
+    "pl": "Wyłącz",
+    "ru": "Выключить",
+    "ko": "전원 끄기"
+  },
+  "icon": "/assets/power_off.svg"
 }

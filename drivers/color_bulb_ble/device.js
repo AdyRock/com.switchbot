@@ -54,7 +54,15 @@ class ColorBulbBLEDevice extends Homey.Device
 
 	async onCapabilityLightMode(value, opts)
 	{
-		// No need to do anything
+		if (value === 'temperature')
+		{
+			this.onCapabilityLightTemperature(await this.getCapabilityValue('light_temperature'), true);
+		}
+		else if (value === 'color')
+		{
+			const values = { light_hue: await this.getCapabilityValue('light_hue'), light_saturation: await this.getCapabilityValue('light_saturation') };
+			this.onCapabilityLightHueSat(values, true);
+		}
 	}
 
 	async onCapabilityDim(value, opts)
@@ -64,6 +72,13 @@ class ColorBulbBLEDevice extends Homey.Device
 
 	async onCapabilityLightTemperature(value, opts)
 	{
+		// Check if from onCapabilityLightMode
+		if (opts !== true)
+		{
+			// Not from onCapabilityLightMode so set light_mode to temperature
+			this.setCapabilityValue('light_mode', 'temperature').catch(this.error);
+		}
+
 		// {2700-6500}
 		const temperature = ((1 - value) * (6500 - 2700)) + 2700;
 		this._operateBulb([0x57, 0x0f, 0x47, 0x01, 0x17, ((temperature / 256) & 0xFF), (temperature & 0xFF)]).catch(this.error);
@@ -71,9 +86,27 @@ class ColorBulbBLEDevice extends Homey.Device
 
 	async onCapabilityLightHueSat(capabilityValues, capabilityOptions)
 	{
+		if (capabilityOptions !== true)
+		{
+			this.setCapabilityValue('light_mode', 'color').catch(this.error);
+		}
+
 		// Convert Hue, Saturation, Dim to RGB
 		const dim = 0.5;
-		const rgb = this.hslToRgb(capabilityValues.light_hue, capabilityValues.light_saturation, dim);
+		let hue = capabilityValues.light_hue;
+		let sat = capabilityValues.light_saturation;
+
+		if (!hue)
+		{
+			hue = this.getCapabilityValue('light_hue');
+		}
+
+		if (!sat)
+		{
+			sat = this.getCapabilityValue('light_saturation');
+		}
+
+		const rgb = this.hslToRgb(hue, sat, dim);
 
 		this._operateBulb([0x57, 0x0f, 0x47, 0x01, 0x16, rgb[0], rgb[1], rgb[2]]).catch(this.error);
 	}
@@ -230,7 +263,7 @@ class ColorBulbBLEDevice extends Homey.Device
 			}
 			catch (err)
 			{
-				this.homey.app.updateLog(`_operateBulb error: ${name} : ${this.homey.app.varToString(err)}`, 0);
+				this.homey.app.updateLog(`_operateBulb error: ${name} : ${err.message}`, 0);
 			}
 
 			this.homey.app.bleBusy = false;
@@ -320,7 +353,7 @@ class ColorBulbBLEDevice extends Homey.Device
 			}
 			catch (err)
 			{
-				this.homey.app.updateLog(`Catch 2: ${name}: ${this.homey.app.varToString(err)}`, 0);
+				this.homey.app.updateLog(`Catch 2: ${name}: ${err.message}`, 0);
 				sending = false;
 				return err;
 				// throw(err);
@@ -340,7 +373,7 @@ class ColorBulbBLEDevice extends Homey.Device
 		}
 		catch (err)
 		{
-			this.homey.app.updateLog(`Catch 1: ${name}: ${this.homey.app.varToString(err)}`, 0);
+			this.homey.app.updateLog(`Catch 1: ${name}: ${err.message}`, 0);
 			return err;
 		}
 		finally
@@ -444,7 +477,7 @@ class ColorBulbBLEDevice extends Homey.Device
 		}
 		catch (err)
 		{
-			this.homey.app.updateLog(this.homey.app.varToString(err), 0);
+			this.homey.app.updateLog(err.message, 0);
 		}
 		finally
 		{
@@ -461,7 +494,7 @@ class ColorBulbBLEDevice extends Homey.Device
 			const dd = this.getData();
 			for (const event of events)
 			{
-				if (event.address && (event.address === dd.address) && (event.serviceData.modelName === 'WoBulb'))
+				if (event.address && (event.address.localeCompare(dd.address, 'en', { sensitivity: 'base' }) === 0) && (event.serviceData.modelName === 'WoBulb'))
 				{
 					if (event.replyData)
 					{
@@ -469,7 +502,7 @@ class ColorBulbBLEDevice extends Homey.Device
 					}
 					else
 					{
-						if (event.hubMAC && ((event.rssi < this.bestRSSI) || (event.hubMAC === this.bestHub)))
+						if (event.hubMAC && ((event.rssi < this.bestRSSI) || (event.hubMAC.localeCompare(this.bestHub, 'en', { sensitivity: 'base' }) === 0)))
 						{
 							this.bestHub = event.hubMAC;
 							this.bestRSSI = event.rssi;

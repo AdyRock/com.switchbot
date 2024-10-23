@@ -1,12 +1,21 @@
 {
-    "type": "boolean",
-    "getable": false,
-    "setable": true,
-    "uiComponent": "button",
-    "title":
-    {
-        "en": "Start",
-        "no": "Start"
-    },
-    "icon": "/assets/play.svg"
+  "type": "boolean",
+  "getable": false,
+  "setable": true,
+  "uiComponent": "button",
+  "title": {
+    "en": "Start",
+    "no": "Start",
+    "nl": "Start",
+    "da": "Start",
+    "de": "Starten",
+    "es": "Comenzar",
+    "fr": "Démarrer",
+    "it": "Inizia",
+    "sv": "Starta",
+    "pl": "Start",
+    "ru": "Начать",
+    "ko": "시작"
+  },
+  "icon": "/assets/play.svg"
 }

@@ -1,24 +1,34 @@
 {
-    "name": {
-        "en": "Colour Bulb (HUB)",
-        "no": "Lyspære m/farger (HUB)"
-    },
-    "class": "light",
-    "capabilities": [
-        "onoff",
-        "dim",
-        "light_mode",
-        "light_temperature",
-        "light_hue",
-        "light_saturation"
-    ],
-    "energy": {
-        "approximation": {
-            "usageOn": 10,
-            "usageOff": 0.1
-        }
-    },
-    "$extends": [
-        "hubDriver"
-    ]
+  "name": {
+    "en": "Colour Bulb (HUB)",
+    "no": "Lyspære m/farger (HUB)",
+    "nl": "Kleurenlamp (HUB)",
+    "da": "Farvepære (HUB)",
+    "de": "Farbige Glühbirne (HUB)",
+    "es": "Bombilla de colores (HUB)",
+    "fr": "Ampoule couleur (HUB)",
+    "it": "Lampadina colorata (HUB)",
+    "sv": "Färglampa (HUB)",
+    "pl": "Żarówka kolorowa (HUB)",
+    "ru": "Цветная лампочка (HUB)",
+    "ko": "컬러 전구 (HUB)"
+  },
+  "class": "light",
+  "capabilities": [
+    "onoff",
+    "dim",
+    "light_mode",
+    "light_temperature",
+    "light_hue",
+    "light_saturation"
+  ],
+  "energy": {
+    "approximation": {
+      "usageOn": 10,
+      "usageOff": 0.1
+    }
+  },
+  "$extends": [
+    "hubDriver"
+  ]
 }

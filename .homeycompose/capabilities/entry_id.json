@@ -1,12 +1,21 @@
 {
-    "type": "number",
-    "getable": true,
-    "setable": false,
-    "uiComponent": "sensor",
-    "title":
-    {
-        "en": "Entry ID",
-        "no": "Inngangs id"
-    },
-    "icon": "/assets/entry.svg" 
+  "type": "number",
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "title": {
+    "en": "Entry ID",
+    "no": "Inngangs id",
+    "nl": "Invoer-ID",
+    "da": "Entry-ID",
+    "de": "Eintrags-ID",
+    "es": "ID de entrada",
+    "fr": "ID d'entrée",
+    "it": "ID di ingresso",
+    "sv": "Ingångs-ID",
+    "pl": "ID wejsciowy",
+    "ru": "ID входа",
+    "ko": "입장 ID"
+  },
+  "icon": "/assets/entry.svg"
 }

@@ -1,24 +1,33 @@
 {
-    "id": "dvd",
-    "name":
-    {
-        "en": "DVD Remote",
-        "no": "DVD fjernkontroll"
-    },
-    "class": "remote",
-    "capabilities": [
-        "power_on",
-        "power_off",
-        "volume_mute",
-        "stop",
-        "play",
-        "pause",
-        "prev",
-        "next",
-        "rewind",
-        "forward"
-    ],
-    "$extends": [
-        "hubDriver"
-    ]
+  "id": "dvd",
+  "name": {
+    "en": "DVD Remote",
+    "no": "DVD fjernkontroll",
+    "nl": "DVD-afstandsbediening",
+    "da": "DVD-fjernbetjening",
+    "de": "DVD-Fernbedienung",
+    "es": "Control remoto de DVD",
+    "fr": "Télécommande DVD",
+    "it": "Telecomando DVD",
+    "sv": "DVD-fjärrkontroll",
+    "pl": "Pilot DVD",
+    "ru": "Пульт DVD",
+    "ko": "DVD 리모컨"
+  },
+  "class": "remote",
+  "capabilities": [
+    "power_on",
+    "power_off",
+    "volume_mute",
+    "stop",
+    "play",
+    "pause",
+    "prev",
+    "next",
+    "rewind",
+    "forward"
+  ],
+  "$extends": [
+    "hubDriver"
+  ]
 }

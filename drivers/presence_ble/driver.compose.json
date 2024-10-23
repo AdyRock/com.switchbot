@@ -1,44 +1,54 @@
 {
-    "id": "presence_ble",
-    "name": {
-        "en": "Motion Sensor (BLE)",
-        "no": "Bevegelsessensor (BLE)"
+  "id": "presence_ble",
+  "name": {
+    "en": "Motion Sensor (BLE)",
+    "no": "Bevegelsessensor (BLE)",
+    "nl": "Bewegingssensor (BLE)",
+    "da": "Bevægelsessensor (BLE)",
+    "de": "Bewegungssensor (BLE)",
+    "es": "Sensor de Movimiento (BLE)",
+    "fr": "Capteur de Mouvement (BLE)",
+    "it": "Sensore di Movimento (BLE)",
+    "sv": "Rörelsesensor (BLE)",
+    "pl": "Czujnik Ruchu (BLE)",
+    "ru": "Датчик Движения (BLE)",
+    "ko": "모션 센서 (BLE)"
+  },
+  "platforms": [
+    "local",
+    "cloud"
+  ],
+  "connectivity": [
+    "ble"
+  ],
+  "class": "sensor",
+  "capabilities": [
+    "alarm_motion",
+    "bright",
+    "measure_battery",
+    "rssi"
+  ],
+  "pair": [
+    {
+      "id": "list_my_devices",
+      "template": "list_devices",
+      "navigation": {
+        "next": "add_my_devices"
+      }
     },
-    "platforms": [
-        "local",
-        "cloud"
-    ],
-    "connectivity": [
-        "ble"
-    ],
-    "class": "sensor",
-    "capabilities": [
-        "alarm_motion",
-        "bright",
-        "measure_battery",
-        "rssi"
-    ],
-    "pair": [
-        {
-            "id": "list_my_devices",
-            "template": "list_devices",
-            "navigation": {
-                "next": "add_my_devices"
-            }
-        },
-        {
-            "id": "add_my_devices",
-            "template": "add_devices"
-        }
-    ],
-    "energy": {
-        "batteries": [
-            "AAA",
-            "AAA"
-        ]
-    },
-    "images": {
-        "large": "/drivers/presence_ble/assets/images/large.jpg",
-        "small": "/drivers/presence_ble/assets/images/small.jpg"
+    {
+      "id": "add_my_devices",
+      "template": "add_devices"
     }
+  ],
+  "energy": {
+    "batteries": [
+      "AAA",
+      "AAA"
+    ]
+  },
+  "images": {
+    "large": "/drivers/presence_ble/assets/images/large.jpg",
+    "small": "/drivers/presence_ble/assets/images/small.jpg"
+  }
 }

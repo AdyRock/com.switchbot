@@ -1,0 +1,27 @@
+{
+  "id": "meter_pro_CO2_hub",
+  "name": {
+    "en": "Meter Pro with CO2 (HUB)",
+	"nl": "Meter Pro met CO2 (HUB)",
+	"de": "Meter Pro mit CO2 (HUB)",
+	"fr": "Meter Pro avec CO2 (HUB)",
+	"es": "Medidor Pro con CO2 (HUB)",
+	"pt": "Medidor Pro com CO2 (HUB)",
+	"it": "Misuratore Pro con CO2 (HUB)",
+	"pl": "Miernik Pro z CO2 (HUB)",
+	"cn": "Meter Pro with CO2 (HUB)",
+	"jp": "Meter Pro with CO2 (HUB)",
+	"tw": "Meter Pro with CO2 (HUB)",
+	"kr": "Meter Pro with CO2 (HUB)"
+  },
+  "class": "sensor",
+  "capabilities": [
+    "measure_temperature",
+    "measure_humidity",
+	"measure_battery",
+    "measure_co2"
+  ],
+  "$extends": [
+    "hubDriver"
+  ]
+}

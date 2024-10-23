@@ -1,17 +1,27 @@
 {
-    "title": {
-        "en": "Left Open",
-        "no": "Forblir åpen"
-    },
-    "platforms": [
-        "local",
-        "cloud"
-    ],
-    "args": [
-      {
-        "type": "device",
-        "name": "device",
-        "filter": "driver_id=contact_ble|contact_hub"
-      }
-    ]
+  "title": {
+    "en": "Left Open",
+    "no": "Forblir åpen",
+    "nl": "Gelaten Open",
+    "da": "Efterladt Åben",
+    "de": "Offen Gelassen",
+    "es": "Dejado Abierto",
+    "fr": "Laissé Ouvert",
+    "it": "Lasciato Aperto",
+    "sv": "Lämnat Öppet",
+    "pl": "Pozostawione Otwarte",
+    "ru": "Оставлено Открытым",
+    "ko": "열린 채로"
+  },
+  "platforms": [
+    "local",
+    "cloud"
+  ],
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=contact_ble|contact_hub"
+    }
+  ]
 }

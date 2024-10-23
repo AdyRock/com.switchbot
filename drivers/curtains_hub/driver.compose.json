@@ -1,73 +1,210 @@
 {
-    "id": "curtains_hub",
-    "name": {
-        "en": "Curtains (HUB)",
-        "no": "Gardiner (HUB)"
+  "id": "curtains_hub",
+  "name": {
+    "en": "Curtains (HUB)",
+    "no": "Gardiner (HUB)",
+    "da": "Gardiner (HUB)",
+    "de": "Vorhänge (HUB)",
+    "es": "Cortinas (HUB)",
+    "fr": "Rideaux (HUB)",
+    "it": "Tende (HUB)",
+    "sv": "Gardiner (HUB)",
+    "pl": "Zasłony (HUB)",
+    "ru": "Шторы (HUB)",
+    "ko": "커튼 (HUB)"
+  },
+  "class": "curtain",
+  "capabilities": [
+    "open_close",
+    "windowcoverings_state",
+    "windowcoverings_set",
+    "position"
+  ],
+  "energy": {
+    "batteries": [
+      "INTERNAL"
+    ]
+  },
+  "$extends": [
+    "hubDriver"
+  ],
+  "settings": [
+    {
+      "id": "invertPosition",
+      "type": "checkbox",
+      "label": {
+        "en": "Invert Open / Close Position",
+        "no": "Inverter Åpen / Lukket posisjon",
+        "da": "Inverter Åben / Lukket Position",
+        "de": "Öffnen / Schließen Position umkehren",
+        "es": "Invertir Posición Abierta / Cerrada",
+        "fr": "Inverser Position Ouverte / Fermée",
+        "it": "Inverti Posizione Aperta/Chiusa",
+        "sv": "Invertera Öppen / Stängd Position",
+        "pl": "Odwróć Pozycję Otwórz / Zamknij",
+        "ru": "Инвертировать Положение Открытия / Закрытия",
+        "ko": "열림/닫힘 위치 반전"
+      },
+      "value": false,
+      "hint": {
+        "en": "Reverse the action of the position control.",
+        "no": "Vend retningen for posisjonsvelgeren.",
+        "da": "Vend handlingen af positionskontrollen.",
+        "de": "Drehen Sie die Aktion der Positionssteuerung um.",
+        "es": "Invierta la acción del control de posición.",
+        "fr": "Inversez l'action de la commande de position.",
+        "it": "Invertire l'azione del controllo di posizione.",
+        "sv": "Vänd på positionens kontrollåtgärd.",
+        "pl": "Odwróć działanie kontroli położenia.",
+        "ru": "Обратное действие регулятора положения.",
+        "ko": "위치 제어의 동작을 반대로 합니다."
+      }
     },
-    "class": "curtain",
-    "capabilities": [
-        "open_close",
-        "windowcoverings_state",
-        "windowcoverings_set",
-        "position"
-    ],
-    "energy": {
-        "batteries": [
-            "INTERNAL"
-        ]
-    },
-    "$extends": [
-        "hubDriver"
-    ],
-    "settings": [
+    {
+      "id": "motionMode",
+      "type": "radio",
+      "label": {
+        "en": "Motion Mode",
+        "no": "Bevegelsesmodus",
+        "da": "Bevægelsestilstand",
+        "de": "Bewegungsmodus",
+        "es": "Modo de Movimiento",
+        "fr": "Mode de Mouvement",
+        "it": "Modalità Movimento",
+        "sv": "Rörelseläge",
+        "pl": "Tryb Ruchu",
+        "ru": "Режим Движения",
+        "ko": "모션 모드"
+      },
+      "value": "0",
+      "values": [
         {
-            "id": "invertPosition",
-            "type": "checkbox",
-            "label": {
-                "en": "Invert Open / Close Position",
-                "no": "Inverter Åpen / Lukket posisjon"
-            },
-            "value": false,
-            "hint": {
-                "en": "Reverse the action of the position control.",
-                "no": "Vend retningen for posisjonsvelgeren."
-            }
+          "id": "0",
+          "label": {
+            "en": "Performance",
+            "no": "Ytelse",
+            "da": "Ydeevne",
+            "de": "Leistung",
+            "es": "Rendimiento",
+            "fr": "Performance",
+            "it": "Prestazioni",
+            "sv": "Prestanda",
+            "pl": "Wydajność",
+            "ru": "Производительность",
+            "ko": "성능"
+          }
         },
         {
-            "id": "motionMode",
-            "type": "radio",
-            "label": {
-                "en": "Motion Mode",
-                "no": "Bevegelsesmodus"
-            },
-            "value": "0",
-            "values": [
-                {
-                    "id": "0",
-                    "label": {
-                        "en": "Performance",
-                        "no": "Ytelse"
-                    }
-                },
-                {
-                    "id": "1",
-                    "label": {
-                        "en": "Silent",
-                        "no": "Stille"
-                    }
-                },
-                {
-                    "id": "0xff",
-                    "label": {
-                        "en": "Last Used",
-                        "no": "Sist brukte"
-                    }
-                }
-            ],
-            "hint": {
-                "en": "Select the silent or performance mode of the motor.",
-                "no": "Velg stille eller ytelsesmodus for motoren."
-            }
+          "id": "1",
+          "label": {
+            "en": "Silent",
+            "no": "Stille",
+            "da": "Stille",
+            "de": "Leise",
+            "es": "Silencioso",
+            "fr": "Silencieux",
+            "it": "Silenzioso",
+            "sv": "Tyst",
+            "pl": "Cichy",
+            "ru": "Тихий",
+            "ko": "조용한"
+          }
+        },
+        {
+          "id": "0xff",
+          "label": {
+            "en": "Last Used",
+            "no": "Sist brukte",
+            "da": "Sidst Brugt",
+            "de": "Zuletzt verwendet",
+            "es": "Último Utilizado",
+            "fr": "Dernière Utilisation",
+            "it": "Ultimo Usato",
+            "sv": "Senast Använd",
+            "pl": "Ostatnio Używane",
+            "ru": "Последний Использованный",
+            "ko": "마지막 사용"
+          }
         }
-    ]
+      ],
+      "hint": {
+        "en": "Select the silent or performance mode of the motor.",
+        "no": "Velg stille eller ytelsesmodus for motoren.",
+        "da": "Vælg den stille eller ydeevne tilstand for motoren.",
+        "de": "Wählen Sie den Leise- oder Leistungsmodus des Motors.",
+        "es": "Seleccione el modo silencioso o de rendimiento del motor.",
+        "fr": "Sélectionnez le mode silencieux ou performance du moteur.",
+        "it": "Seleziona la modalità silenziosa o di prestazione del motore.",
+        "sv": "Välj motorens tysta eller prestanda-läge.",
+        "pl": "Wybierz tryb cichy lub wydajności silnika.",
+        "ru": "Выберите тихий или производительный режим работы двигателя.",
+        "ko": "모터의 조용한 또는 성능 모드를 선택하십시오."
+      }
+    },
+    {
+      "id": "classType",
+      "type": "dropdown",
+      "label": {
+        "en": "Device Class",
+        "de": "Geräteklasse",
+        "nl": "Product indeling",
+        "it": "Classe Dispositivo",
+        "da": "Enhedsklasse",
+        "es": "Clase de Dispositivo",
+        "fr": "Classe de Dispositif",
+        "sv": "Enhetsklass",
+        "pl": "Klasa Urządzenia",
+        "ru": "Класс Устройства",
+        "ko": "장치 클래스"
+      },
+      "value": "curtain",
+      "hint": {
+        "en": "The default is curtain. If you want to use this device as a blind, select blind.",
+        "de": "Standardmäßig ist dies ein Vorhang. Wenn Sie dieses Gerät als Jalousie verwenden möchten, wählen Sie Jalousie.",
+        "nl": "Standaard is dit een gordijn. Als u dit apparaat als een blind wilt gebruiken, selecteert u blind.",
+        "it": "Il valore predefinito è tenda. Se si desidera utilizzare questo dispositivo come tapparella, selezionare tapparella.",
+        "da": "Standarden er gardin. Hvis du vil bruge denne enhed som en persien, skal du vælge persien.",
+        "es": "El valor predeterminado es cortina. Si desea utilizar este dispositivo como una persiana, seleccione persiana.",
+        "fr": "La valeur par défaut est rideau. Si vous souhaitez utiliser cet appareil comme un store, sélectionnez store.",
+        "sv": "Standard är gardin. Om du vill använda denna enhet som en persienn väljer du persienn.",
+        "pl": "Domyślnie jest to zasłona. Jeśli chcesz używać tego urządzenia jako żaluzji, wybierz żaluzję.",
+        "ru": "По умолчанию это штора. Если вы хотите использовать это устройство как жалюзи, выберите жалюзи.",
+        "ko": "기본값은 커튼입니다. 이 장치를 블라인드로 사용하려면 블라인드를 선택하세요."
+      },
+      "values": [
+        {
+          "id": "curtain",
+          "label": {
+            "en": "Curtain",
+            "de": "Vorhang",
+            "nl": "Gordijn",
+            "it": "Tenda",
+            "da": "Gardin",
+            "es": "Cortina",
+            "fr": "Rideau",
+            "sv": "Gardin",
+            "pl": "Zasłona",
+            "ru": "Штора",
+            "ko": "커튼"
+          }
+        },
+        {
+          "id": "blinds",
+          "label": {
+            "en": "Blind",
+            "de": "Jalousie",
+            "nl": "Blind",
+            "it": "Tapparella",
+            "da": "Persien",
+            "es": "Persiana",
+            "fr": "Store",
+            "sv": "Persienn",
+            "pl": "Żaluzja",
+            "ru": "Жалюзи",
+            "ko": "블라인드"
+          }
+        }
+      ]
+    }
+  ]
 }

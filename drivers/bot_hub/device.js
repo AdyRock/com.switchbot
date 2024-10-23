@@ -114,7 +114,8 @@ class BotHubDevice extends HubDevice
 				const pushButton = this.getSetting('push_button');
 				if (pushButton)
 				{
-					this.setCapabilityValue('onoff', false).catch(this.error);
+					this.setCapabilityValue('onoff', true).catch(this.error);
+					this.homey.setTimeout(() => this.setCapabilityValue('onoff', false).catch(this.error), 1000);
 				}
 				else
 				{
@@ -151,7 +152,8 @@ class BotHubDevice extends HubDevice
 				const data = message.context;
 				if (data.deviceMode === 'pressMode')
 				{
-					this.setCapabilityValue('onoff', false).catch(this.error);
+					this.setCapabilityValue('onoff', true).catch(this.error);
+					this.homey.setTimeout(() => this.setCapabilityValue('onoff', false).catch(this.error), 1000);
 				}
 				else
 				{

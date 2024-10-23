@@ -1,20 +1,29 @@
 {
-    "id": "fan_hub",
-    "name":
-    {
-        "en": "Fan Remote",
-        "no": "Vifte fjernkontroll"
-    },
-    "class": "remote",
-    "capabilities": [
-        "power_on",
-        "power_off",
-        "fan_swing",
-        "fan_speed_low",
-        "fan_speed_middle",
-        "fan_speed_high"
-    ],
-    "$extends": [
-        "hubDriver"
-    ]
+  "id": "fan_hub",
+  "name": {
+    "en": "Fan Remote",
+    "no": "Vifte fjernkontroll",
+    "nl": "Ventilator afstandsbediening",
+    "da": "Ventilator fjernbetjening",
+    "de": "Ventilator-Fernbedienung",
+    "es": "Mando a distancia del ventilador",
+    "fr": "Télécommande pour ventilateur",
+    "it": "Telecomando ventilatore",
+    "sv": "Fläkt fjärrkontroll",
+    "pl": "Pilot do wentylatora",
+    "ru": "Пульт от вентилятора",
+    "ko": "팬 리모컨"
+  },
+  "class": "remote",
+  "capabilities": [
+    "power_on",
+    "power_off",
+    "fan_swing",
+    "fan_speed_low",
+    "fan_speed_middle",
+    "fan_speed_high"
+  ],
+  "$extends": [
+    "hubDriver"
+  ]
 }

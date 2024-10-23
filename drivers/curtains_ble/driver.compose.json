@@ -1,97 +1,242 @@
 {
-    "id": "curtains_ble",
-    "name": {
-        "en": "Curtains (BLE)",
-        "no": "Gardiner (BLE)"
+  "id": "curtains_ble",
+  "name": {
+    "en": "Curtains (BLE)",
+    "no": "Gardiner (BLE)",
+    "nl": "Gordijnen (BLE)",
+    "da": "Gardiner (BLE)",
+    "de": "Vorhänge (BLE)",
+    "es": "Cortinas (BLE)",
+    "fr": "Rideaux (BLE)",
+    "it": "Tende (BLE)",
+    "sv": "Gardiner (BLE)",
+    "pl": "Zasłony (BLE)",
+    "ru": "Занавески (BLE)",
+    "ko": "커튼 (BLE)"
+  },
+  "platforms": [
+    "local",
+    "cloud"
+  ],
+  "connectivity": [
+    "ble"
+  ],
+  "class": "curtain",
+  "capabilities": [
+    "open_close",
+    "windowcoverings_state",
+    "light_level",
+    "measure_battery",
+    "windowcoverings_set",
+    "rssi",
+    "position"
+  ],
+  "pair": [
+    {
+      "id": "list_my_devices",
+      "template": "list_devices",
+      "navigation": {
+        "next": "add_my_devices"
+      }
     },
-    "platforms": [
-        "local",
-        "cloud"
-    ],
-    "connectivity": [
-        "ble"
-    ],
-    "class": "curtain",
-    "capabilities": [
-        "open_close",
-        "windowcoverings_state",
-        "light_level",
-        "measure_battery",
-        "windowcoverings_set",
-        "rssi",
-        "position"
-    ],
-    "pair": [
-        {
-            "id": "list_my_devices",
-            "template": "list_devices",
-            "navigation": {
-                "next": "add_my_devices"
-            }
-        },
-        {
-            "id": "add_my_devices",
-            "template": "add_devices"
-        }
-    ],
-    "energy": {
-        "batteries": [
-            "INTERNAL"
-        ]
-    },
-    "images": {
-        "large": "/drivers/curtains_ble/assets/images/large.jpg",
-        "small": "/drivers/curtains_ble/assets/images/small.jpg"
-    },
-    "settings": [
-        {
-            "id": "invertPosition",
-            "type": "checkbox",
-            "label": {
-                "en": "Invert Open / Close Position",
-                "no": "Inverter Åpen / Lukket posisjon"
-            },
-            "value": false,
-            "hint": {
-                "en": "Reverse the action of the position control.",
-                "no": "Vend retningen for posisjonsvelgeren."
-            }
-        },
-        {
-            "id": "motionMode",
-            "type": "radio",
-            "label": {
-                "en": "Motion Mode",
-                "no": "Bevegelsesmodus"
-            },
-            "value": "0xff",
-            "values": [
-                {
-                    "id": "0",
-                    "label": {
-                        "en": "Performance",
-                        "no": "Ytelse"
-                    }
-                },
-                {
-                    "id": "1",
-                    "label": {
-                        "en": "Silent",
-                        "no": "Stille"
-                    }
-                },
-                {
-                    "id": "0xff",
-                    "label": {
-                        "en": "Last Used",
-                        "no": "Sist brukte"
-                    }
-                }
-            ],
-            "hint": {
-                "en": "Select the silent or performance mode of the motor.",
-                "no": "Velg stille eller ytelsesmodus for motoren."
-            }
-        }
+    {
+      "id": "add_my_devices",
+      "template": "add_devices"
+    }
+  ],
+  "energy": {
+    "batteries": [
+      "INTERNAL"
     ]
+  },
+  "images": {
+    "large": "/drivers/curtains_ble/assets/images/large.jpg",
+    "small": "/drivers/curtains_ble/assets/images/small.jpg"
+  },
+  "settings": [
+    {
+      "id": "invertPosition",
+      "type": "checkbox",
+      "label": {
+        "en": "Invert Open / Close Position",
+        "no": "Inverter Åpen / Lukket posisjon",
+        "nl": "Open/Dicht Positie omkeren",
+        "da": "Omvend Åben/Lukket Position",
+        "de": "Öffnen/Schließen Position umkehren",
+        "es": "Invertir Posición Abierto/Cerrado",
+        "fr": "Inverser Position Ouvert/Fermé",
+        "it": "Inverti Posizione Aperto/Chiuso",
+        "sv": "Omkasta Öppen/Stängd Position",
+        "pl": "Odwróć Pozycję Otwarcia/Zamknięcia",
+        "ru": "Инвертировать положение Открыто/Закрыто",
+        "ko": "열림/닫힘 위치 반전"
+      },
+      "value": false,
+      "hint": {
+        "en": "Reverse the action of the position control.",
+        "no": "Vend retningen for posisjonsvelgeren.",
+        "nl": "Draai de actie van de positiebediening om.",
+        "da": "Vend handlingen på positionskontrollen.",
+        "de": "Aktion der Positionsregelung umkehren.",
+        "es": "Invertir la acción del control de posición.",
+        "fr": "Inverser l'action de la commande de position.",
+        "it": "Invertire l'azione del controllo di posizione.",
+        "sv": "Omvänd åtgärden för positionskontrollen.",
+        "pl": "Odwróć działanie sterowania pozycją.",
+        "ru": "Обратное действие регулятора положения.",
+        "ko": "위치 제어의 동작을 반대로 합니다."
+      }
+    },
+    {
+      "id": "motionMode",
+      "type": "radio",
+      "label": {
+        "en": "Motion Mode",
+        "no": "Bevegelsesmodus",
+        "nl": "Bewegingsmodus",
+        "da": "Bevægelsestilstand",
+        "de": "Bewegungsmodus",
+        "es": "Modo de Movimiento",
+        "fr": "Mode de Mouvement",
+        "it": "Modalità Movimento",
+        "sv": "Rörelseläge",
+        "pl": "Tryb Ruchu",
+        "ru": "Режим движения",
+        "ko": "모션 모드"
+      },
+      "value": "0xff",
+      "values": [
+        {
+          "id": "0",
+          "label": {
+            "en": "Performance",
+            "no": "Ytelse",
+            "nl": "Prestatie",
+            "da": "Ydeevne",
+            "de": "Leistung",
+            "es": "Rendimiento",
+            "fr": "Performance",
+            "it": "Prestazione",
+            "sv": "Prestanda",
+            "pl": "Wydajność",
+            "ru": "Производительность",
+            "ko": "성능"
+          }
+        },
+        {
+          "id": "1",
+          "label": {
+            "en": "Silent",
+            "no": "Stille",
+            "nl": "Stil",
+            "da": "Stil",
+            "de": "Leise",
+            "es": "Silencioso",
+            "fr": "Silencieux",
+            "it": "Silenzioso",
+            "sv": "Tyst",
+            "pl": "Cichy",
+            "ru": "Тихий",
+            "ko": "조용한"
+          }
+        },
+        {
+          "id": "0xff",
+          "label": {
+            "en": "Last Used",
+            "no": "Sist brukte",
+            "nl": "Laatst Gebruikt",
+            "da": "Sidst brugt",
+            "de": "Zuletzt verwendet",
+            "es": "Último Usado",
+            "fr": "Dernière Utilisé",
+            "it": "Ultimo Usato",
+            "sv": "Senast Använt",
+            "pl": "Ostatnio Użyte",
+            "ru": "Последний использованный",
+            "ko": "마지막 사용"
+          }
+        }
+      ],
+      "hint": {
+        "en": "Select the silent or performance mode of the motor.",
+        "no": "Velg stille eller ytelsesmodus for motoren.",
+        "nl": "Selecteer de stille of prestatiesmodus van de motor.",
+        "da": "Vælg den stille eller ydelsestilstand for motoren.",
+        "de": "Wählen Sie den leisen oder Leistungsmodus des Motors.",
+        "es": "Seleccione el modo silencioso o de rendimiento del motor.",
+        "fr": "Sélectionnez le mode silencieux ou performance du moteur.",
+        "it": "Seleziona la modalità silenziosa o prestazioni del motore.",
+        "sv": "Välj läge för tyst eller prestanda för motorn.",
+        "pl": "Wybierz tryb cichy lub wydajnościowy silnika.",
+        "ru": "Выберите тихий или производительный режим двигателя.",
+        "ko": "모터의 소리나 성능 모드를 선택하세요."
+      }
+    },
+    {
+      "id": "classType",
+      "type": "dropdown",
+      "label": {
+        "en": "Device Class",
+        "de": "Geräteklasse",
+        "nl": "Product indeling",
+        "it": "Classe Dispositivo",
+        "da": "Enhedsklasse",
+        "es": "Clase del Dispositivo",
+        "fr": "Classe de Périphérique",
+        "sv": "Enhetsklass",
+        "pl": "Klasa Urządzenia",
+        "ru": "Класс устройства",
+        "ko": "장치 클래스"
+      },
+      "value": "curtain",
+      "hint": {
+        "en": "The default is curtain. If you want to use this device in Google Home, etc, select blind.",
+        "de": "Standardmäßig ist Vorhang ausgewählt. Wenn Sie dieses Gerät in Google Home usw. verwenden möchten, wählen Sie Jalousie.",
+        "nl": "Standaard is gordijn geselecteerd. Als u dit apparaat in Google Home, enz. wilt gebruiken, selecteert u blind.",
+        "it": "Per impostazione predefinita è selezionato tenda. Se si desidera utilizzare questo dispositivo in Google Home, ecc., selezionare tapparella.",
+        "da": "Standardindstillingen er gardin. Hvis du vil bruge denne enhed i Google Home osv., skal du vælge blind.",
+        "es": "El valor predeterminado es cortina. Si desea utilizar este dispositivo en Google Home, etc., seleccione persiana.",
+        "fr": "La valeur par défaut est rideau. Si vous souhaitez utiliser cet appareil dans Google Home, etc., sélectionnez store.",
+        "sv": "Standard är gardin. Om du vill använda den här enheten i Google Home med mera, välj jalusi.",
+        "pl": "Domyślnie wybrana jest zasłona. Jeśli chcesz używać tego urządzenia w Google Home itp., wybierz roletę.",
+        "ru": "По умолчанию выбран занавес. Если вы хотите использовать это устройство в Google Home и т.д., выберите жалюзи.",
+        "ko": "기본값은 커튼입니다. 이 장치를 Google Home 등에서 사용하려면 블라인드를 선택하십시오."
+      },
+      "values": [
+        {
+          "id": "curtain",
+          "label": {
+            "en": "Curtain",
+            "de": "Vorhang",
+            "nl": "Gordijn",
+            "it": "Tenda",
+            "da": "Gardin",
+            "es": "Cortina",
+            "fr": "Rideau",
+            "sv": "Gardin",
+            "pl": "Zasłona",
+            "ru": "Занавеска",
+            "ko": "커튼"
+          }
+        },
+        {
+          "id": "blinds",
+          "label": {
+            "en": "Blind",
+            "de": "Jalousie",
+            "nl": "Blind",
+            "it": "Tapparella",
+            "da": "Rullegardin",
+            "es": "Persiana",
+            "fr": "Store",
+            "sv": "Persienn",
+            "pl": "Roleta",
+            "ru": "Жалюзи",
+            "ko": "블라인드"
+          }
+        }
+      ]
+    }
+  ]
 }

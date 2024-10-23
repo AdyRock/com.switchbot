@@ -1,14 +1,27 @@
 {
-    "title": {
-        "en": "Decrease the brightness",
-        "no": "Senk lysstyrken"
-    },
-    "args": [
-        {
-            "name": "device",
-            "type": "device",
-            "filter": "driver_id=light_remote_hub"
-        }
-    ],
-    "platforms": ["local", "cloud"]
+  "title": {
+    "en": "Decrease the brightness",
+    "no": "Senk lysstyrken",
+    "nl": "Verlaag de helderheid",
+    "da": "Sænk lysstyrken",
+    "de": "Helligkeit reduzieren",
+    "es": "Disminuir el brillo",
+    "fr": "Diminuer la luminosité",
+    "it": "Riduci la luminosità",
+    "sv": "Minska ljusstyrkan",
+    "pl": "Zmniejsz jasność",
+    "ru": "Уменьшить яркость",
+    "ko": "밝기 낮추기"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=light_remote_hub"
+    }
+  ],
+  "platforms": [
+    "local",
+    "cloud"
+  ]
 }

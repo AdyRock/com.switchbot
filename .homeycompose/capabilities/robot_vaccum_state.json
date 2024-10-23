@@ -1,11 +1,20 @@
 {
-    "type": "string",
-    "title": {
-        "en": "Vacuum Status",
-        "nl": "Stofzuiger Status",
-        "no": "Støvsuger status"
-    },
-    "getable": true,
-    "setable": false,
-    "icon": "/assets/robot-vacuum-cleaner.svg"
+  "type": "string",
+  "title": {
+    "en": "Vacuum Status",
+    "nl": "Stofzuiger Status",
+    "no": "Støvsuger status",
+    "da": "Støvsuger status",
+    "de": "Staubsaugerstatus",
+    "es": "Estado del aspirador",
+    "fr": "Statut de l'aspirateur",
+    "it": "Stato dell'aspirapolvere",
+    "sv": "Dammsugarstatus",
+    "pl": "Status odkurzacza",
+    "ru": "Состояние пылесоса",
+    "ko": "청소기 상태"
+  },
+  "getable": true,
+  "setable": false,
+  "icon": "/assets/robot-vacuum-cleaner.svg"
 }

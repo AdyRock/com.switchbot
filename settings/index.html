@@ -38,6 +38,7 @@
 		<button class="tablinks" onclick="setPage(event, 'detected')" id="defaultOpen">Detected</button>
 		<button class="tablinks" onclick="setPage(event, 'log')">Log</button>
 		<button class="tablinks" onclick="setPage(event, 'status')" id="deviceStatusTab">Get Status</button>
+		<button class="tablinks" onclick="setPage(event, 'appSettings')" id="appSettingsTab" style="display:none">App Settings</button>
 		<button class="tablinks" onclick="setPage(event, 'simulator')" id="simLogTab" style="display:none">Simulation Data</button>
 	</div>
 
@@ -50,7 +51,7 @@
 				<button id="sendDeviceLog" class="homey-button-small" data-i18n="settings.send"></button>
 			</p>
 			<div class="field row">
-				<textarea id="detectedDevices"></textarea>
+				<textarea id="detectedDevices" class="homey-form-textarea" wrap="off"></textarea>
 			</div>
 		</fieldset>
 	</div>
@@ -76,7 +77,7 @@
 				<button id="sendInfoLog" class="homey-button-small" data-i18n="settings.send"></button>
 			</p>
 			<div class="field row">
-				<textarea id="infoLog"></textarea>
+				<textarea id="infoLog" class="homey-form-textarea" wrap="off"></textarea>
 			</div>
 		</fieldset>
 	</div>
@@ -87,7 +88,7 @@
 			<h1>For debug use only</h1>
 			<p><input id="commandData" type="text" value="" /><button id="sendCmd" style="background-color:#0f9e16;color:white;margin:5px 20px 5px 5px;">Send</button><button id="clearSend" style="background-color:#a5510d;color:white;margin:5px 20px 5px 5px;">Clear Log</button></p>
 			<div class="field row">
-				<textarea id="sendResponse"></textarea>
+				<textarea id="sendResponse" class="homey-form-textarea" wrap="off"></textarea>
 			</div>
 		</fieldset>
 	</div>
@@ -98,7 +99,7 @@
 			<h1>For debug use only</h1>
 			<p><button id="useSim" class="homey-button-small">Activate</button><button id="clearSim" style="background-color:#a5510d;color:white;margin:5px 20px 5px 5px;">Clear Sim</button></p>
 			<div class="field row">
-				<textarea id="simData"></textarea>
+				<textarea id="simData" class="homey-form-textarea" wrap="off"></textarea>
 			</div>
 		</fieldset>
 	</div>
@@ -118,8 +119,27 @@
 				<button id="sendStatusLog" class="homey-button-small">Send Log</button>
 			</p>
 			<div class="field row">
-				<textarea id="statusData"></textarea>
+				<textarea id="statusData" class="homey-form-textarea" wrap="off"></textarea>
 			</div>
+		</fieldset>
+	</div>
+
+	<!--APP SETTINGS PAGE -->
+	<div id="appSettings" class="tabcontent">
+		<fieldset>
+			<h1>For debug use only</h1>
+			<div class="field row">
+				<label class="homey-form-label" for="openToken">Open Token</label>
+				<input class="homey-form-input" id="openToken" type="text" value="" />
+			</div>
+			<div class="field row">
+				<label class="homey-form-label" for="openSecret">Open Secret</label>
+				<input class="homey-form-input" id="openSecret" type="text" value="" />
+			</div>
+			<p></p>
+			<p>
+				<button id="saveSettings" class="homey-button-small">Save</button>
+			</p>
 		</fieldset>
 	</div>
 
@@ -152,6 +172,11 @@
 		var sendStatusLogElement = document.getElementById('sendStatusLog');
 		var clearStatusLogElement = document.getElementById('clearStatusLog');
 
+		// App settings tab
+		var openTokenIDElement = document.getElementById('openToken');
+		var openSecretElement = document.getElementById('openSecret');
+		var saveSettingsElement = document.getElementById('saveSettings');
+
 		// a method named 'onHomeyReady' must be present in your code
 		function onHomeyReady(Homey)
 		{
@@ -164,7 +189,7 @@
 				if (debugMode)
 				{
 					document.getElementById("simLogTab").style.display = "block";
-
+					document.getElementById("appSettingsTab").style.display = "block";
 				}
 			});
 
@@ -413,6 +438,25 @@
 					}
 				});
 			});
+
+			saveSettingsElement.addEventListener('click', function(e)
+			{
+				Homey.set('openToken', openTokenIDElement.value, function(err)
+				{
+					if (err)
+					{
+						return Homey.alert(err);
+					}
+				});
+
+				Homey.set('openSecret', openSecretElement.value, function(err)
+				{
+					if (err)
+					{
+						return Homey.alert(err);
+					}
+				});
+			});
 		}
 
 		function setPage(evt, tabPage)
@@ -472,6 +516,20 @@
 				// Make the detected devices text area fill the page
 				statusDataElement.style.width = (deviceID.offsetWidth) + 'px';
 				statusDataElement.style.height = (window.innerHeight - statusDataElement.offsetTop - 60) + 'px';
+			}
+			else if (tabPage == 'appSettings')
+			{
+				Homey.get('openToken', function(err, openToken)
+				{
+					if (err) return Homey.alert(err);
+					openTokenIDElement.value = openToken;
+				});
+
+				Homey.get('openSecret', function(err, openSecret)
+				{
+					if (err) return Homey.alert(err);
+					openSecretElement.value = openSecret;
+				});
 			}
 		}
 

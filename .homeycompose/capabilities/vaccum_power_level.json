@@ -1,12 +1,21 @@
 {
-    "type": "boolean",
-    "getable": false,
-    "setable": true,
-    "uiComponent": "button",
-    "title":
-    {
-        "en": "Power",
-        "no": "Styrke"
-    },
-    "icon": "/assets/fan_speed.svg"
+  "type": "boolean",
+  "getable": false,
+  "setable": true,
+  "uiComponent": "button",
+  "title": {
+    "en": "Power",
+    "no": "Styrke",
+    "nl": "Stroom",
+    "da": "Strøm",
+    "de": "Strom",
+    "es": "Energía",
+    "fr": "Puissance",
+    "it": "Potenza",
+    "sv": "Kraft",
+    "pl": "Moc",
+    "ru": "Мощность",
+    "ko": "전원"
+  },
+  "icon": "/assets/fan_speed.svg"
 }

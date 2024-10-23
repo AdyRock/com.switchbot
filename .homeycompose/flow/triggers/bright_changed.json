@@ -1,32 +1,52 @@
 {
-    "title": {
-        "en": "Light Level Changed",
-        "no": "Endret lysnivå"
-    },
-    "platforms": [
-        "local",
-        "cloud"
-    ],
-    "connectivity": [
-        "ble",
-        "cloud"
-    ],
-    "tokens": [
-        {
-            "name": "bright",
-            "title": {
-                "en": "Bright State",
-                "no": "Lysnivå"
-            },
-            "type": "boolean",
-            "example": true
-        }
-    ],
-    "args": [
-        {
-            "type": "device",
-            "name": "device",
-            "filter": "driver_id=contact_ble|contact_hub|presence_ble|presence_hub"
-        }
-    ]
+  "title": {
+    "en": "Light Level Changed",
+    "no": "Endret lysnivå",
+    "nl": "Lichtniveau Veranderd",
+    "da": "Lysniveau Ændret",
+    "de": "Lichtpegel Geändert",
+    "es": "Nivel de Luz Cambiado",
+    "fr": "Niveau de Lumière Changé",
+    "it": "Livello di Luce Cambiato",
+    "sv": "Ljusstyrkan Ändrad",
+    "pl": "Poziom Światła Zmieniony",
+    "ru": "Уровень Освещённости Изменён",
+    "ko": "조명 수준 변경됨"
+  },
+  "platforms": [
+    "local",
+    "cloud"
+  ],
+  "connectivity": [
+    "ble",
+    "cloud"
+  ],
+  "tokens": [
+    {
+      "name": "bright",
+      "title": {
+        "en": "Bright State",
+        "no": "Lysnivå",
+        "nl": "Heldere Staat",
+        "da": "Lys Tilstand",
+        "de": "Heller Zustand",
+        "es": "Estado Brillante",
+        "fr": "État Lumineux",
+        "it": "Stato Luminoso",
+        "sv": "Ljustillstånd",
+        "pl": "Stan Jasności",
+        "ru": "Яркое Состояние",
+        "ko": "밝은 상태"
+      },
+      "type": "boolean",
+      "example": true
+    }
+  ],
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=contact_ble|contact_hub|presence_ble|presence_hub"
+    }
+  ]
 }

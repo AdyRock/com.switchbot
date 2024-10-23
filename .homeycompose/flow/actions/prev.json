@@ -1,14 +1,27 @@
 {
-    "title": {
-        "en": "Previous",
-        "no": "Forrige"
-    },
-    "args": [
-        {
-            "name": "device",
-            "type": "device",
-            "filter": "driver_id=dvd|speaker"
-        }
-    ],
-    "platforms": ["local", "cloud"]
+  "title": {
+    "en": "Previous",
+    "no": "Forrige",
+    "nl": "Vorige",
+    "da": "Forrige",
+    "de": "Vorherige",
+    "es": "Anterior",
+    "fr": "Précédent",
+    "it": "Precedente",
+    "sv": "Föregående",
+    "pl": "Poprzedni",
+    "ru": "Предыдущий",
+    "ko": "이전"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=dvd|speaker"
+    }
+  ],
+  "platforms": [
+    "local",
+    "cloud"
+  ]
 }

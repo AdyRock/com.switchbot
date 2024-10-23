@@ -17,7 +17,7 @@ class BLEDriver extends Homey.Driver
 
 	checkExist(devices, device)
 	{
-		return devices.findIndex((device1) => device1.data.address === device.data.address);
+		return devices.findIndex((device1) => device1.data.address.localeCompare(device.data.address, 'en', { sensitivity: 'base' }) === 0);
 	}
 
 	async getBLEDevices(type)
@@ -32,7 +32,7 @@ class BLEDriver extends Homey.Driver
 			if (this.homey.app.BLEHub)
 			{
 				const searchData = await this.homey.app.BLEHub.getBLEHubDevices();
-				this.homey.app.updateLog(`BLE HUB Discovery: ${this.homey.app.varToString(searchData, 3)}`);
+				this.homey.app.updateLog(`BLE HUB Discovery: ${this.homey.app.varToString(searchData)}`, 3);
 
 				// Create an array of devices
 				for (const deviceData of searchData)
@@ -70,7 +70,7 @@ class BLEDriver extends Homey.Driver
 					}
 					catch (err)
 					{
-						this.homey.app.updateLog(`BLE Discovery: ${this.homey.app.varToString(err)}`, 0);
+						this.homey.app.updateLog(`BLE Discovery: ${err.message}`, 0);
 					}
 				}
 			}
@@ -125,7 +125,7 @@ class BLEDriver extends Homey.Driver
 				}
 				catch (err)
 				{
-					this.homey.app.updateLog(`BLE Discovery: ${this.homey.app.varToString(err)}`, 0);
+					this.homey.app.updateLog(`BLE Discovery: ${err.message}`, 0);
 				}
 			}
 
@@ -135,7 +135,7 @@ class BLEDriver extends Homey.Driver
 		}
 		catch (err)
 		{
-			this.homey.app.updateLog(`BLE Discovery: ${this.homey.app.varToString(err)}`, 0);
+			this.homey.app.updateLog(`BLE Discovery: ${err.message}`, 0);
 			this.homey.app.bleDiscovery = false;
 			throw new Error(err.msg);
 		}
@@ -242,6 +242,9 @@ class BLEDriver extends Homey.Driver
 		const model = buf.slice(0, 1).toString('utf8');
 		let sd = null;
 
+		// Log the data with the buf in hex of two digits and a space
+		this.homey.app.updateLog(`BLE Device: ${device.address}, "${model}", (${device.rssi})\nServ: ${buf.toString('hex').match(/.{1,2}/g).join(' ')}\nManu: ${device.manufacturerData.toString('hex').match(/.{1,2}/g).join(' ')}`, 3);
+
 		if (model === 'H')
 		{ // WoHand
 			sd = this._parseServiceDataForWoHand(buf);
@@ -273,6 +276,10 @@ class BLEDriver extends Homey.Driver
 		else if (model === 'x')
 		{ // WoBulb
 			sd = this._parseServiceDataForWoTilt(buf, device.manufacturerData);
+		}
+		else if (model === '&')
+		{ // WoWaterLeak
+			sd = this._parseServiceDataForWaterLeak(buf, device.manufacturerData);
 		}
 		else
 		{
@@ -348,7 +355,7 @@ class BLEDriver extends Homey.Driver
 		const byte5 = buf.readUInt8(5);
 
 		const tempSign = (byte4 & 0b10000000) ? 1 : -1;
-		const tempC = tempSign * ((byte4 & 0b01111111) + (byte3 / 10));
+		const tempC = tempSign * ((byte4 & 0b01111111) + ((byte3 & 0b01111111) / 10));
 		let tempF = ((tempC * 9) / 5) + 32;
 		tempF = Math.round(tempF * 10) / 10;
 
@@ -584,6 +591,28 @@ class BLEDriver extends Homey.Driver
 			timers: buf[7],
 			version: 2,
 		};
+	}
+
+	_parseServiceDataForWaterLeak(buf, man)
+	{
+		if (buf.length !== 3 || man.length < 11)
+		{
+			return null;
+		}
+
+		const byte2 = buf.readUInt8(2);
+		const battery = (byte2 & 0b01111111); // %
+
+		const state = man.readUInt8(10);
+
+		const data = {
+			model: '&',
+			modelName: 'WoWaterLeak',
+			status: (state & 1) !== 0,
+			battery,
+		};
+
+		return data;
 	}
 
 }

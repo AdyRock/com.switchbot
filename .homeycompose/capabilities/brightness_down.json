@@ -1,12 +1,21 @@
 {
-    "type": "boolean",
-    "getable": false,
-    "setable": true,
-    "uiComponent": "button",
-    "title":
-    {
-        "en": "Brightness down",
-        "no": "Lysstyrke ned"
-    },
-    "icon": "/assets/brightness.svg"
+  "type": "boolean",
+  "getable": false,
+  "setable": true,
+  "uiComponent": "button",
+  "title": {
+    "en": "Brightness down",
+    "no": "Lysstyrke ned",
+    "nl": "Helderheid omlaag",
+    "da": "Lysstyrke ned",
+    "de": "Helligkeit verringern",
+    "es": "Bajar brillo",
+    "fr": "Baisser la luminosité",
+    "it": "Abbassa la luminosità",
+    "sv": "Minska ljusstyrka",
+    "pl": "Zmniejsz jasność",
+    "ru": "Уменьшить яркость",
+    "ko": "밝기 낮추기"
+  },
+  "icon": "/assets/brightness.svg"
 }

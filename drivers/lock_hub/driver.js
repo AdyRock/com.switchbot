@@ -22,7 +22,7 @@ class LockHubDriver extends HubDriver
 	 */
 	async onPairListDevices({ oAuth2Client })
 	{
-		return this.getHUBDevices(oAuth2Client, 'Smart Lock');
+		return this.getHUBDevices(oAuth2Client, ['Smart Lock', 'Smart Lock Pro']);
 	}
 
 }

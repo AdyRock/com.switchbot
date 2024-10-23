@@ -23,7 +23,14 @@ class HubDriver extends OAuth2Driver
 
 		if (response === null)
 		{
-			response = await oAuth2Client.getDevices();
+			if (this.homey.app.openToken)
+			{
+				response = await this.homey.app.getHUBDevices();
+			}
+			else
+			{
+				response = await oAuth2Client.getDevices();
+			}
 		}
 
 		if (response)
@@ -99,18 +106,19 @@ class HubDriver extends OAuth2Driver
 					else
 					{
 						found = (device.deviceType === type);
+					}
 
-						if (!found)
+					if (!found)
+					{
+						if (type === 'Curtain')
 						{
-							if (type === 'Curtain')
-							{
-								found = ((!device.deviceType) && (device.master === true));
-							}
+							found = ((!device.deviceType) && (device.master === true));
 						}
 					}
+
 					if (found)
 					{
-						if ((type !== 'Curtain') || (device.master === true))
+						if ((device.master === undefined) || (device.master === true))
 						{
 							this.homey.app.updateLog('Found device: ');
 							this.homey.app.updateLog(this.homey.app.varToString(device));

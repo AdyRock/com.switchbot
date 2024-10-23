@@ -1,12 +1,21 @@
 {
-    "type": "boolean",
-    "getable": false,
-    "setable": true,
-    "uiComponent": "button",
-    "title":
-    {
-        "en": "Play",
-        "no": "Aktiver"
-    },
-    "icon": "/assets/play.svg"
+  "type": "boolean",
+  "getable": false,
+  "setable": true,
+  "uiComponent": "button",
+  "title": {
+    "en": "Play",
+    "no": "Aktiver",
+    "nl": "Spelen",
+    "da": "Spil",
+    "de": "Spielen",
+    "es": "Jugar",
+    "fr": "Jouer",
+    "it": "Giocare",
+    "sv": "Spela",
+    "pl": "Graj",
+    "ru": "Играть",
+    "ko": "재생"
+  },
+  "icon": "/assets/play.svg"
 }

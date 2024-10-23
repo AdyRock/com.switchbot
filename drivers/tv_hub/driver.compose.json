@@ -1,21 +1,30 @@
 {
-    "id": "tv_hub",
-    "name":
-    {
-        "en": "TV Remote",
-        "no": "TV-fjernkontroll"
-    },
-    "class": "remote",
-    "capabilities": [
-        "power_on",
-        "power_off",
-        "volume_up",
-        "volume_down",
-        "channel_up",
-        "channel_down",
-        "volume_mute"
-    ],
-    "$extends": [
-        "hubDriver"
-    ]
+  "id": "tv_hub",
+  "name": {
+    "en": "TV Remote",
+    "no": "TV-fjernkontroll",
+    "nl": "TV-afstandsbediening",
+    "da": "TV-fjernbetjening",
+    "de": "TV-Fernbedienung",
+    "es": "Mando a distancia",
+    "fr": "Télécommande TV",
+    "it": "Telecomando TV",
+    "sv": "TV-fjärrkontroll",
+    "pl": "Pilot do TV",
+    "ru": "Пульт ТВ",
+    "ko": "TV 리모컨"
+  },
+  "class": "remote",
+  "capabilities": [
+    "power_on",
+    "power_off",
+    "volume_up",
+    "volume_down",
+    "channel_up",
+    "channel_down",
+    "volume_mute"
+  ],
+  "$extends": [
+    "hubDriver"
+  ]
 }

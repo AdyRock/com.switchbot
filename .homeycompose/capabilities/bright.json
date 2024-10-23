@@ -1,19 +1,49 @@
 {
-    "type": "boolean",
-    "title": {
-        "en": "Bright",
-        "no": "Lysstyrke"
-    },
-    "getable": true,
-    "setable": false,
-    "insights": true,
-    "insightsTitleTrue": {
-        "en": "Light is bright",
-        "no": "Lyst"
-    },
-    "insightsTitleFalse": {
-        "en": "Light is dim",
-        "no": "Dimmet"
-    },
-    "icon": "/assets/sun.svg"
+  "type": "boolean",
+  "title": {
+    "en": "Bright",
+    "no": "Lysstyrke",
+    "nl": "Helder",
+    "da": "Lys",
+    "de": "Hell",
+    "es": "Brillante",
+    "fr": "Lumineux",
+    "it": "Luminoso",
+    "sv": "Ljusstark",
+    "pl": "Jasny",
+    "ru": "Яркий",
+    "ko": "밝음"
+  },
+  "getable": true,
+  "setable": false,
+  "insights": true,
+  "insightsTitleTrue": {
+    "en": "Light is bright",
+    "no": "Lyst",
+    "nl": "Het licht is helder",
+    "da": "Lyset er lyst",
+    "de": "Das Licht ist hell",
+    "es": "La luz es brillante",
+    "fr": "La lumière est lumineuse",
+    "it": "La luce è luminosa",
+    "sv": "Ljuset är ljust",
+    "pl": "Światło jest jasne",
+    "ru": "Свет яркий",
+    "ko": "빛이 밝습니다"
+  },
+  "insightsTitleFalse": {
+    "en": "Light is dim",
+    "no": "Dimmet",
+    "nl": "Het licht is gedimd",
+    "da": "Lyset er dæmpet",
+    "de": "Das Licht ist gedimmt",
+    "es": "La luz está tenue",
+    "fr": "La lumière est tamisée",
+    "it": "La luce è fioca",
+    "sv": "Ljuset är svagt",
+    "pl": "Światło jest przyciemnione",
+    "ru": "Свет тусклый",
+    "ko": "빛이 어둡습니다"
+  },
+  "icon": "/assets/sun.svg"
 }

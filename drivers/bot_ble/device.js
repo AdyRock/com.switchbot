@@ -22,6 +22,7 @@ class BotBLEDevice extends Homey.Device
 		this.bestRSSI = 100;
 		this.bestHub = '';
 		this.sendingCommand = false;
+		this.deviceNotFound = false;
 
 		// register a capability listener
 		this.registerCapabilityListener('onoff', this.onCapabilityOnOff.bind(this));
@@ -183,7 +184,7 @@ class BotBLEDevice extends Homey.Device
 			}
 			catch (err)
 			{
-				this.homey.app.updateLog(`_operateBot error: ${name} : ${this.homey.app.varToString(err)}`, 0);
+				this.homey.app.updateLog(`_operateBot error: ${name} : ${err.message}`, 0);
 			}
 
 			this.homey.app.bleBusy = false;
@@ -252,7 +253,7 @@ class BotBLEDevice extends Homey.Device
 			}
 			catch (err)
 			{
-				this.homey.app.updateLog(`Catch 2: ${name}: ${this.homey.app.varToString(err)}`);
+				this.homey.app.updateLog(`Catch 2: ${name}: ${err.message}`);
 				sending = false;
 				return err;
 			}
@@ -271,7 +272,7 @@ class BotBLEDevice extends Homey.Device
 		}
 		catch (err)
 		{
-			this.homey.app.updateLog(`Catch 1: ${name}: ${this.homey.app.varToString(err)}`, 0);
+			this.homey.app.updateLog(`Catch 1: ${name}: ${err.message}`, 0);
 			return err;
 		}
 		finally
@@ -343,7 +344,7 @@ class BotBLEDevice extends Homey.Device
 						return;
 					}
 
-					this.homey.app.updateLog(this.homey.app.varToString(bleAdvertisement), 3);
+					this.homey.app.updateLog(this.homey.app.varToString(bleAdvertisement), 4);
 					const rssi = await bleAdvertisement.rssi;
 					this.setCapabilityValue('rssi', rssi).catch(this.error);
 
@@ -353,6 +354,7 @@ class BotBLEDevice extends Homey.Device
 						this.homey.app.updateLog(`Parsed Bot BLE (${name}) ${this.homey.app.varToString(data)}`, 3);
 
 						this.setAvailable();
+						this.deviceNotFound = false;
 						const operationMode = data.serviceData.mode;
 						if (this.operationMode !== operationMode)
 						{
@@ -393,7 +395,8 @@ class BotBLEDevice extends Homey.Device
 		}
 		catch (err)
 		{
-			this.homey.app.updateLog(this.homey.app.varToString(err), 0);
+			this.homey.app.updateLog(err.message, this.deviceNotFound ? 2 : 0);
+			this.deviceNotFound = true;
 		}
 		finally
 		{
@@ -410,7 +413,7 @@ class BotBLEDevice extends Homey.Device
 			const dd = this.getData();
 			for (const event of events)
 			{
-				if (event.address && (event.address === dd.address))
+				if (event.address && (event.address.localeCompare(dd.address, 'en', { sensitivity: 'base' }) === 0))
 				{
 					this.homey.app.updateLog(`Got bot state of: ${event.serviceData.state}`);
 
@@ -439,7 +442,7 @@ class BotBLEDevice extends Homey.Device
 					this.setCapabilityValue('measure_battery', event.serviceData.battery).catch(this.error);
 					this.setCapabilityValue('rssi', event.rssi).catch(this.error);
 
-					if (event.hubMAC && ((event.rssi < this.bestRSSI) || (event.hubMAC === this.bestHub)))
+					if (event.hubMAC && ((event.rssi < this.bestRSSI) || (event.hubMAC.localeCompare(this.bestHub, 'en', { sensitivity: 'base' }) === 0)))
 					{
 						this.bestHub = event.hubMAC;
 						this.bestRSSI = event.rssi;

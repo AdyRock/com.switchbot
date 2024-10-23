@@ -1,19 +1,49 @@
 {
-    "type": "boolean",
-    "title": {
-        "en": "Someone Exited",
-        "no": "Noen gikk ut"
-    },
-    "getable": true,
-    "setable": false,
-    "insights": true,
-    "insightsTitleTrue": {
-        "en": "Someone Exited",
-        "no": "Noen gikk ut"
-    },
-    "insightsTitleFalse": {
-        "en": "Someone Entered",
-        "no": "Noen gikk inn"
-    },
-    "icon": "/assets/direction.svg"
+  "type": "boolean",
+  "title": {
+    "en": "Someone Exited",
+    "no": "Noen gikk ut",
+    "nl": "Iemand vertrok",
+    "da": "Nogen gik ud",
+    "de": "Jemand ist hinausgegangen",
+    "es": "Alguien salió",
+    "fr": "Quelqu'un est parti",
+    "it": "Qualcuno è uscito",
+    "sv": "Någon gick ut",
+    "pl": "Ktoś wyszedł",
+    "ru": "Кто-то вышел",
+    "ko": "누군가 나갔다"
+  },
+  "getable": true,
+  "setable": false,
+  "insights": true,
+  "insightsTitleTrue": {
+    "en": "Someone Exited",
+    "no": "Noen gikk ut",
+    "nl": "Iemand vertrok",
+    "da": "Nogen gik ud",
+    "de": "Jemand ist hinausgegangen",
+    "es": "Alguien salió",
+    "fr": "Quelqu'un est parti",
+    "it": "Qualcuno è uscito",
+    "sv": "Någon gick ut",
+    "pl": "Ktoś wyszedł",
+    "ru": "Кто-то вышел",
+    "ko": "누군가 나갔다"
+  },
+  "insightsTitleFalse": {
+    "en": "Someone Entered",
+    "no": "Noen gikk inn",
+    "nl": "Iemand kwam binnen",
+    "da": "Nogen kom ind",
+    "de": "Jemand ist hereingekommen",
+    "es": "Alguien entró",
+    "fr": "Quelqu'un est entré",
+    "it": "Qualcuno è entrato",
+    "sv": "Någon kom in",
+    "pl": "Ktoś wszedł",
+    "ru": "Кто-то вошел",
+    "ko": "누군가 들어왔다"
+  },
+  "icon": "/assets/direction.svg"
 }

@@ -1,12 +1,21 @@
 {
-    "type": "boolean",
-    "getable": false,
-    "setable": true,
-    "uiComponent": "button",
-    "title":
-    {
-        "en": "Fast Forward",
-        "no": "Fort fremover"
-    },
-    "icon": "/assets/fast-forward.svg"
+  "type": "boolean",
+  "getable": false,
+  "setable": true,
+  "uiComponent": "button",
+  "title": {
+    "en": "Fast Forward",
+    "no": "Fort fremover",
+    "nl": "Snel vooruit",
+    "da": "Spol frem",
+    "de": "Vorspulen",
+    "es": "Avance rápido",
+    "fr": "Avance rapide",
+    "it": "Avanzamento veloce",
+    "sv": "Spola framåt",
+    "pl": "Przewijanie do przodu",
+    "ru": "Перемотка вперед",
+    "ko": "빨리 감기"
+  },
+  "icon": "/assets/fast-forward.svg"
 }

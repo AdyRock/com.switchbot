@@ -1,34 +1,64 @@
 {
-    "title": {
-        "en": "Vacuum State Changed",
-        "no": "Støvsuger kjøremodus ble endret"
-    },
-    "platforms": [
-        "local"
-    ],
-    "connectivity": [
-        "local",
-        "cloud"
-    ],
-    "tokens": [
-        {
-            "name": "state",
-            "title": {
-                "en": "Vacuum State",
-                "no": "Støvsuger kjøremodus"
-            },
-            "type": "string",
-            "example": {
-                "en": "Charging",
-                "no": "Lader"
-            }
-        }
-    ],
-    "args": [
-        {
-            "type": "device",
-            "name": "device",
-            "filter": "driver_id=robot_vaccum_hub"
-        }
-    ]
+  "title": {
+    "en": "Vacuum State Changed",
+    "no": "Støvsuger kjøremodus ble endret",
+    "nl": "Stofzuigerstatus gewijzigd",
+    "da": "Støvsugetilstand ændret",
+    "de": "Staubsaugerzustand geändert",
+    "es": "Estado de la aspiradora cambiado",
+    "fr": "État de l'aspirateur changé",
+    "it": "Stato dell'aspirapolvere cambiato",
+    "sv": "Dammsugarens tillstånd ändrat",
+    "pl": "Zmiana stanu odkurzacza",
+    "ru": "Изменено состояние пылесоса",
+    "ko": "진공 상태 변경됨"
+  },
+  "platforms": [
+    "local"
+  ],
+  "connectivity": [
+    "local",
+    "cloud"
+  ],
+  "tokens": [
+    {
+      "name": "state",
+      "title": {
+        "en": "Vacuum State",
+        "no": "Støvsuger kjøremodus",
+        "nl": "Stofzuigerstatus",
+        "da": "Støvsugetilstand",
+        "de": "Staubsaugerzustand",
+        "es": "Estado de la aspiradora",
+        "fr": "État de l'aspirateur",
+        "it": "Stato dell'aspirapolvere",
+        "sv": "Dammsugarens tillstånd",
+        "pl": "Stan odkurzacza",
+        "ru": "Состояние пылесоса",
+        "ko": "진공 상태"
+      },
+      "type": "string",
+      "example": {
+        "en": "Charging",
+        "no": "Lader",
+        "nl": "Opladen",
+        "da": "Oplader",
+        "de": "Laden",
+        "es": "Cargando",
+        "fr": "En charge",
+        "it": "In carica",
+        "sv": "Laddar",
+        "pl": "Ładowanie",
+        "ru": "Зарядка",
+        "ko": "충전 중"
+      }
+    }
+  ],
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=robot_vaccum_hub"
+    }
+  ]
 }

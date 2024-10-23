@@ -1,21 +1,30 @@
 {
-    "id": "settop_box_hub",
-    "name":
-    {
-        "en": "Set Top Box Remote",
-        "no": "TV-mottaker fjernkontroll"
-    },
-    "class": "remote",
-    "capabilities": [
-        "power_on",
-        "power_off",
-        "volume_up",
-        "volume_down",
-        "channel_up",
-        "channel_down",
-        "volume_mute"
-    ],
-    "$extends": [
-        "hubDriver"
-    ]
+  "id": "settop_box_hub",
+  "name": {
+    "en": "Set Top Box Remote",
+    "no": "TV-mottaker fjernkontroll",
+    "nl": "Settopbox Afstandsbediening",
+    "da": "Set-Top Box Fjernbetjening",
+    "de": "Set-Top-Box Fernbedienung",
+    "es": "Mando de Caja de Set Top",
+    "fr": "Télécommande de Boîtier Décodeur",
+    "it": "Telecomando Set Top Box",
+    "sv": "Set-Top Box Fjärrkontroll",
+    "pl": "Pilot do Set-top Boxa",
+    "ru": "Пульт для Приставки",
+    "ko": "셋탑박스 리모컨"
+  },
+  "class": "remote",
+  "capabilities": [
+    "power_on",
+    "power_off",
+    "volume_up",
+    "volume_down",
+    "channel_up",
+    "channel_down",
+    "volume_mute"
+  ],
+  "$extends": [
+    "hubDriver"
+  ]
 }

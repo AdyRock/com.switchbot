@@ -54,19 +54,10 @@ class MyApp extends OAuth2App
 		this.log('SwitchBot has been initialized');
 		this.homey.app.logLevel = this.homey.settings.get('logLevel');
 
-		process.on('unhandledRejection', (reason, promise) =>
-		{
-			this.log('Unhandled Rejection at:', promise, 'reason:', reason);
-			this.updateLog('Unhandled Rejection',
-			{
-				message: promise,
-				stack: reason,
-			});
-		});
-
 		this.diagLog = '';
 		this.homey.app.deviceStatusLog = '';
-		this.BearerToken = this.homey.settings.get('BearerToken');
+		this.openToken = this.homey.settings.get('openToken');
+		this.openSecret = this.homey.settings.get('openSecret');
 		this.blePolling = false;
 		this.bleBusy = false;
 		this.devicesMACs = [];
@@ -127,6 +118,14 @@ class MyApp extends OAuth2App
 			{
 				this.homey.app.logLevel = this.homey.settings.get('logLevel');
 				this.OAUTH2_DEBUG = (this.logLevel > 2);
+			}
+			else if (setting === 'openToken')
+			{
+				this.openToken = this.homey.settings.get('openToken');
+			}
+			else if (setting === 'openSecret')
+			{
+				this.openSecret = this.homey.settings.get('openSecret');
 			}
 		});
 
@@ -374,6 +373,13 @@ class MyApp extends OAuth2App
 				return args.device.onCapabilityPowerLevel(parseInt(args.power, 10));
 			});
 
+		const windowCoversAction = this.homey.flow.getActionCard('windowcoverings_custom_set');
+		windowCoversAction
+		.registerRunListener(async (args, state) =>
+			{
+				return args.device.onCapabilityPosition(args.percentage, args.speed);
+			});
+
 		/** * CONDITIONS ** */
 		this.conditionVaccumStateIs = this.homey.flow.getConditionCard('vaccum_state_is.');
 		this.conditionVaccumStateIs.registerRunListener((args) =>
@@ -383,17 +389,12 @@ class MyApp extends OAuth2App
 			return Promise.resolve(conditionMet);
 		});
 
-		this.homey.app.updateLog('************** App has initialised. ***************');
+		this.homey.app.updateLog('****** App has initialised. ******');
 	}
 
 	async onUninit()
 	{
 		await this.deleteSwitchBotWebhook();
-		this.hub.destroy();
-		if (this.BLEHub)
-		{
-			this.BLEHub.destroy();
-		}
 	}
 
 	resetAPICount()
@@ -435,6 +436,11 @@ class MyApp extends OAuth2App
 					const seen = new WeakSet();
 					return (key, value) =>
 					{
+						if (key.startsWith('_'))
+						{
+							return '...';
+						}
+
 						if (typeof value === 'object' && value !== null)
 						{
 							if (seen.has(value))
@@ -662,7 +668,7 @@ class MyApp extends OAuth2App
 					}
 					catch (err)
 					{
-						this.updateLog(`Error processing webhook message! ${this.varToString(err)}`, 0);
+						this.updateLog(`Error processing webhook message! ${err.message}`, 0);
 					}
 				}
 			}
@@ -677,7 +683,7 @@ class MyApp extends OAuth2App
 		}
 
 		// See if the SwitchBot is already registered
-		if (this.devicesMACs.findIndex((device) => device === DeviceMAC) >= 0)
+		if (this.devicesMACs.findIndex((device) => device.localeCompare(DeviceMAC, 'en', { sensitivity: 'base' }) === 0) >= 0)
 		{
 			// Already registered
 			return;
@@ -743,7 +749,7 @@ class MyApp extends OAuth2App
 				}
 			});
 
-			this.updateLog(`Homey Webhook registered for devices ${this.homey.app.varToString(data)}`, 0);
+			this.updateLog(`Homey Webhook registered for devices ${this.homey.app.varToString(data)}`, 1);
 		}
 		catch (err)
 		{
@@ -772,7 +778,7 @@ class MyApp extends OAuth2App
 					if (response1.statusCode === 100)
 					{
 						// We got a valid response so make sure it is the correct webhook
-						if (response1.body.urls[0] === Homey.env.WEBHOOK_URL)
+						if (response1.body.urls[0].localeCompare(Homey.env.WEBHOOK_URL, 'en', { sensitivity: 'base' }) === 0)
 						{
 							this.homey.app.updateLog('SwitchBot webhook already registered', 1);
 							return;
@@ -819,28 +825,36 @@ class MyApp extends OAuth2App
 	async getHUBDevices()
 	{
 		// Find an OAuth session
-		const oAuth2Client = this.getFirstSavedOAuth2Client();
-		if (oAuth2Client)
+		try
 		{
-			const response = await oAuth2Client.getDevices();
-			if (response)
+			const oAuth2Client = this.getFirstSavedOAuth2Client();
+			if (oAuth2Client)
 			{
-				if (response.statusCode !== 100)
+				const response = await oAuth2Client.getDevices();
+				if (response)
 				{
-					this.homey.app.updateLog(`Invalid response code: ${response.statusCode} ${response.message}`, 0);
-					throw (new Error(`Invalid response code: ${response.statusCode} ${response.message}`));
-				}
+					if (response.statusCode !== 100)
+					{
+						this.homey.app.updateLog(`Invalid response code: ${response.statusCode} ${response.message}`, 0);
+						throw (new Error(`Invalid response code: ${response.statusCode} ${response.message}`));
+					}
 
-				const devices = response.body;
-				const scenes = await oAuth2Client.getScenes();
-				if (scenes)
-				{
-					devices.sceneList = scenes.body;
+					const devices = response.body;
+					const scenes = await oAuth2Client.getScenes();
+					if (scenes)
+					{
+						devices.sceneList = scenes.body;
+					}
+					return this.homey.app.varToString(devices);
 				}
-				return this.homey.app.varToString(devices);
 			}
 		}
-		return null;
+		catch (err)
+		{
+		}
+
+		const response = await this.hub.getDevices();
+		return response;
 	}
 
 	async runScene(id)
@@ -978,7 +992,7 @@ class MyApp extends OAuth2App
 		{
 			this.bleBusy = true;
 			this.blePolling = true;
-			this.updateLog('\r\nPolling BLE Starting ------------------------------------');
+			this.updateLog('\r\n------ Polling BLE Starting ------');
 
 			const promises = [];
 			try
@@ -1006,12 +1020,12 @@ class MyApp extends OAuth2App
 			}
 			catch (err)
 			{
-				this.updateLog(`BLE Polling Error: ${this.homey.app.varToString(err)}`);
+				this.updateLog(`BLE Polling Error: ${err.message}`);
 			}
 
 			this.blePolling = false;
 			this.bleBusy = false;
-			this.updateLog('------------------------------------ Polling BLE Finished\r\n');
+			this.updateLog('------ Polling BLE Finished ------\r\n');
 		}
 		else
 		{

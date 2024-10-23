@@ -1,14 +1,27 @@
 {
-    "title": {
-        "en": "Set to high speed",
-        "no": "Sett til høy fart"
-    },
-    "args": [
-        {
-            "name": "device",
-            "type": "device",
-            "filter": "driver_id=fan_hub|air_purifier_remote_hub"
-        }
-    ],
-    "platforms": ["local", "cloud"]
+  "title": {
+    "en": "Set to high speed",
+    "no": "Sett til høy fart",
+    "nl": "Zet op hoge snelheid",
+    "da": "Sæt til høj hastighed",
+    "de": "Auf hohe Geschwindigkeit einstellen",
+    "es": "Ajustar a alta velocidad",
+    "fr": "Régler à haute vitesse",
+    "it": "Impostare ad alta velocità",
+    "sv": "Ställ in på hög hastighet",
+    "pl": "Ustaw na wysoką prędkość",
+    "ru": "Установить на высокую скорость",
+    "ko": "고속으로 설정"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=fan_hub|air_purifier_remote_hub"
+    }
+  ],
+  "platforms": [
+    "local",
+    "cloud"
+  ]
 }

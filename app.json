@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.switchbot",
-  "version": "1.1.47",
+  "version": "2.0.1",
   "compatibility": ">=6.0.0",
   "platforms": [
     "local",
@@ -10,11 +10,32 @@
   "sdk": 3,
   "brandColor": "#E0393A",
   "name": {
-    "en": "SwitchBot"
+    "en": "SwitchBot",
+    "nl": "SwitchBot",
+    "da": "SwitchBot",
+    "de": "SwitchBot",
+    "es": "SwitchBot",
+    "fr": "SwitchBot",
+    "it": "SwitchBot",
+    "no": "SwitchBot",
+    "sv": "SwitchBot",
+    "pl": "SwitchBot",
+    "ru": "SwitchBot",
+    "ko": "SwitchBot"
   },
   "description": {
     "en": "A simple way to make your entire home a Smart Home",
-    "no": "En enkel måte å gjøre hele ditt hjem til et Smart Hjem."
+    "no": "En enkel måte å gjøre hele ditt hjem til et Smart Hjem.",
+    "nl": "Een eenvoudige manier om van je hele huis een slim huis te maken",
+    "da": "En enkel måde at gøre hele dit hjem til et smart hjem",
+    "de": "Eine einfache Möglichkeit, Ihr gesamtes Zuhause zu einem Smart Home zu machen",
+    "es": "Una manera sencilla de convertir toda tu casa en un hogar inteligente",
+    "fr": "Une façon simple de rendre toute votre maison intelligente",
+    "it": "Un modo semplice per rendere tutta la tua casa una casa intelligente",
+    "sv": "Ett enkelt sätt att göra hela ditt hem till ett smart hem",
+    "pl": "Prosty sposób na uczynienie całego domu inteligentnym domem",
+    "ru": "Простой способ сделать весь ваш дом умным домом",
+    "ko": "전체 집을 스마트 홈으로 만드는 간단한 방법"
   },
   "tags": {
     "en": [
@@ -53,7 +74,420 @@
       "Blinds",
       "LED strip",
       "Bulb",
-      "IR remote"
+      "IR remote",
+      "Water Leak",
+      "Lock",
+      "Vacuum cleaner"
+    ],
+    "nl": [
+      "Gordijnen",
+      "Knop indrukker",
+      "Temperatuur",
+      "Luchtvochtigheid",
+      "Bewegingssensor",
+      "Opening detector",
+      "Luchtbevochtiger",
+      "Afstandsbediening",
+      "Airconditioner",
+      "Ventilator",
+      "Settopbox",
+      "Carrier",
+      "Daikin",
+      "De’Longhi",
+      "Electrolux",
+      "Frigidaire",
+      "Fujitronic",
+      "Fujitsu",
+      "General Electric",
+      "Haier",
+      "Hitachi",
+      "Honeywell",
+      "LG",
+      "Mitsubishi Electric",
+      "Panasonic",
+      "Pioneer",
+      "Samsung",
+      "Sanyo",
+      "Siemens",
+      "TCL",
+      "Toshiba",
+      "Whirlpool",
+      "Rolgordijnen",
+      "LED-strip",
+      "Lamp",
+      "IR-afstandsbediening",
+      "Waterlek",
+      "Slot",
+      "Stofzuiger"
+    ],
+    "da": [
+      "Gardiner",
+      "Knap trykker",
+      "Temperatur",
+      "Luftfugtighed",
+      "Bevægelsessensor",
+      "Åbningsdetektor",
+      "Luftfugter",
+      "Fjernbetjening",
+      "Klimaanlæg",
+      "Ventilator",
+      "Set top box",
+      "Bærer",
+      "Daikin",
+      "De’Longhi",
+      "Electrolux",
+      "Frigidaire",
+      "Fujitronic",
+      "Fujitsu",
+      "General Electric",
+      "Haier",
+      "Hitachi",
+      "Honeywell",
+      "LG",
+      "Mitsubishi Electric",
+      "Panasonic",
+      "Pioneer",
+      "Samsung",
+      "Sanyo",
+      "Siemens",
+      "TCL",
+      "Toshiba",
+      "Whirlpool",
+      "Persienner",
+      "LED strip",
+      "Pære",
+      "IR-fjernbetjening",
+      "Vandlækage",
+      "Lås",
+      "Støvsuger"
+    ],
+    "de": [
+      "Vorhänge",
+      "Knopfdrucker",
+      "Temperatur",
+      "Luftfeuchtigkeit",
+      "Bewegungssensor",
+      "Öffnungsdetektor",
+      "Luftbefeuchter",
+      "Fernbedienung",
+      "Klimaanlage",
+      "Ventilator",
+      "Set-Top-Box",
+      "Carrier",
+      "Daikin",
+      "De’Longhi",
+      "Electrolux",
+      "Frigidaire",
+      "Fujitronic",
+      "Fujitsu",
+      "General Electric",
+      "Haier",
+      "Hitachi",
+      "Honeywell",
+      "LG",
+      "Mitsubishi Electric",
+      "Panasonic",
+      "Pioneer",
+      "Samsung",
+      "Sanyo",
+      "Siemens",
+      "TCL",
+      "Toshiba",
+      "Whirlpool",
+      "Jalousien",
+      "LED-Streifen",
+      "Glühbirne",
+      "IR-Fernbedienung",
+      "Wasserleck",
+      "Schloss",
+      "Staubsauger"
+    ],
+    "es": [
+      "Cortinas",
+      "Pulsador de botón",
+      "Temperatura",
+      "Humedad",
+      "Sensor de movimiento",
+      "Detector de apertura",
+      "Humidificador",
+      "Mando a distancia",
+      "Aire acondicionado",
+      "Ventilador",
+      "Decodificador",
+      "Carrier",
+      "Daikin",
+      "De’Longhi",
+      "Electrolux",
+      "Frigidaire",
+      "Fujitronic",
+      "Fujitsu",
+      "General Electric",
+      "Haier",
+      "Hitachi",
+      "Honeywell",
+      "LG",
+      "Mitsubishi Electric",
+      "Panasonic",
+      "Pioneer",
+      "Samsung",
+      "Sanyo",
+      "Siemens",
+      "TCL",
+      "Toshiba",
+      "Whirlpool",
+      "Persianas",
+      "Tira LED",
+      "Bombilla",
+      "Mando a distancia IR",
+      "Fuga de agua",
+      "Cerradura",
+      "Aspiradora"
+    ],
+    "fr": [
+      "Rideaux",
+      "Presse-bouton",
+      "Température",
+      "Humidité",
+      "Capteur de mouvement",
+      "Détecteur d'ouverture",
+      "Humidificateur",
+      "Télécommande",
+      "Climatiseur",
+      "Ventilateur",
+      "Décodeur",
+      "Transporteur",
+      "Daikin",
+      "De’Longhi",
+      "Electrolux",
+      "Frigidaire",
+      "Fujitronic",
+      "Fujitsu",
+      "General Electric",
+      "Haier",
+      "Hitachi",
+      "Honeywell",
+      "LG",
+      "Mitsubishi Electric",
+      "Panasonic",
+      "Pioneer",
+      "Samsung",
+      "Sanyo",
+      "Siemens",
+      "TCL",
+      "Toshiba",
+      "Whirlpool",
+      "Stores",
+      "Bande LED",
+      "Ampoule",
+      "IR télécommande",
+      "Fuite d'eau",
+      "Serrure",
+      "Aspirateur"
+    ],
+    "it": [
+      "Tende",
+      "Pressatore di pulsanti",
+      "Temperatura",
+      "Umidità",
+      "Sensore di movimento",
+      "Rilevatore di apertura",
+      "Umidificatore",
+      "Telecomando",
+      "Condizionatore",
+      "Ventilatore",
+      "Set top box",
+      "Carrier",
+      "Daikin",
+      "De’Longhi",
+      "Electrolux",
+      "Frigidaire",
+      "Fujitronic",
+      "Fujitsu",
+      "General Electric",
+      "Haier",
+      "Hitachi",
+      "Honeywell",
+      "LG",
+      "Mitsubishi Electric",
+      "Panasonic",
+      "Pioneer",
+      "Samsung",
+      "Sanyo",
+      "Siemens",
+      "TCL",
+      "Toshiba",
+      "Whirlpool",
+      "Tapparelle",
+      "Striscia LED",
+      "Lampadina",
+      "Telecomando IR",
+      "Perdite d'acqua",
+      "Serratura",
+      "Aspirapolvere"
+    ],
+    "sv": [
+      "Gardiner",
+      "Knapptryckare",
+      "Temperatur",
+      "Luftfuktighet",
+      "Rörelsesensor",
+      "Öppningsdetektor",
+      "Luftfuktare",
+      "Fjärrkontroll",
+      "Luftkonditionering",
+      "Fläkt",
+      "Set-top-box",
+      "Carrier",
+      "Daikin",
+      "De’Longhi",
+      "Electrolux",
+      "Frigidaire",
+      "Fujitronic",
+      "Fujitsu",
+      "General Electric",
+      "Haier",
+      "Hitachi",
+      "Honeywell",
+      "LG",
+      "Mitsubishi Electric",
+      "Panasonic",
+      "Pioneer",
+      "Samsung",
+      "Sanyo",
+      "Siemens",
+      "TCL",
+      "Toshiba",
+      "Whirlpool",
+      "Persienner",
+      "LED-remsa",
+      "Glödlampa",
+      "IR-fjärrkontroll",
+      "Vattenläcka",
+      "Lås",
+      "Dammsugare"
+    ],
+    "pl": [
+      "Zasłony",
+      "Przycisk prasy",
+      "Temperatura",
+      "Wilgotność",
+      "Czujnik ruchu",
+      "Detektor otwarcia",
+      "Nawilżacz",
+      "Pilot",
+      "Klimatyzator",
+      "Ventylator",
+      "Set top box",
+      "Carrier",
+      "Daikin",
+      "De’Longhi",
+      "Electrolux",
+      "Frigidaire",
+      "Fujitronic",
+      "Fujitsu",
+      "General Electric",
+      "Haier",
+      "Hitachi",
+      "Honeywell",
+      "LG",
+      "Mitsubishi Electric",
+      "Panasonic",
+      "Pioneer",
+      "Samsung",
+      "Sanyo",
+      "Siemens",
+      "TCL",
+      "Toshiba",
+      "Whirlpool",
+      "Rolety",
+      "Taśma LED",
+      "Żarówka",
+      "Pilot IR",
+      "Wyciek wody",
+      "Zamek",
+      "Odkurzacz"
+    ],
+    "ru": [
+      "Шторы",
+      "Нажиматель кнопок",
+      "Температура",
+      "Влажность",
+      "Датчик движения",
+      "Детектор открытия",
+      "Увлажнитель",
+      "Пульт дистанционного управления",
+      "Кондиционер",
+      "Вентилятор",
+      "Приставка",
+      "Carrier",
+      "Daikin",
+      "De’Longhi",
+      "Electrolux",
+      "Frigidaire",
+      "Fujitronic",
+      "Fujitsu",
+      "General Electric",
+      "Haier",
+      "Hitachi",
+      "Honeywell",
+      "LG",
+      "Mitsubishi Electric",
+      "Panasonic",
+      "Pioneer",
+      "Samsung",
+      "Sanyo",
+      "Siemens",
+      "TCL",
+      "Toshiba",
+      "Whirlpool",
+      "Жалюзи",
+      "Светодиодная лента",
+      "Лампочка",
+      "ИК-пульт",
+      "Утечка воды",
+      "Замок",
+      "Пылесос"
+    ],
+    "ko": [
+      "커튼",
+      "버튼 누르기",
+      "온도",
+      "습도",
+      "동작 센서",
+      "개방 감지기",
+      "가습기",
+      "리모컨",
+      "에어컨",
+      "팬",
+      "셋톱 박스",
+      "캐리어",
+      "다이킨",
+      "데롱기",
+      "일렉트로룩스",
+      "프리지데어",
+      "후지트로닉",
+      "후지쯔",
+      "제너럴 일렉트릭",
+      "하이얼",
+      "히타치",
+      "하니웰",
+      "LG",
+      "미쓰비시 전기",
+      "파나소닉",
+      "파이오니어",
+      "삼성",
+      "산요",
+      "지멘스",
+      "TCL",
+      "도시바",
+      "월풀",
+      "블라인드",
+      "LED 스트립",
+      "전구",
+      "IR 리모컨",
+      "누수",
+      "잠금 장치",
+      "진공청소기"
     ]
   },
   "category": [
@@ -89,6 +523,9 @@
       {
         "name": "Adrian Rockall",
         "email": "ady@rockall.plus.com"
+      },
+      {
+        "name": "Dennie de Groot"
       }
     ],
     "translators": [
@@ -141,7 +578,17 @@
       {
         "title": {
           "en": "Left Open",
-          "no": "Forblir åpen"
+          "no": "Forblir åpen",
+          "nl": "Gelaten Open",
+          "da": "Efterladt Åben",
+          "de": "Offen Gelassen",
+          "es": "Dejado Abierto",
+          "fr": "Laissé Ouvert",
+          "it": "Lasciato Aperto",
+          "sv": "Lämnat Öppet",
+          "pl": "Pozostawione Otwarte",
+          "ru": "Оставлено Открытым",
+          "ko": "열린 채로"
         },
         "platforms": [
           "local",
@@ -159,7 +606,17 @@
       {
         "title": {
           "en": "Light Level Changed",
-          "no": "Endret lysnivå"
+          "no": "Endret lysnivå",
+          "nl": "Lichtniveau Veranderd",
+          "da": "Lysniveau Ændret",
+          "de": "Lichtpegel Geändert",
+          "es": "Nivel de Luz Cambiado",
+          "fr": "Niveau de Lumière Changé",
+          "it": "Livello di Luce Cambiato",
+          "sv": "Ljusstyrkan Ändrad",
+          "pl": "Poziom Światła Zmieniony",
+          "ru": "Уровень Освещённости Изменён",
+          "ko": "조명 수준 변경됨"
         },
         "platforms": [
           "local",
@@ -174,7 +631,17 @@
             "name": "bright",
             "title": {
               "en": "Bright State",
-              "no": "Lysnivå"
+              "no": "Lysnivå",
+              "nl": "Heldere Staat",
+              "da": "Lys Tilstand",
+              "de": "Heller Zustand",
+              "es": "Estado Brillante",
+              "fr": "État Lumineux",
+              "it": "Stato Luminoso",
+              "sv": "Ljustillstånd",
+              "pl": "Stan Jasności",
+              "ru": "Яркое Состояние",
+              "ko": "밝은 상태"
             },
             "type": "boolean",
             "example": true
@@ -192,7 +659,17 @@
       {
         "title": {
           "en": "Becomes Dim",
-          "no": "Blir dimmet"
+          "no": "Blir dimmet",
+          "nl": "Wordt Dim",
+          "da": "Bliver Dæmpet",
+          "de": "Wird Dämmerig",
+          "es": "Se Vuelve Tenue",
+          "fr": "Devient Sombre",
+          "it": "Diventa Fioco",
+          "sv": "Blir Dim",
+          "pl": "Staje Się Przyciemniony",
+          "ru": "Становится Слабым",
+          "ko": "어두워짐"
         },
         "platforms": [
           "local",
@@ -210,7 +687,17 @@
       {
         "title": {
           "en": "Becomes bright",
-          "no": "Blir lys"
+          "no": "Blir lys",
+          "nl": "Wordt helder",
+          "da": "Bliver lys",
+          "de": "Wird hell",
+          "es": "Se vuelve brillante",
+          "fr": "Devient brillant",
+          "it": "Diventa luminoso",
+          "sv": "Blir ljus",
+          "pl": "Staje się jasny",
+          "ru": "Становится ярким",
+          "ko": "밝아짐"
         },
         "platforms": [
           "local",
@@ -228,7 +715,17 @@
       {
         "title": {
           "en": "Direction Changed",
-          "no": "Retning endret"
+          "no": "Retning endret",
+          "nl": "Richting Veranderd",
+          "da": "Retning Ændret",
+          "de": "Richtung Geändert",
+          "es": "Dirección Cambiada",
+          "fr": "Direction Changée",
+          "it": "Direzione Cambiata",
+          "sv": "Riktning Ändrad",
+          "pl": "Kierunek Zmieniony",
+          "ru": "Направление Изменено",
+          "ko": "방향 변경됨"
         },
         "deprecated": true,
         "platforms": [
@@ -243,7 +740,17 @@
             "name": "direction",
             "title": {
               "en": "Exited",
-              "no": "Gikk ut"
+              "no": "Gikk ut",
+              "nl": "Verlaten",
+              "da": "Forladt",
+              "de": "Verlassen",
+              "es": "Salido",
+              "fr": "Sorti",
+              "it": "Uscito",
+              "sv": "Lämnat",
+              "pl": "Opuszczony",
+              "ru": "Вышел",
+              "ko": "나갔다"
             },
             "type": "boolean",
             "example": true
@@ -261,7 +768,17 @@
       {
         "title": {
           "en": "Someone entered",
-          "no": "Noen kom inn"
+          "no": "Noen kom inn",
+          "nl": "Iemand is binnengekomen",
+          "da": "Nogen gik ind",
+          "de": "Jemand ist eingetreten",
+          "es": "Alguien entró",
+          "fr": "Quelqu'un est entré",
+          "it": "Qualcuno è entrato",
+          "sv": "Någon gick in",
+          "pl": "Ktoś wszedł",
+          "ru": "Кто-то вошел",
+          "ko": "누군가 들어왔습니다"
         },
         "platforms": [
           "local",
@@ -269,7 +786,17 @@
         ],
         "hint": {
           "en": "Motion was detected after the contact was opened.",
-          "no": "Bevegelse ble detektert etter at kontakten ble åpnet."
+          "no": "Bevegelse ble detektert etter at kontakten ble åpnet.",
+          "nl": "Beweging werd gedetecteerd nadat het contact werd geopend.",
+          "da": "Bevægelse blev registreret, efter kontakten blev åbnet.",
+          "de": "Bewegung wurde erkannt, nachdem der Kontakt geöffnet wurde.",
+          "es": "El movimiento fue detectado después de que se abrió el contacto.",
+          "fr": "Le mouvement a été détecté après l'ouverture du contact.",
+          "it": "Il movimento è stato rilevato dopo l'apertura del contatto.",
+          "sv": "Rörelse upptäcktes efter att kontakten öppnades.",
+          "pl": "Wykryto ruch po otwarciu kontaktu.",
+          "ru": "Движение было обнаружено после открытия контакта.",
+          "ko": "접촉이 열린 후 움직임이 감지되었습니다."
         },
         "args": [
           {
@@ -283,7 +810,17 @@
       {
         "title": {
           "en": "Someone exited",
-          "no": "Noen gikk ut"
+          "no": "Noen gikk ut",
+          "nl": "Iemand is vertrokken",
+          "da": "Nogen gik ud",
+          "de": "Jemand ist herausgegangen",
+          "es": "Alguien ha salido",
+          "fr": "Quelqu'un est sorti",
+          "it": "Qualcuno è uscito",
+          "sv": "Någon gick ut",
+          "pl": "Ktoś wyszedł",
+          "ru": "Кто-то вышел",
+          "ko": "누군가 나갔습니다"
         },
         "platforms": [
           "local",
@@ -291,7 +828,17 @@
         ],
         "hint": {
           "en": "Button was pressed or Motion was detected; then the contact was opened.",
-          "no": "Knappen ble trykket eller bevegelse ble detektert; kontakten ble åpnet etterpå."
+          "no": "Knappen ble trykket eller bevegelse ble detektert; kontakten ble åpnet etterpå.",
+          "nl": "De knop werd ingedrukt of beweging werd gedetecteerd; daarna werd het contact geopend.",
+          "da": "Knappen blev trykket eller bevægelse blev registreret; derefter blev kontakten åbnet.",
+          "de": "Der Knopf wurde gedrückt oder eine Bewegung wurde erkannt; dann wurde der Kontakt geöffnet.",
+          "es": "Se pulsó el botón o se detectó movimiento; luego se abrió el contacto.",
+          "fr": "Le bouton a été pressé ou un mouvement a été détecté; ensuite, le contact s'est ouvert.",
+          "it": "Il pulsante è stato premuto o è stato rilevato un movimento; poi il contatto è stato aperto.",
+          "sv": "Knappen trycktes eller rörelse upptäcktes; sedan öppnades kontakten.",
+          "pl": "Przycisk został naciśnięty lub wykryto ruch; następnie otwarto kontakt.",
+          "ru": "Кнопка была нажата или было обнаружено движение; затем был открыт контакт.",
+          "ko": "버튼이 눌리거나 모션이 감지되었습니다; 그 후에 접촉이 열렸습니다."
         },
         "args": [
           {
@@ -305,7 +852,17 @@
       {
         "title": {
           "en": "Light Level Changed",
-          "no": "Endret lysnivå"
+          "no": "Endret lysnivå",
+          "nl": "Lichtniveau Veranderd",
+          "da": "Lysniveau Ændret",
+          "de": "Lichtniveau Geändert",
+          "es": "Nivel de Luz Cambiado",
+          "fr": "Niveau de Lumière Changé",
+          "it": "Livello di Luce Cambiato",
+          "sv": "Ljusnivå Ändrad",
+          "pl": "Poziom Światła Zmieniony",
+          "ru": "Уровень Света Изменен",
+          "ko": "조도 변경됨"
         },
         "platforms": [
           "local"
@@ -318,12 +875,32 @@
             "name": "light_level",
             "title": {
               "en": "Light Level",
-              "no": "Lysnivå"
+              "no": "Lysnivå",
+              "nl": "Lichtniveau",
+              "da": "Lysniveau",
+              "de": "Lichtniveau",
+              "es": "Nivel de Luz",
+              "fr": "Niveau de Lumière",
+              "it": "Livello di Luce",
+              "sv": "Ljusnivå",
+              "pl": "Poziom Światła",
+              "ru": "Уровень Света",
+              "ko": "조도"
             },
             "type": "number",
             "example": {
               "en": "1 to 10",
-              "no": "1 til 10"
+              "no": "1 til 10",
+              "nl": "1 tot 10",
+              "da": "1 til 10",
+              "de": "1 bis 10",
+              "es": "1 a 10",
+              "fr": "1 à 10",
+              "it": "1 a 10",
+              "sv": "1 till 10",
+              "pl": "1 do 10",
+              "ru": "1 до 10",
+              "ko": "1에서 10"
             }
           }
         ],
@@ -339,7 +916,17 @@
       {
         "title": {
           "en": "Vacuum State Changed",
-          "no": "Støvsuger kjøremodus ble endret"
+          "no": "Støvsuger kjøremodus ble endret",
+          "nl": "Stofzuigerstatus gewijzigd",
+          "da": "Støvsugetilstand ændret",
+          "de": "Staubsaugerzustand geändert",
+          "es": "Estado de la aspiradora cambiado",
+          "fr": "État de l'aspirateur changé",
+          "it": "Stato dell'aspirapolvere cambiato",
+          "sv": "Dammsugarens tillstånd ändrat",
+          "pl": "Zmiana stanu odkurzacza",
+          "ru": "Изменено состояние пылесоса",
+          "ko": "진공 상태 변경됨"
         },
         "platforms": [
           "local"
@@ -353,12 +940,32 @@
             "name": "state",
             "title": {
               "en": "Vacuum State",
-              "no": "Støvsuger kjøremodus"
+              "no": "Støvsuger kjøremodus",
+              "nl": "Stofzuigerstatus",
+              "da": "Støvsugetilstand",
+              "de": "Staubsaugerzustand",
+              "es": "Estado de la aspiradora",
+              "fr": "État de l'aspirateur",
+              "it": "Stato dell'aspirapolvere",
+              "sv": "Dammsugarens tillstånd",
+              "pl": "Stan odkurzacza",
+              "ru": "Состояние пылесоса",
+              "ko": "진공 상태"
             },
             "type": "string",
             "example": {
               "en": "Charging",
-              "no": "Lader"
+              "no": "Lader",
+              "nl": "Opladen",
+              "da": "Oplader",
+              "de": "Laden",
+              "es": "Cargando",
+              "fr": "En charge",
+              "it": "In carica",
+              "sv": "Laddar",
+              "pl": "Ładowanie",
+              "ru": "Зарядка",
+              "ko": "충전 중"
             }
           }
         ],
@@ -374,11 +981,31 @@
       {
         "title": {
           "en": "Vacuum State Changed",
-          "no": "Støvsuger kjøremodus ble endret"
+          "no": "Støvsuger kjøremodus ble endret",
+          "nl": "Stofzuigerstatus gewijzigd",
+          "da": "Støvsugerstatus ændret",
+          "de": "Staubsaugerstatus geändert",
+          "es": "Estado de la aspiradora cambiado",
+          "fr": "État de l'aspirateur modifié",
+          "it": "Stato dell'aspirapolvere cambiato",
+          "sv": "Dammsugarens status ändrad",
+          "pl": "Stan odkurzacza zmieniony",
+          "ru": "Состояние пылесоса изменено",
+          "ko": "청소기 상태 변경됨"
         },
         "titleFormatted": {
           "en": "Vacuum state changed to [[state]]",
-          "no": "Støvsuger kjøremodus ble endret til [[state]]"
+          "no": "Støvsuger kjøremodus ble endret til [[state]]",
+          "nl": "Stofzuigerstatus gewijzigd naar [[state]]",
+          "da": "Støvsugerstatus ændret til [[state]]",
+          "de": "Staubsaugerstatus geändert zu [[state]]",
+          "es": "Estado de la aspiradora cambiado a [[state]]",
+          "fr": "État de l'aspirateur modifié en [[state]]",
+          "it": "Stato dell'aspirapolvere cambiato in [[state]]",
+          "sv": "Dammsugarens status ändrad till [[state]]",
+          "pl": "Stan odkurzacza zmieniony na [[state]]",
+          "ru": "Состояние пылесоса изменено на [[state]]",
+          "ko": "청소기 상태가 [[state]]로 변경됨"
         },
         "platforms": [
           "local"
@@ -392,7 +1019,17 @@
             "name": "state",
             "title": {
               "en": "Vacuum State",
-              "no": "Støvsuger kjøremodus"
+              "no": "Støvsuger kjøremodus",
+              "nl": "Stofzuigerstatus",
+              "da": "Støvsugerstatus",
+              "de": "Staubsaugerstatus",
+              "es": "Estado de la aspiradora",
+              "fr": "État de l'aspirateur",
+              "it": "Stato dell'aspirapolvere",
+              "sv": "Dammsugarens status",
+              "pl": "Stan odkurzacza",
+              "ru": "Состояние пылесоса",
+              "ko": "청소기 상태"
             },
             "type": "dropdown",
             "values": [
@@ -400,70 +1037,170 @@
                 "id": "StandBy",
                 "title": {
                   "en": "Standby",
-                  "no": "Gjør ikke noe"
+                  "no": "Gjør ikke noe",
+                  "nl": "Standby",
+                  "da": "Standby",
+                  "de": "Standby",
+                  "es": "En espera",
+                  "fr": "Veille",
+                  "it": "Standby",
+                  "sv": "Standby",
+                  "pl": "Gotowość",
+                  "ru": "Режим ожидания",
+                  "ko": "대기"
                 }
               },
               {
-                "id": "Cleaning",
+                "id": "Clearing",
                 "title": {
                   "en": "Cleaning",
-                  "no": "Rengjør"
+                  "no": "Rengjør",
+                  "nl": "Schoonmaken",
+                  "da": "Rengøring",
+                  "de": "Reinigung",
+                  "es": "Limpiando",
+                  "fr": "Nettoyage",
+                  "it": "Pulizia",
+                  "sv": "Rengöring",
+                  "pl": "Sprzątanie",
+                  "ru": "Уборка",
+                  "ko": "청소 중"
                 }
               },
               {
                 "id": "Paused",
                 "title": {
                   "en": "Paused",
-                  "no": "Pauset"
+                  "no": "Pauset",
+                  "nl": "Gepauzeerd",
+                  "da": "Pauset",
+                  "de": "Pausiert",
+                  "es": "Pausado",
+                  "fr": "En pause",
+                  "it": "In pausa",
+                  "sv": "Pausad",
+                  "pl": "Wstrzymano",
+                  "ru": "Пауза",
+                  "ko": "일시 중지됨"
                 }
               },
               {
                 "id": "GotoChargeBase",
                 "title": {
                   "en": "Going to Charge Base",
-                  "no": "På vei til ladestasjon"
+                  "no": "På vei til ladestasjon",
+                  "nl": "Onderweg naar oplaadstation",
+                  "da": "På vej til ladestation",
+                  "de": "Zum Ladegerät fahren",
+                  "es": "Yendo a la estación de carga",
+                  "fr": "Se rend à la base de chargement",
+                  "it": "Verso la base di ricarica",
+                  "sv": "På väg till laddstation",
+                  "pl": "Idzie do stacji ładującej",
+                  "ru": "Едет на зарядку",
+                  "ko": "충전 베이스로 이동 중"
                 }
               },
               {
                 "id": "Charging",
                 "title": {
                   "en": "Charging",
-                  "no": "Lader"
+                  "no": "Lader",
+                  "nl": "Opladen",
+                  "da": "Lader",
+                  "de": "Lädt",
+                  "es": "Cargando",
+                  "fr": "En charge",
+                  "it": "In carica",
+                  "sv": "Laddar",
+                  "pl": "Ładowanie",
+                  "ru": "Зарядка",
+                  "ko": "충전 중"
                 }
               },
               {
                 "id": "ChargeDone",
                 "title": {
                   "en": "Charging Finished",
-                  "no": "Lading ferdig"
+                  "no": "Lading ferdig",
+                  "nl": "Opladen voltooid",
+                  "da": "Opladning fuldført",
+                  "de": "Laden abgeschlossen",
+                  "es": "Carga finalizada",
+                  "fr": "Chargement terminé",
+                  "it": "Ricarica completata",
+                  "sv": "Laddning klar",
+                  "pl": "Ładowanie zakończone",
+                  "ru": "Зарядка завершена",
+                  "ko": "충전 완료"
                 }
               },
               {
                 "id": "Dormant",
                 "title": {
                   "en": "Dormant",
-                  "no": "Sovende"
+                  "no": "Sovende",
+                  "nl": "Inactief",
+                  "da": "Dvaletilstand",
+                  "de": "Schlafend",
+                  "es": "Inactivo",
+                  "fr": "En sommeil",
+                  "it": "Dormiente",
+                  "sv": "Slumrande",
+                  "pl": "Uśpiony",
+                  "ru": "Без действия",
+                  "ko": "휴면 중"
                 }
               },
               {
                 "id": "InTrouble",
                 "title": {
                   "en": "In Trouble",
-                  "no": "Står fast"
+                  "no": "Står fast",
+                  "nl": "In moeilijkheden",
+                  "da": "I problemer",
+                  "de": "In Schwierigkeiten",
+                  "es": "En problemas",
+                  "fr": "En difficulté",
+                  "it": "In difficoltà",
+                  "sv": "I trubbel",
+                  "pl": "Ma kłopoty",
+                  "ru": "Заело",
+                  "ko": "문제 발생"
                 }
               },
               {
                 "id": "InRemoteControl",
                 "title": {
                   "en": "Remote Controlled",
-                  "no": "Fjernkontrollert"
+                  "no": "Fjernkontrollert",
+                  "nl": "Op afstand bestuurd",
+                  "da": "Fjernstyret",
+                  "de": "Fernbedient",
+                  "es": "Controlado remotamente",
+                  "fr": "Commandé à distance",
+                  "it": "Controllo remoto",
+                  "sv": "Fjärrstyrd",
+                  "pl": "Sterowany zdalnie",
+                  "ru": "Пульт управления",
+                  "ko": "원격 제어됨"
                 }
               },
               {
                 "id": "InDustCollecting",
                 "title": {
                   "en": "Dust Collecting",
-                  "no": "Samler støv"
+                  "no": "Samler støv",
+                  "nl": "Stof verzamelen",
+                  "da": "Indsamling af støv",
+                  "de": "Staubsammlung",
+                  "es": "Recogida de polvo",
+                  "fr": "Collecte de poussière",
+                  "it": "Raccolta polvere",
+                  "sv": "Insamling av damm",
+                  "pl": "Zbieranie kurzu",
+                  "ru": "Сбор пыли",
+                  "ko": "먼지 수집 중"
                 }
               }
             ]
@@ -495,7 +1232,8 @@
           "es": "La posición ha cambiado",
           "da": "Position ændret",
           "ru": "Расположение изменилось",
-          "pl": "Zmiana pozycji"
+          "pl": "Zmiana pozycji",
+          "ko": "위치 변경됨"
         },
         "tokens": [
           {
@@ -512,7 +1250,8 @@
               "es": "Posición",
               "da": "Position",
               "ru": "Позиция",
-              "pl": "Pozycja"
+              "pl": "Pozycja",
+              "ko": "위치"
             },
             "example": 0.5
           }
@@ -530,11 +1269,31 @@
         "id": "button_press_id_changed",
         "title": {
           "en": "Button Press Changed",
-          "no": "Knapp trykket"
+          "no": "Knapp trykket",
+          "nl": "Knop indrukken gewijzigd",
+          "da": "Knaptryk ændret",
+          "de": "Tastendruck geändert",
+          "es": "Presión de botón cambiada",
+          "fr": "Appui sur le bouton modifié",
+          "it": "Pressione del pulsante cambiata",
+          "sv": "Knapptryck ändrad",
+          "pl": "Zmiana naciśnięcia przycisku",
+          "ru": "Изменение нажатия кнопки",
+          "ko": "버튼 누름 변경됨"
         },
         "hint": {
           "en": "Run the flow when button on the sensor is pressed. The token is a number that is incremented by the sensor each time the button is press. It will wrap around to 0 when it incremets past 255.",
-          "no": "Kjør flowen hvis knappen er trykket. Tagen er et tall som øker hver gang knappen er trykket. Den vil nullstilles etter 255. "
+          "no": "Kjør flowen hvis knappen er trykket. Tagen er et tall som øker hver gang knappen er trykket. Den vil nullstilles etter 255.",
+          "nl": "Voer de flow uit wanneer de knop op de sensor wordt ingedrukt. De token is een nummer dat door de sensor wordt verhoogd telkens wanneer de knop wordt ingedrukt. Het zal worden teruggezet op 0 wanneer het voorbij 255 toeneemt.",
+          "da": "Kør flowen, når knappen på sensoren trykkes. Token er et tal, der øges af sensoren, hver gang knappen trykkes. Det vil nulstilles til 0, når det overstiger 255.",
+          "de": "Führen Sie den Flow aus, wenn die Taste am Sensor gedrückt wird. Das Token ist eine Zahl, die bei jedem Drücken der Taste vom Sensor inkrementiert wird. Es wird auf 0 zurückgesetzt, wenn es über 255 hinausgeht.",
+          "es": "Ejecuta el flujo cuando se presione el botón en el sensor. El token es un número que se incrementa por el sensor cada vez que se presiona el botón. Se reiniciará a 0 cuando se incremente más allá de 255.",
+          "fr": "Exécutez le flux lorsque le bouton sur le capteur est pressé. Le jeton est un nombre incrémenté par le capteur à chaque pression de bouton. Il retournera à 0 lorsqu'il dépassera 255.",
+          "it": "Esegui il flusso quando viene premuto il pulsante sul sensore. Il token è un numero incrementato dal sensore ogni volta che il pulsante viene premuto. Si azzererà a 0 quando incrementa oltre 255.",
+          "sv": "Kör flödet när knappen på sensorn trycks. Token är ett nummer som ökas av sensorn varje gång knappen trycks. Det nollställs till 0 när det överskrider 255.",
+          "pl": "Uruchom przepływ, gdy przycisk na czujniku jest naciskany. Token to liczba zwiększana przez czujnik za każdym razem, gdy przycisk jest naciskany. Zresetuje się do 0, gdy przekroczy 255.",
+          "ru": "Запустите поток, когда кнопка на датчике нажата. Токен – это число, которое увеличивается датчиком каждый раз при нажатии кнопки. Он обнулится при превышении 255.",
+          "ko": "센서의 버튼을 누를 때 흐름을 실행합니다. 이 토큰은 버튼을 누를 때마다 센서에 의해 증가하는 숫자입니다. 255를 초과하면 0으로 돌아갑니다."
         },
         "platforms": [
           "local",
@@ -545,7 +1304,17 @@
             "name": "button_press_id",
             "title": {
               "en": "Button press ID",
-              "no": "Knapp trykket ID"
+              "no": "Knapp trykket ID",
+              "nl": "Knop druk ID",
+              "da": "Knaptryk ID",
+              "de": "Tastendruck ID",
+              "es": "ID de presión de botón",
+              "fr": "ID de pression du bouton",
+              "it": "ID pressione del pulsante",
+              "sv": "Knapptryck ID",
+              "pl": "ID naciśnięcia przycisku",
+              "ru": "ID нажатия кнопки",
+              "ko": "버튼 누름 ID"
             },
             "type": "number",
             "example": 1
@@ -563,11 +1332,31 @@
         "id": "entry_id_changed",
         "title": {
           "en": "Entry ID Changed",
-          "no": "Inngang ID endret"
+          "no": "Inngang ID endret",
+          "nl": "Wijziging in Entry ID",
+          "da": "Indgangs-id ændret",
+          "de": "Eintrags-ID geändert",
+          "es": "ID de entrada cambiado",
+          "fr": "ID d'entrée modifié",
+          "it": "ID di ingresso cambiato",
+          "sv": "Ingång ID ändrad",
+          "pl": "ID wejścia zmieniono",
+          "ru": "Изменение ID записи",
+          "ko": "출입 ID 변경됨"
         },
         "hint": {
           "en": "Run the flow when the sensor detects an entry (contact break before motion). The token is a number that is incremented by the sensor each time an entry is detected. It will wrap around to 0 when it incremets past 255.",
-          "no": "Kjør flowen hvis sensoren detekterer en inngang. Tagen er et tall som øker hver gang en inngang er detektert. Den vil nullstilles etter 255. "
+          "no": "Kjør flowen hvis sensoren detekterer en inngang. Tagen er et tall som øker hver gang en inngang er detektert. Den vil nullstilles etter 255.",
+          "nl": "Voer de flow uit wanneer de sensor een ingang detecteert (contaconderbreking voor beweging). De token is een nummer dat door de sensor wordt verhoogd telkens als een ingang wordt gedetecteerd. Het wordt teruggezet op 0 wanneer het voorbij 255 toeneemt.",
+          "da": "Kør flowen, når sensoren registrerer en indgang (kontaktafbrydelse før bevægelse). Token er et tal, der øges af sensoren, hver gang en indgang registreres. Det nulstilles til 0, når det overstiger 255.",
+          "de": "Führen Sie den Flow aus, wenn der Sensor einen Eintritt erkennt (Kontaktunterbrechung vor Bewegung). Das Token ist eine Zahl, die jedes Mal vom Sensor inkrementiert wird, wenn ein Eintritt erkannt wird. Es wird auf 0 zurückgesetzt, wenn es über 255 hinausgeht.",
+          "es": "Ejecuta el flujo cuando el sensor detecta una entrada (ruptura de contacto antes del movimiento). El token es un número que se incrementa por el sensor cada vez que se detecta una entrada. Se reiniciará a 0 cuando se incremente más allá de 255.",
+          "fr": "Exécutez le flux lorsque le capteur détecte une entrée (rupture de contact avant le mouvement). Le jeton est un nombre incrémenté par le capteur à chaque fois qu'une entrée est détectée. Il retournera à 0 lorsqu'il dépassera 255.",
+          "it": "Esegui il flusso quando il sensore rileva un'ingresso (interruzione del contatto prima del movimento). Il token è un numero incrementato dal sensore ogni volta che viene rilevato un ingresso. Si azzererà a 0 quando incrementa oltre 255.",
+          "sv": "Kör flödet när sensorn upptäcker en ingång (kontaktavbrott före rörelse). Token är ett nummer som ökas av sensorn varje gång en ingång upptäcks. Det nollställs till 0 när det överskrider 255.",
+          "pl": "Uruchom przepływ, gdy czujnik wykryje wejście (przerwanie kontaktu przed ruchem). Token to liczba zwiększana przez czujnik za każdym razem, gdy wykryje wejście. Zresetuje się do 0, gdy przekroczy 255.",
+          "ru": "Запустите поток, когда датчик обнаруживает вход (разрыв контакта до движения). Токен – это число, которое увеличивается датчиком каждый раз при обнаружении входа. Он обнулится при превышении 255.",
+          "ko": "센서가 출입을 감지할 때 흐름을 실행합니다(움직임 전에 접촉이 끊김). 이 토큰은 출입이 감지될 때마다 센서에 의해 증가하는 숫자입니다. 255를 초과하면 0으로 돌아갑니다."
         },
         "platforms": [
           "local",
@@ -578,7 +1367,17 @@
             "name": "entry_id",
             "title": {
               "en": "Entry ID",
-              "no": "Inngang ID"
+              "no": "Inngang ID",
+              "nl": "Ingang ID",
+              "da": "Indgangs-id",
+              "de": "Eintrags-ID",
+              "es": "ID de entrada",
+              "fr": "ID d'entrée",
+              "it": "ID di ingresso",
+              "sv": "Ingångs-ID",
+              "pl": "ID wejścia",
+              "ru": "ID записи",
+              "ko": "출입 ID"
             },
             "type": "number",
             "example": 1
@@ -596,11 +1395,31 @@
         "id": "exit_id_changed",
         "title": {
           "en": "Exit ID Changed",
-          "no": "Utgang ID endret"
+          "no": "Utgang ID endret",
+          "nl": "Wijziging in Exit ID",
+          "da": "Udgangs-id ændret",
+          "de": "Austritts-ID geändert",
+          "es": "ID de salida cambiado",
+          "fr": "ID de sortie modifié",
+          "it": "ID di uscita cambiato",
+          "sv": "Utgångs-ID ändrad",
+          "pl": "ID wyjścia zmieniono",
+          "ru": "Изменение ID выхода",
+          "ko": "출구 ID 변경됨"
         },
         "hint": {
           "en": "Run the flow when the sensor detects an exit (contact break after motion). The token is a number that is incremented by the sensor each time an exit is detected. It will wrap around to 0 when it incremets past 255.",
-          "no": "Kjør flowen hvis sensoren detekterer en utgang. Tagen er et tall som øker hver gang en utgang er detektert. Den vil nullstilles etter 255. "
+          "no": "Kjør flowen hvis sensoren detekterer en utgang. Tagen er et tall som øker hver gang en utgang er detektert. Den vil nullstilles etter 255.",
+          "nl": "Voer de flow uit wanneer de sensor een uitgang detecteert (contaconderbreking na beweging). De token is een nummer dat door de sensor wordt verhoogd telkens als een uitgang wordt gedetecteerd. Het wordt teruggezet op 0 wanneer het voorbij 255 toeneemt.",
+          "da": "Kør flowen, når sensoren registrerer en udgang (kontaktafbrydelse efter bevægelse). Token er et tal, der øges af sensoren, hver gang en udgang registreres. Det nulstilles til 0, når det overstiger 255.",
+          "de": "Führen Sie den Flow aus, wenn der Sensor einen Austritt erkennt (Kontaktunterbrechung nach Bewegung). Das Token ist eine Zahl, die jedes Mal vom Sensor inkrementiert wird, wenn ein Austritt erkannt wird. Es wird auf 0 zurückgesetzt, wenn es über 255 hinausgeht.",
+          "es": "Ejecuta el flujo cuando el sensor detecta una salida (ruptura de contacto después del movimiento). El token es un número que se incrementa por el sensor cada vez que se detecta una salida. Se reiniciará a 0 cuando se incremente más allá de 255.",
+          "fr": "Exécutez le flux lorsque le capteur détecte une sortie (rupture de contact après mouvement). Le jeton est un nombre incrémenté par le capteur à chaque fois qu'une sortie est détectée. Il retournera à 0 lorsqu'il dépassera 255.",
+          "it": "Esegui il flusso quando il sensore rileva un'uscita (interruzione del contatto dopo il movimento). Il token è un numero incrementato dal sensore ogni volta che viene rilevata un'uscita. Si azzererà a 0 quando incrementa oltre 255.",
+          "sv": "Kör flödet när sensorn upptäcker en utgång (kontaktavbrott efter rörelse). Token är ett nummer som ökas av sensorn varje gång en utgång upptäcks. Det nollställs till 0 när det överskrider 255.",
+          "pl": "Uruchom przepływ, gdy czujnik wykryje wyjście (przerwanie kontaktu po ruchu). Token to liczba zwiększana przez czujnik za każdym razem, gdy wykryje wyjście. Zresetuje się do 0, gdy przekroczy 255.",
+          "ru": "Запустите поток, когда датчик обнаруживает выход (разрыв контакта после движения). Токен – это число, которое увеличивается датчиком каждый раз при обнаружении выхода. Он обнулится при превышении 255.",
+          "ko": "센서가 출구를 감지할 때 흐름을 실행합니다(움직임 후 접촉이 끊김). 이 토큰은 출구가 감지될 때마다 센서에 의해 증가하는 숫자입니다. 255를 초과하면 0으로 돌아갑니다."
         },
         "platforms": [
           "local",
@@ -611,7 +1430,17 @@
             "name": "exit_id",
             "title": {
               "en": "Exit ID",
-              "no": "Utgang ID"
+              "no": "Utgang ID",
+              "nl": "Uitgang ID",
+              "da": "Udgangs-id",
+              "de": "Austritts-ID",
+              "es": "ID de salida",
+              "fr": "ID de sortie",
+              "it": "ID di uscita",
+              "sv": "Utgångs-ID",
+              "pl": "ID wyjścia",
+              "ru": "ID выхода",
+              "ko": "출구 ID"
             },
             "type": "number",
             "example": 1
@@ -630,18 +1459,48 @@
       {
         "title": {
           "en": "The state !{{is|isn't}} [[state]]",
-          "no": "Kjøremodus !{{er|er ikke}} [[state]]"
+          "no": "Kjøremodus !{{er|er ikke}} [[state]]",
+          "nl": "De staat is !{{is|isn't}} [[state]]",
+          "da": "Tilstanden er !{{is|isn't}} [[state]]",
+          "de": "Der Zustand ist !{{is|isn't}} [[state]]",
+          "es": "El estado es !{{is|isn't}} [[state]]",
+          "fr": "L'état est !{{is|isn't}} [[state]]",
+          "it": "Lo stato è !{{is|isn't}} [[state]]",
+          "sv": "Tillståndet är !{{is|isn't}} [[state]]",
+          "pl": "Stan to !{{is|isn't}} [[state]]",
+          "ru": "Состояние !{{is|isn't}} [[state]]",
+          "ko": "상태는 !{{is|isn't}} [[state]]"
         },
         "titleFormatted": {
           "en": "The state !{{is|isn't}} [[state]]",
-          "no": "Kjøremodus !{{er|er ikke}} [[state]]"
+          "no": "Kjøremodus !{{er|er ikke}} [[state]]",
+          "nl": "De staat is !{{is|isn't}} [[state]]",
+          "da": "Tilstanden er !{{is|isn't}} [[state]]",
+          "de": "Der Zustand ist !{{is|isn't}} [[state]]",
+          "es": "El estado es !{{is|isn't}} [[state]]",
+          "fr": "L'état est !{{is|isn't}} [[state]]",
+          "it": "Lo stato è !{{is|isn't}} [[state]]",
+          "sv": "Tillståndet är !{{is|isn't}} [[state]]",
+          "pl": "Stan to !{{is|isn't}} [[state]]",
+          "ru": "Состояние !{{is|isn't}} [[state]]",
+          "ko": "상태는 !{{is|isn't}} [[state]]"
         },
         "args": [
           {
             "name": "state",
             "title": {
               "en": "Vacuum State",
-              "no": "Støvsuger kjøremodus"
+              "no": "Støvsuger kjøremodus",
+              "nl": "Stofzuigerstatus",
+              "da": "Støvsuger tilstand",
+              "de": "Staubsauger-Zustand",
+              "es": "Estado de la aspiradora",
+              "fr": "État de l'aspirateur",
+              "it": "Stato dell'aspirapolvere",
+              "sv": "Dammsugarstatus",
+              "pl": "Stan odkurzacza",
+              "ru": "Состояние пылесоса",
+              "ko": "청소기 상태"
             },
             "type": "dropdown",
             "values": [
@@ -649,70 +1508,170 @@
                 "id": "StandBy",
                 "title": {
                   "en": "Standby",
-                  "no": "Gjør ikke noe"
+                  "no": "Gjør ikke noe",
+                  "nl": "Standby",
+                  "da": "Standby",
+                  "de": "Bereitschaft",
+                  "es": "En espera",
+                  "fr": "En attente",
+                  "it": "In attesa",
+                  "sv": "Standby",
+                  "pl": "Gotowość",
+                  "ru": "Ожидание",
+                  "ko": "대기"
                 }
               },
               {
                 "id": "Cleaning",
                 "title": {
                   "en": "Cleaning",
-                  "no": "Rengjør"
+                  "no": "Rengjør",
+                  "nl": "Schoonmaken",
+                  "da": "Renser",
+                  "de": "Reinigung",
+                  "es": "Limpieza",
+                  "fr": "Nettoyage",
+                  "it": "Pulizia",
+                  "sv": "Städning",
+                  "pl": "Sprzątanie",
+                  "ru": "Уборка",
+                  "ko": "청소 중"
                 }
               },
               {
                 "id": "Paused",
                 "title": {
                   "en": "Paused",
-                  "no": "Pauset"
+                  "no": "Pauset",
+                  "nl": "Gepauzeerd",
+                  "da": "Pauset",
+                  "de": "Pausiert",
+                  "es": "En pausa",
+                  "fr": "En pause",
+                  "it": "In pausa",
+                  "sv": "Pausad",
+                  "pl": "Wstrzymany",
+                  "ru": "Приостановлено",
+                  "ko": "일시 중지됨"
                 }
               },
               {
                 "id": "GotoChargeBase",
                 "title": {
                   "en": "Going to Charge Base",
-                  "no": "På vei til ladestasjon"
+                  "no": "På vei til ladestasjon",
+                  "nl": "Gaat naar oplaadbasis",
+                  "da": "Går til ladestation",
+                  "de": "Zur Ladestation unterwegs",
+                  "es": "Yendo a la base de carga",
+                  "fr": "Va à la base de chargement",
+                  "it": "Andando alla base di ricarica",
+                  "sv": "Går till laddningsbas",
+                  "pl": "Idzie do bazy ładującej",
+                  "ru": "Идет к зарядной базе",
+                  "ko": "충전소로 이동 중"
                 }
               },
               {
                 "id": "Charging",
                 "title": {
                   "en": "Charging",
-                  "no": "Lader"
+                  "no": "Lader",
+                  "nl": "Opladen",
+                  "da": "Opkrader",
+                  "de": "Laden",
+                  "es": "Cargando",
+                  "fr": "En charge",
+                  "it": "Caricamento",
+                  "sv": "Laddar",
+                  "pl": "Ładowanie",
+                  "ru": "Зарядка",
+                  "ko": "충전 중"
                 }
               },
               {
                 "id": "ChargeDone",
                 "title": {
                   "en": "Charging Finished",
-                  "no": "Lading ferdig"
+                  "no": "Lading ferdig",
+                  "nl": "Opladen voltooid",
+                  "da": "Opladning færdig",
+                  "de": "Laden abgeschlossen",
+                  "es": "Carga finalizada",
+                  "fr": "Chargement terminé",
+                  "it": "Ricarica completata",
+                  "sv": "Laddning klar",
+                  "pl": "Ładowanie zakończone",
+                  "ru": "Зарядка завершена",
+                  "ko": "충전 완료"
                 }
               },
               {
                 "id": "Dormant",
                 "title": {
                   "en": "Dormant",
-                  "no": "Sovende"
+                  "no": "Sovende",
+                  "nl": "Inactief",
+                  "da": "Dvaletilstand",
+                  "de": "Ruhend",
+                  "es": "En reposo",
+                  "fr": "En veille",
+                  "it": "Dormiente",
+                  "sv": "Vilande",
+                  "pl": "Uśpiony",
+                  "ru": "Спящий режим",
+                  "ko": "휴면 상태"
                 }
               },
               {
                 "id": "InTrouble",
                 "title": {
                   "en": "In Trouble",
-                  "no": "Står fast"
+                  "no": "Står fast",
+                  "nl": "In de problemen",
+                  "da": "I problemer",
+                  "de": "In Schwierigkeiten",
+                  "es": "Con problemas",
+                  "fr": "En difficulté",
+                  "it": "In difficoltà",
+                  "sv": "I trubbel",
+                  "pl": "Ma kłopoty",
+                  "ru": "В беде",
+                  "ko": "문제 발생"
                 }
               },
               {
                 "id": "InRemoteControl",
                 "title": {
                   "en": "Remote Controlled",
-                  "no": "Fjernkontrollert"
+                  "no": "Fjernkontrollert",
+                  "nl": "Op afstand bediend",
+                  "da": "Fjernstyret",
+                  "de": "Ferngesteuert",
+                  "es": "Controlado remotamente",
+                  "fr": "Télécommandé",
+                  "it": "Controllato a distanza",
+                  "sv": "Fjärrstyrd",
+                  "pl": "Sterowany zdalnie",
+                  "ru": "Дистанционное управление",
+                  "ko": "원격 제어됨"
                 }
               },
               {
                 "id": "InDustCollecting",
                 "title": {
                   "en": "Dust Collecting",
-                  "no": "Samler støv"
+                  "no": "Samler støv",
+                  "nl": "Stof aan het verzamelen",
+                  "da": "Støvsamler",
+                  "de": "Staubsammeln",
+                  "es": "Recolectando polvo",
+                  "fr": "Collecte de poussière",
+                  "it": "Raccolta della polvere",
+                  "sv": "Samlar damm",
+                  "pl": "Zbieranie kurzu",
+                  "ru": "Сбор пыли",
+                  "ko": "먼지 수집 중"
                 }
               }
             ]
@@ -730,7 +1689,17 @@
       {
         "title": {
           "en": "Decrease the brightness",
-          "no": "Senk lysstyrken"
+          "no": "Senk lysstyrken",
+          "nl": "Verlaag de helderheid",
+          "da": "Sænk lysstyrken",
+          "de": "Helligkeit reduzieren",
+          "es": "Disminuir el brillo",
+          "fr": "Diminuer la luminosité",
+          "it": "Riduci la luminosità",
+          "sv": "Minska ljusstyrkan",
+          "pl": "Zmniejsz jasność",
+          "ru": "Уменьшить яркость",
+          "ko": "밝기 낮추기"
         },
         "args": [
           {
@@ -748,7 +1717,17 @@
       {
         "title": {
           "en": "Increase the brightness",
-          "no": "Øk lysstyrken"
+          "no": "Øk lysstyrken",
+          "nl": "Verhoog de helderheid",
+          "da": "Øg lysstyrken",
+          "de": "Erhöhe die Helligkeit",
+          "es": "Aumentar el brillo",
+          "fr": "Augmenter la luminosité",
+          "it": "Aumenta la luminosità",
+          "sv": "Öka ljusstyrkan",
+          "pl": "Zwiększ jasność",
+          "ru": "Увеличьте яркость",
+          "ko": "밝기 증가"
         },
         "args": [
           {
@@ -766,7 +1745,17 @@
       {
         "title": {
           "en": "Dock",
-          "no": "Dokk"
+          "no": "Dokk",
+          "nl": "Dock",
+          "da": "Dock",
+          "de": "Dock",
+          "es": "Dock",
+          "fr": "Dock",
+          "it": "Dock",
+          "sv": "Dock",
+          "pl": "Dock",
+          "ru": "Dock",
+          "ko": "Dock"
         },
         "args": [
           {
@@ -784,7 +1773,17 @@
       {
         "title": {
           "en": "Set to high speed",
-          "no": "Sett til høy fart"
+          "no": "Sett til høy fart",
+          "nl": "Zet op hoge snelheid",
+          "da": "Sæt til høj hastighed",
+          "de": "Auf hohe Geschwindigkeit einstellen",
+          "es": "Ajustar a alta velocidad",
+          "fr": "Régler à haute vitesse",
+          "it": "Impostare ad alta velocità",
+          "sv": "Ställ in på hög hastighet",
+          "pl": "Ustaw na wysoką prędkość",
+          "ru": "Установить на высокую скорость",
+          "ko": "고속으로 설정"
         },
         "args": [
           {
@@ -802,7 +1801,17 @@
       {
         "title": {
           "en": "Set to low speed",
-          "no": "Sett til lav fart"
+          "no": "Sett til lav fart",
+          "nl": "Zet op lage snelheid",
+          "da": "Indstil til lav hastighed",
+          "de": "Auf niedrige Geschwindigkeit einstellen",
+          "es": "Establecer a baja velocidad",
+          "fr": "Réglez sur basse vitesse",
+          "it": "Imposta a bassa velocità",
+          "sv": "Ställ in låg hastighet",
+          "pl": "Ustaw na niską prędkość",
+          "ru": "Установить на низкую скорость",
+          "ko": "저속으로 설정"
         },
         "args": [
           {
@@ -820,7 +1829,17 @@
       {
         "title": {
           "en": "Set to medium speed",
-          "no": "Sett til middels fart"
+          "no": "Sett til middels fart",
+          "nl": "Zet op gemiddelde snelheid",
+          "da": "Indstil til mellemhastighed",
+          "de": "Auf mittlere Geschwindigkeit einstellen",
+          "es": "Configurar a velocidad media",
+          "fr": "Réglez à vitesse moyenne",
+          "it": "Imposta a velocità media",
+          "sv": "Ställ in på medelhastighet",
+          "pl": "Ustaw na średnią prędkość",
+          "ru": "Установить на среднюю скорость",
+          "ko": "중간 속도로 설정"
         },
         "args": [
           {
@@ -838,7 +1857,17 @@
       {
         "title": {
           "en": "Toggle swing mode",
-          "no": "Skru av/på svingmodus"
+          "no": "Skru av/på svingmodus",
+          "nl": "Zet de swingmodus aan/uit",
+          "da": "Skift svingtilstand",
+          "de": "Schwenkmodus umschalten",
+          "es": "Alternar modo oscilación",
+          "fr": "Activer/désactiver le mode oscillation",
+          "it": "Attiva/disattiva modalità oscillazione",
+          "sv": "Aktivera/inaktivera svängläge",
+          "pl": "Przełącz tryb wachlowania",
+          "ru": "Переключить режим качания",
+          "ko": "스윙 모드 전환"
         },
         "args": [
           {
@@ -856,7 +1885,17 @@
       {
         "title": {
           "en": "Fast forward",
-          "no": "Hopp forbi"
+          "no": "Hopp forbi",
+          "nl": "Snel vooruit",
+          "da": "Spol frem",
+          "de": "Vorspulen",
+          "es": "Avance rápido",
+          "fr": "Avance rapide",
+          "it": "Avanti veloce",
+          "sv": "Spola framåt",
+          "pl": "Przewiń do przodu",
+          "ru": "Перемотать вперед",
+          "ko": "빨리 감기"
         },
         "args": [
           {
@@ -874,7 +1913,17 @@
       {
         "title": {
           "en": "Toggle Mute",
-          "no": "Skru av/på lyd"
+          "no": "Skru av/på lyd",
+          "nl": "Geluid aan/uit",
+          "da": "Slå lyd fra/til",
+          "de": "Stummschaltung umschalten",
+          "es": "Silencio activado/desactivado",
+          "fr": "Activer/désactiver le son",
+          "it": "Attiva/disattiva audio",
+          "sv": "Växla tyst läge",
+          "pl": "Przełącz wyciszenie",
+          "ru": "Переключить звук",
+          "ko": "음소거 전환"
         },
         "args": [
           {
@@ -892,7 +1941,17 @@
       {
         "title": {
           "en": "Next",
-          "no": "Neste"
+          "no": "Neste",
+          "nl": "Volgende",
+          "da": "Næste",
+          "de": "Nächste",
+          "es": "Siguiente",
+          "fr": "Suivant",
+          "it": "Prossimo",
+          "sv": "Nästa",
+          "pl": "Następny",
+          "ru": "Следующий",
+          "ko": "다음"
         },
         "args": [
           {
@@ -910,7 +1969,17 @@
       {
         "title": {
           "en": "Turn Off",
-          "no": "Skru av"
+          "no": "Skru av",
+          "nl": "Uitzetten",
+          "da": "Sluk",
+          "de": "Ausschalten",
+          "es": "Apagar",
+          "fr": "Éteindre",
+          "it": "Spegnere",
+          "sv": "Stäng av",
+          "pl": "Wyłącz",
+          "ru": "Выключить",
+          "ko": "끄다"
         },
         "args": [
           {
@@ -928,7 +1997,17 @@
       {
         "title": {
           "en": "Turn On",
-          "no": "Skru på"
+          "no": "Skru på",
+          "nl": "Zet aan",
+          "da": "Tænd",
+          "de": "Einschalten",
+          "es": "Encender",
+          "fr": "Allumer",
+          "it": "Accendi",
+          "sv": "Slå på",
+          "pl": "Włącz",
+          "ru": "Включить",
+          "ko": "켜기"
         },
         "args": [
           {
@@ -946,7 +2025,17 @@
       {
         "title": {
           "en": "Pause",
-          "no": "Pause"
+          "no": "Pause",
+          "nl": "Pauze",
+          "da": "Pause",
+          "de": "Pause",
+          "es": "Pausa",
+          "fr": "Pause",
+          "it": "Pausa",
+          "sv": "Paus",
+          "pl": "Pauza",
+          "ru": "Пауза",
+          "ko": "일시 중지"
         },
         "args": [
           {
@@ -964,7 +2053,17 @@
       {
         "title": {
           "en": "Play",
-          "no": "Spill"
+          "no": "Spill",
+          "nl": "Spelen",
+          "da": "Spil",
+          "de": "Abspielen",
+          "es": "Jugar",
+          "fr": "Jouer",
+          "it": "Riprodurre",
+          "sv": "Spela",
+          "pl": "Graj",
+          "ru": "Играть",
+          "ko": "재생"
         },
         "args": [
           {
@@ -982,7 +2081,17 @@
       {
         "title": {
           "en": "Previous",
-          "no": "Forrige"
+          "no": "Forrige",
+          "nl": "Vorige",
+          "da": "Forrige",
+          "de": "Vorherige",
+          "es": "Anterior",
+          "fr": "Précédent",
+          "it": "Precedente",
+          "sv": "Föregående",
+          "pl": "Poprzedni",
+          "ru": "Предыдущий",
+          "ko": "이전"
         },
         "args": [
           {
@@ -1000,7 +2109,17 @@
       {
         "title": {
           "en": "Rewind",
-          "no": "Spol tilbake"
+          "no": "Spol tilbake",
+          "nl": "Terugspoelen",
+          "da": "Spol tilbage",
+          "de": "Zurückspulen",
+          "es": "Rebobinar",
+          "fr": "Rembobiner",
+          "it": "Riavvolgi",
+          "sv": "Spola tillbaka",
+          "pl": "Przewiń",
+          "ru": "Перемотать назад",
+          "ko": "되감기"
         },
         "args": [
           {
@@ -1018,15 +2137,45 @@
       {
         "title": {
           "en": "Run a Scene",
-          "no": "Kjør en scene"
+          "no": "Kjør en scene",
+          "nl": "Voer een scene uit",
+          "da": "Kør en scene",
+          "de": "Eine Szene ausführen",
+          "es": "Ejecutar una escena",
+          "fr": "Lancer une scène",
+          "it": "Esegui una scena",
+          "sv": "Kör en scen",
+          "pl": "Uruchom scenę",
+          "ru": "Запустить сцену",
+          "ko": "장면 실행"
         },
         "titleFormatted": {
           "en": "Run the '[[scene]]' scene",
-          "no": "Kjør scenen [[scene]]"
+          "no": "Kjør scenen [[scene]]",
+          "nl": "Voer de '[[scene]]' scene uit",
+          "da": "Kør '[[scene]]' scenen",
+          "de": "Führe die '[[scene]]'-Szene aus",
+          "es": "Ejecuta la escena '[[scene]]'",
+          "fr": "Lancez la scène '[[scene]]'",
+          "it": "Esegui la scena '[[scene]]'",
+          "sv": "Kör scenen '[[scene]]'",
+          "pl": "Uruchom scenę '[[scene]]'",
+          "ru": "Запустить сцену '[[scene]]'",
+          "ko": "'[[scene]]' 장면 실행"
         },
         "hint": {
           "en": "Run a SwitchBot scene",
-          "no": "Kjør en SwitchBot-scene"
+          "no": "Kjør en SwitchBot-scene",
+          "nl": "Voer een SwitchBot-scene uit",
+          "da": "Kør en SwitchBot-scene",
+          "de": "Führe eine SwitchBot-Szene aus",
+          "es": "Ejecuta una escena de SwitchBot",
+          "fr": "Lancez une scène SwitchBot",
+          "it": "Esegui una scena SwitchBot",
+          "sv": "Kör en SwitchBot-scen",
+          "pl": "Uruchom scenę SwitchBot",
+          "ru": "Запустите сцену SwitchBot",
+          "ko": "SwitchBot 장면 실행"
         },
         "args": [
           {
@@ -1034,11 +2183,31 @@
             "name": "scene",
             "title": {
               "en": "Scene Name",
-              "no": "Scenenavn"
+              "no": "Scenenavn",
+              "nl": "Scenenaam",
+              "da": "Scenenavn",
+              "de": "Szenenname",
+              "es": "Nombre de la escena",
+              "fr": "Nom de la scène",
+              "it": "Nome della scena",
+              "sv": "Scennamn",
+              "pl": "Nazwa sceny",
+              "ru": "Название сцены",
+              "ko": "장면 이름"
             },
             "placeholder": {
               "en": "Scene Name",
-              "no": "Scenenavn"
+              "no": "Scenenavn",
+              "nl": "Scenenaam",
+              "da": "Scenenavn",
+              "de": "Szenenname",
+              "es": "Nombre de la escena",
+              "fr": "Nom de la scène",
+              "it": "Nome della scena",
+              "sv": "Scennamn",
+              "pl": "Nazwa sceny",
+              "ru": "Название сцены",
+              "ko": "장면 이름"
             }
           }
         ],
@@ -1051,15 +2220,45 @@
       {
         "title": {
           "en": "Set the channel",
-          "no": "Sett kanal"
+          "no": "Sett kanal",
+          "nl": "Stel het kanaal in",
+          "da": "Indstil kanalen",
+          "de": "Stelle den Kanal ein",
+          "es": "Configure el canal",
+          "fr": "Définir le canal",
+          "it": "Imposta il canale",
+          "sv": "Ställ in kanalen",
+          "pl": "Ustaw kanał",
+          "ru": "Установить канал",
+          "ko": "채널 설정"
         },
         "titleFormatted": {
           "en": "Set the channel to '[[channel_number]]'",
-          "no": "Sett kanal til [[channel_number]]"
+          "no": "Sett kanal til [[channel_number]]",
+          "nl": "Stel het kanaal in op '[[channel_number]]'",
+          "da": "Indstil kanalen til '[[channel_number]]'",
+          "de": "Stelle den Kanal auf '[[channel_number]]' ein",
+          "es": "Configure el canal a '[[channel_number]]'",
+          "fr": "Définir le canal sur '[[channel_number]]'",
+          "it": "Imposta il canale su '[[channel_number]]'",
+          "sv": "Ställ in kanalen till '[[channel_number]]'",
+          "pl": "Ustaw kanał na '[[channel_number]]'",
+          "ru": "Установить канал на '[[channel_number]]'",
+          "ko": "'[[channel_number]]'번 채널로 설정"
         },
         "hint": {
           "en": "Set the channel number",
-          "no": "Sett kanalnummer"
+          "no": "Sett kanalnummer",
+          "nl": "Stel het kanaalnummer in",
+          "da": "Indstil kanalnummeret",
+          "de": "Stelle die Kanalnummer ein",
+          "es": "Configura el número de canal",
+          "fr": "Définir le numéro du canal",
+          "it": "Imposta il numero del canale",
+          "sv": "Ställ in kanalnumret",
+          "pl": "Ustaw numer kanału",
+          "ru": "Установите номер канала",
+          "ko": "채널 번호 설정"
         },
         "args": [
           {
@@ -1072,11 +2271,31 @@
             "name": "channel_number",
             "title": {
               "en": "Channel number",
-              "no": "Kanalnummer"
+              "no": "Kanalnummer",
+              "nl": "Kanaalnummer",
+              "da": "Kanalnummer",
+              "de": "Kanalnummer",
+              "es": "Número de canal",
+              "fr": "Numéro de canal",
+              "it": "Numero del canale",
+              "sv": "Kanalnummer",
+              "pl": "Numer kanału",
+              "ru": "Номер канала",
+              "ko": "채널 번호"
             },
             "placeholder": {
               "en": "Channel Number",
-              "no": "Kanalnummer"
+              "no": "Kanalnummer",
+              "nl": "Kanaalnummer",
+              "da": "Kanalnummer",
+              "de": "Kanalnummer",
+              "es": "Número de Canal",
+              "fr": "Numéro de canal",
+              "it": "Numero del canale",
+              "sv": "Kanalnummer",
+              "pl": "Numer kanału",
+              "ru": "Номер канала",
+              "ko": "채널 번호"
             }
           }
         ],
@@ -1092,15 +2311,45 @@
       {
         "title": {
           "en": "Set the vacuum power level",
-          "no": "Sett opp støvsuger styrken"
+          "no": "Sett opp støvsuger styrken",
+          "nl": "Stel het stofzuigerniveau in",
+          "da": "Indstil støvsugerens effektniveau",
+          "de": "Stellen Sie die Saugleistung ein",
+          "es": "Ajustar el nivel de potencia del aspirador",
+          "fr": "Régler le niveau de puissance de l'aspirateur",
+          "it": "Imposta il livello di potenza dell'aspirapolvere",
+          "sv": "Ställ in sugkraftsnivån",
+          "pl": "Ustaw poziom mocy odkurzacza",
+          "ru": "Установите уровень мощности пылесоса",
+          "ko": "진공기 세기 설정"
         },
         "titleFormatted": {
           "en": "Set the power level to [[power]]",
-          "no": "Sett støvsuger styrken til [[power]]"
+          "no": "Sett støvsuger styrken til [[power]]",
+          "nl": "Stel het vermogen in op [[power]]",
+          "da": "Indstil effektniveauet til [[power]]",
+          "de": "Stellen Sie die Leistung auf [[power]] ein",
+          "es": "Ajustar el nivel de potencia a [[power]]",
+          "fr": "Régler le niveau de puissance à [[power]]",
+          "it": "Imposta il livello di potenza a [[power]]",
+          "sv": "Ställ in kraftnivån till [[power]]",
+          "pl": "Ustaw poziom mocy na [[power]]",
+          "ru": "Установите уровень мощности на [[power]]",
+          "ko": "세기를 [[power]]로 설정"
         },
         "hint": {
           "en": "Change the power level of the vacuum",
-          "no": "Endre støvsuger styrken"
+          "no": "Endre støvsuger styrken",
+          "nl": "Wijzig het vermogen van de stofzuiger",
+          "da": "Skift effektniveauet på støvsugeren",
+          "de": "Ändern Sie die Saugleistung des Staubsaugers",
+          "es": "Cambia el nivel de potencia del aspirador",
+          "fr": "Changer le niveau de puissance de l'aspirateur",
+          "it": "Cambia il livello di potenza dell'aspirapolvere",
+          "sv": "Ändra sugkraftsnivån på dammsugaren",
+          "pl": "Zmień poziom mocy odkurzacza",
+          "ru": "Измените уровень мощности пылесоса",
+          "ko": "진공기 세기를 변경"
         },
         "args": [
           {
@@ -1113,35 +2362,85 @@
             "type": "dropdown",
             "title": {
               "en": "Power Level",
-              "no": "Styrkenivå"
+              "no": "Styrkenivå",
+              "nl": "Vermogensniveau",
+              "da": "Effektniveau",
+              "de": "Leistungsstufe",
+              "es": "Nivel de Potencia",
+              "fr": "Niveau de Puissance",
+              "it": "Livello di potenza",
+              "sv": "Kraftnivå",
+              "pl": "Poziom mocy",
+              "ru": "Уровень мощности",
+              "ko": "전력 수준"
             },
             "values": [
               {
                 "id": "0",
                 "label": {
                   "en": "Quiet",
-                  "no": "Stille"
+                  "no": "Stille",
+                  "nl": "Stil",
+                  "da": "Stille",
+                  "de": "Leise",
+                  "es": "Silencioso",
+                  "fr": "Silencieux",
+                  "it": "Silenzioso",
+                  "sv": "Tyst",
+                  "pl": "Cichy",
+                  "ru": "Тихий",
+                  "ko": "조용히"
                 }
               },
               {
                 "id": "1",
                 "label": {
                   "en": "Normal",
-                  "no": "Normal"
+                  "no": "Normal",
+                  "nl": "Normaal",
+                  "da": "Normal",
+                  "de": "Normal",
+                  "es": "Normal",
+                  "fr": "Normal",
+                  "it": "Normale",
+                  "sv": "Normal",
+                  "pl": "Normalny",
+                  "ru": "Нормальный",
+                  "ko": "보통"
                 }
               },
               {
                 "id": "2",
                 "label": {
                   "en": "Strong",
-                  "no": "Kraftig"
+                  "no": "Kraftig",
+                  "nl": "Sterk",
+                  "da": "Stærk",
+                  "de": "Stark",
+                  "es": "Fuerte",
+                  "fr": "Fort",
+                  "it": "Forte",
+                  "sv": "Stark",
+                  "pl": "Silny",
+                  "ru": "Сильный",
+                  "ko": "강하다"
                 }
               },
               {
                 "id": "3",
                 "label": {
                   "en": "Maximum",
-                  "no": "Maksimal"
+                  "no": "Maksimal",
+                  "nl": "Maximaal",
+                  "da": "Maksimal",
+                  "de": "Maximal",
+                  "es": "Máximo",
+                  "fr": "Maximum",
+                  "it": "Massimo",
+                  "sv": "Maximal",
+                  "pl": "Maksymalny",
+                  "ru": "Максимальный",
+                  "ko": "최대한"
                 }
               }
             ]
@@ -1152,7 +2451,17 @@
       {
         "title": {
           "en": "Start",
-          "no": "Start"
+          "no": "Start",
+          "nl": "Start",
+          "da": "Start",
+          "de": "Start",
+          "es": "Iniciar",
+          "fr": "Démarrer",
+          "it": "Inizia",
+          "sv": "Starta",
+          "pl": "Start",
+          "ru": "Начать",
+          "ko": "시작"
         },
         "args": [
           {
@@ -1170,7 +2479,17 @@
       {
         "title": {
           "en": "Stop",
-          "no": "Stopp"
+          "no": "Stopp",
+          "nl": "Stop",
+          "da": "Stop",
+          "de": "Stopp",
+          "es": "Detener",
+          "fr": "Arrêter",
+          "it": "Ferma",
+          "sv": "Stoppa",
+          "pl": "Stop",
+          "ru": "Стоп",
+          "ko": "정지"
         },
         "args": [
           {
@@ -1184,6 +2503,136 @@
           "cloud"
         ],
         "id": "stop"
+      },
+      {
+        "id": "windowcoverings_custom_set",
+        "title": {
+          "en": "Set the position at selected spreed",
+          "nl": "Zet de positie op geselecteerde snelheid",
+          "da": "Indstil positionen ved valgt hastighed",
+          "de": "Stellen Sie die Position bei ausgewählter Geschwindigkeit ein",
+          "es": "Establecer la posición a la velocidad seleccionada",
+          "fr": "Définir la position à la vitesse sélectionnée",
+          "it": "Imposta la posizione alla velocità selezionata",
+          "no": "Sett posisjonen ved valgt hastighet",
+          "sv": "Ställ in positionen vid vald hastighet",
+          "pl": "Ustaw pozycję przy wybranej prędkości",
+          "ru": "Установите положение на выбранной скорости",
+          "ko": "선택한 속도로 위치 설정"
+        },
+        "titleFormatted": {
+          "en": "Set the position to [[percentage]] at [[speed]] speed",
+          "nl": "Zet de positie op [[percentage]] bij [[speed]] snelheid",
+          "da": "Indstil positionen til [[percentage]] ved [[speed]] hastighed",
+          "de": "Stellen Sie die Position auf [[percentage]] bei [[speed]] Geschwindigkeit ein",
+          "es": "Establezca la posición en [[percentage]] a la velocidad de [[speed]]",
+          "fr": "Réglez la position sur [[percentage]] à la vitesse de [[speed]]",
+          "it": "Imposta la posizione su [[percentage]] alla velocità di [[speed]]",
+          "no": "Sett posisjonen til [[percentage]] ved [[speed]] hastighet",
+          "sv": "Ställ in positionen till [[percentage]] vid hastigheten [[speed]]",
+          "pl": "Ustaw pozycję na [[percentage]] przy prędkości [[speed]]",
+          "ru": "Установите положение на [[percentage]] при скорости [[speed]]",
+          "ko": "[[speed]] 속도로 [[percentage]] 위치를 설정하세요"
+        },
+        "hint": {
+          "en": "Change the position to open (100%), closed (0%), or a value in betwee at the selected speed.",
+          "nl": "Verander de positie naar open (100%), gesloten (0%), of een waarde daar tussenin op de geselecteerde snelheid.",
+          "da": "Skift positionen til åben (100%), lukket (0%) eller en værdi derimellem ved den valgte hastighed.",
+          "de": "Ändern Sie die Position auf offen (100%), geschlossen (0%) oder einen Wert dazwischen bei der ausgewählten Geschwindigkeit.",
+          "es": "Cambie la posición a abierto (100%), cerrado (0%) o un valor intermedio a la velocidad seleccionada.",
+          "fr": "Changez la position pour ouverte (100 %), fermée (0 %) ou une valeur intermédiaire à la vitesse sélectionnée.",
+          "it": "Modifica la posizione in aperta (100%), chiusa (0%) o un valore intermedio alla velocità selezionata.",
+          "no": "Endre posisjonen til åpen (100%), lukket (0%) eller en verdi mellom ved valgt hastighet.",
+          "sv": "Ändra positionen till öppen (100%), stängd (0%) eller ett värde däremellan vid vald hastighet.",
+          "pl": "Zmień pozycję na otwartą (100%), zamkniętą (0%) lub wartość pośrednią przy wybranej prędkości.",
+          "ru": "Измените положение на открытое (100%), закрытое (0%) или промежуточное значение на выбранной скорости.",
+          "ko": "위치를 완전히 열림(100%), 닫힘(0%) 또는 선택한 속도에서 중간 값으로 변경하세요."
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=curtains_ble|curtains_hub"
+          },
+          {
+            "name": "percentage",
+            "title": {
+              "en": "Position",
+              "nl": "Positie",
+              "da": "Position",
+              "de": "Position",
+              "es": "Posición",
+              "fr": "Position",
+              "it": "Posizione",
+              "no": "Posisjon",
+              "sv": "Position",
+              "pl": "Pozycja",
+              "ru": "Позиция",
+              "ko": "위치"
+            },
+            "type": "range",
+            "min": 0,
+            "max": 1,
+            "step": 0.01,
+            "value": 0.5,
+            "label": "%",
+            "labelMultiplier": 100,
+            "labelDecimals": 0
+          },
+          {
+            "name": "speed",
+            "title": {
+              "en": "Speed",
+              "nl": "Snelheid",
+              "da": "Hastighed",
+              "de": "Geschwindigkeit",
+              "es": "Velocidad",
+              "fr": "Vitesse",
+              "it": "Velocità",
+              "no": "Hastighet",
+              "sv": "Hastighet",
+              "pl": "Prędkość",
+              "ru": "Скорость",
+              "ko": "속도"
+            },
+            "type": "dropdown",
+            "value": "fast",
+            "values": [
+              {
+                "id": "fast",
+                "title": {
+                  "en": "Performance",
+                  "no": "Ytelse",
+                  "da": "Ydelse",
+                  "de": "Leistung",
+                  "es": "Rendimiento",
+                  "fr": "Performance",
+                  "it": "Prestazioni",
+                  "sv": "Prestanda",
+                  "pl": "Wydajność",
+                  "ru": "Производительность",
+                  "ko": "성능"
+                }
+              },
+              {
+                "id": "slow",
+                "title": {
+                  "en": "Silent",
+                  "no": "Stille",
+                  "da": "Stille",
+                  "de": "Leise",
+                  "es": "Silencioso",
+                  "fr": "Silencieux",
+                  "it": "Silenzioso",
+                  "sv": "Tyst",
+                  "pl": "Cichy",
+                  "ru": "Тихо",
+                  "ko": "조용히"
+                }
+              }
+            ]
+          }
+        ]
       },
       {
         "highlight": true,
@@ -1202,11 +2651,31 @@
         },
         "titleFormatted": {
           "en": "Set tilt position to [[windowcoverings_tilt_set]]",
-          "no": "Sett posisjonen til [[windowcoverings_tilt_set]]"
+          "no": "Sett posisjonen til [[windowcoverings_tilt_set]]",
+          "nl": "Zet de hellingspositie op [[windowcoverings_tilt_set]]",
+          "da": "Indstil vippepositionen til [[windowcoverings_tilt_set]]",
+          "de": "Setze die Neigungsposition auf [[windowcoverings_tilt_set]]",
+          "es": "Configura la posición de inclinación a [[windowcoverings_tilt_set]]",
+          "fr": "Mettre la position d'inclinaison sur [[windowcoverings_tilt_set]]",
+          "it": "Imposta la posizione di inclinazione su [[windowcoverings_tilt_set]]",
+          "sv": "Ställ in lutningspositionen till [[windowcoverings_tilt_set]]",
+          "pl": "Ustaw pozycję nachylenia na [[windowcoverings_tilt_set]]",
+          "ru": "Установите положение наклона на [[windowcoverings_tilt_set]]",
+          "ko": "[[windowcoverings_tilt_set]]로 기울기 위치 설정"
         },
         "hint": {
           "en": "Change the position to tilt up (100%), open (50%), tilt down (0%), or a value in between.",
-          "no": "Endre posisjonen til tilt opp (100%), åpen (50%), tilt ned (0%), eller en verdi i mellom."
+          "no": "Endre posisjonen til tilt opp (100%), åpen (50%), tilt ned (0%), eller en verdi i mellom.",
+          "nl": "Verander de positie naar omhoog kantelen (100%), open (50%), omlaag kantelen (0%), of een waarde daartussenin.",
+          "da": "Skift positionen til tilt op (100%), åben (50%), tilt ned (0%), eller en værdi derimellem.",
+          "de": "Ändere die Position auf nach oben kippen (100%), offen (50%), nach unten kippen (0%) oder einen Wert dazwischen.",
+          "es": "Cambia la posición a inclinación arriba (100%), abierto (50%), inclinación abajo (0%), o un valor intermedio.",
+          "fr": "Changez la position pour incliner vers le haut (100%), ouvert (50%), incliner vers le bas (0%) ou une valeur entre les deux.",
+          "it": "Cambia la posizione per inclinare verso l'alto (100%), aprire (50%), inclinare verso il basso (0%) o un valore intermedio.",
+          "sv": "Ändra positionen till att luta uppåt (100%), öppet (50%), luta nedåt (0%), eller ett värde däremellan.",
+          "pl": "Zmień pozycję na nachylenie w górę (100%), otwarte (50%), nachylenie w dół (0%) lub wartość pośrednią.",
+          "ru": "Измените положение на наклон вверх (100%), открыто (50%), наклон вниз (0%) или значение между ними.",
+          "ko": "위로 기울이기 (100%), 열기 (50%), 아래로 기울이기 (0%) 또는 그 사이 값으로 위치를 변경하십시오."
         },
         "args": [
           {
@@ -1219,7 +2688,17 @@
             "type": "range",
             "title": {
               "en": "Position",
-              "no": "Posisjon"
+              "no": "Posisjon",
+              "nl": "Positie",
+              "da": "Position",
+              "de": "Position",
+              "es": "Posición",
+              "fr": "Position",
+              "it": "Posizione",
+              "sv": "Position",
+              "pl": "Pozycja",
+              "ru": "Позиция",
+              "ko": "위치"
             },
             "min": 0,
             "max": 1,
@@ -1236,11 +2715,31 @@
         "id": "operate_aircon",
         "title": {
           "en": "Operate air conditioner",
-          "no": "Styre varmepumpen"
+          "no": "Styre varmepumpen",
+          "nl": "Airconditioner bedienen",
+          "da": "Betjene aircondition",
+          "de": "Klimaanlage bedienen",
+          "es": "Operar aire acondicionado",
+          "fr": "Utiliser le climatiseur",
+          "it": "Comanda condizionatore",
+          "sv": "Styr luftkonditioneringen",
+          "pl": "Obsługa klimatyzatora",
+          "ru": "Управление кондиционером",
+          "ko": "에어컨 작동"
         },
         "titleFormatted": {
           "en": "Switch Air conditioner [[onoff]], Mode is [[aircon_mode]] at [[target_temperature]] with the fan on [[aircon_fan_speed]]",
-          "no": "Skru varmepumpe [[onoff]], modus er [[aircon_mode]] ved [[target_temperature]] med viften på [[aircon_fan_speed]]"
+          "no": "Skru varmepumpe [[onoff]], modus er [[aircon_mode]] ved [[target_temperature]] med viften på [[aircon_fan_speed]]",
+          "nl": "Zet de airconditioner [[onoff]], modus is [[aircon_mode]] bij [[target_temperature]] met de ventilator op [[aircon_fan_speed]]",
+          "da": "Skift aircondition [[onoff]], mode er [[aircon_mode]] ved [[target_temperature]] med ventilatoren på [[aircon_fan_speed]]",
+          "de": "Schalten Sie die Klimaanlage [[onoff]], Modus ist [[aircon_mode]] bei [[target_temperature]] mit dem Ventilator auf [[aircon_fan_speed]]",
+          "es": "Apaga/enciende el aire acondicionado [[onoff]], el modo es [[aircon_mode]] a [[target_temperature]] con el ventilador en [[aircon_fan_speed]]",
+          "fr": "Allumez/éteignez le climatiseur [[onoff]], le mode est [[aircon_mode]] à [[target_temperature]] avec le ventilateur sur [[aircon_fan_speed]]",
+          "it": "Accendi/spegni il condizionatore [[onoff]], la modalità è [[aircon_mode]] a [[target_temperature]] con la ventola su [[aircon_fan_speed]]",
+          "sv": "Sätt på/stäng av luftkonditioneringen [[onoff]], läge [[aircon_mode]] vid [[target_temperature]] med fläkten på [[aircon_fan_speed]]",
+          "pl": "Włącz/wyłącz klimatyzator [[onoff]], tryb to [[aircon_mode]], temperatura: [[target_temperature]], prędkość wentylatora: [[aircon_fan_speed]]",
+          "ru": "Включите/выключите кондиционер [[onoff]], режим - [[aircon_mode]], температура - [[target_temperature]], скорость вентилятора - [[aircon_fan_speed]]",
+          "ko": "에어컨 켜기/끄기 [[onoff]], 모드 [[aircon_mode]], 온도 [[target_temperature]] 팬 속도 [[aircon_fan_speed]]"
         },
         "platforms": [
           "local",
@@ -1257,21 +2756,51 @@
             "type": "dropdown",
             "title": {
               "en": "Power",
-              "no": "Strøm"
+              "no": "Strøm",
+              "nl": "Stroom",
+              "da": "Strøm",
+              "de": "Strom",
+              "es": "Poder",
+              "fr": "Puissance",
+              "it": "Energia",
+              "sv": "Ström",
+              "pl": "Zasilanie",
+              "ru": "Мощность",
+              "ko": "전원"
             },
             "values": [
               {
                 "id": "on",
                 "title": {
                   "en": "On",
-                  "no": "På"
+                  "no": "På",
+                  "nl": "Aan",
+                  "da": "Tændt",
+                  "de": "An",
+                  "es": "Encendido",
+                  "fr": "Allumé",
+                  "it": "Acceso",
+                  "sv": "På",
+                  "pl": "Włączony",
+                  "ru": "Вкл.",
+                  "ko": "켜기"
                 }
               },
               {
                 "id": "off",
                 "title": {
                   "en": "Off",
-                  "no": "Av"
+                  "no": "Av",
+                  "nl": "Uit",
+                  "da": "Slukket",
+                  "de": "Aus",
+                  "es": "Apagado",
+                  "fr": "Éteint",
+                  "it": "Spento",
+                  "sv": "Av",
+                  "pl": "Wyłączony",
+                  "ru": "Выкл.",
+                  "ko": "끄기"
                 }
               }
             ]
@@ -1281,42 +2810,102 @@
             "type": "dropdown",
             "title": {
               "en": "Mode",
-              "no": "Modus"
+              "no": "Modus",
+              "nl": "Modus",
+              "da": "Tilstand",
+              "de": "Modus",
+              "es": "Modo",
+              "fr": "Mode",
+              "it": "Modalità",
+              "sv": "Läge",
+              "pl": "Tryb",
+              "ru": "Режим",
+              "ko": "모드"
             },
             "values": [
               {
                 "id": "1",
                 "title": {
                   "en": "Auto",
-                  "no": "Auto"
+                  "no": "Auto",
+                  "nl": "Auto",
+                  "da": "Auto",
+                  "de": "Auto",
+                  "es": "Auto",
+                  "fr": "Auto",
+                  "it": "Auto",
+                  "sv": "Auto",
+                  "pl": "Auto",
+                  "ru": "Авто",
+                  "ko": "자동"
                 }
               },
               {
                 "id": "2",
                 "title": {
                   "en": "Cool",
-                  "no": "Kjøle"
+                  "no": "Kjøle",
+                  "nl": "Koel",
+                  "da": "Køl",
+                  "de": "Kühlen",
+                  "es": "Fresco",
+                  "fr": "Frais",
+                  "it": "Raffreddare",
+                  "sv": "Kyl",
+                  "pl": "Chłodzić",
+                  "ru": "Охлаждение",
+                  "ko": "냉방"
                 }
               },
               {
                 "id": "3",
                 "title": {
                   "en": "Dry",
-                  "no": "Tørke"
+                  "no": "Tørke",
+                  "nl": "Droog",
+                  "da": "Tør",
+                  "de": "Trocken",
+                  "es": "Secar",
+                  "fr": "Sécher",
+                  "it": "Asciugare",
+                  "sv": "Torr",
+                  "pl": "Suszyć",
+                  "ru": "Сушить",
+                  "ko": "건조"
                 }
               },
               {
                 "id": "4",
                 "title": {
                   "en": "Fan",
-                  "no": "Vifte"
+                  "no": "Vifte",
+                  "nl": "Ventilator",
+                  "da": "Blæser",
+                  "de": "Lüfter",
+                  "es": "Ventilador",
+                  "fr": "Ventilateur",
+                  "it": "Ventilatore",
+                  "sv": "Fläkt",
+                  "pl": "Wentylator",
+                  "ru": "Вентилятор",
+                  "ko": "팬"
                 }
               },
               {
                 "id": "5",
                 "title": {
                   "en": "Heat",
-                  "no": "Varme"
+                  "no": "Varme",
+                  "nl": "Warmte",
+                  "da": "Varme",
+                  "de": "Heizen",
+                  "es": "Calor",
+                  "fr": "Chaleur",
+                  "it": "Riscaldare",
+                  "sv": "Värme",
+                  "pl": "Ogrzewać",
+                  "ru": "Тепло",
+                  "ko": "난방"
                 }
               }
             ]
@@ -1325,7 +2914,17 @@
             "name": "target_temperature",
             "title": {
               "en": "Temperature",
-              "no": "Temperatur"
+              "no": "Temperatur",
+              "nl": "Temperatuur",
+              "da": "Temperatur",
+              "de": "Temperatur",
+              "es": "Temperatura",
+              "fr": "Température",
+              "it": "Temperatura",
+              "sv": "Temperatur",
+              "pl": "Temperatura",
+              "ru": "Температура",
+              "ko": "온도"
             },
             "type": "range",
             "min": 5,
@@ -1338,7 +2937,17 @@
             "name": "aircon_fan_speed",
             "title": {
               "en": "Speed",
-              "no": "Hastighet"
+              "no": "Hastighet",
+              "nl": "Snelheid",
+              "da": "Hastighed",
+              "de": "Geschwindigkeit",
+              "es": "Velocidad",
+              "fr": "Vitesse",
+              "it": "Velocità",
+              "sv": "Hastighet",
+              "pl": "Prędkość",
+              "ru": "Скорость",
+              "ko": "속도"
             },
             "type": "dropdown",
             "values": [
@@ -1346,28 +2955,68 @@
                 "id": "1",
                 "title": {
                   "en": "Auto",
-                  "no": "Auto"
+                  "no": "Auto",
+                  "nl": "Auto",
+                  "da": "Auto",
+                  "de": "Auto",
+                  "es": "Auto",
+                  "fr": "Auto",
+                  "it": "Auto",
+                  "sv": "Auto",
+                  "pl": "Auto",
+                  "ru": "Авто",
+                  "ko": "자동"
                 }
               },
               {
                 "id": "2",
                 "title": {
                   "en": "Low",
-                  "no": "Lav"
+                  "no": "Lav",
+                  "nl": "Laag",
+                  "da": "Lav",
+                  "de": "Niedrig",
+                  "es": "Bajo",
+                  "fr": "Faible",
+                  "it": "Bassa",
+                  "sv": "Låg",
+                  "pl": "Niska",
+                  "ru": "Низкая",
+                  "ko": "낮음"
                 }
               },
               {
                 "id": "3",
                 "title": {
                   "en": "Medium",
-                  "no": "Middels"
+                  "no": "Middels",
+                  "nl": "Medium",
+                  "da": "Mellem",
+                  "de": "Mittel",
+                  "es": "Medio",
+                  "fr": "Moyen",
+                  "it": "Media",
+                  "sv": "Medelhög",
+                  "pl": "Średnia",
+                  "ru": "Средняя",
+                  "ko": "중간"
                 }
               },
               {
                 "id": "4",
                 "title": {
                   "en": "High",
-                  "no": "Høy"
+                  "no": "Høy",
+                  "nl": "Hoog",
+                  "da": "Høj",
+                  "de": "Hoch",
+                  "es": "Alto",
+                  "fr": "Élevé",
+                  "it": "Alta",
+                  "sv": "Hög",
+                  "pl": "Wysoka",
+                  "ru": "Высокая",
+                  "ko": "높음"
                 }
               }
             ]
@@ -1380,7 +3029,7 @@
           "en": "Send a remote command"
         },
         "titleFormatted": {
-          "en": "Send the '[[command]]' commnad"
+          "en": "Send the '[[command]]' command"
         },
         "hint": {
           "en": "Send a custom remote command to the hub"
@@ -1411,10 +3060,30 @@
         "id": "nebulization_mode",
         "title": {
           "en": "Set nebulization mode",
-          "no": "Sett nebuliseringssmodus"
+          "no": "Sett nebuliseringssmodus",
+          "nl": "Stel vernevelingsmodus in",
+          "da": "Indstil nebuliseringsmodus",
+          "de": "Vernebelungsmodus einstellen",
+          "es": "Configurar modo de nebulización",
+          "fr": "Définir le mode de nébulisation",
+          "it": "Imposta la modalità di nebulizzazione",
+          "sv": "Ställ in nebuliseringsläge",
+          "pl": "Ustaw tryb nebulizacji",
+          "ru": "Установить режим распыления",
+          "ko": "네뷸라이제이션 모드 설정"
         },
         "titleFormatted": {
-          "en": "Set the nebulization mode to [[mode]]"
+          "en": "Set the nebulization mode to [[mode]]",
+          "nl": "Stel de vernevelingsmodus in op [[mode]]",
+          "da": "Indstil nebuliseringsmodus til [[mode]]",
+          "de": "Vernebelungsmodus auf [[mode]] einstellen",
+          "es": "Configurar el modo de nebulización a [[mode]]",
+          "fr": "Définir le mode de nébulisation sur [[mode]]",
+          "it": "Imposta la modalità di nebulizzazione su [[mode]]",
+          "sv": "Ställ in nebuliseringsläge till [[mode]]",
+          "pl": "Ustaw tryb nebulizacji na [[mode]]",
+          "ru": "Установить режим распыления на [[mode]]",
+          "ko": "[[mode]]로 네뷸라이제이션 모드 설정"
         },
         "platforms": [
           "local",
@@ -1431,21 +3100,51 @@
             "type": "dropdown",
             "title": {
               "en": "Mode",
-              "no": "Modus"
+              "no": "Modus",
+              "nl": "Modus",
+              "da": "Tilstand",
+              "de": "Modus",
+              "es": "Modo",
+              "fr": "Mode",
+              "it": "Modalità",
+              "sv": "Läge",
+              "pl": "Tryb",
+              "ru": "Режим",
+              "ko": "모드"
             },
             "values": [
               {
                 "id": "0",
                 "title": {
                   "en": "Manual",
-                  "no": "Manuell"
+                  "no": "Manuell",
+                  "nl": "Handmatig",
+                  "da": "Manuel",
+                  "de": "Manuell",
+                  "es": "Manual",
+                  "fr": "Manuel",
+                  "it": "Manuale",
+                  "sv": "Manuell",
+                  "pl": "Ręczny",
+                  "ru": "Ручной",
+                  "ko": "수동"
                 }
               },
               {
                 "id": "1",
                 "title": {
                   "en": "Auto",
-                  "no": "Automatisk"
+                  "no": "Automatisk",
+                  "nl": "Automatisch",
+                  "da": "Automatisk",
+                  "de": "Automatisch",
+                  "es": "Automático",
+                  "fr": "Automatique",
+                  "it": "Automatico",
+                  "sv": "Automatisk",
+                  "pl": "Automatyczny",
+                  "ru": "Автоматический",
+                  "ko": "자동"
                 }
               }
             ]
@@ -1456,11 +3155,31 @@
         "id": "nebulization_efficiency",
         "title": {
           "en": "Set nebulization efficiency",
-          "no": "Sett nebuliseringseffektivitet"
+          "no": "Sett nebuliseringseffektivitet",
+          "nl": "Stel vernevelingsefficiëntie in",
+          "da": "Indstil forstøvningseffektivitet",
+          "de": "Vernebelungseffizienz einstellen",
+          "es": "Configurar eficiencia de nebulización",
+          "fr": "Définir l'efficacité de nébulisation",
+          "it": "Imposta l'efficienza di nebulizzazione",
+          "sv": "Ställ in nebuliseringseffektivitet",
+          "pl": "Ustaw wydajność nebulizacji",
+          "ru": "Установить эффективность распыления",
+          "ko": "네뷸라이제이션 효율성 설정"
         },
         "titleFormatted": {
           "en": "Set the nebulization efficiency to [[nebulization_efficiency]]",
-          "no": "Sett nebuliseringseffektivitet til [[nebulization_efficiency]]"
+          "no": "Sett nebuliseringseffektivitet til [[nebulization_efficiency]]",
+          "nl": "Stel de vernevelingsefficiëntie in op [[nebulization_efficiency]]",
+          "da": "Indstil forstøvningseffektiviteten til [[nebulization_efficiency]]",
+          "de": "Vernebelungseffizienz auf [[nebulization_efficiency]] einstellen",
+          "es": "Configurar la eficiencia de nebulización a [[nebulization_efficiency]]",
+          "fr": "Définir l'efficacité de nébulisation sur [[nebulization_efficiency]]",
+          "it": "Imposta l'efficienza di nebulizzazione su [[nebulization_efficiency]]",
+          "sv": "Ställ in nebuliseringseffektivitet till [[nebulization_efficiency]]",
+          "pl": "Ustaw wydajność nebulizacji na [[nebulization_efficiency]]",
+          "ru": "Установить эффективность распыления на [[nebulization_efficiency]]",
+          "ko": "[[nebulization_efficiency]]로 네뷸라이제이션 효율성 설정"
         },
         "platforms": [
           "local",
@@ -1477,11 +3196,31 @@
             "type": "range",
             "title": {
               "en": "Efficiency",
-              "no": "Effektivitet"
+              "no": "Effektivitet",
+              "nl": "Efficiëntie",
+              "da": "Effektivitet",
+              "de": "Effizienz",
+              "es": "Eficiencia",
+              "fr": "Efficacité",
+              "it": "Efficienza",
+              "sv": "Effektivitet",
+              "pl": "Wydajność",
+              "ru": "Эффективность",
+              "ko": "효율성"
             },
             "placeholder": {
               "en": "In %",
-              "no": "i %"
+              "no": "i %",
+              "nl": "In %",
+              "da": "I %",
+              "de": "In %",
+              "es": "En %",
+              "fr": "En %",
+              "it": "In %",
+              "sv": "I %",
+              "pl": "W %",
+              "ru": "В %",
+              "ko": "%"
             },
             "label": "%",
             "min": 0,
@@ -1496,7 +3235,17 @@
         "id": "start_scene",
         "title": {
           "en": "Start Scene",
-          "no": "Aktiver scene"
+          "no": "Aktiver scene",
+          "nl": "Begin Scène",
+          "da": "Start Scene",
+          "de": "Szene Starten",
+          "es": "Iniciar Escena",
+          "fr": "Démarrer la Scène",
+          "it": "Avvia Scena",
+          "sv": "Starta Scen",
+          "pl": "Rozpocznij Scenę",
+          "ru": "Запустить Сцену",
+          "ko": "장면 시작"
         },
         "platforms": [
           "local",
@@ -1514,11 +3263,31 @@
         "id": "smart_fan_mode",
         "title": {
           "en": "Set fan mode",
-          "no": "Sett viftemodus"
+          "no": "Sett viftemodus",
+          "nl": "Zet ventilatormodus",
+          "da": "Indstil ventilatormodus",
+          "de": "Ventilatormodus einstellen",
+          "es": "Configurar modo de ventilador",
+          "fr": "Régler le mode ventilateur",
+          "it": "Imposta modalità ventilatore",
+          "sv": "Ställ in fläktläge",
+          "pl": "Ustaw tryb wentylatora",
+          "ru": "Установить режим вентилятора",
+          "ko": "팬 모드 설정"
         },
         "titleFormatted": {
           "en": "Set the fan mode to [[fan_mode]], speed [[fan_speed]], shake range [[shake_range]]",
-          "no": "Sett viftemodus til [[fan_mode]], viftefart [[fan_speed]], bevegelsesutslag [[shake_range]]"
+          "no": "Sett viftemodus til [[fan_mode]], viftefart [[fan_speed]], bevegelsesutslag [[shake_range]]",
+          "nl": "Stel ventilatormodus in op [[fan_mode]], snelheid [[fan_speed]], schudbereik [[shake_range]]",
+          "da": "Indstil ventilatormodus til [[fan_mode]], hastighed [[fan_speed]], rystebredde [[shake_range]]",
+          "de": "Ventilatormodus auf [[fan_mode]] einstellen, Geschwindigkeit [[fan_speed]], Schwingbereich [[shake_range]]",
+          "es": "Configura el modo de ventilador a [[fan_mode]], velocidad [[fan_speed]], rango de oscilación [[shake_range]]",
+          "fr": "Réglez le mode ventilateur sur [[fan_mode]], vitesse [[fan_speed]], plage de mouvement [[shake_range]]",
+          "it": "Imposta la modalità ventilatore su [[fan_mode]], velocità [[fan_speed]], gamma di oscillazione [[shake_range]]",
+          "sv": "Ställ in fläktläge till [[fan_mode]], hastighet [[fan_speed]], skakrörelse [[shake_range]]",
+          "pl": "Ustaw tryb wentylatora na [[fan_mode]], prędkość [[fan_speed]], zakres bujania [[shake_range]]",
+          "ru": "Установите режим вентилятора на [[fan_mode]], скорость [[fan_speed]], диапазон качания [[shake_range]]",
+          "ko": "팬 모드를 [[fan_mode]]로 설정, 속도 [[fan_speed]], 흔들림 범위 [[shake_range]]"
         },
         "platforms": [
           "local",
@@ -1534,7 +3303,17 @@
             "name": "fan_mode",
             "title": {
               "en": "Mode",
-              "no": "Viftemodus"
+              "no": "Viftemodus",
+              "nl": "Modus",
+              "da": "Modus",
+              "de": "Modus",
+              "es": "Modo",
+              "fr": "Mode",
+              "it": "Modalità",
+              "sv": "Läge",
+              "pl": "Tryb",
+              "ru": "Режим",
+              "ko": "모드"
             },
             "type": "dropdown",
             "values": [
@@ -1542,14 +3321,34 @@
                 "id": "1",
                 "title": {
                   "en": "Standard",
-                  "no": "Standard"
+                  "no": "Standard",
+                  "nl": "Standaard",
+                  "da": "Standard",
+                  "de": "Standard",
+                  "es": "Estándar",
+                  "fr": "Standard",
+                  "it": "Standard",
+                  "sv": "Standard",
+                  "pl": "Standard",
+                  "ru": "Стандартный",
+                  "ko": "표준"
                 }
               },
               {
                 "id": "2",
                 "title": {
                   "en": "Natural",
-                  "no": "Naturlig"
+                  "no": "Naturlig",
+                  "nl": "Natuurlijk",
+                  "da": "Naturlig",
+                  "de": "Natürlich",
+                  "es": "Natural",
+                  "fr": "Naturel",
+                  "it": "Naturale",
+                  "sv": "Naturlig",
+                  "pl": "Naturalny",
+                  "ru": "Естественный",
+                  "ko": "자연풍"
                 }
               }
             ]
@@ -1558,7 +3357,17 @@
             "name": "fan_speed",
             "title": {
               "en": "Speed",
-              "no": "Viftefart"
+              "no": "Viftefart",
+              "nl": "Snelheid",
+              "da": "Hastighed",
+              "de": "Geschwindigkeit",
+              "es": "Velocidad",
+              "fr": "Vitesse",
+              "it": "Velocità",
+              "sv": "Hastighet",
+              "pl": "Prędkość",
+              "ru": "Скорость",
+              "ko": "속도"
             },
             "type": "dropdown",
             "values": [
@@ -1592,7 +3401,17 @@
             "name": "shake_range",
             "title": {
               "en": "Shake Range",
-              "no": "Bevegelsesutslag"
+              "no": "Bevegelsesutslag",
+              "nl": "Schudbereik",
+              "da": "Rystebredde",
+              "de": "Schwingbereich",
+              "es": "Rango de oscilación",
+              "fr": "Plage de mouvement",
+              "it": "Gamma di oscillazione",
+              "sv": "Skakrörelse",
+              "pl": "Zakres bujania",
+              "ru": "Диапазон качания",
+              "ko": "흔들림 범위"
             },
             "type": "range",
             "min": 0,
@@ -1645,7 +3464,17 @@
       "id": "air_con_hub",
       "name": {
         "en": "Air Conditioner Remote",
-        "no": "Varmepumpe fjernkontroll"
+        "no": "Varmepumpe fjernkontroll",
+        "nl": "Airconditioner afstandsbediening",
+        "da": "Aircondition-fjernbetjening",
+        "de": "Klimaanlagen-Fernbedienung",
+        "es": "Mando a distancia del aire acondicionado",
+        "fr": "Télécommande de climatiseur",
+        "it": "Telecomando del condizionatore",
+        "sv": "Fjärrkontroll för luftkonditionering",
+        "pl": "Pilot do klimatyzatora",
+        "ru": "Пульт для кондиционера",
+        "ko": "에어컨 리모컨"
       },
       "class": "remote",
       "capabilities": [
@@ -1701,7 +3530,17 @@
       "id": "air_purifier_remote_hub",
       "name": {
         "en": "Air Purifier Remote",
-        "no": "Luftrenser fjernkontroll"
+        "no": "Luftrenser fjernkontroll",
+        "nl": "Luchtreiniger Afstandsbediening",
+        "da": "Luftrenser Fjernbetjening",
+        "de": "Luftreiniger Fernbedienung",
+        "es": "Mando a Distancia del Purificador de Aire",
+        "fr": "Télécommande Purificateur d'Air",
+        "it": "Telecomando per Purificatore d'Aria",
+        "sv": "Fjärrkontroll för Luftrenare",
+        "pl": "Pilot do Oczyszczacza Powietrza",
+        "ru": "Пульт от Очистителя Воздуха",
+        "ko": "공기 청정기 리모컨"
       },
       "class": "remote",
       "capabilities": [
@@ -1716,7 +3555,17 @@
       "id": "blind_tilt_ble",
       "name": {
         "en": "Blind Tilt (BLE)",
-        "no": "Markise m/tilt (BLE)"
+        "no": "Markise m/tilt (BLE)",
+        "nl": "Rolgordijn Kantelen (BLE)",
+        "da": "Rullegardin Tilt (BLE)",
+        "de": "Rollo Neigen (BLE)",
+        "es": "Inclinación Persiana (BLE)",
+        "fr": "Inclinaison Store (BLE)",
+        "it": "Inclinazione Tenda (BLE)",
+        "sv": "Rullgardin Lutning (BLE)",
+        "pl": "Przechylanie Rolety (BLE)",
+        "ru": "Наклон Жалюзи (BLE)",
+        "ko": "블라인드 기울이기 (BLE)"
       },
       "platforms": [
         "local",
@@ -1760,13 +3609,95 @@
           "id": "invertPosition",
           "type": "checkbox",
           "label": {
-            "en": "Invert Open / Close Position",
-            "no": "Inverter Åpen / Lukket posisjon"
+            "en": "Invert Open / Close Button",
+            "no": "Inverter Åpen / Lukk Knapp",
+            "nl": "Positie Open/Dicht Knop Omkeren",
+            "da": "Omvend Åben/Luk Knap",
+            "de": "Öffnen/Schließen-Taste umkehren",
+            "es": "Invertir Botón Abrir/Cerrar",
+            "fr": "Inverser Bouton Ouvrir/Fermer",
+            "it": "Inverti Pulsante Apri/Chiudi",
+            "sv": "Omvänd Öppna/Stänga Knapp",
+            "pl": "Odwróć Przycisk Otwórz/Zamknij",
+            "ko": "열기/닫기 버튼 반전"
           },
           "value": false,
           "hint": {
-            "en": "Reverse the action of the position control.",
-            "no": "Vend retningen for posisjonsvelgeren."
+            "en": "Reverse the action of the open / close button.",
+            "no": "Vend retningen for åpen / lukk knapp.",
+            "nl": "Keer de actie van de open/dicht-knop om.",
+            "da": "Omvend handlingen af åben/luk-knappen.",
+            "de": "Aktion der Öffnen/Schließen-Taste umkehren.",
+            "es": "Invierte la acción del botón abrir/cerrar.",
+            "fr": "Inverser l'action du bouton ouvrir/fermer.",
+            "it": "Inverti l'azione del pulsante apri/chiudi.",
+            "sv": "Omvänd riktning för öppna/stänga-knappen.",
+            "pl": "Odwróć działanie przycisku otwórz/zamknij.",
+            "ko": "열기/닫기 버튼 동작 반전."
+          }
+        },
+        {
+          "id": "closePosition",
+          "type": "radio",
+          "label": {
+            "en": "Select the close position",
+            "no": "Velg lukket posisjon",
+            "nl": "Selecteer de gesloten positie",
+            "da": "Vælg lukket position",
+            "de": "Wählen Sie die geschlossene Position",
+            "es": "Seleccione la posición cerrada",
+            "fr": "Sélectionnez la position fermée",
+            "it": "Seleziona la posizione chiusa",
+            "sv": "Välj stängd position",
+            "pl": "Wybierz pozycję zamkniętą",
+            "ko": "닫힌 위치 선택"
+          },
+          "values": [
+            {
+              "id": "up",
+              "label": {
+                "en": "Tilt up to close",
+                "no": "Vipp opp for å lukke",
+                "nl": "Kantel omhoog om te sluiten",
+                "da": "Vip op for at lukke",
+                "de": "Neigen Sie nach oben, um zu schließen",
+                "es": "Inclinar hacia arriba para cerrar",
+                "fr": "Inclinez vers le haut pour fermer",
+                "it": "Inclina verso l'alto per chiudere",
+                "sv": "Luta upp för att stänga",
+                "pl": "Nachyl w górę, aby zamknąć",
+                "ko": "닫기 위해 위로 기울이기"
+              }
+            },
+            {
+              "id": "down",
+              "label": {
+                "en": "Tilt Down to close",
+                "no": "Vipp ned for å lukke",
+                "nl": "Kantel omlaag om te sluiten",
+                "da": "Vip ned for at lukke",
+                "de": "Neigen Sie nach unten, um zu schließen",
+                "es": "Inclinar hacia abajo para cerrar",
+                "fr": "Inclinez vers le bas pour fermer",
+                "it": "Inclina verso il basso per chiudere",
+                "sv": "Luta ner för att stänga",
+                "pl": "Nachyl w dół, aby zamknąć",
+                "ko": "닫기 위해 아래로 기울이기"
+              }
+            }
+          ],
+          "hint": {
+            "en": "Specify the direction to tilt the blinds to close them.",
+            "no": "Angi retningen for å vippe persiennene for å lukke dem.",
+            "nl": "Geef de richting aan om de jaloezieën te kantelen om ze te sluiten.",
+            "da": "Angiv retningen for at vippe persiennerne for at lukke dem.",
+            "de": "Geben Sie die Richtung an, in die die Jalousien geneigt werden sollen, um sie zu schließen.",
+            "es": "Especifique la dirección para inclinar las persianas y cerrarlas.",
+            "fr": "Spécifiez la direction pour incliner les stores pour les fermer.",
+            "it": "Specificare la direzione per inclinare le tende e chiuderle.",
+            "sv": "Ange riktningen för att luta persiennerna för att stänga dem.",
+            "pl": "Określ kierunek przechylenia rolet, aby je zamknąć.",
+            "ko": "블라인드를 닫기 위해 기울일 방향을 지정하세요."
           }
         },
         {
@@ -1774,7 +3705,16 @@
           "type": "radio",
           "label": {
             "en": "Motion Mode",
-            "no": "Bevegelsesmodus"
+            "no": "Bevegelsesmodus",
+            "nl": "Bewegingsmodus",
+            "da": "Bevægelsestilstand",
+            "de": "Bewegungsmodus",
+            "es": "Modo de Movimiento",
+            "fr": "Mode Mouvement",
+            "it": "Modalità Movimento",
+            "sv": "Rörelseläge",
+            "pl": "Tryb Ruchu",
+            "ko": "모션 모드"
           },
           "value": "0xff",
           "values": [
@@ -1782,27 +3722,63 @@
               "id": "0",
               "label": {
                 "en": "Performance",
-                "no": "Ytelse"
+                "no": "Ytelse",
+                "nl": "Prestatie",
+                "da": "Ydelse",
+                "de": "Leistung",
+                "es": "Rendimiento",
+                "fr": "Performance",
+                "it": "Prestazione",
+                "sv": "Prestanda",
+                "pl": "Wydajność",
+                "ko": "성능"
               }
             },
             {
               "id": "1",
               "label": {
                 "en": "Silent",
-                "no": "Stille"
+                "no": "Stille",
+                "nl": "Stil",
+                "da": "Stille",
+                "de": "Leise",
+                "es": "Silencioso",
+                "fr": "Silencieux",
+                "it": "Silenzioso",
+                "sv": "Tyst",
+                "pl": "Cichy",
+                "ko": "조용한"
               }
             },
             {
               "id": "0xff",
               "label": {
                 "en": "Last Used",
-                "no": "Sist brukte"
+                "no": "Sist brukte",
+                "nl": "Laatst Gebruikt",
+                "da": "Sidst Brugt",
+                "de": "Zuletzt Verwendet",
+                "es": "Último Usado",
+                "fr": "Dernier Utilisé",
+                "it": "Ultimo Usato",
+                "sv": "Senast Använda",
+                "pl": "Ostatnio Używany",
+                "ko": "마지막 사용"
               }
             }
           ],
           "hint": {
             "en": "Select the silent or performance mode of the motor.",
-            "no": "Velg stille eller ytelse modus for motoren."
+            "no": "Velg stille eller ytelse modus for motoren.",
+            "nl": "Selecteer de stille of prestatiewijze van de motor.",
+            "da": "Vælg den stille eller ydeevne tilstand af motoren.",
+            "de": "Wählen Sie den leisen oder Leistungsmodus des Motors.",
+            "es": "Seleccione el modo silencioso o de rendimiento del motor.",
+            "fr": "Sélectionnez le mode silencieux ou performance du moteur.",
+            "it": "Selezionare la modalità silenziosa o di prestazione del motore.",
+            "sv": "Välj tyst eller prestandaläge för motorn.",
+            "pl": "Wybierz tryb cichy lub wydajności silnika.",
+            "ko": "모터의 저소음 또는 성능 모드를 선택하세요."
           }
         }
       ]
@@ -1846,7 +3822,17 @@
       "id": "blind_tilt_hub",
       "name": {
         "en": "Blind Tilt (HUB)",
-        "no": "Markise m/tilt (HUB)"
+        "no": "Markise m/tilt (HUB)",
+        "nl": "Blind Tilt (HUB)",
+        "da": "Blind Tilt (HUB)",
+        "de": "Blind Tilt (HUB)",
+        "es": "Blind Tilt (HUB)",
+        "fr": "Blind Tilt (HUB)",
+        "it": "Blind Tilt (HUB)",
+        "sv": "Blind Tilt (HUB)",
+        "pl": "Blind Tilt (HUB)",
+        "ru": "Blind Tilt (HUB)",
+        "ko": "Blind Tilt (HUB)"
       },
       "class": "blinds",
       "capabilities": [
@@ -1862,7 +3848,17 @@
       "id": "bot_ble",
       "name": {
         "en": "Bot (BLE)",
-        "no": "Bot (BLE)"
+        "no": "Bot (BLE)",
+        "nl": "Bot (BLE)",
+        "da": "Bot (BLE)",
+        "de": "Bot (BLE)",
+        "es": "Bot (BLE)",
+        "fr": "Bot (BLE)",
+        "it": "Bot (BLE)",
+        "sv": "Bot (BLE)",
+        "pl": "Bot (BLE)",
+        "ru": "Bot (BLE)",
+        "ko": "로봇 (BLE)"
       },
       "platforms": [
         "local",
@@ -1905,12 +3901,32 @@
           "type": "password",
           "label": {
             "en": "Password",
-            "no": "Passord"
+            "no": "Passord",
+            "nl": "Wachtwoord",
+            "da": "Adgangskode",
+            "de": "Passwort",
+            "es": "Contraseña",
+            "fr": "Mot de passe",
+            "it": "Password",
+            "sv": "Lösenord",
+            "pl": "Hasło",
+            "ru": "Пароль",
+            "ko": "비밀번호"
           },
           "value": "",
           "hint": {
             "en": "The password that has been set in the SwitchBot app which is required to control the Bot.\r\nLeave this empty if no password is set.",
-            "no": "Passordet som er angitt i SwitchBot appen som er nødvendig for å styre enheten.\r\nFjern dette feltet hvis det ikke er satt et passord."
+            "no": "Passordet som er angitt i SwitchBot appen som er nødvendig for å styre enheten.\r\nFjern dette feltet hvis det ikke er satt et passord.",
+            "nl": "Het wachtwoord dat is ingesteld in de SwitchBot-app en nodig is om de Bot te bedienen.\r\nLaat dit leeg als er geen wachtwoord is ingesteld.",
+            "da": "Adgangskoden, der er indstillet i SwitchBot-appen, som er nødvendig for at styre Bot.\r\nLad dette stå tomt, hvis der ikke er indstillet en adgangskode.",
+            "de": "Das Passwort, das in der SwitchBot-App festgelegt wurde und erforderlich ist, um den Bot zu steuern.\r\nLass dieses Feld leer, wenn kein Passwort festgelegt ist.",
+            "es": "La contraseña que se ha configurado en la aplicación SwitchBot y que es necesaria para controlar el Bot.\r\nDeja este campo vacío si no se ha establecido ninguna contraseña.",
+            "fr": "Le mot de passe défini dans l'application SwitchBot, requis pour contrôler le Bot.\r\nLaissez vide si aucun mot de passe n'est défini.",
+            "it": "La password impostata nell'app SwitchBot necessaria per controllare il Bot.\r\nLascia vuoto se non è impostata alcuna password.",
+            "sv": "Lösenordet som har ställts in i SwitchBot-appen och som behövs för att kontrollera Bot.\r\nLämna detta tomt om inget lösenord är inställt.",
+            "pl": "Hasło ustawione w aplikacji SwitchBot wymagane do kontrolowania Bota.\r\nPozostaw to pole puste, jeśli hasło nie zostało ustawione.",
+            "ru": "Пароль, установленный в приложении SwitchBot, необходимый для управления ботом.\r\nОставьте это поле пустым, если пароль не установлен.",
+            "ko": "SwitchBot 앱에서 설정한 비밀번호로 로봇을 제어하는 데 필요합니다.\r\n비밀번호가 설정되어 있지 않으면 이 필드를 비워 두십시오."
           }
         }
       ]
@@ -1954,12 +3970,21 @@
       "id": "bot_hub",
       "name": {
         "en": "Bot (HUB)",
-        "no": "Bot (HUB)"
+        "no": "Bot (HUB)",
+        "nl": "Bot (HUB)",
+        "da": "Bot (HUB)",
+        "de": "Bot (HUB)",
+        "es": "Bot (HUB)",
+        "fr": "Bot (HUB)",
+        "it": "Bot (HUB)",
+        "sv": "Bot (HUB)",
+        "pl": "Bot (HUB)",
+        "ru": "Bot (HUB)",
+        "ko": "Bot (HUB)"
       },
-      "class": "socket",
+      "class": "button",
       "capabilities": [
-        "onoff",
-        "measure_power"
+        "onoff"
       ]
     },
     {
@@ -2001,7 +4026,17 @@
       "id": "camera_hub",
       "name": {
         "en": "Camera Motion Sensor (HUB)",
-        "no": "Kamera bevegelsessensor (HUB)"
+        "no": "Kamera bevegelsessensor (HUB)",
+        "nl": "Camerabewegingssensor (HUB)",
+        "da": "Kamera Bevægelsessensor (HUB)",
+        "de": "Kamera Bewegungssensor (HUB)",
+        "es": "Sensor de movimiento de cámara (HUB)",
+        "fr": "Capteur de mouvement de caméra (HUB)",
+        "it": "Sensore di movimento della telecamera (HUB)",
+        "sv": "Kamera Rörelsesensor (HUB)",
+        "pl": "Czujnik ruchu kamery (HUB)",
+        "ru": "Датчик движения камеры (HUB)",
+        "ko": "카메라 모션 센서 (HUB)"
       },
       "class": "sensor",
       "capabilities": [
@@ -2014,7 +4049,16 @@
           "label": {
             "en": "Motion Duration",
             "nl": "Bewegingsduur",
-            "no": "Bevegelsesvarighet"
+            "no": "Bevegelsesvarighet",
+            "da": "Bevægelsesvarighed",
+            "de": "Bewegungsdauer",
+            "es": "Duración del movimiento",
+            "fr": "Durée du mouvement",
+            "it": "Durata del movimento",
+            "sv": "Rörelsens varaktighet",
+            "pl": "Czas trwania ruchu",
+            "ru": "Длительность движения",
+            "ko": "이동 시간"
           },
           "value": 10,
           "min": 1,
@@ -2022,7 +4066,16 @@
           "units": {
             "en": "seconds",
             "nl": "seconden",
-            "no": "sekunder"
+            "no": "sekunder",
+            "da": "sekunder",
+            "de": "Sekunden",
+            "es": "segundos",
+            "fr": "secondes",
+            "it": "secondi",
+            "sv": "sekunder",
+            "pl": "sekundy",
+            "ru": "секунды",
+            "ko": "초"
           }
         }
       ]
@@ -2031,7 +4084,17 @@
       "id": "color_bulb_ble",
       "name": {
         "en": "Colour Bulb (BLE)",
-        "no": "Lyspære m/farger (BLE)"
+        "no": "Lyspære m/farger (BLE)",
+        "nl": "Gekleurde Lamp (BLE)",
+        "da": "Farvet Pære (BLE)",
+        "de": "Farbige Lampe (BLE)",
+        "es": "Bombilla de Colores (BLE)",
+        "fr": "Ampoule Couleur (BLE)",
+        "it": "Lampadina Colorata (BLE)",
+        "sv": "Färgad Lampa (BLE)",
+        "pl": "Kolorowa Żarówka (BLE)",
+        "ru": "Цветная Лампа (BLE)",
+        "ko": "컬러 전구 (BLE)"
       },
       "platforms": [
         "local",
@@ -2112,7 +4175,17 @@
       },
       "name": {
         "en": "Colour Bulb (HUB)",
-        "no": "Lyspære m/farger (HUB)"
+        "no": "Lyspære m/farger (HUB)",
+        "nl": "Kleurenlamp (HUB)",
+        "da": "Farvepære (HUB)",
+        "de": "Farbige Glühbirne (HUB)",
+        "es": "Bombilla de colores (HUB)",
+        "fr": "Ampoule couleur (HUB)",
+        "it": "Lampadina colorata (HUB)",
+        "sv": "Färglampa (HUB)",
+        "pl": "Żarówka kolorowa (HUB)",
+        "ru": "Цветная лампочка (HUB)",
+        "ko": "컬러 전구 (HUB)"
       },
       "class": "light",
       "capabilities": [
@@ -2135,7 +4208,17 @@
       "id": "contact_ble",
       "name": {
         "en": "Contact Sensor (BLE)",
-        "no": "Kontaktsensor (BLE)"
+        "no": "Kontaktsensor (BLE)",
+        "nl": "Contactsensor (BLE)",
+        "da": "Kontakt Sensor (BLE)",
+        "de": "Kontaktsensor (BLE)",
+        "es": "Sensor de contacto (BLE)",
+        "fr": "Capteur de contact (BLE)",
+        "it": "Sensore di contatto (BLE)",
+        "sv": "Kontaktsensor (BLE)",
+        "pl": "Czujnik kontaktu (BLE)",
+        "ru": "Датчик контакта (BLE)",
+        "ko": "접촉 센서 (BLE)"
       },
       "platforms": [
         "local",
@@ -2160,15 +4243,45 @@
         "alarm_contact.left_open": {
           "title": {
             "en": "Left Open",
-            "no": "Fremdeles åpen"
+            "no": "Fremdeles åpen",
+            "nl": "Open gelaten",
+            "da": "Efterladt åben",
+            "de": "Offen gelassen",
+            "es": "Dejado abierto",
+            "fr": "Laissé ouvert",
+            "it": "Lasciato aperto",
+            "sv": "Lämnad öppen",
+            "pl": "Pozostawiony otwarty",
+            "ru": "Оставлен открытым",
+            "ko": "열린 상태"
           },
           "insightsTitleTrue": {
             "en": "Contact Left Open",
-            "no": "Kontaktalarm fremdeles på"
+            "no": "Kontaktalarm fremdeles på",
+            "nl": "Contact open gelaten",
+            "da": "Kontakt åben",
+            "de": "Kontakt offen gelassen",
+            "es": "Contacto abierto",
+            "fr": "Contact laissé ouvert",
+            "it": "Contatto lasciato aperto",
+            "sv": "Kontakt lämnad öppen",
+            "pl": "Kontakt pozostał otwarty",
+            "ru": "Контакт оставлен открытым",
+            "ko": "접촉이 열린 상태"
           },
           "insightsTitleFalse": {
             "en": "Contact Closed",
-            "no": "Kontaktalarm slått av"
+            "no": "Kontaktalarm slått av",
+            "nl": "Contact gesloten",
+            "da": "Kontakt lukket",
+            "de": "Kontakt geschlossen",
+            "es": "Contacto cerrado",
+            "fr": "Contact fermé",
+            "it": "Contatto chiuso",
+            "sv": "Kontakt stängd",
+            "pl": "Kontakt zamknięty",
+            "ru": "Контакт закрыт",
+            "ko": "접촉이 닫힌 상태"
           }
         }
       },
@@ -2235,7 +4348,17 @@
       "id": "contact_hub",
       "name": {
         "en": "Contact Sensor (HUB)",
-        "no": "Kontaktsensor (HUB)"
+        "no": "Kontaktsensor (HUB)",
+        "nl": "Contactsensor (HUB)",
+        "da": "Kontaktsensor (HUB)",
+        "de": "Kontaktsensor (HUB)",
+        "es": "Sensor de contacto (HUB)",
+        "fr": "Capteur de contact (HUB)",
+        "it": "Sensore di contatto (HUB)",
+        "sv": "Kontaktsensor (HUB)",
+        "pl": "Czujnik kontaktu (HUB)",
+        "ru": "Датчик контакта (HUB)",
+        "ko": "접촉 센서 (HUB)"
       },
       "class": "sensor",
       "capabilities": [
@@ -2249,15 +4372,45 @@
         "alarm_contact.left_open": {
           "title": {
             "en": "Left Open",
-            "no": "Fremdeles åpen"
+            "no": "Fremdeles åpen",
+            "nl": "Gelaten open",
+            "da": "Efterladt åben",
+            "de": "Offen gelassen",
+            "es": "Dejado abierto",
+            "fr": "Laissé ouvert",
+            "it": "Lasciato aperto",
+            "sv": "Lämnat öppen",
+            "pl": "Pozostawiono otwarte",
+            "ru": "Оставлено открытым",
+            "ko": "열림 상태로 둠"
           },
           "insightsTitleTrue": {
             "en": "Contact Left Open",
-            "no": "Kontaktalarm fremdeles på"
+            "no": "Kontaktalarm fremdeles på",
+            "nl": "Contact gelaten open",
+            "da": "Kontakt efterladt åben",
+            "de": "Kontakt offen gelassen",
+            "es": "Contacto dejado abierto",
+            "fr": "Contact laissé ouvert",
+            "it": "Contatto lasciato aperto",
+            "sv": "Kontakt lämnat öppen",
+            "pl": "Kontakt pozostawiony otwarty",
+            "ru": "Контакт оставлен открытым",
+            "ko": "접촉이 열림 상태로 유지됨"
           },
           "insightsTitleFalse": {
             "en": "Contact Closed",
-            "no": "Kontaktalarm slått av"
+            "no": "Kontaktalarm slått av",
+            "nl": "Contact gesloten",
+            "da": "Kontakt lukket",
+            "de": "Kontakt geschlossen",
+            "es": "Contacto cerrado",
+            "fr": "Contact fermé",
+            "it": "Contatto chiuso",
+            "sv": "Kontakt stängd",
+            "pl": "Kontakt zamknięty",
+            "ru": "Контакт закрыт",
+            "ko": "접촉이 닫힘"
           }
         }
       },
@@ -2272,7 +4425,17 @@
       "id": "curtains_ble",
       "name": {
         "en": "Curtains (BLE)",
-        "no": "Gardiner (BLE)"
+        "no": "Gardiner (BLE)",
+        "nl": "Gordijnen (BLE)",
+        "da": "Gardiner (BLE)",
+        "de": "Vorhänge (BLE)",
+        "es": "Cortinas (BLE)",
+        "fr": "Rideaux (BLE)",
+        "it": "Tende (BLE)",
+        "sv": "Gardiner (BLE)",
+        "pl": "Zasłony (BLE)",
+        "ru": "Занавески (BLE)",
+        "ko": "커튼 (BLE)"
       },
       "platforms": [
         "local",
@@ -2319,12 +4482,32 @@
           "type": "checkbox",
           "label": {
             "en": "Invert Open / Close Position",
-            "no": "Inverter Åpen / Lukket posisjon"
+            "no": "Inverter Åpen / Lukket posisjon",
+            "nl": "Open/Dicht Positie omkeren",
+            "da": "Omvend Åben/Lukket Position",
+            "de": "Öffnen/Schließen Position umkehren",
+            "es": "Invertir Posición Abierto/Cerrado",
+            "fr": "Inverser Position Ouvert/Fermé",
+            "it": "Inverti Posizione Aperto/Chiuso",
+            "sv": "Omkasta Öppen/Stängd Position",
+            "pl": "Odwróć Pozycję Otwarcia/Zamknięcia",
+            "ru": "Инвертировать положение Открыто/Закрыто",
+            "ko": "열림/닫힘 위치 반전"
           },
           "value": false,
           "hint": {
             "en": "Reverse the action of the position control.",
-            "no": "Vend retningen for posisjonsvelgeren."
+            "no": "Vend retningen for posisjonsvelgeren.",
+            "nl": "Draai de actie van de positiebediening om.",
+            "da": "Vend handlingen på positionskontrollen.",
+            "de": "Aktion der Positionsregelung umkehren.",
+            "es": "Invertir la acción del control de posición.",
+            "fr": "Inverser l'action de la commande de position.",
+            "it": "Invertire l'azione del controllo di posizione.",
+            "sv": "Omvänd åtgärden för positionskontrollen.",
+            "pl": "Odwróć działanie sterowania pozycją.",
+            "ru": "Обратное действие регулятора положения.",
+            "ko": "위치 제어의 동작을 반대로 합니다."
           }
         },
         {
@@ -2332,7 +4515,17 @@
           "type": "radio",
           "label": {
             "en": "Motion Mode",
-            "no": "Bevegelsesmodus"
+            "no": "Bevegelsesmodus",
+            "nl": "Bewegingsmodus",
+            "da": "Bevægelsestilstand",
+            "de": "Bewegungsmodus",
+            "es": "Modo de Movimiento",
+            "fr": "Mode de Mouvement",
+            "it": "Modalità Movimento",
+            "sv": "Rörelseläge",
+            "pl": "Tryb Ruchu",
+            "ru": "Режим движения",
+            "ko": "모션 모드"
           },
           "value": "0xff",
           "values": [
@@ -2340,28 +4533,133 @@
               "id": "0",
               "label": {
                 "en": "Performance",
-                "no": "Ytelse"
+                "no": "Ytelse",
+                "nl": "Prestatie",
+                "da": "Ydeevne",
+                "de": "Leistung",
+                "es": "Rendimiento",
+                "fr": "Performance",
+                "it": "Prestazione",
+                "sv": "Prestanda",
+                "pl": "Wydajność",
+                "ru": "Производительность",
+                "ko": "성능"
               }
             },
             {
               "id": "1",
               "label": {
                 "en": "Silent",
-                "no": "Stille"
+                "no": "Stille",
+                "nl": "Stil",
+                "da": "Stil",
+                "de": "Leise",
+                "es": "Silencioso",
+                "fr": "Silencieux",
+                "it": "Silenzioso",
+                "sv": "Tyst",
+                "pl": "Cichy",
+                "ru": "Тихий",
+                "ko": "조용한"
               }
             },
             {
               "id": "0xff",
               "label": {
                 "en": "Last Used",
-                "no": "Sist brukte"
+                "no": "Sist brukte",
+                "nl": "Laatst Gebruikt",
+                "da": "Sidst brugt",
+                "de": "Zuletzt verwendet",
+                "es": "Último Usado",
+                "fr": "Dernière Utilisé",
+                "it": "Ultimo Usato",
+                "sv": "Senast Använt",
+                "pl": "Ostatnio Użyte",
+                "ru": "Последний использованный",
+                "ko": "마지막 사용"
               }
             }
           ],
           "hint": {
             "en": "Select the silent or performance mode of the motor.",
-            "no": "Velg stille eller ytelsesmodus for motoren."
+            "no": "Velg stille eller ytelsesmodus for motoren.",
+            "nl": "Selecteer de stille of prestatiesmodus van de motor.",
+            "da": "Vælg den stille eller ydelsestilstand for motoren.",
+            "de": "Wählen Sie den leisen oder Leistungsmodus des Motors.",
+            "es": "Seleccione el modo silencioso o de rendimiento del motor.",
+            "fr": "Sélectionnez le mode silencieux ou performance du moteur.",
+            "it": "Seleziona la modalità silenziosa o prestazioni del motore.",
+            "sv": "Välj läge för tyst eller prestanda för motorn.",
+            "pl": "Wybierz tryb cichy lub wydajnościowy silnika.",
+            "ru": "Выберите тихий или производительный режим двигателя.",
+            "ko": "모터의 소리나 성능 모드를 선택하세요."
           }
+        },
+        {
+          "id": "classType",
+          "type": "dropdown",
+          "label": {
+            "en": "Device Class",
+            "de": "Geräteklasse",
+            "nl": "Product indeling",
+            "it": "Classe Dispositivo",
+            "da": "Enhedsklasse",
+            "es": "Clase del Dispositivo",
+            "fr": "Classe de Périphérique",
+            "sv": "Enhetsklass",
+            "pl": "Klasa Urządzenia",
+            "ru": "Класс устройства",
+            "ko": "장치 클래스"
+          },
+          "value": "curtain",
+          "hint": {
+            "en": "The default is curtain. If you want to use this device in Google Home, etc, select blind.",
+            "de": "Standardmäßig ist Vorhang ausgewählt. Wenn Sie dieses Gerät in Google Home usw. verwenden möchten, wählen Sie Jalousie.",
+            "nl": "Standaard is gordijn geselecteerd. Als u dit apparaat in Google Home, enz. wilt gebruiken, selecteert u blind.",
+            "it": "Per impostazione predefinita è selezionato tenda. Se si desidera utilizzare questo dispositivo in Google Home, ecc., selezionare tapparella.",
+            "da": "Standardindstillingen er gardin. Hvis du vil bruge denne enhed i Google Home osv., skal du vælge blind.",
+            "es": "El valor predeterminado es cortina. Si desea utilizar este dispositivo en Google Home, etc., seleccione persiana.",
+            "fr": "La valeur par défaut est rideau. Si vous souhaitez utiliser cet appareil dans Google Home, etc., sélectionnez store.",
+            "sv": "Standard är gardin. Om du vill använda den här enheten i Google Home med mera, välj jalusi.",
+            "pl": "Domyślnie wybrana jest zasłona. Jeśli chcesz używać tego urządzenia w Google Home itp., wybierz roletę.",
+            "ru": "По умолчанию выбран занавес. Если вы хотите использовать это устройство в Google Home и т.д., выберите жалюзи.",
+            "ko": "기본값은 커튼입니다. 이 장치를 Google Home 등에서 사용하려면 블라인드를 선택하십시오."
+          },
+          "values": [
+            {
+              "id": "curtain",
+              "label": {
+                "en": "Curtain",
+                "de": "Vorhang",
+                "nl": "Gordijn",
+                "it": "Tenda",
+                "da": "Gardin",
+                "es": "Cortina",
+                "fr": "Rideau",
+                "sv": "Gardin",
+                "pl": "Zasłona",
+                "ru": "Занавеска",
+                "ko": "커튼"
+              }
+            },
+            {
+              "id": "blinds",
+              "label": {
+                "en": "Blind",
+                "de": "Jalousie",
+                "nl": "Blind",
+                "it": "Tapparella",
+                "da": "Rullegardin",
+                "es": "Persiana",
+                "fr": "Store",
+                "sv": "Persienn",
+                "pl": "Roleta",
+                "ru": "Жалюзи",
+                "ko": "블라인드"
+              }
+            }
+          ]
         }
       ]
     },
@@ -2404,7 +4702,16 @@
       "id": "curtains_hub",
       "name": {
         "en": "Curtains (HUB)",
-        "no": "Gardiner (HUB)"
+        "no": "Gardiner (HUB)",
+        "da": "Gardiner (HUB)",
+        "de": "Vorhänge (HUB)",
+        "es": "Cortinas (HUB)",
+        "fr": "Rideaux (HUB)",
+        "it": "Tende (HUB)",
+        "sv": "Gardiner (HUB)",
+        "pl": "Zasłony (HUB)",
+        "ru": "Шторы (HUB)",
+        "ko": "커튼 (HUB)"
       },
       "class": "curtain",
       "capabilities": [
@@ -2424,12 +4731,30 @@
           "type": "checkbox",
           "label": {
             "en": "Invert Open / Close Position",
-            "no": "Inverter Åpen / Lukket posisjon"
+            "no": "Inverter Åpen / Lukket posisjon",
+            "da": "Inverter Åben / Lukket Position",
+            "de": "Öffnen / Schließen Position umkehren",
+            "es": "Invertir Posición Abierta / Cerrada",
+            "fr": "Inverser Position Ouverte / Fermée",
+            "it": "Inverti Posizione Aperta/Chiusa",
+            "sv": "Invertera Öppen / Stängd Position",
+            "pl": "Odwróć Pozycję Otwórz / Zamknij",
+            "ru": "Инвертировать Положение Открытия / Закрытия",
+            "ko": "열림/닫힘 위치 반전"
           },
           "value": false,
           "hint": {
             "en": "Reverse the action of the position control.",
-            "no": "Vend retningen for posisjonsvelgeren."
+            "no": "Vend retningen for posisjonsvelgeren.",
+            "da": "Vend handlingen af positionskontrollen.",
+            "de": "Drehen Sie die Aktion der Positionssteuerung um.",
+            "es": "Invierta la acción del control de posición.",
+            "fr": "Inversez l'action de la commande de position.",
+            "it": "Invertire l'azione del controllo di posizione.",
+            "sv": "Vänd på positionens kontrollåtgärd.",
+            "pl": "Odwróć działanie kontroli położenia.",
+            "ru": "Обратное действие регулятора положения.",
+            "ko": "위치 제어의 동작을 반대로 합니다."
           }
         },
         {
@@ -2437,7 +4762,16 @@
           "type": "radio",
           "label": {
             "en": "Motion Mode",
-            "no": "Bevegelsesmodus"
+            "no": "Bevegelsesmodus",
+            "da": "Bevægelsestilstand",
+            "de": "Bewegungsmodus",
+            "es": "Modo de Movimiento",
+            "fr": "Mode de Mouvement",
+            "it": "Modalità Movimento",
+            "sv": "Rörelseläge",
+            "pl": "Tryb Ruchu",
+            "ru": "Режим Движения",
+            "ko": "모션 모드"
           },
           "value": "0",
           "values": [
@@ -2445,28 +4779,129 @@
               "id": "0",
               "label": {
                 "en": "Performance",
-                "no": "Ytelse"
+                "no": "Ytelse",
+                "da": "Ydeevne",
+                "de": "Leistung",
+                "es": "Rendimiento",
+                "fr": "Performance",
+                "it": "Prestazioni",
+                "sv": "Prestanda",
+                "pl": "Wydajność",
+                "ru": "Производительность",
+                "ko": "성능"
               }
             },
             {
               "id": "1",
               "label": {
                 "en": "Silent",
-                "no": "Stille"
+                "no": "Stille",
+                "da": "Stille",
+                "de": "Leise",
+                "es": "Silencioso",
+                "fr": "Silencieux",
+                "it": "Silenzioso",
+                "sv": "Tyst",
+                "pl": "Cichy",
+                "ru": "Тихий",
+                "ko": "조용한"
               }
             },
             {
               "id": "0xff",
               "label": {
                 "en": "Last Used",
-                "no": "Sist brukte"
+                "no": "Sist brukte",
+                "da": "Sidst Brugt",
+                "de": "Zuletzt verwendet",
+                "es": "Último Utilizado",
+                "fr": "Dernière Utilisation",
+                "it": "Ultimo Usato",
+                "sv": "Senast Använd",
+                "pl": "Ostatnio Używane",
+                "ru": "Последний Использованный",
+                "ko": "마지막 사용"
               }
             }
           ],
           "hint": {
             "en": "Select the silent or performance mode of the motor.",
-            "no": "Velg stille eller ytelsesmodus for motoren."
+            "no": "Velg stille eller ytelsesmodus for motoren.",
+            "da": "Vælg den stille eller ydeevne tilstand for motoren.",
+            "de": "Wählen Sie den Leise- oder Leistungsmodus des Motors.",
+            "es": "Seleccione el modo silencioso o de rendimiento del motor.",
+            "fr": "Sélectionnez le mode silencieux ou performance du moteur.",
+            "it": "Seleziona la modalità silenziosa o di prestazione del motore.",
+            "sv": "Välj motorens tysta eller prestanda-läge.",
+            "pl": "Wybierz tryb cichy lub wydajności silnika.",
+            "ru": "Выберите тихий или производительный режим работы двигателя.",
+            "ko": "모터의 조용한 또는 성능 모드를 선택하십시오."
           }
+        },
+        {
+          "id": "classType",
+          "type": "dropdown",
+          "label": {
+            "en": "Device Class",
+            "de": "Geräteklasse",
+            "nl": "Product indeling",
+            "it": "Classe Dispositivo",
+            "da": "Enhedsklasse",
+            "es": "Clase de Dispositivo",
+            "fr": "Classe de Dispositif",
+            "sv": "Enhetsklass",
+            "pl": "Klasa Urządzenia",
+            "ru": "Класс Устройства",
+            "ko": "장치 클래스"
+          },
+          "value": "curtain",
+          "hint": {
+            "en": "The default is curtain. If you want to use this device as a blind, select blind.",
+            "de": "Standardmäßig ist dies ein Vorhang. Wenn Sie dieses Gerät als Jalousie verwenden möchten, wählen Sie Jalousie.",
+            "nl": "Standaard is dit een gordijn. Als u dit apparaat als een blind wilt gebruiken, selecteert u blind.",
+            "it": "Il valore predefinito è tenda. Se si desidera utilizzare questo dispositivo come tapparella, selezionare tapparella.",
+            "da": "Standarden er gardin. Hvis du vil bruge denne enhed som en persien, skal du vælge persien.",
+            "es": "El valor predeterminado es cortina. Si desea utilizar este dispositivo como una persiana, seleccione persiana.",
+            "fr": "La valeur par défaut est rideau. Si vous souhaitez utiliser cet appareil comme un store, sélectionnez store.",
+            "sv": "Standard är gardin. Om du vill använda denna enhet som en persienn väljer du persienn.",
+            "pl": "Domyślnie jest to zasłona. Jeśli chcesz używać tego urządzenia jako żaluzji, wybierz żaluzję.",
+            "ru": "По умолчанию это штора. Если вы хотите использовать это устройство как жалюзи, выберите жалюзи.",
+            "ko": "기본값은 커튼입니다. 이 장치를 블라인드로 사용하려면 블라인드를 선택하세요."
+          },
+          "values": [
+            {
+              "id": "curtain",
+              "label": {
+                "en": "Curtain",
+                "de": "Vorhang",
+                "nl": "Gordijn",
+                "it": "Tenda",
+                "da": "Gardin",
+                "es": "Cortina",
+                "fr": "Rideau",
+                "sv": "Gardin",
+                "pl": "Zasłona",
+                "ru": "Штора",
+                "ko": "커튼"
+              }
+            },
+            {
+              "id": "blinds",
+              "label": {
+                "en": "Blind",
+                "de": "Jalousie",
+                "nl": "Blind",
+                "it": "Tapparella",
+                "da": "Persien",
+                "es": "Persiana",
+                "fr": "Store",
+                "sv": "Persienn",
+                "pl": "Żaluzja",
+                "ru": "Жалюзи",
+                "ko": "블라인드"
+              }
+            }
+          ]
         }
       ]
     },
@@ -2474,7 +4909,17 @@
       "id": "custom_remote_hub",
       "name": {
         "en": "Custom IR Remote",
-        "no": "Egendefinert IR-fjernkontroll"
+        "no": "Egendefinert IR-fjernkontroll",
+        "nl": "Aangepaste IR-afstandsbediening",
+        "da": "Tilpasset IR-fjernbetjening",
+        "de": "Benutzerdefinierte IR-Fernbedienung",
+        "es": "Mando IR personalizado",
+        "fr": "Télécommande IR personnalisée",
+        "it": "Telecomando IR personalizzato",
+        "sv": "Anpassad IR-fjärrkontroll",
+        "pl": "Niestandardowy pilot IR",
+        "ru": "Пользовательский ИК-пульт",
+        "ko": "사용자 지정 IR 리모컨"
       },
       "class": "remote",
       "platforms": [
@@ -2953,7 +5398,17 @@
       "id": "dvd",
       "name": {
         "en": "DVD Remote",
-        "no": "DVD fjernkontroll"
+        "no": "DVD fjernkontroll",
+        "nl": "DVD-afstandsbediening",
+        "da": "DVD-fjernbetjening",
+        "de": "DVD-Fernbedienung",
+        "es": "Control remoto de DVD",
+        "fr": "Télécommande DVD",
+        "it": "Telecomando DVD",
+        "sv": "DVD-fjärrkontroll",
+        "pl": "Pilot DVD",
+        "ru": "Пульт DVD",
+        "ko": "DVD 리모컨"
       },
       "class": "remote",
       "capabilities": [
@@ -3008,7 +5463,17 @@
       "id": "fan_hub",
       "name": {
         "en": "Fan Remote",
-        "no": "Vifte fjernkontroll"
+        "no": "Vifte fjernkontroll",
+        "nl": "Ventilator afstandsbediening",
+        "da": "Ventilator fjernbetjening",
+        "de": "Ventilator-Fernbedienung",
+        "es": "Mando a distancia del ventilador",
+        "fr": "Télécommande pour ventilateur",
+        "it": "Telecomando ventilatore",
+        "sv": "Fläkt fjärrkontroll",
+        "pl": "Pilot do wentylatora",
+        "ru": "Пульт от вентилятора",
+        "ko": "팬 리모컨"
       },
       "class": "remote",
       "capabilities": [
@@ -3059,7 +5524,17 @@
       "id": "humidifier_hub",
       "name": {
         "en": "Humidifier (HUB)",
-        "no": "Luftfukter (HUB)"
+        "no": "Luftfukter (HUB)",
+        "nl": "Luchtbevochtiger (HUB)",
+        "da": "Luftfugter (HUB)",
+        "de": "Luftbefeuchter (HUB)",
+        "es": "Humidificador (HUB)",
+        "fr": "Humidificateur (HUB)",
+        "it": "Umidificatore (HUB)",
+        "sv": "Luftfuktare (HUB)",
+        "pl": "Nawilżacz (HUB)",
+        "ru": "Увлажнитель (HUB)",
+        "ko": "가습기 (HUB)"
       },
       "class": "other",
       "capabilities": [
@@ -3110,7 +5585,17 @@
       "id": "light_remote_hub",
       "name": {
         "en": "Light Remote",
-        "no": "Lysfjernkontroll"
+        "no": "Lysfjernkontroll",
+        "nl": "Lichtafstandsbediening",
+        "da": "Lys Fjernbetjening",
+        "de": "Lichtfernbedienung",
+        "es": "Mando a Distancia de Luz",
+        "fr": "Télécommande Lumineuse",
+        "it": "Telecomando Luci",
+        "sv": "Ljuskontroll",
+        "pl": "Pilot zdalnego sterowania światłem",
+        "ru": "Пульт Света",
+        "ko": "조명 리모콘"
       },
       "class": "remote",
       "capabilities": [
@@ -3159,7 +5644,17 @@
       "id": "lock_hub",
       "name": {
         "en": "Lock (HUB)",
-        "no": "Lås (HUB)"
+        "no": "Lås (HUB)",
+        "nl": "Slot (HUB)",
+        "da": "Lås (HUB)",
+        "de": "Schloss (HUB)",
+        "es": "Cerradura (HUB)",
+        "fr": "Serrure (HUB)",
+        "it": "Serratura (HUB)",
+        "sv": "Lås (HUB)",
+        "pl": "Zamek (HUB)",
+        "ru": "Замок (HUB)",
+        "ko": "잠금 장치 (HUB)"
       },
       "class": "lock",
       "capabilities": [
@@ -3171,13 +5666,33 @@
         "alarm_generic": {
           "title": {
             "en": "Door Jammed",
-            "no": "Dør blokkert"
+            "no": "Dør blokkert",
+            "nl": "Deur Vastgelopen",
+            "da": "Dør Fastklemt",
+            "de": "Tür blockiert",
+            "es": "Puerta Atascada",
+            "fr": "Porte Bloquée",
+            "it": "Porta Bloccata",
+            "sv": "Dörr Fastnat",
+            "pl": "Drzwi Zacięte",
+            "ru": "Дверь Заклинило",
+            "ko": "문이 막힘"
           }
         },
         "alarm_contact": {
           "title": {
             "en": "Door Open",
-            "no": "Dør åpen"
+            "no": "Dør åpen",
+            "nl": "Deur Open",
+            "da": "Dør Åben",
+            "de": "Tür Offen",
+            "es": "Puerta Abierta",
+            "fr": "Porte Ouverte",
+            "it": "Porta Aperta",
+            "sv": "Dörr Öppen",
+            "pl": "Drzwi Otwarte",
+            "ru": "Дверь Открыта",
+            "ko": "문 열림"
           }
         }
       },
@@ -3219,6 +5734,65 @@
           "template": "login_oauth2"
         }
       ],
+      "icon": "/drivers/meter_pro_CO2_hub/assets/icon.svg",
+      "images": {
+        "large": "/drivers/meter_pro_CO2_hub/assets/images/large.jpg",
+        "small": "/drivers/meter_pro_CO2_hub/assets/images/small.jpg"
+      },
+      "id": "meter_pro_CO2_hub",
+      "name": {
+        "en": "Meter Pro with CO2 (HUB)",
+        "nl": "Meter Pro met CO2 (HUB)",
+        "de": "Meter Pro mit CO2 (HUB)",
+        "fr": "Meter Pro avec CO2 (HUB)",
+        "es": "Medidor Pro con CO2 (HUB)",
+        "pt": "Medidor Pro com CO2 (HUB)",
+        "it": "Misuratore Pro con CO2 (HUB)",
+        "pl": "Miernik Pro z CO2 (HUB)",
+        "cn": "Meter Pro with CO2 (HUB)",
+        "jp": "Meter Pro with CO2 (HUB)",
+        "tw": "Meter Pro with CO2 (HUB)",
+        "kr": "Meter Pro with CO2 (HUB)"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "measure_temperature",
+        "measure_humidity",
+        "measure_battery",
+        "measure_co2"
+      ]
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        }
+      ],
       "icon": "/drivers/plug_hub/assets/icon.svg",
       "images": {
         "large": "/drivers/plug_hub/assets/images/large.jpg",
@@ -3227,7 +5801,17 @@
       "id": "plug_hub",
       "name": {
         "en": "Plug (HUB)",
-        "no": "Plugg (HUB)"
+        "no": "Plugg (HUB)",
+        "nl": "Plug (HUB)",
+        "da": "Stik (HUB)",
+        "de": "Stecker (HUB)",
+        "es": "Enchufe (HUB)",
+        "fr": "Prise (HUB)",
+        "it": "Spina (HUB)",
+        "sv": "Kontakt (HUB)",
+        "pl": "Wtyczka (HUB)",
+        "ru": "Разъем (HUB)",
+        "ko": "플러그 (HUB)"
       },
       "class": "socket",
       "capabilities": [
@@ -3240,7 +5824,17 @@
       "id": "presence_ble",
       "name": {
         "en": "Motion Sensor (BLE)",
-        "no": "Bevegelsessensor (BLE)"
+        "no": "Bevegelsessensor (BLE)",
+        "nl": "Bewegingssensor (BLE)",
+        "da": "Bevægelsessensor (BLE)",
+        "de": "Bewegungssensor (BLE)",
+        "es": "Sensor de Movimiento (BLE)",
+        "fr": "Capteur de Mouvement (BLE)",
+        "it": "Sensore di Movimento (BLE)",
+        "sv": "Rörelsesensor (BLE)",
+        "pl": "Czujnik Ruchu (BLE)",
+        "ru": "Датчик Движения (BLE)",
+        "ko": "모션 센서 (BLE)"
       },
       "platforms": [
         "local",
@@ -3319,7 +5913,17 @@
       "id": "presence_hub",
       "name": {
         "en": "Motion Sensor (HUB)",
-        "no": "Bevegelsessensor (HUB)"
+        "no": "Bevegelsessensor (HUB)",
+        "nl": "Bewegingssensor (HUB)",
+        "da": "Bevægelsessensor (HUB)",
+        "de": "Bewegungssensor (HUB)",
+        "es": "Sensor de movimiento (HUB)",
+        "fr": "Capteur de mouvement (HUB)",
+        "it": "Sensore di movimento (HUB)",
+        "sv": "Rörelsesensor (HUB)",
+        "pl": "Czujnik ruchu (HUB)",
+        "ru": "Датчик движения (HUB)",
+        "ko": "모션 센서 (HUB)"
       },
       "class": "sensor",
       "capabilities": [
@@ -3372,7 +5976,17 @@
       "id": "projector_hub",
       "name": {
         "en": "Projector Remote",
-        "no": "Projektor fjernkontroll"
+        "no": "Projektor fjernkontroll",
+        "nl": "Projector Afstandsbediening",
+        "da": "Projektorfjernbetjening",
+        "de": "Projektor-Fernbedienung",
+        "es": "Mando de Proyector",
+        "fr": "Télécommande de projecteur",
+        "it": "Telecomando Proiettore",
+        "sv": "Projektorfjärrkontroll",
+        "pl": "Pilot do projektora",
+        "ru": "Пульт проектора",
+        "ko": "프로젝터 리모컨"
       },
       "class": "remote",
       "capabilities": [
@@ -3424,7 +6038,17 @@
       "id": "robot_vaccum_hub",
       "name": {
         "en": "Robot Vacuum (HUB)",
-        "no": "Robotstøvsuger (HUB)"
+        "no": "Robotstøvsuger (HUB)",
+        "nl": "Robotstofzuiger (HUB)",
+        "da": "Robotstøvsuger (HUB)",
+        "de": "Roboterstaubsauger (HUB)",
+        "es": "Aspiradora Robot (HUB)",
+        "fr": "Aspirateur Robot (HUB)",
+        "it": "Aspirapolvere Robot (HUB)",
+        "sv": "Robotdammsugare (HUB)",
+        "pl": "Odkurzacz robotyczny (HUB)",
+        "ru": "Робот-пылесос (HUB)",
+        "ko": "로봇 청소기 (HUB)"
       },
       "class": "vacuumcleaner",
       "capabilities": [
@@ -3442,31 +6066,81 @@
         "play": {
           "title": {
             "en": "Start",
-            "no": "Start"
+            "no": "Start",
+            "nl": "Start",
+            "da": "Start",
+            "de": "Start",
+            "es": "Comenzar",
+            "fr": "Commencer",
+            "it": "Inizio",
+            "sv": "Starta",
+            "pl": "Start",
+            "ru": "Старт",
+            "ko": "시작"
           }
         },
         "vaccum_power_level.quite": {
           "title": {
             "en": "Power Level Quite",
-            "no": "Styrkenivå stille"
+            "no": "Styrkenivå stille",
+            "nl": "Vermogensniveau Stil",
+            "da": "Strømstyrkeniveau Stille",
+            "de": "Leistungsstufe Leise",
+            "es": "Nivel de Potencia Silencioso",
+            "fr": "Niveau de Puissance Silencieux",
+            "it": "Livello di Potenza Silenzioso",
+            "sv": "Effektnivå Tyst",
+            "pl": "Poziom głośności Cisza",
+            "ru": "Уровень мощности Тихо",
+            "ko": "저소음 모드"
           }
         },
         "vaccum_power_level.normal": {
           "title": {
             "en": "Power Level Normal",
-            "no": "Styrkenivå normal"
+            "no": "Styrkenivå normal",
+            "nl": "Vermogensniveau Normaal",
+            "da": "Strømstyrkeniveau Normal",
+            "de": "Leistungsstufe Normal",
+            "es": "Nivel de Potencia Normal",
+            "fr": "Niveau de Puissance Normal",
+            "it": "Livello di Potenza Normale",
+            "sv": "Effektnivå Normal",
+            "pl": "Poziom mocy Normalny",
+            "ru": "Уровень мощности Нормально",
+            "ko": "일반 모드"
           }
         },
         "vaccum_power_level.strong": {
           "title": {
             "en": "Power Level Strong",
-            "no": "Styrkenivå kraftig"
+            "no": "Styrkenivå kraftig",
+            "nl": "Vermogensniveau Sterk",
+            "da": "Strømstyrkeniveau Stærk",
+            "de": "Leistungsstufe Stark",
+            "es": "Nivel de Potencia Fuerte",
+            "fr": "Niveau de Puissance Fort",
+            "it": "Livello di Potenza Forte",
+            "sv": "Effektnivå Stark",
+            "pl": "Poziom mocy Silny",
+            "ru": "Уровень мощности Сильно",
+            "ko": "강력 모드"
           }
         },
         "vaccum_power_level.max": {
           "title": {
             "en": "Power Level Maximum",
-            "no": "Styrkenivå maximal"
+            "no": "Styrkenivå maximal",
+            "nl": "Vermogensniveau Maximaal",
+            "da": "Strømstyrkeniveau Maksimal",
+            "de": "Leistungsstufe Maximal",
+            "es": "Nivel de Potencia Máximo",
+            "fr": "Niveau de Puissance Maximum",
+            "it": "Livello di Potenza Massimo",
+            "sv": "Effektnivå Maximal",
+            "pl": "Poziom mocy Maksymalny",
+            "ru": "Уровень мощности Максимальный",
+            "ko": "최대 모드"
           }
         }
       },
@@ -3514,7 +6188,17 @@
       },
       "name": {
         "en": "Scene",
-        "no": "Scene"
+        "no": "Scene",
+        "nl": "Scène",
+        "da": "Scene",
+        "de": "Szene",
+        "es": "Escena",
+        "fr": "Scène",
+        "it": "Scena",
+        "sv": "Scen",
+        "pl": "Scena",
+        "ru": "Сцена",
+        "ko": "장면"
       },
       "class": "other",
       "capabilities": [
@@ -3561,7 +6245,17 @@
       "id": "settop_box_hub",
       "name": {
         "en": "Set Top Box Remote",
-        "no": "TV-mottaker fjernkontroll"
+        "no": "TV-mottaker fjernkontroll",
+        "nl": "Settopbox Afstandsbediening",
+        "da": "Set-Top Box Fjernbetjening",
+        "de": "Set-Top-Box Fernbedienung",
+        "es": "Mando de Caja de Set Top",
+        "fr": "Télécommande de Boîtier Décodeur",
+        "it": "Telecomando Set Top Box",
+        "sv": "Set-Top Box Fjärrkontroll",
+        "pl": "Pilot do Set-top Boxa",
+        "ru": "Пульт для Приставки",
+        "ko": "셋탑박스 리모컨"
       },
       "class": "remote",
       "capabilities": [
@@ -3613,7 +6307,17 @@
       "id": "smart_fan_hub",
       "name": {
         "en": "Smart Fan (HUB)",
-        "no": "Smart vifte (HUB)"
+        "no": "Smart vifte (HUB)",
+        "nl": "Slimme Ventilator (HUB)",
+        "da": "Smart Ventilator (HUB)",
+        "de": "Smarter Ventilator (HUB)",
+        "es": "Ventilador Inteligente (HUB)",
+        "fr": "Ventilateur Intelligent (HUB)",
+        "it": "Ventilatore Intelligente (HUB)",
+        "sv": "Smart Fläkt (HUB)",
+        "pl": "Inteligentny Wentylator (HUB)",
+        "ru": "Умный Вентилятор (HUB)",
+        "ko": "스마트 팬 (HUB)"
       },
       "class": "other",
       "capabilities": [
@@ -3662,7 +6366,17 @@
       "id": "speaker",
       "name": {
         "en": "Speaker Remote",
-        "no": "Høyttaler fjernkontroll"
+        "no": "Høyttaler fjernkontroll",
+        "nl": "Speaker Afstandsbediening",
+        "da": "Højttalerfjernbetjening",
+        "de": "Lautsprecherfernbedienung",
+        "es": "Mando a distancia de altavoz",
+        "fr": "Télécommande de haut-parleur",
+        "it": "Telecomando per altoparlante",
+        "sv": "Högtalarfjärrkontroll",
+        "pl": "Pilot do głośnika",
+        "ru": "Пульт для колонки",
+        "ko": "스피커 리모컨"
       },
       "class": "remote",
       "capabilities": [
@@ -3718,7 +6432,17 @@
       },
       "name": {
         "en": "Strip Light (HUB)",
-        "no": "Lysstripe (HUB)"
+        "no": "Lysstripe (HUB)",
+        "nl": "Ledstrip (HUB)",
+        "da": "Lysstrip (HUB)",
+        "de": "Lichtleiste (HUB)",
+        "es": "Tira de luz (HUB)",
+        "fr": "Bande lumineuse (HUB)",
+        "it": "Striscia luminosa (HUB)",
+        "sv": "Ljuslist (HUB)",
+        "pl": "Pasek świetlny (HUB)",
+        "ru": "Световая полоса (HUB)",
+        "ko": "스트립 라이트 (HUB)"
       },
       "class": "light",
       "capabilities": [
@@ -3739,7 +6463,17 @@
       "id": "temperature_ble",
       "name": {
         "en": "Temperature & Humidity (BLE)",
-        "no": "Temperatur & Luftfuktighet (BLE)"
+        "no": "Temperatur & Luftfuktighet (BLE)",
+        "nl": "Temperatuur & Vochtigheid (BLE)",
+        "da": "Temperatur & Fugtighed (BLE)",
+        "de": "Temperatur & Luftfeuchtigkeit (BLE)",
+        "es": "Temperatura & Humedad (BLE)",
+        "fr": "Température & Humidité (BLE)",
+        "it": "Temperatura & Umidità (BLE)",
+        "sv": "Temperatur & Luftfuktighet (BLE)",
+        "pl": "Temperatura i Wilgotność (BLE)",
+        "ru": "Температура и Влажность (BLE)",
+        "ko": "온도 및 습도 (BLE)"
       },
       "platforms": [
         "local",
@@ -3818,7 +6552,17 @@
       "id": "temperature_hub",
       "name": {
         "en": "Temperature & Humidity (HUB)",
-        "no": "Temperatur & Luftfuktighet (HUB)"
+        "no": "Temperatur & Luftfuktighet (HUB)",
+        "nl": "Temperatuur & Vochtigheid (HUB)",
+        "da": "Temperatur & Fugtighed (HUB)",
+        "de": "Temperatur & Luftfeuchtigkeit (HUB)",
+        "es": "Temperatura y Humedad (HUB)",
+        "fr": "Température et Humidité (HUB)",
+        "it": "Temperatura e Umidità (HUB)",
+        "sv": "Temperatur & Fuktighet (HUB)",
+        "pl": "Temperatura i Wilgotność (HUB)",
+        "ru": "Температура и Влажность (HUB)",
+        "ko": "온도 및 습도 (HUB)"
       },
       "class": "sensor",
       "capabilities": [
@@ -3866,7 +6610,17 @@
       "id": "tv_hub",
       "name": {
         "en": "TV Remote",
-        "no": "TV-fjernkontroll"
+        "no": "TV-fjernkontroll",
+        "nl": "TV-afstandsbediening",
+        "da": "TV-fjernbetjening",
+        "de": "TV-Fernbedienung",
+        "es": "Mando a distancia",
+        "fr": "Télécommande TV",
+        "it": "Telecomando TV",
+        "sv": "TV-fjärrkontroll",
+        "pl": "Pilot do TV",
+        "ru": "Пульт ТВ",
+        "ko": "TV 리모컨"
       },
       "class": "remote",
       "capabilities": [
@@ -3878,6 +6632,122 @@
         "channel_down",
         "volume_mute"
       ]
+    },
+    {
+      "id": "water_leak_ble",
+      "name": {
+        "en": "Water Leak Sensor (BLE)",
+        "no": "Kontaktsensor (BLE)",
+        "nl": "Waterleksensor (BLE)",
+        "da": "Vandlækagesensor (BLE)",
+        "de": "Wassersensor (BLE)",
+        "es": "Sensor de fuga de agua (BLE)",
+        "fr": "Capteur de fuite d'eau (BLE)",
+        "it": "Sensore di perdita d'acqua (BLE)",
+        "sv": "Vattenläckagesensor (BLE)",
+        "pl": "Czujnik wycieku wody (BLE)",
+        "ru": "Датчик утечки воды (BLE)",
+        "ko": "물 누수 센서 (BLE)"
+      },
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "ble"
+      ],
+      "class": "sensor",
+      "capabilities": [
+        "alarm_water",
+        "measure_battery",
+        "rssi"
+      ],
+      "pair": [
+        {
+          "id": "list_my_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_my_devices"
+          }
+        },
+        {
+          "id": "add_my_devices",
+          "template": "add_devices"
+        }
+      ],
+      "energy": {
+        "batteries": [
+          "AAA",
+          "AAA"
+        ]
+      },
+      "images": {
+        "large": "/drivers/water_leak_ble/assets/images/large.jpg",
+        "small": "/drivers/water_leak_ble/assets/images/small.jpg"
+      }
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        }
+      ],
+      "icon": "/drivers/water_leak_hub/assets/icon.svg",
+      "images": {
+        "large": "/drivers/water_leak_hub/assets/images/large.jpg",
+        "small": "/drivers/water_leak_hub/assets/images/small.jpg"
+      },
+      "id": "water_leak_hub",
+      "name": {
+        "en": "Water Leak Detector (HUB)",
+        "no": "Vannlekkasjevarsler (HUB)",
+        "nl": "Waterlekdetector (HUB)",
+        "da": "Vandlækagedetektor (HUB)",
+        "de": "Wasserleckdetektor (HUB)",
+        "es": "Detector de fugas de agua (HUB)",
+        "fr": "Détecteur de fuite d'eau (HUB)",
+        "it": "Rilevatore di perdite d'acqua (HUB)",
+        "sv": "Vattenläckagedetektor (HUB)",
+        "pl": "Detektor wycieków wody (HUB)",
+        "ru": "Датчик утечки воды (HUB)",
+        "ko": "물 누수 감지기 (HUB)"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "alarm_water",
+        "measure_battery"
+      ],
+      "energy": {
+        "batteries": [
+          "AAA",
+          "AAA"
+        ]
+      }
     }
   ],
   "capabilities": {
@@ -3885,35 +6755,85 @@
       "type": "enum",
       "title": {
         "en": "Fan Speed",
-        "no": "Viftehastighet"
+        "no": "Viftehastighet",
+        "nl": "Ventilatorsnelheid",
+        "da": "Ventilatorhastighed",
+        "de": "Lüftergeschwindigkeit",
+        "es": "Velocidad del ventilador",
+        "fr": "Vitesse du ventilateur",
+        "it": "Velocità della ventola",
+        "sv": "Fläkthastighet",
+        "pl": "Prędkość wentylatora",
+        "ru": "Скорость вентилятора",
+        "ko": "팬 속도"
       },
       "values": [
         {
           "id": "1",
           "title": {
             "en": "Auto",
-            "no": "Auto"
+            "no": "Auto",
+            "nl": "Auto",
+            "da": "Auto",
+            "de": "Auto",
+            "es": "Auto",
+            "fr": "Auto",
+            "it": "Auto",
+            "sv": "Auto",
+            "pl": "Auto",
+            "ru": "Авто",
+            "ko": "자동"
           }
         },
         {
           "id": "2",
           "title": {
             "en": "Low",
-            "no": "Lav"
+            "no": "Lav",
+            "nl": "Laag",
+            "da": "Lav",
+            "de": "Niedrig",
+            "es": "Bajo",
+            "fr": "Bas",
+            "it": "Basso",
+            "sv": "Låg",
+            "pl": "Niski",
+            "ru": "Низкий",
+            "ko": "낮음"
           }
         },
         {
           "id": "3",
           "title": {
             "en": "Medium",
-            "no": "Middels"
+            "no": "Middels",
+            "nl": "Medium",
+            "da": "Mellem",
+            "de": "Mittel",
+            "es": "Medio",
+            "fr": "Moyen",
+            "it": "Medio",
+            "sv": "Mellan",
+            "pl": "Średni",
+            "ru": "Средний",
+            "ko": "중간"
           }
         },
         {
           "id": "4",
           "title": {
             "en": "High",
-            "no": "Høy"
+            "no": "Høy",
+            "nl": "Hoog",
+            "da": "Høj",
+            "de": "Hoch",
+            "es": "Alto",
+            "fr": "Élevé",
+            "it": "Alto",
+            "sv": "Hög",
+            "pl": "Wysoki",
+            "ru": "Высокий",
+            "ko": "높음"
           }
         }
       ],
@@ -3925,42 +6845,102 @@
       "type": "enum",
       "title": {
         "en": "Mode",
-        "no": "Modus"
+        "no": "Modus",
+        "nl": "Modus",
+        "da": "Tilstand",
+        "de": "Modus",
+        "es": "Modo",
+        "fr": "Mode",
+        "it": "Modalità",
+        "sv": "Läge",
+        "pl": "Tryb",
+        "ru": "Режим",
+        "ko": "모드"
       },
       "values": [
         {
           "id": "1",
           "title": {
             "en": "Auto",
-            "no": "Auto"
+            "no": "Auto",
+            "nl": "Auto",
+            "da": "Auto",
+            "de": "Auto",
+            "es": "Automático",
+            "fr": "Auto",
+            "it": "Auto",
+            "sv": "Automatisk",
+            "pl": "Auto",
+            "ru": "Авто",
+            "ko": "자동"
           }
         },
         {
           "id": "2",
           "title": {
             "en": "Cool",
-            "no": "Kjøle"
+            "no": "Kjøle",
+            "nl": "Koel",
+            "da": "Køl",
+            "de": "Kühlen",
+            "es": "Frío",
+            "fr": "Froid",
+            "it": "Fresco",
+            "sv": "Kyla",
+            "pl": "Chłodzenie",
+            "ru": "Охлаждение",
+            "ko": "냉방"
           }
         },
         {
           "id": "3",
           "title": {
             "en": "Dry",
-            "no": "Tørke"
+            "no": "Tørke",
+            "nl": "Droog",
+            "da": "Tør",
+            "de": "Trocken",
+            "es": "Seco",
+            "fr": "Sec",
+            "it": "Asciutto",
+            "sv": "Torr",
+            "pl": "Suszenie",
+            "ru": "Осушение",
+            "ko": "건조"
           }
         },
         {
           "id": "4",
           "title": {
             "en": "Fan",
-            "no": "Vifte"
+            "no": "Vifte",
+            "nl": "Ventilator",
+            "da": "Fan",
+            "de": "Ventilator",
+            "es": "Ventilador",
+            "fr": "Ventilateur",
+            "it": "Ventilatore",
+            "sv": "Fläkt",
+            "pl": "Wentylator",
+            "ru": "Вентилятор",
+            "ko": "선풍기"
           }
         },
         {
           "id": "5",
           "title": {
             "en": "Heat",
-            "no": "Varme"
+            "no": "Varme",
+            "nl": "Verwarm",
+            "da": "Varme",
+            "de": "Heizen",
+            "es": "Calor",
+            "fr": "Chaleur",
+            "it": "Riscaldamento",
+            "sv": "Värme",
+            "pl": "Ogrzewanie",
+            "ru": "Обогрев",
+            "ko": "난방"
           }
         }
       ],
@@ -3975,7 +6955,17 @@
       "uiComponent": "button",
       "title": {
         "en": "Up",
-        "no": "Opp"
+        "no": "Opp",
+        "nl": "Omhoog",
+        "da": "Op",
+        "de": "Oben",
+        "es": "Arriba",
+        "fr": "Haut",
+        "it": "Su",
+        "sv": "Upp",
+        "pl": "Do góry",
+        "ru": "Вверх",
+        "ko": "위로"
       }
     },
     "back": {
@@ -3985,25 +6975,65 @@
       "uiComponent": "button",
       "title": {
         "en": "Back",
-        "no": "Tilbake"
+        "no": "Tilbake",
+        "nl": "Terug",
+        "da": "Tilbage",
+        "de": "Zurück",
+        "es": "Atrás",
+        "fr": "Retour",
+        "it": "Indietro",
+        "sv": "Tillbaka",
+        "pl": "Wstecz",
+        "ru": "Назад",
+        "ko": "뒤로"
       }
     },
     "bright": {
       "type": "boolean",
       "title": {
         "en": "Bright",
-        "no": "Lysstyrke"
+        "no": "Lysstyrke",
+        "nl": "Helder",
+        "da": "Lys",
+        "de": "Hell",
+        "es": "Brillante",
+        "fr": "Lumineux",
+        "it": "Luminoso",
+        "sv": "Ljusstark",
+        "pl": "Jasny",
+        "ru": "Яркий",
+        "ko": "밝음"
       },
       "getable": true,
       "setable": false,
       "insights": true,
       "insightsTitleTrue": {
         "en": "Light is bright",
-        "no": "Lyst"
+        "no": "Lyst",
+        "nl": "Het licht is helder",
+        "da": "Lyset er lyst",
+        "de": "Das Licht ist hell",
+        "es": "La luz es brillante",
+        "fr": "La lumière est lumineuse",
+        "it": "La luce è luminosa",
+        "sv": "Ljuset är ljust",
+        "pl": "Światło jest jasne",
+        "ru": "Свет яркий",
+        "ko": "빛이 밝습니다"
       },
       "insightsTitleFalse": {
         "en": "Light is dim",
-        "no": "Dimmet"
+        "no": "Dimmet",
+        "nl": "Het licht is gedimd",
+        "da": "Lyset er dæmpet",
+        "de": "Das Licht ist gedimmt",
+        "es": "La luz está tenue",
+        "fr": "La lumière est tamisée",
+        "it": "La luce è fioca",
+        "sv": "Ljuset är svagt",
+        "pl": "Światło jest przyciemnione",
+        "ru": "Свет тусклый",
+        "ko": "빛이 어둡습니다"
       },
       "icon": "/assets/sun.svg"
     },
@@ -4014,7 +7044,17 @@
       "uiComponent": "button",
       "title": {
         "en": "Brightness down",
-        "no": "Lysstyrke ned"
+        "no": "Lysstyrke ned",
+        "nl": "Helderheid omlaag",
+        "da": "Lysstyrke ned",
+        "de": "Helligkeit verringern",
+        "es": "Bajar brillo",
+        "fr": "Baisser la luminosité",
+        "it": "Abbassa la luminosità",
+        "sv": "Minska ljusstyrka",
+        "pl": "Zmniejsz jasność",
+        "ru": "Уменьшить яркость",
+        "ko": "밝기 낮추기"
       },
       "icon": "/assets/brightness.svg"
     },
@@ -4025,7 +7065,17 @@
       "uiComponent": "button",
       "title": {
         "en": "Brightness up",
-        "no": "Lysstyrke opp"
+        "no": "Lysstyrke opp",
+        "nl": "Heldere",
+        "da": "Lysstyrke op",
+        "de": "Helligkeit erhöhen",
+        "es": "Subir el brillo",
+        "fr": "Augmenter la luminosité",
+        "it": "Aumenta la luminosità",
+        "sv": "Öka ljusstyrkan",
+        "pl": "Zwiększ jasność",
+        "ru": "Повысить яркость",
+        "ko": "밝기 올리기"
       },
       "icon": "/assets/brightness.svg"
     },
@@ -4036,7 +7086,17 @@
       "uiComponent": "sensor",
       "title": {
         "en": "Button Press ID",
-        "no": "Knappetrykk ID"
+        "no": "Knappetrykk ID",
+        "nl": "Knopdruk ID",
+        "da": "Knap Tryk ID",
+        "de": "Tastendruck ID",
+        "es": "ID de presión del botón",
+        "fr": "ID Pression Bouton",
+        "it": "ID di pressione del pulsante",
+        "sv": "Knapptryck ID",
+        "pl": "ID Naciśnięcia Przycisku",
+        "ru": "ИД нажатия кнопки",
+        "ko": "버튼 누름 ID"
       },
       "icon": "/assets/button_press.svg"
     },
@@ -4044,18 +7104,48 @@
       "type": "boolean",
       "title": {
         "en": "Someone Exited",
-        "no": "Noen gikk ut"
+        "no": "Noen gikk ut",
+        "nl": "Iemand vertrok",
+        "da": "Nogen gik ud",
+        "de": "Jemand ist hinausgegangen",
+        "es": "Alguien salió",
+        "fr": "Quelqu'un est parti",
+        "it": "Qualcuno è uscito",
+        "sv": "Någon gick ut",
+        "pl": "Ktoś wyszedł",
+        "ru": "Кто-то вышел",
+        "ko": "누군가 나갔다"
       },
       "getable": true,
       "setable": false,
       "insights": true,
       "insightsTitleTrue": {
         "en": "Someone Exited",
-        "no": "Noen gikk ut"
+        "no": "Noen gikk ut",
+        "nl": "Iemand vertrok",
+        "da": "Nogen gik ud",
+        "de": "Jemand ist hinausgegangen",
+        "es": "Alguien salió",
+        "fr": "Quelqu'un est parti",
+        "it": "Qualcuno è uscito",
+        "sv": "Någon gick ut",
+        "pl": "Ktoś wyszedł",
+        "ru": "Кто-то вышел",
+        "ko": "누군가 나갔다"
       },
       "insightsTitleFalse": {
         "en": "Someone Entered",
-        "no": "Noen gikk inn"
+        "no": "Noen gikk inn",
+        "nl": "Iemand kwam binnen",
+        "da": "Nogen kom ind",
+        "de": "Jemand ist hereingekommen",
+        "es": "Alguien entró",
+        "fr": "Quelqu'un est entré",
+        "it": "Qualcuno è entrato",
+        "sv": "Någon kom in",
+        "pl": "Ktoś wszedł",
+        "ru": "Кто-то вошел",
+        "ko": "누군가 들어왔다"
       },
       "icon": "/assets/direction.svg"
     },
@@ -4066,7 +7156,17 @@
       "uiComponent": "sensor",
       "title": {
         "en": "Entry ID",
-        "no": "Inngangs id"
+        "no": "Inngangs id",
+        "nl": "Invoer-ID",
+        "da": "Entry-ID",
+        "de": "Eintrags-ID",
+        "es": "ID de entrada",
+        "fr": "ID d'entrée",
+        "it": "ID di ingresso",
+        "sv": "Ingångs-ID",
+        "pl": "ID wejsciowy",
+        "ru": "ID входа",
+        "ko": "입장 ID"
       },
       "icon": "/assets/entry.svg"
     },
@@ -4077,7 +7177,17 @@
       "uiComponent": "sensor",
       "title": {
         "en": "Exit ID",
-        "no": "Utgangs id"
+        "no": "Utgangs id",
+        "nl": "Exit ID",
+        "da": "Exit ID",
+        "de": "Exit ID",
+        "es": "ID de salida",
+        "fr": "ID de sortie",
+        "it": "ID di uscita",
+        "sv": "Exit ID",
+        "pl": "ID wyjścia",
+        "ru": "ID выхода",
+        "ko": "출구 ID"
       },
       "icon": "/assets/exit.svg"
     },
@@ -4088,7 +7198,17 @@
       "uiComponent": "button",
       "title": {
         "en": "High Speed",
-        "no": "Høy hastighet"
+        "no": "Høy hastighet",
+        "nl": "Hoge snelheid",
+        "da": "Høj hastighed",
+        "de": "Hohe Geschwindigkeit",
+        "es": "Alta velocidad",
+        "fr": "Haute vitesse",
+        "it": "Alta velocità",
+        "sv": "Hög hastighet",
+        "pl": "Wysoka prędkość",
+        "ru": "Высокая скорость",
+        "ko": "고속"
       },
       "icon": "/assets/fan_speed.svg"
     },
@@ -4099,7 +7219,17 @@
       "uiComponent": "button",
       "title": {
         "en": "Low Speed",
-        "no": "Lav hastighet"
+        "no": "Lav hastighet",
+        "nl": "Lage Snelheid",
+        "da": "Lav Hastighed",
+        "de": "Niedrige Geschwindigkeit",
+        "es": "Baja Velocidad",
+        "fr": "Basse Vitesse",
+        "it": "Bassa Velocità",
+        "sv": "Låg Hastighet",
+        "pl": "Niska Prędkość",
+        "ru": "Низкая Скорость",
+        "ko": "낮은 속도"
       },
       "icon": "/assets/fan_speed.svg"
     },
@@ -4110,7 +7240,17 @@
       "uiComponent": "button",
       "title": {
         "en": "Medium Speed",
-        "no": "Middels hastighet"
+        "no": "Middels hastighet",
+        "nl": "Gemiddelde snelheid",
+        "da": "Mellem hastighed",
+        "de": "Mittlere Geschwindigkeit",
+        "es": "Velocidad media",
+        "fr": "Vitesse moyenne",
+        "it": "Velocità media",
+        "sv": "Medelhastighet",
+        "pl": "Średnia prędkość",
+        "ru": "Средняя скорость",
+        "ko": "중간 속도"
       },
       "icon": "/assets/fan_speed.svg"
     },
@@ -4121,7 +7261,17 @@
       "uiComponent": "button",
       "title": {
         "en": "Swing",
-        "no": "Pendler"
+        "no": "Pendler",
+        "nl": "Schommel",
+        "da": "Sving",
+        "de": "Schwingen",
+        "es": "Oscilar",
+        "fr": "Balancer",
+        "it": "Oscillare",
+        "sv": "Svänga",
+        "pl": "Kołysać",
+        "ru": "Качание",
+        "ko": "스윙"
       },
       "icon": "/assets/rotate_range.svg"
     },
@@ -4132,7 +7282,17 @@
       "uiComponent": "button",
       "title": {
         "en": "Fast Forward",
-        "no": "Fort fremover"
+        "no": "Fort fremover",
+        "nl": "Snel vooruit",
+        "da": "Spol frem",
+        "de": "Vorspulen",
+        "es": "Avance rápido",
+        "fr": "Avance rapide",
+        "it": "Avanzamento veloce",
+        "sv": "Spola framåt",
+        "pl": "Przewijanie do przodu",
+        "ru": "Перемотка вперед",
+        "ko": "빨리 감기"
       },
       "icon": "/assets/fast-forward.svg"
     },
@@ -4140,10 +7300,30 @@
       "type": "number",
       "title": {
         "en": "Light Level",
-        "no": "Lysnivå"
+        "no": "Lysnivå",
+        "nl": "Lichtniveau",
+        "da": "Lysniveau",
+        "de": "Lichtniveau",
+        "es": "Nivel de luz",
+        "fr": "Niveau de lumière",
+        "it": "Livello di luce",
+        "sv": "Ljusstyrka",
+        "pl": "Poziom światła",
+        "ru": "Уровень света",
+        "ko": "조도 레벨"
       },
       "units": {
-        "en": ""
+        "en": "",
+        "nl": "",
+        "da": "",
+        "de": "",
+        "es": "",
+        "fr": "",
+        "it": "",
+        "sv": "",
+        "pl": "",
+        "ru": "",
+        "ko": ""
       },
       "getable": true,
       "setable": false,
@@ -4156,14 +7336,34 @@
       "uiComponent": "slider",
       "units": {
         "en": "%",
-        "no": "%"
+        "no": "%",
+        "nl": "%",
+        "da": "%",
+        "de": "%",
+        "es": "%",
+        "fr": "%",
+        "it": "%",
+        "sv": "%",
+        "pl": "%",
+        "ru": "%",
+        "ko": "%"
       },
       "min": 0,
       "max": 100,
       "step": 1,
       "title": {
         "en": "Efficiency",
-        "no": "Effektivitet"
+        "no": "Effektivitet",
+        "nl": "Efficiëntie",
+        "da": "Effektivitet",
+        "de": "Effizienz",
+        "es": "Eficiencia",
+        "fr": "Efficacité",
+        "it": "Efficienza",
+        "sv": "Effektivitet",
+        "pl": "Wydajność",
+        "ru": "Эффективность",
+        "ko": "효율성"
       }
     },
     "nebulization_mode": {
@@ -4173,7 +7373,17 @@
       "uiComponent": "button",
       "title": {
         "en": "Auto",
-        "no": "Auto"
+        "no": "Auto",
+        "nl": "Auto",
+        "da": "Auto",
+        "de": "Auto",
+        "es": "Auto",
+        "fr": "Auto",
+        "it": "Auto",
+        "sv": "Auto",
+        "pl": "Auto",
+        "ru": "Авто",
+        "ko": "자동"
       },
       "icon": "/assets/humidifier.svg"
     },
@@ -4184,7 +7394,17 @@
       "uiComponent": "button",
       "title": {
         "en": "Next",
-        "no": "Neste"
+        "no": "Neste",
+        "nl": "Volgende",
+        "da": "Næste",
+        "de": "Weiter",
+        "es": "Siguiente",
+        "fr": "Suivant",
+        "it": "Avanti",
+        "sv": "Nästa",
+        "pl": "Następny",
+        "ru": "Далее",
+        "ko": "다음"
       },
       "icon": "/assets/next.svg"
     },
@@ -4192,7 +7412,17 @@
       "type": "boolean",
       "title": {
         "en": "Open / Close",
-        "no": "Åpne / Lukke"
+        "no": "Åpne / Lukke",
+        "nl": "Openen / Sluiten",
+        "da": "Åbn / Luk",
+        "de": "Öffnen / Schließen",
+        "es": "Abrir / Cerrar",
+        "fr": "Ouvrir / Fermer",
+        "it": "Apri / Chiudi",
+        "sv": "Öppna / Stänga",
+        "pl": "Otwórz / Zamknij",
+        "ru": "Открыть / Закрыть",
+        "ko": "열기 / 닫기"
       },
       "getable": true,
       "setable": true,
@@ -4206,7 +7436,17 @@
       "uiComponent": "button",
       "title": {
         "en": "Pause",
-        "no": "Pause"
+        "no": "Pause",
+        "nl": "Pauze",
+        "da": "Pause",
+        "de": "Pause",
+        "es": "Pausa",
+        "fr": "Pause",
+        "it": "Pausa",
+        "sv": "Paus",
+        "pl": "Pauza",
+        "ru": "Пауза",
+        "ko": "일시 중지"
       },
       "icon": "/assets/pause.svg"
     },
@@ -4217,7 +7457,17 @@
       "uiComponent": "button",
       "title": {
         "en": "Play",
-        "no": "Aktiver"
+        "no": "Aktiver",
+        "nl": "Spelen",
+        "da": "Spil",
+        "de": "Spielen",
+        "es": "Jugar",
+        "fr": "Jouer",
+        "it": "Giocare",
+        "sv": "Spela",
+        "pl": "Graj",
+        "ru": "Играть",
+        "ko": "재생"
       },
       "icon": "/assets/play.svg"
     },
@@ -4228,7 +7478,17 @@
       "uiComponent": "button",
       "title": {
         "en": "Play Scene",
-        "no": "Aktiver scene"
+        "no": "Aktiver scene",
+        "nl": "Speel scène",
+        "da": "Afspil scene",
+        "de": "Szene abspielen",
+        "es": "Reproducir escena",
+        "fr": "Lancer la scène",
+        "it": "Riproduci scena",
+        "sv": "Spela scen",
+        "pl": "Odtwórz scenę",
+        "ru": "Воспроизвести сцену",
+        "ko": "장면 재생"
       },
       "icon": "/assets/play_scene.svg"
     },
@@ -4236,7 +7496,17 @@
       "type": "number",
       "title": {
         "en": "Position Reading",
-        "no": "Posisjon"
+        "no": "Posisjon",
+        "nl": "Positielezing",
+        "da": "Positionslæsning",
+        "de": "Positionsanzeige",
+        "es": "Lectura de posición",
+        "fr": "Lecture de position",
+        "it": "Lettura della posizione",
+        "sv": "Positionsavläsning",
+        "pl": "Odczyt pozycji",
+        "ru": "Чтение позиции",
+        "ko": "위치 판독"
       },
       "units": {
         "en": "%",
@@ -4254,7 +7524,17 @@
       "uiComponent": "button",
       "title": {
         "en": "Power Off",
-        "no": "Av"
+        "no": "Av",
+        "nl": "Uitschakelen",
+        "da": "Sluk",
+        "de": "Ausschalten",
+        "es": "Apagar",
+        "fr": "Éteindre",
+        "it": "Spegni",
+        "sv": "Stäng av",
+        "pl": "Wyłącz",
+        "ru": "Выключить",
+        "ko": "전원 끄기"
       },
       "icon": "/assets/power_off.svg"
     },
@@ -4265,7 +7545,17 @@
       "uiComponent": "button",
       "title": {
         "en": "Power On",
-        "no": "På"
+        "no": "På",
+        "nl": "Aanzetten",
+        "da": "Tænd",
+        "de": "Einschalten",
+        "es": "Encender",
+        "fr": "Allumer",
+        "it": "Accendi",
+        "sv": "Sätt på",
+        "pl": "Włącz",
+        "ru": "Включить",
+        "ko": "켜기"
       },
       "icon": "/assets/power_on.svg"
     },
@@ -4276,7 +7566,17 @@
       "uiComponent": "button",
       "title": {
         "en": "Previous",
-        "no": "Forrige"
+        "no": "Forrige",
+        "nl": "Vorige",
+        "da": "Forrige",
+        "de": "Zurück",
+        "es": "Anterior",
+        "fr": "Précédent",
+        "it": "Precedente",
+        "sv": "Föregående",
+        "pl": "Poprzedni",
+        "ru": "Предыдущий",
+        "ko": "이전"
       },
       "icon": "/assets/prev.svg"
     },
@@ -4287,7 +7587,17 @@
       "uiComponent": "button",
       "title": {
         "en": "Rewind",
-        "no": "Spol tilbake"
+        "no": "Spol tilbake",
+        "nl": "Terugspoelen",
+        "da": "Spol tilbage",
+        "de": "Zurückspulen",
+        "es": "Rebobinar",
+        "fr": "Rembobiner",
+        "it": "Riavvolgere",
+        "sv": "Spola tillbaka",
+        "pl": "Cofnij",
+        "ru": "Перемотать",
+        "ko": "되감기"
       },
       "icon": "/assets/rewind.svg"
     },
@@ -4299,7 +7609,16 @@
       "title": {
         "en": "Dock",
         "nl": "Dock",
-        "no": "Dokk"
+        "no": "Dokk",
+        "da": "Dock",
+        "de": "Dock",
+        "es": "Muelle",
+        "fr": "Dock",
+        "it": "Molo",
+        "sv": "Docka",
+        "pl": "Zacumować",
+        "ru": "Пристыковать",
+        "ko": "도킹"
       },
       "icon": "/assets/home.svg"
     },
@@ -4308,7 +7627,16 @@
       "title": {
         "en": "Vacuum Status",
         "nl": "Stofzuiger Status",
-        "no": "Støvsuger status"
+        "no": "Støvsuger status",
+        "da": "Støvsuger status",
+        "de": "Staubsaugerstatus",
+        "es": "Estado del aspirador",
+        "fr": "Statut de l'aspirateur",
+        "it": "Stato dell'aspirapolvere",
+        "sv": "Dammsugarstatus",
+        "pl": "Status odkurzacza",
+        "ru": "Состояние пылесоса",
+        "ko": "청소기 상태"
       },
       "getable": true,
       "setable": false,
@@ -4318,11 +7646,31 @@
       "type": "number",
       "title": {
         "en": "RSSI",
-        "no": "RSSI"
+        "no": "RSSI",
+        "nl": "RSSI",
+        "da": "RSSI",
+        "de": "RSSI",
+        "es": "RSSI",
+        "fr": "RSSI",
+        "it": "RSSI",
+        "sv": "RSSI",
+        "pl": "RSSI",
+        "ru": "RSSI",
+        "ko": "RSSI"
       },
       "units": {
         "en": "db",
-        "no": "db"
+        "no": "db",
+        "nl": "db",
+        "da": "db",
+        "de": "db",
+        "es": "db",
+        "fr": "db",
+        "it": "db",
+        "sv": "db",
+        "pl": "db",
+        "ru": "db",
+        "ko": "db"
       },
       "getable": true,
       "setable": false,
@@ -4332,21 +7680,51 @@
       "type": "enum",
       "title": {
         "en": "Mode",
-        "no": "Modus"
+        "no": "Modus",
+        "nl": "Modus",
+        "da": "Tilstand",
+        "de": "Modus",
+        "es": "Modo",
+        "fr": "Mode",
+        "it": "Modalità",
+        "sv": "Läge",
+        "pl": "Tryb",
+        "ru": "Режим",
+        "ko": "모드"
       },
       "values": [
         {
           "id": "1",
           "title": {
             "en": "Standard",
-            "no": "Standard"
+            "no": "Standard",
+            "nl": "Standaard",
+            "da": "Standard",
+            "de": "Standard",
+            "es": "Estándar",
+            "fr": "Standard",
+            "it": "Standard",
+            "sv": "Standard",
+            "pl": "Standardowy",
+            "ru": "Стандартный",
+            "ko": "표준"
           }
         },
         {
           "id": "2",
           "title": {
             "en": "Natural",
-            "no": "Naturlig"
+            "no": "Naturlig",
+            "nl": "Natuurlijk",
+            "da": "Naturlig",
+            "de": "Natürlich",
+            "es": "Natural",
+            "fr": "Naturel",
+            "it": "Naturale",
+            "sv": "Naturlig",
+            "pl": "Naturalny",
+            "ru": "Естественный",
+            "ko": "자연스러운"
           }
         }
       ],
@@ -4360,14 +7738,35 @@
       "setable": true,
       "uiComponent": "slider",
       "units": {
-        "en": "°"
+        "en": "°",
+        "nl": "°",
+        "da": "°",
+        "de": "°",
+        "es": "°",
+        "fr": "°",
+        "it": "°",
+        "no": "°",
+        "sv": "°",
+        "pl": "°",
+        "ru": "°",
+        "ko": "°"
       },
       "min": 0,
       "max": 120,
       "step": 1,
       "title": {
         "en": "Shake Range",
-        "no": "Bevegelsesutslag"
+        "no": "Bevegelsesutslag",
+        "nl": "Schudbereik",
+        "da": "Rysteområde",
+        "de": "Schüttelbereich",
+        "es": "Rango de agitación",
+        "fr": "Plage de secousse",
+        "it": "Intervallo di scuotimento",
+        "sv": "Skakningsintervall",
+        "pl": "Zakres wstrząsania",
+        "ru": "Диапазон тряски",
+        "ko": "흔들기 범위"
       },
       "icon": "/assets/rotate_range.svg"
     },
@@ -4375,31 +7774,81 @@
       "type": "enum",
       "title": {
         "en": "Fan Speed",
-        "no": "Viftehastighet"
+        "no": "Viftehastighet",
+        "nl": "Ventilatorsnelheid",
+        "da": "Ventilatorhastighed",
+        "de": "Lüftergeschwindigkeit",
+        "es": "Velocidad del ventilador",
+        "fr": "Vitesse du ventilateur",
+        "it": "Velocità della ventola",
+        "sv": "Fläkthastighet",
+        "pl": "Prędkość wentylatora",
+        "ru": "Скорость вентилятора",
+        "ko": "팬 속도"
       },
       "values": [
         {
           "id": "1",
           "title": {
-            "en": "1"
+            "en": "1",
+            "nl": "1",
+            "da": "1",
+            "de": "1",
+            "es": "1",
+            "fr": "1",
+            "it": "1",
+            "sv": "1",
+            "pl": "1",
+            "ru": "1",
+            "ko": "1"
           }
         },
         {
           "id": "2",
           "title": {
-            "en": "2"
+            "en": "2",
+            "nl": "2",
+            "da": "2",
+            "de": "2",
+            "es": "2",
+            "fr": "2",
+            "it": "2",
+            "sv": "2",
+            "pl": "2",
+            "ru": "2",
+            "ko": "2"
           }
         },
         {
           "id": "3",
           "title": {
-            "en": "3"
+            "en": "3",
+            "nl": "3",
+            "da": "3",
+            "de": "3",
+            "es": "3",
+            "fr": "3",
+            "it": "3",
+            "sv": "3",
+            "pl": "3",
+            "ru": "3",
+            "ko": "3"
           }
         },
         {
           "id": "4",
           "title": {
-            "en": "4"
+            "en": "4",
+            "nl": "4",
+            "da": "4",
+            "de": "4",
+            "es": "4",
+            "fr": "4",
+            "it": "4",
+            "sv": "4",
+            "pl": "4",
+            "ru": "4",
+            "ko": "4"
           }
         }
       ],
@@ -4414,7 +7863,17 @@
       "uiComponent": "button",
       "title": {
         "en": "Start",
-        "no": "Start"
+        "no": "Start",
+        "nl": "Start",
+        "da": "Start",
+        "de": "Starten",
+        "es": "Comenzar",
+        "fr": "Démarrer",
+        "it": "Inizia",
+        "sv": "Starta",
+        "pl": "Start",
+        "ru": "Начать",
+        "ko": "시작"
       },
       "icon": "/assets/play.svg"
     },
@@ -4425,7 +7884,17 @@
       "uiComponent": "button",
       "title": {
         "en": "Stop",
-        "no": "Stopp"
+        "no": "Stopp",
+        "nl": "Stoppen",
+        "da": "Stop",
+        "de": "Stopp",
+        "es": "Detener",
+        "fr": "Arrêter",
+        "it": "Ferma",
+        "sv": "Stopp",
+        "pl": "Zatrzymaj",
+        "ru": "Стоп",
+        "ko": "중지"
       },
       "icon": "/assets/stop.svg"
     },
@@ -4436,7 +7905,17 @@
       "uiComponent": "button",
       "title": {
         "en": "Power",
-        "no": "Styrke"
+        "no": "Styrke",
+        "nl": "Stroom",
+        "da": "Strøm",
+        "de": "Strom",
+        "es": "Energía",
+        "fr": "Puissance",
+        "it": "Potenza",
+        "sv": "Kraft",
+        "pl": "Moc",
+        "ru": "Мощность",
+        "ko": "전원"
       },
       "icon": "/assets/fan_speed.svg"
     }
