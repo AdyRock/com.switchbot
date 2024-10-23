@@ -5729,6 +5729,65 @@
           "template": "login_oauth2"
         }
       ],
+      "icon": "/drivers/meter_pro_CO2_hub/assets/icon.svg",
+      "images": {
+        "large": "/drivers/meter_pro_CO2_hub/assets/images/large.jpg",
+        "small": "/drivers/meter_pro_CO2_hub/assets/images/small.jpg"
+      },
+      "id": "meter_pro_CO2_hub",
+      "name": {
+        "en": "Meter Pro with CO2 (HUB)",
+        "nl": "Meter Pro met CO2 (HUB)",
+        "de": "Meter Pro mit CO2 (HUB)",
+        "fr": "Meter Pro avec CO2 (HUB)",
+        "es": "Medidor Pro con CO2 (HUB)",
+        "pt": "Medidor Pro com CO2 (HUB)",
+        "it": "Misuratore Pro con CO2 (HUB)",
+        "pl": "Miernik Pro z CO2 (HUB)",
+        "cn": "Meter Pro with CO2 (HUB)",
+        "jp": "Meter Pro with CO2 (HUB)",
+        "tw": "Meter Pro with CO2 (HUB)",
+        "kr": "Meter Pro with CO2 (HUB)"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "measure_temperature",
+        "measure_humidity",
+        "measure_battery",
+        "measure_co2"
+      ]
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        }
+      ],
       "icon": "/drivers/plug_hub/assets/icon.svg",
       "images": {
         "large": "/drivers/plug_hub/assets/images/large.jpg",
