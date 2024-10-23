@@ -5760,7 +5760,13 @@
         "measure_humidity",
         "measure_battery",
         "measure_co2"
-      ]
+      ],
+      "energy": {
+        "batteries": [
+          "AA",
+          "AA"
+        ]
+      }
     },
     {
       "platforms": [
