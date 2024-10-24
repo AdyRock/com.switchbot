@@ -19,7 +19,7 @@
       "titleFormatted": {
         "en": "Set the fan mode to [[fan_mode]], speed [[fan_speed]], shake range [[shake_range]]",
         "no": "Sett viftemodus til [[fan_mode]], viftefart [[fan_speed]], bevegelsesutslag [[shake_range]]",
-        "nl": "Stel ventilatormodus in op [[fan_mode]], snelheid [[fan_speed]], schudbereik [[shake_range]]",
+        "nl": "Stel ventilatormodus in op [[fan_mode]], snelheid [[fan_speed]], zwaaibereik [[shake_range]]",
         "da": "Indstil ventilatormodus til [[fan_mode]], hastighed [[fan_speed]], rystebredde [[shake_range]]",
         "de": "Ventilatormodus auf [[fan_mode]] einstellen, Geschwindigkeit [[fan_speed]], Schwingbereich [[shake_range]]",
         "es": "Configura el modo de ventilador a [[fan_mode]], velocidad [[fan_speed]], rango de oscilación [[shake_range]]",
@@ -138,7 +138,7 @@
           "title": {
             "en": "Shake Range",
             "no": "Bevegelsesutslag",
-            "nl": "Schudbereik",
+            "nl": "Zwaaibereik",
             "da": "Rystebredde",
             "de": "Schwingbereich",
             "es": "Rango de oscilación",

@@ -3,396 +3,468 @@
 		"id": "button0",
 		"type": "text",
 		"label": {
-			"en": "Command  1"
+			"en": "Command  1",
+			"nl": "Opdracht 1"
 		},
 		"value": "",
 		"hint": {
-			"en": "The command to assign to button 1. This is the name you gave the button when defining the remote. Leave it empty if there is no button 1."
+			"en": "The command to assign to button 1. This is the name you gave the button when defining the remote. Leave it empty if there is no button 1.",
+			"nl": "De opdracht voor knop 1. Geeft hiermee een naam aan de knop van de afstandsbediening. Laat het leeg als knop 1 niet wordt gebruikt."
 		}
 	},
 	{
 		"id": "button1",
 		"type": "text",
 		"label": {
-			"en": "Command  2"
+			"en": "Command  2",
+			"nl": "Opdracht 2"
 		},
 		"value": "",
 		"hint": {
-			"en": "The command to assign to button 2. Leave it empty if there is no button 2."
+			"en": "The command to assign to button 2. Leave it empty if there is no button 2.",
+			"nl": "De opdracht voor knop 2. Laat het leeg als knop 2 niet wordt gebruikt."
 		}
 	},
 	{
 		"id": "button2",
 		"type": "text",
 		"label": {
-			"en": "Command  3"
+			"en": "Command  3",
+			"nl": "Opdracht 3"
 		},
 		"value": "",
 		"hint": {
-			"en": "The command to assign to button 3. Leave it empty if there is no button 3."
+			"en": "The command to assign to button 3. Leave it empty if there is no button 3.",
+			"nl": "De opdracht voor knop 3. Laat het leeg als knop 3 niet wordt gebruikt."
 		}
 	},
 	{
 		"id": "button3",
 		"type": "text",
 		"label": {
-			"en": "Command  4"
+			"en": "Command  4",
+			"nl": "Opdracht 4"
 		},
 		"value": "",
 		"hint": {
-			"en": "The command to assign to button 4. Leave it empty if there is no button 4."
+			"en": "The command to assign to button 4. Leave it empty if there is no button 4.",
+			"nl": "De opdracht voor knop 4. Laat het leeg als knop 4 niet wordt gebruikt."
 		}
 	},
 	{
 		"id": "button4",
 		"type": "text",
 		"label": {
-			"en": "Command  5"
+			"en": "Command  5",
+			"nl": "Opdracht 5"
 		},
 		"value": "",
 		"hint": {
-			"en": "The command to assign to button 5. Leave it empty if there is no button 5."
+			"en": "The command to assign to button 5. Leave it empty if there is no button 5.",
+			"nl": "De opdracht voor knop 5. Laat het leeg als knop 5 niet wordt gebruikt."
 		}
 	},
 	{
 		"id": "button5",
 		"type": "text",
 		"label": {
-			"en": "Command  6"
+			"en": "Command  6",
+			"nl": "Opdracht 6"
 		},
 		"value": "",
 		"hint": {
-			"en": "The command to assign to button 6. Leave it empty if there is no button 6."
+			"en": "The command to assign to button 6. Leave it empty if there is no button 6.",
+			"nl": "De opdracht voor knop 6. Laat het leeg als knop 6 niet wordt gebruikt."
 		}
 	},
 	{
 		"id": "button6",
 		"type": "text",
 		"label": {
-			"en": "Command  7"
+			"en": "Command  7",
+			"nl": "Opdracht 7"
 		},
 		"value": "",
 		"hint": {
-			"en": "The command to assign to button 7. Leave it empty if there is no button 7."
+			"en": "The command to assign to button 7. Leave it empty if there is no button 7.",
+			"nl": "De opdracht voor knop 7. Laat het leeg als knop 7 niet wordt gebruikt."
 		}
 	},
 	{
 		"id": "button6",
 		"type": "text",
 		"label": {
-			"en": "Command  8"
+			"en": "Command  8",
+			"nl": "Opdracht 8"
 		},
 		"value": "",
 		"hint": {
-			"en": "The command to assign to button 8. Leave it empty if there is no button 8."
+			"en": "The command to assign to button 8. Leave it empty if there is no button 8.",
+			"nl": "De opdracht voor knop 8. Laat het leeg als knop 8 niet wordt gebruikt."
 		}
 	},
 	{
 		"id": "button8",
 		"type": "text",
 		"label": {
-			"en": "Command  9"
+			"en": "Command  9",
+			"nl": "Opdracht 9"
 		},
 		"value": "",
 		"hint": {
-			"en": "The command to assign to button 9. Leave it empty if there is no button 9."
+			"en": "The command to assign to button 9. Leave it empty if there is no button 9.",
+			"nl": "De opdracht voor knop 9. Laat het leeg als knop 9 niet wordt gebruikt."
 		}
 	},
 	{
 		"id": "button9",
 		"type": "text",
 		"label": {
-			"en": "Command  10"
+			"en": "Command  10",
+			"nl": "Opdracht 10"
 		},
 		"value": "",
 		"hint": {
-			"en": "The command to assign to button 10. Leave it empty if there is no button 10."
+			"en": "The command to assign to button 10. Leave it empty if there is no button 10.",
+			"nl": "De opdracht voor knop 10. Laat het leeg als knop 10 niet wordt gebruikt."
 		}
 	},
 	{
 		"id": "button10",
 		"type": "text",
 		"label": {
-			"en": "Command  11"
+			"en": "Command  11",
+			"nl": "Opdracht 11"
 		},
 		"value": "",
 		"hint": {
-			"en": "The command to assign to button 11. Leave it empty if there is no button 11."
+			"en": "The command to assign to button 11. Leave it empty if there is no button 11.",
+			"nl": "De opdracht voor knop 11. Laat het leeg als knop 11 niet wordt gebruikt."
 		}
 	},
 	{
 		"id": "button11",
 		"type": "text",
 		"label": {
-			"en": "Command  12"
+			"en": "Command  12",
+			"nl": "Opdracht 12"
 		},
 		"value": "",
 		"hint": {
-			"en": "The command to assign to button 12. Leave it empty if there is no button 12."
+			"en": "The command to assign to button 12. Leave it empty if there is no button 12.",
+			"nl": "De opdracht voor knop 12. Laat het leeg als knop 12 niet wordt gebruikt."
 		}
 	},
 	{
 		"id": "button12",
 		"type": "text",
 		"label": {
-			"en": "Command  13"
+			"en": "Command  13",
+			"nl": "Opdracht 13"
 		},
 		"value": "",
 		"hint": {
-			"en": "The command to assign to button 13. Leave it empty if there is no button 13."
+			"en": "The command to assign to button 13. Leave it empty if there is no button 13.",
+			"nl": "De opdracht voor knop 13. Laat het leeg als knop 13 niet wordt gebruikt."
 		}
 	},
 	{
 		"id": "button13",
 		"type": "text",
 		"label": {
-			"en": "Command  14"
+			"en": "Command  14",
+			"nl": "Opdracht 14"
 		},
 		"value": "",
 		"hint": {
-			"en": "The command to assign to button 14. Leave it empty if there is no button 14."
+			"en": "The command to assign to button 14. Leave it empty if there is no button 14.",
+			"nl": "De opdracht voor knop 14. Laat het leeg als knop 14 niet wordt gebruikt."
 		}
 	},
 	{
 		"id": "button14",
 		"type": "text",
 		"label": {
-			"en": "Command  15"
+			"en": "Command  15",
+			"nl": "Opdracht 15"
 		},
 		"value": "",
 		"hint": {
-			"en": "The command to assign to button 15. Leave it empty if there is no button 15."
+			"en": "The command to assign to button 15. Leave it empty if there is no button 15.",
+			"nl": "De opdracht voor knop 15. Laat het leeg als knop 15 niet wordt gebruikt."
 		}
 	},
 	{
 		"id": "button15",
 		"type": "text",
 		"label": {
-			"en": "Command  16"
+			"en": "Command  16",
+			"nl": "Opdracht 16"
 		},
 		"value": "",
 		"hint": {
-			"en": "The command to assign to button 16. Leave it empty if there is no button 16."
+			"en": "The command to assign to button 16. Leave it empty if there is no button 16.",
+			"nl": "De opdracht voor knop 16. Laat het leeg als knop 16 niet wordt gebruikt."
 		}
 	},
 	{
 		"id": "button16",
 		"type": "text",
 		"label": {
-			"en": "Command  17"
+			"en": "Command  17",
+			"nl": "Opdracht 17"
 		},
 		"value": "",
 		"hint": {
-			"en": "The command to assign to button 17. Leave it empty if there is no button 17."
+			"en": "The command to assign to button 17. Leave it empty if there is no button 17.",
+			"nl": "De opdracht voor knop 17. Laat het leeg als knop 17 niet wordt gebruikt."
 		}
 	},
 	{
 		"id": "button17",
 		"type": "text",
 		"label": {
-			"en": "Command  18"
+			"en": "Command  18",
+			"nl": "Opdracht 18"
 		},
 		"value": "",
 		"hint": {
-			"en": "The command to assign to button 18. Leave it empty if there is no button 18."
+			"en": "The command to assign to button 18. Leave it empty if there is no button 18.",
+			"nl": "De opdracht voor knop 18. Laat het leeg als knop 18 niet wordt gebruikt."
 		}
 	},
 	{
 		"id": "button18",
 		"type": "text",
 		"label": {
-			"en": "Command  19"
+			"en": "Command  19",
+			"nl": "Opdracht 19"
 		},
 		"value": "",
 		"hint": {
-			"en": "The command to assign to button 19. Leave it empty if there is no button 19."
+			"en": "The command to assign to button 19. Leave it empty if there is no button 19.",
+			"nl": "De opdracht voor knop 19. Laat het leeg als knop 19 niet wordt gebruikt."
 		}
 	},
 	{
 		"id": "button19",
 		"type": "text",
 		"label": {
-			"en": "Command  20"
+			"en": "Command  20",
+			"nl": "Opdracht 20"
 		},
 		"value": "",
 		"hint": {
-			"en": "The command to assign to button 20. Leave it empty if there is no button 20."
+			"en": "The command to assign to button 20. Leave it empty if there is no button 20.",
+			"nl": "De opdracht voor knop 20. Laat het leeg als knop 20 niet wordt gebruikt."
 		}
 	},
 	{
 		"id": "button20",
 		"type": "text",
 		"label": {
-			"en": "Command  21"
+			"en": "Command  21",
+			"nl": "Opdracht 21"
 		},
 		"value": "",
 		"hint": {
-			"en": "The command to assign to button 21. Leave it empty if there is no button 21."
+			"en": "The command to assign to button 21. Leave it empty if there is no button 21.",
+			"nl": "De opdracht voor knop 21. Laat het leeg als knop 21 niet wordt gebruikt."
 		}
 	},
 	{
 		"id": "button21",
 		"type": "text",
 		"label": {
-			"en": "Command  22"
+			"en": "Command  22",
+			"nl": "Opdracht 22"
 		},
 		"value": "",
 		"hint": {
-			"en": "The command to assign to button 22. Leave it empty if there is no button 22."
+			"en": "The command to assign to button 22. Leave it empty if there is no button 22.",
+			"nl": "De opdracht voor knop 22. Laat het leeg als knop 22 niet wordt gebruikt."
 		}
 	},
 	{
 		"id": "button22",
 		"type": "text",
 		"label": {
-			"en": "Command  23"
+			"en": "Command  23",
+			"nl": "Opdracht 23"
 		},
 		"value": "",
 		"hint": {
-			"en": "The command to assign to button 23. Leave it empty if there is no button 23."
+			"en": "The command to assign to button 23. Leave it empty if there is no button 23.",
+			"nl": "De opdracht voor knop 23. Laat het leeg als knop 23 niet wordt gebruikt."
 		}
 	},
 	{
 		"id": "button23",
 		"type": "text",
 		"label": {
-			"en": "Command  24"
+			"en": "Command  24",
+			"nl": "Opdracht 24"
 		},
 		"value": "",
 		"hint": {
-			"en": "The command to assign to button 24. Leave it empty if there is no button 24."
+			"en": "The command to assign to button 24. Leave it empty if there is no button 24.",
+			"nl": "De opdracht voor knop 24. Laat het leeg als knop 24 niet wordt gebruikt."
 		}
 	},
 	{
 		"id": "button24",
 		"type": "text",
 		"label": {
-			"en": "Command  25"
+			"en": "Command  25",
+			"nl": "Opdracht 25"
 		},
 		"value": "",
 		"hint": {
-			"en": "The command to assign to button 25. Leave it empty if there is no button 25."
+			"en": "The command to assign to button 25. Leave it empty if there is no button 25.",
+			"nl": "De opdracht voor knop 25. Laat het leeg als knop 25 niet wordt gebruikt."
 		}
 	},
 	{
 		"id": "button25",
 		"type": "text",
 		"label": {
-			"en": "Command  26"
+			"en": "Command  26",
+			"nl": "Opdracht 26"
 		},
 		"value": "",
 		"hint": {
-			"en": "The command to assign to button 26. Leave it empty if there is no button 26."
+			"en": "The command to assign to button 26. Leave it empty if there is no button 26.",
+			"nl": "De opdracht voor knop 26. Laat het leeg als knop 26 niet wordt gebruikt."
 		}
 	},
 	{
 		"id": "button26",
 		"type": "text",
 		"label": {
-			"en": "Command  27"
+			"en": "Command  27",
+			"nl": "Opdracht 27"
 		},
 		"value": "",
 		"hint": {
-			"en": "The command to assign to button 27. Leave it empty if there is no button 27."
+			"en": "The command to assign to button 27. Leave it empty if there is no button 27.",
+			"nl": "De opdracht voor knop 27. Laat het leeg als knop 27 niet wordt gebruikt."
 		}
 	},
 	{
 		"id": "button27",
 		"type": "text",
 		"label": {
-			"en": "Command  28"
+			"en": "Command  28",
+			"nl": "Opdracht 28"
 		},
 		"value": "",
 		"hint": {
-			"en": "The command to assign to button 28. Leave it empty if there is no button 28."
+			"en": "The command to assign to button 28. Leave it empty if there is no button 28.",
+			"nl": "De opdracht voor knop 28. Laat het leeg als knop 28 niet wordt gebruikt."
 		}
 	},
 	{
 		"id": "button28",
 		"type": "text",
 		"label": {
-			"en": "Command  29"
+			"en": "Command  29",
+			"nl": "Opdracht 29"
 		},
 		"value": "",
 		"hint": {
-			"en": "The command to assign to button 29. Leave it empty if there is no button 29."
+			"en": "The command to assign to button 29. Leave it empty if there is no button 29.",
+			"nl": "De opdracht voor knop 29. Laat het leeg als knop 29 niet wordt gebruikt."
 		}
 	},
 	{
 		"id": "button29",
 		"type": "text",
 		"label": {
-			"en": "Command  30"
+			"en": "Command  30",
+			"nl": "Opdracht 30"
 		},
 		"value": "",
 		"hint": {
-			"en": "The command to assign to button 30. Leave it empty if there is no button 30."
+			"en": "The command to assign to button 30. Leave it empty if there is no button 30.",
+			"nl": "De opdracht voor knop 30. Laat het leeg als knop 30 niet wordt gebruikt."
 		}
 	},
 	{
 		"id": "button30",
 		"type": "text",
 		"label": {
-			"en": "Command  31"
+			"en": "Command  31",
+			"nl": "Opdracht 31"
 		},
 		"value": "",
 		"hint": {
-			"en": "The command to assign to button 31. Leave it empty if there is no button 31."
+			"en": "The command to assign to button 31. Leave it empty if there is no button 31.",
+			"nl": "De opdracht voor knop 31. Laat het leeg als knop 31 niet wordt gebruikt."
 		}
 	},
 	{
 		"id": "button31",
 		"type": "text",
 		"label": {
-			"en": "Command  32"
+			"en": "Command  32",
+			"nl": "Opdracht 32"
 		},
 		"value": "",
 		"hint": {
-			"en": "The command to assign to button 32. Leave it empty if there is no button 32."
+			"en": "The command to assign to button 32. Leave it empty if there is no button 32.",
+			"nl": "De opdracht voor knop 32. Laat het leeg als knop 32 niet wordt gebruikt."
 		}
 	},
 	{
 		"id": "button32",
 		"type": "text",
 		"label": {
-			"en": "Command  33"
+			"en": "Command  33",
+			"nl": "Opdracht 33"
 		},
 		"value": "",
 		"hint": {
-			"en": "The command to assign to button 33. Leave it empty if there is no button 33."
+			"en": "The command to assign to button 33. Leave it empty if there is no button 33.",
+			"nl": "De opdracht voor knop 33. Laat het leeg als knop 33 niet wordt gebruikt."
 		}
 	},
 	{
 		"id": "button33",
 		"type": "text",
 		"label": {
-			"en": "Command  34"
+			"en": "Command  34",
+			"nl": "Opdracht 34"
 		},
 		"value": "",
 		"hint": {
-			"en": "The command to assign to button 34. Leave it empty if there is no button 34."
+			"en": "The command to assign to button 34. Leave it empty if there is no button 34.",
+			"nl": "De opdracht voor knop 34. Laat het leeg als knop 34 niet wordt gebruikt."
 		}
 	},
 	{
 		"id": "button34",
 		"type": "text",
 		"label": {
-			"en": "Command  35"
+			"en": "Command  35",
+			"nl": "Opdracht 35"
 		},
 		"value": "",
 		"hint": {
-			"en": "The command to assign to button 35. Leave it empty if there is no button 35."
+			"en": "The command to assign to button 35. Leave it empty if there is no button 35.",
+			"nl": "De opdracht voor knop 35. Laat het leeg als knop 35 niet wordt gebruikt."
 		}
 	},
 	{
 		"id": "button35",
 		"type": "text",
 		"label": {
-			"en": "Command  36"
+			"en": "Command  36",
+			"nl": "Opdracht 36"
 		},
 		"value": "",
 		"hint": {
-			"en": "The command to assign to button 36. Leave it empty if there is no button 36."
+			"en": "The command to assign to button 36. Leave it empty if there is no button 36.",
+			"nl": "De opdracht voor knop 36. Laat het leeg als knop 36 niet wordt gebruikt."
 		}
 	}
 ]

@@ -41,7 +41,7 @@
           "title": {
             "en": "Power",
             "no": "Strøm",
-            "nl": "Stroom",
+            "nl": "Voeding",
             "da": "Strøm",
             "de": "Strom",
             "es": "Poder",
@@ -180,7 +180,7 @@
               "title": {
                 "en": "Heat",
                 "no": "Varme",
-                "nl": "Warmte",
+                "nl": "Verwarmen",
                 "da": "Varme",
                 "de": "Heizen",
                 "es": "Calor",
@@ -274,7 +274,7 @@
               "title": {
                 "en": "Medium",
                 "no": "Middels",
-                "nl": "Medium",
+                "nl": "Gemiddeld",
                 "da": "Mellem",
                 "de": "Mittel",
                 "es": "Medio",

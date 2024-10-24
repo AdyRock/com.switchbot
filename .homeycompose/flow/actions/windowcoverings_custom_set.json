@@ -96,6 +96,7 @@
           "id": "fast",
           "title": {
             "en": "Performance",
+            "nl": "Standaard",
             "no": "Ytelse",
             "da": "Ydelse",
             "de": "Leistung",
@@ -112,6 +113,7 @@
           "id": "slow",
           "title": {
             "en": "Silent",
+            "nl": "Stil (langzaam)",
             "no": "Stille",
             "da": "Stille",
             "de": "Leise",
