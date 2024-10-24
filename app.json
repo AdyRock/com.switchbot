@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.switchbot",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "compatibility": ">=6.0.0",
   "platforms": [
     "local",
@@ -531,6 +531,9 @@
     "translators": [
       {
         "name": "Philip Østli"
+      },
+      {
+        "name": "vierlijner"
       }
     ]
   },
@@ -579,7 +582,7 @@
         "title": {
           "en": "Left Open",
           "no": "Forblir åpen",
-          "nl": "Gelaten Open",
+          "nl": "Opengelaten",
           "da": "Efterladt Åben",
           "de": "Offen Gelassen",
           "es": "Dejado Abierto",
@@ -660,7 +663,7 @@
         "title": {
           "en": "Becomes Dim",
           "no": "Blir dimmet",
-          "nl": "Wordt Dim",
+          "nl": "Wordt gedimd",
           "da": "Bliver Dæmpet",
           "de": "Wird Dämmerig",
           "es": "Se Vuelve Tenue",
@@ -688,7 +691,7 @@
         "title": {
           "en": "Becomes bright",
           "no": "Blir lys",
-          "nl": "Wordt helder",
+          "nl": "Wordt feller",
           "da": "Bliver lys",
           "de": "Wird hell",
           "es": "Se vuelve brillante",
@@ -891,7 +894,7 @@
             "example": {
               "en": "1 to 10",
               "no": "1 til 10",
-              "nl": "1 tot 10",
+              "nl": "1 t/m 10",
               "da": "1 til 10",
               "de": "1 bis 10",
               "es": "1 a 10",
@@ -1191,7 +1194,7 @@
                 "title": {
                   "en": "Dust Collecting",
                   "no": "Samler støv",
-                  "nl": "Stof verzamelen",
+                  "nl": "Stofzuigen",
                   "da": "Indsamling af støv",
                   "de": "Staubsammlung",
                   "es": "Recogida de polvo",
@@ -1284,7 +1287,7 @@
         "hint": {
           "en": "Run the flow when button on the sensor is pressed. The token is a number that is incremented by the sensor each time the button is press. It will wrap around to 0 when it incremets past 255.",
           "no": "Kjør flowen hvis knappen er trykket. Tagen er et tall som øker hver gang knappen er trykket. Den vil nullstilles etter 255.",
-          "nl": "Voer de flow uit wanneer de knop op de sensor wordt ingedrukt. De token is een nummer dat door de sensor wordt verhoogd telkens wanneer de knop wordt ingedrukt. Het zal worden teruggezet op 0 wanneer het voorbij 255 toeneemt.",
+          "nl": "Voer de flow uit wanneer de knop op de sensor wordt ingedrukt. De token is een nummer dat door de sensor wordt verhoogd telkens wanneer de knop wordt ingedrukt. Het zal worden teruggezet op 0 wanneer het voorbij 255 komt.",
           "da": "Kør flowen, når knappen på sensoren trykkes. Token er et tal, der øges af sensoren, hver gang knappen trykkes. Det vil nulstilles til 0, når det overstiger 255.",
           "de": "Führen Sie den Flow aus, wenn die Taste am Sensor gedrückt wird. Das Token ist eine Zahl, die bei jedem Drücken der Taste vom Sensor inkrementiert wird. Es wird auf 0 zurückgesetzt, wenn es über 255 hinausgeht.",
           "es": "Ejecuta el flujo cuando se presione el botón en el sensor. El token es un número que se incrementa por el sensor cada vez que se presiona el botón. Se reiniciará a 0 cuando se incremente más allá de 255.",
@@ -1305,7 +1308,7 @@
             "title": {
               "en": "Button press ID",
               "no": "Knapp trykket ID",
-              "nl": "Knop druk ID",
+              "nl": "Knop indrukken ID",
               "da": "Knaptryk ID",
               "de": "Tastendruck ID",
               "es": "ID de presión de botón",
@@ -1333,7 +1336,7 @@
         "title": {
           "en": "Entry ID Changed",
           "no": "Inngang ID endret",
-          "nl": "Wijziging in Entry ID",
+          "nl": "Ingang ID gewijzigd",
           "da": "Indgangs-id ændret",
           "de": "Eintrags-ID geändert",
           "es": "ID de entrada cambiado",
@@ -1347,7 +1350,7 @@
         "hint": {
           "en": "Run the flow when the sensor detects an entry (contact break before motion). The token is a number that is incremented by the sensor each time an entry is detected. It will wrap around to 0 when it incremets past 255.",
           "no": "Kjør flowen hvis sensoren detekterer en inngang. Tagen er et tall som øker hver gang en inngang er detektert. Den vil nullstilles etter 255.",
-          "nl": "Voer de flow uit wanneer de sensor een ingang detecteert (contaconderbreking voor beweging). De token is een nummer dat door de sensor wordt verhoogd telkens als een ingang wordt gedetecteerd. Het wordt teruggezet op 0 wanneer het voorbij 255 toeneemt.",
+          "nl": "Voer de flow uit wanneer de sensor een ingang detecteert (contaconderbreking voor beweging). De token is een nummer dat door de sensor wordt verhoogd telkens als een ingang wordt gedetecteerd. Het wordt teruggezet op 0 wanneer het voorbij 255 komt.",
           "da": "Kør flowen, når sensoren registrerer en indgang (kontaktafbrydelse før bevægelse). Token er et tal, der øges af sensoren, hver gang en indgang registreres. Det nulstilles til 0, når det overstiger 255.",
           "de": "Führen Sie den Flow aus, wenn der Sensor einen Eintritt erkennt (Kontaktunterbrechung vor Bewegung). Das Token ist eine Zahl, die jedes Mal vom Sensor inkrementiert wird, wenn ein Eintritt erkannt wird. Es wird auf 0 zurückgesetzt, wenn es über 255 hinausgeht.",
           "es": "Ejecuta el flujo cuando el sensor detecta una entrada (ruptura de contacto antes del movimiento). El token es un número que se incrementa por el sensor cada vez que se detecta una entrada. Se reiniciará a 0 cuando se incremente más allá de 255.",
@@ -1396,7 +1399,7 @@
         "title": {
           "en": "Exit ID Changed",
           "no": "Utgang ID endret",
-          "nl": "Wijziging in Exit ID",
+          "nl": "Uitgang ID gewijzigd",
           "da": "Udgangs-id ændret",
           "de": "Austritts-ID geändert",
           "es": "ID de salida cambiado",
@@ -1410,7 +1413,7 @@
         "hint": {
           "en": "Run the flow when the sensor detects an exit (contact break after motion). The token is a number that is incremented by the sensor each time an exit is detected. It will wrap around to 0 when it incremets past 255.",
           "no": "Kjør flowen hvis sensoren detekterer en utgang. Tagen er et tall som øker hver gang en utgang er detektert. Den vil nullstilles etter 255.",
-          "nl": "Voer de flow uit wanneer de sensor een uitgang detecteert (contaconderbreking na beweging). De token is een nummer dat door de sensor wordt verhoogd telkens als een uitgang wordt gedetecteerd. Het wordt teruggezet op 0 wanneer het voorbij 255 toeneemt.",
+          "nl": "Voer de flow uit wanneer de sensor een uitgang detecteert (contaconderbreking na beweging). De token is een nummer dat door de sensor wordt verhoogd telkens als een uitgang wordt gedetecteerd. Het wordt teruggezet op 0 wanneer het voorbij 255 komt.",
           "da": "Kør flowen, når sensoren registrerer en udgang (kontaktafbrydelse efter bevægelse). Token er et tal, der øges af sensoren, hver gang en udgang registreres. Det nulstilles til 0, når det overstiger 255.",
           "de": "Führen Sie den Flow aus, wenn der Sensor einen Austritt erkennt (Kontaktunterbrechung nach Bewegung). Das Token ist eine Zahl, die jedes Mal vom Sensor inkrementiert wird, wenn ein Austritt erkannt wird. Es wird auf 0 zurückgesetzt, wenn es über 255 hinausgeht.",
           "es": "Ejecuta el flujo cuando el sensor detecta una salida (ruptura de contacto después del movimiento). El token es un número que se incrementa por el sensor cada vez que se detecta una salida. Se reiniciará a 0 cuando se incremente más allá de 255.",
@@ -1460,30 +1463,30 @@
         "title": {
           "en": "The state !{{is|isn't}} [[state]]",
           "no": "Kjøremodus !{{er|er ikke}} [[state]]",
-          "nl": "De staat is !{{is|isn't}} [[state]]",
-          "da": "Tilstanden er !{{is|isn't}} [[state]]",
-          "de": "Der Zustand ist !{{is|isn't}} [[state]]",
-          "es": "El estado es !{{is|isn't}} [[state]]",
-          "fr": "L'état est !{{is|isn't}} [[state]]",
-          "it": "Lo stato è !{{is|isn't}} [[state]]",
+          "nl": "De status !{{is|is niet}} [[state]]",
+          "da": "Tilstanden !{{er|er det ikke}} [[state]]",
+          "de": "Der Zustand !{{ist|ist nicht}} [[state]]",
+          "es": "El estado !{{es|no es}} [[state]]",
+          "fr": "L'état !{{est|n'est-ce pas}} [[state]]",
+          "it": "Lo stato !{{è|non lo è}} [[state]]",
           "sv": "Tillståndet är !{{is|isn't}} [[state]]",
-          "pl": "Stan to !{{is|isn't}} [[state]]",
-          "ru": "Состояние !{{is|isn't}} [[state]]",
-          "ko": "상태는 !{{is|isn't}} [[state]]"
+          "pl": "Stan to !{{jest|nie jest}} [[state]]",
+          "ru": "Состояние !{{este|nu este}} [[state]]",
+          "ko": "상태는 !{{~이다|그렇지 않다}} [[state]]"
         },
         "titleFormatted": {
           "en": "The state !{{is|isn't}} [[state]]",
           "no": "Kjøremodus !{{er|er ikke}} [[state]]",
-          "nl": "De staat is !{{is|isn't}} [[state]]",
-          "da": "Tilstanden er !{{is|isn't}} [[state]]",
-          "de": "Der Zustand ist !{{is|isn't}} [[state]]",
-          "es": "El estado es !{{is|isn't}} [[state]]",
-          "fr": "L'état est !{{is|isn't}} [[state]]",
-          "it": "Lo stato è !{{is|isn't}} [[state]]",
+          "nl": "De status !{{is|is niet}} [[state]]",
+          "da": "Tilstanden !{{er|er det ikke}} [[state]]",
+          "de": "Der Zustand !{{ist|ist nicht}} [[state]]",
+          "es": "El estado !{{es|no es}} [[state]]",
+          "fr": "L'état !{{est|n'est-ce pas}} [[state]]",
+          "it": "Lo stato !{{è|non lo è}} [[state]]",
           "sv": "Tillståndet är !{{is|isn't}} [[state]]",
-          "pl": "Stan to !{{is|isn't}} [[state]]",
-          "ru": "Состояние !{{is|isn't}} [[state]]",
-          "ko": "상태는 !{{is|isn't}} [[state]]"
+          "pl": "Stan to !{{jest|nie jest}} [[state]]",
+          "ru": "Состояние !{{este|nu este}} [[state]]",
+          "ko": "상태는 !{{~이다|그렇지 않다}} [[state]]"
         },
         "args": [
           {
@@ -1560,7 +1563,7 @@
                 "title": {
                   "en": "Going to Charge Base",
                   "no": "På vei til ladestasjon",
-                  "nl": "Gaat naar oplaadbasis",
+                  "nl": "Gaat naar oplaadstation",
                   "da": "Går til ladestation",
                   "de": "Zur Ladestation unterwegs",
                   "es": "Yendo a la base de carga",
@@ -1662,7 +1665,7 @@
                 "title": {
                   "en": "Dust Collecting",
                   "no": "Samler støv",
-                  "nl": "Stof aan het verzamelen",
+                  "nl": "Stofzuigen",
                   "da": "Støvsamler",
                   "de": "Staubsammeln",
                   "es": "Recolectando polvo",
@@ -1746,7 +1749,7 @@
         "title": {
           "en": "Dock",
           "no": "Dokk",
-          "nl": "Dock",
+          "nl": "Station",
           "da": "Dock",
           "de": "Dock",
           "es": "Dock",
@@ -1998,7 +2001,7 @@
         "title": {
           "en": "Turn On",
           "no": "Skru på",
-          "nl": "Zet aan",
+          "nl": "Aanzetten",
           "da": "Tænd",
           "de": "Einschalten",
           "es": "Encender",
@@ -2414,7 +2417,7 @@
                 "label": {
                   "en": "Strong",
                   "no": "Kraftig",
-                  "nl": "Sterk",
+                  "nl": "Krachtig",
                   "da": "Stærk",
                   "de": "Stark",
                   "es": "Fuerte",
@@ -2602,6 +2605,7 @@
                 "id": "fast",
                 "title": {
                   "en": "Performance",
+                  "nl": "Standaard",
                   "no": "Ytelse",
                   "da": "Ydelse",
                   "de": "Leistung",
@@ -2618,6 +2622,7 @@
                 "id": "slow",
                 "title": {
                   "en": "Silent",
+                  "nl": "Stil (langzaam)",
                   "no": "Stille",
                   "da": "Stille",
                   "de": "Leise",
@@ -2757,7 +2762,7 @@
             "title": {
               "en": "Power",
               "no": "Strøm",
-              "nl": "Stroom",
+              "nl": "Voeding",
               "da": "Strøm",
               "de": "Strom",
               "es": "Poder",
@@ -2896,7 +2901,7 @@
                 "title": {
                   "en": "Heat",
                   "no": "Varme",
-                  "nl": "Warmte",
+                  "nl": "Verwarmen",
                   "da": "Varme",
                   "de": "Heizen",
                   "es": "Calor",
@@ -2990,7 +2995,7 @@
                 "title": {
                   "en": "Medium",
                   "no": "Middels",
-                  "nl": "Medium",
+                  "nl": "Gemiddeld",
                   "da": "Mellem",
                   "de": "Mittel",
                   "es": "Medio",
@@ -3026,13 +3031,16 @@
       {
         "id": "send_custom_remote_command",
         "title": {
-          "en": "Send a remote command"
+          "en": "Send a remote command",
+          "nl": "Verstuur een opdracht op afstand"
         },
         "titleFormatted": {
-          "en": "Send the '[[command]]' command"
+          "en": "Send the '[[command]]' command",
+          "nl": "Verstuur '[[command]]' als opdracht"
         },
         "hint": {
-          "en": "Send a custom remote command to the hub"
+          "en": "Send a custom remote command to the hub",
+          "nl": "Verstuur een eigen opdracht naar de hub"
         },
         "args": [
           {
@@ -3044,10 +3052,12 @@
             "type": "autocomplete",
             "name": "command",
             "title": {
-              "en": "Command Name"
+              "en": "Command Name",
+              "nl": "Opdrachtnaam"
             },
             "placeholder": {
-              "en": "Command Name"
+              "en": "Command Name",
+              "nl": "Naam van de opdracht"
             }
           }
         ],
@@ -3278,7 +3288,7 @@
         "titleFormatted": {
           "en": "Set the fan mode to [[fan_mode]], speed [[fan_speed]], shake range [[shake_range]]",
           "no": "Sett viftemodus til [[fan_mode]], viftefart [[fan_speed]], bevegelsesutslag [[shake_range]]",
-          "nl": "Stel ventilatormodus in op [[fan_mode]], snelheid [[fan_speed]], schudbereik [[shake_range]]",
+          "nl": "Stel ventilatormodus in op [[fan_mode]], snelheid [[fan_speed]], zwaaibereik [[shake_range]]",
           "da": "Indstil ventilatormodus til [[fan_mode]], hastighed [[fan_speed]], rystebredde [[shake_range]]",
           "de": "Ventilatormodus auf [[fan_mode]] einstellen, Geschwindigkeit [[fan_speed]], Schwingbereich [[shake_range]]",
           "es": "Configura el modo de ventilador a [[fan_mode]], velocidad [[fan_speed]], rango de oscilación [[shake_range]]",
@@ -3402,7 +3412,7 @@
             "title": {
               "en": "Shake Range",
               "no": "Bevegelsesutslag",
-              "nl": "Schudbereik",
+              "nl": "Zwaaibereik",
               "da": "Rystebredde",
               "de": "Schwingbereich",
               "es": "Rango de oscilación",
@@ -3625,7 +3635,7 @@
           "hint": {
             "en": "Reverse the action of the open / close button.",
             "no": "Vend retningen for åpen / lukk knapp.",
-            "nl": "Keer de actie van de open/dicht-knop om.",
+            "nl": "Keer de actie van de open/dicht knop om.",
             "da": "Omvend handlingen af åben/luk-knappen.",
             "de": "Aktion der Öffnen/Schließen-Taste umkehren.",
             "es": "Invierte la acción del botón abrir/cerrar.",
@@ -3770,7 +3780,7 @@
           "hint": {
             "en": "Select the silent or performance mode of the motor.",
             "no": "Velg stille eller ytelse modus for motoren.",
-            "nl": "Selecteer de stille of prestatiewijze van de motor.",
+            "nl": "Selecteer de stille of prestatie mode van de motor.",
             "da": "Vælg den stille eller ydeevne tilstand af motoren.",
             "de": "Wählen Sie den leisen oder Leistungsmodus des Motors.",
             "es": "Seleccione el modo silencioso o de rendimiento del motor.",
@@ -4373,7 +4383,7 @@
           "title": {
             "en": "Left Open",
             "no": "Fremdeles åpen",
-            "nl": "Gelaten open",
+            "nl": "Opengelaten",
             "da": "Efterladt åben",
             "de": "Offen gelassen",
             "es": "Dejado abierto",
@@ -4387,7 +4397,7 @@
           "insightsTitleTrue": {
             "en": "Contact Left Open",
             "no": "Kontaktalarm fremdeles på",
-            "nl": "Contact gelaten open",
+            "nl": "Contact opengelaten",
             "da": "Kontakt efterladt åben",
             "de": "Kontakt offen gelassen",
             "es": "Contacto dejado abierto",
@@ -4568,7 +4578,7 @@
               "label": {
                 "en": "Last Used",
                 "no": "Sist brukte",
-                "nl": "Laatst Gebruikt",
+                "nl": "Laatst gebruikt",
                 "da": "Sidst brugt",
                 "de": "Zuletzt verwendet",
                 "es": "Último Usado",
@@ -4584,7 +4594,7 @@
           "hint": {
             "en": "Select the silent or performance mode of the motor.",
             "no": "Velg stille eller ytelsesmodus for motoren.",
-            "nl": "Selecteer de stille of prestatiesmodus van de motor.",
+            "nl": "Selecteer de stille of prestatie modus van de motor.",
             "da": "Vælg den stille eller ydelsestilstand for motoren.",
             "de": "Wählen Sie den leisen oder Leistungsmodus des Motors.",
             "es": "Seleccione el modo silencioso o de rendimiento del motor.",
@@ -4602,7 +4612,7 @@
           "label": {
             "en": "Device Class",
             "de": "Geräteklasse",
-            "nl": "Product indeling",
+            "nl": "Product keuze",
             "it": "Classe Dispositivo",
             "da": "Enhedsklasse",
             "es": "Clase del Dispositivo",
@@ -4616,7 +4626,7 @@
           "hint": {
             "en": "The default is curtain. If you want to use this device in Google Home, etc, select blind.",
             "de": "Standardmäßig ist Vorhang ausgewählt. Wenn Sie dieses Gerät in Google Home usw. verwenden möchten, wählen Sie Jalousie.",
-            "nl": "Standaard is gordijn geselecteerd. Als u dit apparaat in Google Home, enz. wilt gebruiken, selecteert u blind.",
+            "nl": "Standaard is gordijn geselecteerd. Als u dit apparaat in Google Home, enz. wilt gebruiken, selecteert u Jaloezie.",
             "it": "Per impostazione predefinita è selezionato tenda. Se si desidera utilizzare questo dispositivo in Google Home, ecc., selezionare tapparella.",
             "da": "Standardindstillingen er gardin. Hvis du vil bruge denne enhed i Google Home osv., skal du vælge blind.",
             "es": "El valor predeterminado es cortina. Si desea utilizar este dispositivo en Google Home, etc., seleccione persiana.",
@@ -4648,7 +4658,7 @@
               "label": {
                 "en": "Blind",
                 "de": "Jalousie",
-                "nl": "Blind",
+                "nl": "Jaloezie",
                 "it": "Tapparella",
                 "da": "Rullegardin",
                 "es": "Persiana",
@@ -4703,6 +4713,7 @@
       "name": {
         "en": "Curtains (HUB)",
         "no": "Gardiner (HUB)",
+        "nl": "Gordijnen (HUB)",
         "da": "Gardiner (HUB)",
         "de": "Vorhänge (HUB)",
         "es": "Cortinas (HUB)",
@@ -4732,6 +4743,7 @@
           "label": {
             "en": "Invert Open / Close Position",
             "no": "Inverter Åpen / Lukket posisjon",
+            "nl": "Open/Dicht Positie omkeren",
             "da": "Inverter Åben / Lukket Position",
             "de": "Öffnen / Schließen Position umkehren",
             "es": "Invertir Posición Abierta / Cerrada",
@@ -4746,6 +4758,7 @@
           "hint": {
             "en": "Reverse the action of the position control.",
             "no": "Vend retningen for posisjonsvelgeren.",
+            "nl": "Draai de actie van de positiebediening om.",
             "da": "Vend handlingen af positionskontrollen.",
             "de": "Drehen Sie die Aktion der Positionssteuerung um.",
             "es": "Invierta la acción del control de posición.",
@@ -4763,6 +4776,7 @@
           "label": {
             "en": "Motion Mode",
             "no": "Bevegelsesmodus",
+            "nl": "Bewegingsmodus",
             "da": "Bevægelsestilstand",
             "de": "Bewegungsmodus",
             "es": "Modo de Movimiento",
@@ -4780,6 +4794,7 @@
               "label": {
                 "en": "Performance",
                 "no": "Ytelse",
+                "nl": "Prestatie",
                 "da": "Ydeevne",
                 "de": "Leistung",
                 "es": "Rendimiento",
@@ -4796,6 +4811,7 @@
               "label": {
                 "en": "Silent",
                 "no": "Stille",
+                "nl": "Stil",
                 "da": "Stille",
                 "de": "Leise",
                 "es": "Silencioso",
@@ -4812,6 +4828,7 @@
               "label": {
                 "en": "Last Used",
                 "no": "Sist brukte",
+                "nl": "Laatst gebruikt",
                 "da": "Sidst Brugt",
                 "de": "Zuletzt verwendet",
                 "es": "Último Utilizado",
@@ -4827,6 +4844,7 @@
           "hint": {
             "en": "Select the silent or performance mode of the motor.",
             "no": "Velg stille eller ytelsesmodus for motoren.",
+            "nl": "Selecteer de stille of prestatie modus van de motor.",
             "da": "Vælg den stille eller ydeevne tilstand for motoren.",
             "de": "Wählen Sie den Leise- oder Leistungsmodus des Motors.",
             "es": "Seleccione el modo silencioso o de rendimiento del motor.",
@@ -4844,7 +4862,7 @@
           "label": {
             "en": "Device Class",
             "de": "Geräteklasse",
-            "nl": "Product indeling",
+            "nl": "Product keuze",
             "it": "Classe Dispositivo",
             "da": "Enhedsklasse",
             "es": "Clase de Dispositivo",
@@ -4858,7 +4876,7 @@
           "hint": {
             "en": "The default is curtain. If you want to use this device as a blind, select blind.",
             "de": "Standardmäßig ist dies ein Vorhang. Wenn Sie dieses Gerät als Jalousie verwenden möchten, wählen Sie Jalousie.",
-            "nl": "Standaard is dit een gordijn. Als u dit apparaat als een blind wilt gebruiken, selecteert u blind.",
+            "nl": "Standaard is dit een gordijn. Als u dit apparaat als een jaloezie wilt gebruiken, selecteert u jaloezie.",
             "it": "Il valore predefinito è tenda. Se si desidera utilizzare questo dispositivo come tapparella, selezionare tapparella.",
             "da": "Standarden er gardin. Hvis du vil bruge denne enhed som en persien, skal du vælge persien.",
             "es": "El valor predeterminado es cortina. Si desea utilizar este dispositivo como una persiana, seleccione persiana.",
@@ -4890,7 +4908,7 @@
               "label": {
                 "en": "Blind",
                 "de": "Jalousie",
-                "nl": "Blind",
+                "nl": "Jaloezie",
                 "it": "Tapparella",
                 "da": "Persien",
                 "es": "Persiana",
@@ -4965,396 +4983,468 @@
           "id": "button0",
           "type": "text",
           "label": {
-            "en": "Command  1"
+            "en": "Command  1",
+            "nl": "Opdracht 1"
           },
           "value": "",
           "hint": {
-            "en": "The command to assign to button 1. This is the name you gave the button when defining the remote. Leave it empty if there is no button 1."
+            "en": "The command to assign to button 1. This is the name you gave the button when defining the remote. Leave it empty if there is no button 1.",
+            "nl": "De opdracht voor knop 1. Geeft hiermee een naam aan de knop van de afstandsbediening. Laat het leeg als knop 1 niet wordt gebruikt."
           }
         },
         {
           "id": "button1",
           "type": "text",
           "label": {
-            "en": "Command  2"
+            "en": "Command  2",
+            "nl": "Opdracht 2"
           },
           "value": "",
           "hint": {
-            "en": "The command to assign to button 2. Leave it empty if there is no button 2."
+            "en": "The command to assign to button 2. Leave it empty if there is no button 2.",
+            "nl": "De opdracht voor knop 2. Laat het leeg als knop 2 niet wordt gebruikt."
           }
         },
         {
           "id": "button2",
           "type": "text",
           "label": {
-            "en": "Command  3"
+            "en": "Command  3",
+            "nl": "Opdracht 3"
           },
           "value": "",
           "hint": {
-            "en": "The command to assign to button 3. Leave it empty if there is no button 3."
+            "en": "The command to assign to button 3. Leave it empty if there is no button 3.",
+            "nl": "De opdracht voor knop 3. Laat het leeg als knop 3 niet wordt gebruikt."
           }
         },
         {
           "id": "button3",
           "type": "text",
           "label": {
-            "en": "Command  4"
+            "en": "Command  4",
+            "nl": "Opdracht 4"
           },
           "value": "",
           "hint": {
-            "en": "The command to assign to button 4. Leave it empty if there is no button 4."
+            "en": "The command to assign to button 4. Leave it empty if there is no button 4.",
+            "nl": "De opdracht voor knop 4. Laat het leeg als knop 4 niet wordt gebruikt."
           }
         },
         {
           "id": "button4",
           "type": "text",
           "label": {
-            "en": "Command  5"
+            "en": "Command  5",
+            "nl": "Opdracht 5"
           },
           "value": "",
           "hint": {
-            "en": "The command to assign to button 5. Leave it empty if there is no button 5."
+            "en": "The command to assign to button 5. Leave it empty if there is no button 5.",
+            "nl": "De opdracht voor knop 5. Laat het leeg als knop 5 niet wordt gebruikt."
           }
         },
         {
           "id": "button5",
           "type": "text",
           "label": {
-            "en": "Command  6"
+            "en": "Command  6",
+            "nl": "Opdracht 6"
           },
           "value": "",
           "hint": {
-            "en": "The command to assign to button 6. Leave it empty if there is no button 6."
+            "en": "The command to assign to button 6. Leave it empty if there is no button 6.",
+            "nl": "De opdracht voor knop 6. Laat het leeg als knop 6 niet wordt gebruikt."
           }
         },
         {
           "id": "button6",
           "type": "text",
           "label": {
-            "en": "Command  7"
+            "en": "Command  7",
+            "nl": "Opdracht 7"
           },
           "value": "",
           "hint": {
-            "en": "The command to assign to button 7. Leave it empty if there is no button 7."
+            "en": "The command to assign to button 7. Leave it empty if there is no button 7.",
+            "nl": "De opdracht voor knop 7. Laat het leeg als knop 7 niet wordt gebruikt."
           }
         },
         {
           "id": "button6",
           "type": "text",
           "label": {
-            "en": "Command  8"
+            "en": "Command  8",
+            "nl": "Opdracht 8"
           },
           "value": "",
           "hint": {
-            "en": "The command to assign to button 8. Leave it empty if there is no button 8."
+            "en": "The command to assign to button 8. Leave it empty if there is no button 8.",
+            "nl": "De opdracht voor knop 8. Laat het leeg als knop 8 niet wordt gebruikt."
           }
         },
         {
           "id": "button8",
           "type": "text",
           "label": {
-            "en": "Command  9"
+            "en": "Command  9",
+            "nl": "Opdracht 9"
           },
           "value": "",
           "hint": {
-            "en": "The command to assign to button 9. Leave it empty if there is no button 9."
+            "en": "The command to assign to button 9. Leave it empty if there is no button 9.",
+            "nl": "De opdracht voor knop 9. Laat het leeg als knop 9 niet wordt gebruikt."
           }
         },
         {
           "id": "button9",
           "type": "text",
           "label": {
-            "en": "Command  10"
+            "en": "Command  10",
+            "nl": "Opdracht 10"
           },
           "value": "",
           "hint": {
-            "en": "The command to assign to button 10. Leave it empty if there is no button 10."
+            "en": "The command to assign to button 10. Leave it empty if there is no button 10.",
+            "nl": "De opdracht voor knop 10. Laat het leeg als knop 10 niet wordt gebruikt."
           }
         },
         {
           "id": "button10",
           "type": "text",
           "label": {
-            "en": "Command  11"
+            "en": "Command  11",
+            "nl": "Opdracht 11"
           },
           "value": "",
           "hint": {
-            "en": "The command to assign to button 11. Leave it empty if there is no button 11."
+            "en": "The command to assign to button 11. Leave it empty if there is no button 11.",
+            "nl": "De opdracht voor knop 11. Laat het leeg als knop 11 niet wordt gebruikt."
           }
         },
         {
           "id": "button11",
           "type": "text",
           "label": {
-            "en": "Command  12"
+            "en": "Command  12",
+            "nl": "Opdracht 12"
           },
           "value": "",
           "hint": {
-            "en": "The command to assign to button 12. Leave it empty if there is no button 12."
+            "en": "The command to assign to button 12. Leave it empty if there is no button 12.",
+            "nl": "De opdracht voor knop 12. Laat het leeg als knop 12 niet wordt gebruikt."
           }
         },
         {
           "id": "button12",
           "type": "text",
           "label": {
-            "en": "Command  13"
+            "en": "Command  13",
+            "nl": "Opdracht 13"
           },
           "value": "",
           "hint": {
-            "en": "The command to assign to button 13. Leave it empty if there is no button 13."
+            "en": "The command to assign to button 13. Leave it empty if there is no button 13.",
+            "nl": "De opdracht voor knop 13. Laat het leeg als knop 13 niet wordt gebruikt."
           }
         },
         {
           "id": "button13",
           "type": "text",
           "label": {
-            "en": "Command  14"
+            "en": "Command  14",
+            "nl": "Opdracht 14"
           },
           "value": "",
           "hint": {
-            "en": "The command to assign to button 14. Leave it empty if there is no button 14."
+            "en": "The command to assign to button 14. Leave it empty if there is no button 14.",
+            "nl": "De opdracht voor knop 14. Laat het leeg als knop 14 niet wordt gebruikt."
           }
         },
         {
           "id": "button14",
           "type": "text",
           "label": {
-            "en": "Command  15"
+            "en": "Command  15",
+            "nl": "Opdracht 15"
           },
           "value": "",
           "hint": {
-            "en": "The command to assign to button 15. Leave it empty if there is no button 15."
+            "en": "The command to assign to button 15. Leave it empty if there is no button 15.",
+            "nl": "De opdracht voor knop 15. Laat het leeg als knop 15 niet wordt gebruikt."
           }
         },
         {
           "id": "button15",
           "type": "text",
           "label": {
-            "en": "Command  16"
+            "en": "Command  16",
+            "nl": "Opdracht 16"
           },
           "value": "",
           "hint": {
-            "en": "The command to assign to button 16. Leave it empty if there is no button 16."
+            "en": "The command to assign to button 16. Leave it empty if there is no button 16.",
+            "nl": "De opdracht voor knop 16. Laat het leeg als knop 16 niet wordt gebruikt."
           }
         },
         {
           "id": "button16",
           "type": "text",
           "label": {
-            "en": "Command  17"
+            "en": "Command  17",
+            "nl": "Opdracht 17"
           },
           "value": "",
           "hint": {
-            "en": "The command to assign to button 17. Leave it empty if there is no button 17."
+            "en": "The command to assign to button 17. Leave it empty if there is no button 17.",
+            "nl": "De opdracht voor knop 17. Laat het leeg als knop 17 niet wordt gebruikt."
           }
         },
         {
           "id": "button17",
           "type": "text",
           "label": {
-            "en": "Command  18"
+            "en": "Command  18",
+            "nl": "Opdracht 18"
           },
           "value": "",
           "hint": {
-            "en": "The command to assign to button 18. Leave it empty if there is no button 18."
+            "en": "The command to assign to button 18. Leave it empty if there is no button 18.",
+            "nl": "De opdracht voor knop 18. Laat het leeg als knop 18 niet wordt gebruikt."
           }
         },
         {
           "id": "button18",
           "type": "text",
           "label": {
-            "en": "Command  19"
+            "en": "Command  19",
+            "nl": "Opdracht 19"
           },
           "value": "",
           "hint": {
-            "en": "The command to assign to button 19. Leave it empty if there is no button 19."
+            "en": "The command to assign to button 19. Leave it empty if there is no button 19.",
+            "nl": "De opdracht voor knop 19. Laat het leeg als knop 19 niet wordt gebruikt."
           }
         },
         {
           "id": "button19",
           "type": "text",
           "label": {
-            "en": "Command  20"
+            "en": "Command  20",
+            "nl": "Opdracht 20"
           },
           "value": "",
           "hint": {
-            "en": "The command to assign to button 20. Leave it empty if there is no button 20."
+            "en": "The command to assign to button 20. Leave it empty if there is no button 20.",
+            "nl": "De opdracht voor knop 20. Laat het leeg als knop 20 niet wordt gebruikt."
           }
         },
         {
           "id": "button20",
           "type": "text",
           "label": {
-            "en": "Command  21"
+            "en": "Command  21",
+            "nl": "Opdracht 21"
           },
           "value": "",
           "hint": {
-            "en": "The command to assign to button 21. Leave it empty if there is no button 21."
+            "en": "The command to assign to button 21. Leave it empty if there is no button 21.",
+            "nl": "De opdracht voor knop 21. Laat het leeg als knop 21 niet wordt gebruikt."
           }
         },
         {
           "id": "button21",
           "type": "text",
           "label": {
-            "en": "Command  22"
+            "en": "Command  22",
+            "nl": "Opdracht 22"
           },
           "value": "",
           "hint": {
-            "en": "The command to assign to button 22. Leave it empty if there is no button 22."
+            "en": "The command to assign to button 22. Leave it empty if there is no button 22.",
+            "nl": "De opdracht voor knop 22. Laat het leeg als knop 22 niet wordt gebruikt."
           }
         },
         {
           "id": "button22",
           "type": "text",
           "label": {
-            "en": "Command  23"
+            "en": "Command  23",
+            "nl": "Opdracht 23"
           },
           "value": "",
           "hint": {
-            "en": "The command to assign to button 23. Leave it empty if there is no button 23."
+            "en": "The command to assign to button 23. Leave it empty if there is no button 23.",
+            "nl": "De opdracht voor knop 23. Laat het leeg als knop 23 niet wordt gebruikt."
           }
         },
         {
           "id": "button23",
           "type": "text",
           "label": {
-            "en": "Command  24"
+            "en": "Command  24",
+            "nl": "Opdracht 24"
           },
           "value": "",
           "hint": {
-            "en": "The command to assign to button 24. Leave it empty if there is no button 24."
+            "en": "The command to assign to button 24. Leave it empty if there is no button 24.",
+            "nl": "De opdracht voor knop 24. Laat het leeg als knop 24 niet wordt gebruikt."
           }
         },
         {
           "id": "button24",
           "type": "text",
           "label": {
-            "en": "Command  25"
+            "en": "Command  25",
+            "nl": "Opdracht 25"
           },
           "value": "",
           "hint": {
-            "en": "The command to assign to button 25. Leave it empty if there is no button 25."
+            "en": "The command to assign to button 25. Leave it empty if there is no button 25.",
+            "nl": "De opdracht voor knop 25. Laat het leeg als knop 25 niet wordt gebruikt."
           }
         },
         {
           "id": "button25",
           "type": "text",
           "label": {
-            "en": "Command  26"
+            "en": "Command  26",
+            "nl": "Opdracht 26"
           },
           "value": "",
           "hint": {
-            "en": "The command to assign to button 26. Leave it empty if there is no button 26."
+            "en": "The command to assign to button 26. Leave it empty if there is no button 26.",
+            "nl": "De opdracht voor knop 26. Laat het leeg als knop 26 niet wordt gebruikt."
           }
         },
         {
           "id": "button26",
           "type": "text",
           "label": {
-            "en": "Command  27"
+            "en": "Command  27",
+            "nl": "Opdracht 27"
           },
           "value": "",
           "hint": {
-            "en": "The command to assign to button 27. Leave it empty if there is no button 27."
+            "en": "The command to assign to button 27. Leave it empty if there is no button 27.",
+            "nl": "De opdracht voor knop 27. Laat het leeg als knop 27 niet wordt gebruikt."
           }
         },
         {
           "id": "button27",
           "type": "text",
           "label": {
-            "en": "Command  28"
+            "en": "Command  28",
+            "nl": "Opdracht 28"
           },
           "value": "",
           "hint": {
-            "en": "The command to assign to button 28. Leave it empty if there is no button 28."
+            "en": "The command to assign to button 28. Leave it empty if there is no button 28.",
+            "nl": "De opdracht voor knop 28. Laat het leeg als knop 28 niet wordt gebruikt."
           }
         },
         {
           "id": "button28",
           "type": "text",
           "label": {
-            "en": "Command  29"
+            "en": "Command  29",
+            "nl": "Opdracht 29"
           },
           "value": "",
           "hint": {
-            "en": "The command to assign to button 29. Leave it empty if there is no button 29."
+            "en": "The command to assign to button 29. Leave it empty if there is no button 29.",
+            "nl": "De opdracht voor knop 29. Laat het leeg als knop 29 niet wordt gebruikt."
           }
         },
         {
           "id": "button29",
           "type": "text",
           "label": {
-            "en": "Command  30"
+            "en": "Command  30",
+            "nl": "Opdracht 30"
           },
           "value": "",
           "hint": {
-            "en": "The command to assign to button 30. Leave it empty if there is no button 30."
+            "en": "The command to assign to button 30. Leave it empty if there is no button 30.",
+            "nl": "De opdracht voor knop 30. Laat het leeg als knop 30 niet wordt gebruikt."
           }
         },
         {
           "id": "button30",
           "type": "text",
           "label": {
-            "en": "Command  31"
+            "en": "Command  31",
+            "nl": "Opdracht 31"
           },
           "value": "",
           "hint": {
-            "en": "The command to assign to button 31. Leave it empty if there is no button 31."
+            "en": "The command to assign to button 31. Leave it empty if there is no button 31.",
+            "nl": "De opdracht voor knop 31. Laat het leeg als knop 31 niet wordt gebruikt."
           }
         },
         {
           "id": "button31",
           "type": "text",
           "label": {
-            "en": "Command  32"
+            "en": "Command  32",
+            "nl": "Opdracht 32"
           },
           "value": "",
           "hint": {
-            "en": "The command to assign to button 32. Leave it empty if there is no button 32."
+            "en": "The command to assign to button 32. Leave it empty if there is no button 32.",
+            "nl": "De opdracht voor knop 32. Laat het leeg als knop 32 niet wordt gebruikt."
           }
         },
         {
           "id": "button32",
           "type": "text",
           "label": {
-            "en": "Command  33"
+            "en": "Command  33",
+            "nl": "Opdracht 33"
           },
           "value": "",
           "hint": {
-            "en": "The command to assign to button 33. Leave it empty if there is no button 33."
+            "en": "The command to assign to button 33. Leave it empty if there is no button 33.",
+            "nl": "De opdracht voor knop 33. Laat het leeg als knop 33 niet wordt gebruikt."
           }
         },
         {
           "id": "button33",
           "type": "text",
           "label": {
-            "en": "Command  34"
+            "en": "Command  34",
+            "nl": "Opdracht 34"
           },
           "value": "",
           "hint": {
-            "en": "The command to assign to button 34. Leave it empty if there is no button 34."
+            "en": "The command to assign to button 34. Leave it empty if there is no button 34.",
+            "nl": "De opdracht voor knop 34. Laat het leeg als knop 34 niet wordt gebruikt."
           }
         },
         {
           "id": "button34",
           "type": "text",
           "label": {
-            "en": "Command  35"
+            "en": "Command  35",
+            "nl": "Opdracht 35"
           },
           "value": "",
           "hint": {
-            "en": "The command to assign to button 35. Leave it empty if there is no button 35."
+            "en": "The command to assign to button 35. Leave it empty if there is no button 35.",
+            "nl": "De opdracht voor knop 35. Laat het leeg als knop 35 niet wordt gebruikt."
           }
         },
         {
           "id": "button35",
           "type": "text",
           "label": {
-            "en": "Command  36"
+            "en": "Command  36",
+            "nl": "Opdracht 36"
           },
           "value": "",
           "hint": {
-            "en": "The command to assign to button 36. Leave it empty if there is no button 36."
+            "en": "The command to assign to button 36. Leave it empty if there is no button 36.",
+            "nl": "De opdracht voor knop 36. Laat het leeg als knop 36 niet wordt gebruikt."
           }
         }
       ]
@@ -5586,7 +5676,7 @@
       "name": {
         "en": "Light Remote",
         "no": "Lysfjernkontroll",
-        "nl": "Lichtafstandsbediening",
+        "nl": "Lamp afstandsbediening",
         "da": "Lys Fjernbetjening",
         "de": "Lichtfernbedienung",
         "es": "Mando a Distancia de Luz",
@@ -5808,7 +5898,7 @@
       "name": {
         "en": "Plug (HUB)",
         "no": "Plugg (HUB)",
-        "nl": "Plug (HUB)",
+        "nl": "Slimme stekker (HUB)",
         "da": "Stik (HUB)",
         "de": "Stecker (HUB)",
         "es": "Enchufe (HUB)",
@@ -6121,7 +6211,7 @@
           "title": {
             "en": "Power Level Strong",
             "no": "Styrkenivå kraftig",
-            "nl": "Vermogensniveau Sterk",
+            "nl": "Vermogensniveau Krachtig",
             "da": "Strømstyrkeniveau Stærk",
             "de": "Leistungsstufe Stark",
             "es": "Nivel de Potencia Fuerte",
@@ -6373,7 +6463,7 @@
       "name": {
         "en": "Speaker Remote",
         "no": "Høyttaler fjernkontroll",
-        "nl": "Speaker Afstandsbediening",
+        "nl": "Luidspreker Afstandsbediening",
         "da": "Højttalerfjernbetjening",
         "de": "Lautsprecherfernbedienung",
         "es": "Mando a distancia de altavoz",
@@ -6732,7 +6822,7 @@
       "name": {
         "en": "Water Leak Detector (HUB)",
         "no": "Vannlekkasjevarsler (HUB)",
-        "nl": "Waterlekdetector (HUB)",
+        "nl": "Waterleksensor (HUB)",
         "da": "Vandlækagedetektor (HUB)",
         "de": "Wasserleckdetektor (HUB)",
         "es": "Detector de fugas de agua (HUB)",
@@ -6813,7 +6903,7 @@
           "title": {
             "en": "Medium",
             "no": "Middels",
-            "nl": "Medium",
+            "nl": "Gemiddeld",
             "da": "Mellem",
             "de": "Mittel",
             "es": "Medio",
@@ -7072,7 +7162,7 @@
       "title": {
         "en": "Brightness up",
         "no": "Lysstyrke opp",
-        "nl": "Heldere",
+        "nl": "Helderheid omhoog",
         "da": "Lysstyrke op",
         "de": "Helligkeit erhöhen",
         "es": "Subir el brillo",
@@ -7093,7 +7183,7 @@
       "title": {
         "en": "Button Press ID",
         "no": "Knappetrykk ID",
-        "nl": "Knopdruk ID",
+        "nl": "Knop indrukken ID",
         "da": "Knap Tryk ID",
         "de": "Tastendruck ID",
         "es": "ID de presión del botón",
@@ -7163,7 +7253,7 @@
       "title": {
         "en": "Entry ID",
         "no": "Inngangs id",
-        "nl": "Invoer-ID",
+        "nl": "Ingang-ID",
         "da": "Entry-ID",
         "de": "Eintrags-ID",
         "es": "ID de entrada",
@@ -7184,7 +7274,7 @@
       "title": {
         "en": "Exit ID",
         "no": "Utgangs id",
-        "nl": "Exit ID",
+        "nl": "Uitgang ID",
         "da": "Exit ID",
         "de": "Exit ID",
         "es": "ID de salida",
@@ -7268,7 +7358,7 @@
       "title": {
         "en": "Swing",
         "no": "Pendler",
-        "nl": "Schommel",
+        "nl": "Zwaai",
         "da": "Sving",
         "de": "Schwingen",
         "es": "Oscilar",
@@ -7464,7 +7554,7 @@
       "title": {
         "en": "Play",
         "no": "Aktiver",
-        "nl": "Spelen",
+        "nl": "Afspelen",
         "da": "Spil",
         "de": "Spielen",
         "es": "Jugar",
@@ -7516,7 +7606,17 @@
       },
       "units": {
         "en": "%",
-        "no": "%"
+        "no": "%",
+        "nl": "%",
+        "da": "%",
+        "de": "%",
+        "es": "%",
+        "fr": "%",
+        "it": "%",
+        "sv": "%",
+        "pl": "%",
+        "ru": "%",
+        "ko": "%"
       },
       "decimals": 0,
       "getable": true,
@@ -7614,7 +7714,7 @@
       "uiComponent": "button",
       "title": {
         "en": "Dock",
-        "nl": "Dock",
+        "nl": "Station",
         "no": "Dokk",
         "da": "Dock",
         "de": "Dock",
@@ -7763,7 +7863,7 @@
       "title": {
         "en": "Shake Range",
         "no": "Bevegelsesutslag",
-        "nl": "Schudbereik",
+        "nl": "Zwaaibereik",
         "da": "Rysteområde",
         "de": "Schüttelbereich",
         "es": "Rango de agitación",
@@ -7912,7 +8012,7 @@
       "title": {
         "en": "Power",
         "no": "Styrke",
-        "nl": "Stroom",
+        "nl": "Voeding",
         "da": "Strøm",
         "de": "Strom",
         "es": "Energía",

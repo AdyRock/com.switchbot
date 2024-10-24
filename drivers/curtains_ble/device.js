@@ -162,7 +162,7 @@ class CurtainsBLEDevice extends Homey.Device
 		{
 			await this.pause();
 			this.pollTimer = this.homey.setTimeout(() => {
-				this.getHubDeviceValues().catch(this.error);
+				this.getDeviceValues(true).catch(this.error);
 			}, 1000);
 		}
 		else if (value === 'up')

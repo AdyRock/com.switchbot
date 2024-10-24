@@ -95,7 +95,7 @@ class BlindTiltBLEDevice extends Homey.Device
 
 		setImmediate(() =>
 		{
-			this.getDeviceValues(true);
+			this.getDeviceValues(true).catch(this.error);
 		});
 	}
 
