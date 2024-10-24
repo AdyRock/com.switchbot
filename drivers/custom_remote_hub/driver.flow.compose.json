@@ -3,23 +3,28 @@
 		{
 			"id": "send_custom_remote_command",
 			"title": {
-				"en": "Send a remote command"
+				"en": "Send a remote command",
+				"nl": "Verstuur een opdracht op afstand"
 			},
 			"titleFormatted": {
-				"en": "Send the '[[command]]' command"
+				"en": "Send the '[[command]]' command",
+				"nl": "Verstuur '[[command]]' als opdracht"
 			},
 			"hint": {
-				"en": "Send a custom remote command to the hub"
+				"en": "Send a custom remote command to the hub",
+				"nl": "Verstuur een eigen opdracht naar de hub"
 			},
 			"args": [
 				{
 					"type": "autocomplete",
 					"name": "command",
 					"title": {
-						"en": "Command Name"
+						"en": "Command Name",
+						"nl": "Opdrachtnaam"
 					},
 					"placeholder": {
-						"en": "Command Name"
+						"en": "Command Name",
+						"nl": "Naam van de opdracht"
 					}
 				}
 			],

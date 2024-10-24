@@ -2,30 +2,30 @@
   "title": {
     "en": "The state !{{is|isn't}} [[state]]",
     "no": "Kjøremodus !{{er|er ikke}} [[state]]",
-    "nl": "De staat is !{{is|isn't}} [[state]]",
-    "da": "Tilstanden er !{{is|isn't}} [[state]]",
-    "de": "Der Zustand ist !{{is|isn't}} [[state]]",
-    "es": "El estado es !{{is|isn't}} [[state]]",
-    "fr": "L'état est !{{is|isn't}} [[state]]",
-    "it": "Lo stato è !{{is|isn't}} [[state]]",
+    "nl": "De status !{{is|is niet}} [[state]]",
+    "da": "Tilstanden !{{er|er det ikke}} [[state]]",
+    "de": "Der Zustand !{{ist|ist nicht}} [[state]]",
+    "es": "El estado !{{es|no es}} [[state]]",
+    "fr": "L'état !{{est|n'est-ce pas}} [[state]]",
+    "it": "Lo stato !{{è|non lo è}} [[state]]",
     "sv": "Tillståndet är !{{is|isn't}} [[state]]",
-    "pl": "Stan to !{{is|isn't}} [[state]]",
-    "ru": "Состояние !{{is|isn't}} [[state]]",
-    "ko": "상태는 !{{is|isn't}} [[state]]"
+    "pl": "Stan to !{{jest|nie jest}} [[state]]",
+    "ru": "Состояние !{{este|nu este}} [[state]]",
+    "ko": "상태는 !{{~이다|그렇지 않다}} [[state]]"
   },
   "titleFormatted": {
     "en": "The state !{{is|isn't}} [[state]]",
     "no": "Kjøremodus !{{er|er ikke}} [[state]]",
-    "nl": "De staat is !{{is|isn't}} [[state]]",
-    "da": "Tilstanden er !{{is|isn't}} [[state]]",
-    "de": "Der Zustand ist !{{is|isn't}} [[state]]",
-    "es": "El estado es !{{is|isn't}} [[state]]",
-    "fr": "L'état est !{{is|isn't}} [[state]]",
-    "it": "Lo stato è !{{is|isn't}} [[state]]",
+    "nl": "De status !{{is|is niet}} [[state]]",
+    "da": "Tilstanden !{{er|er det ikke}} [[state]]",
+    "de": "Der Zustand !{{ist|ist nicht}} [[state]]",
+    "es": "El estado !{{es|no es}} [[state]]",
+    "fr": "L'état !{{est|n'est-ce pas}} [[state]]",
+    "it": "Lo stato !{{è|non lo è}} [[state]]",
     "sv": "Tillståndet är !{{is|isn't}} [[state]]",
-    "pl": "Stan to !{{is|isn't}} [[state]]",
-    "ru": "Состояние !{{is|isn't}} [[state]]",
-    "ko": "상태는 !{{is|isn't}} [[state]]"
+    "pl": "Stan to !{{jest|nie jest}} [[state]]",
+    "ru": "Состояние !{{este|nu este}} [[state]]",
+    "ko": "상태는 !{{~이다|그렇지 않다}} [[state]]"
   },
   "args": [
     {
@@ -102,7 +102,7 @@
           "title": {
             "en": "Going to Charge Base",
             "no": "På vei til ladestasjon",
-            "nl": "Gaat naar oplaadbasis",
+            "nl": "Gaat naar oplaadstation",
             "da": "Går til ladestation",
             "de": "Zur Ladestation unterwegs",
             "es": "Yendo a la base de carga",
@@ -204,7 +204,7 @@
           "title": {
             "en": "Dust Collecting",
             "no": "Samler støv",
-            "nl": "Stof aan het verzamelen",
+            "nl": "Stofzuigen",
             "da": "Støvsamler",
             "de": "Staubsammeln",
             "es": "Recolectando polvo",

@@ -19,7 +19,7 @@
       "hint": {
         "en": "Run the flow when button on the sensor is pressed. The token is a number that is incremented by the sensor each time the button is press. It will wrap around to 0 when it incremets past 255.",
         "no": "Kjør flowen hvis knappen er trykket. Tagen er et tall som øker hver gang knappen er trykket. Den vil nullstilles etter 255.",
-        "nl": "Voer de flow uit wanneer de knop op de sensor wordt ingedrukt. De token is een nummer dat door de sensor wordt verhoogd telkens wanneer de knop wordt ingedrukt. Het zal worden teruggezet op 0 wanneer het voorbij 255 toeneemt.",
+        "nl": "Voer de flow uit wanneer de knop op de sensor wordt ingedrukt. De token is een nummer dat door de sensor wordt verhoogd telkens wanneer de knop wordt ingedrukt. Het zal worden teruggezet op 0 wanneer het voorbij 255 komt.",
         "da": "Kør flowen, når knappen på sensoren trykkes. Token er et tal, der øges af sensoren, hver gang knappen trykkes. Det vil nulstilles til 0, når det overstiger 255.",
         "de": "Führen Sie den Flow aus, wenn die Taste am Sensor gedrückt wird. Das Token ist eine Zahl, die bei jedem Drücken der Taste vom Sensor inkrementiert wird. Es wird auf 0 zurückgesetzt, wenn es über 255 hinausgeht.",
         "es": "Ejecuta el flujo cuando se presione el botón en el sensor. El token es un número que se incrementa por el sensor cada vez que se presiona el botón. Se reiniciará a 0 cuando se incremente más allá de 255.",
@@ -40,7 +40,7 @@
           "title": {
             "en": "Button press ID",
             "no": "Knapp trykket ID",
-            "nl": "Knop druk ID",
+            "nl": "Knop indrukken ID",
             "da": "Knaptryk ID",
             "de": "Tastendruck ID",
             "es": "ID de presión de botón",
@@ -61,7 +61,7 @@
       "title": {
         "en": "Entry ID Changed",
         "no": "Inngang ID endret",
-        "nl": "Wijziging in Entry ID",
+        "nl": "Ingang ID gewijzigd",
         "da": "Indgangs-id ændret",
         "de": "Eintrags-ID geändert",
         "es": "ID de entrada cambiado",
@@ -75,7 +75,7 @@
       "hint": {
         "en": "Run the flow when the sensor detects an entry (contact break before motion). The token is a number that is incremented by the sensor each time an entry is detected. It will wrap around to 0 when it incremets past 255.",
         "no": "Kjør flowen hvis sensoren detekterer en inngang. Tagen er et tall som øker hver gang en inngang er detektert. Den vil nullstilles etter 255.",
-        "nl": "Voer de flow uit wanneer de sensor een ingang detecteert (contaconderbreking voor beweging). De token is een nummer dat door de sensor wordt verhoogd telkens als een ingang wordt gedetecteerd. Het wordt teruggezet op 0 wanneer het voorbij 255 toeneemt.",
+        "nl": "Voer de flow uit wanneer de sensor een ingang detecteert (contaconderbreking voor beweging). De token is een nummer dat door de sensor wordt verhoogd telkens als een ingang wordt gedetecteerd. Het wordt teruggezet op 0 wanneer het voorbij 255 komt.",
         "da": "Kør flowen, når sensoren registrerer en indgang (kontaktafbrydelse før bevægelse). Token er et tal, der øges af sensoren, hver gang en indgang registreres. Det nulstilles til 0, når det overstiger 255.",
         "de": "Führen Sie den Flow aus, wenn der Sensor einen Eintritt erkennt (Kontaktunterbrechung vor Bewegung). Das Token ist eine Zahl, die jedes Mal vom Sensor inkrementiert wird, wenn ein Eintritt erkannt wird. Es wird auf 0 zurückgesetzt, wenn es über 255 hinausgeht.",
         "es": "Ejecuta el flujo cuando el sensor detecta una entrada (ruptura de contacto antes del movimiento). El token es un número que se incrementa por el sensor cada vez que se detecta una entrada. Se reiniciará a 0 cuando se incremente más allá de 255.",
@@ -117,7 +117,7 @@
       "title": {
         "en": "Exit ID Changed",
         "no": "Utgang ID endret",
-        "nl": "Wijziging in Exit ID",
+        "nl": "Uitgang ID gewijzigd",
         "da": "Udgangs-id ændret",
         "de": "Austritts-ID geändert",
         "es": "ID de salida cambiado",
@@ -131,7 +131,7 @@
       "hint": {
         "en": "Run the flow when the sensor detects an exit (contact break after motion). The token is a number that is incremented by the sensor each time an exit is detected. It will wrap around to 0 when it incremets past 255.",
         "no": "Kjør flowen hvis sensoren detekterer en utgang. Tagen er et tall som øker hver gang en utgang er detektert. Den vil nullstilles etter 255.",
-        "nl": "Voer de flow uit wanneer de sensor een uitgang detecteert (contaconderbreking na beweging). De token is een nummer dat door de sensor wordt verhoogd telkens als een uitgang wordt gedetecteerd. Het wordt teruggezet op 0 wanneer het voorbij 255 toeneemt.",
+        "nl": "Voer de flow uit wanneer de sensor een uitgang detecteert (contaconderbreking na beweging). De token is een nummer dat door de sensor wordt verhoogd telkens als een uitgang wordt gedetecteerd. Het wordt teruggezet op 0 wanneer het voorbij 255 komt.",
         "da": "Kør flowen, når sensoren registrerer en udgang (kontaktafbrydelse efter bevægelse). Token er et tal, der øges af sensoren, hver gang en udgang registreres. Det nulstilles til 0, når det overstiger 255.",
         "de": "Führen Sie den Flow aus, wenn der Sensor einen Austritt erkennt (Kontaktunterbrechung nach Bewegung). Das Token ist eine Zahl, die jedes Mal vom Sensor inkrementiert wird, wenn ein Austritt erkannt wird. Es wird auf 0 zurückgesetzt, wenn es über 255 hinausgeht.",
         "es": "Ejecuta el flujo cuando el sensor detecta una salida (ruptura de contacto después del movimiento). El token es un número que se incrementa por el sensor cada vez que se detecta una salida. Se reiniciará a 0 cuando se incremente más allá de 255.",

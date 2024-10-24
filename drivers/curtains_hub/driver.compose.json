@@ -3,6 +3,7 @@
   "name": {
     "en": "Curtains (HUB)",
     "no": "Gardiner (HUB)",
+    "nl": "Gordijnen (HUB)",
     "da": "Gardiner (HUB)",
     "de": "Vorhänge (HUB)",
     "es": "Cortinas (HUB)",
@@ -35,6 +36,7 @@
       "label": {
         "en": "Invert Open / Close Position",
         "no": "Inverter Åpen / Lukket posisjon",
+        "nl": "Open/Dicht Positie omkeren",
         "da": "Inverter Åben / Lukket Position",
         "de": "Öffnen / Schließen Position umkehren",
         "es": "Invertir Posición Abierta / Cerrada",
@@ -49,6 +51,7 @@
       "hint": {
         "en": "Reverse the action of the position control.",
         "no": "Vend retningen for posisjonsvelgeren.",
+        "nl": "Draai de actie van de positiebediening om.",
         "da": "Vend handlingen af positionskontrollen.",
         "de": "Drehen Sie die Aktion der Positionssteuerung um.",
         "es": "Invierta la acción del control de posición.",
@@ -66,6 +69,7 @@
       "label": {
         "en": "Motion Mode",
         "no": "Bevegelsesmodus",
+        "nl": "Bewegingsmodus",
         "da": "Bevægelsestilstand",
         "de": "Bewegungsmodus",
         "es": "Modo de Movimiento",
@@ -83,6 +87,7 @@
           "label": {
             "en": "Performance",
             "no": "Ytelse",
+            "nl": "Prestatie",
             "da": "Ydeevne",
             "de": "Leistung",
             "es": "Rendimiento",
@@ -99,6 +104,7 @@
           "label": {
             "en": "Silent",
             "no": "Stille",
+            "nl": "Stil",
             "da": "Stille",
             "de": "Leise",
             "es": "Silencioso",
@@ -115,6 +121,7 @@
           "label": {
             "en": "Last Used",
             "no": "Sist brukte",
+            "nl": "Laatst gebruikt",
             "da": "Sidst Brugt",
             "de": "Zuletzt verwendet",
             "es": "Último Utilizado",
@@ -130,6 +137,7 @@
       "hint": {
         "en": "Select the silent or performance mode of the motor.",
         "no": "Velg stille eller ytelsesmodus for motoren.",
+        "nl": "Selecteer de stille of prestatie modus van de motor.",
         "da": "Vælg den stille eller ydeevne tilstand for motoren.",
         "de": "Wählen Sie den Leise- oder Leistungsmodus des Motors.",
         "es": "Seleccione el modo silencioso o de rendimiento del motor.",
@@ -147,7 +155,7 @@
       "label": {
         "en": "Device Class",
         "de": "Geräteklasse",
-        "nl": "Product indeling",
+        "nl": "Product keuze",
         "it": "Classe Dispositivo",
         "da": "Enhedsklasse",
         "es": "Clase de Dispositivo",
@@ -161,7 +169,7 @@
       "hint": {
         "en": "The default is curtain. If you want to use this device as a blind, select blind.",
         "de": "Standardmäßig ist dies ein Vorhang. Wenn Sie dieses Gerät als Jalousie verwenden möchten, wählen Sie Jalousie.",
-        "nl": "Standaard is dit een gordijn. Als u dit apparaat als een blind wilt gebruiken, selecteert u blind.",
+        "nl": "Standaard is dit een gordijn. Als u dit apparaat als een jaloezie wilt gebruiken, selecteert u jaloezie.",
         "it": "Il valore predefinito è tenda. Se si desidera utilizzare questo dispositivo come tapparella, selezionare tapparella.",
         "da": "Standarden er gardin. Hvis du vil bruge denne enhed som en persien, skal du vælge persien.",
         "es": "El valor predeterminado es cortina. Si desea utilizar este dispositivo como una persiana, seleccione persiana.",
@@ -193,7 +201,7 @@
           "label": {
             "en": "Blind",
             "de": "Jalousie",
-            "nl": "Blind",
+            "nl": "Jaloezie",
             "it": "Tapparella",
             "da": "Persien",
             "es": "Persiana",

@@ -72,7 +72,7 @@
 			"hint": {
 				"en": "Reverse the action of the open / close button.",
 				"no": "Vend retningen for åpen / lukk knapp.",
-				"nl": "Keer de actie van de open/dicht-knop om.",
+				"nl": "Keer de actie van de open/dicht knop om.",
 				"da": "Omvend handlingen af åben/luk-knappen.",
 				"de": "Aktion der Öffnen/Schließen-Taste umkehren.",
 				"es": "Invierte la acción del botón abrir/cerrar.",
@@ -217,7 +217,7 @@
 			"hint": {
 				"en": "Select the silent or performance mode of the motor.",
 				"no": "Velg stille eller ytelse modus for motoren.",
-				"nl": "Selecteer de stille of prestatiewijze van de motor.",
+				"nl": "Selecteer de stille of prestatie mode van de motor.",
 				"da": "Vælg den stille eller ydeevne tilstand af motoren.",
 				"de": "Wählen Sie den leisen oder Leistungsmodus des Motors.",
 				"es": "Seleccione el modo silencioso o de rendimiento del motor.",

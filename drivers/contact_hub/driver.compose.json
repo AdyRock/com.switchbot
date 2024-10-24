@@ -27,7 +27,7 @@
       "title": {
         "en": "Left Open",
         "no": "Fremdeles åpen",
-        "nl": "Gelaten open",
+        "nl": "Opengelaten",
         "da": "Efterladt åben",
         "de": "Offen gelassen",
         "es": "Dejado abierto",
@@ -41,7 +41,7 @@
       "insightsTitleTrue": {
         "en": "Contact Left Open",
         "no": "Kontaktalarm fremdeles på",
-        "nl": "Contact gelaten open",
+        "nl": "Contact opengelaten",
         "da": "Kontakt efterladt åben",
         "de": "Kontakt offen gelassen",
         "es": "Contacto dejado abierto",

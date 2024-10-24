@@ -145,7 +145,7 @@
           "label": {
             "en": "Last Used",
             "no": "Sist brukte",
-            "nl": "Laatst Gebruikt",
+            "nl": "Laatst gebruikt",
             "da": "Sidst brugt",
             "de": "Zuletzt verwendet",
             "es": "Último Usado",
@@ -161,7 +161,7 @@
       "hint": {
         "en": "Select the silent or performance mode of the motor.",
         "no": "Velg stille eller ytelsesmodus for motoren.",
-        "nl": "Selecteer de stille of prestatiesmodus van de motor.",
+        "nl": "Selecteer de stille of prestatie modus van de motor.",
         "da": "Vælg den stille eller ydelsestilstand for motoren.",
         "de": "Wählen Sie den leisen oder Leistungsmodus des Motors.",
         "es": "Seleccione el modo silencioso o de rendimiento del motor.",
@@ -179,7 +179,7 @@
       "label": {
         "en": "Device Class",
         "de": "Geräteklasse",
-        "nl": "Product indeling",
+        "nl": "Product keuze",
         "it": "Classe Dispositivo",
         "da": "Enhedsklasse",
         "es": "Clase del Dispositivo",
@@ -193,7 +193,7 @@
       "hint": {
         "en": "The default is curtain. If you want to use this device in Google Home, etc, select blind.",
         "de": "Standardmäßig ist Vorhang ausgewählt. Wenn Sie dieses Gerät in Google Home usw. verwenden möchten, wählen Sie Jalousie.",
-        "nl": "Standaard is gordijn geselecteerd. Als u dit apparaat in Google Home, enz. wilt gebruiken, selecteert u blind.",
+        "nl": "Standaard is gordijn geselecteerd. Als u dit apparaat in Google Home, enz. wilt gebruiken, selecteert u Jaloezie.",
         "it": "Per impostazione predefinita è selezionato tenda. Se si desidera utilizzare questo dispositivo in Google Home, ecc., selezionare tapparella.",
         "da": "Standardindstillingen er gardin. Hvis du vil bruge denne enhed i Google Home osv., skal du vælge blind.",
         "es": "El valor predeterminado es cortina. Si desea utilizar este dispositivo en Google Home, etc., seleccione persiana.",
@@ -225,7 +225,7 @@
           "label": {
             "en": "Blind",
             "de": "Jalousie",
-            "nl": "Blind",
+            "nl": "Jaloezie",
             "it": "Tapparella",
             "da": "Rullegardin",
             "es": "Persiana",
