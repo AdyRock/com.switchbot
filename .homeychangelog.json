@@ -361,5 +361,9 @@
 	"2.0.3": {
 		"en": "Updated Dutch translations",
 		"no": "Oppdaterte nederlandske oversettelser"
+	},
+	"2.0.4": {
+		"en": "Added support for the SwitchBot Meter Pro",
+		"no": "Lagt til støtte for SwitchBot Meter Pro"
 	}
 }
