@@ -27,6 +27,10 @@
 			"AA"
 		]
 	},
+	"platforms": [
+		"local",
+		"cloud"
+	],
 	"$extends": [
 		"hubDriver"
 	]

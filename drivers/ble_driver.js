@@ -281,6 +281,10 @@ class BLEDriver extends Homey.Driver
 		{ // WoWaterLeak
 			sd = this._parseServiceDataForWaterLeak(buf, device.manufacturerData);
 		}
+		else if (model === '5')
+		{ // WoWaterLeak
+			sd = this._parseServiceDataForCO2Meter(buf, device.manufacturerData);
+		}
 		else
 		{
 			return null;
@@ -610,6 +614,43 @@ class BLEDriver extends Homey.Driver
 			modelName: 'WoWaterLeak',
 			status: (state & 1) !== 0,
 			battery,
+		};
+
+		return data;
+	}
+
+	_parseServiceDataForCO2Meter(buf, man)
+	{
+		if (man.length < 16)
+		{
+			return null;
+		}
+		const byte2 = buf.readUInt8(2);
+
+		const byte10 = man.readUInt8(10);
+		const byte11 = man.readUInt8(11);
+		const byte12 = man.readUInt8(12);
+
+		const byte15 = man.readUInt8(15);
+		const byte16 = man.readUInt8(16);
+
+		const tempSign = (byte11 & 0b10000000) ? 1 : -1;
+		const tempC = tempSign * ((byte11 & 0b01111111) + ((byte10 & 0b01111111) / 10));
+		let tempF = ((tempC * 9) / 5) + 32;
+		tempF = Math.round(tempF * 10) / 10;
+
+		const data = {
+			model: '5',
+			modelName: 'WoCO2Sensor',
+			temperature:
+			{
+				c: tempC,
+				f: tempF,
+			},
+			fahrenheit: !!((byte12 & 0b10000000)),
+			humidity: (byte12 & 0b01111111),
+			battery: (byte2 & 0b01111111),
+			co2: (byte15 * 256) + byte16,
 		};
 
 		return data;

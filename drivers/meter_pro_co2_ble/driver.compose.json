@@ -1,0 +1,55 @@
+{
+	"id": "meter_pro_co2_ble",
+	"name": {
+		"en": "Meter Pro with CO2 (BLE)",
+		"nl": "Meter Pro met CO2 (BLE)",
+		"de": "Meter Pro mit CO2 (BLE)",
+		"fr": "Meter Pro avec CO2 (BLE)",
+		"es": "Medidor Pro con CO2 (BLE)",
+		"pt": "Medidor Pro com CO2 (BLE)",
+		"it": "Misuratore Pro con CO2 (BLE)",
+		"pl": "Miernik Pro z CO2 (BLE)",
+		"cn": "Meter Pro with CO2 (BLE)",
+		"jp": "Meter Pro with CO2 (BLE)",
+		"tw": "Meter Pro with CO2 (BLE)",
+		"kr": "Meter Pro with CO2 (BLE)"
+	},
+	"class": "sensor",
+	"capabilities": [
+		"measure_temperature",
+		"measure_humidity",
+		"measure_battery",
+		"measure_co2",
+		"rssi"
+	],
+	"energy": {
+		"batteries": [
+			"AA",
+			"AA"
+		]
+	},
+	"platforms": [
+		"local",
+		"cloud"
+	],
+	"connectivity": [
+		"ble"
+	],
+	"pair": [
+		{
+			"id": "list_my_devices",
+			"template": "list_devices",
+			"navigation": {
+				"next": "add_my_devices"
+			}
+		},
+		{
+			"id": "add_my_devices",
+			"template": "add_devices"
+		}
+	],
+	"images": {
+		"large": "/drivers/temperature_ble/assets/images/large.jpg",
+		"small": "/drivers/temperature_ble/assets/images/small.jpg"
+	}
+}
