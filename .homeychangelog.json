@@ -351,7 +351,7 @@
 		"no": "Oppdatert innlogging under tilkobling til nye servere"
 	},
 	"2.0.1": {
-		"en": "Fixed text for blind advances settings",
+		"en": "Fixed text for blind advanced settings",
 		"no": "Fikset tekst for avanserte innstillinger for blinde"
 	},
 	"2.0.2": {
@@ -367,7 +367,7 @@
 		"no": "Lagt til støtte for SwitchBot Meter Pro"
 	},
 	"2.0.5": {
-		"en": "Added support for the SwitchBot Meter Pro and Meter Pro CO2",
-		"no": "Lagt til støtte for SwitchBot Meter Pro"
+		"en": "Added support for the SwitchBot Meter Pro and Meter Pro CO2 using BLE",
+		"no": "Lagt til støtte for SwitchBot Meter Pro og Meter Pro CO2 ved hjelp av BLE"
 	}
 }
