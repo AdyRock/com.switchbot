@@ -365,5 +365,9 @@
 	"2.0.4": {
 		"en": "Added support for the SwitchBot Meter Pro",
 		"no": "Lagt til støtte for SwitchBot Meter Pro"
+	},
+	"2.0.5": {
+		"en": "Added support for the SwitchBot Meter Pro and Meter Pro CO2",
+		"no": "Lagt til støtte for SwitchBot Meter Pro"
 	}
 }

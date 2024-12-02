@@ -619,6 +619,39 @@ class BLEDriver extends Homey.Driver
 		return data;
 	}
 
+	_parseServiceDataForProMeter(buf, man)
+	{
+		if (man.length < 12)
+		{
+			return null;
+		}
+		const byte2 = buf.readUInt8(2);
+
+		const byte10 = man.readUInt8(10);
+		const byte11 = man.readUInt8(11);
+		const byte12 = man.readUInt8(12);
+
+		const tempSign = (byte11 & 0b10000000) ? 1 : -1;
+		const tempC = tempSign * ((byte11 & 0b01111111) + ((byte10 & 0b01111111) / 10));
+		let tempF = ((tempC * 9) / 5) + 32;
+		tempF = Math.round(tempF * 10) / 10;
+
+		const data = {
+			model: '4',
+			modelName: 'MeterPro',
+			temperature:
+			{
+				c: tempC,
+				f: tempF,
+			},
+			fahrenheit: !!((byte12 & 0b10000000)),
+			humidity: (byte12 & 0b01111111),
+			battery: (byte2 & 0b01111111),
+		};
+
+		return data;
+	}
+
 	_parseServiceDataForCO2Meter(buf, man)
 	{
 		if (man.length < 16)
@@ -641,7 +674,7 @@ class BLEDriver extends Homey.Driver
 
 		const data = {
 			model: '5',
-			modelName: 'WoCO2Sensor',
+			modelName: 'MeterPro(CO2)',
 			temperature:
 			{
 				c: tempC,

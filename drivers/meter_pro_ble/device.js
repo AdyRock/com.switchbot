@@ -4,7 +4,7 @@
 
 const Homey = require('homey');
 
-class MeterProCO2BLEDevice extends Homey.Device
+class MeterProBLEDevice extends Homey.Device
 {
 
 	/**
@@ -15,7 +15,7 @@ class MeterProCO2BLEDevice extends Homey.Device
 		this.bestRSSI = 100;
 		this.bestHub = '';
 		this.homey.app.registerBLEPolling();
-		this.log('MeterProCO2BLEDevice has been initialized');
+		this.log('MeterProBLEDevice has been initialized');
 		this.deviceNotFound = false;
 	}
 
@@ -24,7 +24,7 @@ class MeterProCO2BLEDevice extends Homey.Device
 	 */
 	async onAdded()
 	{
-		this.log('MeterProCO2BLEDevice has been added');
+		this.log('MeterProBLEDevice has been added');
 	}
 
 	/**
@@ -37,7 +37,7 @@ class MeterProCO2BLEDevice extends Homey.Device
 	 */
 	async onSettings({ oldSettings, newSettings, changedKeys })
 	{
-		this.log('MeterProCO2BLEDevice settings where changed');
+		this.log('MeterProBLEDevice settings where changed');
 	}
 
 	/**
@@ -47,7 +47,7 @@ class MeterProCO2BLEDevice extends Homey.Device
 	 */
 	async onRenamed(name)
 	{
-		this.log('MeterProCO2BLEDevice was renamed');
+		this.log('MeterProBLEDevice was renamed');
 	}
 
 	/**
@@ -57,7 +57,7 @@ class MeterProCO2BLEDevice extends Homey.Device
 	{
 		this.homey.app.unregisterBLEPolling();
 		await this.blePeripheral.disconnect();
-		this.log('MeterProCO2BLEDevice has been deleted');
+		this.log('MeterProBLEDevice has been deleted');
 	}
 
 	async getDeviceValues()
@@ -79,7 +79,7 @@ class MeterProCO2BLEDevice extends Homey.Device
 
 			if (dd.id)
 			{
-				this.homey.app.updateLog('Finding MeterProCO2 BLE device', 3);
+				this.homey.app.updateLog('Finding MeterPro BLE device', 3);
 				const bleAdvertisement = await this.homey.ble.find(dd.id);
 				if (!bleAdvertisement)
 				{
@@ -95,17 +95,16 @@ class MeterProCO2BLEDevice extends Homey.Device
 				const data = this.driver.parse(bleAdvertisement);
 				if (data)
 				{
-					this.homey.app.updateLog(`Parsed MeterProCO2 BLE: ${this.homey.app.varToString(data)}`, 3);
+					this.homey.app.updateLog(`Parsed MeterPro BLE: ${this.homey.app.varToString(data)}`, 3);
 					this.setCapabilityValue('measure_temperature', data.serviceData.temperature.c).catch(this.error);
 					this.setCapabilityValue('measure_humidity', data.serviceData.humidity).catch(this.error);
-					this.setCapabilityValue('measure_co2', data.serviceData.co2).catch(this.error);
 					this.setCapabilityValue('measure_battery', data.serviceData.battery).catch(this.error);
-					this.homey.app.updateLog(`Parsed MeterProCO2 BLE: co2 = ${data.serviceData.co2}, temperature = ${data.serviceData.co2.c}, humidity = ${data.serviceData.humidity}, battery = ${data.serviceData.battery}`, 2);
+					this.homey.app.updateLog(`Parsed MeterPro BLE: temperature = ${data.serviceData.temperature.c}, humidity = ${data.serviceData.humidity}, battery = ${data.serviceData.battery}`, 2);
 					this.deviceNotFound = false;
 				}
 				else
 				{
-					this.homey.app.updateLog('Parsed MeterProCO2 BLE: No service data', 0);
+					this.homey.app.updateLog('Parsed MeterPro BLE: No service data', 0);
 				}
 			}
 			else
@@ -120,7 +119,7 @@ class MeterProCO2BLEDevice extends Homey.Device
 		}
 		finally
 		{
-			this.homey.app.updateLog('Finding MeterProCO2 BLE device --- COMPLETE', 3);
+			this.homey.app.updateLog('Finding MeterPro BLE device --- COMPLETE', 3);
 		}
 	}
 
@@ -131,12 +130,11 @@ class MeterProCO2BLEDevice extends Homey.Device
 			const dd = this.getData();
 			for (const event of events)
 			{
-				if (event.address && (event.address.localeCompare(dd.address, 'en', { sensitivity: 'base' }) === 0) && (event.serviceData.modelName === 'MeterPro(CO2)'))
+				if (event.address && (event.address.localeCompare(dd.address, 'en', { sensitivity: 'base' }) === 0) && (event.serviceData.modelName === 'MeterPro'))
 				{
-					this.setCapabilityValue('measure_temperature', event.serviceData.temperature.c).catch(this.error);
+					this.setCapabilityValue('measure_temperature', event.serviceData.MeterPro.c).catch(this.error);
 					this.setCapabilityValue('measure_humidity', event.serviceData.humidity).catch(this.error);
 					this.setCapabilityValue('measure_battery', event.serviceData.battery).catch(this.error);
-					this.setCapabilityValue('measure_co2', event.serviceData.co2).catch(this.error);
 					this.setCapabilityValue('rssi', event.rssi).catch(this.error);
 
 					if (event.hubMAC && ((event.rssi < this.bestRSSI) || (event.hubMAC.localeCompare(this.bestHub, 'en', { sensitivity: 'base' }) === 0)))
@@ -151,10 +149,10 @@ class MeterProCO2BLEDevice extends Homey.Device
 		}
 		catch (error)
 		{
-			this.homey.app.updateLog(`Error in MeterProCO2 syncEvents: ${this.homey.app.varToString(error)}`, 0);
+			this.homey.app.updateLog(`Error in MeterPro syncEvents: ${this.homey.app.varToString(error)}`, 0);
 		}
 	}
 
 }
 
-module.exports = MeterProCO2BLEDevice;
+module.exports = MeterProBLEDevice;
