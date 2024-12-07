@@ -369,5 +369,29 @@
 	"2.0.5": {
 		"en": "Added support for the SwitchBot Meter Pro and Meter Pro CO2 using BLE",
 		"no": "Lagt til støtte for SwitchBot Meter Pro og Meter Pro CO2 ved hjelp av BLE"
+	},
+	"2.0.6": {
+		"en": "Fix images and descriptions for the SwitchBot Meter Pro and Meter Pro CO2 using BLE",
+		"no": "Fiks bilder og beskrivelser for SwitchBot Meter Pro og Meter Pro CO2 ved hjelp av BLE",
+		"nl": "Fix afbeeldingen en beschrijvingen voor de SwitchBot Meter Pro en Meter Pro CO2 met behulp van BLE",
+		"de": "Fix Bilder und Beschreibungen für den SwitchBot Meter Pro und Meter Pro CO2 mit BLE",
+		"fr": "Corrigez les images et les descriptions pour le SwitchBot Meter Pro et le Meter Pro CO2 en utilisant BLE",
+		"es": "Corregir imágenes y descripciones para el SwitchBot Meter Pro y el Meter Pro CO2 usando BLE",
+		"pt": "Corrigir imagens e descrições para o SwitchBot Meter Pro e o Meter Pro CO2 usando BLE",
+		"it": "Correggi immagini e descrizioni per SwitchBot Meter Pro e Meter Pro CO2 utilizzando BLE",
+		"pl": "Napraw obrazy i opisy dla SwitchBot Meter Pro i Meter Pro CO2 za pomocą BLE",
+		"kr": "BLE를 사용하여 SwitchBot Meter Pro 및 Meter Pro CO2의 이미지 및 설명 수정"
+	},
+	"2.0.7": {
+		"en": "Fixed spelling mistake quite -> quiet",
+		"no": "Fikset stavefeil ganske -> stille",
+		"nl": "Vaste spelfout stil -> stil",
+		"de": "Fester Rechtschreibfehler ziemlich -> leise",
+		"fr": "Erreur d'orthographe fixe assez -> calme",
+		"es": "Error ortográfico fijo bastante -> tranquilo",
+		"pt": "Erro de digitação fixo bastante -> quieto",
+		"it": "Errore di battitura fisso abbastanza -> tranquillo",
+		"pl": "Poprawiono błąd ortograficzny całkiem -> cicho",
+		"kr": "맞춤법 오류 수정 꽤 -> 조용한"
 	}
 }

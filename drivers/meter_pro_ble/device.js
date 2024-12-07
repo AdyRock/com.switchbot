@@ -132,7 +132,7 @@ class MeterProBLEDevice extends Homey.Device
 			{
 				if (event.address && (event.address.localeCompare(dd.address, 'en', { sensitivity: 'base' }) === 0) && (event.serviceData.modelName === 'MeterPro'))
 				{
-					this.setCapabilityValue('measure_temperature', event.serviceData.MeterPro.c).catch(this.error);
+					this.setCapabilityValue('measure_temperature', event.serviceData.temperature.c).catch(this.error);
 					this.setCapabilityValue('measure_humidity', event.serviceData.humidity).catch(this.error);
 					this.setCapabilityValue('measure_battery', event.serviceData.battery).catch(this.error);
 					this.setCapabilityValue('rssi', event.rssi).catch(this.error);

@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.switchbot",
-  "version": "2.0.5",
+  "version": "2.0.7",
   "compatibility": ">=6.0.0",
   "platforms": [
     "local",
@@ -5862,13 +5862,13 @@
       "id": "meter_pro_ble",
       "name": {
         "en": "Meter Pro (BLE)",
-        "nl": "Meter Pro met CO2 (BLE)",
-        "de": "Meter Pro mit CO2 (BLE)",
-        "fr": "Meter Pro avec CO2 (BLE)",
-        "es": "Medidor Pro con CO2 (BLE)",
-        "pt": "Medidor Pro com CO2 (BLE)",
-        "it": "Misuratore Pro con CO2 (BLE)",
-        "pl": "Miernik Pro z CO2 (BLE)",
+        "nl": "Meter Pro (BLE)",
+        "de": "Meter Pro (BLE)",
+        "fr": "Meter Pro (BLE)",
+        "es": "Medidor Pro (BLE)",
+        "pt": "Medidor Pro (BLE)",
+        "it": "Misuratore Pro (BLE)",
+        "pl": "Miernik Pro (BLE)",
         "cn": "Meter Pro (BLE)",
         "jp": "Meter Pro (BLE)",
         "tw": "Meter Pro (BLE)",
@@ -5908,8 +5908,8 @@
         }
       ],
       "images": {
-        "large": "/drivers/temperature_ble/assets/images/large.jpg",
-        "small": "/drivers/temperature_ble/assets/images/small.jpg"
+        "large": "/drivers/meter_pro_ble/assets/images/large.jpg",
+        "small": "/drivers/meter_pro_ble/assets/images/small.jpg"
       }
     },
     {
@@ -5963,8 +5963,8 @@
         }
       ],
       "images": {
-        "large": "/drivers/temperature_ble/assets/images/large.jpg",
-        "small": "/drivers/temperature_ble/assets/images/small.jpg"
+        "large": "/drivers/meter_pro_co2_ble/assets/images/large.jpg",
+        "small": "/drivers/meter_pro_co2_ble/assets/images/small.jpg"
       }
     },
     {
@@ -6260,7 +6260,7 @@
         "play",
         "stop",
         "robot_vaccum_dock",
-        "vaccum_power_level.quite",
+        "vaccum_power_level.quiet",
         "vaccum_power_level.normal",
         "vaccum_power_level.strong",
         "vaccum_power_level.max",
@@ -6284,9 +6284,9 @@
             "ko": "시작"
           }
         },
-        "vaccum_power_level.quite": {
+        "vaccum_power_level.quiet": {
           "title": {
-            "en": "Power Level Quite",
+            "en": "Power Level Quiet",
             "no": "Styrkenivå stille",
             "nl": "Vermogensniveau Stil",
             "da": "Strømstyrkeniveau Stille",
@@ -6295,9 +6295,9 @@
             "fr": "Niveau de Puissance Silencieux",
             "it": "Livello di Potenza Silenzioso",
             "sv": "Effektnivå Tyst",
-            "pl": "Poziom głośności Cisza",
+            "pl": "Poziom mocy Cichy",
             "ru": "Уровень мощности Тихо",
-            "ko": "저소음 모드"
+            "ko": "조용한 모드"
           }
         },
         "vaccum_power_level.normal": {

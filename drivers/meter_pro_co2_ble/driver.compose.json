@@ -49,7 +49,7 @@
 		}
 	],
 	"images": {
-		"large": "/drivers/temperature_ble/assets/images/large.jpg",
-		"small": "/drivers/temperature_ble/assets/images/small.jpg"
+		"large": "/drivers/meter_pro_co2_ble/assets/images/large.jpg",
+		"small": "/drivers/meter_pro_co2_ble/assets/images/small.jpg"
 	}
 }
