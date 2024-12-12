@@ -2,7 +2,8 @@
   "settings": {
     "clear": "Log wissen",
     "send": "Log verzenden",
-    "getDevices": "HUB-apparaten ophalen"
+    "getDevices": "HUB-apparaten ophalen",
+	"numConnections": "Aantal Homeys verbonden met uw SwitchBot-account"
   },
   "capabilities": {
     "brightness": "Helderheid"

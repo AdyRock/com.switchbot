@@ -2,7 +2,8 @@
   "settings": {
     "clear": "Ryd log",
     "send": "Send log",
-    "getDevices": "Hent HUB enheder"
+    "getDevices": "Hent HUB enheder",
+	"numConnections": "Antal Homeys forbundet til din SwitchBot-konto"
   },
   "capabilities": {
     "brightness": "Lysstyrke"

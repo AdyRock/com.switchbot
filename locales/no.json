@@ -3,7 +3,8 @@
     {
         "clear": "Fjern logg",
         "send": "Send logg",
-        "getDevices": "Hent HUB enheter"
+        "getDevices": "Hent HUB enheter",
+		"numConnections": "Antall Homeys koblet til din SwitchBot-konto"
     },
     "capabilities":
     {

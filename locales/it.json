@@ -2,7 +2,8 @@
   "settings": {
     "clear": "Cancella Log",
     "send": "Invia Log",
-    "getDevices": "Ottieni Dispositivi HUB"
+    "getDevices": "Ottieni Dispositivi HUB",
+	"numConnections": "Numero di Homeys connessi al tuo account SwitchBot"
   },
   "capabilities": {
     "brightness": "Luminosità"

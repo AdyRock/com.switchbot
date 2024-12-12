@@ -63,6 +63,13 @@ class MyApp extends OAuth2App
 		this.devicesMACs = [];
 		this.webRegTimerID = null;
 
+		this.numConnections = this.homey.settings.get('numConnections');
+		if (!this.numConnections)
+		{
+			this.numConnections = 1;
+			this.homey.settings.set('numConnections', this.numConnections);
+		}
+
 		this.apiCalls = this.homey.settings.get('apiCalls');
 		if (!this.apiCalls)
 		{
@@ -126,6 +133,10 @@ class MyApp extends OAuth2App
 			else if (setting === 'openSecret')
 			{
 				this.openSecret = this.homey.settings.get('openSecret');
+			}
+			else if (setting === 'numConnections')
+			{
+				this.numConnections = this.homey.settings.get('numConnections');
 			}
 		});
 
@@ -956,7 +967,7 @@ class MyApp extends OAuth2App
 
 		if (totalHuBDevices > 0)
 		{
-			const nextInterval = (MINIMUM_POLL_INTERVAL * 1000 * totalHuBDevices);
+			const nextInterval = (MINIMUM_POLL_INTERVAL * this.numConnections * 1000 * totalHuBDevices);
 
 			this.homey.app.updateLog(`Next HUB polling interval = ${nextInterval / 1000}s: ${this.homey.app.apiCalls} API calls today`);
 			this.timerHubID = this.homey.setTimeout(this.onHubPoll, nextInterval);

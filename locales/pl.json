@@ -2,7 +2,8 @@
   "settings": {
     "clear": "Wyczyść Logi",
     "send": "Wyślij Logi",
-    "getDevices": "Pobierz urządzenia HUB"
+    "getDevices": "Pobierz urządzenia HUB",
+	"numConnections": "Liczba Homeys podłączonych do Twojego konta SwitchBot"
   },
   "capabilities": {
     "brightness": "Jasność"

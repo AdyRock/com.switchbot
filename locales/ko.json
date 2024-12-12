@@ -2,7 +2,8 @@
   "settings": {
     "clear": "로그 지우기",
     "send": "로그 보내기",
-    "getDevices": "HUB 장치 가져오기"
+    "getDevices": "HUB 장치 가져오기",
+	"numConnections": "귀하의 SwitchBot 계정에 연결된 Homey 수"
   },
   "capabilities": {
     "brightness": "밝기"

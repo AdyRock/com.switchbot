@@ -2,7 +2,8 @@
   "settings": {
     "clear": "Protokoll löschen",
     "send": "Protokoll senden",
-    "getDevices": "HUB-Geräte abrufen"
+    "getDevices": "HUB-Geräte abrufen",
+	"numConnections": "Anzahl der Homeys, die mit Ihrem SwitchBot-Konto verbunden sind"
   },
   "capabilities": {
     "brightness": "Helligkeit"

@@ -3,7 +3,8 @@
     {
         "clear": "Clear Log",
         "send": "Send Log",
-        "getDevices": "Get HUB Devices"
+        "getDevices": "Get HUB Devices",
+		"numConnections": "Number of Homeys connected to your SwitchBot account"
     },
     "capabilities":
     {

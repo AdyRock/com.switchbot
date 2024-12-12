@@ -2,7 +2,8 @@
   "settings": {
     "clear": "Rensa Log",
     "send": "Skicka Log",
-    "getDevices": "Hämta HUB-enheter"
+    "getDevices": "Hämta HUB-enheter",
+	"numConnections": "Antal Homeys anslutna till ditt SwitchBot-konto"
   },
   "capabilities": {
     "brightness": "Ljusstyrka"

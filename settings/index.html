@@ -35,11 +35,26 @@
 
 	<!-- Tab links -->
 	<div class="tab">
+		<button class="tablinks" onclick="setPage(event, 'appSettings')" id="appSettingsTab">AppSettings</button>
 		<button class="tablinks" onclick="setPage(event, 'detected')" id="defaultOpen">Detected</button>
 		<button class="tablinks" onclick="setPage(event, 'log')">Log</button>
 		<button class="tablinks" onclick="setPage(event, 'status')" id="deviceStatusTab">Get Status</button>
-		<button class="tablinks" onclick="setPage(event, 'appSettings')" id="appSettingsTab" style="display:none">App Settings</button>
+		<button class="tablinks" onclick="setPage(event, 'oldSettings')" id="oldSettingsTab" style="display:none">Old Settings</button>
 		<button class="tablinks" onclick="setPage(event, 'simulator')" id="simLogTab" style="display:none">Simulation Data</button>
+	</div>
+
+	<!--APP SETTINGS PAGE -->
+	<div id="appSettings" class="tabcontent">
+		<fieldset>
+			<div class="field row">
+				<label class="homey-form-label" for="numConnections"><span data-i18n="settings.numConnections"></span></label>
+				<input class="homey-form-input" id="numConnections" type="number" min="1" value="1" />
+			</div>
+			<p></p>
+			<p>
+				<button id="saveAppSettings" class="homey-button-small">Save</button>
+			</p>
+		</fieldset>
 	</div>
 
 	<!-- detected-->
@@ -86,7 +101,10 @@
 	<div id="send" class="tabcontent">
 		<fieldset>
 			<h1>For debug use only</h1>
-			<p><input id="commandData" type="text" value="" /><button id="sendCmd" style="background-color:#0f9e16;color:white;margin:5px 20px 5px 5px;">Send</button><button id="clearSend" style="background-color:#a5510d;color:white;margin:5px 20px 5px 5px;">Clear Log</button></p>
+			<p><input id="commandData" type="text" value="" /><button id="sendCmd"
+					style="background-color:#0f9e16;color:white;margin:5px 20px 5px 5px;">Send</button><button
+					id="clearSend" style="background-color:#a5510d;color:white;margin:5px 20px 5px 5px;">Clear
+					Log</button></p>
 			<div class="field row">
 				<textarea id="sendResponse" class="homey-form-textarea" wrap="off"></textarea>
 			</div>
@@ -97,7 +115,8 @@
 	<div id="simulator" class="tabcontent">
 		<fieldset>
 			<h1>For debug use only</h1>
-			<p><button id="useSim" class="homey-button-small">Activate</button><button id="clearSim" style="background-color:#a5510d;color:white;margin:5px 20px 5px 5px;">Clear Sim</button></p>
+			<p><button id="useSim" class="homey-button-small">Activate</button><button id="clearSim"
+					style="background-color:#a5510d;color:white;margin:5px 20px 5px 5px;">Clear Sim</button></p>
 			<div class="field row">
 				<textarea id="simData" class="homey-form-textarea" wrap="off"></textarea>
 			</div>
@@ -124,8 +143,8 @@
 		</fieldset>
 	</div>
 
-	<!--APP SETTINGS PAGE -->
-	<div id="appSettings" class="tabcontent">
+	<!--OLD SETTINGS PAGE -->
+	<div id="oldSettings" class="tabcontent">
 		<fieldset>
 			<h1>For debug use only</h1>
 			<div class="field row">
@@ -172,10 +191,14 @@
 		var sendStatusLogElement = document.getElementById('sendStatusLog');
 		var clearStatusLogElement = document.getElementById('clearStatusLog');
 
-		// App settings tab
+		// Old settings tab
 		var openTokenIDElement = document.getElementById('openToken');
 		var openSecretElement = document.getElementById('openSecret');
 		var saveSettingsElement = document.getElementById('saveSettings');
+
+		// App settings tab
+		var numConnectionsElement = document.getElementById('numConnections');
+		var saveAppSettingsElement = document.getElementById('saveAppSettings');
 
 		// a method named 'onHomeyReady' must be present in your code
 		function onHomeyReady(Homey)
@@ -183,22 +206,22 @@
 			// Tell Homey we're ready to be displayed
 			Homey.ready();
 
-			Homey.get('debugMode', function(err, debugMode)
+			Homey.get('debugMode', function (err, debugMode)
 			{
 				if (err) return Homey.alert(err);
 				if (debugMode)
 				{
 					document.getElementById("simLogTab").style.display = "block";
-					document.getElementById("appSettingsTab").style.display = "block";
+					document.getElementById("oldSettingsTab").style.display = "block";
 				}
 			});
 
 			document.getElementById("defaultOpen").click();
 
 			Homey.api('GET', '/getLog/',
-			{
-				notify: true
-			}, function(err, result)
+				{
+					notify: true
+				}, function (err, result)
 			{
 				if (err)
 				{
@@ -210,33 +233,39 @@
 				}
 			});
 
-			Homey.on('com.switchbot.logupdated', function(data)
+			Homey.on('com.switchbot.logupdated', function (data)
 			{
 				infoLogElement.value = data.log;
 			});
 
-			Homey.get('logLevel', function(err, logLevel)
+			Homey.get('logLevel', function (err, logLevel)
 			{
 				if (err) return Homey.alert(err);
 				logLevelElement.value = logLevel.toString();
 			});
 
-			logLevelElement.addEventListener('change', function(e)
+			Homey.get('numConnections', function (err, numConnections)
 			{
-				Homey.set('logLevel', parseInt(logLevelElement.value), function(err)
+				if (err) return Homey.alert(err);
+				numConnectionsElement.value = numConnections;
+			});
+
+			logLevelElement.addEventListener('change', function (e)
+			{
+				Homey.set('logLevel', parseInt(logLevelElement.value), function (err)
 				{
 					if (err) return Homey.alert(err);
 				});
 			});
 
-			getDeviceLogElement.addEventListener('click', function(e)
+			getDeviceLogElement.addEventListener('click', function (e)
 			{
 				waitCursor(true);
 				Homey.api('GET', '/getDetect/',
-				{
-					notify: true,
-					hubDevices: true
-				}, function(err, result)
+					{
+						notify: true,
+						hubDevices: true
+					}, function (err, result)
 				{
 					if (err)
 					{
@@ -250,30 +279,30 @@
 				});
 			});
 
-			clearDeviceLogElement.addEventListener('click', function(e)
+			clearDeviceLogElement.addEventListener('click', function (e)
 			{
-				Homey.set('deviceLog', "", function(err)
+				Homey.set('deviceLog', "", function (err)
 				{
 					if (err) return Homey.alert(err);
 				});
 				detectedDevicesElement.value = "";
 			});
 
-			sendDeviceLogElement.addEventListener('click', function(e)
+			sendDeviceLogElement.addEventListener('click', function (e)
 			{
 				if (detectedDevicesElement.value.length < 15)
 				{
 					return Homey.alert("No Data to send");
 				}
-				Homey.confirm("Send the device log contents to the developer?", null, function(e, ok)
+				Homey.confirm("Send the device log contents to the developer?", null, function (e, ok)
 				{
 					if (ok)
 					{
 						waitCursor(true);
 						Homey.api('POST', '/SendDeviceLog/',
-						{
-							notify: true
-						}, function(err, result)
+							{
+								notify: true
+							}, function (err, result)
 						{
 							if (err)
 							{
@@ -289,22 +318,22 @@
 				});
 			});
 
-			sendInfoLogElement.addEventListener('click', function(e)
+			sendInfoLogElement.addEventListener('click', function (e)
 			{
 				if (infoLogElement.value.length < 15)
 				{
 					return Homey.alert("No Data to send");
 				}
 
-				Homey.confirm("Send the information log contents to the developer?", null, function(e, ok)
+				Homey.confirm("Send the information log contents to the developer?", null, function (e, ok)
 				{
 					if (ok)
 					{
 						waitCursor(true);
 						Homey.api('POST', '/sendInfoLog/',
-						{
-							notify: true
-						}, function(err, result)
+							{
+								notify: true
+							}, function (err, result)
 						{
 							if (err)
 							{
@@ -320,12 +349,12 @@
 				});
 			});
 
-			clearInfoLogElement.addEventListener('click', function(e)
+			clearInfoLogElement.addEventListener('click', function (e)
 			{
 				Homey.api('POST', '/clearLog/',
-				{
-					notify: true
-				}, function(err, result)
+					{
+						notify: true
+					}, function (err, result)
 				{
 					if (err)
 					{
@@ -338,11 +367,11 @@
 				});
 			});
 
-			useSimElement.addEventListener('click', function(e)
+			useSimElement.addEventListener('click', function (e)
 			{
 				try
 				{
-					Homey.set('simData', simDataElement.value, function(err)
+					Homey.set('simData', simDataElement.value, function (err)
 					{
 						if (err)
 						{
@@ -360,9 +389,9 @@
 				}
 			});
 
-			clearSimElement.addEventListener('click', function(e)
+			clearSimElement.addEventListener('click', function (e)
 			{
-				Homey.set('simData', "", function(err)
+				Homey.set('simData', "", function (err)
 				{
 					if (err)
 					{
@@ -375,9 +404,9 @@
 				});
 			});
 
-			readStatusElement.addEventListener('click', function(e)
+			readStatusElement.addEventListener('click', function (e)
 			{
-				Homey.api('POST', '/requestDeviceStatus/?deviceId=' + deviceIDElement.value, {}, function(err, result)
+				Homey.api('POST', '/requestDeviceStatus/?deviceId=' + deviceIDElement.value, {}, function (err, result)
 				{
 					if (err)
 					{
@@ -390,12 +419,12 @@
 				});
 			});
 
-			clearStatusLogElement.addEventListener('click', function(e)
+			clearStatusLogElement.addEventListener('click', function (e)
 			{
 				Homey.api('POST', '/clearStatusLog/',
-				{
-					notify: true
-				}, function(err, result)
+					{
+						notify: true
+					}, function (err, result)
 				{
 					if (err)
 					{
@@ -408,22 +437,22 @@
 				});
 			});
 
-			sendStatusLogElement.addEventListener('click', function(e)
+			sendStatusLogElement.addEventListener('click', function (e)
 			{
 				if (statusDataElement.value.length < 15)
 				{
 					return Homey.alert("No Data to send");
 				}
 
-				Homey.confirm("Send the status log contents to the developer?", null, function(e, ok)
+				Homey.confirm("Send the status log contents to the developer?", null, function (e, ok)
 				{
 					if (ok)
 					{
 						waitCursor(true);
 						Homey.api('POST', '/sendStatusLog/',
-						{
-							notify: true
-						}, function(err, result)
+							{
+								notify: true
+							}, function (err, result)
 						{
 							if (err)
 							{
@@ -439,9 +468,9 @@
 				});
 			});
 
-			saveSettingsElement.addEventListener('click', function(e)
+			saveSettingsElement.addEventListener('click', function (e)
 			{
-				Homey.set('openToken', openTokenIDElement.value, function(err)
+				Homey.set('openToken', openTokenIDElement.value, function (err)
 				{
 					if (err)
 					{
@@ -449,7 +478,18 @@
 					}
 				});
 
-				Homey.set('openSecret', openSecretElement.value, function(err)
+				Homey.set('openSecret', openSecretElement.value, function (err)
+				{
+					if (err)
+					{
+						return Homey.alert(err);
+					}
+				});
+			});
+
+			saveAppSettingsElement.addEventListener('click', function (e)
+			{
+				Homey.set('numConnections', parseInt(numConnectionsElement.value), function (err)
 				{
 					if (err)
 					{
@@ -484,7 +524,7 @@
 			if (tabPage == 'log')
 			{
 				// Refresh the log data
-				Homey.get('logLevel', function(err, logLevel)
+				Homey.get('logLevel', function (err, logLevel)
 				{
 					if (err) return Homey.alert(err);
 					logLevelElement.value = logLevel;
@@ -502,7 +542,7 @@
 			}
 			else if (tabPage == 'simulator')
 			{
-				Homey.get('simData', function(err, simData)
+				Homey.get('simData', function (err, simData)
 				{
 					if (err) return Homey.alert(err);
 					simDataElement.value = simData ? simData : "";
@@ -517,18 +557,26 @@
 				statusDataElement.style.width = (deviceID.offsetWidth) + 'px';
 				statusDataElement.style.height = (window.innerHeight - statusDataElement.offsetTop - 60) + 'px';
 			}
-			else if (tabPage == 'appSettings')
+			else if (tabPage == 'oldSettings')
 			{
-				Homey.get('openToken', function(err, openToken)
+				Homey.get('openToken', function (err, openToken)
 				{
 					if (err) return Homey.alert(err);
 					openTokenIDElement.value = openToken;
 				});
 
-				Homey.get('openSecret', function(err, openSecret)
+				Homey.get('openSecret', function (err, openSecret)
 				{
 					if (err) return Homey.alert(err);
 					openSecretElement.value = openSecret;
+				});
+			}
+			else if (tabPage == 'appSettings')
+			{
+				Homey.get('numConnections', function (err, numConnections)
+				{
+					if (err) return Homey.alert(err);
+					numConnectionsElement.value = numConnections;
 				});
 			}
 		}

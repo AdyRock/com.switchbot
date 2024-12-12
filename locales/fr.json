@@ -2,7 +2,8 @@
   "settings": {
     "clear": "Effacer le journal",
     "send": "Envoyer le journal",
-    "getDevices": "Obtenir les appareils HUB"
+    "getDevices": "Obtenir les appareils HUB",
+	"numConnections": "Nombre de Homeys connectés à votre compte SwitchBot"
   },
   "capabilities": {
     "brightness": "Luminosité"

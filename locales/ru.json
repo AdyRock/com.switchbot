@@ -2,7 +2,8 @@
   "settings": {
     "clear": "Очистить журнал",
     "send": "Отправить журнал",
-    "getDevices": "Получить устройства HUB"
+    "getDevices": "Получить устройства HUB",
+	"numConnections": "Количество Homey, подключенных к вашей учетной записи SwitchBot"
   },
   "capabilities": {
     "brightness": "Яркость"

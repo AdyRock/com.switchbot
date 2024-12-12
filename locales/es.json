@@ -2,7 +2,8 @@
   "settings": {
     "clear": "Borrar Registro",
     "send": "Enviar Registro",
-    "getDevices": "Obtener Dispositivos HUB"
+    "getDevices": "Obtener Dispositivos HUB",
+	"numConnections": "Número de Homeys conectados a tu cuenta de SwitchBot"
   },
   "capabilities": {
     "brightness": "Brillo"
