@@ -1,104 +1,18 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   version="1.1"
-   id="Capa_1"
-   x="0px"
-   y="0px"
-   viewBox="0 0 512 512"
-   style="enable-background:new 0 0 512 512;"
-   xml:space="preserve"
-   sodipodi:docname="icon.svg"
-   inkscape:version="1.0.2 (e86c870879, 2021-01-15, custom)"><metadata
-   id="metadata57"><rdf:RDF><cc:Work
-       rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
-         rdf:resource="http://purl.org/dc/dcmitype/StillImage" /></cc:Work></rdf:RDF></metadata><defs
-   id="defs55" /><sodipodi:namedview
-   pagecolor="#ffffff"
-   bordercolor="#666666"
-   borderopacity="1"
-   objecttolerance="10"
-   gridtolerance="10"
-   guidetolerance="10"
-   inkscape:pageopacity="0"
-   inkscape:pageshadow="2"
-   inkscape:window-width="3840"
-   inkscape:window-height="2066"
-   id="namedview53"
-   showgrid="false"
-   inkscape:zoom="1.96875"
-   inkscape:cx="256"
-   inkscape:cy="256"
-   inkscape:window-x="-11"
-   inkscape:window-y="-11"
-   inkscape:window-maximized="1"
-   inkscape:current-layer="Capa_1" />
-
-<g
-   id="g22">
-</g>
-<g
-   id="g24">
-</g>
-<g
-   id="g26">
-</g>
-<g
-   id="g28">
-</g>
-<g
-   id="g30">
-</g>
-<g
-   id="g32">
-</g>
-<g
-   id="g34">
-</g>
-<g
-   id="g36">
-</g>
-<g
-   id="g38">
-</g>
-<g
-   id="g40">
-</g>
-<g
-   id="g42">
-</g>
-<g
-   id="g44">
-</g>
-<g
-   id="g46">
-</g>
-<g
-   id="g48">
-</g>
-<g
-   id="g50">
-</g>
-<g
-   id="g1098"><path
-     id="path984"
-     style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:30;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000;stop-opacity:1"
-     d="M 261.37695,54.888672 C 219.15767,54.895214 177.08963,69.00091 143.36133,94.386719 197.65107,57.678085 268.97715,43.196696 331.43428,66.701052 404.77717,90.839937 453.24755,164.69364 459.69922,239.79883 454.79546,150.89081 383.06988,70.803263 294.69546,57.638979 283.69375,55.782495 272.53447,54.855507 261.37695,54.888672 Z M 459.69922,239.79883 c 4.98353,62.64865 -21.9766,126.96747 -70.31836,167.16797 41.08461,-6.35885 86.25466,-30.25684 95.47958,-74.23092 6.86188,-32.82313 -6.73633,-66.30074 -25.16122,-92.93705 z M 389.38086,406.9668 C 300.00202,420.61341 208.70149,391.39211 133.33301,344.2285 108.8164,328.42284 86.010476,309.80847 66.414062,288.1582 79.793424,375.03838 157.21282,446.95931 245.0859,452.96007 296.70773,457.28916 349.96257,440.73555 389.38086,406.9668 Z M 66.414062,288.1582 C 53.197069,216.02214 84.149327,137.73152 143.36133,94.386719 98.410487,97.03447 46.391184,113.43635 26.788592,157.91135 c -18.4743483,46.672 8.769641,96.10522 39.62547,130.24685 z" /><ellipse
-     style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:30;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000;stop-opacity:1"
-     id="path1091"
-     cx="66.070206"
-     cy="113.52381"
-     rx="8.1654406"
-     ry="9.3968267" /><ellipse
-     style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:30;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000;stop-opacity:1"
-     id="path1093"
-     cx="260.28574"
-     cy="390.60318"
-     rx="24.63492"
-     ry="25.396826" /></g></svg>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" width="960" height="960" viewBox="0 0 960 960">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: #000;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 40px;
+      }
+    </style>
+  </defs>
+  <circle class="cls-1" cx="496.341" cy="480" r="394.292"/>
+  <path class="cls-1" d="m237.93,182.19c-105.11,11-183.56,52.75-208.65,121.67-24.35,66.89,6.27,146.49,75.25,220.59,66.66,71.62,169.16,138.09,292.52,182.99,136.91,49.83,268.91,72.11,368.39,60.73,82.9-9.49,143.22-42.35,164.98-102.14,20.11-55.26,4.09-124.72-39.87-193.48"/>
+  <circle cx="496.341" cy="738.996" r="75"/>
+  <circle cx="119.29" cy="205.282" r="40"/>
+</svg>

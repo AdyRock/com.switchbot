@@ -1,81 +1,30 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" width="960" height="960" viewBox="0 0 960 960">
+  <defs>
+    <style>
+      .cls-1 {
+        stroke-width: 40px;
+      }
 
-<svg
-   width="200mm"
-   height="200mm"
-   viewBox="0 0 200 200"
-   version="1.1"
-   id="svg23308"
-   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
-   sodipodi:docname="icon.svg"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:svg="http://www.w3.org/2000/svg">
-  <sodipodi:namedview
-     id="namedview23310"
-     pagecolor="#ffffff"
-     bordercolor="#cccccc"
-     borderopacity="1"
-     inkscape:pageshadow="0"
-     inkscape:pageopacity="1"
-     inkscape:pagecheckerboard="0"
-     inkscape:document-units="mm"
-     showgrid="false"
-     width="200mm"
-     inkscape:zoom="1.0998546"
-     inkscape:cx="434.1483"
-     inkscape:cy="290.94755"
-     inkscape:window-width="3840"
-     inkscape:window-height="2066"
-     inkscape:window-x="-11"
-     inkscape:window-y="-11"
-     inkscape:window-maximized="1"
-     inkscape:current-layer="layer1" />
-  <defs
-     id="defs23305">
-    <pattern
-       id="EMFhbasepattern"
-       patternUnits="userSpaceOnUse"
-       width="6"
-       height="6"
-       x="0"
-       y="0" />
+      .cls-1, .cls-2 {
+        fill: none;
+        stroke: #000;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      .cls-2 {
+        stroke-width: 20px;
+      }
+    </style>
   </defs>
-  <g
-     inkscape:label="Layer 1"
-     inkscape:groupmode="layer"
-     id="layer1">
-    <rect
-       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:4.99999;stroke-linecap:square;stroke-linejoin:round;stroke-dashoffset:1;paint-order:markers fill stroke"
-       id="rect23345"
-       width="179.54381"
-       height="152.07214"
-       x="13.608248"
-       y="34.020618"
-       rx="5.0559316"
-       ry="6.2569623" />
-    <rect
-       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:5;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:1;paint-order:markers fill stroke"
-       id="rect23818"
-       width="27.785936"
-       height="10.005969"
-       x="89.925392"
-       y="20.036087"
-       rx="0.090207301"
-       ry="0.090207309" />
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:25.1235px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264582"
-       x="37.58955"
-       y="152.39641"
-       id="text24805"
-       transform="scale(1.023227,0.97730027)"><tspan
-         sodipodi:role="line"
-         id="tspan24803"
-         style="stroke-width:0.264582"
-         x="37.58955"
-         y="152.39641">SwitchBot</tspan></text>
+  <path class="cls-2" d="m267.674,881.174c-56.983,0-103.342-46.42-103.342-103.479v-498.187c0-57.059,46.359-103.479,103.342-103.479,2.274,0,4.584.075,6.866.224l557.726,36.39c54.244,3.54,96.735,48.894,96.735,103.252v425.411c0,54.359-42.491,99.713-96.735,103.252l-557.727,36.39c-2.281.149-4.59.224-6.865.224Z"/>
+  <path class="cls-2" d="m223.581,174.971l-152.88,77.573c-30.49,15.471-49.701,46.762-49.701,80.952v389.027c0,33.974,18.971,65.104,49.165,80.678l152.255,78.531"/>
+  <polyline class="cls-2" points="552.776 184.385 552.776 68.826 620.008 74.76 620.008 188.777"/>
+  <polyline class="cls-2" points="462.589 178.508 462.589 108.632 552.776 68.826"/>
+  <g>
+    <path class="cls-1" d="m939,315.9v425.41c0,59.8-46.41,109.33-106.08,113.23l-557.73,36.39c-18.77,1.22-36.72-2.17-52.77-9.2l-.06-.03-12.88-6.65-139.32-71.85c-30.19-15.57-49.16-46.7-49.16-80.68v-389.02c0-34.19,19.21-65.49,49.7-80.96l139.12-70.59,13.76-6.98c15.75-6.68,33.29-9.89,51.61-8.69l187.4,12.23v-69.88l90.19-39.8,67.23,5.93v114.02l212.91,13.89c59.67,3.89,106.08,53.43,106.08,113.23Z"/>
+    <path class="cls-1" d="m222.36,881.7c-4.45-1.94-8.75-4.16-12.88-6.65l12.88,6.65Z"/>
+    <path class="cls-1" d="m223.58,174.97l-13.76,6.98c4.4-2.63,9-4.96,13.76-6.98Z"/>
   </g>
 </svg>
