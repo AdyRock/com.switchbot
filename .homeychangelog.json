@@ -393,5 +393,17 @@
 		"it": "Errore di battitura fisso abbastanza -> tranquillo",
 		"pl": "Poprawiono błąd ortograficzny całkiem -> cicho",
 		"kr": "맞춤법 오류 수정 꽤 -> 조용한"
+	},
+	"2.0.8": {
+		"en": "Updated images. Added an option to set the number of Homeys that are connected to your SwitchBot account.",
+		"no": "Oppdaterte bilder. Lagt til et alternativ for å angi antall Homeys som er koblet til SwitchBot-kontoen din.",
+		"nl": "Bijgewerkte afbeeldingen. Een optie toegevoegd om het aantal Homeys in te stellen dat is verbonden met uw SwitchBot-account.",
+		"de": "Bilder aktualisiert. Eine Option hinzugefügt, um die Anzahl der mit Ihrem SwitchBot-Konto verbundenen Homeys festzulegen.",
+		"fr": "Images mises à jour. Ajout d'une option pour définir le nombre de Homeys connectés à votre compte SwitchBot.",
+		"es": "Imágenes actualizadas. Se agregó una opción para establecer la cantidad de Homeys que están conectados a su cuenta de SwitchBot.",
+		"pt": "Imagens atualizadas. Adicionada uma opção para definir o número de Homeys conectados à sua conta SwitchBot.",
+		"it": "Immagini aggiornate. Aggiunta un'opzione per impostare il numero di Homey collegati al tuo account SwitchBot.",
+		"pl": "Zaktualizowane obrazy. Dodano opcję ustawienia liczby Homeys, które są podłączone do Twojego konta SwitchBot.",
+		"kr": "이미지 업데이트. SwitchBot 계정에 연결된 Homey 수를 설정하는 옵션 추가."
 	}
 }
