@@ -405,5 +405,17 @@
 		"it": "Immagini aggiornate. Aggiunta un'opzione per impostare il numero di Homey collegati al tuo account SwitchBot.",
 		"pl": "Zaktualizowane obrazy. Dodano opcję ustawienia liczby Homeys, które są podłączone do Twojego konta SwitchBot.",
 		"kr": "이미지 업데이트. SwitchBot 계정에 연결된 Homey 수를 설정하는 옵션 추가."
+	},
+	"2.0.9": {
+		"en": "Added support for the Relay Switch 1 and Relay Switch 1PM",
+		"no": "Lagt til støtte for Relay Switch 1 og Relay Switch 1PM",
+		"nl": "Ondersteuning toegevoegd voor de Relay Switch 1 en Relay Switch 1PM",
+		"de": "Unterstützung für den Relay Switch 1 und Relay Switch 1PM hinzugefügt",
+		"fr": "Ajout de la prise en charge du Relay Switch 1 et du Relay Switch 1PM",
+		"es": "Se agregó soporte para el Relay Switch 1 y el Relay Switch 1PM",
+		"pt": "Adicionado suporte para o Relay Switch 1 e o Relay Switch 1PM",
+		"it": "Aggiunto il supporto per il Relay Switch 1 e il Relay Switch 1PM",
+		"pl": "Dodano obsługę przekaźnika Switch 1 i przekaźnika Switch 1PM",
+		"kr": "릴레이 스위치 1 및 릴레이 스위치 1PM 지원 추가"
 	}
 }

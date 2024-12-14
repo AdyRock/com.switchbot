@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.switchbot",
-  "version": "2.0.8",
+  "version": "2.0.9",
   "compatibility": ">=6.0.0",
   "platforms": [
     "local",
@@ -6202,6 +6202,122 @@
         "channel_up",
         "channel_down",
         "volume_mute"
+      ]
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        }
+      ],
+      "icon": "/drivers/relay_hub/assets/icon.svg",
+      "images": {
+        "large": "/drivers/relay_hub/assets/images/large.jpg",
+        "small": "/drivers/relay_hub/assets/images/small.jpg"
+      },
+      "id": "relay_hub",
+      "name": {
+        "en": "Relay Switch (HUB)"
+      },
+      "class": "light",
+      "capabilities": [
+        "onoff",
+        "measure_voltage",
+        "measure_current",
+        "measure_power",
+        "meter_power"
+      ],
+      "settings": [
+        {
+          "id": "classType",
+          "type": "dropdown",
+          "label": {
+            "en": "Device Class",
+            "de": "Geräteklasse",
+            "nl": "Product keuze",
+            "it": "Classe Dispositivo",
+            "da": "Enhedsklasse",
+            "es": "Clase de Dispositivo",
+            "fr": "Classe de Dispositif",
+            "sv": "Enhetsklass",
+            "pl": "Klasa Urządzenia",
+            "ru": "Класс Устройства",
+            "ko": "장치 클래스"
+          },
+          "value": "light",
+          "hint": {
+            "en": "The default is light.",
+            "de": "Standardmäßig ist Licht.",
+            "nl": "Standaard is licht.",
+            "it": "Il valore predefinito è luce.",
+            "da": "Standarden er lys.",
+            "es": "El valor predeterminado es luz.",
+            "fr": "La valeur par défaut est la lumière.",
+            "sv": "Standard är ljus.",
+            "pl": "Domyślnie jest światło.",
+            "ru": "По умолчанию это свет.",
+            "ko": "기본값은 빛입니다."
+          },
+          "values": [
+            {
+              "id": "light",
+              "label": {
+                "en": "Light",
+                "de": "Licht",
+                "nl": "Licht",
+                "it": "Luce",
+                "da": "Lys",
+                "es": "Luz",
+                "fr": "Lumière",
+                "sv": "Ljus",
+                "pl": "Światło",
+                "ru": "Свет",
+                "ko": "빛"
+              }
+            },
+            {
+              "id": "socket",
+              "label": {
+                "en": "Socket",
+                "de": "Steckdose",
+                "nl": "Stopcontact",
+                "it": "Presa",
+                "da": "Stikkontakt",
+                "es": "Enchufe",
+                "fr": "Prise",
+                "sv": "Utomhusuttag",
+                "pl": "Gniazdo",
+                "ru": "Розетка",
+                "ko": "소켓"
+              }
+            }
+          ]
+        }
       ]
     },
     {
