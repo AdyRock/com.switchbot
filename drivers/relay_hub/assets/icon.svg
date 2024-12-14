@@ -1,7 +1,39 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" width="960" height="960" viewBox="0 0 960 960">
-  <defs>
-    <style>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   id="Layer_1"
+   data-name="Layer 1"
+   width="960"
+   height="960"
+   viewBox="0 0 960 960"
+   version="1.1"
+   sodipodi:docname="icon.svg"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25, custom)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview5"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="1.971875"
+     inkscape:cx="479.74643"
+     inkscape:cy="480"
+     inkscape:window-width="3840"
+     inkscape:window-height="2089"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="Layer_1" />
+  <defs
+     id="defs1">
+    <style
+       id="style1">
       .cls-1 {
         stroke-width: 40px;
       }
@@ -18,13 +50,76 @@
       }
     </style>
   </defs>
-  <path class="cls-2" d="m267.674,881.174c-56.983,0-103.342-46.42-103.342-103.479v-498.187c0-57.059,46.359-103.479,103.342-103.479,2.274,0,4.584.075,6.866.224l557.726,36.39c54.244,3.54,96.735,48.894,96.735,103.252v425.411c0,54.359-42.491,99.713-96.735,103.252l-557.727,36.39c-2.281.149-4.59.224-6.865.224Z"/>
-  <path class="cls-2" d="m223.581,174.971l-152.88,77.573c-30.49,15.471-49.701,46.762-49.701,80.952v389.027c0,33.974,18.971,65.104,49.165,80.678l152.255,78.531"/>
-  <polyline class="cls-2" points="552.776 184.385 552.776 68.826 620.008 74.76 620.008 188.777"/>
-  <polyline class="cls-2" points="462.589 178.508 462.589 108.632 552.776 68.826"/>
-  <g>
-    <path class="cls-1" d="m939,315.9v425.41c0,59.8-46.41,109.33-106.08,113.23l-557.73,36.39c-18.77,1.22-36.72-2.17-52.77-9.2l-.06-.03-12.88-6.65-139.32-71.85c-30.19-15.57-49.16-46.7-49.16-80.68v-389.02c0-34.19,19.21-65.49,49.7-80.96l139.12-70.59,13.76-6.98c15.75-6.68,33.29-9.89,51.61-8.69l187.4,12.23v-69.88l90.19-39.8,67.23,5.93v114.02l212.91,13.89c59.67,3.89,106.08,53.43,106.08,113.23Z"/>
-    <path class="cls-1" d="m222.36,881.7c-4.45-1.94-8.75-4.16-12.88-6.65l12.88,6.65Z"/>
-    <path class="cls-1" d="m223.58,174.97l-13.76,6.98c4.4-2.63,9-4.96,13.76-6.98Z"/>
-  </g>
+  <path
+     class="cls-2"
+     d="m267.674,881.174c-56.983,0-103.342-46.42-103.342-103.479v-498.187c0-57.059,46.359-103.479,103.342-103.479,2.274,0,4.584.075,6.866.224l557.726,36.39c54.244,3.54,96.735,48.894,96.735,103.252v425.411c0,54.359-42.491,99.713-96.735,103.252l-557.727,36.39c-2.281.149-4.59.224-6.865.224Z"
+     id="path1" />
+  <path
+     class="cls-2"
+     d="m223.581,174.971l-152.88,77.573c-30.49,15.471-49.701,46.762-49.701,80.952v389.027c0,33.974,18.971,65.104,49.165,80.678l152.255,78.531"
+     id="path2" />
+  <path
+     class="cls-1"
+     d="m 939,315.9 v 425.41 c 0,59.8 -46.41,109.33 -106.08,113.23 l -557.73,36.39 c -18.77,1.22 -36.72,-2.17 -52.77,-9.2 L 222.36,881.7 209.48,875.05 70.16,803.2 C 39.97,787.63 21,756.5 21,722.52 V 333.5 c 0,-34.19 19.21,-65.49 49.7,-80.96 l 139.12,-70.59 13.76,-6.98 c 15.75,-6.68 33.29,-9.89 51.61,-8.69 l 187.4,12.23 157.42,10.27 212.91,13.89 C 892.59,206.56 939,256.1 939,315.9 Z"
+     id="path3"
+     sodipodi:nodetypes="ssccccccsscccccccs" />
+  <path
+     class="cls-1"
+     d="m 222.36,881.7 c -4.45,-1.94 -8.75,-4.16 -12.88,-6.65 z"
+     id="path4"
+     sodipodi:nodetypes="ccc" />
+  <path
+     class="cls-1"
+     d="m 223.58,174.97 -13.76,6.98 c 4.4,-2.63 9,-4.96 13.76,-6.98 z"
+     id="path5"
+     sodipodi:nodetypes="ccc" />
+  <ellipse
+     style="fill:#000000;stroke-width:9.44882"
+     id="path6"
+     cx="265.99048"
+     cy="278.41525"
+     rx="46.402534"
+     ry="42.091919" />
+  <ellipse
+     style="fill:#000000;stroke-width:9.04306"
+     id="path6-3"
+     cx="377.80823"
+     cy="283.22662"
+     rx="44.374008"
+     ry="40.316959" />
+  <ellipse
+     style="fill:#000000;stroke-width:8.39661"
+     id="path6-6"
+     cx="589.28839"
+     cy="295.02536"
+     rx="40.824089"
+     ry="37.7813" />
+  <ellipse
+     style="fill:#000000;stroke-width:8.28313"
+     id="path6-7"
+     cx="688.10297"
+     cy="300.69733"
+     rx="40.824089"
+     ry="36.767036" />
+  <ellipse
+     style="fill:#000000;stroke-width:8.85671"
+     id="path6-8"
+     cx="486.62753"
+     cy="290.15527"
+     rx="43.106182"
+     ry="39.809826" />
+  <ellipse
+     style="fill:#000000;stroke-width:7.7516"
+     id="path6-82"
+     cx="781.56586"
+     cy="304.91922"
+     rx="36.767033"
+     ry="35.752773" />
+  <ellipse
+     style="fill:#000000;stroke-width:7.10161"
+     id="path6-9"
+     cx="864.0459"
+     cy="308.09509"
+     rx="33.47068"
+     ry="32.963551" />
 </svg>
