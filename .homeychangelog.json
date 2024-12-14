@@ -1,421 +1,424 @@
 {
-    "0.1.0": {
-        "en": "Initial release"
-    },
-    "0.1.1": {
-        "en": "Initial release"
-    },
-    "0.1.2": {
-        "en": "Added BLE Temperature and Humidity"
-    },
-    "0.2.0": {
-        "en": "Added HUB Temperature and Humidity, HUB Bot and BLE Bot"
-    },
-    "0.2.1": {
-        "en": "Added Invert Position and Motion Mode to advanced settings for curtains"
-    },
-    "0.2.2": {
-        "en": "Fixed Invert Position for HUB connected curtains"
-    },
-    "0.2.3": {
-        "en": "Added Air Conditioner Remote"
-    },
-    "0.2.4": {
-        "en": "Fixed operation of the Switch Bot to honour the single press mode when selected in the SwitchBot app. BLE can detect the mode setting but for the hub you have to adjust the Advanced setting."
-    },
-    "0.2.5": {
-        "en": "Fix to reduce Homey BLE caching problem"
-    },
-    "0.2.6": {
-        "en": "Added On/Off capability to curtains so they can be fully opened/closed by tapping on the tile"
-    },
-    "0.2.7": {
-        "en": "Added a check for a SwitchBot device with no service data in the discovery, so the entry in the BLE cache can be cleared ready for the next discovery."
-    },
-    "0.2.8": {
-        "en": "Fix Bot state check when using Homey's BLE. Adding my BLE hub no longer disables Homey's BLE checking so both are now used. Added error handler around JSON parsing to cope with bad data."
-    },
-    "0.2.9": {
-        "en": "Attempt to add devices based on the localName id there is no service data."
-    },
-    "0.2.10": {
-        "en": "Changed logging to multi-level to make it easier to spot general issues. Cleaned up the retries loops."
-    },
-    "0.2.11": {
-        "en": "Ensure log level is initialised at start up."
-    },
-    "0.3.0": {
-        "en": "Optimised for Homey v6."
-    },
-    "0.3.1": {
-        "en": "Optimised for activating multiple devices simultaneously. Added Position value to BLE curtain information. Added buttons to send the logs from the configuration page"
-    },
-    "0.3.2": {
-        "en": "Added Position value to hub curtian information. Fixed issue during pair curtains."
-    },
-    "0.3.3": {
-        "en": "Added support for Scenes plus the DVD and Speaker remote devices."
-    },
-    "0.3.4": {
-        "en": "Added a Run Scene action flow card to run a SwitchBot scene without needing to add the scene as a device."
-    },
-    "0.3.5": {
-        "en": "Fix remote parameters and command switched for aircon."
-    },
-    "0.3.6": {
-        "en": "Fix remote parameters and command switched for TV, etc."
-    },
-    "0.3.7": {
-        "en": "Added support for the SwitchBot Humidifier"
-    },
-    "0.3.8": {
-        "en": "Added support for the SwitchBot Humidifier"
-    },
-    "0.3.9": {
-        "en": "Added support for the SwitchBot Humidifier"
-    },
-    "0.3.10": {
-        "en": "Added support for a password on a bot. Fixes for Humidifier"
-    },
-    "0.3.11": {
-        "en": "Added flow action card to select a specific channel number"
-    },
-    "0.3.12": {
-        "en": "Separated On and Off to individual buttons for the AC device. Decoded error messages reported in device view to prevent [object Object] being reported."
-    },
-    "0.3.13": {
-        "en": "Fix deprecated AC flow > Turn On / Off action cards."
-    },
-    "0.3.14": {
-        "en": "Added BLE Presence sensor and Contact Sensor."
-    },
-    "0.3.15": {
-        "en": "Updated BLE Contact Sensor to add contact left open trigger."
-    },
-    "0.3.16": {
-        "en": "Updated BLE Contact Sensor to add entry and exit trigger."
-    },
-    "0.3.17": {
-        "en": "Reduce Hub polling interval to improve responsiveness. Added Smart Fan and Remote Fan"
-    },
-    "0.3.18": {
-        "en": "Reduce Hub polling interval to improve responsiveness. Added Smart Fan and Remote Fan"
-    },
-    "0.3.19": {
-        "en": "Fix Remote On and Off action cards that I broke in the last update"
-    },
-    "0.3.20": {
-        "en": "Fix AirCon On and Off action cards"
-    },
-    "0.4.0": {
-        "en": "Big code reorganise in preparation for Possible Homey / Homey bridge usage. Added error handling around API calls that might have prevented polling timer from restarting. Added Presence Sensor (Hub). Added Contact Sensor (Hub)."
-    },
-    "0.4.1": {
-        "en": "Add Color Bulb (Hub)"
-    },
-    "0.4.2": {
-        "en": "Fixed 'Set nebulization efficiency' flow card"
-    },
-    "0.4.3": {
-        "en": "Added support for custom remotes controls"
-    },
-    "1.0.0": {
-        "en": "Added support for connecting with your SwitchBot username and password instead of getting an API key"
-    },
-    "1.0.1": {
-        "en": "Added battery information to devices"
-    },
-    "1.0.2": {
-        "en": "Fixed setTimeout error."
-    },
-    "1.0.3": {
-        "en": "Changed the default Curtain Motion mode to Performance. Report errors to contoll window when command fails."
-    },
-    "1.0.4": {
-        "en": "Improved action card titles."
-    },
-    "1.0.5": {
-        "en": "Deprecated contact and motion sensor to allow the app to be published (these will be resurrected when a reliable notification method has been created)."
-    },
-    "1.0.6": {
-        "en": "Revived contact and motion sensor. Added the Light remote"
-    },
-    "1.0.7": {
-        "en": "Added more diagnostics logging."
-    },
-    "1.0.8": {
-        "en": "Set remote airconditioner temperature limits to prevent invalid values being sent."
-    },
-    "1.0.9": {
-        "en": "Fix for curtain BLE data change with firmware version 3.9."
-    },
-    "1.1.0": {
-        "en": "Added webhook for faster response to: Contact Sensor (HUB) - Door contact open / close, Motion Sensor (HUB) - Presence detection, Temperature & Humidity (HUB) - Temperature / Humidity change"
-    },
-    "1.1.1": {
-        "en": "Added direction capability to Contact sensor that is true when someone exits and false when someone enters"
-    },
-    "1.1.2": {
-        "en": "Updated the tag list for supported IR Airconditioners that are supported by the SwitchBot hub."
-    },
-    "1.1.3": {
-        "en": "The Bot class is now set to socket when the Bot is in Switch mode so it can be added to HomeKit"
-    },
-    "1.1.4": {
-        "en": "Small changes to images and hint wording for publishing approval"
-    },
-    "1.1.5": {
-        "en": "Improved the error message shown for the device when a command fails."
-    },
-    "1.1.6": {
-        "en": "Fixed start scene flow card."
-    },
-    "1.1.7": {
-        "en": "Reset Left Open capability when contact open cleared."
-    },
-    "1.1.8": {
-        "en": "Added camera motion sensor."
-    },
-    "1.1.9": {
-        "en": "Fixed use of a function that is not available on older Homeys. Attempt to register webhook every 2 seconds if it fails due to Homey connection issues."
-    },
-    "1.1.10": {
-        "en": "Added support for Light Strips."
-    },
-    "1.1.11": {
-        "en": "Fix for DIY Airconditioner (only supports on and off)."
-    },
-    "1.1.12": {
-        "en": "Reverse On / Off commands for DIY Airconditioner."
-    },
-    "1.1.13": {
-        "en": "Increased the number of buttons to 36 for a custom remote. Added support for the SwitchBot Lock"
-    },
-    "1.1.14": {
-        "en": "Change log levels. Updated Contact webhook for new format."
-    },
-    "1.1.15": {
-        "en": "Updated to API v1.1 so door lock can now be controlled."
-    },
-    "1.1.16": {
-        "en": "Restores logging level at start up. Added more webhook logging."
-    },
-    "1.1.17": {
-        "en": "Added support for HUB 2 via Temperature & Humidity sensor."
-    },
-    "1.1.18": {
-        "en": "Fixed an app crashing issue."
-    },
-    "1.1.19": {
-        "en": "Unset warnings when device recovers."
-    },
-    "1.1.20": {
-        "en": "New icon for Blind Tilt device."
-    },
-    "1.1.21": {
-        "en": "Fix direction for Tilt device. Add flow cards for Tilt device."
-    },
-    "1.1.22": {
-        "en": "Work around bug in API for Tilt device and convert 'setPosition: down;0' to 'closeDown'. Set deadzone in middle of slider to make it easier to select fully open."
-    },
-    "1.1.23": {
-        "en": "Added Tilt BLE device."
-    },
-    "1.1.24": {
-        "en": "Fix for Homey 2023 as it reports the long UUID instead of the short version."
-    },
-    "1.1.25": {
-        "en": "Added battery capability to devices when the data contains the required information."
-    },
-    "1.1.26": {
-        "en": "Added Projector remote control."
-    },
-    "1.1.27": {
-        "en": "Support for Tilt firmeware V2."
-    },
-    "1.1.28": {
-        "en": "Fix for Get Device Log when no devices were found during the Add Device stage."
-    },
-    "1.1.29": {
-        "en": "Added Air Purifier Remote."
-    },
-    "1.1.30": {
-        "en": "Added luminance to Temperature and Humidity device when it is a Hub 2. Added webhook support for more devices and reduced polling"
-    },
-    "1.1.31": {
-        "en": "Added Alarm for door jammed. Changed Hub 2 luminance to Brightness as a percentage of it range."
-    },
-    "1.1.32": {
-        "en": "Fix for new T & H I/O data format."
-    },
-    "1.1.33": {
-        "en": "Fix for new T & H I/O temperature data format."
-    },
-    "1.1.34": {
-        "en": "Enhanced performance for ESP32 BLE hub."
-    },
-    "1.1.35": {
-        "en": "Update for new Bot BLE data format."
-    },
-    "1.1.36": {
-        "en": "Update for new Curtain 3 Hub data format."
-    },
-    "1.1.37": {
-        "en": "Added Light Level to curtains."
-    },
-    "1.1.38": {
-        "en": "Fix for Curtains 3 hub not being found due to missing device type in API response. Fix for BLE Curtain 3 not being found due to changed device id field."
-    },
-    "1.1.39": {
-        "en": "Polling added for Curtains 3 hub as they don't provide webhook data. Fix Light Level changed trigger.",
-        "no": "Lagt til tidsbestemt datasamling for 3. gen Gardiner. De gir ikke webhook data enda. Rettet triggeren 'Endret lysnivå'."
-    },
-    "1.1.40": {
-        "en": "Added support for Plug Mini.",
-        "no": "Lagt til støtte for Plug Mini."
-    },
-    "1.1.41": {
-        "en": "Fixed image for Plug Mini.",
-        "no": "Rettet bilde for Plug Mini."
-    },
-    "1.1.42": {
-        "en": "Added door open alarm (not included in the webhook data so polled only). Added general alarm for Lock when it is jammed. Fix error when processing Lock webhook data.",
-        "no": "Lagt til 'dør åpen' alarm (finnes ikke i webhook-dataene). Lagt til generell alarm for Lås, når den har satt seg fast. Fikset feil under prosessering av webhook-data fra Lås."
-    },
-    "1.1.43": {
-        "en": "Added Open/Pause/Close capability to curtains. Fix Plug Min (US) and Plug Mini (JP) detection",
-        "no": "Lagt til Åpen/Pauset/Lukket egenskap for gardiner. Fikset Plug Mini (USA) og Plug Mini (JP) deteksjon"
-    },
-    "1.1.44": {
-        "en": "Added support for the Vacuum Cleaner.",
-        "no": "Lagt til støvsuger."
-    },
-    "1.1.45": {
-        "en": "Added trigger with drop list for state plus a condition card with the state to the Vacuum Cleaner. Fixed the dock command for the vacuum cleaner.",
-        "no": "Lagt til trigger med nedtrekksliste for støvsugerkjøremodus pluss et tilstandskort for støvsuger. Endret dokk kommando for støvsuger."
-    },
-    "1.1.46": {
-        "en": "Fixed spelling error defined in the API document.",
-        "no": "Utbedret stavefeil i API-dokumentet."
-    },
-    "1.1.47": {
-        "en": "Added Curtain3 to list of curtain devices.",
-        "no": "Lagt til 3. gen Gardiner i listen over gardiner."
-    },
-	"1.1.48": {
-        "en": "Added Curtain3 to list of curtain devices. Added Norwegian translations thanks to Philip Østli",
-        "no": "Lagt til 3. gen Gardiner i listen over gardiner. Lagt til norske oversettelser takket være Philip Østli"
-	},
-	"1.1.49": {
-		"en": "Added Flow action card to move curtains at performance or quiet speed (thanks to Dennie de Groot)",
-		"no": "Lagt til flyt-handlingskort for å flytte gardiner i ytelses- eller stillemodus (takk til Dennie de Groot)"
-	},
-	"1.1.50": {
-		"en": "Reduce Error information in the log. Added initial support for the Lock Pro. Changed the trigger card for vacuum to use 'clearing' instead of 'cleaning'.",
-		"no": "Redusert feilinformasjon i loggen. Lagt til initial støtte for Lock Pro. Endret utløserkortet for støvsuger til å bruke 'clearing' i stedet for 'cleaning'."
-	},
-	"1.1.51": {
-		"en": "Added setting for curtain devices to change the class type to blind for better Google integration.",
-		"no": "Lagt til innstilling for gardiner for å endre klassetype til blind for bedre Google-integrasjon."
-	},
-	"1.1.52": {
-		"en": "Trigger On/Off Flow card in Bot Press Mode, Added support for the Robot Vacuum Cleaner S10",
-		"no": "Utløser On/Off flytkort i Bot Press-modus, Lagt til støtte for Robotstøvsuger S10"
-	},
-	"1.1.53": {
-		"en": "Added support for the Robot Vacuum Cleaner K10+",
-		"no": "Lagt til støtte for Robotstøvsuger K10+"
-	},
-	"1.1.54": {
-		"en": "Added Flow action card to move curtains at performance or quiet speed for the HUB variant",
-		"no": "Lagt til flyt-handlingskort for å flytte gardiner i ytelses- eller stillemodus for HUB-varianten"
-	},
-	"1.1.55": {
-		"en": "Fix Lock open state detection as the API has changed the data format",
-		"no": "Fiks for låsens åpne tilstandsdeteksjon da API-en har endret dataformatet"
-	},
-	"1.1.56": {
-		"en": "Added support for the SwitchBot Water Leak detector",
-		"no": "Lagt til støtte for SwitchBot vannlekkasjedetektor"
-	},
-	"1.1.57": {
-		"en": "Fix possible issue with BLE temperature reading too high. Improve log function.",
-		"no": "Fiks mulig problem med at BLE-temperaturlesning er for høy. Forbedre loggfunksjonen."
-	},
-	"1.1.58": {
-		"en": "Added more translation via OpenAI",
-		"no": "Lagt til flere oversettelser via OpenAI"
-	},
-	"2.0.0": {
-		"en": "Updated login during pairing for new servers",
-		"no": "Oppdatert innlogging under tilkobling til nye servere"
-	},
-	"2.0.1": {
-		"en": "Fixed text for blind advanced settings",
-		"no": "Fikset tekst for avanserte innstillinger for blinde"
-	},
-	"2.0.2": {
-		"en": "Added support for the SwitchBot Meter Pro CO2",
-		"no": "Lagt til støtte for SwitchBot Meter Pro CO2"
-	},
-	"2.0.3": {
-		"en": "Updated Dutch translations",
-		"no": "Oppdaterte nederlandske oversettelser"
-	},
-	"2.0.4": {
-		"en": "Added support for the SwitchBot Meter Pro",
-		"no": "Lagt til støtte for SwitchBot Meter Pro"
-	},
-	"2.0.5": {
-		"en": "Added support for the SwitchBot Meter Pro and Meter Pro CO2 using BLE",
-		"no": "Lagt til støtte for SwitchBot Meter Pro og Meter Pro CO2 ved hjelp av BLE"
-	},
-	"2.0.6": {
-		"en": "Fix images and descriptions for the SwitchBot Meter Pro and Meter Pro CO2 using BLE",
-		"no": "Fiks bilder og beskrivelser for SwitchBot Meter Pro og Meter Pro CO2 ved hjelp av BLE",
-		"nl": "Fix afbeeldingen en beschrijvingen voor de SwitchBot Meter Pro en Meter Pro CO2 met behulp van BLE",
-		"de": "Fix Bilder und Beschreibungen für den SwitchBot Meter Pro und Meter Pro CO2 mit BLE",
-		"fr": "Corrigez les images et les descriptions pour le SwitchBot Meter Pro et le Meter Pro CO2 en utilisant BLE",
-		"es": "Corregir imágenes y descripciones para el SwitchBot Meter Pro y el Meter Pro CO2 usando BLE",
-		"pt": "Corrigir imagens e descrições para o SwitchBot Meter Pro e o Meter Pro CO2 usando BLE",
-		"it": "Correggi immagini e descrizioni per SwitchBot Meter Pro e Meter Pro CO2 utilizzando BLE",
-		"pl": "Napraw obrazy i opisy dla SwitchBot Meter Pro i Meter Pro CO2 za pomocą BLE",
-		"kr": "BLE를 사용하여 SwitchBot Meter Pro 및 Meter Pro CO2의 이미지 및 설명 수정"
-	},
-	"2.0.7": {
-		"en": "Fixed spelling mistake quite -> quiet",
-		"no": "Fikset stavefeil ganske -> stille",
-		"nl": "Vaste spelfout stil -> stil",
-		"de": "Fester Rechtschreibfehler ziemlich -> leise",
-		"fr": "Erreur d'orthographe fixe assez -> calme",
-		"es": "Error ortográfico fijo bastante -> tranquilo",
-		"pt": "Erro de digitação fixo bastante -> quieto",
-		"it": "Errore di battitura fisso abbastanza -> tranquillo",
-		"pl": "Poprawiono błąd ortograficzny całkiem -> cicho",
-		"kr": "맞춤법 오류 수정 꽤 -> 조용한"
-	},
-	"2.0.8": {
-		"en": "Updated images. Added an option to set the number of Homeys that are connected to your SwitchBot account.",
-		"no": "Oppdaterte bilder. Lagt til et alternativ for å angi antall Homeys som er koblet til SwitchBot-kontoen din.",
-		"nl": "Bijgewerkte afbeeldingen. Een optie toegevoegd om het aantal Homeys in te stellen dat is verbonden met uw SwitchBot-account.",
-		"de": "Bilder aktualisiert. Eine Option hinzugefügt, um die Anzahl der mit Ihrem SwitchBot-Konto verbundenen Homeys festzulegen.",
-		"fr": "Images mises à jour. Ajout d'une option pour définir le nombre de Homeys connectés à votre compte SwitchBot.",
-		"es": "Imágenes actualizadas. Se agregó una opción para establecer la cantidad de Homeys que están conectados a su cuenta de SwitchBot.",
-		"pt": "Imagens atualizadas. Adicionada uma opção para definir o número de Homeys conectados à sua conta SwitchBot.",
-		"it": "Immagini aggiornate. Aggiunta un'opzione per impostare il numero di Homey collegati al tuo account SwitchBot.",
-		"pl": "Zaktualizowane obrazy. Dodano opcję ustawienia liczby Homeys, które są podłączone do Twojego konta SwitchBot.",
-		"kr": "이미지 업데이트. SwitchBot 계정에 연결된 Homey 수를 설정하는 옵션 추가."
-	},
-	"2.0.9": {
-		"en": "Added support for the Relay Switch 1 and Relay Switch 1PM",
-		"no": "Lagt til støtte for Relay Switch 1 og Relay Switch 1PM",
-		"nl": "Ondersteuning toegevoegd voor de Relay Switch 1 en Relay Switch 1PM",
-		"de": "Unterstützung für den Relay Switch 1 und Relay Switch 1PM hinzugefügt",
-		"fr": "Ajout de la prise en charge du Relay Switch 1 et du Relay Switch 1PM",
-		"es": "Se agregó soporte para el Relay Switch 1 y el Relay Switch 1PM",
-		"pt": "Adicionado suporte para o Relay Switch 1 e o Relay Switch 1PM",
-		"it": "Aggiunto il supporto per il Relay Switch 1 e il Relay Switch 1PM",
-		"pl": "Dodano obsługę przekaźnika Switch 1 i przekaźnika Switch 1PM",
-		"kr": "릴레이 스위치 1 및 릴레이 스위치 1PM 지원 추가"
-	}
+  "0.1.0": {
+    "en": "Initial release"
+  },
+  "0.1.1": {
+    "en": "Initial release"
+  },
+  "0.1.2": {
+    "en": "Added BLE Temperature and Humidity"
+  },
+  "0.2.0": {
+    "en": "Added HUB Temperature and Humidity, HUB Bot and BLE Bot"
+  },
+  "0.2.1": {
+    "en": "Added Invert Position and Motion Mode to advanced settings for curtains"
+  },
+  "0.2.2": {
+    "en": "Fixed Invert Position for HUB connected curtains"
+  },
+  "0.2.3": {
+    "en": "Added Air Conditioner Remote"
+  },
+  "0.2.4": {
+    "en": "Fixed operation of the Switch Bot to honour the single press mode when selected in the SwitchBot app. BLE can detect the mode setting but for the hub you have to adjust the Advanced setting."
+  },
+  "0.2.5": {
+    "en": "Fix to reduce Homey BLE caching problem"
+  },
+  "0.2.6": {
+    "en": "Added On/Off capability to curtains so they can be fully opened/closed by tapping on the tile"
+  },
+  "0.2.7": {
+    "en": "Added a check for a SwitchBot device with no service data in the discovery, so the entry in the BLE cache can be cleared ready for the next discovery."
+  },
+  "0.2.8": {
+    "en": "Fix Bot state check when using Homey's BLE. Adding my BLE hub no longer disables Homey's BLE checking so both are now used. Added error handler around JSON parsing to cope with bad data."
+  },
+  "0.2.9": {
+    "en": "Attempt to add devices based on the localName id there is no service data."
+  },
+  "0.2.10": {
+    "en": "Changed logging to multi-level to make it easier to spot general issues. Cleaned up the retries loops."
+  },
+  "0.2.11": {
+    "en": "Ensure log level is initialised at start up."
+  },
+  "0.3.0": {
+    "en": "Optimised for Homey v6."
+  },
+  "0.3.1": {
+    "en": "Optimised for activating multiple devices simultaneously. Added Position value to BLE curtain information. Added buttons to send the logs from the configuration page"
+  },
+  "0.3.2": {
+    "en": "Added Position value to hub curtian information. Fixed issue during pair curtains."
+  },
+  "0.3.3": {
+    "en": "Added support for Scenes plus the DVD and Speaker remote devices."
+  },
+  "0.3.4": {
+    "en": "Added a Run Scene action flow card to run a SwitchBot scene without needing to add the scene as a device."
+  },
+  "0.3.5": {
+    "en": "Fix remote parameters and command switched for aircon."
+  },
+  "0.3.6": {
+    "en": "Fix remote parameters and command switched for TV, etc."
+  },
+  "0.3.7": {
+    "en": "Added support for the SwitchBot Humidifier"
+  },
+  "0.3.8": {
+    "en": "Added support for the SwitchBot Humidifier"
+  },
+  "0.3.9": {
+    "en": "Added support for the SwitchBot Humidifier"
+  },
+  "0.3.10": {
+    "en": "Added support for a password on a bot. Fixes for Humidifier"
+  },
+  "0.3.11": {
+    "en": "Added flow action card to select a specific channel number"
+  },
+  "0.3.12": {
+    "en": "Separated On and Off to individual buttons for the AC device. Decoded error messages reported in device view to prevent [object Object] being reported."
+  },
+  "0.3.13": {
+    "en": "Fix deprecated AC flow > Turn On / Off action cards."
+  },
+  "0.3.14": {
+    "en": "Added BLE Presence sensor and Contact Sensor."
+  },
+  "0.3.15": {
+    "en": "Updated BLE Contact Sensor to add contact left open trigger."
+  },
+  "0.3.16": {
+    "en": "Updated BLE Contact Sensor to add entry and exit trigger."
+  },
+  "0.3.17": {
+    "en": "Reduce Hub polling interval to improve responsiveness. Added Smart Fan and Remote Fan"
+  },
+  "0.3.18": {
+    "en": "Reduce Hub polling interval to improve responsiveness. Added Smart Fan and Remote Fan"
+  },
+  "0.3.19": {
+    "en": "Fix Remote On and Off action cards that I broke in the last update"
+  },
+  "0.3.20": {
+    "en": "Fix AirCon On and Off action cards"
+  },
+  "0.4.0": {
+    "en": "Big code reorganise in preparation for Possible Homey / Homey bridge usage. Added error handling around API calls that might have prevented polling timer from restarting. Added Presence Sensor (Hub). Added Contact Sensor (Hub)."
+  },
+  "0.4.1": {
+    "en": "Add Color Bulb (Hub)"
+  },
+  "0.4.2": {
+    "en": "Fixed 'Set nebulization efficiency' flow card"
+  },
+  "0.4.3": {
+    "en": "Added support for custom remotes controls"
+  },
+  "1.0.0": {
+    "en": "Added support for connecting with your SwitchBot username and password instead of getting an API key"
+  },
+  "1.0.1": {
+    "en": "Added battery information to devices"
+  },
+  "1.0.2": {
+    "en": "Fixed setTimeout error."
+  },
+  "1.0.3": {
+    "en": "Changed the default Curtain Motion mode to Performance. Report errors to contoll window when command fails."
+  },
+  "1.0.4": {
+    "en": "Improved action card titles."
+  },
+  "1.0.5": {
+    "en": "Deprecated contact and motion sensor to allow the app to be published (these will be resurrected when a reliable notification method has been created)."
+  },
+  "1.0.6": {
+    "en": "Revived contact and motion sensor. Added the Light remote"
+  },
+  "1.0.7": {
+    "en": "Added more diagnostics logging."
+  },
+  "1.0.8": {
+    "en": "Set remote airconditioner temperature limits to prevent invalid values being sent."
+  },
+  "1.0.9": {
+    "en": "Fix for curtain BLE data change with firmware version 3.9."
+  },
+  "1.1.0": {
+    "en": "Added webhook for faster response to: Contact Sensor (HUB) - Door contact open / close, Motion Sensor (HUB) - Presence detection, Temperature & Humidity (HUB) - Temperature / Humidity change"
+  },
+  "1.1.1": {
+    "en": "Added direction capability to Contact sensor that is true when someone exits and false when someone enters"
+  },
+  "1.1.2": {
+    "en": "Updated the tag list for supported IR Airconditioners that are supported by the SwitchBot hub."
+  },
+  "1.1.3": {
+    "en": "The Bot class is now set to socket when the Bot is in Switch mode so it can be added to HomeKit"
+  },
+  "1.1.4": {
+    "en": "Small changes to images and hint wording for publishing approval"
+  },
+  "1.1.5": {
+    "en": "Improved the error message shown for the device when a command fails."
+  },
+  "1.1.6": {
+    "en": "Fixed start scene flow card."
+  },
+  "1.1.7": {
+    "en": "Reset Left Open capability when contact open cleared."
+  },
+  "1.1.8": {
+    "en": "Added camera motion sensor."
+  },
+  "1.1.9": {
+    "en": "Fixed use of a function that is not available on older Homeys. Attempt to register webhook every 2 seconds if it fails due to Homey connection issues."
+  },
+  "1.1.10": {
+    "en": "Added support for Light Strips."
+  },
+  "1.1.11": {
+    "en": "Fix for DIY Airconditioner (only supports on and off)."
+  },
+  "1.1.12": {
+    "en": "Reverse On / Off commands for DIY Airconditioner."
+  },
+  "1.1.13": {
+    "en": "Increased the number of buttons to 36 for a custom remote. Added support for the SwitchBot Lock"
+  },
+  "1.1.14": {
+    "en": "Change log levels. Updated Contact webhook for new format."
+  },
+  "1.1.15": {
+    "en": "Updated to API v1.1 so door lock can now be controlled."
+  },
+  "1.1.16": {
+    "en": "Restores logging level at start up. Added more webhook logging."
+  },
+  "1.1.17": {
+    "en": "Added support for HUB 2 via Temperature & Humidity sensor."
+  },
+  "1.1.18": {
+    "en": "Fixed an app crashing issue."
+  },
+  "1.1.19": {
+    "en": "Unset warnings when device recovers."
+  },
+  "1.1.20": {
+    "en": "New icon for Blind Tilt device."
+  },
+  "1.1.21": {
+    "en": "Fix direction for Tilt device. Add flow cards for Tilt device."
+  },
+  "1.1.22": {
+    "en": "Work around bug in API for Tilt device and convert 'setPosition: down;0' to 'closeDown'. Set deadzone in middle of slider to make it easier to select fully open."
+  },
+  "1.1.23": {
+    "en": "Added Tilt BLE device."
+  },
+  "1.1.24": {
+    "en": "Fix for Homey 2023 as it reports the long UUID instead of the short version."
+  },
+  "1.1.25": {
+    "en": "Added battery capability to devices when the data contains the required information."
+  },
+  "1.1.26": {
+    "en": "Added Projector remote control."
+  },
+  "1.1.27": {
+    "en": "Support for Tilt firmeware V2."
+  },
+  "1.1.28": {
+    "en": "Fix for Get Device Log when no devices were found during the Add Device stage."
+  },
+  "1.1.29": {
+    "en": "Added Air Purifier Remote."
+  },
+  "1.1.30": {
+    "en": "Added luminance to Temperature and Humidity device when it is a Hub 2. Added webhook support for more devices and reduced polling"
+  },
+  "1.1.31": {
+    "en": "Added Alarm for door jammed. Changed Hub 2 luminance to Brightness as a percentage of it range."
+  },
+  "1.1.32": {
+    "en": "Fix for new T & H I/O data format."
+  },
+  "1.1.33": {
+    "en": "Fix for new T & H I/O temperature data format."
+  },
+  "1.1.34": {
+    "en": "Enhanced performance for ESP32 BLE hub."
+  },
+  "1.1.35": {
+    "en": "Update for new Bot BLE data format."
+  },
+  "1.1.36": {
+    "en": "Update for new Curtain 3 Hub data format."
+  },
+  "1.1.37": {
+    "en": "Added Light Level to curtains."
+  },
+  "1.1.38": {
+    "en": "Fix for Curtains 3 hub not being found due to missing device type in API response. Fix for BLE Curtain 3 not being found due to changed device id field."
+  },
+  "1.1.39": {
+    "en": "Polling added for Curtains 3 hub as they don't provide webhook data. Fix Light Level changed trigger.",
+    "no": "Lagt til tidsbestemt datasamling for 3. gen Gardiner. De gir ikke webhook data enda. Rettet triggeren 'Endret lysnivå'."
+  },
+  "1.1.40": {
+    "en": "Added support for Plug Mini.",
+    "no": "Lagt til støtte for Plug Mini."
+  },
+  "1.1.41": {
+    "en": "Fixed image for Plug Mini.",
+    "no": "Rettet bilde for Plug Mini."
+  },
+  "1.1.42": {
+    "en": "Added door open alarm (not included in the webhook data so polled only). Added general alarm for Lock when it is jammed. Fix error when processing Lock webhook data.",
+    "no": "Lagt til 'dør åpen' alarm (finnes ikke i webhook-dataene). Lagt til generell alarm for Lås, når den har satt seg fast. Fikset feil under prosessering av webhook-data fra Lås."
+  },
+  "1.1.43": {
+    "en": "Added Open/Pause/Close capability to curtains. Fix Plug Min (US) and Plug Mini (JP) detection",
+    "no": "Lagt til Åpen/Pauset/Lukket egenskap for gardiner. Fikset Plug Mini (USA) og Plug Mini (JP) deteksjon"
+  },
+  "1.1.44": {
+    "en": "Added support for the Vacuum Cleaner.",
+    "no": "Lagt til støvsuger."
+  },
+  "1.1.45": {
+    "en": "Added trigger with drop list for state plus a condition card with the state to the Vacuum Cleaner. Fixed the dock command for the vacuum cleaner.",
+    "no": "Lagt til trigger med nedtrekksliste for støvsugerkjøremodus pluss et tilstandskort for støvsuger. Endret dokk kommando for støvsuger."
+  },
+  "1.1.46": {
+    "en": "Fixed spelling error defined in the API document.",
+    "no": "Utbedret stavefeil i API-dokumentet."
+  },
+  "1.1.47": {
+    "en": "Added Curtain3 to list of curtain devices.",
+    "no": "Lagt til 3. gen Gardiner i listen over gardiner."
+  },
+  "1.1.48": {
+    "en": "Added Curtain3 to list of curtain devices. Added Norwegian translations thanks to Philip Østli",
+    "no": "Lagt til 3. gen Gardiner i listen over gardiner. Lagt til norske oversettelser takket være Philip Østli"
+  },
+  "1.1.49": {
+    "en": "Added Flow action card to move curtains at performance or quiet speed (thanks to Dennie de Groot)",
+    "no": "Lagt til flyt-handlingskort for å flytte gardiner i ytelses- eller stillemodus (takk til Dennie de Groot)"
+  },
+  "1.1.50": {
+    "en": "Reduce Error information in the log. Added initial support for the Lock Pro. Changed the trigger card for vacuum to use 'clearing' instead of 'cleaning'.",
+    "no": "Redusert feilinformasjon i loggen. Lagt til initial støtte for Lock Pro. Endret utløserkortet for støvsuger til å bruke 'clearing' i stedet for 'cleaning'."
+  },
+  "1.1.51": {
+    "en": "Added setting for curtain devices to change the class type to blind for better Google integration.",
+    "no": "Lagt til innstilling for gardiner for å endre klassetype til blind for bedre Google-integrasjon."
+  },
+  "1.1.52": {
+    "en": "Trigger On/Off Flow card in Bot Press Mode, Added support for the Robot Vacuum Cleaner S10",
+    "no": "Utløser On/Off flytkort i Bot Press-modus, Lagt til støtte for Robotstøvsuger S10"
+  },
+  "1.1.53": {
+    "en": "Added support for the Robot Vacuum Cleaner K10+",
+    "no": "Lagt til støtte for Robotstøvsuger K10+"
+  },
+  "1.1.54": {
+    "en": "Added Flow action card to move curtains at performance or quiet speed for the HUB variant",
+    "no": "Lagt til flyt-handlingskort for å flytte gardiner i ytelses- eller stillemodus for HUB-varianten"
+  },
+  "1.1.55": {
+    "en": "Fix Lock open state detection as the API has changed the data format",
+    "no": "Fiks for låsens åpne tilstandsdeteksjon da API-en har endret dataformatet"
+  },
+  "1.1.56": {
+    "en": "Added support for the SwitchBot Water Leak detector",
+    "no": "Lagt til støtte for SwitchBot vannlekkasjedetektor"
+  },
+  "1.1.57": {
+    "en": "Fix possible issue with BLE temperature reading too high. Improve log function.",
+    "no": "Fiks mulig problem med at BLE-temperaturlesning er for høy. Forbedre loggfunksjonen."
+  },
+  "1.1.58": {
+    "en": "Added more translation via OpenAI",
+    "no": "Lagt til flere oversettelser via OpenAI"
+  },
+  "2.0.0": {
+    "en": "Updated login during pairing for new servers",
+    "no": "Oppdatert innlogging under tilkobling til nye servere"
+  },
+  "2.0.1": {
+    "en": "Fixed text for blind advanced settings",
+    "no": "Fikset tekst for avanserte innstillinger for blinde"
+  },
+  "2.0.2": {
+    "en": "Added support for the SwitchBot Meter Pro CO2",
+    "no": "Lagt til støtte for SwitchBot Meter Pro CO2"
+  },
+  "2.0.3": {
+    "en": "Updated Dutch translations",
+    "no": "Oppdaterte nederlandske oversettelser"
+  },
+  "2.0.4": {
+    "en": "Added support for the SwitchBot Meter Pro",
+    "no": "Lagt til støtte for SwitchBot Meter Pro"
+  },
+  "2.0.5": {
+    "en": "Added support for the SwitchBot Meter Pro and Meter Pro CO2 using BLE",
+    "no": "Lagt til støtte for SwitchBot Meter Pro og Meter Pro CO2 ved hjelp av BLE"
+  },
+  "2.0.6": {
+    "en": "Fix images and descriptions for the SwitchBot Meter Pro and Meter Pro CO2 using BLE",
+    "no": "Fiks bilder og beskrivelser for SwitchBot Meter Pro og Meter Pro CO2 ved hjelp av BLE",
+    "nl": "Fix afbeeldingen en beschrijvingen voor de SwitchBot Meter Pro en Meter Pro CO2 met behulp van BLE",
+    "de": "Fix Bilder und Beschreibungen für den SwitchBot Meter Pro und Meter Pro CO2 mit BLE",
+    "fr": "Corrigez les images et les descriptions pour le SwitchBot Meter Pro et le Meter Pro CO2 en utilisant BLE",
+    "es": "Corregir imágenes y descripciones para el SwitchBot Meter Pro y el Meter Pro CO2 usando BLE",
+    "pt": "Corrigir imagens e descrições para o SwitchBot Meter Pro e o Meter Pro CO2 usando BLE",
+    "it": "Correggi immagini e descrizioni per SwitchBot Meter Pro e Meter Pro CO2 utilizzando BLE",
+    "pl": "Napraw obrazy i opisy dla SwitchBot Meter Pro i Meter Pro CO2 za pomocą BLE",
+    "kr": "BLE를 사용하여 SwitchBot Meter Pro 및 Meter Pro CO2의 이미지 및 설명 수정"
+  },
+  "2.0.7": {
+    "en": "Fixed spelling mistake quite -> quiet",
+    "no": "Fikset stavefeil ganske -> stille",
+    "nl": "Vaste spelfout stil -> stil",
+    "de": "Fester Rechtschreibfehler ziemlich -> leise",
+    "fr": "Erreur d'orthographe fixe assez -> calme",
+    "es": "Error ortográfico fijo bastante -> tranquilo",
+    "pt": "Erro de digitação fixo bastante -> quieto",
+    "it": "Errore di battitura fisso abbastanza -> tranquillo",
+    "pl": "Poprawiono błąd ortograficzny całkiem -> cicho",
+    "kr": "맞춤법 오류 수정 꽤 -> 조용한"
+  },
+  "2.0.8": {
+    "en": "Updated images. Added an option to set the number of Homeys that are connected to your SwitchBot account.",
+    "no": "Oppdaterte bilder. Lagt til et alternativ for å angi antall Homeys som er koblet til SwitchBot-kontoen din.",
+    "nl": "Bijgewerkte afbeeldingen. Een optie toegevoegd om het aantal Homeys in te stellen dat is verbonden met uw SwitchBot-account.",
+    "de": "Bilder aktualisiert. Eine Option hinzugefügt, um die Anzahl der mit Ihrem SwitchBot-Konto verbundenen Homeys festzulegen.",
+    "fr": "Images mises à jour. Ajout d'une option pour définir le nombre de Homeys connectés à votre compte SwitchBot.",
+    "es": "Imágenes actualizadas. Se agregó una opción para establecer la cantidad de Homeys que están conectados a su cuenta de SwitchBot.",
+    "pt": "Imagens atualizadas. Adicionada uma opção para definir o número de Homeys conectados à sua conta SwitchBot.",
+    "it": "Immagini aggiornate. Aggiunta un'opzione per impostare il numero di Homey collegati al tuo account SwitchBot.",
+    "pl": "Zaktualizowane obrazy. Dodano opcję ustawienia liczby Homeys, które są podłączone do Twojego konta SwitchBot.",
+    "kr": "이미지 업데이트. SwitchBot 계정에 연결된 Homey 수를 설정하는 옵션 추가."
+  },
+  "2.0.9": {
+    "en": "Added support for the Relay Switch 1 and Relay Switch 1PM",
+    "no": "Lagt til støtte for Relay Switch 1 og Relay Switch 1PM",
+    "nl": "Ondersteuning toegevoegd voor de Relay Switch 1 en Relay Switch 1PM",
+    "de": "Unterstützung für den Relay Switch 1 und Relay Switch 1PM hinzugefügt",
+    "fr": "Ajout de la prise en charge du Relay Switch 1 et du Relay Switch 1PM",
+    "es": "Se agregó soporte para el Relay Switch 1 y el Relay Switch 1PM",
+    "pt": "Adicionado suporte para o Relay Switch 1 e o Relay Switch 1PM",
+    "it": "Aggiunto il supporto per il Relay Switch 1 e il Relay Switch 1PM",
+    "pl": "Dodano obsługę przekaźnika Switch 1 i przekaźnika Switch 1PM",
+    "kr": "릴레이 스위치 1 및 릴레이 스위치 1PM 지원 추가"
+  },
+  "2.0.10": {
+    "en": "Updated images"
+  }
 }

@@ -1,6 +1,6 @@
 {
   "id": "com.switchbot",
-  "version": "2.0.9",
+  "version": "2.0.10",
   "compatibility": ">=6.0.0",
   "platforms": [
     "local",
@@ -531,9 +531,9 @@
       {
         "name": "Philip Østli"
       },
-	  {
-		"name": "vierlijner"
-	  }
+      {
+        "name": "vierlijner"
+      }
     ]
   },
   "api": {
