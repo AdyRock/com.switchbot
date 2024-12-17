@@ -420,5 +420,17 @@
   },
   "2.0.10": {
     "en": "Updated images"
+  },
+  "2.0.11": {
+	"en": "Added support for the WoCurtain3 using BLE",
+	"no": "Lagt til støtte for WoCurtain3 ved hjelp av BLE",
+	"nl": "Ondersteuning toegevoegd voor de WoCurtain3 met behulp van BLE",
+	"de": "Unterstützung für den WoCurtain3 mit BLE hinzugefügt",
+	"fr": "Ajout de la prise en charge du WoCurtain3 en utilisant BLE",
+	"es": "Se agregó soporte para el WoCurtain3 usando BLE",
+	"pt": "Adicionado suporte para o WoCurtain3 usando BLE",
+	"it": "Aggiunto il supporto per il WoCurtain3 utilizzando BLE",
+	"pl": "Dodano obsługę WoCurtain3 za pomocą BLE",
+	"kr": "BLE를 사용하여 WoCurtain3 지원 추가"
   }
 }

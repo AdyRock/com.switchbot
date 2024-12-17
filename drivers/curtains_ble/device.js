@@ -468,7 +468,7 @@ class CurtainsBLEDevice extends Homey.Device
 			const dd = this.getData();
 			for (const event of events)
 			{
-				if (event.address && (event.address.localeCompare(dd.address, 'en', { sensitivity: 'base' }) === 0) && (event.serviceData.modelName === 'WoCurtain'))
+				if (event.address && (event.address.localeCompare(dd.address, 'en', { sensitivity: 'base' }) === 0) && ((event.serviceData.modelName === 'WoCurtain') || (event.serviceData.modelName === 'WoCurtain3')))
 				{
 					if (this.pollTimer)
 					{
