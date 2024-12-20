@@ -1,0 +1,56 @@
+{
+	"type": "enum",
+	"getable": true,
+	"setable": true,
+	"uiComponent": "picker",
+	"title": {
+		"en": "Cleaning Mode",
+		"no": "Rengjøringsmodus",
+		"nl": "Schoonmaakmodus",
+		"da": "Rengøringstilstand",
+		"de": "Reinigungsmodus",
+		"es": "Modo de limpieza",
+		"fr": "Mode de nettoyage",
+		"it": "Modalità di pulizia",
+		"sv": "Rengöringsläge",
+		"pl": "Tryb czyszczenia",
+		"ru": "Режим уборки",
+		"ko": "청소 모드"
+	},
+	"values": [
+		{
+			"id": "sweep",
+			"title": {
+				"en": "Sweep",
+				"no": "Fei",
+				"nl": "Vegen",
+				"da": "Feje",
+				"de": "Fegen",
+				"es": "Barrer",
+				"fr": "Balayer",
+				"it": "Spazzare",
+				"sv": "Sopa",
+				"pl": "Zamiatanie",
+				"ru": "Подметание",
+				"ko": "쓸기"
+			}
+		},
+		{
+			"id": "sweep_mop",
+			"title": {
+				"en": "Sweep and Mop",
+				"no": "Fei og mop",
+				"nl": "Vegen en dweilen",
+				"da": "Feje og moppe",
+				"de": "Fegen und wischen",
+				"es": "Barrer y fregar",
+				"fr": "Balayer et passer la serpillière",
+				"it": "Spazzare e pulire",
+				"sv": "Sopa och moppa",
+				"pl": "Zamiatanie i mopowanie",
+				"ru": "Подметание и мытье",
+				"ko": "쓸기 및 걸레질"
+			}
+		}
+	]
+}

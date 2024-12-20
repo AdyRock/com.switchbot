@@ -1,0 +1,107 @@
+{
+	"type": "enum",
+	"getable": true,
+	"setable": true,
+	"uiComponent": "picker",
+	"title": {
+		"en": "Times",
+		"no": "Tider",
+		"nl": "Tijden",
+		"da": "Tider",
+		"de": "Zeiten",
+		"es": "Tiempos",
+		"fr": "Temps",
+		"it": "Tempi",
+		"sv": "Tider",
+		"pl": "Czasy",
+		"ru": "Времена",
+		"ko": "시간"
+	},
+	"values": [
+		{
+			"id": "1",
+			"title": {
+				"en": "1 Cycle",
+				"no": "1 Syklus",
+				"nl": "1 Cyclus",
+				"da": "1 Cyklus",
+				"de": "1 Zyklus",
+				"es": "1 Ciclo",
+				"fr": "1 Cycle",
+				"it": "1 Ciclo",
+				"sv": "1 Cykel",
+				"pl": "1 Cykl",
+				"ru": "1 Цикл",
+				"ko": "1 사이클"
+			}
+		},
+		{
+			"id": "2",
+			"title": {
+				"en": "2 Cycles",
+				"no": "2 Sykluser",
+				"nl": "2 Cycli",
+				"da": "2 Cyklusser",
+				"de": "2 Zyklen",
+				"es": "2 Ciclos",
+				"fr": "2 Cycles",
+				"it": "2 Cicli",
+				"sv": "2 Cykler",
+				"pl": "2 Cykl",
+				"ru": "2 Цикла",
+				"ko": "2 사이클"
+			}
+		},
+		{
+			"id": "3",
+			"title": {
+				"en": "3 Cycles",
+				"no": "3 Sykluser",
+				"nl": "3 Cycli",
+				"da": "3 Cyklusser",
+				"de": "3 Zyklen",
+				"es": "3 Ciclos",
+				"fr": "3 Cycles",
+				"it": "3 Cicli",
+				"sv": "3 Cykler",
+				"pl": "3 Cykl",
+				"ru": "3 Цикла",
+				"ko": "3 사이클"
+			}
+		},
+		{
+			"id": "4",
+			"title": {
+				"en": "4 Cycles",
+				"no": "4 Sykluser",
+				"nl": "4 Cycli",
+				"da": "4 Cyklusser",
+				"de": "4 Zyklen",
+				"es": "4 Ciclos",
+				"fr": "4 Cycles",
+				"it": "4 Cicli",
+				"sv": "4 Cykler",
+				"pl": "4 Cykl",
+				"ru": "4 Цикла",
+				"ko": "4 사이클"
+			}
+		},
+		{
+			"id": "5",
+			"title": {
+				"en": "5 Cycles",
+				"no": "5 Sykluser",
+				"nl": "5 Cycli",
+				"da": "5 Cyklusser",
+				"de": "5 Zyklen",
+				"es": "5 Ciclos",
+				"fr": "5 Cycles",
+				"it": "5 Cicli",
+				"sv": "5 Cykler",
+				"pl": "5 Cykl",
+				"ru": "5 Циклов",
+				"ko": "5 사이클"
+			}
+		}
+	]
+}

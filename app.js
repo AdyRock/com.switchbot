@@ -391,6 +391,13 @@ class MyApp extends OAuth2App
 				return args.device.onCapabilityPosition(args.percentage, args.speed);
 			});
 
+		const vaccumStartAction = this.homey.flow.getActionCard('set_vaccum_start');
+		vaccumStartAction
+			.registerRunListener(async (args, state) =>
+			{
+				return args.device.startVacuum(args.action, parseInt(args.fanPower, 10), parseInt(args.waterLevel, 10), parseInt(args.times, 10));
+			});
+
 		/** * CONDITIONS ** */
 		this.conditionVaccumStateIs = this.homey.flow.getConditionCard('vaccum_state_is.');
 		this.conditionVaccumStateIs.registerRunListener((args) =>

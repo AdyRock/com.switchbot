@@ -1,0 +1,21 @@
+{
+  "type": "boolean",
+  "getable": false,
+  "setable": true,
+  "uiComponent": "button",
+  "title": {
+    "en": "Fill Humidifier",
+	"nl": "Bevochtiger vullen",
+	"no": "Fyll luftfukter",
+	"da": "Fyld luftfugter",
+	"de": "Luftbefeuchter füllen",
+	"es": "Llenar humidificador",
+	"fr": "Remplir l'humidificateur",
+	"it": "Riempire l'umidificatore",
+	"sv": "Fyll luftfuktare",
+	"pl": "Napełnij nawilżacz",
+	"ru": "Наполнить увлажнитель",
+	"ko": "가습기 채우기"
+  },
+  "icon": "/assets/humidifier.svg"
+}

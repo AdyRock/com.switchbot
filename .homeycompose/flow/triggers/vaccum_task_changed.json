@@ -1,0 +1,64 @@
+{
+	"title": {
+		"en": "Vacuum Task Changed",
+		"no": "Støvsuger oppgave ble endret",
+		"nl": "Stofzuigertaak gewijzigd",
+		"da": "Støvsugeropgave ændret",
+		"de": "Staubsaugeraufgabe geändert",
+		"es": "Tarea de la aspiradora cambiada",
+		"fr": "Tâche de l'aspirateur changée",
+		"it": "Compito dell'aspirapolvere cambiato",
+		"sv": "Dammsugarens uppgift ändrad",
+		"pl": "Zadanie odkurzacza zmienione",
+		"ru": "Задача пылесоса изменена",
+		"ko": "진공 작업 변경됨"
+	},
+	"platforms": [
+		"local"
+	],
+	"connectivity": [
+		"local",
+		"cloud"
+	],
+	"tokens": [
+		{
+			"name": "task",
+			"title": {
+				"en": "Vacuum Task",
+				"no": "Støvsuger oppgave",
+				"nl": "Stofzuigertaak",
+				"da": "Støvsugeropgave",
+				"de": "Staubsaugeraufgabe",
+				"es": "Tarea de la aspiradora",
+				"fr": "Tâche de l'aspirateur",
+				"it": "Compito dell'aspirapolvere",
+				"sv": "Dammsugarens uppgift",
+				"pl": "Zadanie odkurzacza",
+				"ru": "Задача пылесоса",
+				"ko": "진공 작업"
+			},
+			"type": "string",
+			"example": {
+				"en": "Charging",
+				"no": "Lader",
+				"nl": "Opladen",
+				"da": "Oplader",
+				"de": "Laden",
+				"es": "Cargando",
+				"fr": "En charge",
+				"it": "In carica",
+				"sv": "Laddar",
+				"pl": "Ładowanie",
+				"ru": "Зарядка",
+				"ko": "충전 중"
+			}
+		}
+	],
+	"args": [
+		{
+			"type": "device",
+			"name": "device",
+			"filter": "driver_id=robot_vacuum_S10_hub"
+		}
+	]
+}

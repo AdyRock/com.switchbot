@@ -1,0 +1,21 @@
+{
+  "type": "boolean",
+  "getable": false,
+  "setable": true,
+  "uiComponent": "button",
+  "title": {
+    "en": "Wash the mop",
+	"nl": "Dweil wassen",
+	"no": "Vask moppen",
+	"da": "Vask moppen",
+	"de": "Mopp waschen",
+	"es": "Lavar el trapeador",
+	"fr": "Laver la serpillière",
+	"it": "Lavare il mocio",
+	"sv": "Tvätta mopp",
+	"pl": "Umyj mop",
+	"ru": "Вымойте швабру",
+	"ko": "밀대를 씻다"
+  },
+  "icon": "/assets/wash_mop.svg"
+}

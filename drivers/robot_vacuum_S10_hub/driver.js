@@ -4,7 +4,7 @@
 
 const HubDriver = require('../hub_driver');
 
-class HubVacuumDriver extends HubDriver
+class HubVacuumS10Driver extends HubDriver
 {
 
 	/**
@@ -17,13 +17,15 @@ class HubVacuumDriver extends HubDriver
 		// Device Triggers
 		this.stateChangedTrigger = this.homey.flow.getDeviceTriggerCard('vaccum_state_changed');
 		this.stateChangedToTrigger = this.homey.flow.getDeviceTriggerCard('vaccum_state_changed_to');
+		this.taskChangedTrigger = this.homey.flow.getDeviceTriggerCard('vaccum_task_changed');
+		this.taskChangedToTrigger = this.homey.flow.getDeviceTriggerCard('vaccum_task_changed_to');
 
-		this.log('HubVacuumDriver has been initialized');
+		this.log('HubVacuumS10Driver has been initialized');
 	}
 
 	async onPairListDevices({ oAuth2Client })
 	{
-		return this.getHUBDevices(oAuth2Client, ['WoSweeper', 'WoSweeperMini', 'K10+']);
+		return this.getHUBDevices(oAuth2Client, ['Robot Vacuum Cleaner S10', 'K10+ Pro']);
 	}
 
 	async triggerStateChanged(device, tokens, state)
@@ -36,6 +38,16 @@ class HubVacuumDriver extends HubDriver
 		this.stateChangedToTrigger.trigger(device, tokens, state).catch(this.error);
 	}
 
+	async triggerTaskChanged(device, tokens, state)
+	{
+		this.taskChangedTrigger.trigger(device, tokens, state).catch(this.error);
+	}
+
+	async triggerTaskChangedTo(device, tokens, state)
+	{
+		this.taskChangedToTrigger.trigger(device, tokens, state).catch(this.error);
+	}
+
 }
 
-module.exports = HubVacuumDriver;
+module.exports = HubVacuumS10Driver;

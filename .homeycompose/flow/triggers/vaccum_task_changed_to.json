@@ -1,0 +1,319 @@
+{
+	"title": {
+		"en": "Vacuum Task Changed",
+		"no": "Støvsuger kjøremodus ble endret",
+		"nl": "Stofzuigerstatus gewijzigd",
+		"da": "Støvsugetilstand ændret",
+		"de": "Staubsaugerzustand geändert",
+		"es": "Estado de la aspiradora cambiado",
+		"fr": "État de l'aspirateur changé",
+		"it": "Stato dell'aspirapolvere cambiato",
+		"sv": "Dammsugarens tillstånd ändrat",
+		"pl": "Zmiana stanu odkurzacza",
+		"ru": "Изменено состояние пылесоса",
+		"ko": "진공 상태 변경됨"
+	},
+	"titleFormatted": {
+		"en": "Vacuum task changed to [[state]]",
+		"no": "Støvsuger kjøremodus ble endret til [[state]]",
+		"nl": "Stofzuigerstatus gewijzigd naar [[state]]",
+		"da": "Støvsugerstatus ændret til [[state]]",
+		"de": "Staubsaugerstatus geändert zu [[state]]",
+		"es": "Estado de la aspiradora cambiado a [[state]]",
+		"fr": "État de l'aspirateur modifié en [[state]]",
+		"it": "Stato dell'aspirapolvere cambiato in [[state]]",
+		"sv": "Dammsugarens status ändrad till [[state]]",
+		"pl": "Stan odkurzacza zmieniony na [[state]]",
+		"ru": "Состояние пылесоса изменено на [[state]]",
+		"ko": "청소기 상태가 [[state]]로 변경됨"
+	},
+	"platforms": [
+		"local"
+	],
+	"connectivity": [
+		"local",
+		"cloud"
+	],
+	"args": [
+		{
+			"name": "state",
+			"title": {
+				"en": "Vacuum Task",
+				"no": "Støvsuger kjøremodus",
+				"nl": "Stofzuigerstatus",
+				"da": "Støvsugerstatus",
+				"de": "Staubsaugerstatus",
+				"es": "Estado de la aspiradora",
+				"fr": "État de l'aspirateur",
+				"it": "Stato dell'aspirapolvere",
+				"sv": "Dammsugarens status",
+				"pl": "Stan odkurzacza",
+				"ru": "Состояние пылесоса",
+				"ko": "청소기 상태"
+			},
+			"type": "dropdown",
+			"values": [
+				{
+					"id": "standBy",
+					"title": {
+						"en": "Standby",
+						"no": "Gjør ikke noe",
+						"nl": "Standby",
+						"da": "Standby",
+						"de": "Standby",
+						"es": "En espera",
+						"fr": "Veille",
+						"it": "Standby",
+						"sv": "Standby",
+						"pl": "Gotowość",
+						"ru": "Режим ожидания",
+						"ko": "대기"
+					}
+				},
+				{
+					"id": "explore",
+					"title": {
+						"en": "Explore",
+						"no": "Utforske",
+						"nl": "Verkennen",
+						"da": "Udforske",
+						"de": "Erkunden",
+						"es": "Explorar",
+						"fr": "Explorer",
+						"it": "Esplorare",
+						"sv": "Utforska",
+						"pl": "Eksplorować",
+						"ru": "Исследовать",
+						"ko": "탐험"
+					}
+				},
+				{
+					"id": "cleanAll",
+					"title": {
+						"en": "Clean All",
+						"no": "Rengjør alt",
+						"nl": "Alles schoonmaken",
+						"da": "Rengør alt",
+						"de": "Alles reinigen",
+						"es": "Limpiar todo",
+						"fr": "Nettoyer tout",
+						"it": "Pulire tutto",
+						"sv": "Rengör allt",
+						"pl": "Wyczyść wszystko",
+						"ru": "Убрать все",
+						"ko": "모두 청소"
+					}
+				},
+				{
+					"id": "cleanArea",
+					"title": {
+						"en": "Clean Area",
+						"no": "Rengjør område",
+						"nl": "Schoonmaakgebied",
+						"da": "Rengør område",
+						"de": "Bereich reinigen",
+						"es": "Limpiar área",
+						"fr": "Nettoyer la zone",
+						"it": "Pulire l'area",
+						"sv": "Rengör område",
+						"pl": "Wyczyść obszar",
+						"ru": "Убрать зону",
+						"ko": "구역 청소"
+					}
+				},
+				{
+					"id": "cleanRoom",
+					"title": {
+						"en": "Clean Room",
+						"no": "Rengjør rom",
+						"nl": "Schoonmaak kamer",
+						"da": "Rengør værelse",
+						"de": "Raum reinigen",
+						"es": "Limpiar habitación",
+						"fr": "Nettoyer la chambre",
+						"it": "Pulire la stanza",
+						"sv": "Rengör rum",
+						"pl": "Wyczyść pokój",
+						"ru": "Убрать комнату",
+						"ko": "방 청소"
+					}
+				},
+				{
+					"id": "fillWater",
+					"title": {
+						"en": "Fill Water",
+						"no": "Fyll vann",
+						"nl": "Vul water",
+						"da": "Fyld vand",
+						"de": "Wasser auffüllen",
+						"es": "Llenar agua",
+						"fr": "Remplir l'eau",
+						"it": "Riempire l'acqua",
+						"sv": "Fyll vatten",
+						"pl": "Napełnij wodę",
+						"ru": "Заполнить водой",
+						"ko": "물 채우기"
+					}
+				},
+				{
+					"id": "deepWashing",
+					"title": {
+						"en": "Deep Washing",
+						"no": "Dypvask",
+						"nl": "Diep wassen",
+						"da": "Dyb vask",
+						"de": "Tiefenreinigung",
+						"es": "Lavado profundo",
+						"fr": "Lavage en profondeur",
+						"it": "Lavaggio profondo",
+						"sv": "Djup tvätt",
+						"pl": "Głębokie mycie",
+						"ru": "Глубокая мойка",
+						"ko": "깊은 세척"
+					}
+				},
+				{
+					"id": "backToCharge",
+					"title": {
+						"en": "Back to Charge",
+						"no": "Tilbake til lading",
+						"nl": "Terug naar opladen",
+						"da": "Tilbage til opladning",
+						"de": "Zurück zum Laden",
+						"es": "Volver a cargar",
+						"fr": "Retour à la charge",
+						"it": "Torna a caricare",
+						"sv": "Tillbaka till laddning",
+						"pl": "Powrót do ładowania",
+						"ru": "Вернуться к зарядке",
+						"ko": "충전으로 돌아가기"
+					}
+				},
+				{
+					"id": "markingWaterBase",
+					"title": {
+						"en": "Marking Water Base",
+						"no": "Merking av vannbase",
+						"nl": "Markeren van waterbasis",
+						"da": "Mærkning af vandbase",
+						"de": "Markierung der Wasserbasis",
+						"es": "Marcado de base de agua",
+						"fr": "Marquage de la base d'eau",
+						"it": "Marcatura della base d'acqua",
+						"sv": "Märkning av vattenbas",
+						"pl": "Oznaczanie bazy wodnej",
+						"ru": "Маркировка водной базы",
+						"ko": "물 베이스 표시"
+					}
+				},
+				{
+					"id": "drying",
+					"title": {
+						"en": "Drying",
+						"no": "Tørking",
+						"nl": "Drogen",
+						"da": "Tørring",
+						"de": "Trocknen",
+						"es": "Secado",
+						"fr": "Séchage",
+						"it": "Asciugatura",
+						"sv": "Torkning",
+						"pl": "Suszenie",
+						"ru": "Сушка",
+						"ko": "건조"
+					}
+				},
+				{
+					"id": "collectDust",
+					"title": {
+						"en": "Collect Dust",
+						"no": "Samle støv",
+						"nl": "Stof verzamelen",
+						"da": "Saml støv",
+						"de": "Staub sammeln",
+						"es": "Recoger polvo",
+						"fr": "Ramasser la poussière",
+						"it": "Raccogliere la polvere",
+						"sv": "Samla damm",
+						"pl": "Zbierać kurz",
+						"ru": "Собирать пыль",
+						"ko": "먼지 수집"
+					}
+				},
+				{
+					"id": "remoteControl",
+					"title": {
+						"en": "Remote Control",
+						"no": "Fjernkontroll",
+						"nl": "Afstandsbediening",
+						"da": "Fjernbetjening",
+						"de": "Fernbedienung",
+						"es": "Control remoto",
+						"fr": "Télécommande",
+						"it": "Telecomando",
+						"sv": "Fjärrkontroll",
+						"pl": "Pilot",
+						"ru": "Пульт дистанционного управления",
+						"ko": "리모컨"
+					}
+				},
+				{
+					"id": "cleanWithExplorer",
+					"title": {
+						"en": "Clean with Explorer",
+						"no": "Rengjør med utforsker",
+						"nl": "Schoonmaken met verkenner",
+						"da": "Rengør med explorer",
+						"de": "Mit Explorer reinigen",
+						"es": "Limpiar con explorador",
+						"fr": "Nettoyer avec l'explorateur",
+						"it": "Pulire con l'esploratore",
+						"sv": "Rengör med explorer",
+						"pl": "Wyczyść z explorerem",
+						"ru": "Убрать с исследователем",
+						"ko": "탐색기와 청소"
+					}
+				},
+				{
+					"id": "fillWaterForHumi",
+					"title": {
+						"en": "Fill Water for Humi",
+						"no": "Fyll vann for Humi",
+						"nl": "Vul water voor Humi",
+						"da": "Fyld vand til Humi",
+						"de": "Wasser für Humi auffüllen",
+						"es": "Llenar agua para Humi",
+						"fr": "Remplir l'eau pour Humi",
+						"it": "Riempire l'acqua per Humi",
+						"sv": "Fyll vatten för Humi",
+						"pl": "Napełnij wodę dla Humi",
+						"ru": "Заполнить водой для Humi",
+						"ko": "Humi를 위한 물 채우기"
+					}
+				},
+				{
+					"id": "markingHumi",
+					"title": {
+						"en": "Marking Humi",
+						"no": "Merking av Humi",
+						"nl": "Markeren van Humi",
+						"da": "Mærkning af Humi",
+						"de": "Markierung von Humi",
+						"es": "Marcado de Humi",
+						"fr": "Marquage de Humi",
+						"it": "Marcatura di Humi",
+						"sv": "Märkning av Humi",
+						"pl": "Oznaczanie Humi",
+						"ru": "Маркировка Humi",
+						"ko": "Humi 표시"
+					}
+				}
+			]
+		},
+		{
+			"type": "device",
+			"name": "device",
+			"filter": "driver_id=robot_vacuum_S10_hub"
+		}
+	]
+}

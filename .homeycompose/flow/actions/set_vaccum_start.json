@@ -1,0 +1,352 @@
+{
+	"title": {
+		"en": "Start Cleaning",
+		"no": "Start Rengjøring",
+		"nl": "Start met schoonmaken",
+		"da": "Start rengøring",
+		"de": "Reinigung starten",
+		"es": "Iniciar limpieza",
+		"fr": "Commencer le nettoyage",
+		"it": "Inizia la pulizia",
+		"sv": "Starta rengöring",
+		"pl": "Rozpocznij czyszczenie",
+		"ru": "Начать уборку",
+		"ko": "청소 시작"
+	},
+	"titleFormatted": {
+		"en": "Start [[action]] with fan [[fanPower]] and water [[waterLevel]] for [[times]]",
+		"no": "Start [[action]] med vifte [[fanPower]] og vann [[waterLevel]] for [[times]]",
+		"nl": "Start [[action]] met ventilator [[fanPower]] en water [[waterLevel]] voor [[times]]",
+		"da": "Start [[action]] med ventilator [[fanPower]] og vand [[waterLevel]] for [[times]]",
+		"de": "Starten Sie [[action]] mit Lüfter [[fanPower]] und Wasser [[waterLevel]] für [[times]]",
+		"es": "Inicie [[action]] con ventilador [[fanPower]] y agua [[waterLevel]] durante [[times]]",
+		"fr": "Commencez [[action]] avec ventilateur [[fanPower]] et eau [[waterLevel]] pour [[times]]",
+		"it": "Inizia [[action]] con ventilatore [[fanPower]] e acqua [[waterLevel]] per [[times]]",
+		"sv": "Starta [[action]] med fläkt [[fanPower]] och vatten [[waterLevel]] för [[times]]",
+		"pl": "Rozpocznij [[action]] z wentylatorem [[fanPower]] i wodą [[waterLevel]] na [[times]]",
+		"ru": "Начните [[action]] с вентилятором [[fanPower]] и водой [[waterLevel]] на [[times]]",
+		"ko": "[[times]] 동안 팬 [[fanPower]] 및 물 [[waterLevel]]으로 [[action]] 시작"
+	},
+	"hint": {
+		"en": "Start the cleaning process with the specified action",
+		"no": "Start rengjøringsprosessen med den spesifiserte handlingen",
+		"nl": "Start het schoonmaakproces met de opgegeven actie",
+		"da": "Start rengøringsprocessen med den angivne handling",
+		"de": "Starten Sie den Reinigungsprozess mit der angegebenen Aktion",
+		"es": "Inicie el proceso de limpieza con la acción especificada",
+		"fr": "Commencez le processus de nettoyage avec l'action spécifiée",
+		"it": "Avvia il processo di pulizia con l'azione specificata",
+		"sv": "Starta rengöringsprocessen med den angivna åtgärden",
+		"pl": "Rozpocznij proces czyszczenia z określoną akcją",
+		"ru": "Начните процесс уборки с указанным действием",
+		"ko": "지정된 작업으로 청소 프로세스 시작"
+	},
+	"args": [
+		{
+			"name": "device",
+			"type": "device",
+			"filter": "driver_id=robot_vacuum_S10_hub"
+		},
+		{
+			"name": "action",
+			"type": "dropdown",
+			"title": {
+				"en": "Action",
+				"no": "Handling",
+				"nl": "Actie",
+				"da": "Handling",
+				"de": "Aktion",
+				"es": "Acción",
+				"fr": "Action",
+				"it": "Azione",
+				"sv": "Åtgärd",
+				"pl": "Akcja",
+				"ru": "Действие",
+				"ko": "작업"
+			},
+			"values": [
+				{
+					"id": "sweep",
+					"label": {
+						"en": "Sweep",
+						"no": "Fei",
+						"nl": "Vegen",
+						"da": "Feje",
+						"de": "Fegen",
+						"es": "Barrer",
+						"fr": "Balayer",
+						"it": "Spazzare",
+						"sv": "Sopa",
+						"pl": "Zamiatanie",
+						"ru": "Подметание",
+						"ko": "쓸기"
+					}
+				},
+				{
+					"id": "sweep_mop",
+					"label": {
+						"en": "Sweep and Mop",
+						"no": "Fei og mop",
+						"nl": "Vegen en dweilen",
+						"da": "Feje og moppe",
+						"de": "Fegen und wischen",
+						"es": "Barrer y fregar",
+						"fr": "Balayer et passer la serpillière",
+						"it": "Spazzare e pulire",
+						"sv": "Sopa och moppa",
+						"pl": "Zamiatanie i mopowanie",
+						"ru": "Подметание и мытье",
+						"ko": "쓸기 및 걸레질"
+					}
+				}
+			]
+		},
+		{
+			"name": "fanPower",
+			"type": "dropdown",
+			"title": {
+				"en": "Fan Power Level",
+				"no": "Viftenivå",
+				"nl": "Ventilatormacht",
+				"da": "Blæserniveau",
+				"de": "Lüfterstufe",
+				"es": "Nivel de potencia del ventilador",
+				"fr": "Niveau de puissance du ventilateur",
+				"it": "Livello di potenza della ventola",
+				"sv": "Fläkthastighet",
+				"pl": "Poziom mocy wentylatora",
+				"ru": "Уровень мощности вентилятора",
+				"ko": "팬 전력 수준"
+			},
+			"values": [
+				{
+					"id": "1",
+					"label": {
+						"en": "Level 1",
+						"no": "Nivå 1",
+						"nl": "Niveau 1",
+						"da": "Niveau 1",
+						"de": "Stufe 1",
+						"es": "Nivel 1",
+						"fr": "Niveau 1",
+						"it": "Livello 1",
+						"sv": "Nivå 1",
+						"pl": "Poziom 1",
+						"ru": "Уровень 1",
+						"ko": "레벨 1"
+					}
+				},
+				{
+					"id": "2",
+					"label": {
+						"en": "Level 2",
+						"no": "Nivå 2",
+						"nl": "Niveau 2",
+						"da": "Niveau 2",
+						"de": "Stufe 2",
+						"es": "Nivel 2",
+						"fr": "Niveau 2",
+						"it": "Livello 2",
+						"sv": "Nivå 2",
+						"pl": "Poziom 2",
+						"ru": "Уровень 2",
+						"ko": "레벨 2"
+					}
+				},
+				{
+					"id": "3",
+					"label": {
+						"en": "Level 3",
+						"no": "Nivå 3",
+						"nl": "Niveau 3",
+						"da": "Niveau 3",
+						"de": "Stufe 3",
+						"es": "Nivel 3",
+						"fr": "Niveau 3",
+						"it": "Livello 3",
+						"sv": "Nivå 3",
+						"pl": "Poziom 3",
+						"ru": "Уровень 3",
+						"ko": "레벨 3"
+					}
+				},
+				{
+					"id": "4",
+					"label": {
+						"en": "Level 4",
+						"no": "Nivå 4",
+						"nl": "Niveau 4",
+						"da": "Niveau 4",
+						"de": "Stufe 4",
+						"es": "Nivel 4",
+						"fr": "Niveau 4",
+						"it": "Livello 4",
+						"sv": "Nivå 4",
+						"pl": "Poziom 4",
+						"ru": "Уровень 4",
+						"ko": "레벨 4"
+					}
+				}
+			]
+		},
+		{
+			"name": "waterLevel",
+			"type": "dropdown",
+			"title": {
+				"en": "Water Level",
+				"no": "Vannivå",
+				"nl": "Waterniveau",
+				"da": "Vandniveau",
+				"de": "Wasserniveau",
+				"es": "Nivel de agua",
+				"fr": "Niveau d'eau",
+				"it": "Livello dell'acqua",
+				"sv": "Vattennivå",
+				"pl": "Poziom wody",
+				"ru": "Уровень воды",
+				"ko": "수위"
+			},
+			"values": [
+				{
+					"id": "1",
+					"label": {
+						"en": "Level 1",
+						"no": "Nivå 1",
+						"nl": "Niveau 1",
+						"da": "Niveau 1",
+						"de": "Stufe 1",
+						"es": "Nivel 1",
+						"fr": "Niveau 1",
+						"it": "Livello 1",
+						"sv": "Nivå 1",
+						"pl": "Poziom 1",
+						"ru": "Уровень 1",
+						"ko": "레벨 1"
+					}
+				},
+				{
+					"id": "2",
+					"label": {
+						"en": "Level 2",
+						"no": "Nivå 2",
+						"nl": "Niveau 2",
+						"da": "Niveau 2",
+						"de": "Stufe 2",
+						"es": "Nivel 2",
+						"fr": "Niveau 2",
+						"it": "Livello 2",
+						"sv": "Nivå 2",
+						"pl": "Poziom 2",
+						"ru": "Уровень 2",
+						"ko": "레벨 2"
+					}
+				}
+			]
+		},
+		{
+			"name": "times",
+			"type": "dropdown",
+			"title": {
+				"en": "Times",
+				"no": "Tider",
+				"nl": "Tijden",
+				"da": "Tider",
+				"de": "Zeiten",
+				"es": "Tiempos",
+				"fr": "Temps",
+				"it": "Tempi",
+				"sv": "Tider",
+				"pl": "Czasy",
+				"ru": "Времена",
+				"ko": "시간"
+			},
+			"values": [
+				{
+					"id": "1",
+					"label": {
+						"en": "1 Cycle",
+						"no": "1 Syklus",
+						"nl": "1 Cyclus",
+						"da": "1 Cyklus",
+						"de": "1 Zyklus",
+						"es": "1 Ciclo",
+						"fr": "1 Cycle",
+						"it": "1 Ciclo",
+						"sv": "1 Cykel",
+						"pl": "1 Cykl",
+						"ru": "1 Цикл",
+						"ko": "1 사이클"
+					}
+				},
+				{
+					"id": "2",
+					"label": {
+						"en": "2 Cycles",
+						"no": "2 Sykluser",
+						"nl": "2 Cycli",
+						"da": "2 Cyklusser",
+						"de": "2 Zyklen",
+						"es": "2 Ciclos",
+						"fr": "2 Cycles",
+						"it": "2 Cicli",
+						"sv": "2 Cykler",
+						"pl": "2 Cykl",
+						"ru": "2 Цикла",
+						"ko": "2 사이클"
+					}
+				},
+				{
+					"id": "3",
+					"label": {
+						"en": "3 Cycles",
+						"no": "3 Sykluser",
+						"nl": "3 Cycli",
+						"da": "3 Cyklusser",
+						"de": "3 Zyklen",
+						"es": "3 Ciclos",
+						"fr": "3 Cycles",
+						"it": "3 Cicli",
+						"sv": "3 Cykler",
+						"pl": "3 Cykl",
+						"ru": "3 Цикла",
+						"ko": "3 사이클"
+					}
+				},
+				{
+					"id": "4",
+					"label": {
+						"en": "4 Cycles",
+						"no": "4 Sykluser",
+						"nl": "4 Cycli",
+						"da": "4 Cyklusser",
+						"de": "4 Zyklen",
+						"es": "4 Ciclos",
+						"fr": "4 Cycles",
+						"it": "4 Cicli",
+						"sv": "4 Cykler",
+						"pl": "4 Cykl",
+						"ru": "4 Цикла",
+						"ko": "4 사이클"
+					}
+				},
+				{
+					"id": "5",
+					"label": {
+						"en": "5 Cycles",
+						"no": "5 Sykluser",
+						"nl": "5 Cycli",
+						"da": "5 Cyklusser",
+						"de": "5 Zyklen",
+						"es": "5 Ciclos",
+						"fr": "5 Cycles",
+						"it": "5 Cicli",
+						"sv": "5 Cykler",
+						"pl": "5 Cykl",
+						"ru": "5 Циклов",
+						"ko": "5 사이클"
+					}
+				}
+			]
+		}
+	]
+}

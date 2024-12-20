@@ -976,7 +976,7 @@
           {
             "type": "device",
             "name": "device",
-            "filter": "driver_id=robot_vaccum_hub"
+            "filter": "driver_id=robot_vaccum_hub|robot_vacuum_S10_hub"
           }
         ],
         "id": "vaccum_state_changed"
@@ -1211,10 +1211,395 @@
           {
             "type": "device",
             "name": "device",
-            "filter": "driver_id=robot_vaccum_hub"
+            "filter": "driver_id=robot_vaccum_hub|robot_vacuum_S10_hub"
           }
         ],
         "id": "vaccum_state_changed_to"
+      },
+      {
+        "title": {
+          "en": "Vacuum Task Changed",
+          "no": "Støvsuger oppgave ble endret",
+          "nl": "Stofzuigertaak gewijzigd",
+          "da": "Støvsugeropgave ændret",
+          "de": "Staubsaugeraufgabe geändert",
+          "es": "Tarea de la aspiradora cambiada",
+          "fr": "Tâche de l'aspirateur changée",
+          "it": "Compito dell'aspirapolvere cambiato",
+          "sv": "Dammsugarens uppgift ändrad",
+          "pl": "Zadanie odkurzacza zmienione",
+          "ru": "Задача пылесоса изменена",
+          "ko": "진공 작업 변경됨"
+        },
+        "platforms": [
+          "local"
+        ],
+        "connectivity": [
+          "local",
+          "cloud"
+        ],
+        "tokens": [
+          {
+            "name": "task",
+            "title": {
+              "en": "Vacuum Task",
+              "no": "Støvsuger oppgave",
+              "nl": "Stofzuigertaak",
+              "da": "Støvsugeropgave",
+              "de": "Staubsaugeraufgabe",
+              "es": "Tarea de la aspiradora",
+              "fr": "Tâche de l'aspirateur",
+              "it": "Compito dell'aspirapolvere",
+              "sv": "Dammsugarens uppgift",
+              "pl": "Zadanie odkurzacza",
+              "ru": "Задача пылесоса",
+              "ko": "진공 작업"
+            },
+            "type": "string",
+            "example": {
+              "en": "Charging",
+              "no": "Lader",
+              "nl": "Opladen",
+              "da": "Oplader",
+              "de": "Laden",
+              "es": "Cargando",
+              "fr": "En charge",
+              "it": "In carica",
+              "sv": "Laddar",
+              "pl": "Ładowanie",
+              "ru": "Зарядка",
+              "ko": "충전 중"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=robot_vacuum_S10_hub"
+          }
+        ],
+        "id": "vaccum_task_changed"
+      },
+      {
+        "title": {
+          "en": "Vacuum Task Changed",
+          "no": "Støvsuger kjøremodus ble endret",
+          "nl": "Stofzuigerstatus gewijzigd",
+          "da": "Støvsugetilstand ændret",
+          "de": "Staubsaugerzustand geändert",
+          "es": "Estado de la aspiradora cambiado",
+          "fr": "État de l'aspirateur changé",
+          "it": "Stato dell'aspirapolvere cambiato",
+          "sv": "Dammsugarens tillstånd ändrat",
+          "pl": "Zmiana stanu odkurzacza",
+          "ru": "Изменено состояние пылесоса",
+          "ko": "진공 상태 변경됨"
+        },
+        "titleFormatted": {
+          "en": "Vacuum task changed to [[state]]",
+          "no": "Støvsuger kjøremodus ble endret til [[state]]",
+          "nl": "Stofzuigerstatus gewijzigd naar [[state]]",
+          "da": "Støvsugerstatus ændret til [[state]]",
+          "de": "Staubsaugerstatus geändert zu [[state]]",
+          "es": "Estado de la aspiradora cambiado a [[state]]",
+          "fr": "État de l'aspirateur modifié en [[state]]",
+          "it": "Stato dell'aspirapolvere cambiato in [[state]]",
+          "sv": "Dammsugarens status ändrad till [[state]]",
+          "pl": "Stan odkurzacza zmieniony na [[state]]",
+          "ru": "Состояние пылесоса изменено на [[state]]",
+          "ko": "청소기 상태가 [[state]]로 변경됨"
+        },
+        "platforms": [
+          "local"
+        ],
+        "connectivity": [
+          "local",
+          "cloud"
+        ],
+        "args": [
+          {
+            "name": "state",
+            "title": {
+              "en": "Vacuum Task",
+              "no": "Støvsuger kjøremodus",
+              "nl": "Stofzuigerstatus",
+              "da": "Støvsugerstatus",
+              "de": "Staubsaugerstatus",
+              "es": "Estado de la aspiradora",
+              "fr": "État de l'aspirateur",
+              "it": "Stato dell'aspirapolvere",
+              "sv": "Dammsugarens status",
+              "pl": "Stan odkurzacza",
+              "ru": "Состояние пылесоса",
+              "ko": "청소기 상태"
+            },
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "standBy",
+                "title": {
+                  "en": "Standby",
+                  "no": "Gjør ikke noe",
+                  "nl": "Standby",
+                  "da": "Standby",
+                  "de": "Standby",
+                  "es": "En espera",
+                  "fr": "Veille",
+                  "it": "Standby",
+                  "sv": "Standby",
+                  "pl": "Gotowość",
+                  "ru": "Режим ожидания",
+                  "ko": "대기"
+                }
+              },
+              {
+                "id": "explore",
+                "title": {
+                  "en": "Explore",
+                  "no": "Utforske",
+                  "nl": "Verkennen",
+                  "da": "Udforske",
+                  "de": "Erkunden",
+                  "es": "Explorar",
+                  "fr": "Explorer",
+                  "it": "Esplorare",
+                  "sv": "Utforska",
+                  "pl": "Eksplorować",
+                  "ru": "Исследовать",
+                  "ko": "탐험"
+                }
+              },
+              {
+                "id": "cleanAll",
+                "title": {
+                  "en": "Clean All",
+                  "no": "Rengjør alt",
+                  "nl": "Alles schoonmaken",
+                  "da": "Rengør alt",
+                  "de": "Alles reinigen",
+                  "es": "Limpiar todo",
+                  "fr": "Nettoyer tout",
+                  "it": "Pulire tutto",
+                  "sv": "Rengör allt",
+                  "pl": "Wyczyść wszystko",
+                  "ru": "Убрать все",
+                  "ko": "모두 청소"
+                }
+              },
+              {
+                "id": "cleanArea",
+                "title": {
+                  "en": "Clean Area",
+                  "no": "Rengjør område",
+                  "nl": "Schoonmaakgebied",
+                  "da": "Rengør område",
+                  "de": "Bereich reinigen",
+                  "es": "Limpiar área",
+                  "fr": "Nettoyer la zone",
+                  "it": "Pulire l'area",
+                  "sv": "Rengör område",
+                  "pl": "Wyczyść obszar",
+                  "ru": "Убрать зону",
+                  "ko": "구역 청소"
+                }
+              },
+              {
+                "id": "cleanRoom",
+                "title": {
+                  "en": "Clean Room",
+                  "no": "Rengjør rom",
+                  "nl": "Schoonmaak kamer",
+                  "da": "Rengør værelse",
+                  "de": "Raum reinigen",
+                  "es": "Limpiar habitación",
+                  "fr": "Nettoyer la chambre",
+                  "it": "Pulire la stanza",
+                  "sv": "Rengör rum",
+                  "pl": "Wyczyść pokój",
+                  "ru": "Убрать комнату",
+                  "ko": "방 청소"
+                }
+              },
+              {
+                "id": "fillWater",
+                "title": {
+                  "en": "Fill Water",
+                  "no": "Fyll vann",
+                  "nl": "Vul water",
+                  "da": "Fyld vand",
+                  "de": "Wasser auffüllen",
+                  "es": "Llenar agua",
+                  "fr": "Remplir l'eau",
+                  "it": "Riempire l'acqua",
+                  "sv": "Fyll vatten",
+                  "pl": "Napełnij wodę",
+                  "ru": "Заполнить водой",
+                  "ko": "물 채우기"
+                }
+              },
+              {
+                "id": "deepWashing",
+                "title": {
+                  "en": "Deep Washing",
+                  "no": "Dypvask",
+                  "nl": "Diep wassen",
+                  "da": "Dyb vask",
+                  "de": "Tiefenreinigung",
+                  "es": "Lavado profundo",
+                  "fr": "Lavage en profondeur",
+                  "it": "Lavaggio profondo",
+                  "sv": "Djup tvätt",
+                  "pl": "Głębokie mycie",
+                  "ru": "Глубокая мойка",
+                  "ko": "깊은 세척"
+                }
+              },
+              {
+                "id": "backToCharge",
+                "title": {
+                  "en": "Back to Charge",
+                  "no": "Tilbake til lading",
+                  "nl": "Terug naar opladen",
+                  "da": "Tilbage til opladning",
+                  "de": "Zurück zum Laden",
+                  "es": "Volver a cargar",
+                  "fr": "Retour à la charge",
+                  "it": "Torna a caricare",
+                  "sv": "Tillbaka till laddning",
+                  "pl": "Powrót do ładowania",
+                  "ru": "Вернуться к зарядке",
+                  "ko": "충전으로 돌아가기"
+                }
+              },
+              {
+                "id": "markingWaterBase",
+                "title": {
+                  "en": "Marking Water Base",
+                  "no": "Merking av vannbase",
+                  "nl": "Markeren van waterbasis",
+                  "da": "Mærkning af vandbase",
+                  "de": "Markierung der Wasserbasis",
+                  "es": "Marcado de base de agua",
+                  "fr": "Marquage de la base d'eau",
+                  "it": "Marcatura della base d'acqua",
+                  "sv": "Märkning av vattenbas",
+                  "pl": "Oznaczanie bazy wodnej",
+                  "ru": "Маркировка водной базы",
+                  "ko": "물 베이스 표시"
+                }
+              },
+              {
+                "id": "drying",
+                "title": {
+                  "en": "Drying",
+                  "no": "Tørking",
+                  "nl": "Drogen",
+                  "da": "Tørring",
+                  "de": "Trocknen",
+                  "es": "Secado",
+                  "fr": "Séchage",
+                  "it": "Asciugatura",
+                  "sv": "Torkning",
+                  "pl": "Suszenie",
+                  "ru": "Сушка",
+                  "ko": "건조"
+                }
+              },
+              {
+                "id": "collectDust",
+                "title": {
+                  "en": "Collect Dust",
+                  "no": "Samle støv",
+                  "nl": "Stof verzamelen",
+                  "da": "Saml støv",
+                  "de": "Staub sammeln",
+                  "es": "Recoger polvo",
+                  "fr": "Ramasser la poussière",
+                  "it": "Raccogliere la polvere",
+                  "sv": "Samla damm",
+                  "pl": "Zbierać kurz",
+                  "ru": "Собирать пыль",
+                  "ko": "먼지 수집"
+                }
+              },
+              {
+                "id": "remoteControl",
+                "title": {
+                  "en": "Remote Control",
+                  "no": "Fjernkontroll",
+                  "nl": "Afstandsbediening",
+                  "da": "Fjernbetjening",
+                  "de": "Fernbedienung",
+                  "es": "Control remoto",
+                  "fr": "Télécommande",
+                  "it": "Telecomando",
+                  "sv": "Fjärrkontroll",
+                  "pl": "Pilot",
+                  "ru": "Пульт дистанционного управления",
+                  "ko": "리모컨"
+                }
+              },
+              {
+                "id": "cleanWithExplorer",
+                "title": {
+                  "en": "Clean with Explorer",
+                  "no": "Rengjør med utforsker",
+                  "nl": "Schoonmaken met verkenner",
+                  "da": "Rengør med explorer",
+                  "de": "Mit Explorer reinigen",
+                  "es": "Limpiar con explorador",
+                  "fr": "Nettoyer avec l'explorateur",
+                  "it": "Pulire con l'esploratore",
+                  "sv": "Rengör med explorer",
+                  "pl": "Wyczyść z explorerem",
+                  "ru": "Убрать с исследователем",
+                  "ko": "탐색기와 청소"
+                }
+              },
+              {
+                "id": "fillWaterForHumi",
+                "title": {
+                  "en": "Fill Water for Humi",
+                  "no": "Fyll vann for Humi",
+                  "nl": "Vul water voor Humi",
+                  "da": "Fyld vand til Humi",
+                  "de": "Wasser für Humi auffüllen",
+                  "es": "Llenar agua para Humi",
+                  "fr": "Remplir l'eau pour Humi",
+                  "it": "Riempire l'acqua per Humi",
+                  "sv": "Fyll vatten för Humi",
+                  "pl": "Napełnij wodę dla Humi",
+                  "ru": "Заполнить водой для Humi",
+                  "ko": "Humi를 위한 물 채우기"
+                }
+              },
+              {
+                "id": "markingHumi",
+                "title": {
+                  "en": "Marking Humi",
+                  "no": "Merking av Humi",
+                  "nl": "Markeren van Humi",
+                  "da": "Mærkning af Humi",
+                  "de": "Markierung von Humi",
+                  "es": "Marcado de Humi",
+                  "fr": "Marquage de Humi",
+                  "it": "Marcatura di Humi",
+                  "sv": "Märkning av Humi",
+                  "pl": "Oznaczanie Humi",
+                  "ru": "Маркировка Humi",
+                  "ko": "Humi 표시"
+                }
+              }
+            ]
+          },
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=robot_vacuum_S10_hub"
+          }
+        ],
+        "id": "vaccum_task_changed_to"
       },
       {
         "platforms": [
@@ -2453,6 +2838,359 @@
       },
       {
         "title": {
+          "en": "Start Cleaning",
+          "no": "Start Rengjøring",
+          "nl": "Start met schoonmaken",
+          "da": "Start rengøring",
+          "de": "Reinigung starten",
+          "es": "Iniciar limpieza",
+          "fr": "Commencer le nettoyage",
+          "it": "Inizia la pulizia",
+          "sv": "Starta rengöring",
+          "pl": "Rozpocznij czyszczenie",
+          "ru": "Начать уборку",
+          "ko": "청소 시작"
+        },
+        "titleFormatted": {
+          "en": "Start [[action]] with fan [[fanPower]] and water [[waterLevel]] for [[times]]",
+          "no": "Start [[action]] med vifte [[fanPower]] og vann [[waterLevel]] for [[times]]",
+          "nl": "Start [[action]] met ventilator [[fanPower]] en water [[waterLevel]] voor [[times]]",
+          "da": "Start [[action]] med ventilator [[fanPower]] og vand [[waterLevel]] for [[times]]",
+          "de": "Starten Sie [[action]] mit Lüfter [[fanPower]] und Wasser [[waterLevel]] für [[times]]",
+          "es": "Inicie [[action]] con ventilador [[fanPower]] y agua [[waterLevel]] durante [[times]]",
+          "fr": "Commencez [[action]] avec ventilateur [[fanPower]] et eau [[waterLevel]] pour [[times]]",
+          "it": "Inizia [[action]] con ventilatore [[fanPower]] e acqua [[waterLevel]] per [[times]]",
+          "sv": "Starta [[action]] med fläkt [[fanPower]] och vatten [[waterLevel]] för [[times]]",
+          "pl": "Rozpocznij [[action]] z wentylatorem [[fanPower]] i wodą [[waterLevel]] na [[times]]",
+          "ru": "Начните [[action]] с вентилятором [[fanPower]] и водой [[waterLevel]] на [[times]]",
+          "ko": "[[times]] 동안 팬 [[fanPower]] 및 물 [[waterLevel]]으로 [[action]] 시작"
+        },
+        "hint": {
+          "en": "Start the cleaning process with the specified action",
+          "no": "Start rengjøringsprosessen med den spesifiserte handlingen",
+          "nl": "Start het schoonmaakproces met de opgegeven actie",
+          "da": "Start rengøringsprocessen med den angivne handling",
+          "de": "Starten Sie den Reinigungsprozess mit der angegebenen Aktion",
+          "es": "Inicie el proceso de limpieza con la acción especificada",
+          "fr": "Commencez le processus de nettoyage avec l'action spécifiée",
+          "it": "Avvia il processo di pulizia con l'azione specificata",
+          "sv": "Starta rengöringsprocessen med den angivna åtgärden",
+          "pl": "Rozpocznij proces czyszczenia z określoną akcją",
+          "ru": "Начните процесс уборки с указанным действием",
+          "ko": "지정된 작업으로 청소 프로세스 시작"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=robot_vacuum_S10_hub"
+          },
+          {
+            "name": "action",
+            "type": "dropdown",
+            "title": {
+              "en": "Action",
+              "no": "Handling",
+              "nl": "Actie",
+              "da": "Handling",
+              "de": "Aktion",
+              "es": "Acción",
+              "fr": "Action",
+              "it": "Azione",
+              "sv": "Åtgärd",
+              "pl": "Akcja",
+              "ru": "Действие",
+              "ko": "작업"
+            },
+            "values": [
+              {
+                "id": "sweep",
+                "label": {
+                  "en": "Sweep",
+                  "no": "Fei",
+                  "nl": "Vegen",
+                  "da": "Feje",
+                  "de": "Fegen",
+                  "es": "Barrer",
+                  "fr": "Balayer",
+                  "it": "Spazzare",
+                  "sv": "Sopa",
+                  "pl": "Zamiatanie",
+                  "ru": "Подметание",
+                  "ko": "쓸기"
+                }
+              },
+              {
+                "id": "sweep_mop",
+                "label": {
+                  "en": "Sweep and Mop",
+                  "no": "Fei og mop",
+                  "nl": "Vegen en dweilen",
+                  "da": "Feje og moppe",
+                  "de": "Fegen und wischen",
+                  "es": "Barrer y fregar",
+                  "fr": "Balayer et passer la serpillière",
+                  "it": "Spazzare e pulire",
+                  "sv": "Sopa och moppa",
+                  "pl": "Zamiatanie i mopowanie",
+                  "ru": "Подметание и мытье",
+                  "ko": "쓸기 및 걸레질"
+                }
+              }
+            ]
+          },
+          {
+            "name": "fanPower",
+            "type": "dropdown",
+            "title": {
+              "en": "Fan Power Level",
+              "no": "Viftenivå",
+              "nl": "Ventilatormacht",
+              "da": "Blæserniveau",
+              "de": "Lüfterstufe",
+              "es": "Nivel de potencia del ventilador",
+              "fr": "Niveau de puissance du ventilateur",
+              "it": "Livello di potenza della ventola",
+              "sv": "Fläkthastighet",
+              "pl": "Poziom mocy wentylatora",
+              "ru": "Уровень мощности вентилятора",
+              "ko": "팬 전력 수준"
+            },
+            "values": [
+              {
+                "id": "1",
+                "label": {
+                  "en": "Level 1",
+                  "no": "Nivå 1",
+                  "nl": "Niveau 1",
+                  "da": "Niveau 1",
+                  "de": "Stufe 1",
+                  "es": "Nivel 1",
+                  "fr": "Niveau 1",
+                  "it": "Livello 1",
+                  "sv": "Nivå 1",
+                  "pl": "Poziom 1",
+                  "ru": "Уровень 1",
+                  "ko": "레벨 1"
+                }
+              },
+              {
+                "id": "2",
+                "label": {
+                  "en": "Level 2",
+                  "no": "Nivå 2",
+                  "nl": "Niveau 2",
+                  "da": "Niveau 2",
+                  "de": "Stufe 2",
+                  "es": "Nivel 2",
+                  "fr": "Niveau 2",
+                  "it": "Livello 2",
+                  "sv": "Nivå 2",
+                  "pl": "Poziom 2",
+                  "ru": "Уровень 2",
+                  "ko": "레벨 2"
+                }
+              },
+              {
+                "id": "3",
+                "label": {
+                  "en": "Level 3",
+                  "no": "Nivå 3",
+                  "nl": "Niveau 3",
+                  "da": "Niveau 3",
+                  "de": "Stufe 3",
+                  "es": "Nivel 3",
+                  "fr": "Niveau 3",
+                  "it": "Livello 3",
+                  "sv": "Nivå 3",
+                  "pl": "Poziom 3",
+                  "ru": "Уровень 3",
+                  "ko": "레벨 3"
+                }
+              },
+              {
+                "id": "4",
+                "label": {
+                  "en": "Level 4",
+                  "no": "Nivå 4",
+                  "nl": "Niveau 4",
+                  "da": "Niveau 4",
+                  "de": "Stufe 4",
+                  "es": "Nivel 4",
+                  "fr": "Niveau 4",
+                  "it": "Livello 4",
+                  "sv": "Nivå 4",
+                  "pl": "Poziom 4",
+                  "ru": "Уровень 4",
+                  "ko": "레벨 4"
+                }
+              }
+            ]
+          },
+          {
+            "name": "waterLevel",
+            "type": "dropdown",
+            "title": {
+              "en": "Water Level",
+              "no": "Vannivå",
+              "nl": "Waterniveau",
+              "da": "Vandniveau",
+              "de": "Wasserniveau",
+              "es": "Nivel de agua",
+              "fr": "Niveau d'eau",
+              "it": "Livello dell'acqua",
+              "sv": "Vattennivå",
+              "pl": "Poziom wody",
+              "ru": "Уровень воды",
+              "ko": "수위"
+            },
+            "values": [
+              {
+                "id": "1",
+                "label": {
+                  "en": "Level 1",
+                  "no": "Nivå 1",
+                  "nl": "Niveau 1",
+                  "da": "Niveau 1",
+                  "de": "Stufe 1",
+                  "es": "Nivel 1",
+                  "fr": "Niveau 1",
+                  "it": "Livello 1",
+                  "sv": "Nivå 1",
+                  "pl": "Poziom 1",
+                  "ru": "Уровень 1",
+                  "ko": "레벨 1"
+                }
+              },
+              {
+                "id": "2",
+                "label": {
+                  "en": "Level 2",
+                  "no": "Nivå 2",
+                  "nl": "Niveau 2",
+                  "da": "Niveau 2",
+                  "de": "Stufe 2",
+                  "es": "Nivel 2",
+                  "fr": "Niveau 2",
+                  "it": "Livello 2",
+                  "sv": "Nivå 2",
+                  "pl": "Poziom 2",
+                  "ru": "Уровень 2",
+                  "ko": "레벨 2"
+                }
+              }
+            ]
+          },
+          {
+            "name": "times",
+            "type": "dropdown",
+            "title": {
+              "en": "Times",
+              "no": "Tider",
+              "nl": "Tijden",
+              "da": "Tider",
+              "de": "Zeiten",
+              "es": "Tiempos",
+              "fr": "Temps",
+              "it": "Tempi",
+              "sv": "Tider",
+              "pl": "Czasy",
+              "ru": "Времена",
+              "ko": "시간"
+            },
+            "values": [
+              {
+                "id": "1",
+                "label": {
+                  "en": "1 Cycle",
+                  "no": "1 Syklus",
+                  "nl": "1 Cyclus",
+                  "da": "1 Cyklus",
+                  "de": "1 Zyklus",
+                  "es": "1 Ciclo",
+                  "fr": "1 Cycle",
+                  "it": "1 Ciclo",
+                  "sv": "1 Cykel",
+                  "pl": "1 Cykl",
+                  "ru": "1 Цикл",
+                  "ko": "1 사이클"
+                }
+              },
+              {
+                "id": "2",
+                "label": {
+                  "en": "2 Cycles",
+                  "no": "2 Sykluser",
+                  "nl": "2 Cycli",
+                  "da": "2 Cyklusser",
+                  "de": "2 Zyklen",
+                  "es": "2 Ciclos",
+                  "fr": "2 Cycles",
+                  "it": "2 Cicli",
+                  "sv": "2 Cykler",
+                  "pl": "2 Cykl",
+                  "ru": "2 Цикла",
+                  "ko": "2 사이클"
+                }
+              },
+              {
+                "id": "3",
+                "label": {
+                  "en": "3 Cycles",
+                  "no": "3 Sykluser",
+                  "nl": "3 Cycli",
+                  "da": "3 Cyklusser",
+                  "de": "3 Zyklen",
+                  "es": "3 Ciclos",
+                  "fr": "3 Cycles",
+                  "it": "3 Cicli",
+                  "sv": "3 Cykler",
+                  "pl": "3 Cykl",
+                  "ru": "3 Цикла",
+                  "ko": "3 사이클"
+                }
+              },
+              {
+                "id": "4",
+                "label": {
+                  "en": "4 Cycles",
+                  "no": "4 Sykluser",
+                  "nl": "4 Cycli",
+                  "da": "4 Cyklusser",
+                  "de": "4 Zyklen",
+                  "es": "4 Ciclos",
+                  "fr": "4 Cycles",
+                  "it": "4 Cicli",
+                  "sv": "4 Cykler",
+                  "pl": "4 Cykl",
+                  "ru": "4 Цикла",
+                  "ko": "4 사이클"
+                }
+              },
+              {
+                "id": "5",
+                "label": {
+                  "en": "5 Cycles",
+                  "no": "5 Sykluser",
+                  "nl": "5 Cycli",
+                  "da": "5 Cyklusser",
+                  "de": "5 Zyklen",
+                  "es": "5 Ciclos",
+                  "fr": "5 Cycles",
+                  "it": "5 Cicli",
+                  "sv": "5 Cykler",
+                  "pl": "5 Cykl",
+                  "ru": "5 Циклов",
+                  "ko": "5 사이클"
+                }
+              }
+            ]
+          }
+        ],
+        "id": "set_vaccum_start"
+      },
+      {
+        "title": {
           "en": "Start",
           "no": "Start",
           "nl": "Start",
@@ -3435,6 +4173,67 @@
     ]
   },
   "drivers": [
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        }
+      ],
+      "icon": "/drivers/S10_water_station/assets/icon.svg",
+      "images": {
+        "large": "/drivers/S10_water_station/assets/images/large.jpg",
+        "small": "/drivers/S10_water_station/assets/images/small.jpg"
+      },
+      "id": "S10_water_station",
+      "name": {
+        "en": "S10 Water Station",
+        "no": "S10 Vannstasjon",
+        "nl": "S10 Waterstation",
+        "da": "S10 Vandstation",
+        "de": "S10 Wasserspeicher",
+        "es": "Estación de Agua S10",
+        "fr": "Station d'Eau S10",
+        "it": "Stazione dell'Acqua S10",
+        "sv": "S10 Vattenstation",
+        "pl": "Stacja Wodna S10",
+        "ru": "Водная станция S10",
+        "ko": "S10 물 스테이션"
+      },
+      "class": "vacuumcleaner",
+      "capabilities": [
+        "measure_battery"
+      ],
+      "energy": {
+        "batteries": [
+          "INTERNAL"
+        ]
+      }
+    },
     {
       "platforms": [
         "local",
@@ -6502,6 +7301,99 @@
           "template": "login_oauth2"
         }
       ],
+      "icon": "/drivers/robot_vacuum_S10_hub/assets/icon.svg",
+      "images": {
+        "large": "/drivers/robot_vacuum_S10_hub/assets/images/large.jpg",
+        "small": "/drivers/robot_vacuum_S10_hub/assets/images/small.jpg"
+      },
+      "id": "robot_vacuum_S10_hub",
+      "name": {
+        "en": "Robot Floor Cleaner S10 (HUB)",
+        "no": "Robot Gulvvasker S10 (HUB)",
+        "nl": "Robot Vloerreiniger S10 (HUB)",
+        "da": "Robot Gulvrenser S10 (HUB)",
+        "de": "Roboter Bodenreiniger S10 (HUB)",
+        "es": "Robot Limpiador de Suelos S10 (HUB)",
+        "fr": "Robot Nettoyeur de Sol S10 (HUB)",
+        "it": "Robot Pulitore per Pavimenti S10 (HUB)",
+        "sv": "Robot Golvrenare S10 (HUB)",
+        "pl": "Robot Odkurzacz S10 (HUB)",
+        "ru": "Робот-пылесос S10 (HUB)",
+        "ko": "로봇 바닥 청소기 S10 (HUB)"
+      },
+      "class": "vacuumcleaner",
+      "capabilities": [
+        "play",
+        "pause",
+        "robot_vaccum_dock",
+        "robot_vaccum_fill_humi",
+        "robot_vaccum_wash_mop",
+        "robot_vaccum_dry_mop",
+        "robot_vaccum_stop_selfclean",
+        "vaccum_clean_mode",
+        "vaccum_fan_level",
+        "vaccum_water_level",
+        "vaccum_times",
+        "robot_vaccum_state",
+        "robot_vaccum_task",
+        "measure_battery",
+        "volume_set"
+      ],
+      "capabilitiesOptions": {
+        "play": {
+          "title": {
+            "en": "Start",
+            "no": "Start",
+            "nl": "Start",
+            "da": "Start",
+            "de": "Start",
+            "es": "Comenzar",
+            "fr": "Commencer",
+            "it": "Inizio",
+            "sv": "Starta",
+            "pl": "Start",
+            "ru": "Старт",
+            "ko": "시작"
+          }
+        }
+      },
+      "energy": {
+        "batteries": [
+          "INTERNAL"
+        ]
+      }
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        }
+      ],
       "icon": "/drivers/scene/assets/icon.svg",
       "images": {
         "large": "/drivers/scene/assets/images/large.jpg",
@@ -7953,6 +8845,37 @@
       },
       "icon": "/assets/home.svg"
     },
+    "robot_vaccum_dry_mop": {
+      "type": "boolean",
+      "getable": false,
+      "setable": true,
+      "uiComponent": "button",
+      "title": {
+        "en": "Dry the mop"
+      },
+      "icon": "/assets/dry_mop.svg"
+    },
+    "robot_vaccum_fill_humi": {
+      "type": "boolean",
+      "getable": false,
+      "setable": true,
+      "uiComponent": "button",
+      "title": {
+        "en": "Fill Humidifier",
+        "nl": "Bevochtiger vullen",
+        "no": "Fyll luftfukter",
+        "da": "Fyld luftfugter",
+        "de": "Luftbefeuchter füllen",
+        "es": "Llenar humidificador",
+        "fr": "Remplir l'humidificateur",
+        "it": "Riempire l'umidificatore",
+        "sv": "Fyll luftfuktare",
+        "pl": "Napełnij nawilżacz",
+        "ru": "Наполнить увлажнитель",
+        "ko": "가습기 채우기"
+      },
+      "icon": "/assets/humidifier.svg"
+    },
     "robot_vaccum_state": {
       "type": "string",
       "title": {
@@ -7972,6 +8895,57 @@
       "getable": true,
       "setable": false,
       "icon": "/assets/robot-vacuum-cleaner.svg"
+    },
+    "robot_vaccum_stop_selfclean": {
+      "type": "boolean",
+      "getable": false,
+      "setable": true,
+      "uiComponent": "button",
+      "title": {
+        "en": "Terminate self-cleaning"
+      },
+      "icon": "/assets/stop.svg"
+    },
+    "robot_vaccum_task": {
+      "type": "string",
+      "title": {
+        "en": "Current Task",
+        "nl": "Huidige Taak",
+        "no": "Nåværende Oppgave",
+        "da": "Nuværende Opgave",
+        "de": "Aktuelle Aufgabe",
+        "es": "Tarea Actual",
+        "fr": "Tâche Actuelle",
+        "it": "Compito Attuale",
+        "sv": "Aktuell Uppgift",
+        "pl": "Aktualne Zadanie",
+        "ru": "Текущая задача",
+        "ko": "현재 작업"
+      },
+      "getable": true,
+      "setable": false,
+      "icon": "/assets/robot-vacuum-cleaner.svg"
+    },
+    "robot_vaccum_wash_mop": {
+      "type": "boolean",
+      "getable": false,
+      "setable": true,
+      "uiComponent": "button",
+      "title": {
+        "en": "Wash the mop",
+        "nl": "Dweil wassen",
+        "no": "Vask moppen",
+        "da": "Vask moppen",
+        "de": "Mopp waschen",
+        "es": "Lavar el trapeador",
+        "fr": "Laver la serpillière",
+        "it": "Lavare il mocio",
+        "sv": "Tvätta mopp",
+        "pl": "Umyj mop",
+        "ru": "Вымойте швабру",
+        "ko": "밀대를 씻다"
+      },
+      "icon": "/assets/wash_mop.svg"
     },
     "rssi": {
       "type": "number",
@@ -8229,6 +9203,153 @@
       },
       "icon": "/assets/stop.svg"
     },
+    "vaccum_clean_mode": {
+      "type": "enum",
+      "getable": true,
+      "setable": true,
+      "uiComponent": "picker",
+      "title": {
+        "en": "Cleaning Mode",
+        "no": "Rengjøringsmodus",
+        "nl": "Schoonmaakmodus",
+        "da": "Rengøringstilstand",
+        "de": "Reinigungsmodus",
+        "es": "Modo de limpieza",
+        "fr": "Mode de nettoyage",
+        "it": "Modalità di pulizia",
+        "sv": "Rengöringsläge",
+        "pl": "Tryb czyszczenia",
+        "ru": "Режим уборки",
+        "ko": "청소 모드"
+      },
+      "values": [
+        {
+          "id": "sweep",
+          "title": {
+            "en": "Sweep",
+            "no": "Fei",
+            "nl": "Vegen",
+            "da": "Feje",
+            "de": "Fegen",
+            "es": "Barrer",
+            "fr": "Balayer",
+            "it": "Spazzare",
+            "sv": "Sopa",
+            "pl": "Zamiatanie",
+            "ru": "Подметание",
+            "ko": "쓸기"
+          }
+        },
+        {
+          "id": "sweep_mop",
+          "title": {
+            "en": "Sweep and Mop",
+            "no": "Fei og mop",
+            "nl": "Vegen en dweilen",
+            "da": "Feje og moppe",
+            "de": "Fegen und wischen",
+            "es": "Barrer y fregar",
+            "fr": "Balayer et passer la serpillière",
+            "it": "Spazzare e pulire",
+            "sv": "Sopa och moppa",
+            "pl": "Zamiatanie i mopowanie",
+            "ru": "Подметание и мытье",
+            "ko": "쓸기 및 걸레질"
+          }
+        }
+      ]
+    },
+    "vaccum_fan_level": {
+      "type": "enum",
+      "getable": true,
+      "setable": true,
+      "uiComponent": "picker",
+      "title": {
+        "en": "Fan Level",
+        "no": "Viftehastighet",
+        "nl": "Ventilatorsnelheid",
+        "da": "Blæserhastighed",
+        "de": "Lüftergeschwindigkeit",
+        "es": "Velocidad del ventilador",
+        "fr": "Vitesse du ventilateur",
+        "it": "Velocità della ventola",
+        "sv": "Fläkthastighet",
+        "pl": "Prędkość wentylatora",
+        "ru": "Скорость вентилятора",
+        "ko": "팬 속도"
+      },
+      "values": [
+        {
+          "id": "1",
+          "title": {
+            "en": "Quiet",
+            "no": "Stille",
+            "nl": "Stil",
+            "da": "Stille",
+            "de": "Leise",
+            "es": "Silencioso",
+            "fr": "Silencieux",
+            "it": "Silenzioso",
+            "sv": "Tyst",
+            "pl": "Cicho",
+            "ru": "Тихо",
+            "ko": "조용한"
+          }
+        },
+        {
+          "id": "2",
+          "title": {
+            "en": "Normal",
+            "no": "Normal",
+            "nl": "Normaal",
+            "da": "Normal",
+            "de": "Normal",
+            "es": "Normal",
+            "fr": "Normal",
+            "it": "Normale",
+            "sv": "Normal",
+            "pl": "Normalny",
+            "ru": "Нормальный",
+            "ko": "정상"
+          }
+        },
+        {
+          "id": "3",
+          "title": {
+            "en": "Strong",
+            "no": "Sterk",
+            "nl": "Sterk",
+            "da": "Stærk",
+            "de": "Stark",
+            "es": "Fuerte",
+            "fr": "Fort",
+            "it": "Forte",
+            "sv": "Stark",
+            "pl": "Silny",
+            "ru": "Сильный",
+            "ko": "강한"
+          }
+        },
+        {
+          "id": "4",
+          "title": {
+            "en": "Maximum",
+            "no": "Maksimum",
+            "nl": "Maximaal",
+            "da": "Maksimum",
+            "de": "Maximal",
+            "es": "Máximo",
+            "fr": "Maximum",
+            "it": "Massimo",
+            "sv": "Maximal",
+            "pl": "Maksymalny",
+            "ru": "Максимальный",
+            "ko": "최대"
+          }
+        }
+      ],
+      "icon": "/assets/fan_speed.svg"
+    },
     "vaccum_power_level": {
       "type": "boolean",
       "getable": false,
@@ -8249,6 +9370,169 @@
         "ko": "전원"
       },
       "icon": "/assets/fan_speed.svg"
+    },
+    "vaccum_times": {
+      "type": "enum",
+      "getable": true,
+      "setable": true,
+      "uiComponent": "picker",
+      "title": {
+        "en": "Times",
+        "no": "Tider",
+        "nl": "Tijden",
+        "da": "Tider",
+        "de": "Zeiten",
+        "es": "Tiempos",
+        "fr": "Temps",
+        "it": "Tempi",
+        "sv": "Tider",
+        "pl": "Czasy",
+        "ru": "Времена",
+        "ko": "시간"
+      },
+      "values": [
+        {
+          "id": "1",
+          "title": {
+            "en": "1 Cycle",
+            "no": "1 Syklus",
+            "nl": "1 Cyclus",
+            "da": "1 Cyklus",
+            "de": "1 Zyklus",
+            "es": "1 Ciclo",
+            "fr": "1 Cycle",
+            "it": "1 Ciclo",
+            "sv": "1 Cykel",
+            "pl": "1 Cykl",
+            "ru": "1 Цикл",
+            "ko": "1 사이클"
+          }
+        },
+        {
+          "id": "2",
+          "title": {
+            "en": "2 Cycles",
+            "no": "2 Sykluser",
+            "nl": "2 Cycli",
+            "da": "2 Cyklusser",
+            "de": "2 Zyklen",
+            "es": "2 Ciclos",
+            "fr": "2 Cycles",
+            "it": "2 Cicli",
+            "sv": "2 Cykler",
+            "pl": "2 Cykl",
+            "ru": "2 Цикла",
+            "ko": "2 사이클"
+          }
+        },
+        {
+          "id": "3",
+          "title": {
+            "en": "3 Cycles",
+            "no": "3 Sykluser",
+            "nl": "3 Cycli",
+            "da": "3 Cyklusser",
+            "de": "3 Zyklen",
+            "es": "3 Ciclos",
+            "fr": "3 Cycles",
+            "it": "3 Cicli",
+            "sv": "3 Cykler",
+            "pl": "3 Cykl",
+            "ru": "3 Цикла",
+            "ko": "3 사이클"
+          }
+        },
+        {
+          "id": "4",
+          "title": {
+            "en": "4 Cycles",
+            "no": "4 Sykluser",
+            "nl": "4 Cycli",
+            "da": "4 Cyklusser",
+            "de": "4 Zyklen",
+            "es": "4 Ciclos",
+            "fr": "4 Cycles",
+            "it": "4 Cicli",
+            "sv": "4 Cykler",
+            "pl": "4 Cykl",
+            "ru": "4 Цикла",
+            "ko": "4 사이클"
+          }
+        },
+        {
+          "id": "5",
+          "title": {
+            "en": "5 Cycles",
+            "no": "5 Sykluser",
+            "nl": "5 Cycli",
+            "da": "5 Cyklusser",
+            "de": "5 Zyklen",
+            "es": "5 Ciclos",
+            "fr": "5 Cycles",
+            "it": "5 Cicli",
+            "sv": "5 Cykler",
+            "pl": "5 Cykl",
+            "ru": "5 Циклов",
+            "ko": "5 사이클"
+          }
+        }
+      ]
+    },
+    "vaccum_water_level": {
+      "type": "enum",
+      "getable": true,
+      "setable": true,
+      "uiComponent": "picker",
+      "title": {
+        "en": "Water Level",
+        "no": "Vannivå",
+        "nl": "Waterniveau",
+        "da": "Vandniveau",
+        "de": "Wasserniveau",
+        "es": "Nivel de agua",
+        "fr": "Niveau d'eau",
+        "it": "Livello dell'acqua",
+        "sv": "Vattennivå",
+        "pl": "Poziom wody",
+        "ru": "Уровень воды",
+        "ko": "수위"
+      },
+      "values": [
+        {
+          "id": "1",
+          "title": {
+            "en": "Level 1",
+            "no": "Nivå 1",
+            "nl": "Niveau 1",
+            "da": "Niveau 1",
+            "de": "Stufe 1",
+            "es": "Nivel 1",
+            "fr": "Niveau 1",
+            "it": "Livello 1",
+            "sv": "Nivå 1",
+            "pl": "Poziom 1",
+            "ru": "Уровень 1",
+            "ko": "레벨 1"
+          }
+        },
+        {
+          "id": "2",
+          "title": {
+            "en": "Level 2",
+            "no": "Nivå 2",
+            "nl": "Niveau 2",
+            "da": "Niveau 2",
+            "de": "Stufe 2",
+            "es": "Nivel 2",
+            "fr": "Niveau 2",
+            "it": "Livello 2",
+            "sv": "Nivå 2",
+            "pl": "Poziom 2",
+            "ru": "Уровень 2",
+            "ko": "레벨 2"
+          }
+        }
+      ]
     }
   }
 }
