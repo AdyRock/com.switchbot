@@ -7,7 +7,7 @@ const { OAuth2Driver } = require('homey-oauth2app');
 class HubDriver extends OAuth2Driver
 {
 
-	async getHUBDevices(oAuth2Client, type, RemoteList = false)
+	async getHUBDevices(oAuth2Client, type, RemoteList = false, requireHub = false)
 	{
 		let response = null;
 
@@ -118,7 +118,7 @@ class HubDriver extends OAuth2Driver
 
 					if (found)
 					{
-						if ((device.master === undefined) || (device.master === true))
+						if (((device.master === undefined) || (device.master === true)) && (!requireHub || device.hubDeviceId !== ''))
 						{
 							this.homey.app.updateLog('Found device: ');
 							this.homey.app.updateLog(this.homey.app.varToString(device));

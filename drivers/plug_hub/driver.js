@@ -22,7 +22,7 @@ class HubPlugDriver extends HubDriver
 	 */
 	async onPairListDevices({ oAuth2Client })
 	{
-		return this.getHUBDevices(oAuth2Client, ['Plug', 'Plug Mini (JP)', 'Plug Mini (US)']);
+		return this.getHUBDevices(oAuth2Client, ['Plug', 'Plug Mini (JP)', 'Plug Mini (US)'], false, true);
 	}
 
 }

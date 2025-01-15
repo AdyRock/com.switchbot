@@ -19,7 +19,7 @@ class HubWaterLeakDriver extends HubDriver
 
 	async onPairListDevices({ oAuth2Client })
 	{
-		return this.getHUBDevices(oAuth2Client, 'Water Detector');
+		return this.getHUBDevices(oAuth2Client, 'Water Detector', false, true);
 	}
 
 }

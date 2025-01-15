@@ -99,7 +99,7 @@ class VacuumS10HubDevice extends HubDevice
 			action = 'sweep';
 		}
 
-		this.startVacuum({ action, fanLevel, waterLevel, times }).catch(this.error);
+		this.startVacuum(action, fanLevel, waterLevel, times).catch(this.error);
 	}
 
 	async startVacuum(action, fanLevel, waterLevel, times)

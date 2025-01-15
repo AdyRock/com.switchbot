@@ -22,7 +22,7 @@ class MeterProCO2HubDriver extends HubDriver
 	 */
 	async onPairListDevices({ oAuth2Client })
 	{
-		return this.getHUBDevices(oAuth2Client, ['MeterPro(CO2)']);
+		return this.getHUBDevices(oAuth2Client, 'MeterPro(CO2)', false, true);
 	}
 
 }

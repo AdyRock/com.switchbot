@@ -22,7 +22,7 @@ class HubBotDriver extends HubDriver
 	 */
 	async onPairListDevices({ oAuth2Client })
 	{
-		return this.getHUBDevices(oAuth2Client, 'Bot');
+		return this.getHUBDevices(oAuth2Client, 'Bot', false, true);
 	}
 
 }

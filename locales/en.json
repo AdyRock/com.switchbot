@@ -74,7 +74,7 @@
 	"dormant": "Dormant",
 	"introuble": "In Trouble",
 	"inremotecontrol": "In Remote Control",
-	"industcollecting": "In Dust Collecting",
+	"industcollecting": "Emptying Dust Box",
 	"exploer": "Exploring",
 	"cleanall": "Clean All",
 	"cleanarea": "Clean Area",
@@ -88,5 +88,5 @@
 	"remotecontrol": "Remote Control",
 	"cleanwithexplorer": "Clean with Explorer",
 	"waterfillforhumidify": "Water Fill for Humidify",
-	"markinghumi": "Marking Humi"
+	"markinghumi": "Marking Humidify"
 }

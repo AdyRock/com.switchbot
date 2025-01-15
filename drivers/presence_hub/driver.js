@@ -31,7 +31,7 @@ class HubPresenceDriver extends HubDriver
 
 	async onPairListDevices({ oAuth2Client })
 	{
-		return this.getHUBDevices(oAuth2Client, 'Motion Sensor');
+		return this.getHUBDevices(oAuth2Client, 'Motion Sensor', false, true);
 	}
 
 }

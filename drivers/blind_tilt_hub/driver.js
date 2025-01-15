@@ -22,7 +22,7 @@ class HubBlindTiltDriver extends HubDriver
 
 	async onPairListDevices({ oAuth2Client })
 	{
-		return this.getHUBDevices(oAuth2Client, 'Blind Tilt');
+		return this.getHUBDevices(oAuth2Client, 'Blind Tilt', false, true);
 	}
 
 }

@@ -43,7 +43,7 @@ class HubContactDriver extends HubDriver
 
 	async onPairListDevices({ oAuth2Client })
 	{
-		return this.getHUBDevices(oAuth2Client, 'Contact Sensor');
+		return this.getHUBDevices(oAuth2Client, 'Contact Sensor', false, true);
 	}
 
 }

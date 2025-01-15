@@ -57,6 +57,9 @@ class HubDevice extends OAuth2Device
 		{
 			try
 			{
+				this.homey.app.apiCalls++;
+				this.homey.settings.set('apiCalls', this.homey.app.apiCalls);
+
 				this.homey.app.updateLog(`Sending ${this.homey.app.varToString(data)} to ${dd.id} using OAuth`, 3);
 				result = await this.oAuth2Client.setDeviceData(dd.id, data);
 			}
@@ -120,14 +123,14 @@ class HubDevice extends OAuth2Device
 		const dd = this.getData();
 		if (this.oAuth2Client)
 		{
+			this.homey.app.apiCalls++;
+			this.homey.settings.set('apiCalls', this.homey.app.apiCalls);
+
 			const data = await this.oAuth2Client.getDeviceData(dd.id);
 			if (data.statusCode !== 100)
 			{
 				throw new Error(`${data.statusCode}: ${data.message} (${this.homey.app.apiCalls}) API calls`);
 			}
-
-			this.homey.app.apiCalls++;
-			this.homey.settings.set('apiCalls', this.homey.app.apiCalls);
 
 			return data.body;
 		}
@@ -174,6 +177,9 @@ class HubDevice extends OAuth2Device
 
 		if (this.oAuth2Client)
 		{
+			this.homey.app.apiCalls++;
+			this.homey.settings.set('apiCalls', this.homey.app.apiCalls);
+
 			const retData = await this.oAuth2Client.startScene(dd.id);
 			return retData.body;
 		}
