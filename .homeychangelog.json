@@ -432,5 +432,17 @@
 	"it": "Aggiunto il supporto per il WoCurtain3 utilizzando BLE",
 	"pl": "Dodano obsługę WoCurtain3 za pomocą BLE",
 	"kr": "BLE를 사용하여 WoCurtain3 지원 추가"
+  },
+  "2.0.12": {
+	"en": "Added support S10 Robot Floor Cleaner. Ensure HUB devices, that require a hub, have a hub associated with them before showing them in when adding devices.",
+	"no": "Lagt til støtte for S10 Robot Floor Cleaner. Sørg for at HUB-enheter som krever en hub, har en hub tilknyttet dem før de vises når du legger til enheter.",
+	"nl": "Ondersteuning toegevoegd voor S10 Robot Floor Cleaner. Zorg ervoor dat HUB-apparaten die een hub vereisen, een hub hebben die aan hen is gekoppeld voordat ze worden weergegeven bij het toevoegen van apparaten.",
+	"de": "Unterstützung für S10 Robot Floor Cleaner hinzugefügt. Stellen Sie sicher, dass HUB-Geräte, die einen Hub benötigen, einen Hub mit ihnen verbunden haben, bevor sie beim Hinzufügen von Geräten angezeigt werden.",
+	"fr": "Ajout de la prise en charge du S10 Robot Floor Cleaner. Assurez-vous que les appareils HUB, qui nécessitent un hub, ont un hub associé à eux avant de les afficher lors de l'ajout d'appareils.",
+	"es": "Se agregó soporte para S10 Robot Floor Cleaner. Asegúrese de que los dispositivos HUB, que requieren un concentrador, tengan un concentrador asociado a ellos antes de mostrarlos al agregar dispositivos.",
+	"pt": "Adicionado suporte para S10 Robot Floor Cleaner. Certifique-se de que os dispositivos HUB, que requerem um hub, tenham um hub associado a eles antes de mostrá-los ao adicionar dispositivos.",
+	"it": "Aggiunto supporto per S10 Robot Floor Cleaner. Assicurati che i dispositivi HUB, che richiedono un concentratore, abbiano un concentratore associato a loro prima di mostrarli quando si aggiungono dispositivi.",
+	"pl": "Dodano obsługę S10 Robot Floor Cleaner. Upewnij się, że urządzenia HUB, które wymagają huba, mają z nimi skojarzony hub, zanim zostaną wyświetlone podczas dodawania urządzeń.",
+	"kr": "S10 로봇 바닥 청소기 지원 추가. 장치 추가 시 허브가 필요한 HUB 장치가 허브와 연결되어 있는지 확인한 후 표시됩니다."
   }
 }
