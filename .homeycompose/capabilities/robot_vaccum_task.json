@@ -16,5 +16,5 @@
   },
   "getable": true,
   "setable": false,
-  "icon": "/assets/robot-vacuum-cleaner.svg"
+  "icon": "/assets/vacuum_task.svg"
 }

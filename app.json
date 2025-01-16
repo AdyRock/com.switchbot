@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.switchbot",
-  "version": "2.0.12",
+  "version": "2.0.13",
   "compatibility": ">=6.0.0",
   "platforms": [
     "local",
@@ -8843,7 +8843,7 @@
         "ru": "Пристыковать",
         "ko": "도킹"
       },
-      "icon": "/assets/home.svg"
+      "icon": "/assets/dock.svg"
     },
     "robot_vaccum_dry_mop": {
       "type": "boolean",
@@ -8874,7 +8874,7 @@
         "ru": "Наполнить увлажнитель",
         "ko": "가습기 채우기"
       },
-      "icon": "/assets/humidifier.svg"
+      "icon": "/assets/fill_humidifier.svg"
     },
     "robot_vaccum_state": {
       "type": "string",
@@ -8894,7 +8894,7 @@
       },
       "getable": true,
       "setable": false,
-      "icon": "/assets/robot-vacuum-cleaner.svg"
+      "icon": "/assets/vacuum_state.svg"
     },
     "robot_vaccum_stop_selfclean": {
       "type": "boolean",
@@ -8904,7 +8904,7 @@
       "title": {
         "en": "Terminate self-cleaning"
       },
-      "icon": "/assets/stop.svg"
+      "icon": "/assets/terminate_cleaning.svg"
     },
     "robot_vaccum_task": {
       "type": "string",
@@ -8924,7 +8924,7 @@
       },
       "getable": true,
       "setable": false,
-      "icon": "/assets/robot-vacuum-cleaner.svg"
+      "icon": "/assets/vacuum_task.svg"
     },
     "robot_vaccum_wash_mop": {
       "type": "boolean",
