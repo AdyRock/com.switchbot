@@ -444,5 +444,17 @@
 	"it": "Aggiunto supporto per S10 Robot Floor Cleaner. Assicurati che i dispositivi HUB, che richiedono un concentratore, abbiano un concentratore associato a loro prima di mostrarli quando si aggiungono dispositivi.",
 	"pl": "Dodano obsługę S10 Robot Floor Cleaner. Upewnij się, że urządzenia HUB, które wymagają huba, mają z nimi skojarzony hub, zanim zostaną wyświetlone podczas dodawania urządzeń.",
 	"kr": "S10 로봇 바닥 청소기 지원 추가. 장치 추가 시 허브가 필요한 HUB 장치가 허브와 연결되어 있는지 확인한 후 표시됩니다."
+  },
+  "2.0.13": {
+	"en": "updated icons for the S10 Robot Floor Cleaner",
+	"no": "oppdaterte ikoner for S10 Robot Floor Cleaner",
+	"nl": "bijgewerkte pictogrammen voor de S10 Robot Floor Cleaner",
+	"de": "aktualisierte Symbole für den S10 Robot Floor Cleaner",
+	"fr": "icônes mises à jour pour le S10 Robot Floor Cleaner",
+	"es": "iconos actualizados para el S10 Robot Floor Cleaner",
+	"pt": "ícones atualizados para o S10 Robot Floor Cleaner",
+	"it": "icone aggiornate per il S10 Robot Floor Cleaner",
+	"pl": "zaktualizowane ikony dla S10 Robot Floor Cleaner",
+	"kr": "S10 로봇 바닥 청소기용 아이콘 업데이트"
   }
 }
