@@ -269,12 +269,12 @@ class BLEDriver extends Homey.Driver
 		{ // WoBulb
 			sd = this._parseServiceDataForWoBulb(device.manufacturerData);
 		}
-		else if (model === 'w')
-		{ // WoBulb
+		else if ((model === 'w') || (model === 'W'))
+		{ // WoIndoor/Outdoor temp/humidity
 			sd = this._parseServiceDataForWoIOSensor(buf, device.manufacturerData);
 		}
 		else if (model === 'x')
-		{ // WoBulb
+		{ // WoTilt
 			sd = this._parseServiceDataForWoTilt(buf, device.manufacturerData);
 		}
 		else if (model === '&')
@@ -282,7 +282,7 @@ class BLEDriver extends Homey.Driver
 			sd = this._parseServiceDataForWaterLeak(buf, device.manufacturerData);
 		}
 		else if (model === '5')
-		{ // WoWaterLeak
+		{ // WoMeterPro(CO2)
 			sd = this._parseServiceDataForCO2Meter(buf, device.manufacturerData);
 		}
 		else
