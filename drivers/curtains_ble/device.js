@@ -12,9 +12,9 @@ class CurtainsBLEDevice extends Homey.Device
 	 */
 	async onInit()
 	{
-		if (!this.hasCapability('open_close'))
+		if (this.hasCapability('open_close'))
 		{
-			this.addCapability('open_close');
+			this.removeCapability('open_close');
 		}
 		if (!this.hasCapability('position'))
 		{
@@ -31,6 +31,10 @@ class CurtainsBLEDevice extends Homey.Device
 		if (!this.hasCapability('windowcoverings_state'))
 		{
 			this.addCapability('windowcoverings_state');
+		}
+		if (!this.hasCapability('windowcoverings_closed'))
+		{
+			this.addCapability('windowcoverings_closed');
 		}
 
 		this.bestRSSI = 100;
@@ -53,7 +57,7 @@ class CurtainsBLEDevice extends Homey.Device
 		}
 
 		// register a capability listener
-		this.registerCapabilityListener('open_close', this.onCapabilityopenClose.bind(this));
+		this.registerCapabilityListener('windowcoverings_closed', this.onCapabilityopenClose.bind(this));
 		this.registerCapabilityListener('windowcoverings_set', this.onCapabilityPosition.bind(this));
 		this.registerCapabilityListener('windowcoverings_state', this.onCapabilityState.bind(this));
 
@@ -293,6 +297,7 @@ class CurtainsBLEDevice extends Homey.Device
 
 			this.homey.app.updateLog(`Connecting to BLE device: ${name}`);
 			const blePeripheral = await bleAdvertisement.connect();
+
 			this.homey.app.updateLog(`BLE device ${name} connected`);
 
 			const reqBuf = Buffer.from(bytes);
@@ -402,11 +407,11 @@ class CurtainsBLEDevice extends Homey.Device
 
 					if (position > 0.5)
 					{
-						this.setCapabilityValue('open_close', true).catch(this.error);
+						this.setCapabilityValue('windowcoverings_closed', true).catch(this.error);
 					}
 					else
 					{
-						this.setCapabilityValue('open_close', false).catch(this.error);
+						this.setCapabilityValue('windowcoverings_closed', false).catch(this.error);
 					}
 
 					if (position === 0)
@@ -486,11 +491,11 @@ class CurtainsBLEDevice extends Homey.Device
 
 					if (position > 0.5)
 					{
-						this.setCapabilityValue('open_close', true).catch(this.error);
+						this.setCapabilityValue('windowcoverings_closed', true).catch(this.error);
 					}
 					else
 					{
-						this.setCapabilityValue('open_close', false).catch(this.error);
+						this.setCapabilityValue('windowcoverings_closed', false).catch(this.error);
 					}
 
 					if (position === 0)
