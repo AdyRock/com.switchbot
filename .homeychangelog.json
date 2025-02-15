@@ -468,5 +468,19 @@
 	"it": "Aggiunto supporto BLE per il sensore di temperatura e umidità interno/esterno di SwitchBot che ha l'identificatore di tipo 'W'",
 	"pl": "Dodano obsługę BLE dla czujnika temperatury i wilgotności wewnętrznej/zewnętrznej SwitchBot, który ma identyfikator typu 'W'",
 	"kr": "SwitchBot 실내/외부 온도 및 습도 센서에 대한 BLE 지원 추가, 이 센서는 'W' 유형 식별자를 가집니다."
+  },
+  "2.0.15": {
+	"en": "Changed BLE curtain Open/Close to standard windowcoverings_closed for new devices",
+	"no": "Endret BLE-gardin Åpne/Lukke til standard windowcoverings_closed for nye enheter",
+	"nl": "Veranderde BLE-gordijn Open/Sluiten in standaard windowcoverings_closed voor nieuwe apparaten",
+	"de": "Änderte BLE-Vorhang Öffnen/Schließen in standard windowcoverings_closed für neue Geräte",
+	"fr": "Changé le rideau BLE Ouvrir/Fermer en standard windowcoverings_closed pour de nouveaux appareils",
+	"es": "Cambiado el cortina BLE Abrir/Cerrar a standard windowcoverings_closed para nuevos dispositivos",
+	"pt": "Alterado o cortina BLE Abrir/Fechar para padrão windowcoverings_closed para novos dispositivos",
+	"it": "Cambiato la tenda BLE Apri/Chiudi in standard windowcoverings_closed per nuovi dispositivi",
+	"sv": "Ändrad BLE gardin Öppna/Stänga till standard windowcoverings_closed för nya enheter",
+	"pl": "Zmieniono zasłonę BLE Otwórz/Zamknij na standard windowcoverings_closed dla nowych urządzeń",
+	"ru": "Изменен BLE занавес Открыть/Закрыть на стандарт windowcoverings_closed для новых устройств",
+	"ko": "새로운 장치에 대해 BLE 커튼 열기/닫기를 기본 windowcoverings_closed로 변경했습니다."
   }
 }
