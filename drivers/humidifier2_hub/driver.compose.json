@@ -1,0 +1,28 @@
+{
+  "id": "humidifier2_hub",
+  "name": {
+    "en": "Evaporative Humidifier (HUB)",
+	"nl": "Verdampingsluchtbevochtiger (HUB)",
+	"de": "Verdunstungsluftbefeuchter (HUB)",
+	"fr": "Humidificateur à évaporation (HUB)",
+	"es": "Humidificador evaporativo (HUB)",
+	"pt": "Humidificador evaporativo (HUB)",
+	"it": "Umidificatore evaporativo (HUB)",
+	"pl": "Nawilżacz ewaporacyjny (HUB)",
+	"ru": "Испарительный увлажнитель воздуха (HUB)",
+	"ko": "증발식 가습기 (HUB)"
+  },
+  "class": "humidifier",
+  "capabilities": [
+    "onoff",
+	"child_lock",
+    "measure_humidity",
+	"target_humidity",
+	"humidifier_mode",
+	"filter_life",
+	"filter_used_time"
+  ],
+  "$extends": [
+    "hubDriver"
+  ]
+}

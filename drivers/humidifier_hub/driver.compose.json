@@ -14,7 +14,7 @@
     "ru": "Увлажнитель (HUB)",
     "ko": "가습기 (HUB)"
   },
-  "class": "other",
+  "class": "humidifier",
   "capabilities": [
     "onoff",
     "nebulization_mode",

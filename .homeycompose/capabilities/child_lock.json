@@ -1,0 +1,22 @@
+{
+  "type": "boolean",
+  "title": {
+    "en": "Chiled Lock",
+	"no": "Barnelås",
+	"nl": "Kinderslot",
+	"da": "Børnesikring",
+	"de": "Kindersicherung",
+	"es": "Bloqueo infantil",
+	"fr": "Verrouillage enfant",
+	"it": "Blocco bambini",
+	"sv": "Barnlås",
+	"pl": "Blokada dzieci",
+	"ru": "Детский замок",
+	"ko": "어린이 잠금"
+  },
+  "getable": true,
+  "setable": true,
+  "uiQuickAction": true,
+  "uiComponent": "toggle",
+  "icon": "/assets/child_lock.svg"
+}

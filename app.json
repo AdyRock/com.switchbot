@@ -1,8 +1,8 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.switchbot",
-  "version": "2.0.15",
-  "compatibility": ">=6.0.0",
+  "version": "2.0.17",
+  "compatibility": ">=12.2.0",
   "platforms": [
     "local",
     "cloud"
@@ -6405,6 +6405,66 @@
           "template": "login_oauth2"
         }
       ],
+      "icon": "/drivers/humidifier2_hub/assets/icon.svg",
+      "images": {
+        "large": "/drivers/humidifier2_hub/assets/images/large.jpg",
+        "small": "/drivers/humidifier2_hub/assets/images/small.jpg"
+      },
+      "id": "humidifier2_hub",
+      "name": {
+        "en": "Evaporative Humidifier (HUB)",
+        "nl": "Verdampingsluchtbevochtiger (HUB)",
+        "de": "Verdunstungsluftbefeuchter (HUB)",
+        "fr": "Humidificateur à évaporation (HUB)",
+        "es": "Humidificador evaporativo (HUB)",
+        "pt": "Humidificador evaporativo (HUB)",
+        "it": "Umidificatore evaporativo (HUB)",
+        "pl": "Nawilżacz ewaporacyjny (HUB)",
+        "ru": "Испарительный увлажнитель воздуха (HUB)",
+        "ko": "증발식 가습기 (HUB)"
+      },
+      "class": "humidifier",
+      "capabilities": [
+        "onoff",
+        "child_lock",
+        "measure_humidity",
+        "target_humidity",
+        "humidifier_mode",
+        "filter_life",
+        "filter_used_time"
+      ]
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        }
+      ],
       "icon": "/drivers/humidifier_hub/assets/icon.svg",
       "images": {
         "large": "/drivers/humidifier_hub/assets/images/large.jpg",
@@ -6425,7 +6485,7 @@
         "ru": "Увлажнитель (HUB)",
         "ko": "가습기 (HUB)"
       },
-      "class": "other",
+      "class": "humidifier",
       "capabilities": [
         "onoff",
         "nebulization_mode",
@@ -6764,6 +6824,59 @@
       "images": {
         "large": "/drivers/meter_pro_co2_ble/assets/images/large.jpg",
         "small": "/drivers/meter_pro_co2_ble/assets/images/small.jpg"
+      }
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        }
+      ],
+      "icon": "/drivers/meter_pro_hub/assets/icon.svg",
+      "images": {
+        "large": "/drivers/meter_pro_hub/assets/images/large.jpg",
+        "small": "/drivers/meter_pro_hub/assets/images/small.jpg"
+      },
+      "id": "meter_pro_hub",
+      "name": {
+        "en": "Meter Pro (HUB)"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "measure_temperature",
+        "measure_humidity",
+        "measure_battery"
+      ],
+      "energy": {
+        "batteries": [
+          "AA",
+          "AA"
+        ]
       }
     },
     {
@@ -8313,6 +8426,28 @@
       },
       "icon": "/assets/button_press.svg"
     },
+    "child_lock": {
+      "type": "boolean",
+      "title": {
+        "en": "Chiled Lock",
+        "no": "Barnelås",
+        "nl": "Kinderslot",
+        "da": "Børnesikring",
+        "de": "Kindersicherung",
+        "es": "Bloqueo infantil",
+        "fr": "Verrouillage enfant",
+        "it": "Blocco bambini",
+        "sv": "Barnlås",
+        "pl": "Blokada dzieci",
+        "ru": "Детский замок",
+        "ko": "어린이 잠금"
+      },
+      "getable": true,
+      "setable": true,
+      "uiQuickAction": true,
+      "uiComponent": "toggle",
+      "icon": "/assets/child_lock.svg"
+    },
     "direction": {
       "type": "boolean",
       "title": {
@@ -8488,6 +8623,46 @@
       },
       "icon": "/assets/rotate_range.svg"
     },
+    "filter_life": {
+      "type": "string",
+      "title": {
+        "en": "Filter life",
+        "nl": "Filter Levensduur",
+        "no": "Filterlevetid",
+        "da": "Filtrernes levetid",
+        "de": "Lebensdauer des Filters",
+        "es": "Vida del filtro",
+        "fr": "Durée de vie du filtre",
+        "it": "Vita del filtro",
+        "sv": "Filterlivslängd",
+        "pl": "Żywotność filtra",
+        "ru": "Срок службы фильтра",
+        "ko": "필터 수명"
+      },
+      "getable": true,
+      "setable": false,
+      "icon": "/assets/air-filter.svg"
+    },
+    "filter_used_time": {
+      "type": "string",
+      "title": {
+        "en": "Filter used time",
+        "nl": "Filter Gebruikte Tijd",
+        "no": "Filterbrukt tid",
+        "da": "Filter brugt tid",
+        "de": "Filterbenutzungszeit",
+        "es": "Tiempo de uso del filtro",
+        "fr": "Temps d'utilisation du filtre",
+        "it": "Tempo di utilizzo del filtro",
+        "sv": "Filteranvänd tid",
+        "pl": "Czas użycia filtra",
+        "ru": "Время использования фильтра",
+        "ko": "필터 사용 시간"
+      },
+      "getable": true,
+      "setable": false,
+      "icon": "/assets/air-filter-used.svg"
+    },
     "forward": {
       "type": "boolean",
       "getable": false,
@@ -8508,6 +8683,164 @@
         "ko": "빨리 감기"
       },
       "icon": "/assets/fast-forward.svg"
+    },
+    "humidifier_mode": {
+      "type": "enum",
+      "title": {
+        "en": "Mode",
+        "no": "Modus",
+        "nl": "Modus",
+        "da": "Tilstand",
+        "de": "Modus",
+        "es": "Modo",
+        "fr": "Mode",
+        "it": "Modalità",
+        "sv": "Läge",
+        "pl": "Tryb",
+        "ru": "Режим",
+        "ko": "모드"
+      },
+      "values": [
+        {
+          "id": "1",
+          "title": {
+            "en": "Level 4",
+            "no": "Nivå 4",
+            "nl": "Niveau 4",
+            "da": "Niveau 4",
+            "de": "Stufe 4",
+            "es": "Nivel 4",
+            "fr": "Niveau 4",
+            "it": "Livello 4",
+            "sv": "Nivå 4",
+            "pl": "Poziom 4",
+            "ru": "Уровень 4",
+            "ko": "레벨 4"
+          }
+        },
+        {
+          "id": "2",
+          "title": {
+            "en": "Level 3",
+            "no": "Nivå 3",
+            "nl": "Niveau 3",
+            "da": "Niveau 3",
+            "de": "Stufe 3",
+            "es": "Nivel 3",
+            "fr": "Niveau 3",
+            "it": "Livello 3",
+            "sv": "Nivå 3",
+            "pl": "Poziom 3",
+            "ru": "Уровень 3",
+            "ko": "레벨 3"
+          }
+        },
+        {
+          "id": "3",
+          "title": {
+            "en": "Level 2",
+            "no": "Nivå 2",
+            "nl": "Niveau 2",
+            "da": "Niveau 2",
+            "de": "Stufe 2",
+            "es": "Nivel 2",
+            "fr": "Niveau 2",
+            "it": "Livello 2",
+            "sv": "Nivå 2",
+            "pl": "Poziom 2",
+            "ru": "Уровень 2",
+            "ko": "레벨 2"
+          }
+        },
+        {
+          "id": "4",
+          "title": {
+            "en": "Level 1",
+            "no": "Nivå 1",
+            "nl": "Niveau 1",
+            "da": "Niveau 1",
+            "de": "Stufe 1",
+            "es": "Nivel 1",
+            "fr": "Niveau 1",
+            "it": "Livello 1",
+            "sv": "Nivå 1",
+            "pl": "Poziom 1",
+            "ru": "Уровень 1",
+            "ko": "레벨 1"
+          }
+        },
+        {
+          "id": "5",
+          "title": {
+            "en": "Humidity mode",
+            "no": "Fuktighetsmodus",
+            "nl": "Vochtigheidsmodus",
+            "da": "Fugtighedstilstand",
+            "de": "Feuchtigkeitsmodus",
+            "es": "Modo de humedad",
+            "fr": "Mode d'humidité",
+            "it": "Modalità umidità",
+            "sv": "Fuktighetsläge",
+            "pl": "Tryb wilgotności",
+            "ru": "Режим влажности",
+            "ko": "습도 모드"
+          }
+        },
+        {
+          "id": "6",
+          "title": {
+            "en": "Sleep mode",
+            "no": "Søvnmodus",
+            "nl": "Slaapmodus",
+            "da": "Søvnmodus",
+            "de": "Schlafmodus",
+            "es": "Modo de sueño",
+            "fr": "Mode sommeil",
+            "it": "Modalità sonno",
+            "sv": "Sovläge",
+            "pl": "Tryb snu",
+            "ru": "Режим сна",
+            "ko": "수면 모드"
+          }
+        },
+        {
+          "id": "7",
+          "title": {
+            "en": "Auto mode",
+            "no": "Automatisk modus",
+            "nl": "Automatische modus",
+            "da": "Automatisk tilstand",
+            "de": "Automatikmodus",
+            "es": "Modo automático",
+            "fr": "Mode automatique",
+            "it": "Modalità automatica",
+            "sv": "Automatiskt läge",
+            "pl": "Tryb automatyczny",
+            "ru": "Автоматический режим",
+            "ko": "자동 모드"
+          }
+        },
+        {
+          "id": "8",
+          "title": {
+            "en": "Drying mode",
+            "no": "Tørring modus",
+            "nl": "Droogmodus",
+            "da": "Tørringstilstand",
+            "de": "Trockenmodus",
+            "es": "Modo de secado",
+            "fr": "Mode de séchage",
+            "it": "Modalità di asciugatura",
+            "sv": "Torkningsläge",
+            "pl": "Tryb suszenia",
+            "ru": "Режим сушки",
+            "ko": "건조 모드"
+          }
+        }
+      ],
+      "getable": true,
+      "setable": true,
+      "icon": "/assets/dry.svg"
     },
     "light_level": {
       "type": "number",

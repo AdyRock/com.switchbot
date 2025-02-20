@@ -482,5 +482,31 @@
 	"pl": "Zmieniono zasłonę BLE Otwórz/Zamknij na standard windowcoverings_closed dla nowych urządzeń",
 	"ru": "Изменен BLE занавес Открыть/Закрыть на стандарт windowcoverings_closed для новых устройств",
 	"ko": "새로운 장치에 대해 BLE 커튼 열기/닫기를 기본 windowcoverings_closed로 변경했습니다."
+  },
+  "2.0.16": {
+	"en": "Added OAuth logging to log level 2",
+	"no": "La til OAuth-logging til loggnivå 2",
+	"nl": "OAuth-logging toegevoegd aan logniveau 2",
+	"de": "OAuth-Protokollierung auf Log-Level 2 hinzugefügt",
+	"fr": "Ajout de la journalisation OAuth au niveau de journalisation 2",
+	"es": "Agregado registro de OAuth al nivel de registro 2",
+	"pt": "Adicionado log OAuth ao nível de log 2",
+	"it": "Aggiunto il logging OAuth al livello di log 2",
+	"pl": "Dodano logowanie OAuth do poziomu logowania 2",
+	"ru": "Добавлено журналирование OAuth на уровне журнала 2",
+	"ko": "로그 레벨 2에 OAuth 로깅 추가"
+  },
+  "2.0.17": {
+	"en": "Seperated the SwitchBot Meter Pro device, Added inital support for the SwitchBot Humidifier 2 device",
+	"no": "Separerte SwitchBot Meter Pro-enheten, La til initial støtte for SwitchBot Humidifier 2-enheten",
+	"nl": "Gescheiden het SwitchBot Meter Pro-apparaat, Toegevoegde initiële ondersteuning voor het SwitchBot Humidifier 2-apparaat",
+	"de": "Trennte das SwitchBot Meter Pro-Gerät, Fügte die anfängliche Unterstützung für das SwitchBot Humidifier 2-Gerät hinzu",
+	"fr": "Séparé l'appareil SwitchBot Meter Pro, Ajouté un support initial pour l'appareil SwitchBot Humidifier 2",
+	"es": "Separó el dispositivo SwitchBot Meter Pro, Agregó soporte inicial para el dispositivo SwitchBot Humidifier 2",
+	"pt": "Separou o dispositivo SwitchBot Meter Pro, Adicionou suporte inicial para o dispositivo SwitchBot Humidifier 2",
+	"it": "Separato il dispositivo SwitchBot Meter Pro, Aggiunto il supporto iniziale per il dispositivo SwitchBot Humidifier 2",
+	"pl": "Oddzielono urządzenie SwitchBot Meter Pro, Dodano początkowe wsparcie dla urządzenia SwitchBot Humidifier 2",
+	"ru": "Разделен девайс SwitchBot Meter Pro, Добавлена начальная поддержка для девайса SwitchBot Humidifier 2",
+	"ko": "SwitchBot Meter Pro 장치 분리, SwitchBot Humidifier 2 장치에 대한 초기 지원 추가"
   }
 }

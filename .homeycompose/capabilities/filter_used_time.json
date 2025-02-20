@@ -1,0 +1,20 @@
+{
+  "type": "string",
+  "title": {
+    "en": "Filter used time",
+	"nl": "Filter Gebruikte Tijd",
+	"no": "Filterbrukt tid",
+	"da": "Filter brugt tid",
+	"de": "Filterbenutzungszeit",
+	"es": "Tiempo de uso del filtro",
+	"fr": "Temps d'utilisation du filtre",
+	"it": "Tempo di utilizzo del filtro",
+	"sv": "Filteranvänd tid",
+	"pl": "Czas użycia filtra",
+	"ru": "Время использования фильтра",
+	"ko": "필터 사용 시간"
+  },
+  "getable": true,
+  "setable": false,
+  "icon": "/assets/air-filter-used.svg"
+}

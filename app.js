@@ -20,6 +20,44 @@ const BLE_POLLING_INTERVAL = 30000; // in milliSeconds
 class MyApp extends OAuth2App
 {
 
+	overrideLoggingMethods()
+	{
+		const originalLog = console.log;
+		const originalError = console.error;
+		const originalWarn = console.warn;
+		const originalInfo = console.info;
+
+		console.log = (message, ...optionalParams) =>
+		{
+			this.handleLogMessage(message, ...optionalParams);
+			originalLog.apply(console, [message, ...optionalParams]);
+		};
+
+		console.error = (message, ...optionalParams) =>
+		{
+			this.handleLogMessage(message, ...optionalParams);
+			originalError.apply(console, [message, ...optionalParams]);
+		};
+
+		console.warn = (message, ...optionalParams) =>
+		{
+			this.handleLogMessage(message, ...optionalParams);
+			originalWarn.apply(console, [message, ...optionalParams]);
+		};
+
+		console.info = (message, ...optionalParams) =>
+		{
+			this.handleLogMessage(message, ...optionalParams);
+			originalInfo.apply(console, [message, ...optionalParams]);
+		};
+	}
+
+	handleLogMessage(message, ...optionalParams)
+	{
+		const logMessage = `${optionalParams.join(' ')}`;
+		this.updateLog(logMessage, 2);
+	}
+
 	static OAUTH2_CLIENT = SwitchBotOAuth2Client; // Default: OAuth2Client
 	static OAUTH2_DEBUG = false; // Default: false
 	static OAUTH2_MULTI_SESSION = false; // Default: false
@@ -51,6 +89,8 @@ class MyApp extends OAuth2App
 	 */
 	async onOAuth2Init()
 	{
+		this.overrideLoggingMethods();
+
 		this.log('SwitchBot has been initialized');
 		this.homey.app.logLevel = this.homey.settings.get('logLevel');
 
@@ -115,7 +155,10 @@ class MyApp extends OAuth2App
 			this.homey.settings.set('logLevel', this.logLevel);
 		}
 
-		this.OAUTH2_DEBUG = (this.logLevel > 1);
+		if (this.logLevel > 1)
+		{
+			this.enableOAuth2Debug();
+		}
 
 		// Callback for app settings changed
 		this.homey.settings.on('set', async function settingChanged(setting)
@@ -124,7 +167,14 @@ class MyApp extends OAuth2App
 			if (setting === 'logLevel')
 			{
 				this.homey.app.logLevel = this.homey.settings.get('logLevel');
-				this.OAUTH2_DEBUG = (this.logLevel > 2);
+				if (this.homey.app.logLevel > 2)
+				{
+					this.homey.app.enableOAuth2Debug();
+				}
+				else
+				{
+					this.homey.app.disableOAuth2Debug();
+				}
 			}
 			else if (setting === 'openToken')
 			{
@@ -498,12 +548,12 @@ class MyApp extends OAuth2App
 
 			if (errorLevel === 0)
 			{
-				this.error(newMessage);
+				// this.error(newMessage);
 				this.diagLog += '!!!!!! ';
 			}
 			else
 			{
-				this.log(newMessage);
+				// this.log(newMessage);
 				this.diagLog += '* ';
 			}
 			this.diagLog += newMessage;

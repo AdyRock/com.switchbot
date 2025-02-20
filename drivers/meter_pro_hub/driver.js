@@ -4,7 +4,7 @@
 
 const HubDriver = require('../hub_driver');
 
-class HubHumidifierDriver extends HubDriver
+class MeterProDriver extends HubDriver
 {
 
 	/**
@@ -13,7 +13,7 @@ class HubHumidifierDriver extends HubDriver
 	async onOAuth2Init()
 	{
 		super.onOAuth2Init();
-		this.log('HubHumidifierDriver has been initialized');
+		this.log('MeterProDriver has been initialized');
 	}
 
 	/**
@@ -22,9 +22,9 @@ class HubHumidifierDriver extends HubDriver
 	 */
 	async onPairListDevices({ oAuth2Client })
 	{
-		return this.getHUBDevices(oAuth2Client, 'Humidifier');
+		return this.getHUBDevices(oAuth2Client, ['MeterPro'], false, false);
 	}
 
 }
 
-module.exports = HubHumidifierDriver;
+module.exports = MeterProDriver;

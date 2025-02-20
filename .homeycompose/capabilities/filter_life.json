@@ -1,0 +1,20 @@
+{
+  "type": "string",
+  "title": {
+    "en": "Filter life",
+	"nl": "Filter Levensduur",
+	"no": "Filterlevetid",
+	"da": "Filtrernes levetid",
+	"de": "Lebensdauer des Filters",
+	"es": "Vida del filtro",
+	"fr": "Durée de vie du filtre",
+	"it": "Vita del filtro",
+	"sv": "Filterlivslängd",
+	"pl": "Żywotność filtra",
+	"ru": "Срок службы фильтра",
+	"ko": "필터 수명"
+  },
+  "getable": true,
+  "setable": false,
+  "icon": "/assets/air-filter.svg"
+}
