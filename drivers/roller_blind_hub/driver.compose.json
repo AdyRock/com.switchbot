@@ -1,0 +1,64 @@
+{
+	"name": {
+		"en": "Roller Blind (HUB)",
+		"nl": "Rolgordijn (HUB)",
+		"de": "Rollladen (HUB)",
+		"fr": "Volet roulant (HUB)",
+		"es": "Persiana (HUB)",
+		"pt": "Estores (HUB)",
+		"it": "Tapparella (HUB)",
+		"pl": "Roleta (HUB)",
+		"ru": "Рулонный жалюзи (HUB)",
+		"ko": "롤러 블라인드 (HUB)"
+	},
+	"class": "blinds",
+	"capabilities": [
+		"windowcoverings_set",
+		"position",
+		"measure_battery"
+	],
+	"energy": {
+		"batteries": [
+			"INTERNAL"
+		]
+	},
+	"$extends": [
+		"hubDriver"
+	],
+	"settings": [
+		{
+			"id": "invertPosition",
+			"type": "checkbox",
+			"label": {
+				"en": "Invert Open / Close Position",
+				"no": "Inverter Åpen / Lukket posisjon",
+				"nl": "Open/Dicht Positie omkeren",
+				"da": "Inverter Åben / Lukket Position",
+				"de": "Öffnen / Schließen Position umkehren",
+				"es": "Invertir Posición Abierta / Cerrada",
+				"fr": "Inverser Position Ouverte / Fermée",
+				"it": "Inverti Posizione Aperta/Chiusa",
+				"sv": "Invertera Öppen / Stängd Position",
+				"pl": "Odwróć Pozycję Otwórz / Zamknij",
+				"ru": "Инвертировать Положение Открытия / Закрытия",
+				"ko": "열림/닫힘 위치 반전"
+			},
+			"value": false,
+			"hint": {
+				"en": "Reverse the action of the position control.",
+				"no": "Vend retningen for posisjonsvelgeren.",
+				"nl": "Draai de actie van de positiebediening om.",
+				"da": "Vend handlingen af positionskontrollen.",
+				"de": "Drehen Sie die Aktion der Positionssteuerung um.",
+				"es": "Invierta la acción del control de posición.",
+				"fr": "Inversez l'action de la commande de position.",
+				"it": "Invertire l'azione del controllo di posizione.",
+				"sv": "Vänd på positionens kontrollåtgärd.",
+				"pl": "Odwróć działanie kontroli położenia.",
+				"ru": "Обратное действие регулятора положения.",
+				"ko": "위치 제어의 동작을 반대로 합니다."
+			}
+		}
+	]
+
+}
