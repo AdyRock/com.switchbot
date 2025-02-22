@@ -1,0 +1,25 @@
+{
+  "name": {
+    "en": "Air Purifier (HUB)",
+	"nl": "Luchtreiniger (HUB)",
+	"de": "Luftreiniger (HUB)",
+	"fr": "Purificateur d'air (HUB)",
+	"es": "Purificador de aire (HUB)",
+	"pt": "Purificador de ar (HUB)",
+	"it": "Purificatore d'aria (HUB)",
+	"pl": "Oczyszczacz powietrza (HUB)",
+	"ru": "Очиститель воздуха (HUB)",
+	"ko": "공기 청정기 (HUB)"
+  },
+  "class": "airpurifier",
+  "capabilities": [
+    "onoff",
+	"child_lock",
+	"air_purifier_mode",
+	"fan_level",
+	"alarm_drying"
+  ],
+  "$extends": [
+    "hubDriver"
+  ]
+}

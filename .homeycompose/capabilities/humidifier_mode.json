@@ -154,5 +154,5 @@
 	],
 	"getable": true,
 	"setable": true,
-	"icon": "/assets/dry.svg"
+	"icon": "/assets/fan_mode.svg"
 }

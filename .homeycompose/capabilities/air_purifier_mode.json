@@ -1,0 +1,90 @@
+{
+	"type": "enum",
+	"title": {
+		"en": "Mode",
+		"no": "Modus",
+		"nl": "Modus",
+		"da": "Tilstand",
+		"de": "Modus",
+		"es": "Modo",
+		"fr": "Mode",
+		"it": "Modalità",
+		"sv": "Läge",
+		"pl": "Tryb",
+		"ru": "Режим",
+		"ko": "모드"
+	},
+	"values": [
+		{
+			"id": "1",
+			"title": {
+				"en": "Fan",
+				"no": "Vifte",
+				"nl": "Ventilator",
+				"da": "Fan",
+				"de": "Ventilator",
+				"es": "Ventilador",
+				"fr": "Ventilateur",
+				"it": "Ventilatore",
+				"sv": "Fläkt",
+				"pl": "Wentylator",
+				"ru": "Вентилятор",
+				"ko": "선풍기"
+			}
+		},
+		{
+			"id": "2",
+			"title": {
+				"en": "Auto",
+				"no": "Auto",
+				"nl": "Auto",
+				"da": "Auto",
+				"de": "Auto",
+				"es": "Automático",
+				"fr": "Auto",
+				"it": "Auto",
+				"sv": "Automatisk",
+				"pl": "Auto",
+				"ru": "Авто",
+				"ko": "자동"
+			}
+		},
+		{
+			"id": "3",
+			"title": {
+				"en": "Sleep",
+				"no": "Søvn",
+				"nl": "Slapen",
+				"da": "Søvn",
+				"de": "Schlaf",
+				"es": "Dormir",
+				"fr": "Dormir",
+				"it": "Sonno",
+				"sv": "Sömn",
+				"pl": "Sen",
+				"ru": "Сон",
+				"ko": "수면"
+			}
+		},
+		{
+			"id": "5",
+			"title": {
+				"en": "Pet",
+				"no": "Dyr",
+				"nl": "Huisdier",
+				"da": "Kæledyr",
+				"de": "Haustier",
+				"es": "Mascota",
+				"fr": "Animal de compagnie",
+				"it": "Animale domestico",
+				"sv": "Husdjur",
+				"pl": "Zwierzę domowe",
+				"ru": "Домашнее животное",
+				"ko": "애완 동물"
+			}
+		}
+	],
+	"getable": true,
+	"setable": true,
+	"icon": "/assets/fan_mode.svg"
+}

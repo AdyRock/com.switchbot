@@ -1,0 +1,122 @@
+{
+	"type": "boolean",
+	"title": {
+		"en": "Drying alarm",
+		"nl": "Droogalarm",
+		"de": "Trocknungsalarm",
+		"fr": "Alarme de séchage",
+		"it": "Allarme di asciugatura",
+		"sv": "Torklarm",
+		"no": "Tørkealarm",
+		"es": "Alarma de secado",
+		"da": "Tørringsalarm",
+		"ru": "Сушка сигнала",
+		"pl": "Alarm suszenia",
+		"ko": "건조 알람"
+	},
+	"desc": {
+		"en": "Drying alarm",
+		"nl": "Droogalarm",
+		"de": "Trocknungsalarm",
+		"fr": "Alarme de séchage",
+		"it": "Allarme di asciugatura",
+		"sv": "Torklarm",
+		"no": "Tørkealarm",
+		"es": "Alarma de secado",
+		"da": "Tørringsalarm",
+		"ru": "Сушка сигнала",
+		"pl": "Alarm suszenia",
+		"ko": "건조 알람"
+	},
+	"insights": true,
+	"insightsTitleTrue": {
+		"en": "Drying alarm turned on",
+		"nl": "Algemeen alarm ging af",
+		"de": "Allgemeiner Alarm ist angegangen",
+		"fr": "Alarme de séchage s'est activée",
+		"it": "Allarme di asciugatura attivato",
+		"sv": "Torklarm aktiverat",
+		"no": "Tørkealarm er aktivert",
+		"es": "Alarma de secado activada",
+		"da": "Tørringsalarm blev aktiveret",
+		"ru": "Общий сигнал включен",
+		"pl": "Alarm ogólny włączony",
+		"ko": "알람 켜짐"
+	},
+	"insightsTitleFalse": {
+		"en": "Drying alarm turned off",
+		"nl": "Droogalarm uit",
+		"de": "Trocknungsalarm ausgeschaltet",
+		"fr": "Alarme de séchage désactivé",
+		"it": "Allarme di asciugatura disattivato",
+		"sv": "Torklarm av",
+		"no": "Tørkealarm deaktivert",
+		"es": "Alarma de secado desactivada",
+		"da": "Tørringsalarm blev deaktiveret",
+		"ru": "Сигнал сушки выключен",
+		"pl": "Alarm suszenia wyłączony",
+		"ko": "알람 꺼짐"
+	},
+	"getable": true,
+	"setable": false,
+	"uiComponent": "sensor",
+	"$flow": {
+		"triggers": [
+			{
+				"id": "alarm_drying_true",
+				"title": {
+					"en": "The drying alarm turned on",
+					"nl": "Het drogen alarm gaat aan",
+					"de": "Der Trocknungsalarm ist angegangen",
+					"fr": "L'alarme de séchage s'est activée",
+					"it": "L'allarme di asciugatura è stato attivato",
+					"sv": "Torklarm aktiverat",
+					"no": "Tørkealarm er aktivert",
+					"es": "La alarma de secado se ha activado",
+					"da": "Tørringsalarm blev aktiveret",
+					"ru": "Сигнал сушки включен",
+					"pl": "Alarm suszenia włączony",
+					"ko": "알람이 켜지면"
+				}
+			},
+			{
+				"id": "alarm_drying_false",
+				"title": {
+					"en": "The drying alarm turned off",
+					"nl": "Het drogen alarm gaat uit",
+					"de": "Der Trocknungsalarm ist ausgeschaltet",
+					"fr": "L'alarme de séchage s'est désactivée",
+					"it": "L'allarme di asciugatura è stato disattivato",
+					"sv": "Torklarm av",
+					"no": "Tørkealarm deaktivert",
+					"es": "La alarma de secado se ha desactivado",
+					"da": "Tørringsalarm blev deaktiveret",
+					"ru": "Сигнал сушки выключен",
+					"pl": "Alarm suszenia wyłączony",
+					"ko": "알람이 꺼지면"
+				}
+			}
+		],
+		"conditions": [
+			{
+				"id": "alarm_drying",
+				"title": {
+					"en": "The drying alarm is !{{on|off}}",
+					"nl": "Het drogen alarm is !{{aan|uit}}",
+					"de": "Der Trocknungsalarm ist !{{an|aus}}",
+					"fr": "L'alarme de séchage est !{{en marche|arrêtée}}",
+					"it": "L'allarme di asciugatura è !{{acceso|spento}}",
+					"sv": "Det torklarmet är !{{på|av}}",
+					"no": "Den tørkealarm er !{{på|av}}",
+					"es": "La alarma de secado está !{{activada|desactivada}}",
+					"da": "Tørringsalarm er !{{tændt|slukket}}",
+					"ru": "Общий сигнал !{{вкл.|выкл.}}",
+					"pl": "Alarm ogólny jest !{{włączony|wyłączony}}",
+					"ko": "알람이 !{{켜지면|꺼지면}}"
+				}
+			}
+		]
+	},
+	"icon": "/assets/dry.svg"
+
+}
