@@ -508,5 +508,18 @@
 	"pl": "Oddzielono urządzenie SwitchBot Meter Pro, Dodano początkowe wsparcie dla urządzenia SwitchBot Humidifier 2",
 	"ru": "Разделен девайс SwitchBot Meter Pro, Добавлена начальная поддержка для девайса SwitchBot Humidifier 2",
 	"ko": "SwitchBot Meter Pro 장치 분리, SwitchBot Humidifier 2 장치에 대한 초기 지원 추가"
+  },
+  "2.0.18": {
+	"en": "Added support for the SwitchBot Air Purifiers",
+	"no": "Lagt til støtte for SwitchBot luftrenserne",
+	"nl": "Ondersteuning toegevoegd voor de SwitchBot luchtreinigers",
+	"de": "Unterstützung für die SwitchBot Luftreiniger hinzugefügt",
+	"fr": "Ajout de la prise en charge des purificateurs d'air SwitchBot",
+	"es": "Agregado soporte para los purificadores de aire SwitchBot",
+	"pt": "Adicionado suporte para os purificadores de ar SwitchBot",
+	"it": "Aggiunto il supporto per i purificatori d'aria SwitchBot",
+	"pl": "Dodano obsługę oczyszczaczy powietrza SwitchBot",
+	"ru": "Добавлена поддержка очистителей воздуха SwitchBot",
+	"ko": "SwitchBot 공기 청정기 지원 추가"
   }
 }

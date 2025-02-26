@@ -42,7 +42,7 @@ class AirPurifierHubDevice extends HubDevice
 
 	async onCapabilityChildLock(value, opts)
 	{
-		return this.sendCommand('setChildLock', value);
+		return this.sendCommand('setChildLock', value ? 1 : 0);
 	}
 
 	// this method is called when the Homey device mode or target humidity is changed
@@ -97,9 +97,9 @@ class AirPurifierHubDevice extends HubDevice
 				this.setAvailable();
 				this.homey.app.updateLog(`AirPurifierHubDevice got: ${this.homey.app.varToString(data)}`, 3);
 
-				this.setCapabilityValue('onoff', data.power === 'on').catch(this.error);
+				this.setCapabilityValue('onoff', data.power === 'ON').catch(this.error);
 				this.setCapabilityValue('air_purifier_mode', data.mode.toString()).catch(this.error);
-				this.setCapabilityValue('child_lock', data.childLock).catch(this.error);
+				this.setCapabilityValue('child_lock', (data.childLock === 1)).catch(this.error);
 			}
 			this.unsetWarning();
 		}
@@ -118,9 +118,9 @@ class AirPurifierHubDevice extends HubDevice
 			if (dd.id === message.context.deviceMac)
 			{
 				// message is for this device
-				this.setCapabilityValue('onoff', message.context.power === 'on').catch(this.error);
+				this.setCapabilityValue('onoff', message.context.power === 'ON').catch(this.error);
 				this.setCapabilityValue('air_purifier_mode', message.context.mode.toString()).catch(this.error);
-				this.setCapabilityValue('alarm_drying', message.context.drying).catch(this.error);
+				this.setCapabilityValue('child_lock', (message.context.childLock === 1)).catch(this.error);
 			}
 		}
 		catch (err)

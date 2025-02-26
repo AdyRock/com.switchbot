@@ -16,8 +16,7 @@
     "onoff",
 	"child_lock",
 	"air_purifier_mode",
-	"fan_level",
-	"alarm_drying"
+	"fan_level"
   ],
   "$extends": [
     "hubDriver"
