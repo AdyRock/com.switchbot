@@ -521,5 +521,18 @@
 	"pl": "Dodano obsługę oczyszczaczy powietrza SwitchBot",
 	"ru": "Добавлена поддержка очистителей воздуха SwitchBot",
 	"ko": "SwitchBot 공기 청정기 지원 추가"
+  },
+  "2.0.19": {
+	"en": "Removed requirment for a hub id in the Meter Pro with CO2 (HUB) device",
+	"no": "Fjernet kravet om en hub-id i Meter Pro med CO2 (HUB)-enheten",
+	"nl": "Vereiste voor een hub-id in het Meter Pro met CO2 (HUB)-apparaat verwijderd",
+	"de": "Anforderung für eine Hub-ID im Meter Pro mit CO2 (HUB)-Gerät entfernt",
+	"fr": "Suppression de l'exigence d'un identifiant de concentrateur dans l'appareil Meter Pro avec CO2 (HUB)",
+	"es": "Se eliminó el requisito de un ID de concentrador en el dispositivo Meter Pro con CO2 (HUB)",
+	"pt": "Removido o requisito de um ID de hub no dispositivo Meter Pro com CO2 (HUB)",
+	"it": "Rimosso il requisito di un ID hub nel dispositivo Meter Pro con CO2 (HUB)",
+	"pl": "Usunięto wymaganie identyfikatora huba w urządzeniu Meter Pro z CO2 (HUB)",
+	"ru": "Удалено требование идентификатора хаба в устройстве Meter Pro с CO2 (HUB)",
+	"ko": "CO2 (HUB) 장치의 Meter Pro에서 허브 ID 요구 사항 제거"
   }
 }
