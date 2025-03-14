@@ -18,7 +18,7 @@ class HubRollerBlindDriver extends HubDriver
 
 	async onPairListDevices({ oAuth2Client })
 	{
-		return this.getHUBDevices(oAuth2Client, 'WoRollerShade', false, true);
+		return this.getHUBDevices(oAuth2Client, 'Roller Shade', false, true);
 	}
 
 }

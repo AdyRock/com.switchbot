@@ -91,9 +91,9 @@ class RollerBlindHubDevice extends HubDevice
 	 * - Promise object
 	 *   Nothing will be passed to the `resolve()`.
 	 * ---------------------------------------------------------------- */
-	async runToPos(percent, mode = 0xff)
+	async runToPos(percent)
 	{
-		return this._operateRollerBlind('setPosition', `0,${mode},${percent}`);
+		return this._operateRollerBlind('setPosition', percent);
 	}
 
 	async _operateRollerBlind(command, parameter)
