@@ -534,5 +534,17 @@
 	"pl": "Usunięto wymaganie identyfikatora huba w urządzeniu Meter Pro z CO2 (HUB)",
 	"ru": "Удалено требование идентификатора хаба в устройстве Meter Pro с CO2 (HUB)",
 	"ko": "CO2 (HUB) 장치의 Meter Pro에서 허브 ID 요구 사항 제거"
-  }
+  },
+  "2.0.20": {
+	"en": "Added support for the SwitchBot Roller Shade",
+	"no": "Lagt til støtte for SwitchBot rullegardiner",
+	"nl": "Ondersteuning toegevoegd voor de SwitchBot rolgordijnen",
+	"de": "Unterstützung für die SwitchBot Rollos hinzugefügt",
+	"fr": "Ajout de la prise en charge des stores enrouleurs SwitchBot",
+	"es": "Se agregó soporte para las persianas enrollables SwitchBot",
+	"pt": "Adicionado suporte para as cortinas roláveis SwitchBot",
+	"it": "Aggiunto supporto per le tende a rullo SwitchBot",
+	"pl": "Dodano obsługę rolet SwitchBot",
+	"kr": "SwitchBot 롤러 블라인드 지원 추가"
+	}
 }
