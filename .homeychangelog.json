@@ -546,5 +546,18 @@
 	"it": "Aggiunto supporto per le tende a rullo SwitchBot",
 	"pl": "Dodano obsługę rolet SwitchBot",
 	"kr": "SwitchBot 롤러 블라인드 지원 추가"
-	}
+	},
+	  "2.0.21": {
+		"en": "Potential fix for error 190 when connecting to devices",
+		"no": "Potensiell fiks for feil 190 ved tilkobling til enheter",
+		"nl": "Mogelijke oplossing voor fout 190 bij het verbinden met apparaten",
+		"de": "Potenzielle Lösung für Fehler 190 beim Verbinden mit Geräten",
+		"fr": "Correction potentielle de l'erreur 190 lors de la connexion aux appareils",
+		"es": "Posible solución para el error 190 al conectar con dispositivos",
+		"pt": "Solução potencial para o erro 190 ao conectar-se a dispositivos",
+		"it": "Possibile soluzione per l'errore 190 durante la connessione ai dispositivi",
+		"pl": "Potencjalne rozwiązanie błędu 190 podczas łączenia z urządzeniami",
+		"ru": "Потенциальное исправление ошибки 190 при подключении к устройствам",
+		"ko": "기기 연결 시 오류 190에 대한 잠재적인 수정"
+	  }
 }

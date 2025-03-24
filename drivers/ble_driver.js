@@ -285,6 +285,10 @@ class BLEDriver extends Homey.Driver
 		{ // WoMeterPro(CO2)
 			sd = this._parseServiceDataForCO2Meter(buf, device.manufacturerData);
 		}
+		else if (model === "'")
+		{ // WoCurtain
+			sd = this._parseServiceDataForWoRollerblind(buf);
+		}
 		else
 		{
 			return null;
@@ -684,6 +688,31 @@ class BLEDriver extends Homey.Driver
 			humidity: (byte12 & 0b01111111),
 			battery: (byte2 & 0b01111111),
 			co2: (byte15 * 256) + byte16,
+		};
+
+		return data;
+	}
+
+	_parseServiceDataForWoRollerblind(buf)
+	{
+		if (buf.length < 4)
+		{
+			return null;
+		}
+		const byte1 = buf.readUInt8(1);
+		const byte2 = buf.readUInt8(2);
+		const byte3 = buf.readUInt8(3);
+
+		const calibration = byte1 & 0b01000000; // Whether the calibration is completed
+		const battery = (byte2 & 0b01111111); // %
+		const currPosition = (byte3 & 0b01111111); // current position %
+
+		const data = {
+			model: "'",
+			modelName: 'WoRollerBlind',
+			calibration: !!calibration,
+			battery,
+			position: currPosition,
 		};
 
 		return data;
