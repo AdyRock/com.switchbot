@@ -5,7 +5,7 @@
 if (process.env.DEBUG === '1')
 {
 	// eslint-disable-next-line node/no-unsupported-features/node-builtins, global-require
-	require('inspector').open(9224, '0.0.0.0', true);
+	// require('inspector').open(9224, '0.0.0.0', true);
 }
 
 const Homey = require('homey');
@@ -29,60 +29,93 @@ class MyApp extends OAuth2App
 
 		console.log = (message, ...optionalParams) =>
 		{
-			this.handleLogMessage(message, ...optionalParams);
-			originalLog.apply(console, [message, ...optionalParams]);
+			if (this.handleLogMessage(message, ...optionalParams))
+			{
+				originalLog.apply(console, [message, ...optionalParams]);
+			}
 		};
 
 		console.error = (message, ...optionalParams) =>
 		{
-			this.handleLogMessage(message, ...optionalParams);
-			originalError.apply(console, [message, ...optionalParams]);
+			if (this.handleLogMessage(message, ...optionalParams))
+			{
+				originalError.apply(console, [message, ...optionalParams]);
+			}
 		};
 
 		console.warn = (message, ...optionalParams) =>
 		{
-			this.handleLogMessage(message, ...optionalParams);
-			originalWarn.apply(console, [message, ...optionalParams]);
+			if (this.handleLogMessage(message, ...optionalParams))
+			{
+				originalWarn.apply(console, [message, ...optionalParams]);
+			}
 		};
 
 		console.info = (message, ...optionalParams) =>
 		{
-			this.handleLogMessage(message, ...optionalParams);
-			originalInfo.apply(console, [message, ...optionalParams]);
+			if (this.handleLogMessage(message, ...optionalParams))
+			{
+				originalInfo.apply(console, [message, ...optionalParams]);
+			}
 		};
 	}
 
 	handleLogMessage(message, ...optionalParams)
 	{
 		const logMessage = `${optionalParams.join(' ')}`;
+		// if the logMessage contains 'User-Agent' then replace the user-agent value with '***'
+		if (logMessage.includes('User-Agent:'))
+		{
+			const logMessageArray = logMessage.split(' ');
+			const userAgentIndex = logMessageArray.findIndex((element) => element === 'User-Agent:');
+			if (userAgentIndex !== -1)
+			{
+				logMessageArray[userAgentIndex + 2] = '***';
+			}
+			this.updateLog(logMessageArray.join(' '), 2);
+			return true;
+		}
+
 		this.updateLog(logMessage, 2);
+		return true;
 	}
 
 	static OAUTH2_CLIENT = SwitchBotOAuth2Client; // Default: OAuth2Client
 	static OAUTH2_DEBUG = false; // Default: false
 	static OAUTH2_MULTI_SESSION = false; // Default: false
 	static OAUTH2_DRIVERS = [
-		'contact_hub',
 		'air_con_hub',
+		'air_puifier_hub',
+		'blind_tilt_hub',
 		'bot_hub',
 		'color_bulb_hub',
+		'contact_hub',
 		'curtains_hub',
 		'custom_remote_hub',
 		'dvd',
 		'fan_hub',
+		'humidifier2_hub',
 		'humidifier_hub',
 		'light_remote_hub',
 		'lock_hub',
+		'meter_pro_CO2_hub',
+		'meter_pro_hub',
+		'plug_hub',
 		'presence_hub',
+		'relay_hub',
+		'robot_vaccum_hub',
+		'robot_vacuum_S10_hub',
+		'roller_blind_hub',
 		'scene',
 		'settop_box_hub',
 		'smart_fan_hub',
 		'speaker',
 		'strip_light',
+		'S10_water_station',
 		'temperature_hub',
 		'tv_hub',
-		'blind_tilt_hub',
-	]; // Default: all drivers
+		'water_leak_hub',
+	];
 
 	/**
 	 * onInit is called when the app is initialized.
@@ -154,6 +187,9 @@ class MyApp extends OAuth2App
 			this.logLevel = 0;
 			this.homey.settings.set('logLevel', this.logLevel);
 		}
+
+		// For cloud debugging only
+		this.logLevel = 3;
 
 		if (this.logLevel > 1)
 		{
@@ -254,11 +290,11 @@ class MyApp extends OAuth2App
 			});
 
 		const startAction = this.homey.flow.getActionCard('start');
-			startAction
-				.registerRunListener(async (args, state) =>
-				{
-					return args.device.onCapabilityCommand('start');
-				});
+		startAction
+			.registerRunListener(async (args, state) =>
+			{
+				return args.device.onCapabilityCommand('start');
+			});
 
 		const pauseAction = this.homey.flow.getActionCard('pause');
 		pauseAction
@@ -275,11 +311,11 @@ class MyApp extends OAuth2App
 			});
 
 		const dockAction = this.homey.flow.getActionCard('dock');
-			dockAction
-				.registerRunListener(async (args, state) =>
-				{
-					return args.device.onCapabilityCommand('dock');
-				});
+		dockAction
+			.registerRunListener(async (args, state) =>
+			{
+				return args.device.onCapabilityCommand('dock');
+			});
 
 		const prevAction = this.homey.flow.getActionCard('prev');
 		prevAction
@@ -444,7 +480,7 @@ class MyApp extends OAuth2App
 
 		const windowCoversAction = this.homey.flow.getActionCard('windowcoverings_custom_set');
 		windowCoversAction
-		.registerRunListener(async (args, state) =>
+			.registerRunListener(async (args, state) =>
 			{
 				return args.device.onCapabilityPosition(args.percentage, args.speed);
 			});
@@ -635,34 +671,34 @@ class MyApp extends OAuth2App
 
 				// create reusable transporter object using the default SMTP transport
 				const transporter = nodemailer.createTransport(
-				{
-					host: Homey.env.MAIL_HOST, // Homey.env.MAIL_HOST,
-					port: 465,
-					ignoreTLS: false,
-					secure: true, // true for 465, false for other ports
-					auth:
 					{
-						user: Homey.env.MAIL_USER, // generated ethereal user
-						pass: Homey.env.MAIL_SECRET, // generated ethereal password
+						host: Homey.env.MAIL_HOST, // Homey.env.MAIL_HOST,
+						port: 465,
+						ignoreTLS: false,
+						secure: true, // true for 465, false for other ports
+						auth:
+						{
+							user: Homey.env.MAIL_USER, // generated ethereal user
+							pass: Homey.env.MAIL_SECRET, // generated ethereal password
+						},
+						tls:
+						{
+							// do not fail on invalid certs
+							rejectUnauthorized: false,
+						},
 					},
-					tls:
-					{
-						// do not fail on invalid certs
-						rejectUnauthorized: false,
-					},
-				},
-);
+				);
 
 				// send mail with defined transport object
 				const response = await transporter.sendMail(
-				{
-					from: `"Homey User" <${Homey.env.MAIL_USER}>`, // sender address
-					to: Homey.env.MAIL_RECIPIENT, // list of receivers
-					cc: replyAddress,
-					subject, // Subject line
-					text, // plain text body
-				},
-);
+					{
+						from: `"Homey User" <${Homey.env.MAIL_USER}>`, // sender address
+						to: Homey.env.MAIL_RECIPIENT, // list of receivers
+						cc: replyAddress,
+						subject, // Subject line
+						text, // plain text body
+					},
+				);
 
 				return {
 					error: response,
@@ -891,7 +927,7 @@ class MyApp extends OAuth2App
 			}
 
 			this.homey.app.updateLog('No OAuth client available to register the SwitchBot webhook', 0);
-	}
+		}
 		catch (err)
 		{
 			this.homey.app.updateLog(`Invalid response: ${err.message}`, 0);
