@@ -49,25 +49,29 @@ class HumidityHubDevice extends HubDevice
 	async onCapabilityMode(valueOj, optsObj)
 	{
 		let mode = null;
-		let targetHumidify = null;
+		let targetHumidity = null;
 		if (valueOj.humidifier_mode)
 		{
 			// Convert the string to an integer
 			mode = parseInt(valueOj.humidifier_mode, 10);
-			targetHumidify = this.getCapabilityValue('target_humidity');
 		}
-		else if (valueOj.target_humidity)
+		if (valueOj.target_humidity)
 		{
 			// The efficiency has changed
-			targetHumidify = valueOj.target_humidity.toString();
-			mode = this.getCapabilityValue('humidifier_mode');
-		}
-		else
-		{
-			return false;
+			targetHumidity = valueOj.target_humidity.toString();
 		}
 
-		return this.sendCommand('setMode', { mode, targetHumidify });
+		if (mode == null)
+		{
+			mode = this.getCapabilityValue('humidifier_mode');
+		}
+
+		if (targetHumidity == null)
+		{
+			targetHumidity = this.getCapabilityValue('target_humidity');
+		}
+
+		return this.sendCommand('setMode', { mode, targetHumidify: targetHumidity });
 	}
 
 	async sendCommand(command, parameter)

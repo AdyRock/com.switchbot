@@ -434,6 +434,14 @@ class MyApp extends OAuth2App
 				return args.device.onCapabilityPowerLevel(parseInt(args.power, 10));
 			});
 
+		const humidifierModeAction = this.homey.flow.getActionCard('set_humidifier_mode');
+		humidifierModeAction
+			.registerRunListener(async (args, state) =>
+			{
+				args.device.onCapabilityMode(parseInt(args.mode, 10));
+				return args.device.onCapabilityTargetHumidity(parseInt(args.humidity, 10));
+			});
+
 		const windowCoversAction = this.homey.flow.getActionCard('windowcoverings_custom_set');
 		windowCoversAction
 		.registerRunListener(async (args, state) =>
