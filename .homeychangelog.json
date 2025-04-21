@@ -572,5 +572,31 @@
 		"pl": "Dodano kartę akcji przepływu do ustawienia trybu Hundifier 2",
 		"ru": "Добавлена карта действия потока для установки режима Hundifier 2",
 		"ko": "Hundifier 2 모드 설정을위한 플로우 작업 카드 추가"
+	},
+	"2.0.23": {
+		"en": "Update loging for cloud connection",
+		"no": "Oppdater logg for skytilkobling",
+		"nl": "Logboek bijwerken voor cloudverbinding",
+		"de": "Protokollierung für Cloud-Verbindung aktualisieren",
+		"fr": "Mise à jour de la connexion cloud",
+		"es": "Actualizar registro para conexión en la nube",
+		"pt": "Atualizar log para conexão em nuvem",
+		"it": "Aggiorna il registro per la connessione cloud",
+		"pl": "Zaktualizuj logowanie dla połączenia z chmurą",
+		"ru": "Обновить журналирование для облачного подключения",
+		"ko": "클라우드 연결 로깅 업데이트"
+	},
+	"2.0.24": {
+		"en": "Fixed Status chnaged Flow trigger for the Robot Vacuum (K10+, etc)",
+		"no": "Fikset Status endret Flow-trigger for Robot Vacuum (K10+, etc)",
+		"nl": "Status gewijzigd Flow-trigger voor Robotstofzuiger (K10+, enz.)",
+		"de": "Status geändert Flow-Trigger für Robot Vacuum (K10+, usw.)",
+		"fr": "Déclencheur de flux de statut modifié pour l'aspirateur robot (K10+, etc.)",
+		"es": "Disparador de flujo de estado cambiado para la aspiradora robot (K10+, etc.)",
+		"pt": "Gatilho de fluxo de status alterado para o aspirador de pó robô (K10+, etc.)",
+		"it": "Attivazione del flusso di stato modificato per l'aspirapolvere robot (K10+, ecc.)",
+		"pl": "Zmieniony wyzwalacz przepływu statusu dla odkurzacza robota (K10+ itp.)",
+		"ru": "Изменен триггер потока состояния для робота-пылесоса (K10+ и др.)",
+		"ko": "로봇 진공청소기(K10+, 등)의 상태 변경 흐름 트리거 수정"
 	}
 }

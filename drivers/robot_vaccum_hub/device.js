@@ -134,7 +134,23 @@ class VacuumHubDevice extends HubDevice
 			{
 				// message is for this device
 				const data = message.context;
-				this.setCapabilityValue('robot_vaccum_state', data.workingStatus).catch(this.error);
+				this.homey.app.updateLog(`Vacuum Hub got: ${this.homey.app.varToString(data)}`, 3);
+
+				if (data.workingStatus && data.workingStatus !== this.getCapabilityValue('robot_vaccum_state'))
+				{
+					this.setCapabilityValue('robot_vaccum_state', data.workingStatus).catch(this.error);
+
+					const tokens = {
+						state: data.workingStatus,
+					};
+
+					this.driver.triggerStateChanged(this, tokens, null).catch(this.error);
+
+					const args = {
+						state: data.workingStatus,
+					};
+					this.driver.triggerStateChangedTo(this, null, args).catch(this.error);
+				}
 
 				if (data.battery)
 				{
