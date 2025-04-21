@@ -17,8 +17,25 @@ class HubVacuumS10Driver extends HubDriver
 		// Device Triggers
 		this.stateChangedTrigger = this.homey.flow.getDeviceTriggerCard('vaccum_state_changed');
 		this.stateChangedToTrigger = this.homey.flow.getDeviceTriggerCard('vaccum_state_changed_to');
+		this.stateChangedToTrigger.registerRunListener(async (args, state) =>
+		{
+			if (args.state === state.state)
+			{
+				return true;
+			}
+			return false;
+		});
+
 		this.taskChangedTrigger = this.homey.flow.getDeviceTriggerCard('vaccum_task_changed');
 		this.taskChangedToTrigger = this.homey.flow.getDeviceTriggerCard('vaccum_task_changed_to');
+		this.taskChangedToTrigger.registerRunListener(async (args, state) =>
+		{
+			if (args.state === state.state)
+			{
+				return true;
+			}
+			return false;
+		});
 
 		this.log('HubVacuumS10Driver has been initialized');
 	}

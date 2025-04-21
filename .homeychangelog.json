@@ -598,5 +598,18 @@
 		"pl": "Zmieniony wyzwalacz przepływu statusu dla odkurzacza robota (K10+ itp.)",
 		"ru": "Изменен триггер потока состояния для робота-пылесоса (K10+ и др.)",
 		"ko": "로봇 진공청소기(K10+, 등)의 상태 변경 흐름 트리거 수정"
+	},
+	"2.0.25": {
+		"en": "Fixed missing run listeners for the Robot Vacuum state and task changed triggers",
+		"no": "Fikset manglende kjørelytter for Robot Vacuum-tilstands- og oppgaveendringstriggere",
+		"nl": "Vaste ontbrekende uitvoerluisteraars voor de Robotstofzuigerstatus en taakveranderingen",
+		"de": "Fehlende Ausführungslistener für die Status- und Aufgabenänderungsauslöser des Robotersaugers behoben",
+		"fr": "Auditeurs d'exécution manquants pour le changement d'état et de tâche de l'aspirateur robot",
+		"es": "Fijador de oyentes de ejecución perdidos para el estado de aspiradora robot y cambios de tarea",
+		"pt": "Ouvintes de execução ausentes para o estado do aspirador robô e alterações de tarefa",
+		"it": "Listener di esecuzione mancanti per lo stato dell'aspirapolvere robot e modifiche al compito",
+		"pl": "Brakujące słuchacze uruchamiania dla zmiany stanu i zadania odkurzacza robota",
+		"ru": "Отсутствующие слушатели выполнения для состояния и изменения задачи робота-пылесоса",
+		"ko": "로봇 진공 상태 및 작업 변경 트리거에 대한 실행 리스너 누락 수정"
 	}
 }
