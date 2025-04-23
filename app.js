@@ -125,10 +125,15 @@ class MyApp extends OAuth2App
 		this.overrideLoggingMethods();
 
 		this.log('SwitchBot has been initialized');
-		this.homey.app.logLevel = this.homey.settings.get('logLevel');
+		this.logLevel = this.homey.settings.get('logLevel');
+		if (this.logLevel === null)
+		{
+			this.logLevel = 0;
+			this.homey.settings.set('logLevel', this.logLevel);
+		}
 
 		this.diagLog = '';
-		this.homey.app.deviceStatusLog = '';
+		this.deviceStatusLog = '';
 		this.openToken = this.homey.settings.get('openToken');
 		this.openSecret = this.homey.settings.get('openSecret');
 		this.blePolling = false;
@@ -181,15 +186,16 @@ class MyApp extends OAuth2App
 		this.homeyHash = this.homeyID;
 		this.homeyHash = this.hashCode(this.homeyHash).toString();
 
-		this.logLevel = this.homey.settings.get('logLevel');
-		if (this.logLevel === null)
+		try
 		{
-			this.logLevel = 0;
-			this.homey.settings.set('logLevel', this.logLevel);
+			this.homeyIP = await this.homey.cloud.getLocalAddress();
 		}
-
-		// For cloud debugging only
-		this.logLevel = 3;
+		catch (err)
+		{
+			// For cloud debugging only
+			this.logLevel = 3;
+			this.homeyIP = null;
+		}
 
 		if (this.logLevel > 1)
 		{
@@ -202,8 +208,8 @@ class MyApp extends OAuth2App
 			this.homey.app.updateLog(`Setting ${setting} has changed.`, 3);
 			if (setting === 'logLevel')
 			{
-				this.homey.app.logLevel = this.homey.settings.get('logLevel');
-				if (this.homey.app.logLevel > 2)
+				this.logLevel = this.homey.settings.get('logLevel');
+				if (this.logLevel > 2)
 				{
 					this.homey.app.enableOAuth2Debug();
 				}
@@ -582,7 +588,7 @@ class MyApp extends OAuth2App
 
 	updateLog(newMessage, errorLevel = 2)
 	{
-		if (errorLevel <= this.homey.app.logLevel)
+		if (errorLevel <= this.logLevel)
 		{
 			const nowTime = new Date(Date.now());
 
