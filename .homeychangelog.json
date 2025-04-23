@@ -611,5 +611,18 @@
 		"pl": "Brakujące słuchacze uruchamiania dla zmiany stanu i zadania odkurzacza robota",
 		"ru": "Отсутствующие слушатели выполнения для состояния и изменения задачи робота-пылесоса",
 		"ko": "로봇 진공 상태 및 작업 변경 트리거에 대한 실행 리스너 누락 수정"
+	},
+	"2.0.26": {
+		"en": "Fix issue with adding Cameras",
+		"no": "Fikset problem med å legge til kameraer",
+		"nl": "Probleem met het toevoegen van camera's opgelost",
+		"de": "Problem mit dem Hinzufügen von Kameras behoben",
+		"fr": "Problème de caméra ajouté",
+		"es": "Problema con la adición de cámaras",
+		"pt": "Corrigir problema com a adição de câmeras",
+		"it": "Problema con l'aggiunta di telecamere",
+		"pl": "Naprawić problem z dodawaniem kamer",
+		"ru": "Исправить проблему с добавлением камер",
+		"ko": "카메라 추가 문제 수정"
 	}
 }
