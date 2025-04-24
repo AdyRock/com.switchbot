@@ -16,14 +16,14 @@ class TemperatureHubDevice extends HubDevice
 
 		const dd = this.getData();
 
-		try
-		{
-			await this.getHubDeviceValues();
-		}
-		catch (err)
-		{
-			this.setUnavailable(err.message);
-		}
+		// try
+		// {
+		// 	await this.getHubDeviceValues();
+		// }
+		// catch (err)
+		// {
+		// 	this.setUnavailable(err.message);
+		// }
 
 		this.homey.app.registerHomeyWebhook(dd.id);
 

@@ -14,14 +14,14 @@ class PresenceHubDevice extends HubDevice
 	{
 		await super.onInit();
 
-		try
-		{
-			await this.getHubDeviceValues();
-		}
-		catch (err)
-		{
-			this.setUnavailable(err.message);
-		}
+		// try
+		// {
+		// 	await this.getHubDeviceValues();
+		// }
+		// catch (err)
+		// {
+		// 	this.setUnavailable(err.message);
+		// }
 
 		const dd = this.getData();
 		this.homey.app.registerHomeyWebhook(dd.id);

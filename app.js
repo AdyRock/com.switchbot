@@ -5,7 +5,7 @@
 if (process.env.DEBUG === '1')
 {
 	// eslint-disable-next-line node/no-unsupported-features/node-builtins, global-require
-	// require('inspector').open(9224, '0.0.0.0', true);
+	require('inspector').open(9224, '0.0.0.0', true);
 }
 
 const Homey = require('homey');

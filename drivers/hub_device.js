@@ -23,7 +23,22 @@ class HubDevice extends OAuth2Device
 			this.removeCapability('button.send_log');
 		}
 
-		this.homey.app.registerHUBPolling();
+		if (!this.pollHubDeviceValues)
+		{
+			// Set a random timer to fetch initial values from the hub device
+			const randomDelay = Math.floor(Math.random() * 10000) + 5000; // between 5 and 15 seconds
+			this.homey.app.updateLog(`fetch initial values in ${randomDelay} ms`, 3);
+			setTimeout(() =>
+			{
+				this.getHubDeviceValues();
+			}
+			, randomDelay);
+		}
+		else
+		{
+			// Polling is enabled, so we need to fetch the initial values from the hub device
+			this.homey.app.registerHUBPolling();
+		}
 	}
 
 	/**
@@ -116,6 +131,11 @@ class HubDevice extends OAuth2Device
 		result = await this.homey.app.hub.setDeviceData(dd.id, data);
 		this.homey.app.updateLog(`Success sending command to ${dd.id} using API key`);
 		return result;
+	}
+
+	// Override this method to get the device values
+	async getHubDeviceValues()
+	{
 	}
 
 	async _getHubDeviceValues()

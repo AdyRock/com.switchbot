@@ -42,14 +42,14 @@ class RelayHubDevice extends HubDevice
 
 		this.initialised = true;
 
-		try
-		{
-			await this.getHubDeviceValues();
-		}
-		catch (err)
-		{
-			this.setUnavailable(err.message);
-		}
+		// try
+		// {
+		// 	await this.getHubDeviceValues();
+		// }
+		// catch (err)
+		// {
+		// 	this.setUnavailable(err.message);
+		// }
 
 		this.log('RelayHubDevice has been initialized');
 	}

@@ -14,14 +14,14 @@ class SmartFanHubDevice extends HubDevice
 	{
 		await super.onInit();
 
-		try
-		{
-			await this.getHubDeviceValues();
-		}
-		catch (err)
-		{
-			this.setUnavailable(err.message);
-		}
+		// try
+		// {
+		// 	await this.getHubDeviceValues();
+		// }
+		// catch (err)
+		// {
+		// 	this.setUnavailable(err.message);
+		// }
 
 		this.registerCapabilityListener('onoff', this.onCapabilityOnOff.bind(this));
 		this.registerMultipleCapabilityListener(['smart_fan_mode', 'smart_fan_speed', 'smart_fan_shake_range'], this.onCapabilityFanSettings.bind(this));

@@ -19,14 +19,14 @@ class HumidityHubDevice extends HubDevice
 			await this.addCapability('alarm_water');
 		}
 
-		try
-		{
-			this.getHubDeviceValues();
-		}
-		catch (err)
-		{
-			this.setUnavailable(err.message);
-		}
+		// try
+		// {
+		// 	this.getHubDeviceValues();
+		// }
+		// catch (err)
+		// {
+		// 	this.setUnavailable(err.message);
+		// }
 		this.registerCapabilityListener('onoff', this.onCapabilityOnOff.bind(this));
 		this.registerMultipleCapabilityListener(['nebulization_mode', 'nebulization_efficiency'], this.onCapabilityNebulization.bind(this));
 

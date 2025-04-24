@@ -14,14 +14,14 @@ class VacuumS10HubDevice extends HubDevice
 	{
 		await super.onInit();
 
-		try
-		{
-			await this.getHubDeviceValues();
-		}
-		catch (err)
-		{
-			this.setUnavailable(err.message);
-		}
+		// try
+		// {
+		// 	await this.getHubDeviceValues();
+		// }
+		// catch (err)
+		// {
+		// 	this.setUnavailable(err.message);
+		// }
 
 		this.registerCapabilityListener('play', this.onCapabilityPlay.bind(this));
 		this.registerCapabilityListener('pause', this.onCapabilityCommand.bind(this, 'pause'));

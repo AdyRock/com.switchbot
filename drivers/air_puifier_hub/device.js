@@ -14,14 +14,15 @@ class AirPurifierHubDevice extends HubDevice
 	{
 		await super.onInit();
 
-		try
-		{
-			this.getHubDeviceValues();
-		}
-		catch (err)
-		{
-			this.setUnavailable(err.message);
-		}
+		// try
+		// {
+		// 	this.getHubDeviceValues();
+		// }
+		// catch (err)
+		// {
+		// 	this.setUnavailable(err.message);
+		// }
+
 		this.registerCapabilityListener('onoff', this.onCapabilityOnOff.bind(this));
 		this.registerCapabilityListener('child_lock', this.onCapabilityChildLock.bind(this));
 		this.registerMultipleCapabilityListener(['air_purifier_mode', 'fan_level'], this.onCapabilityMode.bind(this));

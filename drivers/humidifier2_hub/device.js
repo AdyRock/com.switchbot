@@ -14,14 +14,14 @@ class HumidityHubDevice extends HubDevice
 	{
 		await super.onInit();
 
-		try
-		{
-			this.getHubDeviceValues();
-		}
-		catch (err)
-		{
-			this.setUnavailable(err.message);
-		}
+		// try
+		// {
+		// 	this.getHubDeviceValues();
+		// }
+		// catch (err)
+		// {
+		// 	this.setUnavailable(err.message);
+		// }
 		this.registerCapabilityListener('onoff', this.onCapabilityOnOff.bind(this));
 		this.registerCapabilityListener('child_lock', this.onCapabilityChildLock.bind(this));
 		this.registerMultipleCapabilityListener(['humidifier_mode', 'target_humidity'], this.onCapabilityMode.bind(this));

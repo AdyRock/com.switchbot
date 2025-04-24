@@ -29,14 +29,14 @@ class TemperatureHubDevice extends HubDevice
 			this.removeCapability('measure_luminance').catch(this.error);
 		}
 
-		try
-		{
-			await this.getHubDeviceValues();
-		}
-		catch (err)
-		{
-			this.setUnavailable(err.message);
-		}
+		// try
+		// {
+		// 	await this.getHubDeviceValues();
+		// }
+		// catch (err)
+		// {
+		// 	this.setUnavailable(err.message);
+		// }
 
 		this.homey.app.registerHomeyWebhook(dd.id);
 

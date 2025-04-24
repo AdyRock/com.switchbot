@@ -14,14 +14,14 @@ class BlindTiltHubDevice extends HubDevice
 	{
 		await super.onInit();
 
-		try
-		{
-			await this.getHubDeviceValues();
-		}
-		catch (err)
-		{
-			this.setUnavailable(err.message);
-		}
+		// try
+		// {
+		// 	await this.getHubDeviceValues();
+		// }
+		// catch (err)
+		// {
+		// 	this.setUnavailable(err.message);
+		// }
 		this.registerCapabilityListener('windowcoverings_tilt_set', this.onCapabilityPosition.bind(this));
 
 		const dd = this.getData();

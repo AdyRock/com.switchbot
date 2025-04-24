@@ -16,14 +16,14 @@ class PlugHubDevice extends HubDevice
 
 		this.registerCapabilityListener('onoff', this.onCapabilityOnOff.bind(this));
 
-		try
-		{
-			await this.getHubDeviceValues();
-		}
-		catch (err)
-		{
-			this.setUnavailable(err.message);
-		}
+		// try
+		// {
+		// 	await this.getHubDeviceValues();
+		// }
+		// catch (err)
+		// {
+		// 	this.setUnavailable(err.message);
+		// }
 
 		const dd = this.getData();
 		this.homey.app.registerHomeyWebhook(dd.id);
