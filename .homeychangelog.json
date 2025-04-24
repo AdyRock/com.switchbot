@@ -624,5 +624,18 @@
 		"pl": "Naprawić problem z dodawaniem kamer",
 		"ru": "Исправить проблему с добавлением камер",
 		"ko": "카메라 추가 문제 수정"
+	},
+	"2.0.27": {
+		"en": "Modified device initialization to reduce number of simultaneous connections to the SwitchBot API",
+		"no": "Endret enhetsinitialisering for å redusere antall samtidige tilkoblinger til SwitchBot API",
+		"nl": "Apparaatinitialisatie gewijzigd om het aantal gelijktijdige verbindingen met de SwitchBot API te verminderen",
+		"de": "Änderung der Geräteinitialisierung zur Reduzierung der Anzahl gleichzeitiger Verbindungen zur SwitchBot-API",
+		"fr": "Initialisation de l'appareil modifiée pour réduire le nombre de connexions simultanées à l'API SwitchBot",
+		"es": "Inicialización del dispositivo modificada para reducir el número de conexiones simultáneas a la API de SwitchBot",
+		"pt": "Inicialização do dispositivo modificada para reduzir o número de conexões simultâneas com a API SwitchBot",
+		"it": "Inizializzazione del dispositivo modificata per ridurre il numero di connessioni simultanee all'API SwitchBot",
+		"pl": "Zmodyfikowana inicjalizacja urządzenia w celu zmniejszenia liczby jednoczesnych połączeń z API SwitchBot",
+		"ru": "Изменена инициализация устройства для уменьшения количества одновременных подключений к API SwitchBot",
+		"ko": "SwitchBot API에 대한 동시 연결 수를 줄이기 위해 장치 초기화 수정"
 	}
 }
