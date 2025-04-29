@@ -1,0 +1,55 @@
+{
+	"type": "enum",
+	"getable": true,
+	"setable": true,
+	"uiComponent": "picker",
+	"title": {
+		"en": "Cleaning Mode",
+		"no": "Rengjøringsmodus",
+		"nl": "Schoonmaakmodus",
+		"da": "Rengøringstilstand",
+		"de": "Reinigungsmodus",
+		"es": "Modo de limpieza",
+		"fr": "Mode de nettoyage",
+		"it": "Modalità di pulizia",
+		"sv": "Rengöringsläge",
+		"pl": "Tryb czyszczenia",
+		"ru": "Режим уборки",
+		"ko": "청소 모드"
+	},
+	"values": [
+		{
+			"id": "sweep",
+			"title": {
+				"en": "Sweep",
+				"no": "Fei",
+				"nl": "Vegen",
+				"da": "Feje",
+				"de": "Fegen",
+				"es": "Barrer",
+				"fr": "Balayer",
+				"it": "Spazzare",
+				"sv": "Sopa",
+				"pl": "Zamiatanie",
+				"ru": "Подметание",
+				"ko": "쓸기"
+			}
+		},
+		{
+			"id": "mop",
+			"title": {
+				"en": "Mop",
+				"no": "Mop",
+				"nl": "Dweilen",
+				"da": "Moppe",
+				"de": "Wischen",
+				"es": "Fregar",
+				"fr": "Passer la serpillière",
+				"sv": "Moppa",
+				"pl": "Mopowanie",
+				"ru": "Мытье полов",
+				"ko": "대걸레질"
+			}
+		}
+	]
+}

@@ -118,7 +118,7 @@ class HubDriver extends OAuth2Driver
 
 					if (found)
 					{
-						if (((device.master === undefined) || (device.master === true)) && (!requireHub || device.hubDeviceId !== ''))
+						if (((device.master === undefined) || (device.master === true)) && (!requireHub || device.deviceType.includes('Hub') || device.hubDeviceId !== ''))
 						{
 							this.homey.app.updateLog('Found device: ');
 							this.homey.app.updateLog(this.homey.app.varToString(device));

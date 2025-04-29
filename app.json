@@ -6693,6 +6693,54 @@
           "template": "login_oauth2"
         }
       ],
+      "icon": "/drivers/hub3/assets/icon.svg",
+      "images": {
+        "large": "/drivers/hub3/assets/images/large.jpg",
+        "small": "/drivers/hub3/assets/images/small.jpg"
+      },
+      "id": "hub3",
+      "name": {
+        "en": "Hub 3"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "measure_temperature",
+        "measure_humidity",
+        "measure_luminance",
+        "alarm_motion"
+      ]
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        }
+      ],
       "icon": "/drivers/humidifier2_hub/assets/icon.svg",
       "images": {
         "large": "/drivers/humidifier2_hub/assets/images/large.jpg",
@@ -7519,6 +7567,95 @@
           ]
         }
       ]
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        }
+      ],
+      "icon": "/drivers/robot_vaccum_K20_hub/assets/icon.svg",
+      "images": {
+        "large": "/drivers/robot_vaccum_K20_hub/assets/images/large.jpg",
+        "small": "/drivers/robot_vaccum_K20_hub/assets/images/small.jpg"
+      },
+      "name": {
+        "en": "Robot Vacuum K20+ Pro (HUB)",
+        "no": "Robotstøvsuger K20+ Pro (HUB)",
+        "nl": "Robotstofzuiger K20+ Pro (HUB)",
+        "da": "Robotstøvsuger K20+ Pro (HUB)",
+        "de": "Roboterstaubsauger K20+ Pro (HUB)",
+        "es": "Aspiradora Robot K20+ Pro (HUB)",
+        "fr": "Aspirateur Robot K20+ Pro (HUB)",
+        "it": "Aspirapolvere Robot K20+ Pro (HUB)",
+        "sv": "Robotdammsugare K20+ Pro (HUB)",
+        "pl": "Odkurzacz robotyczny K20+ Pro (HUB)",
+        "ru": "Робот-пылесос K20+ Pro (HUB)",
+        "ko": "로봇 청소기 K20+ Pro (HUB)"
+      },
+      "class": "vacuumcleaner",
+      "capabilities": [
+        "play",
+        "pause",
+        "robot_vaccum_dock",
+        "vaccum_clean_mode2",
+        "vaccum_fan_level",
+        "vaccum_water_level",
+        "vaccum_times",
+        "robot_vaccum_state",
+        "robot_vaccum_task",
+        "measure_battery",
+        "volume_set"
+      ],
+      "capabilitiesOptions": {
+        "play": {
+          "title": {
+            "en": "Start",
+            "no": "Start",
+            "nl": "Start",
+            "da": "Start",
+            "de": "Start",
+            "es": "Comenzar",
+            "fr": "Commencer",
+            "it": "Inizio",
+            "sv": "Starta",
+            "pl": "Start",
+            "ru": "Старт",
+            "ko": "시작"
+          }
+        }
+      },
+      "energy": {
+        "batteries": [
+          "INTERNAL"
+        ]
+      },
+      "id": "robot_vaccum_K20_hub"
     },
     {
       "platforms": [
@@ -10441,6 +10578,61 @@
             "pl": "Zamiatanie i mopowanie",
             "ru": "Подметание и мытье",
             "ko": "쓸기 및 걸레질"
+          }
+        }
+      ]
+    },
+    "vaccum_clean_mode2": {
+      "type": "enum",
+      "getable": true,
+      "setable": true,
+      "uiComponent": "picker",
+      "title": {
+        "en": "Cleaning Mode",
+        "no": "Rengjøringsmodus",
+        "nl": "Schoonmaakmodus",
+        "da": "Rengøringstilstand",
+        "de": "Reinigungsmodus",
+        "es": "Modo de limpieza",
+        "fr": "Mode de nettoyage",
+        "it": "Modalità di pulizia",
+        "sv": "Rengöringsläge",
+        "pl": "Tryb czyszczenia",
+        "ru": "Режим уборки",
+        "ko": "청소 모드"
+      },
+      "values": [
+        {
+          "id": "sweep",
+          "title": {
+            "en": "Sweep",
+            "no": "Fei",
+            "nl": "Vegen",
+            "da": "Feje",
+            "de": "Fegen",
+            "es": "Barrer",
+            "fr": "Balayer",
+            "it": "Spazzare",
+            "sv": "Sopa",
+            "pl": "Zamiatanie",
+            "ru": "Подметание",
+            "ko": "쓸기"
+          }
+        },
+        {
+          "id": "mop",
+          "title": {
+            "en": "Mop",
+            "no": "Mop",
+            "nl": "Dweilen",
+            "da": "Moppe",
+            "de": "Wischen",
+            "es": "Fregar",
+            "fr": "Passer la serpillière",
+            "sv": "Moppa",
+            "pl": "Mopowanie",
+            "ru": "Мытье полов",
+            "ko": "대걸레질"
           }
         }
       ]

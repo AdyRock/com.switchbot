@@ -1,0 +1,56 @@
+{
+	"name": {
+		"en": "Robot Vacuum K20+ Pro (HUB)",
+		"no": "Robotstøvsuger K20+ Pro (HUB)",
+		"nl": "Robotstofzuiger K20+ Pro (HUB)",
+		"da": "Robotstøvsuger K20+ Pro (HUB)",
+		"de": "Roboterstaubsauger K20+ Pro (HUB)",
+		"es": "Aspiradora Robot K20+ Pro (HUB)",
+		"fr": "Aspirateur Robot K20+ Pro (HUB)",
+		"it": "Aspirapolvere Robot K20+ Pro (HUB)",
+		"sv": "Robotdammsugare K20+ Pro (HUB)",
+		"pl": "Odkurzacz robotyczny K20+ Pro (HUB)",
+		"ru": "Робот-пылесос K20+ Pro (HUB)",
+		"ko": "로봇 청소기 K20+ Pro (HUB)"
+	},
+	"class": "vacuumcleaner",
+	"capabilities": [
+		"play",
+		"pause",
+		"robot_vaccum_dock",
+		"vaccum_clean_mode2",
+		"vaccum_fan_level",
+		"vaccum_water_level",
+		"vaccum_times",
+		"robot_vaccum_state",
+		"robot_vaccum_task",
+		"measure_battery",
+		"volume_set"
+	],
+	"capabilitiesOptions": {
+		"play": {
+			"title": {
+				"en": "Start",
+				"no": "Start",
+				"nl": "Start",
+				"da": "Start",
+				"de": "Start",
+				"es": "Comenzar",
+				"fr": "Commencer",
+				"it": "Inizio",
+				"sv": "Starta",
+				"pl": "Start",
+				"ru": "Старт",
+				"ko": "시작"
+			}
+		}
+	},
+	"energy": {
+		"batteries": [
+			"INTERNAL"
+		]
+	},
+	"$extends": [
+		"hubDriver"
+	]
+}

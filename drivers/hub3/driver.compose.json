@@ -1,0 +1,16 @@
+{
+  "id": "hub_3",
+  "name": {
+    "en": "Hub 3"
+  },
+  "class": "sensor",
+  "capabilities": [
+    "measure_temperature",
+    "measure_humidity",
+    "measure_luminance",
+    "alarm_motion"
+  ],
+  "$extends": [
+    "hubDriver"
+  ]
+}
