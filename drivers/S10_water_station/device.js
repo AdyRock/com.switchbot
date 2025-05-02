@@ -24,7 +24,7 @@ class S10WaterStationHubDevice extends HubDevice
 		// }
 
 		const dd = this.getData();
-		this.homey.app.registerHomeyWebhook(dd.id);
+		this.homey.app.registerHomeyWebhook(dd.id).catch(this.error);
 
 		this.log('S10WaterStationHubDevice has been initialising');
 	}
@@ -74,13 +74,20 @@ class S10WaterStationHubDevice extends HubDevice
 				{
 					if (!this.hasCapability('measure_battery'))
 					{
-						await this.addCapability('measure_battery');
+						try
+						{
+							await this.addCapability('measure_battery');
+						}
+						catch (err)
+						{
+							this.log(err);
+						}
 					}
 
 					this.setCapabilityValue('measure_battery', data.waterBaseBattery).catch(this.error);
 				}
 
-				this.unsetWarning();
+				this.unsetWarning().catch(this.error);;
 			}
 		}
 		catch (err)
@@ -103,7 +110,14 @@ class S10WaterStationHubDevice extends HubDevice
 				{
 					if (!this.hasCapability('measure_battery'))
 					{
-						await this.addCapability('measure_battery');
+						try
+						{
+							await this.addCapability('measure_battery');
+						}
+						catch (err)
+						{
+							this.log(err);
+						}
 					}
 
 					this.setCapabilityValue('measure_battery', data.waterBaseBattery).catch(this.error);

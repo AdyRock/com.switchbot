@@ -24,7 +24,7 @@ class MeterProHubDevice extends HubDevice
 		// 	this.setUnavailable(err.message);
 		// }
 
-		this.homey.app.registerHomeyWebhook(dd.id);
+		this.homey.app.registerHomeyWebhook(dd.id).catch(this.error);
 
 		this.log('MeterProHubDevice has been initialized');
 	}
@@ -70,7 +70,7 @@ class MeterProHubDevice extends HubDevice
 					this.setCapabilityValue('measure_battery', data.battery).catch(this.error);
 				}
 			}
-			this.unsetWarning();
+			this.unsetWarning().catch(this.error);;
 		}
 		catch (err)
 		{

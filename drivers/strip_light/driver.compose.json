@@ -18,7 +18,9 @@
     "onoff",
     "dim",
     "light_hue",
-    "light_saturation"
+    "light_saturation",
+	"light_temperature",
+	"light_mode"
   ],
   "energy": {
     "approximation": {

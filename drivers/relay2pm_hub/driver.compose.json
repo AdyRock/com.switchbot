@@ -1,0 +1,271 @@
+{
+	"id": "bot_hub",
+	"name": {
+		"en": "Relay Switch 2PM (HUB)"
+	},
+	"class": "light",
+	"capabilities": [
+		"onoff.one",
+		"measure_voltage.one",
+		"measure_current.one",
+		"measure_power.one",
+		"meter_power.one",
+		"onoff.two",
+		"measure_voltage.two",
+		"measure_current.two",
+		"measure_power.two",
+		"meter_power.two",
+		"alarm_power.one",
+		"alarm_power.two"
+	],
+	"capabilitiesOptions": {
+		"onoff.one": {
+			"title": {
+				"en": "Relay 1",
+				"de": "Relais 1",
+				"nl": "Relais 1",
+				"it": "Relè 1",
+				"da": "Relæ 1",
+				"es": "Relé 1",
+				"fr": "Relais 1",
+				"sv": "Relä 1",
+				"pl": "Przekaźnik 1",
+				"ru": "Реле 1",
+				"ko": "릴레이 1"
+			}
+		},
+		"onoff.two": {
+			"title": {
+				"en": "Relay 2",
+				"de": "Relais 2",
+				"nl": "Relais 2",
+				"it": "Relè 2",
+				"da": "Relæ 2",
+				"es": "Relé 2",
+				"fr": "Relais 2",
+				"sv": "Relä 2",
+				"pl": "Przekaźnik 2",
+				"ru": "Реле 2",
+				"ko": "릴레이 2"
+			}
+		},
+		"measure_voltage.one": {
+			"title": {
+				"en": "Voltage 1",
+				"de": "Spannung 1",
+				"nl": "Spanning 1",
+				"it": "Tensione 1",
+				"da": "Spænding 1",
+				"es": "Voltaje 1",
+				"fr": "Tension 1",
+				"sv": "Spänning 1",
+				"pl": "Napięcie 1",
+				"ru": "Напряжение 1",
+				"ko": "전압 1"
+			}
+		},
+		"measure_voltage.two": {
+			"title": {
+				"en": "Voltage 2",
+				"de": "Spannung 2",
+				"nl": "Spanning 2",
+				"it": "Tensione 2",
+				"da": "Spænding 2",
+				"es": "Voltaje 2",
+				"fr": "Tension 2",
+				"sv": "Spänning 2",
+				"pl": "Napięcie 2",
+				"ru": "Напряжение 2",
+				"ko": "전압 2"
+			}
+		},
+		"measure_current.one": {
+			"title": {
+				"en": "Current 1",
+				"de": "Strom 1",
+				"nl": "Stroom 1",
+				"it": "Corrente 1",
+				"da": "Strøm 1",
+				"es": "Corriente 1",
+				"fr": "Courant 1",
+				"sv": "Ström 1",
+				"pl": "Prąd 1",
+				"ru": "Ток 1",
+				"ko": "전류 1"
+			}
+		},
+		"measure_current.two": {
+			"title": {
+				"en": "Current 2",
+				"de": "Strom 2",
+				"nl": "Stroom 2",
+				"it": "Corrente 2",
+				"da": "Strøm 2",
+				"es": "Corriente 2",
+				"fr": "Courant 2",
+				"sv": "Ström 2",
+				"pl": "Prąd 2",
+				"ru": "Ток 2",
+				"ko": "전류 2"
+			}
+		},
+		"measure_power.one": {
+			"title": {
+				"en": "Power 1",
+				"de": "Leistung 1",
+				"nl": "Vermogen 1",
+				"it": "Potenza 1",
+				"da": "Strømforbrug 1",
+				"es": "Potencia 1",
+				"fr": "Puissance 1",
+				"sv": "Effekt 1",
+				"pl": "Moc 1",
+				"ru": "Мощность 1",
+				"ko": "전력 1"
+			}
+		},
+		"measure_power.two": {
+			"title": {
+				"en": "Power 2",
+				"de": "Leistung 2",
+				"nl": "Vermogen 2",
+				"it": "Potenza 2",
+				"da": "Strømforbrug 2",
+				"es": "Potencia 2",
+				"fr": "Puissance 2",
+				"sv": "Effekt 2",
+				"pl": "Moc 2",
+				"ru": "Мощность 2",
+				"ko": "전력 2"
+			}
+		},
+		"meter_power.one": {
+			"title": {
+				"en": "Energy 1",
+				"de": "Energie 1",
+				"nl": "Energie 1",
+				"it": "Energia 1",
+				"da": "Energi 1",
+				"es": "Energía 1",
+				"fr": "Énergie 1",
+				"sv": "Energi 1",
+				"pl": "Energia 1",
+				"ru": "Энергия 1",
+				"ko": "에너지 1"
+			}
+		},
+		"meter_power.two": {
+			"title": {
+				"en": "Energy 2",
+				"de": "Energie 2",
+				"nl": "Energie 2",
+				"it": "Energia 2",
+				"da": "Energi 2",
+				"es": "Energía 2",
+				"fr": "Énergie 2",
+				"sv": "Energi 2",
+				"pl": "Energia 2",
+				"ru": "Энергия 2",
+				"ko": "에너지 2"
+			}
+		},
+		"alarm_power.one": {
+			"title": {
+				"en": "Overload Alarm 1",
+				"de": "Überlastungsalarm 1",
+				"nl": "Overload Alarm 1",
+				"it": "Allarme Sovraccarico 1",
+				"da": "Overbelastningsalarm 1",
+				"es": "Alarma de Sobrecarga 1",
+				"fr": "Alarme de Surcharge 1",
+				"sv": "Överbelastningslarm 1",
+				"ru": "Сигнализация перегрузки 1",
+				"ko": "과부하 알람 1"
+			}
+		},
+		"alarm_power.two": {
+			"title": {
+				"en": "Overload Alarm 2",
+				"de": "Überlastungsalarm 2",
+				"nl": "Overload Alarm 2",
+				"it": "Allarme Sovraccarico 2",
+				"da": "Overbelastningsalarm 2",
+				"es": "Alarma de Sobrecarga 2",
+				"fr": "Alarme de Surcharge 2",
+				"sv": "Överbelastningslarm 2",
+				"ru": "Сигнализация перегрузки 2",
+				"ko": "과부하 알람 2"
+			}
+		}
+	},
+	"settings": [
+		{
+			"id": "classType",
+			"type": "dropdown",
+			"label": {
+				"en": "Device Class",
+				"de": "Geräteklasse",
+				"nl": "Product keuze",
+				"it": "Classe Dispositivo",
+				"da": "Enhedsklasse",
+				"es": "Clase de Dispositivo",
+				"fr": "Classe de Dispositif",
+				"sv": "Enhetsklass",
+				"pl": "Klasa Urządzenia",
+				"ru": "Класс Устройства",
+				"ko": "장치 클래스"
+			},
+			"value": "light",
+			"hint": {
+				"en": "The default is light.",
+				"de": "Standardmäßig ist Licht.",
+				"nl": "Standaard is licht.",
+				"it": "Il valore predefinito è luce.",
+				"da": "Standarden er lys.",
+				"es": "El valor predeterminado es luz.",
+				"fr": "La valeur par défaut est la lumière.",
+				"sv": "Standard är ljus.",
+				"pl": "Domyślnie jest światło.",
+				"ru": "По умолчанию это свет.",
+				"ko": "기본값은 빛입니다."
+			},
+			"values": [
+				{
+					"id": "light",
+					"label": {
+						"en": "Light",
+						"de": "Licht",
+						"nl": "Licht",
+						"it": "Luce",
+						"da": "Lys",
+						"es": "Luz",
+						"fr": "Lumière",
+						"sv": "Ljus",
+						"pl": "Światło",
+						"ru": "Свет",
+						"ko": "빛"
+					}
+				},
+				{
+					"id": "socket",
+					"label": {
+						"en": "Socket",
+						"de": "Steckdose",
+						"nl": "Stopcontact",
+						"it": "Presa",
+						"da": "Stikkontakt",
+						"es": "Enchufe",
+						"fr": "Prise",
+						"sv": "Utomhusuttag",
+						"pl": "Gniazdo",
+						"ru": "Розетка",
+						"ko": "소켓"
+					}
+				}
+			]
+		}
+	],
+	"$extends": [
+		"hubDriver"
+	]
+}

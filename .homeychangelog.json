@@ -637,5 +637,18 @@
 		"pl": "Zmodyfikowana inicjalizacja urządzenia w celu zmniejszenia liczby jednoczesnych połączeń z API SwitchBot",
 		"ru": "Изменена инициализация устройства для уменьшения количества одновременных подключений к API SwitchBot",
 		"ko": "SwitchBot API에 대한 동시 연결 수를 줄이기 위해 장치 초기화 수정"
+	},
+	"2.0.28": {
+		"en": "Added support for Realy 2PM, Hub 3, LED strip 3 and K20+ robot vacuum",
+		"no": "Lagt til støtte for Realy 2PM, Hub 3, LED-stripe 3 og K20+ robotstøvsuger",
+		"nl": "Ondersteuning toegevoegd voor Realy 2PM, Hub 3, LED-strip 3 en K20+ robotstofzuiger",
+		"de": "Unterstützung für Realy 2PM, Hub 3, LED-Streifen 3 und K20+ Robotersauger hinzugefügt",
+		"fr": "Ajout de la prise en charge de Realy 2PM, Hub 3, LED strip 3 et K20+ robot vacuum",
+		"es": "Agregado soporte para Realy 2PM, Hub 3, LED strip 3 y K20+ robot vacuum",
+		"pt": "Adicionado suporte para Realy 2PM, Hub 3, LED strip 3 e K20+ robot vacuum",
+		"it": "Aggiunto supporto per Realy 2PM, Hub 3, LED strip 3 e K20+ robot vacuum",
+		"pl": "Dodano obsługę Realy 2PM, Hub 3, LED strip 3 i K20+ robot vacuum",
+		"ru": "Добавлена поддержка Realy 2PM, Hub 3, LED strip 3 и K20+ robot vacuum",
+		"ko": "Realy 2PM, Hub 3, LED 스트립 3 및 K20+ 로봇 진공 지원 추가"
 	}
 }

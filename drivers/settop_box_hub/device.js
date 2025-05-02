@@ -16,7 +16,7 @@ class STBHubDevice extends HubDevice
 
 		if (!this.hasCapability('volume_mute'))
 		{
-			this.addCapability('volume_mute');
+			this.addCapability('volume_mute').catch(this.error);;
 		}
 		this.registerCapabilityListener('power_on', this.onCapabilityCommand.bind(this, 'turnOn'));
 		this.registerCapabilityListener('power_off', this.onCapabilityCommand.bind(this, 'turnOff'));

@@ -24,7 +24,7 @@ class PresenceHubDevice extends HubDevice
 		// }
 
 		const dd = this.getData();
-		this.homey.app.registerHomeyWebhook(dd.id);
+		this.homey.app.registerHomeyWebhook(dd.id).catch(this.error);
 
 		this.log('PresenceHubDevice has been initialising');
 	}
@@ -76,13 +76,20 @@ class PresenceHubDevice extends HubDevice
 				{
 					if (!this.hasCapability('measure_battery'))
 					{
-						await this.addCapability('measure_battery');
+						try
+						{
+							await this.addCapability('measure_battery');
+						}
+						catch (err)
+						{
+							this.log(err);
+						}
 					}
 
 					this.setCapabilityValue('measure_battery', data.battery).catch(this.error);
 				}
 			}
-			this.unsetWarning();
+			this.unsetWarning().catch(this.error);;
 		}
 		catch (err)
 		{
@@ -105,7 +112,15 @@ class PresenceHubDevice extends HubDevice
 				{
 					if (!this.hasCapability('measure_battery'))
 					{
-						await this.addCapability('measure_battery');
+						try
+						{
+							await this.addCapability('measure_battery');
+						}
+						catch (err)
+						{
+							this.log(err);
+						}
+
 					}
 
 					this.setCapabilityValue('measure_battery', message.context.battery).catch(this.error);

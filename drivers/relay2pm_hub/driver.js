@@ -4,7 +4,7 @@
 
 const HubDriver = require('../hub_driver');
 
-class StripLightDriver extends HubDriver
+class Relay2pmDriver extends HubDriver
 {
 
 	/**
@@ -13,7 +13,7 @@ class StripLightDriver extends HubDriver
 	async onOAuth2Init()
 	{
 		super.onOAuth2Init();
-		this.log('StripLightDriver has been initialized');
+		this.log('Relay2pmDriver has been initialized');
 	}
 
 	/**
@@ -22,9 +22,9 @@ class StripLightDriver extends HubDriver
 	 */
 	async onPairListDevices({ oAuth2Client })
 	{
-		return this.getHUBDevices(oAuth2Client, ['Strip Light', 'Strip Light 3'], false, false);
+		return this.getHUBDevices(oAuth2Client, 'Relay Switch 2PM');
 	}
 
 }
 
-module.exports = StripLightDriver;
+module.exports = Relay2pmDriver;

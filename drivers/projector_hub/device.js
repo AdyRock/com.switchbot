@@ -16,7 +16,7 @@ class TVProjectorDevice extends HubDevice
 
 		if (!this.hasCapability('volume_mute'))
 		{
-			this.addCapability('volume_mute');
+			this.addCapability('volume_mute').catch(this.error);;
 		}
 
 		this.registerCapabilityListener('power_on', this.onCapabilityCommand.bind(this, 'turnOn'));

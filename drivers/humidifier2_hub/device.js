@@ -27,7 +27,7 @@ class HumidityHubDevice extends HubDevice
 		this.registerMultipleCapabilityListener(['humidifier_mode', 'target_humidity'], this.onCapabilityMode.bind(this));
 
 		const dd = this.getData();
-		this.homey.app.registerHomeyWebhook(dd.id);
+		this.homey.app.registerHomeyWebhook(dd.id).catch(this.error);
 
 		this.log('HumidityHubDevice has been initialising');
 	}
@@ -108,7 +108,7 @@ class HumidityHubDevice extends HubDevice
 				this.setCapabilityValue('filter_used_time', data.filterElement.usedHours).catch(this.error);
 				this.setCapabilityValue('child_lock', data.childLock).catch(this.error);
 			}
-			this.unsetWarning();
+			this.unsetWarning().catch(this.error);
 		}
 		catch (err)
 		{

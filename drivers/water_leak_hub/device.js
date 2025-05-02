@@ -24,7 +24,7 @@ class WaterLeakHubDevice extends HubDevice
 		// }
 
 		const dd = this.getData();
-		this.homey.app.registerHomeyWebhook(dd.id);
+		this.homey.app.registerHomeyWebhook(dd.id).catch(this.error);
 
 		this.log('WaterLeakHubDevice has been initialising');
 	}
@@ -64,7 +64,7 @@ class WaterLeakHubDevice extends HubDevice
 					this.setCapabilityValue('measure_battery', data.battery).catch(this.error);
 				}
 			}
-			this.unsetWarning();
+			this.unsetWarning().catch(this.error);;
 		}
 		catch (err)
 		{

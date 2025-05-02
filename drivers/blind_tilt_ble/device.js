@@ -14,15 +14,15 @@ class BlindTiltBLEDevice extends Homey.Device
 	{
 		if (!this.hasCapability('open_close'))
 		{
-			this.addCapability('open_close');
+			this.addCapability('open_close').catch(this.error);;
 		}
 		if (!this.hasCapability('position'))
 		{
-			this.addCapability('position');
+			this.addCapability('position').catch(this.error);;
 		}
 		if (this.hasCapability('onoff'))
 		{
-			this.removeCapability('onoff');
+			this.removeCapability('onoff').catch(this.error);;
 		}
 
 		this.bestRSSI = 100;

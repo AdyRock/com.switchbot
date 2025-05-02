@@ -26,7 +26,7 @@ class PlugHubDevice extends HubDevice
 		// }
 
 		const dd = this.getData();
-		this.homey.app.registerHomeyWebhook(dd.id);
+		this.homey.app.registerHomeyWebhook(dd.id).catch(this.error);
 
 		this.log('PlugHubDevice has been initialized');
 	}
@@ -96,7 +96,7 @@ class PlugHubDevice extends HubDevice
 					this.setCapabilityValue('measure_voltage', data.voltage).catch(this.error);
 				}
 			}
-			this.unsetWarning();
+			this.unsetWarning().catch(this.error);;
 		}
 		catch (err)
 		{

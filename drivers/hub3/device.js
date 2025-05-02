@@ -17,7 +17,7 @@ class Hub3Device extends HubDevice
 		const dd = this.getData();
 		this.setCapabilityOptions('measure_luminance', { title: this.homey.__('capabilities.brightness'), units: '%' }).catch(this.error);
 
-		this.homey.app.registerHomeyWebhook(dd.id);
+		this.homey.app.registerHomeyWebhook(dd.id).catch(this.error);
 
 		this.log('Hub3Device has been initialized');
 	}
@@ -56,7 +56,7 @@ class Hub3Device extends HubDevice
 				this.setCapabilityValue('measure_luminance', data.lightLevel * 5).catch(this.error);
 				this.setCapabilityValue('alarm_motion', data.detectionState === 'DETECTED').catch(this.error);
 			}
-			this.unsetWarning();
+			this.unsetWarning().catch(this.error);;
 		}
 		catch (err)
 		{

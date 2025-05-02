@@ -45,7 +45,7 @@
         {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=robot_vaccum_hub"
+            "filter": "driver_id=robot_vaccum_hub|driver_id=robot_vaccum_K20_hub"
         },
     {
       "name": "power",

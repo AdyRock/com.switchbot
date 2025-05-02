@@ -140,6 +140,7 @@ class MyApp extends OAuth2App
 		this.bleBusy = false;
 		this.devicesMACs = [];
 		this.webRegTimerID = null;
+		this.processWebhookMessage.bind(this);
 
 		this.numConnections = this.homey.settings.get('numConnections');
 		if (!this.numConnections)
@@ -194,6 +195,7 @@ class MyApp extends OAuth2App
 		{
 			// For cloud debugging only
 			this.logLevel = 3;
+			this.homey.settings.set('logLevel', this.logLevel);
 			this.homeyIP = null;
 		}
 
@@ -480,8 +482,13 @@ class MyApp extends OAuth2App
 		humidifierModeAction
 			.registerRunListener(async (args, state) =>
 			{
-				args.device.onCapabilityMode(parseInt(args.mode, 10));
-				return args.device.onCapabilityTargetHumidity(parseInt(args.humidity, 10));
+				args.device.setCapabilityValue('measure_humidity', parseInt(args.humidity, 10));
+				args.device.setCapabilityValue('humidifier_mode', parseInt(args.mode, 10));
+				const valueObj = {
+					humidifier_mode: parseInt(args.mode, 10),
+					target_humidity: parseInt(args.humidity, 10),
+				}
+				return args.device.onCapabilityMode(valueObj);
 			});
 
 		const windowCoversAction = this.homey.flow.getActionCard('windowcoverings_custom_set');
@@ -588,6 +595,7 @@ class MyApp extends OAuth2App
 
 	updateLog(newMessage, errorLevel = 2)
 	{
+		this.logLevel = this.homey.settings.get('logLevel');
 		if (errorLevel <= this.logLevel)
 		{
 			const nowTime = new Date(Date.now());

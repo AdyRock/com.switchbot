@@ -18,12 +18,12 @@ class LockHubDevice extends HubDevice
 
 		if (!this.hasCapability('alarm_generic'))
 		{
-			this.addCapability('alarm_generic');
+			this.addCapability('alarm_generic').catch(this.error);;
 		}
 
 		if (!this.hasCapability('alarm_contact'))
 		{
-			this.addCapability('alarm_contact');
+			this.addCapability('alarm_contact').catch(this.error);;
 		}
 
 		// try
@@ -36,7 +36,7 @@ class LockHubDevice extends HubDevice
 		// }
 
 		const dd = this.getData();
-		this.homey.app.registerHomeyWebhook(dd.id);
+		this.homey.app.registerHomeyWebhook(dd.id).catch(this.error);
 
 		this.log('LockHubDevice has been initialized');
 	}
@@ -83,7 +83,7 @@ class LockHubDevice extends HubDevice
 			commandType: 'command',
 		};
 
-		return super.setDeviceData(data);
+		return super.setDeviceData(data).catch(this.error);
 	}
 
 	async getHubDeviceValues()
@@ -104,13 +104,20 @@ class LockHubDevice extends HubDevice
 				{
 					if (!this.hasCapability('measure_battery'))
 					{
-						await this.addCapability('measure_battery');
+						try
+						{
+							await this.addCapability('measure_battery');
+						}
+						catch (err)
+						{
+							this.log(err);
+						}
 					}
 
 					this.setCapabilityValue('measure_battery', data.battery).catch(this.error);
 				}
 			}
-			this.unsetWarning();
+			this.unsetWarning().catch(this.error);;
 		}
 		catch (err)
 		{
@@ -140,7 +147,15 @@ class LockHubDevice extends HubDevice
 				{
 					if (!this.hasCapability('measure_battery'))
 					{
-						await this.addCapability('measure_battery');
+						try
+						{
+							await this.addCapability('measure_battery');
+						}
+						catch (err)
+						{
+							this.log(err);
+						}
+
 					}
 
 					this.setCapabilityValue('measure_battery', message.context.battery).catch(this.error);

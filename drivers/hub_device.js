@@ -20,7 +20,7 @@ class HubDevice extends OAuth2Device
 
 		if (this.hasCapability('button.send_log'))
 		{
-			this.removeCapability('button.send_log');
+			this.removeCapability('button.send_log').catch(this.error);
 		}
 
 		if (!this.pollHubDeviceValues)
@@ -28,9 +28,9 @@ class HubDevice extends OAuth2Device
 			// Set a random timer to fetch initial values from the hub device
 			const randomDelay = Math.floor(Math.random() * 10000) + 5000; // between 5 and 15 seconds
 			this.homey.app.updateLog(`fetch initial values in ${randomDelay} ms`, 3);
-			setTimeout(() =>
+			this.homey.setTimeout(() =>
 			{
-				this.getHubDeviceValues();
+				this.getHubDeviceValues().catch(this.error);
 			}
 			, randomDelay);
 		}
@@ -128,7 +128,14 @@ class HubDevice extends OAuth2Device
 		}
 
 		this.homey.app.updateLog(`Sending ${this.homey.app.varToString(data)} to ${dd.id} using API key`, 3);
-		result = await this.homey.app.hub.setDeviceData(dd.id, data);
+		try
+		{
+			result = await this.homey.app.hub.setDeviceData(dd.id, data);
+		}
+		catch(err)
+		{
+			this.log(err);
+		}
 		this.homey.app.updateLog(`Success sending command to ${dd.id} using API key`);
 		return result;
 	}

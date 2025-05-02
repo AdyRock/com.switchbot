@@ -58,7 +58,7 @@
 		{
 			"type": "device",
 			"name": "device",
-			"filter": "driver_id=robot_vacuum_S10_hub"
+			"filter": "driver_id=robot_vacuum_S10_hub|robot_vaccum_K20_hub"
 		}
 	]
 }

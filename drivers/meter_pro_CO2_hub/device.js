@@ -25,7 +25,7 @@ class TemperatureHubDevice extends HubDevice
 		// 	this.setUnavailable(err.message);
 		// }
 
-		this.homey.app.registerHomeyWebhook(dd.id);
+		this.homey.app.registerHomeyWebhook(dd.id).catch(this.error);
 
 		this.log('TemperatureHubDevice has been initialized');
 	}
@@ -63,7 +63,7 @@ class TemperatureHubDevice extends HubDevice
 				this.setCapabilityValue('measure_co2', data.CO2).catch(this.error);
 				this.setCapabilityValue('measure_battery', data.battery).catch(this.error);
 			}
-			this.unsetWarning();
+			this.unsetWarning().catch(this.error);;
 		}
 		catch (err)
 		{

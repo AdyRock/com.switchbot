@@ -14,19 +14,19 @@ class CurtainsBLEDevice extends Homey.Device
 	{
 		if (!this.hasCapability('position'))
 		{
-			this.addCapability('position');
+			this.addCapability('position').catch(this.error);;
 		}
 		if (this.hasCapability('onoff'))
 		{
-			this.removeCapability('onoff');
+			this.removeCapability('onoff').catch(this.error);;
 		}
 		if (!this.hasCapability('light_level'))
 		{
-			this.addCapability('light_level');
+			this.addCapability('light_level').catch(this.error);;
 		}
 		if (!this.hasCapability('windowcoverings_state'))
 		{
-			this.addCapability('windowcoverings_state');
+			this.addCapability('windowcoverings_state').catch(this.error);;
 		}
 
 		this.bestRSSI = 100;

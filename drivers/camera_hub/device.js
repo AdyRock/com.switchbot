@@ -15,7 +15,7 @@ class CameraHubDevice extends HubDevice
 		await super.onInit();
 
 		const dd = this.getData();
-		this.homey.app.registerHomeyWebhook(dd.id);
+		this.homey.app.registerHomeyWebhook(dd.id).catch(this.error);
 
 		this.log('CameraHubDevice has been initialising');
 	}

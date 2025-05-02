@@ -28,7 +28,7 @@ class AirPurifierHubDevice extends HubDevice
 		this.registerMultipleCapabilityListener(['air_purifier_mode', 'fan_level'], this.onCapabilityMode.bind(this));
 
 		const dd = this.getData();
-		this.homey.app.registerHomeyWebhook(dd.id);
+		this.homey.app.registerHomeyWebhook(dd.id).catch(this.error);
 
 		this.log('AirPurifierHubDevice has been initialising');
 	}
@@ -102,7 +102,7 @@ class AirPurifierHubDevice extends HubDevice
 				this.setCapabilityValue('air_purifier_mode', data.mode.toString()).catch(this.error);
 				this.setCapabilityValue('child_lock', (data.childLock === 1)).catch(this.error);
 			}
-			this.unsetWarning();
+			this.unsetWarning().catch(this.error);
 		}
 		catch (err)
 		{

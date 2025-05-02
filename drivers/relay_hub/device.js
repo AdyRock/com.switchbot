@@ -18,25 +18,25 @@ class RelayHubDevice extends HubDevice
 		this.registerCapabilityListener('onoff', this.onCapabilityOnOff.bind(this));
 
 		const dd = this.getData();
-		this.homey.app.registerHomeyWebhook(dd.id);
+		this.homey.app.registerHomeyWebhook(dd.id).catch(this.error);
 
 		if (dd.type === 'Relay Switch 1')
 		{
 			if (this.hasCapability('measure_voltage'))
 			{
-				this.removeCapability('measure_voltage');
+				this.removeCapability('measure_voltage').catch(this.error);
 			}
 			if (this.hasCapability('measure_power'))
 			{
-				this.removeCapability('measure_power');
+				this.removeCapability('measure_power').catch(this.error);
 			}
 			if (this.hasCapability('measure_current'))
 			{
-				this.removeCapability('measure_current');
+				this.removeCapability('measure_current').catch(this.error);
 			}
 			if (this.hasCapability('meter_power'))
 			{
-				this.removeCapability('meter_power');
+				this.removeCapability('meter_power').catch(this.error);
 			}
 		}
 
@@ -133,7 +133,7 @@ class RelayHubDevice extends HubDevice
 					this.setCapabilityValue('meter_power', data.usedElectricity).catch(this.error);
 				}
 			}
-			this.unsetWarning();
+			this.unsetWarning().catch(this.error);;
 		}
 		catch (err)
 		{

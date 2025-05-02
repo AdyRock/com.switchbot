@@ -16,7 +16,14 @@ class HumidityHubDevice extends HubDevice
 
 		if (!this.hasCapability('alarm_water'))
 		{
-			await this.addCapability('alarm_water');
+			try
+			{
+				await this.addCapability('alarm_water');
+			}
+			catch (err)
+			{
+				this.log(err.message);
+			}
 		}
 
 		// try
@@ -103,7 +110,7 @@ class HumidityHubDevice extends HubDevice
 				this.setCapabilityValue('measure_humidity', data.humidity).catch(this.error);
 				this.setCapabilityValue('alarm_water', data.lackWater).catch(this.error);
 			}
-			this.unsetWarning();
+			this.unsetWarning().catch(this.error);;
 		}
 		catch (err)
 		{

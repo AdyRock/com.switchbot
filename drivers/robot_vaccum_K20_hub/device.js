@@ -33,7 +33,7 @@ class VacuumK20HubDevice extends HubDevice
 		this.registerCapabilityListener('vaccum_clean_mode2', this.onCapabilityCleanMode.bind(this));
 
 		const dd = this.getData();
-		this.homey.app.registerHomeyWebhook(dd.id);
+		this.homey.app.registerHomeyWebhook(dd.id).catch(this.error);
 
 		this.log('VacuumK20HubDevice has been initialising');
 	}
@@ -215,13 +215,20 @@ class VacuumK20HubDevice extends HubDevice
 				{
 					if (!this.hasCapability('measure_battery'))
 					{
-						await this.addCapability('measure_battery');
+						try
+						{
+							await this.addCapability('measure_battery');
+						}
+						catch (err)
+						{
+							this.log(err);
+						}
 					}
 
 					this.setCapabilityValue('measure_battery', data.battery).catch(this.error);
 				}
 
-				this.unsetWarning();
+				this.unsetWarning().catch(this.error);;
 			}
 		}
 		catch (err)
@@ -304,7 +311,15 @@ class VacuumK20HubDevice extends HubDevice
 					{
 						if (!this.hasCapability('measure_battery'))
 						{
-							await this.addCapability('measure_battery');
+							try
+							{
+								await this.addCapability('measure_battery');
+							}
+							catch (err)
+							{
+								this.log(err);
+							}
+
 						}
 
 						this.setCapabilityValue('measure_battery', data.battery).catch(this.error);

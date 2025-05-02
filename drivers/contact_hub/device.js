@@ -15,7 +15,7 @@ class ContactHubDevice extends HubDevice
 		await super.onInit();
 		if (!this.hasCapability('direction'))
 		{
-			this.addCapability('direction');
+			this.addCapability('direction').catch(this.error);;
 		}
 
 		// try
@@ -28,7 +28,7 @@ class ContactHubDevice extends HubDevice
 		// }
 
 		const dd = this.getData();
-		this.homey.app.registerHomeyWebhook(dd.id);
+		this.homey.app.registerHomeyWebhook(dd.id).catch(this.error);
 
 		this.log('ContactHubDevice has been initialising');
 	}
@@ -76,13 +76,20 @@ class ContactHubDevice extends HubDevice
 				{
 					if (!this.hasCapability('measure_battery'))
 					{
-						await this.addCapability('measure_battery');
+						try
+						{
+							await this.addCapability('measure_battery');
+						}
+						catch(err)
+						{
+							this.log(err);
+						}
 					}
 
 					this.setCapabilityValue('measure_battery', data.battery).catch(this.error);
 				}
 			}
-			this.unsetWarning();
+			this.unsetWarning().catch(this.error);;
 		}
 		catch (err)
 		{
@@ -123,7 +130,14 @@ class ContactHubDevice extends HubDevice
 				{
 					if (!this.hasCapability('measure_battery'))
 					{
-						await this.addCapability('measure_battery');
+						try
+						{
+							await this.addCapability('measure_battery');
+						}
+						catch (err)
+						{
+							this.log(err);
+						}
 					}
 
 					this.setCapabilityValue('measure_battery', message.context.battery).catch(this.error);

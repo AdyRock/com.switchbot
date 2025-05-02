@@ -37,7 +37,7 @@ class LightHubDevice extends HubDevice
 		// }
 
 		const dd = this.getData();
-		this.homey.app.registerHomeyWebhook(dd.id);
+		this.homey.app.registerHomeyWebhook(dd.id).catch(this.error);
 	}
 
 	// this method is called when the Homey device switches the device on or off
@@ -227,7 +227,7 @@ class LightHubDevice extends HubDevice
 					this.setCapabilityValue('light_hue', hsl[0] / 360).catch(this.error);
 					this.setCapabilityValue('light_saturation', hsl[1] / 100).catch(this.error);
 				}
-				this.unsetWarning();
+				this.unsetWarning().catch(this.error);
 			}
 		}
 		catch (err)
@@ -247,7 +247,22 @@ class LightHubDevice extends HubDevice
 				// message is for this device
 				this.setCapabilityValue('onoff', message.context.powerState === 'ON').catch(this.error);
 				this.setCapabilityValue('dim', message.context.brightness / 100).catch(this.error);
-				if (message.context.colorTemperature && (message.context.colorTemperature >= 2700))
+
+				let color = '';
+				if (message.context.color)
+				{
+					if (Array.isArray(message.context.color))
+					{
+						color = message.context.color[0];
+					}
+					else
+					{
+						color = message.context.color;
+					}
+				}
+
+				// If the color is an array and all the entries are '0:0:0', then the temperature mode is active
+				if (message.context.colorTemperature && message.context.colorTemperature >= 2700 && color === '0:0:0')
 				{
 					this.setCapabilityValue('light_mode', 'temperature').catch(this.error);
 					this.setCapabilityValue('light_temperature', 1 - (message.context.colorTemperature - 2700) / (6500 - 2700)).catch(this.error);
@@ -258,7 +273,7 @@ class LightHubDevice extends HubDevice
 					{
 						this.setCapabilityValue('light_mode', 'color').catch(this.error);
 					}
-					const rgb = message.context.color.split(':');
+					const rgb = color.split(':');
 					const hsl = this.rgbToHsl(rgb[0], rgb[1], rgb[2]);
 
 					this.setCapabilityValue('light_hue', hsl[0] / 360).catch(this.error);

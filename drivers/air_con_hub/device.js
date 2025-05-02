@@ -19,24 +19,24 @@ class AirConHubDevice extends HubDevice
 
 		if (this.hasCapability('onoff'))
 		{
-			this.removeCapability('onoff');
-			this.addCapability('power_on');
-			this.addCapability('power_off');
+			this.removeCapability('onoff').catch(this.error);
+			this.addCapability('power_on').catch(this.error);
+			this.addCapability('power_off').catch(this.error);
 		}
 
 		if (this.diy)
 		{
 			if (this.hasCapability('target_temperature'))
 			{
-				this.removeCapability('target_temperature');
+				this.removeCapability('target_temperature').catch(this.error);;
 			}
 			if (this.hasCapability('aircon_mode'))
 			{
-				this.removeCapability('aircon_mode');
+				this.removeCapability('aircon_mode').catch(this.error);;
 			}
 			if (this.hasCapability('aircon_fan_speed'))
 			{
-				this.removeCapability('aircon_fan_speed');
+				this.removeCapability('aircon_fan_speed').catch(this.error);;
 			}
 		}
 		else
