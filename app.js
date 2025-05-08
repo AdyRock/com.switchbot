@@ -483,7 +483,7 @@ class MyApp extends OAuth2App
 			.registerRunListener(async (args, state) =>
 			{
 				args.device.setCapabilityValue('measure_humidity', parseInt(args.humidity, 10));
-				args.device.setCapabilityValue('humidifier_mode', parseInt(args.mode, 10));
+				args.device.setCapabilityValue('humidifier_mode', args.mode);
 				const valueObj = {
 					humidifier_mode: parseInt(args.mode, 10),
 					target_humidity: parseInt(args.humidity, 10),

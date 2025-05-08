@@ -650,5 +650,18 @@
 		"pl": "Dodano obsługę Realy 2PM, Hub 3, LED strip 3 i K20+ robot vacuum",
 		"ru": "Добавлена поддержка Realy 2PM, Hub 3, LED strip 3 и K20+ robot vacuum",
 		"ko": "Realy 2PM, Hub 3, LED 스트립 3 및 K20+ 로봇 진공 지원 추가"
+	},
+	"2.0.29": {
+		"en": "Fix issue with Humidifier set mode Flow card.",
+		"no": "Fikset problem med å sette modus for luftfukter flytkort.",
+		"nl": "Probleem opgelost met het instellen van de modus van de luchtbevochtiger Flow-kaart.",
+		"de": "Problem mit dem Modus-Flow-Karten-Set für Luftbefeuchter behoben.",
+		"fr": "Correction d'un problème avec la carte de flux de réglage du mode de l'humidificateur.",
+		"es": "Se corrigió el problema con la tarjeta de flujo de configuración de modo del humidificador.",
+		"pt": "Corrigido problema com o cartão de fluxo de configuração de modo do umidificador.",
+		"it": "Risolto il problema con la scheda di flusso di impostazione della modalità dell'umidificatore.",
+		"pl": "Naprawiono problem z kartą przepływu ustawienia trybu nawilżacza.",
+		"ru": "Исправлена проблема с картой потока установки режима увлажнителя.",
+		"ko": "가습기 모드 설정 플로우 카드 문제 수정."
 	}
 }

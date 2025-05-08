@@ -103,7 +103,7 @@ class HumidityHubDevice extends HubDevice
 
 				this.setCapabilityValue('onoff', data.power === 'on').catch(this.error);
 				this.setCapabilityValue('humidifier_mode', data.mode).catch(this.error);
-				this.setCapabilityValue('measure_humidity', data.humidity).catch(this.error);
+				this.setCapabilityValue('measure_humidity', data.humidity.toString()).catch(this.error);
 				this.setCapabilityValue('filter_life', data.filterElement.effectiveUsageHours).catch(this.error);
 				this.setCapabilityValue('filter_used_time', data.filterElement.usedHours).catch(this.error);
 				this.setCapabilityValue('child_lock', data.childLock).catch(this.error);
