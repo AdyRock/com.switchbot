@@ -663,5 +663,18 @@
 		"pl": "Naprawiono problem z kartą przepływu ustawienia trybu nawilżacza.",
 		"ru": "Исправлена проблема с картой потока установки режима увлажнителя.",
 		"ko": "가습기 모드 설정 플로우 카드 문제 수정."
+	},
+	"2.0.30": {
+		"en": "Remove overide of console logging",
+		"no": "Fjern overstyring av konsolllogging",
+		"nl": "Verwijder overide van console logging",
+		"de": "Entfernen Sie die Übersteuerung der Konsolenprotokollierung",
+		"fr": "Supprimer la surcharge de la journalisation de la console",
+		"es": "Eliminar la sobrecarga de la consola de registro",
+		"pt": "Remover sobrecarga de registro de console",
+		"it": "Rimuovi l'override della registrazione della console",
+		"pl": "Usuń nadpisanie rejestrowania konsoli",
+		"ru": "Удалить переопределение ведения журнала консоли",
+		"ko": "콘솔 로깅 재정의 제거"
 	}
 }

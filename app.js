@@ -122,7 +122,7 @@ class MyApp extends OAuth2App
 	 */
 	async onOAuth2Init()
 	{
-		this.overrideLoggingMethods();
+//		this.overrideLoggingMethods();
 
 		this.log('SwitchBot has been initialized');
 		this.logLevel = this.homey.settings.get('logLevel');
