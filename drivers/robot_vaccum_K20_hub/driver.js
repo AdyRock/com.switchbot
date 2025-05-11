@@ -42,7 +42,7 @@ class HubVacuumK20Driver extends HubDriver
 
 	async onPairListDevices({ oAuth2Client })
 	{
-		return this.getHUBDevices(oAuth2Client, ['Robot Vacuum Cleaner K20 Plus Pro']);
+		return this.getHUBDevices(oAuth2Client, ['Robot Vacuum Cleaner K20 Plus Pro', 'K10+ Pro Combo']);
 	}
 
 	async triggerStateChanged(device, tokens, state)

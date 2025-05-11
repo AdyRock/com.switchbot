@@ -31,7 +31,7 @@ class HubVacuumDriver extends HubDriver
 
 	async onPairListDevices({ oAuth2Client })
 	{
-		return this.getHUBDevices(oAuth2Client, ['WoSweeper', 'WoSweeperMini', 'K10+']);
+		return this.getHUBDevices(oAuth2Client, ['WoSweeper', 'WoSweeperMini', 'K10+', 'K10+ Pro']);
 	}
 
 	async triggerStateChanged(device, tokens, state)

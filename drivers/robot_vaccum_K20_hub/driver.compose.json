@@ -1,17 +1,17 @@
 {
 	"name": {
-		"en": "Robot Vacuum K20+ Pro (HUB)",
-		"no": "Robotstøvsuger K20+ Pro (HUB)",
-		"nl": "Robotstofzuiger K20+ Pro (HUB)",
-		"da": "Robotstøvsuger K20+ Pro (HUB)",
-		"de": "Roboterstaubsauger K20+ Pro (HUB)",
-		"es": "Aspiradora Robot K20+ Pro (HUB)",
-		"fr": "Aspirateur Robot K20+ Pro (HUB)",
-		"it": "Aspirapolvere Robot K20+ Pro (HUB)",
-		"sv": "Robotdammsugare K20+ Pro (HUB)",
-		"pl": "Odkurzacz robotyczny K20+ Pro (HUB)",
-		"ru": "Робот-пылесос K20+ Pro (HUB)",
-		"ko": "로봇 청소기 K20+ Pro (HUB)"
+		"en": "K10+ Pro Combo, K20+ Pro",
+		"no": "K10+ Pro Combo, K20+ Pro",
+		"nl": "K10+ Pro Combo, K20+ Pro",
+		"da": "K10+ Pro Combo, K20+ Pro",
+		"de": "K10+ Pro Combo, K20+ Pro",
+		"es": "K10+ Pro Combo, K20+ Pro",
+		"fr": "K10+ Pro Combo, K20+ Pro",
+		"it": "K10+ Pro Combo, K20+ Pro",
+		"sv": "K10+ Pro Combo, K20+ Pro",
+		"pl": "K10+ Pro Combo, K20+ Pro",
+		"ru": "K10+ Pro Combo, K20+ Pro",
+		"ko": "K10+ Pro Combo, K20+ Pro"
 	},
 	"class": "vacuumcleaner",
 	"capabilities": [

@@ -1,18 +1,18 @@
 {
   "id": "robot_vacuum_S10_hub",
   "name": {
-    "en": "Robot Floor Cleaner S10 (HUB)",
-	"no": "Robot Gulvvasker S10 (HUB)",
-	"nl": "Robot Vloerreiniger S10 (HUB)",
-	"da": "Robot Gulvrenser S10 (HUB)",
-	"de": "Roboter Bodenreiniger S10 (HUB)",
-	"es": "Robot Limpiador de Suelos S10 (HUB)",
-	"fr": "Robot Nettoyeur de Sol S10 (HUB)",
-	"it": "Robot Pulitore per Pavimenti S10 (HUB)",
-	"sv": "Robot Golvrenare S10 (HUB)",
-	"pl": "Robot Odkurzacz S10 (HUB)",
-	"ru": "Робот-пылесос S10 (HUB)",
-	"ko": "로봇 바닥 청소기 S10 (HUB)"
+    "en": "S10 Floor Cleaner",
+	"no": "S10 Gulvvasker",
+	"nl": "S10 Vloerreiniger",
+	"da": "S10 Gulvrenser",
+	"de": "S10 Bodenreiniger",
+	"es": "S10 Limpiador de Suelos",
+	"fr": "S10 Nettoyeur de Sol",
+	"it": "S10 Pulitore per Pavimenti",
+	"sv": "S10 Golvrenare",
+	"pl": "S10 Odkurzacz",
+	"ru": "S10 Робот-пылесос",
+	"ko": "S10 로봇 바닥 청소기"
   },
   "class": "vacuumcleaner",
   "capabilities": [

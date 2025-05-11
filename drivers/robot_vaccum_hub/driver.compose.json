@@ -1,18 +1,18 @@
 {
   "id": "robot_vacum_hub",
   "name": {
-    "en": "Robot Vacuum (HUB)",
-    "no": "Robotstøvsuger (HUB)",
-    "nl": "Robotstofzuiger (HUB)",
-    "da": "Robotstøvsuger (HUB)",
-    "de": "Roboterstaubsauger (HUB)",
-    "es": "Aspiradora Robot (HUB)",
-    "fr": "Aspirateur Robot (HUB)",
-    "it": "Aspirapolvere Robot (HUB)",
-    "sv": "Robotdammsugare (HUB)",
-    "pl": "Odkurzacz robotyczny (HUB)",
-    "ru": "Робот-пылесос (HUB)",
-    "ko": "로봇 청소기 (HUB)"
+    "en": "S1, S1+, K10+, K10+ Pro",
+    "no": "S1, S1+, K10+, K10+ Pro",
+    "nl": "S1, S1+, K10+, K10+ Pro",
+    "da": "S1, S1+, K10+, K10+ Pro",
+    "de": "S1, S1+, K10+, K10+ Pro",
+    "es": "S1, S1+, K10+, K10+ Pro",
+    "fr": "S1, S1+, K10+, K10+ Pro",
+    "it": "S1, S1+, K10+, K10+ Pro",
+    "sv": "S1, S1+, K10+, K10+ Pro",
+    "pl": "S1, S1+, K10+, K10+ Pro",
+    "ru": "S1, S1+, K10+, K10+ Pro",
+    "ko": "S1, S1+, K10+, K10+ Pro"
   },
   "class": "vacuumcleaner",
   "capabilities": [

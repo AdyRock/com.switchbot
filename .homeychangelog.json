@@ -676,5 +676,18 @@
 		"pl": "Usuń nadpisanie rejestrowania konsoli",
 		"ru": "Удалить переопределение ведения журнала консоли",
 		"ko": "콘솔 로깅 재정의 제거"
+	},
+	"2.0.31": {
+		"en": "Added / fixed support for K10+, K10+ Pro and K10+ Pro Combo",
+		"no": "Lagt til støtte for K10+, K10+ Pro og K10+ Pro Combo",
+		"nl": "Ondersteuning toegevoegd voor K10+, K10+ Pro en K10+ Pro Combo",
+		"de": "Unterstützung für K10+, K10+ Pro und K10+ Pro Combo hinzugefügt",
+		"fr": "Ajout de la prise en charge de K10+, K10+ Pro et K10+ Pro Combo",
+		"es": "Agregado soporte para K10+, K10+ Pro y K10+ Pro Combo",
+		"pt": "Adicionado suporte para K10+, K10+ Pro e K10+ Pro Combo",
+		"it": "Aggiunto supporto per K10+, K10+ Pro e K10+ Pro Combo",
+		"pl": "Dodano obsługę K10+, K10+ Pro i K10+ Pro Combo",
+		"ru": "Добавлена поддержка K10+, K10+ Pro и K10+ Pro Combo",
+		"ko": "K10+, K10+ Pro 및 K10+ Pro Combo 지원 추가"
 	}
 }
