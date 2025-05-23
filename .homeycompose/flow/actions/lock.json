@@ -1,0 +1,27 @@
+{
+  "title": {
+    "en": "Lock",
+	"no": "Lås",
+	"nl": "Slot",
+	"da": "Lås",
+	"de": "Schloss",
+	"es": "Bloquear",
+	"fr": "Verrouiller",
+	"it": "Bloccare",
+	"sv": "Låsa",
+	"pl": "Zablokować",
+	"ru": "Заблокировать",
+	"ko": "잠금"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=lock_ultra_hub"
+    }
+  ],
+  "platforms": [
+    "local",
+    "cloud"
+  ]
+}

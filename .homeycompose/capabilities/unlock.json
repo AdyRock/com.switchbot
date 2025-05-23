@@ -1,0 +1,21 @@
+{
+	"type": "boolean",
+	"getable": false,
+	"setable": true,
+	"uiComponent": "button",
+	"title": {
+		"en": "Unlock",
+		"no": "Lås opp",
+		"nl": "Slot ontgrendelen",
+		"da": "Lås op",
+		"de": "Schloss entriegeln",
+		"es": "Desbloquear",
+		"fr": "Déverrouiller",
+		"it": "Sbloccare",
+		"sv": "Lås upp",
+		"pl": "Odblokować",
+		"ru": "Разблокировать",
+		"ko": "잠금 해제"
+	},
+	"icon": "/assets/unlocked.svg"
+}

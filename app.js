@@ -505,6 +505,20 @@ class MyApp extends OAuth2App
 				return args.device.startVacuum(args.action, parseInt(args.fanPower, 10), parseInt(args.waterLevel, 10), parseInt(args.times, 10));
 			});
 
+		const lockAction = this.homey.flow.getActionCard('lock');
+		lockAction
+			.registerRunListener(async (args, state) =>
+			{
+				return args.device.onCapabilityLock();
+			});
+
+		const unlockAction = this.homey.flow.getActionCard('unlock');
+		unlockAction
+			.registerRunListener(async (args, state) =>
+			{
+				return args.device.onCapabilityUnlock();
+			});
+
 		/** * CONDITIONS ** */
 		this.conditionVaccumStateIs = this.homey.flow.getConditionCard('vaccum_state_is.');
 		this.conditionVaccumStateIs.registerRunListener((args) =>

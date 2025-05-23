@@ -88,5 +88,9 @@
 	"remotecontrol": "Remote Control",
 	"cleanwithexplorer": "Clean with Explorer",
 	"waterfillforhumidify": "Water Fill for Humidify",
-	"markinghumi": "Marking Humidify"
+	"markinghumi": "Marking Humidify",
+	"jammed": "Jammed",
+	"locked": "Locked",
+	"unlocked": "Unlocked",
+	"latchboltlocked": "Latched"
 }

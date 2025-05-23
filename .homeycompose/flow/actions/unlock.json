@@ -1,0 +1,27 @@
+{
+  "title": {
+    "en": "Unlock",
+	"no": "Lås opp",
+	"nl": "Ontgrendelen",
+	"da": "Lås op",
+	"de": "Entsperren",
+	"es": "Desbloquear",
+	"fr": "Déverrouiller",
+	"it": "Sbloccare",
+	"sv": "Låsa upp",
+	"pl": "Odblokować",
+	"ru": "Разблокировать",
+	"ko": "잠금 해제"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=lock_ultra_hub"
+    }
+  ],
+  "platforms": [
+    "local",
+    "cloud"
+  ]
+}

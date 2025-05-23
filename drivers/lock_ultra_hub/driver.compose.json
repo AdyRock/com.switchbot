@@ -1,0 +1,68 @@
+{
+  "id": "lock_hub",
+  "name": {
+    "en": "Lock Ultra(HUB)",
+	"no": "Lås Ultra(HUB)",
+	"nl": "Slot Ultra(HUB)",
+	"da": "Lås Ultra(HUB)",
+	"de": "Schloss Ultra(HUB)",
+	"es": "Cerradura Ultra(HUB)",
+	"fr": "Serrure Ultra(HUB)",
+	"it": "Serratura Ultra(HUB)",
+	"sv": "Lås Ultra(HUB)",
+	"pl": "Zamek Ultra(HUB)",
+	"ru": "Замок Ultra(HUB)",
+	"ko": "잠금 장치 Ultra(HUB)"
+  },
+  "class": "lock",
+  "capabilities": [
+    "lock",
+	"unlock",
+	"locked_status",
+    "alarm_generic",
+    "alarm_contact",
+	"measure_battery"
+  ],
+  "capabilitiesOptions": {
+    "alarm_generic": {
+      "title": {
+        "en": "Door Jammed",
+        "no": "Dør blokkert",
+        "nl": "Deur Vastgelopen",
+        "da": "Dør Fastklemt",
+        "de": "Tür blockiert",
+        "es": "Puerta Atascada",
+        "fr": "Porte Bloquée",
+        "it": "Porta Bloccata",
+        "sv": "Dörr Fastnat",
+        "pl": "Drzwi Zacięte",
+        "ru": "Дверь Заклинило",
+        "ko": "문이 막힘"
+      }
+    },
+    "alarm_contact": {
+      "title": {
+        "en": "Door Open",
+        "no": "Dør åpen",
+        "nl": "Deur Open",
+        "da": "Dør Åben",
+        "de": "Tür Offen",
+        "es": "Puerta Abierta",
+        "fr": "Porte Ouverte",
+        "it": "Porta Aperta",
+        "sv": "Dörr Öppen",
+        "pl": "Drzwi Otwarte",
+        "ru": "Дверь Открыта",
+        "ko": "문 열림"
+      }
+    }
+  },
+  "energy": {
+    "batteries": [
+      "OTHER"
+    ]
+  },
+  "$extends": [
+    "hubDriver"
+  ]
+}

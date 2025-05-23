@@ -918,6 +918,62 @@
       },
       {
         "title": {
+          "en": "Locked",
+          "no": "Låst",
+          "nl": "Slot",
+          "da": "Låst",
+          "de": "Verriegelt",
+          "es": "Bloqueado",
+          "fr": "Verrouillé",
+          "it": "Bloccato",
+          "sv": "Låst",
+          "pl": "Zablokowany",
+          "ru": "Заблокирован",
+          "ko": "잠김"
+        },
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=lock_ultra_hub"
+          }
+        ],
+        "id": "locked"
+      },
+      {
+        "title": {
+          "en": "Unlocked",
+          "no": "Låst opp",
+          "nl": "Ontgrendelen",
+          "da": "Låst op",
+          "de": "Entsperren",
+          "es": "Desbloquear",
+          "fr": "Déverrouiller",
+          "it": "Sbloccare",
+          "sv": "Låsa upp",
+          "pl": "Odblokować",
+          "ru": "Разблокировать",
+          "ko": "잠금 해제"
+        },
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=lock_ultra_hub"
+          }
+        ],
+        "id": "unlocked"
+      },
+      {
+        "title": {
           "en": "Vacuum State Changed",
           "no": "Støvsuger kjøremodus ble endret",
           "nl": "Stofzuigerstatus gewijzigd",
@@ -2300,6 +2356,34 @@
       },
       {
         "title": {
+          "en": "Lock",
+          "no": "Lås",
+          "nl": "Slot",
+          "da": "Lås",
+          "de": "Schloss",
+          "es": "Bloquear",
+          "fr": "Verrouiller",
+          "it": "Bloccare",
+          "sv": "Låsa",
+          "pl": "Zablokować",
+          "ru": "Заблокировать",
+          "ko": "잠금"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=lock_ultra_hub"
+          }
+        ],
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "id": "lock"
+      },
+      {
+        "title": {
           "en": "Toggle Mute",
           "no": "Skru av/på lyd",
           "nl": "Geluid aan/uit",
@@ -3475,6 +3559,34 @@
           "cloud"
         ],
         "id": "stop"
+      },
+      {
+        "title": {
+          "en": "Unlock",
+          "no": "Lås opp",
+          "nl": "Ontgrendelen",
+          "da": "Lås op",
+          "de": "Entsperren",
+          "es": "Desbloquear",
+          "fr": "Déverrouiller",
+          "it": "Sbloccare",
+          "sv": "Låsa upp",
+          "pl": "Odblokować",
+          "ru": "Разблокировать",
+          "ko": "잠금 해제"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=lock_ultra_hub"
+          }
+        ],
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "id": "unlock"
       },
       {
         "id": "windowcoverings_custom_set",
@@ -7019,6 +7131,106 @@
           "template": "login_oauth2"
         }
       ],
+      "icon": "/drivers/lock_ultra_hub/assets/icon.svg",
+      "images": {
+        "large": "/drivers/lock_ultra_hub/assets/images/large.jpg",
+        "small": "/drivers/lock_ultra_hub/assets/images/small.jpg"
+      },
+      "id": "lock_ultra_hub",
+      "name": {
+        "en": "Lock Ultra(HUB)",
+        "no": "Lås Ultra(HUB)",
+        "nl": "Slot Ultra(HUB)",
+        "da": "Lås Ultra(HUB)",
+        "de": "Schloss Ultra(HUB)",
+        "es": "Cerradura Ultra(HUB)",
+        "fr": "Serrure Ultra(HUB)",
+        "it": "Serratura Ultra(HUB)",
+        "sv": "Lås Ultra(HUB)",
+        "pl": "Zamek Ultra(HUB)",
+        "ru": "Замок Ultra(HUB)",
+        "ko": "잠금 장치 Ultra(HUB)"
+      },
+      "class": "lock",
+      "capabilities": [
+        "lock",
+        "unlock",
+        "locked_status",
+        "alarm_generic",
+        "alarm_contact",
+        "measure_battery"
+      ],
+      "capabilitiesOptions": {
+        "alarm_generic": {
+          "title": {
+            "en": "Door Jammed",
+            "no": "Dør blokkert",
+            "nl": "Deur Vastgelopen",
+            "da": "Dør Fastklemt",
+            "de": "Tür blockiert",
+            "es": "Puerta Atascada",
+            "fr": "Porte Bloquée",
+            "it": "Porta Bloccata",
+            "sv": "Dörr Fastnat",
+            "pl": "Drzwi Zacięte",
+            "ru": "Дверь Заклинило",
+            "ko": "문이 막힘"
+          }
+        },
+        "alarm_contact": {
+          "title": {
+            "en": "Door Open",
+            "no": "Dør åpen",
+            "nl": "Deur Open",
+            "da": "Dør Åben",
+            "de": "Tür Offen",
+            "es": "Puerta Abierta",
+            "fr": "Porte Ouverte",
+            "it": "Porta Aperta",
+            "sv": "Dörr Öppen",
+            "pl": "Drzwi Otwarte",
+            "ru": "Дверь Открыта",
+            "ko": "문 열림"
+          }
+        }
+      },
+      "energy": {
+        "batteries": [
+          "OTHER"
+        ]
+      }
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        }
+      ],
       "icon": "/drivers/meter_pro_CO2_hub/assets/icon.svg",
       "images": {
         "large": "/drivers/meter_pro_CO2_hub/assets/images/large.jpg",
@@ -10170,6 +10382,63 @@
       "setable": false,
       "icon": "/assets/brightness.svg"
     },
+    "lock": {
+      "type": "boolean",
+      "getable": false,
+      "setable": true,
+      "uiComponent": "button",
+      "title": {
+        "en": "Lock",
+        "no": "Lås",
+        "nl": "Slot",
+        "da": "Lås",
+        "de": "Schloss",
+        "es": "Cerradura",
+        "fr": "Serrure",
+        "it": "Serratura",
+        "sv": "Lås",
+        "pl": "Zamek",
+        "ru": "Замок",
+        "ko": "잠금 장치"
+      },
+      "insights": true,
+      "insightsTitleTrue": {
+        "en": "Locked",
+        "nl": "Vergrendeld",
+        "de": "Verriegelt",
+        "fr": "Verrouillé",
+        "it": "Chiusa",
+        "sv": "Låst",
+        "no": "Låst",
+        "es": "Cerrada",
+        "da": "Låst",
+        "ru": "Закрыто",
+        "pl": "Zablokowane",
+        "ko": "잠김"
+      },
+      "color": "#9033FC",
+      "icon": "/assets/locked.svg"
+    },
+    "locked_status": {
+      "type": "string",
+      "title": {
+        "en": "Lock status",
+        "no": "Lås status",
+        "nl": "Slot status",
+        "da": "Lås status",
+        "de": "Schlossstatus",
+        "es": "Estado de la cerradura",
+        "fr": "État de la serrure",
+        "it": "Stato della serratura",
+        "sv": "Låsstatus",
+        "pl": "Status zamka",
+        "ru": "Статус замка",
+        "ko": "잠금 장치 상태"
+      },
+      "getable": true,
+      "setable": false,
+      "icon": "/assets/locked.svg"
+    },
     "nebulization_efficiency": {
       "type": "number",
       "getable": true,
@@ -10830,6 +11099,42 @@
         "ko": "중지"
       },
       "icon": "/assets/stop.svg"
+    },
+    "unlock": {
+      "type": "boolean",
+      "getable": false,
+      "setable": true,
+      "uiComponent": "button",
+      "title": {
+        "en": "Unlock",
+        "no": "Lås opp",
+        "nl": "Slot ontgrendelen",
+        "da": "Lås op",
+        "de": "Schloss entriegeln",
+        "es": "Desbloquear",
+        "fr": "Déverrouiller",
+        "it": "Sbloccare",
+        "sv": "Lås upp",
+        "pl": "Odblokować",
+        "ru": "Разблокировать",
+        "ko": "잠금 해제"
+      },
+      "insights": true,
+      "insightsTitleFalse": {
+        "en": "Unlocked",
+        "nl": "Ontgrendeld",
+        "de": "Entriegelt",
+        "fr": "Déverrouillé",
+        "it": "Aperta",
+        "sv": "Olåst",
+        "no": "Ulåst",
+        "es": "Abierta",
+        "da": "Ulåst",
+        "ru": "Открыто",
+        "pl": "Odblokowane",
+        "ko": "잠금 해제"
+      },
+      "icon": "/assets/unlocked.svg"
     },
     "vaccum_clean_mode": {
       "type": "enum",

@@ -1,0 +1,20 @@
+{
+  "type": "string",
+  "title": {
+    "en": "Lock status",
+	"no": "Lås status",
+	"nl": "Slot status",
+	"da": "Lås status",
+	"de": "Schlossstatus",
+	"es": "Estado de la cerradura",
+	"fr": "État de la serrure",
+	"it": "Stato della serratura",
+	"sv": "Låsstatus",
+	"pl": "Status zamka",
+	"ru": "Статус замка",
+	"ko": "잠금 장치 상태"
+  },
+  "getable": true,
+  "setable": false,
+  "icon": "/assets/locked.svg"
+}

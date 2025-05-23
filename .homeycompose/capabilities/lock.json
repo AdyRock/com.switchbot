@@ -1,0 +1,21 @@
+{
+	"type": "boolean",
+	"getable": false,
+	"setable": true,
+	"uiComponent": "button",
+	"title": {
+		"en": "Lock",
+		"no": "Lås",
+		"nl": "Slot",
+		"da": "Lås",
+		"de": "Schloss",
+		"es": "Cerradura",
+		"fr": "Serrure",
+		"it": "Serratura",
+		"sv": "Lås",
+		"pl": "Zamek",
+		"ru": "Замок",
+		"ko": "잠금 장치"
+	},
+	"icon": "/assets/locked.svg"
+}

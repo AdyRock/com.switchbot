@@ -689,5 +689,18 @@
 		"pl": "Dodano obsługę K10+, K10+ Pro i K10+ Pro Combo",
 		"ru": "Добавлена поддержка K10+, K10+ Pro и K10+ Pro Combo",
 		"ko": "K10+, K10+ Pro 및 K10+ Pro Combo 지원 추가"
+	},
+	"2.0.32": {
+		"en": "Added support for the SwitchBot Lock Ultra",
+		"no": "Lagt til støtte for SwitchBot Lock Ultra",
+		"nl": "Ondersteuning toegevoegd voor de SwitchBot Lock Ultra",
+		"de": "Unterstützung für den SwitchBot Lock Ultra hinzugefügt",
+		"fr": "Ajout de la prise en charge de la serrure SwitchBot Ultra",
+		"es": "Agregado soporte para el SwitchBot Lock Ultra",
+		"pt": "Adicionado suporte para o SwitchBot Lock Ultra",
+		"it": "Aggiunto supporto per lo SwitchBot Lock Ultra",
+		"pl": "Dodano obsługę SwitchBot Lock Ultra",
+		"ru": "Добавлена поддержка SwitchBot Lock Ultra",
+		"ko": "SwitchBot Lock Ultra 지원 추가"
 	}
 }

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   version="1.1"
+   id="svg999"
+   xml:space="preserve"
+   width="682.66669"
+   height="682.66669"
+   viewBox="0 0 682.66669 682.66669"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><defs
+     id="defs1003"><clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath1013"><path
+         d="M 0,512 H 512 V 0 H 0 Z"
+         id="path1011" /></clipPath></defs><g
+     id="g1005"
+     transform="matrix(1.3333333,0,0,-1.3333333,0,682.66667)"><g
+       id="g1007"><g
+         id="g1009"
+         clip-path="url(#clipPath1013)"><g
+           id="g1015"
+           transform="translate(390.6401,15)"><path
+             d="m 0,0 h -269.28 c -16.951,0 -30.693,13.741 -30.693,30.692 v 196.881 c 0,16.951 13.742,30.692 30.693,30.692 H 0 c 16.951,0 30.692,-13.741 30.692,-30.692 V 30.692 C 30.692,13.741 16.951,0 0,0 Z"
+             style="fill:none;stroke:#000000;stroke-width:30;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+             id="path1017" /></g><g
+           id="g1019"
+           transform="translate(286,173.2573)"><path
+             d="m 0,0 c 0,-16.568 -13.432,-30 -30,-30 -16.568,0 -30,13.432 -30,30 0,16.569 13.432,30 30,30 C -13.432,30 0,16.569 0,0 Z"
+             style="fill:none;stroke:#000000;stroke-width:30;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+             id="path1021" /></g><g
+           id="g1023"
+           transform="translate(256,143.2573)"><path
+             d="M 0,0 V -57.898"
+             style="fill:none;stroke:#000000;stroke-width:30;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+             id="path1025" /></g><g
+           id="g1027"
+           transform="translate(119.6006,273.2651)"><path
+             d="m 0,0 v 87.089 c 0,75.331 61.068,136.399 136.399,136.399 75.331,0 136.4,-61.068 136.4,-136.399 V 60 h -60.001 v 27.089 c 0,42.126 -34.272,76.399 -76.399,76.399 C 94.272,163.488 60,129.215 60,87.089 V 0"
+             style="fill:none;stroke:#000000;stroke-width:30;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+             id="path1029" /></g></g></g></g></svg>
