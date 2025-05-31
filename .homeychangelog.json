@@ -702,8 +702,5 @@
 		"pl": "Dodano obsługę SwitchBot Lock Ultra",
 		"ru": "Добавлена поддержка SwitchBot Lock Ultra",
 		"ko": "SwitchBot Lock Ultra 지원 추가"
-	},
-	"2.0.33": {
-		"en": "Fix BLE command to move the roller blind to a position."
 	}
 }
