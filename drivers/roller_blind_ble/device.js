@@ -196,7 +196,7 @@ class RollerBlindBLEDevice extends Homey.Device
 	{
 		this.homey.app.updateLog(`COMMAND: Setting Roller Blind to:${percent}`);
 		this.setCapabilityValue('position', null).catch(this.error);
-		return this._operateRollerBlind([0x57, 0xC7, 0x45, 0x01, 0x05, mode, percent]);
+		return this._operateRollerBlind([0x57, 0x0F, 0x47, 0x01, 0x05, 0x00, mode, percent]);
 	}
 
 	async _operateRollerBlind(bytes)

@@ -10401,22 +10401,6 @@
         "ru": "Замок",
         "ko": "잠금 장치"
       },
-      "insights": true,
-      "insightsTitleTrue": {
-        "en": "Locked",
-        "nl": "Vergrendeld",
-        "de": "Verriegelt",
-        "fr": "Verrouillé",
-        "it": "Chiusa",
-        "sv": "Låst",
-        "no": "Låst",
-        "es": "Cerrada",
-        "da": "Låst",
-        "ru": "Закрыто",
-        "pl": "Zablokowane",
-        "ko": "잠김"
-      },
-      "color": "#9033FC",
       "icon": "/assets/locked.svg"
     },
     "locked_status": {
@@ -11117,21 +11101,6 @@
         "sv": "Lås upp",
         "pl": "Odblokować",
         "ru": "Разблокировать",
-        "ko": "잠금 해제"
-      },
-      "insights": true,
-      "insightsTitleFalse": {
-        "en": "Unlocked",
-        "nl": "Ontgrendeld",
-        "de": "Entriegelt",
-        "fr": "Déverrouillé",
-        "it": "Aperta",
-        "sv": "Olåst",
-        "no": "Ulåst",
-        "es": "Abierta",
-        "da": "Ulåst",
-        "ru": "Открыто",
-        "pl": "Odblokowane",
         "ko": "잠금 해제"
       },
       "icon": "/assets/unlocked.svg"
