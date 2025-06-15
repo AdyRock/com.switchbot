@@ -7458,6 +7458,66 @@
           "template": "login_oauth2"
         }
       ],
+      "icon": "/drivers/plug_eu_hub/assets/icon.svg",
+      "images": {
+        "large": "/drivers/plug_eu_hub/assets/images/large.jpg",
+        "small": "/drivers/plug_eu_hub/assets/images/small.jpg"
+      },
+      "id": "plug_eu_hub",
+      "name": {
+        "en": "Plug EU (HUB)",
+        "no": "Plugg EU (HUB)",
+        "nl": "Slimme stekker EU (HUB)",
+        "da": "Stik EU (HUB)",
+        "de": "Stecker EU (HUB)",
+        "es": "Enchufe EU (HUB)",
+        "fr": "Prise EU (HUB)",
+        "it": "Spina EU (HUB)",
+        "sv": "Kontakt EU (HUB)",
+        "pl": "Wtyczka EU (HUB)",
+        "ru": "Разъем EU (HUB)",
+        "ko": "플러그 EU (HUB)"
+      },
+      "class": "socket",
+      "capabilities": [
+        "onoff",
+        "measure_current",
+        "measure_voltage",
+        "measure_power",
+        "meter_power"
+      ]
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        }
+      ],
       "icon": "/drivers/plug_hub/assets/icon.svg",
       "images": {
         "large": "/drivers/plug_hub/assets/images/large.jpg",
