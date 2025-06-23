@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.switchbot",
-  "version": "2.0.33",
+  "version": "2.0.34",
   "compatibility": ">=12.2.0",
   "platforms": [
     "local",
@@ -2716,6 +2716,231 @@
           "cloud"
         ],
         "id": "run_scene"
+      },
+      {
+        "title": {
+          "en": "Set the air purifier mode",
+          "no": "Sett luftrensermodus",
+          "nl": "Stel de luchtreiniger modus in",
+          "da": "Indstil luftrensertilstand",
+          "de": "Stellen Sie den Luftreiniger-Modus ein",
+          "es": "Establecer el modo de purificador de aire",
+          "fr": "Définir le mode du purificateur d'air",
+          "it": "Imposta la modalità purificatore d'aria",
+          "sv": "Ställ in luftrenserens läge",
+          "pl": "Ustaw tryb oczyszczacza powietrza",
+          "ru": "Установить режим очистителя воздуха",
+          "ko": "공기 청정기 모드 설정"
+        },
+        "titleFormatted": {
+          "en": "Set the air purifier mode to [[mode]] and fan speed to [[fan_level]]%",
+          "no": "Sett luftrensermodus til [[mode]] og viftehastighet til [[fan_level]]%",
+          "nl": "Stel de luchtreiniger modus in op [[mode]] en ventilatorsnelheid op [[fan_level]]%",
+          "da": "Indstil luftrensertilstand til [[mode]] og blæserhastighed til [[fan_level]]%",
+          "de": "Stellen Sie den Luftreiniger-Modus auf [[mode]] ein und die Lüftergeschwindigkeit auf [[fan_level]]%",
+          "es": "Establecer el modo de purificador de aire a [[mode]] y la velocidad del ventilador a [[fan_level]]%",
+          "fr": "Définir le mode du purificateur d'air sur [[mode]] et la vitesse du ventilateur sur [[fan_level]]%",
+          "it": "Imposta la modalità purificatore d'aria su [[mode]] e la velocità della ventola su [[fan_level]]%",
+          "sv": "Ställ in luftrenserens läge på [[mode]] och fläkthastigheten på [[fan_level]]%",
+          "pl": "Ustaw tryb oczyszczacza powietrza na [[mode]] i prędkość wentylatora na [[fan_level]]%",
+          "ru": "Установить режим очистителя воздуха на [[mode]] и скорость вентилятора на [[fan_level]]%",
+          "ko": "[[mode]] 모드로 공기 청정기를 설정하고 팬 속도를 [[fan_level]]%로 설정합니다"
+        },
+        "hint": {
+          "en": "Change the mode of the air purifier",
+          "no": "Endre luftrensermodus",
+          "nl": "Wijzig de modus van de luchtreiniger",
+          "da": "Skift tilstand for luftrenser",
+          "de": "Ändern Sie den Modus des Luftreinigers",
+          "es": "Cambiar el modo del purificador de aire",
+          "fr": "Changer le mode du purificateur d'air",
+          "it": "Cambia la modalità del purificatore d'aria e la qualità dell'aria",
+          "sv": "Ändra luftrenserens läge och luftkvaliteten",
+          "pl": "Zmień tryb oczyszczacza powietrza i jakość powietrza",
+          "ru": "Изменить режим очистителя воздуха и качество воздуха",
+          "ko": "공기 청정기 모드 변경 및 공기 질 설정"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=air_puifier_hub"
+          },
+          {
+            "name": "mode",
+            "type": "dropdown",
+            "title": {
+              "en": "Mode",
+              "no": "Modus",
+              "nl": "Modus",
+              "da": "Tilstand",
+              "de": "Modus",
+              "es": "Modo",
+              "fr": "Mode",
+              "it": "Modalità",
+              "sv": "Läge",
+              "pl": "Tryb",
+              "ru": "Режим",
+              "ko": "모드"
+            },
+            "values": [
+              {
+                "id": "1",
+                "label": {
+                  "en": "Fan",
+                  "no": "Vifte",
+                  "nl": "Ventilator",
+                  "da": "Fan",
+                  "de": "Ventilator",
+                  "es": "Ventilador",
+                  "fr": "Ventilateur",
+                  "it": "Ventilatore",
+                  "sv": "Fläkt",
+                  "pl": "Wentylator",
+                  "ru": "Вентилятор",
+                  "ko": "선풍기"
+                }
+              },
+              {
+                "id": "2",
+                "label": {
+                  "en": "Auto",
+                  "no": "Auto",
+                  "nl": "Auto",
+                  "da": "Auto",
+                  "de": "Auto",
+                  "es": "Automático",
+                  "fr": "Auto",
+                  "it": "Auto",
+                  "sv": "Automatisk",
+                  "pl": "Auto",
+                  "ru": "Авто",
+                  "ko": "자동"
+                }
+              },
+              {
+                "id": "3",
+                "label": {
+                  "en": "Sleep",
+                  "no": "Søvn",
+                  "nl": "Slapen",
+                  "da": "Søvn",
+                  "de": "Schlaf",
+                  "es": "Dormir",
+                  "fr": "Dormir",
+                  "it": "Sonno",
+                  "sv": "Sömn",
+                  "pl": "Sen",
+                  "ru": "Сон",
+                  "ko": "수면"
+                }
+              },
+              {
+                "id": "4",
+                "label": {
+                  "en": "Pet",
+                  "no": "Dyr",
+                  "nl": "Huisdier",
+                  "da": "Kæledyr",
+                  "de": "Haustier",
+                  "es": "Mascota",
+                  "fr": "Animal de compagnie",
+                  "it": "Animale domestico",
+                  "sv": "Husdjur",
+                  "pl": "Zwierzę domowe",
+                  "ru": "Домашнее животное",
+                  "ko": "애완 동물"
+                }
+              }
+            ]
+          },
+          {
+            "name": "fan_level",
+            "type": "dropdown",
+            "title": {
+              "en": "Fan Speed",
+              "no": "Viftehastighet",
+              "nl": "Ventilator Snelheid",
+              "da": "Blæser Hastighed",
+              "de": "Ventilator Geschwindigkeit",
+              "es": "Velocidad del Ventilador",
+              "fr": "Vitesse du Ventilateur",
+              "it": "Velocità del Ventilatore",
+              "sv": "Fläkt Hastighet",
+              "pl": "Prędkość Wentylatora",
+              "ru": "Скорость Вентилятора",
+              "ko": "선풍기 속도"
+            },
+            "hint": {
+              "en": "Set the fan speed",
+              "no": "Sett viftehastighet",
+              "nl": "Stel de ventilatorsnelheid in",
+              "da": "Indstil blæserhastighed",
+              "de": "Stellen Sie die Ventilatorgeschwindigkeit ein",
+              "es": "Establecer la velocidad del ventilador",
+              "fr": "Définir la vitesse du ventilateur",
+              "it": "Imposta la velocità del ventilatore",
+              "sv": "Ställ in fläktens hastighet",
+              "pl": "Ustaw prędkość wentylatora",
+              "ru": "Установить скорость вентилятора",
+              "ko": "선풍기 속도 설정"
+            },
+            "values": [
+              {
+                "id": "1",
+                "label": {
+                  "en": "Level 1",
+                  "no": "Nivå 1",
+                  "nl": "Niveau 1",
+                  "da": "Niveau 1",
+                  "de": "Stufe 1",
+                  "es": "Nivel 1",
+                  "fr": "Niveau 1",
+                  "it": "Livello 1",
+                  "sv": "Nivå 1",
+                  "pl": "Poziom 1",
+                  "ru": "Уровень 1",
+                  "ko": "레벨 1"
+                }
+              },
+              {
+                "id": "2",
+                "label": {
+                  "en": "Level 2",
+                  "no": "Nivå 2",
+                  "nl": "Niveau 2",
+                  "da": "Niveau 2",
+                  "de": "Stufe 2",
+                  "es": "Nivel 2",
+                  "fr": "Niveau 2",
+                  "it": "Livello 2",
+                  "sv": "Nivå 2",
+                  "pl": "Poziom 2",
+                  "ru": "Уровень 2",
+                  "ko": "레벨 2"
+                }
+              },
+              {
+                "id": "3",
+                "label": {
+                  "en": "Level 3",
+                  "no": "Nivå 3",
+                  "nl": "Niveau 3",
+                  "da": "Niveau 3",
+                  "de": "Stufe 3",
+                  "es": "Nivel 3",
+                  "fr": "Niveau 3",
+                  "it": "Livello 3",
+                  "sv": "Nivå 3",
+                  "pl": "Poziom 3",
+                  "ru": "Уровень 3",
+                  "ko": "레벨 3"
+                }
+              }
+            ]
+          }
+        ],
+        "id": "set_air_purifier_mode"
       },
       {
         "title": {

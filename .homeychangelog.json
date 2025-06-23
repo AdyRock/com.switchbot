@@ -715,5 +715,18 @@
 		"pl": "Dodano obsługę SwitchBot Lock Pro komendy zamka",
 		"ru": "Добавлена поддержка SwitchBot Lock Pro команды замка",
 		"ko": "SwitchBot Lock Pro 지원 추가"
+	},
+	"2.0.34": {
+		"en": "Added Flow action card to set the air purifier mode and sppeed",
+		"no": "Lagt til flythandlingskort for å sette luftrensermodus og hastighet",
+		"nl": "Flow-actiekaart toegevoegd om de modus en snelheid van de luchtreiniger in te stellen",
+		"de": "Flow-Aktionskarte hinzugefügt, um den Modus und die Geschwindigkeit des Luftreinigers festzulegen",
+		"fr": "Ajout de la carte d'action de flux pour définir le mode et la vitesse du purificateur d'air",
+		"es": "Se agregó una tarjeta de acción de flujo para establecer el modo y la velocidad del purificador de aire",
+		"pt": "Adicionado cartão de ação de fluxo para definir o modo e a velocidade do purificador de ar",
+		"it": "Aggiunta una scheda di azione di flusso per impostare la modalità e la velocità del purificatore d'aria",
+		"pl": "Dodano kartę akcji przepływu do ustawienia trybu i prędkości oczyszczacza powietrza",
+		"ru": "Добавлена карта действия потока для установки режима и скорости очистителя воздуха",
+		"ko": "공기 청정기 모드 및 속도를 설정하는 플로우 작업 카드 추가"
 	}
 }

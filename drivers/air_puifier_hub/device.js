@@ -51,21 +51,23 @@ class AirPurifierHubDevice extends HubDevice
 	{
 		let mode = null;
 		let fanGear = null;
+
 		if (valueOj.air_purifier_mode)
 		{
-			// Convert the string to an integer
 			mode = parseInt(valueOj.air_purifier_mode, 10);
-			fanGear = this.getCapabilityValue('fan_level');
-		}
-		else if (valueOj.fan_level)
-		{
-			// The efficiency has changed
-			fanGear = parseInt(valueOj.fan_level, 10);
-			mode = this.getCapabilityValue('air_purifier_mode');
 		}
 		else
 		{
-			return false;
+			mode = this.getCapabilityValue('air_purifier_mode');
+		}
+
+		if (valueOj.fan_level)
+		{
+			fanGear = parseInt(valueOj.fan_level, 10);
+		}
+		else
+		{
+			fanGear = this.getCapabilityValue('fan_level');
 		}
 
 		return this.sendCommand('setMode', { mode, fanGear });
