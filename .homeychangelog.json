@@ -702,5 +702,18 @@
 		"pl": "Dodano obsługę SwitchBot Lock Ultra",
 		"ru": "Добавлена поддержка SwitchBot Lock Ultra",
 		"ko": "SwitchBot Lock Ultra 지원 추가"
+	},
+	"2.0.33": {
+		"en": "Added support for the SwitchBot Lock Pro deadbolt command",
+		"no": "Lagt til støtte for SwitchBot Lock Pro dørlås kommando",
+		"nl": "Ondersteuning toegevoegd voor de SwitchBot Lock Pro deurvergrendeling",
+		"de": "Unterstützung für den SwitchBot Lock Pro Türschlossbefehl hinzugefügt",
+		"fr": "Ajout de la prise en charge de la serrure SwitchBot Pro commande de verrouillage",
+		"es": "Agregado soporte para el SwitchBot Lock Pro comando de cerrojo",
+		"pt": "Adicionado suporte para o SwitchBot Lock Pro comando de fecho",
+		"it": "Aggiunto supporto per lo SwitchBot Lock Pro comando di serratura",
+		"pl": "Dodano obsługę SwitchBot Lock Pro komendy zamka",
+		"ru": "Добавлена поддержка SwitchBot Lock Pro команды замка",
+		"ko": "SwitchBot Lock Pro 지원 추가"
 	}
 }
