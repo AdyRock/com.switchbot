@@ -17,6 +17,7 @@
   "class": "lock",
   "capabilities": [
     "lock",
+	"deadbolt",
 	"unlock",
 	"locked_status",
     "alarm_generic",

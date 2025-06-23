@@ -1,0 +1,21 @@
+{
+	"type": "boolean",
+	"getable": false,
+	"setable": true,
+	"uiComponent": "button",
+	"title": {
+		"en": "Deadbolt",
+		"no": "Dørlås",
+		"nl": "Deurvergrendeling",
+		"da": "Dørlås",
+		"de": "Türschloss",
+		"es": "Cerradura de puerta",
+		"fr": "Serrure de porte",
+		"it": "Serratura di porta",
+		"sv": "Dörrlås",
+		"pl": "Zamek do drzwi",
+		"ru": "Дверной замок",
+		"ko": "현관 잠금장치"
+	},
+	"icon": "/assets/locked.svg"
+}

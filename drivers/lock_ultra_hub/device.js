@@ -16,6 +16,12 @@ class LockUltraHubDevice extends HubDevice
 
 		this.registerCapabilityListener('lock', this.onCapabilityLock.bind(this));
 		this.registerCapabilityListener('unlock', this.onCapabilityUnlock.bind(this));
+		this.registerCapabilityListener('deadbolt', this.onCapabilityDeadbolt.bind(this));
+
+		if (!this.hasCapability('deadbolt'))
+		{
+			this.addCapability('deadbolt');
+		}
 
 		const dd = this.getData();
 		this.homey.app.registerHomeyWebhook(dd.id).catch(this.error);
@@ -46,16 +52,22 @@ class LockUltraHubDevice extends HubDevice
 		// Called when settings changed
 	}
 
-	// this method is called when the Homey device has requested a position change ( 0 to 1)
+	// this method is called when the Homey device has requested to lock
 	async onCapabilityLock(value, opts)
 	{
 		return this._operateBot('lock');
 	}
 
-	// this method is called when the Homey device has requested a position change ( 0 to 1)
+	// this method is called when the Homey device has requested to unlock
 	async onCapabilityUnlock(value, opts)
 	{
 		return this._operateBot('unlock');
+	}
+
+	// this method is called when the Homey device has requested to deadbolt
+	async onCapabilityDeadbolt(value, opts)
+	{
+		return this._operateBot('deadbolt');
 	}
 
 	async _operateBot(command)
@@ -139,14 +151,14 @@ class LockUltraHubDevice extends HubDevice
 				}
 
 				this.setCapabilityValue('locked_status', lockStatus).catch(this.error);
-				this.setCapabilityValue('alarm_generic', lockStatus === 'jammed').catch(this.error);
+				this.setCapabilityValue('alarm_generic', lockStatus === 'JAMMED').catch(this.error);
 
 				if (message.context.battery)
 				{
 					this.setCapabilityValue('measure_battery', message.context.battery).catch(this.error);
 				}
 
-				if (lockStatus === 'locked')
+				if (lockStatus === 'LOCKED')
 				{
 					this.driver.triggerLocked(this, { locked: true }, null).catch(this.error);
 				}

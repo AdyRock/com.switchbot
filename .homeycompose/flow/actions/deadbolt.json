@@ -1,0 +1,27 @@
+{
+  "title": {
+    "en": "Deadbolt",
+	"no": "Dørlås",
+	"nl": "Deurvergrendeling",
+	"da": "Dørlås",
+	"de": "Türschloss",
+	"es": "Cerradura de puerta",
+	"fr": "Serrure de porte",
+	"it": "Serratura di porta",
+	"sv": "Dörrlås",
+	"pl": "Zamek do drzwi",
+	"ru": "Дверной замок",
+	"ko": "현관 잠금장치"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=lock_ultra_hub"
+    }
+  ],
+  "platforms": [
+    "local",
+    "cloud"
+  ]
+}

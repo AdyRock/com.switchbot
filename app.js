@@ -519,6 +519,13 @@ class MyApp extends OAuth2App
 				return args.device.onCapabilityUnlock();
 			});
 
+		const deadboltAction = this.homey.flow.getActionCard('deadbolt');
+		deadboltAction
+			.registerRunListener(async (args, state) =>
+			{
+				return args.device.onCapabilityDeadbolt();
+			});
+
 		/** * CONDITIONS ** */
 		this.conditionVaccumStateIs = this.homey.flow.getConditionCard('vaccum_state_is.');
 		this.conditionVaccumStateIs.registerRunListener((args) =>
