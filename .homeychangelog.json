@@ -728,5 +728,18 @@
 		"pl": "Dodano kartę akcji przepływu do ustawienia trybu i prędkości oczyszczacza powietrza",
 		"ru": "Добавлена карта действия потока для установки режима и скорости очистителя воздуха",
 		"ko": "공기 청정기 모드 및 속도를 설정하는 플로우 작업 카드 추가"
+	},
+	"2.0.35": {
+		"en": "Fixed Air purifier set mode function",
+		"no": "Fikset luftrenser modus funksjon",
+		"nl": "Probleem opgelost met het instellen van de modus van de luchtreiniger",
+		"de": "Problem mit der Einstellung des Modus des Luftreinigers behoben",
+		"fr": "Correction de la fonction de réglage du mode du purificateur d'air",
+		"es": "Se corrigió la función de configuración del modo del purificador de aire",
+		"pt": "Corrigida a função de configuração do modo do purificador de ar",
+		"it": "Corretto il funzionamento della modalità del purificatore d'aria",
+		"pl": "Naprawiono funkcję ustawiania trybu oczyszczacza powietrza",
+		"ru": "Исправлена функция установки режима очистителя воздуха",
+		"ko": "공기 청정기 모드 설정 기능 수정"
 	}
 }

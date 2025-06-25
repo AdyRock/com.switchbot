@@ -70,7 +70,12 @@ class AirPurifierHubDevice extends HubDevice
 			fanGear = this.getCapabilityValue('fan_level');
 		}
 
-		return this.sendCommand('setMode', { mode, fanGear });
+		if (mode === 1)
+		{
+			return this.sendCommand('setMode', { mode, fanGear });
+		}
+
+		return this.sendCommand('setMode', { mode });
 	}
 
 	async sendCommand(command, parameter)
