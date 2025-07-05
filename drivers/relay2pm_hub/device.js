@@ -96,6 +96,8 @@ class Relay2pmHubDevice extends HubDevice
 				this.setAvailable();
 				this.homey.app.updateLog(`Relay 2PM Hub got: ${this.homey.app.varToString(data)}`, 3);
 
+				const oldRelay1Status = this.getCapabilityValue('onoff.one');
+				const oldRelay2Status = this.getCapabilityValue('onoff.two');
 				this.setCapabilityValue('onoff.one', data.switch1Status === 1).catch(this.error);
 				this.setCapabilityValue('onoff.two', data.switch2Status === 1).catch(this.error);
 
@@ -110,8 +112,31 @@ class Relay2pmHubDevice extends HubDevice
 
 				this.setCapabilityValue('meter_power.one', data.switch1UsedElectricity / 1000 / 60).catch(this.error);
 				this.setCapabilityValue('meter_power.two', data.switch2UsedElectricity / 1000 / 60).catch(this.error);
+
+				// Trigger flows for on/off
+				if ((data.switch1Status === 1) && (oldRelay1Status !== true))
+				{
+					this.homey.app.updateLog('Relay 2PM Trigger onoff_relay1_true', 3);
+					this.driver.relay1OnTrigger.trigger(this, null, null).catch(this.error);
+				}
+				else if ((data.switch1Status === 0) && (oldRelay1Status !== false))
+				{
+					this.homey.app.updateLog('Relay 2PM Trigger onoff_relay1_false', 3);
+					this.driver.relay1OffTrigger.trigger(this, null, null).catch(this.error);
+				}
+
+				if ((data.switch2Status === 1) && (oldRelay2Status !== true))
+				{
+					this.homey.app.updateLog('Relay 2PM Trigger onoff_relay2_true', 3);
+					this.driver.relay2OnTrigger.trigger(this, null, null).catch(this.error);
+				}
+				else if ((data.switch2Status === 0) && (oldRelay2Status !== false))
+				{
+					this.homey.app.updateLog('Relay 2PM Trigger onoff_relay2_false', 3);
+					this.driver.relay2OffTrigger.trigger(this, null, null).catch(this.error);
+				}
 			}
-			this.unsetWarning().catch(this.error);;
+			this.unsetWarning().catch(this.error);
 		}
 		catch (err)
 		{
@@ -139,11 +164,45 @@ class Relay2pmHubDevice extends HubDevice
 				if (data.switch1Status !== undefined)
 				{
 					this.setCapabilityValue('onoff.one', data.switch1Status === 1).catch(this.error);
+
+					// Trigger flow for on/off
+					if (data.switch1Status === 1)
+					{
+						this.homey.app.updateLog('Relay 2PM Trigger onoff_relay1_true', 3);
+						this.driver.relay1OnTrigger.trigger(this, null, null).catch(this.error);
+					}
+					else
+					{
+						this.homey.app.updateLog('Relay 2PM Trigger onoff_relay1_false', 3);
+						this.driver.relay1OffTrigger.trigger(this, null, null).catch(this.error);
+					}
 				}
 
 				if (data.switch2Status !== undefined)
 				{
 					this.setCapabilityValue('onoff.two', data.switch2Status === 1).catch(this.error);
+
+					// Trigger flow for on/off
+					if (data.switch2Status === 1)
+					{
+						this.homey.app.updateLog('Relay 2PM Trigger onoff_relay2_true', 3);
+						this.driver.relay2OnTrigger.trigger(this, null, null).catch(this.error);
+					}
+					else
+					{
+						this.homey.app.updateLog('Relay 2PM Trigger onoff_relay2_false', 3);
+						this.driver.relay2OffTrigger.trigger(this, null, null).catch(this.error);
+					}
+				}
+
+				if (data.switch1Overload !== undefined)
+				{
+					this.setCapabilityValue('alarm_power.one', data.switch1Overload === 1).catch(this.error);
+				}
+
+				if (data.switch2Overload !== undefined)
+				{
+					this.setCapabilityValue('alarm_power.two', data.switch2Overload === 1).catch(this.error);
 				}
 
 				if (data.switch1Overload !== undefined)

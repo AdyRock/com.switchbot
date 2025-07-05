@@ -1,0 +1,28 @@
+{
+	"title": {
+		"en": "Turn on relay 2",
+		"no": "Skru på relé 2",
+		"nl": "Aanzetten relais 2",
+		"da": "Tænd relæ 2",
+		"de": "Einschalten Relais 2",
+		"es": "Encender relé 2",
+		"fr": "Allumer le relais 2",
+		"it": "Accendi il relè 2",
+		"sv": "Slå på relä 2",
+		"pl": "Włącz przekaźnik 2",
+		"ru": "Включить реле 2",
+		"ko": "릴레이 2 켜기"
+	},
+	"args": [
+		{
+			"name": "device",
+			"type": "device",
+			"filter": "driver_id=relay2pm_hub"
+		}
+	],
+	"highlight": true,
+	"platforms": [
+		"local",
+		"cloud"
+	]
+}

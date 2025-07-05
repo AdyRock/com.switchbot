@@ -1,0 +1,28 @@
+{
+	"title": {
+		"en": "Turn off relay 2",
+		"no": "Skru av relé 2",
+		"nl": "Uitzetten relais 2",
+		"da": "Sluk relæ 2",
+		"de": "Ausschalten Relais 2",
+		"es": "Apagar relé 2",
+		"fr": "Éteindre le relais 2",
+		"it": "Spegni il relè 2",
+		"sv": "Stäng av relä 2",
+		"pl": "Wyłącz przekaźnik 2",
+		"ru": "Выключить реле 2",
+		"ko": "릴레이 2 끄기"
+	},
+	"args": [
+		{
+			"name": "device",
+			"type": "device",
+			"filter": "driver_id=relay2pm_hub"
+		}
+	],
+	"highlight": true,
+	"platforms": [
+		"local",
+		"cloud"
+	]
+}

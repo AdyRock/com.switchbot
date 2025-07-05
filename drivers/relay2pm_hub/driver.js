@@ -13,6 +13,11 @@ class Relay2pmDriver extends HubDriver
 	async onOAuth2Init()
 	{
 		super.onOAuth2Init();
+		this.relay1OnTrigger = this.homey.flow.getDeviceTriggerCard('onoff_relay1_true');
+		this.relay1OffTrigger = this.homey.flow.getDeviceTriggerCard('onoff_relay1_false');
+		this.relay2OnTrigger = this.homey.flow.getDeviceTriggerCard('onoff_relay2_true');
+		this.relay2OffTrigger = this.homey.flow.getDeviceTriggerCard('onoff_relay2_false');
+
 		this.log('Relay2pmDriver has been initialized');
 	}
 
@@ -25,6 +30,25 @@ class Relay2pmDriver extends HubDriver
 		return this.getHUBDevices(oAuth2Client, 'Relay Switch 2PM');
 	}
 
+	async triggerRelay1_On(device, tokens, state)
+	{
+		this.relay1OnTrigger.trigger(device, tokens, state).catch(this.error);
+	}
+
+	async triggerRelay1_Off(device, tokens, state)
+	{
+		this.relay1OffTrigger.trigger(device, tokens, state).catch(this.error);
+	}
+
+	async triggerRelay2_On(device, tokens, state)
+	{
+		this.relay2OnTrigger.trigger(device, tokens, state).catch(this.error);
+	}
+
+	async triggerRelay2_Off(device, tokens, state)
+	{
+		this.relay2OffTrigger.trigger(device, tokens, state).catch(this.error);
+	}
 }
 
 module.exports = Relay2pmDriver;

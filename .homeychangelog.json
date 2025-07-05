@@ -741,5 +741,18 @@
 		"pl": "Naprawiono funkcję ustawiania trybu oczyszczacza powietrza",
 		"ru": "Исправлена функция установки режима очистителя воздуха",
 		"ko": "공기 청정기 모드 설정 기능 수정"
+	},
+	"2.0.36": {
+		"en": "Added support for the Relay 2PM trigger and action cards",
+		"no": "Lagt til støtte for Relay 2PM-utløser- og handlingskort",
+		"nl": "Ondersteuning toegevoegd voor de Relay 2PM-trigger- en actiekaarten",
+		"de": "Unterstützung für die Relay 2PM-Auslöser- und Aktionskarten hinzugefügt",
+		"fr": "Ajout de la prise en charge des cartes de déclenchement et d'action Relay 2PM",
+		"es": "Agregado soporte para las tarjetas de activación y acción Relay 2PM",
+		"pt": "Adicionado suporte para os cartões de gatilho e ação Relay 2PM",
+		"it": "Aggiunto supporto per le schede di attivazione e azione Relay 2PM",
+		"pl": "Dodano obsługę kart wyzwalacza i akcji Relay 2PM",
+		"ru": "Добавлена поддержка карт триггера и действия Relay 2PM",
+		"ko": "Relay 2PM 트리거 및 액션 카드 지원 추가"
 	}
 }

@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.switchbot",
-  "version": "2.0.35",
+  "version": "2.0.36",
   "compatibility": ">=12.2.0",
   "platforms": [
     "local",
@@ -943,6 +943,122 @@
           }
         ],
         "id": "locked"
+      },
+      {
+        "title": {
+          "en": "Relay 1 turned off",
+          "no": "Relé 1 skrudd av",
+          "nl": "Relais 1 uitgeschakeld",
+          "da": "Relæ 1 slukket",
+          "de": "Relais 1 ausgeschaltet",
+          "es": "Relé 1 apagado",
+          "fr": "Relais 1 éteint",
+          "it": "Relè 1 spento",
+          "sv": "Relä 1 avstängt",
+          "pl": "Przekaźnik 1 wyłączony",
+          "ru": "Реле 1 выключено",
+          "ko": "릴레이 1 꺼짐"
+        },
+        "highlight": true,
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=relay2pm_hub"
+          }
+        ],
+        "id": "onoff_relay1_false"
+      },
+      {
+        "title": {
+          "en": "Relay 1 turned on",
+          "no": "Relé 1 skrudd på",
+          "nl": "Relais 1 ingeschakeld",
+          "da": "Relæ 1 tændt",
+          "de": "Relais 1 eingeschaltet",
+          "es": "Relé 1 encendido",
+          "fr": "Relais 1 allumé",
+          "it": "Relè 1 acceso",
+          "sv": "Relä 1 påslagen",
+          "pl": "Przekaźnik 1 włączony",
+          "ru": "Реле 1 включено",
+          "ko": "릴레이 1 켜짐"
+        },
+        "highlight": true,
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=relay2pm_hub"
+          }
+        ],
+        "id": "onoff_relay1_true"
+      },
+      {
+        "title": {
+          "en": "Relay 2 turned off",
+          "no": "Relé 2 skrudd av",
+          "nl": "Relais 2 uitgeschakeld",
+          "da": "Relæ 2 slukket",
+          "de": "Relais 2 ausgeschaltet",
+          "es": "Relé 2 apagado",
+          "fr": "Relais 2 éteint",
+          "it": "Relè 2 spento",
+          "sv": "Relä 2 avstängt",
+          "pl": "Przekaźnik 2 wyłączony",
+          "ru": "Реле 2 выключено",
+          "ko": "릴레이 2 꺼짐"
+        },
+        "highlight": true,
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=relay2pm_hub"
+          }
+        ],
+        "id": "onoff_relay2_false"
+      },
+      {
+        "title": {
+          "en": "Relay 2 turned on",
+          "no": "Relé 2 skrudd på",
+          "nl": "Relais 2 ingeschakeld",
+          "da": "Relæ 2 tændt",
+          "de": "Relais 2 eingeschaltet",
+          "es": "Relé 2 encendido",
+          "fr": "Relais 2 allumé",
+          "it": "Relè 2 acceso",
+          "sv": "Relä 2 påslagen",
+          "pl": "Przekaźnik 2 włączony",
+          "ru": "Реле 2 включено",
+          "ko": "릴레이 2 켜짐"
+        },
+        "highlight": true,
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=relay2pm_hub"
+          }
+        ],
+        "id": "onoff_relay2_true"
       },
       {
         "title": {
@@ -2126,7 +2242,7 @@
             "filter": "driver_id=robot_vaccum_hub"
           }
         ],
-        "id": "vaccum_state_is."
+        "id": "vaccum_state_is"
       }
     ],
     "actions": [
@@ -2521,6 +2637,122 @@
           "cloud"
         ],
         "id": "on"
+      },
+      {
+        "title": {
+          "en": "Turn off relay 1",
+          "no": "Skru av relé 1",
+          "nl": "Uitzetten relais 1",
+          "da": "Sluk relæ 1",
+          "de": "Ausschalten Relais 1",
+          "es": "Apagar relé 1",
+          "fr": "Éteindre le relais 1",
+          "it": "Spegni il relè 1",
+          "sv": "Stäng av relä 1",
+          "pl": "Wyłącz przekaźnik 1",
+          "ru": "Выключить реле 1",
+          "ko": "릴레이 1 끄기"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=relay2pm_hub"
+          }
+        ],
+        "highlight": true,
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "id": "onoff_relay1_false"
+      },
+      {
+        "title": {
+          "en": "Turn on relay 1",
+          "no": "Skru på relé 1",
+          "nl": "Aanzetten relais 1",
+          "da": "Tænd relæ 1",
+          "de": "Einschalten Relais 1",
+          "es": "Encender relé 1",
+          "fr": "Allumer le relais 1",
+          "it": "Accendi il relè 1",
+          "sv": "Slå på relä 1",
+          "pl": "Włącz przekaźnik 1",
+          "ru": "Включить реле 1",
+          "ko": "릴레이 1 켜기"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=relay2pm_hub"
+          }
+        ],
+        "highlight": true,
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "id": "onoff_relay1_true"
+      },
+      {
+        "title": {
+          "en": "Turn off relay 2",
+          "no": "Skru av relé 2",
+          "nl": "Uitzetten relais 2",
+          "da": "Sluk relæ 2",
+          "de": "Ausschalten Relais 2",
+          "es": "Apagar relé 2",
+          "fr": "Éteindre le relais 2",
+          "it": "Spegni il relè 2",
+          "sv": "Stäng av relä 2",
+          "pl": "Wyłącz przekaźnik 2",
+          "ru": "Выключить реле 2",
+          "ko": "릴레이 2 끄기"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=relay2pm_hub"
+          }
+        ],
+        "highlight": true,
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "id": "onoff_relay2_false"
+      },
+      {
+        "title": {
+          "en": "Turn on relay 2",
+          "no": "Skru på relé 2",
+          "nl": "Aanzetten relais 2",
+          "da": "Tænd relæ 2",
+          "de": "Einschalten Relais 2",
+          "es": "Encender relé 2",
+          "fr": "Allumer le relais 2",
+          "it": "Accendi il relè 2",
+          "sv": "Slå på relä 2",
+          "pl": "Włącz przekaźnik 2",
+          "ru": "Включить реле 2",
+          "ko": "릴레이 2 켜기"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=relay2pm_hub"
+          }
+        ],
+        "highlight": true,
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "id": "onoff_relay2_true"
       },
       {
         "title": {

@@ -122,7 +122,7 @@ class MyApp extends OAuth2App
 	 */
 	async onOAuth2Init()
 	{
-//		this.overrideLoggingMethods();
+		//		this.overrideLoggingMethods();
 
 		this.log('SwitchBot has been initialized');
 		this.logLevel = this.homey.settings.get('logLevel');
@@ -533,8 +533,36 @@ class MyApp extends OAuth2App
 				return args.device.onCapabilityDeadbolt();
 			});
 
+		const relay1OnAction = this.homey.flow.getActionCard('onoff_relay1_true');
+		relay1OnAction
+			.registerRunListener(async (args, state) =>
+			{
+				return args.device.onCapabilityOnOff('1', true)
+			});
+
+		const relay1OffAction = this.homey.flow.getActionCard('onoff_relay1_false');
+		relay1OffAction
+			.registerRunListener(async (args, state) =>
+			{
+				return args.device.onCapabilityOnOff('1', false)
+			});
+
+		const relay2OnAction = this.homey.flow.getActionCard('onoff_relay2_true');
+		relay2OnAction
+			.registerRunListener(async (args, state) =>
+			{
+				return args.device.onCapabilityOnOff('2', true)
+			});
+
+		const relay2OffAction = this.homey.flow.getActionCard('onoff_relay2_false');
+		relay2OffAction
+			.registerRunListener(async (args, state) =>
+			{
+				return args.device.onCapabilityOnOff('2', false);
+			});
+
 		/** * CONDITIONS ** */
-		this.conditionVaccumStateIs = this.homey.flow.getConditionCard('vaccum_state_is.');
+		this.conditionVaccumStateIs = this.homey.flow.getConditionCard('vaccum_state_is');
 		this.conditionVaccumStateIs.registerRunListener((args) =>
 		{
 			const { device, state } = args;

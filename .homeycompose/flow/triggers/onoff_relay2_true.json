@@ -1,0 +1,28 @@
+{
+	"title": {
+		"en": "Relay 2 turned on",
+		"no": "Relé 2 skrudd på",
+		"nl": "Relais 2 ingeschakeld",
+		"da": "Relæ 2 tændt",
+		"de": "Relais 2 eingeschaltet",
+		"es": "Relé 2 encendido",
+		"fr": "Relais 2 allumé",
+		"it": "Relè 2 acceso",
+		"sv": "Relä 2 påslagen",
+		"pl": "Przekaźnik 2 włączony",
+		"ru": "Реле 2 включено",
+		"ko": "릴레이 2 켜짐"
+	},
+	"highlight": true,
+	"platforms": [
+		"local",
+		"cloud"
+	],
+	"args": [
+		{
+			"type": "device",
+			"name": "device",
+			"filter": "driver_id=relay2pm_hub"
+		}
+	]
+}
