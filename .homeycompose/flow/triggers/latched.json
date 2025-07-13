@@ -1,0 +1,27 @@
+{
+  "title": {
+    "en": "Latched",
+	"no": "Låst",
+	"nl": "Slot",
+	"da": "Låst",
+	"de": "Verriegelt",
+	"es": "Bloqueado",
+	"fr": "Verrouillé",
+	"it": "Bloccato",
+	"sv": "Låst",
+	"pl": "Zablokowany",
+	"ru": "Заблокирован",
+	"ko": "잠김"
+  },
+  "platforms": [
+    "local",
+    "cloud"
+  ],
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=lock_ultra_hub"
+    }
+  ]
+}

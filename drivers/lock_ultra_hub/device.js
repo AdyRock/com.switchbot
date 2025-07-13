@@ -100,6 +100,7 @@ class LockUltraHubDevice extends HubDevice
 					lockStatus = data.lockState;
 				}
 
+				let lastStatus = this.getCapabilityValue('locked_status');
 				this.setCapabilityValue('locked_status', lockStatus).catch(this.error);
 				this.setCapabilityValue('alarm_generic', lockStatus === 'jammed').catch(this.error);
 				this.setCapabilityValue('alarm_contact', (data.doorState === 'open') || (data.doorState === 'opened')).catch(this.error);
@@ -109,14 +110,23 @@ class LockUltraHubDevice extends HubDevice
 					this.setCapabilityValue('measure_battery', data.battery).catch(this.error);
 				}
 
-				if (lockStatus === 'locked')
+				if (lastStatus !== lockStatus)
 				{
-					this.driver.triggerLocked(this, { locked: true }, null).catch(this.error);
+					if (data.lockState === 'Locked')
+					{
+						this.driver.triggerLocked(this, null, null).catch(this.error);
+					}
+					else if (data.lockState === 'latchBoltLocked')
+					{
+						this.driver.triggerUnlocked(this, null, null).catch(this.error);
+					}
+					else
+					{
+						this.driver.triggerUnlocked(this, null, null).catch(this.error);
+					}
 				}
-				else
-				{
-					this.driver.triggerUnlocked(this, { unlocked: true }, null).catch(this.error);
-				}
+
+				lastStatus = lockStatus;
 			}
 			this.unsetWarning().catch(this.error);
 		}
@@ -150,6 +160,7 @@ class LockUltraHubDevice extends HubDevice
 					lockStatus = data.lockStatus;
 				}
 
+				let lastStatus = this.getCapabilityValue('locked_status');
 				this.setCapabilityValue('locked_status', lockStatus).catch(this.error);
 				this.setCapabilityValue('alarm_generic', lockStatus === 'JAMMED').catch(this.error);
 
@@ -158,15 +169,22 @@ class LockUltraHubDevice extends HubDevice
 					this.setCapabilityValue('measure_battery', message.context.battery).catch(this.error);
 				}
 
-				if (lockStatus === 'LOCKED')
+				if (lastStatus !== lockStatus)
 				{
-					this.driver.triggerLocked(this, { locked: true }, null).catch(this.error);
+					if (message.context.lockState === 'LOCKED')
+					{
+						this.driver.triggerLocked(this, null, null).catch(this.error);
+					}
+					else if (message.context.lockState === 'LATCHED')
+					{
+						this.driver.triggerLatched(this, null, null).catch(this.error);
+					}
+					else
+					{
+						this.driver.triggerUnlocked(this, null, null).catch(this.error);
+					}
 				}
-				else
-				{
-					this.driver.triggerUnlocked(this, { unlocked: true }, null).catch(this.error);
-				}
-				}
+			}
 		}
 		catch (err)
 		{

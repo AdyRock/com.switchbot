@@ -14,6 +14,7 @@ class LockUltraHubDriver extends HubDriver
 	{
 		super.onOAuth2Init();
 		this.lockedTrigger = this.homey.flow.getDeviceTriggerCard('locked');
+		this.latchedTrigger = this.homey.flow.getDeviceTriggerCard('latched');
 		this.unlockedTrigger = this.homey.flow.getDeviceTriggerCard('unlocked');
 		this.log('LockUltraHubDriver has been initialized');
 	}
@@ -30,6 +31,11 @@ class LockUltraHubDriver extends HubDriver
 	async triggerLocked(device, tokens, state)
 	{
 		this.lockedTrigger.trigger(device, tokens, state).catch(this.error);
+	}
+
+	async triggerLatched(device, tokens, state)
+	{
+		this.latchedTrigger.trigger(device, tokens, state).catch(this.error);
 	}
 
 	async triggerUnlocked(device, tokens, state)

@@ -754,5 +754,18 @@
 		"pl": "Dodano obsługę kart wyzwalacza i akcji Relay 2PM",
 		"ru": "Добавлена поддержка карт триггера и действия Relay 2PM",
 		"ko": "Relay 2PM 트리거 및 액션 카드 지원 추가"
+	},
+	"2.0.37": {
+		"en": "Fixed Lock Ultra locked Flow card constantly triggering",
+		"no": "Fikset Lock Ultra låst Flow-kort som stadig utløser",
+		"nl": "Probleem opgelost met de Lock Ultra vergrendelde Flow-kaart die constant wordt geactiveerd",
+		"de": "Problem mit der ständig auslösenden Lock Ultra gesperrten Flow-Karte behoben",
+		"fr": "Correction de la carte de flux verrouillée Lock Ultra qui se déclenche constamment",
+		"es": "Se corrigió la tarjeta de flujo bloqueada Lock Ultra que se activaba constantemente",
+		"pt": "Corrigido o cartão de fluxo bloqueado Lock Ultra que estava constantemente acionando",
+		"it": "Corretto il problema della scheda di flusso Lock Ultra bloccata che si attivava continuamente",
+		"pl": "Naprawiono kartę przepływu zablokowaną Lock Ultra, która ciągle się uruchamiała",
+		"ru": "Исправлена карта потока Lock Ultra, которая постоянно срабатывала",
+		"ko": "Lock Ultra 잠금 플로우 카드가 지속적으로 트리거되는 문제 수정"
 	}
 }
