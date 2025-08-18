@@ -19,7 +19,7 @@ class S10WaterStationDriver extends HubDriver
 
 	async onPairListDevices({ oAuth2Client })
 	{
-		return this.getHUBDevices(oAuth2Client, ['Robot Vacuum Cleaner S10', 'K10+ Pro']);
+		return this.getHUBDevices(oAuth2Client, ['Robot Vacuum Cleaner S10', 'K10+ Pro', 'Robot Vacuum Cleaner S20']);
 	}
 
 }
