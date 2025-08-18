@@ -1,18 +1,18 @@
 {
   "id": "S10_water_station",
   "name": {
-    "en": "S10 Water Station",
-	"no": "S10 Vannstasjon",
-	"nl": "S10 Waterstation",
-	"da": "S10 Vandstation",
-	"de": "S10 Wasserspeicher",
-	"es": "Estación de Agua S10",
-	"fr": "Station d'Eau S10",
-	"it": "Stazione dell'Acqua S10",
-	"sv": "S10 Vattenstation",
-	"pl": "Stacja Wodna S10",
-	"ru": "Водная станция S10",
-	"ko": "S10 물 스테이션"
+    "en": "S10/S20 Water Station",
+	"no": "S10/S20 Vannstasjon",
+	"nl": "S10/S20 Waterstation",
+	"da": "S10/S20 Vandstation",
+	"de": "S10/S20 Wasserspeicher",
+	"es": "Estación de Agua S10/S20",
+	"fr": "Station d'Eau S10/S20",
+	"it": "Stazione dell'Acqua S10/S20",
+	"sv": "S10/S20 Vattenstation",
+	"pl": "Stacja Wodna S10/S20",
+	"ru": "Водная станция S10/S20",
+	"ko": "S10/S20 물 스테이션"
   },
   "class": "vacuumcleaner",
   "capabilities": [
