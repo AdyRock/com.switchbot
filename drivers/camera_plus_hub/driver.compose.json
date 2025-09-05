@@ -1,0 +1,24 @@
+{
+	"id": "camera_hub",
+	"name": {
+		"en": "Pan/Tilt Camera Plus (HUB)",
+		"no": "Pan/Tilt Camera Plus (HUB)",
+		"nl": "Pan/Tilt Camera Plus (HUB)",
+		"da": "Pan/Tilt Camera Plus (HUB)",
+		"de": "Pan/Tilt Camera Plus (HUB)",
+		"es": "Pan/Tilt Camera Plus (HUB)",
+		"fr": "Pan/Tilt Camera Plus (HUB)",
+		"it": "Pan/Tilt Camera Plus (HUB)",
+		"sv": "Pan/Tilt Camera Plus (HUB)",
+		"pl": "Pan/Tilt Camera Plus (HUB)",
+		"ru": "Pan/Tilt Camera Plus (HUB)",
+		"ko": "Pan/Tilt Camera Plus (HUB)"
+	},
+	"class": "camera",
+	"capabilities": [
+		"alarm_motion"
+	],
+	"$extends": [
+		"hubDriver"
+	]
+}

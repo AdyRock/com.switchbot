@@ -4,11 +4,11 @@
     {
         "node/no-extraneous-require": "off",
         "indent": "off",
-        "brace-style": "off",
-        "function-paren-newline": ["error", "consistent"],
+        "brace-style": ["error", "allman"],
+        "function-paren-newline": ["error", "always"],
         "linebreak-style": ["error", "windows"],
         "no-tabs": ["error", { "allowIndentationTabs": true }],
-        "object-curly-newline": ["error", { "consistent": true }],
+        "object-curly-newline": ["error", { "always": true }],
         "max-len": ["error", { "code": 300 }]
     }
 }

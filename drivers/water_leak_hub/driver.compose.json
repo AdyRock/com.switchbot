@@ -1,31 +1,88 @@
 {
-  "id": "water_leak_hub",
-  "name": {
-    "en": "Water Leak Detector (HUB)",
-    "no": "Vannlekkasjevarsler (HUB)",
-    "nl": "Waterleksensor (HUB)",
-    "da": "Vandlækagedetektor (HUB)",
-    "de": "Wasserleckdetektor (HUB)",
-    "es": "Detector de fugas de agua (HUB)",
-    "fr": "Détecteur de fuite d'eau (HUB)",
-    "it": "Rilevatore di perdite d'acqua (HUB)",
-    "sv": "Vattenläckagedetektor (HUB)",
-    "pl": "Detektor wycieków wody (HUB)",
-    "ru": "Датчик утечки воды (HUB)",
-    "ko": "물 누수 감지기 (HUB)"
-  },
-  "class": "sensor",
-  "capabilities": [
-    "alarm_water",
-    "measure_battery"
-  ],
-  "energy": {
-    "batteries": [
-      "AAA",
-      "AAA"
-    ]
-  },
-  "$extends": [
-    "hubDriver"
-  ]
+	"id": "water_leak_hub",
+	"name": {
+		"en": "Water Leak Detector (HUB)",
+		"no": "Vannlekkasjevarsler (HUB)",
+		"nl": "Waterleksensor (HUB)",
+		"da": "Vandlækagedetektor (HUB)",
+		"de": "Wasserleckdetektor (HUB)",
+		"es": "Detector de fugas de agua (HUB)",
+		"fr": "Détecteur de fuite d'eau (HUB)",
+		"it": "Rilevatore di perdite d'acqua (HUB)",
+		"sv": "Vattenläckagedetektor (HUB)",
+		"pl": "Detektor wycieków wody (HUB)",
+		"ru": "Датчик утечки воды (HUB)",
+		"ko": "물 누수 감지기 (HUB)"
+	},
+	"class": "sensor",
+	"capabilities": [
+		"alarm_water",
+		"measure_battery"
+	],
+	"energy": {
+		"batteries": [
+			"AAA",
+			"AAA"
+		]
+	},
+	"$extends": [
+		"hubDriver"
+	],
+	"settings": [
+		{
+			"id": "mode",
+			"type": "dropdown",
+			"label": {
+				"en": "Alarm Mode",
+				"nl": "Alarmmodus",
+				"no": "Alarmmodus",
+				"da": "Alarmtilstand",
+				"de": "Alarmmodus",
+				"es": "Modo de alarma",
+				"fr": "Mode alarme",
+				"it": "Modalità allarme",
+				"sv": "Alarmläge",
+				"pl": "Tryb alarmu",
+				"ru": "Режим тревоги",
+				"ko": "알람 모드"
+			},
+			"value": "wet",
+			"values": [
+				{
+					"id": "wet",
+					"label": {
+						"en": "Alarm when wet",
+						"nl": "Alarm bij nat",
+						"no": "Alarm ved våt",
+						"da": "Alarm ved våd",
+						"de": "Alarm bei nass",
+						"es": "Alarma cuando está mojado",
+						"fr": "Alarme en cas d'humidité",
+						"it": "Allarme quando è bagnato",
+						"sv": "Larm när det är vått",
+						"pl": "Alarm, gdy jest mokro",
+						"ru": "Тревога при влажности",
+						"ko": "젖었을 때 알람"
+					}
+				},
+				{
+					"id": "dry",
+					"label": {
+						"en": "Alarm when dry",
+						"nl": "Alarm bij droog",
+						"no": "Alarm ved tørr",
+						"da": "Alarm ved tør",
+						"de": "Alarm bei trocken",
+						"es": "Alarma cuando está seco",
+						"fr": "Alarme en cas de sécheresse",
+						"it": "Allarme quando è asciutto",
+						"sv": "Larm när det är torrt",
+						"pl": "Alarm, gdy jest suche",
+						"ru": "Тревога при сухости",
+						"ko": "건조할 때 알람"
+					}
+				}
+			]
+		}
+	]
 }

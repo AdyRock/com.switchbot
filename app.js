@@ -115,6 +115,7 @@ class MyApp extends OAuth2App
 		'temperature_hub',
 		'tv_hub',
 		'water_leak_hub',
+		'camera_plus_hub',
 	];
 
 	/**
@@ -122,7 +123,7 @@ class MyApp extends OAuth2App
 	 */
 	async onOAuth2Init()
 	{
-		//		this.overrideLoggingMethods();
+		this.overrideLoggingMethods();
 
 		this.log('SwitchBot has been initialized');
 		this.logLevel = this.homey.settings.get('logLevel');
@@ -140,6 +141,12 @@ class MyApp extends OAuth2App
 		this.bleBusy = false;
 		this.devicesMACs = [];
 		this.webRegTimerID = null;
+
+		if (this.logLevel > 1)
+		{
+			this.enableOAuth2Debug();
+		}
+
 		this.processWebhookMessage.bind(this);
 
 		this.numConnections = this.homey.settings.get('numConnections');
@@ -197,11 +204,6 @@ class MyApp extends OAuth2App
 			this.logLevel = 3;
 			this.homey.settings.set('logLevel', this.logLevel);
 			this.homeyIP = null;
-		}
-
-		if (this.logLevel > 1)
-		{
-			this.enableOAuth2Debug();
 		}
 
 		// Callback for app settings changed

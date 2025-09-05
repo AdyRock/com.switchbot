@@ -47,6 +47,15 @@ class WaterLeakHubDevice extends HubDevice
 		this.log('WaterLeakHubDevice was renamed');
 	}
 
+	async onSettings({ oldSettings, newSettings, changedKeys })
+	{
+		if (changedKeys.indexOf('mode') >= 0)
+		{
+			const mode = this.getCapabilityValue('alarm_water');
+			this.setCapabilityValue('alarm_water', !mode).catch(this.error);
+		}
+	}
+
 	async getHubDeviceValues()
 	{
 		try
@@ -57,7 +66,9 @@ class WaterLeakHubDevice extends HubDevice
 				this.setAvailable();
 				this.homey.app.updateLog(`Water Leak Hub got:${this.homey.app.varToString(data)}`, 3);
 
-				this.setCapabilityValue('alarm_water', (data.status === 1)).catch(this.error);
+				const activeState = (this.getSetting('wet') === 'dry' ? 0 : 1);
+
+				this.setCapabilityValue('alarm_water', (data.status === activeState)).catch(this.error);
 
 				if (data.battery)
 				{
@@ -81,7 +92,8 @@ class WaterLeakHubDevice extends HubDevice
 			if (dd.id === message.context.deviceMac)
 			{
 				// message is for this device
-				this.setCapabilityValue('alarm_water', message.context.detectionState === 1).catch(this.error);
+				const activeState = (this.getSetting('wet') === 'dry' ? 0 : 1);
+				this.setCapabilityValue('alarm_water', message.context.detectionState === activeState).catch(this.error);
 				if (message.context.battery)
 				{
 					this.setCapabilityValue('measure_battery', message.context.battery).catch(this.error);

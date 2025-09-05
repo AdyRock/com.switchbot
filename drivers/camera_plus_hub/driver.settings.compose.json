@@ -1,0 +1,94 @@
+[
+	{
+		"id": "username",
+		"type": "text",
+		"label": {
+			"en": "Camera User name",
+			"nl": "Camera Gebruikersnaam",
+			"no": "Camera Brukernavn",
+			"da": "Camera Brugernavn",
+			"de": "Camera Benutzername",
+			"es": "Camera Nombre de usuario",
+			"fr": "Camera Nom d'utilisateur",
+			"it": "Camera Nome utente",
+			"sv": "Camera Användarnamn",
+			"pl": "Camera Nazwa użytkownika",
+			"ru": "Camera Имя пользователя",
+			"ko": "Camera 사용자 이름"
+		},
+		"value": "user"
+	},
+	{
+		"id": "password",
+		"type": "text",
+		"label": {
+			"en": "Camera Password",
+			"nl": "Camera Wachtwoord",
+			"no": "Camera Passord",
+			"da": "Camera Adgangskode",
+			"de": "Camera Passwort",
+			"es": "Camera Contraseña",
+			"fr": "Camera Mot de passe",
+			"it": "Camera Password",
+			"sv": "Camera Lösenord",
+			"pl": "Camera Hasło",
+			"ru": "Camera Пароль",
+			"ko": "Camera 비밀번호"
+		},
+		"value": "password"
+	},
+	{
+		"id": "ip",
+		"type": "text",
+		"label": {
+			"en": "Camera IP Address",
+			"nl": "Camera IP-adres",
+			"no": "Camera IP-adresse",
+			"da": "Camera IP-adresse",
+			"de": "Camera IP-Adresse",
+			"es": "Camera Dirección IP",
+			"fr": "Camera Adresse IP",
+			"it": "Camera Indirizzo IP",
+			"sv": "Camera IP-adress",
+			"pl": "Camera Adres IP",
+			"ru": "Camera IP-адрес",
+			"ko": "Camera IP 주소"
+		},
+		"value": "X.X.X.X"
+	},
+	{
+		"id": "duration",
+		"type": "number",
+		"label": {
+			"en": "Motion Duration",
+			"nl": "Bewegingsduur",
+			"no": "Bevegelsesvarighet",
+			"da": "Bevægelsesvarighed",
+			"de": "Bewegungsdauer",
+			"es": "Duración del movimiento",
+			"fr": "Durée du mouvement",
+			"it": "Durata del movimento",
+			"sv": "Rörelsens varaktighet",
+			"pl": "Czas trwania ruchu",
+			"ru": "Длительность движения",
+			"ko": "이동 시간"
+		},
+		"value": 10,
+		"min": 1,
+		"max": 240,
+		"units": {
+			"en": "seconds",
+			"nl": "seconden",
+			"no": "sekunder",
+			"da": "sekunder",
+			"de": "Sekunden",
+			"es": "segundos",
+			"fr": "secondes",
+			"it": "secondi",
+			"sv": "sekunder",
+			"pl": "sekundy",
+			"ru": "секунды",
+			"ko": "초"
+		}
+	}
+]

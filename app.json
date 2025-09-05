@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.switchbot",
-  "version": "2.0.37",
+  "version": "2.0.39",
   "compatibility": ">=12.2.0",
   "platforms": [
     "local",
@@ -5804,6 +5804,156 @@
       ]
     },
     {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        }
+      ],
+      "icon": "/drivers/camera_plus_hub/assets/icon.svg",
+      "images": {
+        "large": "/drivers/camera_plus_hub/assets/images/large.jpg",
+        "small": "/drivers/camera_plus_hub/assets/images/small.jpg"
+      },
+      "id": "camera_plus_hub",
+      "name": {
+        "en": "Pan/Tilt Camera Plus (HUB)",
+        "no": "Pan/Tilt Camera Plus (HUB)",
+        "nl": "Pan/Tilt Camera Plus (HUB)",
+        "da": "Pan/Tilt Camera Plus (HUB)",
+        "de": "Pan/Tilt Camera Plus (HUB)",
+        "es": "Pan/Tilt Camera Plus (HUB)",
+        "fr": "Pan/Tilt Camera Plus (HUB)",
+        "it": "Pan/Tilt Camera Plus (HUB)",
+        "sv": "Pan/Tilt Camera Plus (HUB)",
+        "pl": "Pan/Tilt Camera Plus (HUB)",
+        "ru": "Pan/Tilt Camera Plus (HUB)",
+        "ko": "Pan/Tilt Camera Plus (HUB)"
+      },
+      "class": "camera",
+      "capabilities": [
+        "alarm_motion"
+      ],
+      "settings": [
+        {
+          "id": "username",
+          "type": "text",
+          "label": {
+            "en": "Camera User name",
+            "nl": "Camera Gebruikersnaam",
+            "no": "Camera Brukernavn",
+            "da": "Camera Brugernavn",
+            "de": "Camera Benutzername",
+            "es": "Camera Nombre de usuario",
+            "fr": "Camera Nom d'utilisateur",
+            "it": "Camera Nome utente",
+            "sv": "Camera Användarnamn",
+            "pl": "Camera Nazwa użytkownika",
+            "ru": "Camera Имя пользователя",
+            "ko": "Camera 사용자 이름"
+          },
+          "value": "user"
+        },
+        {
+          "id": "password",
+          "type": "text",
+          "label": {
+            "en": "Camera Password",
+            "nl": "Camera Wachtwoord",
+            "no": "Camera Passord",
+            "da": "Camera Adgangskode",
+            "de": "Camera Passwort",
+            "es": "Camera Contraseña",
+            "fr": "Camera Mot de passe",
+            "it": "Camera Password",
+            "sv": "Camera Lösenord",
+            "pl": "Camera Hasło",
+            "ru": "Camera Пароль",
+            "ko": "Camera 비밀번호"
+          },
+          "value": "password"
+        },
+        {
+          "id": "ip",
+          "type": "text",
+          "label": {
+            "en": "Camera IP Address",
+            "nl": "Camera IP-adres",
+            "no": "Camera IP-adresse",
+            "da": "Camera IP-adresse",
+            "de": "Camera IP-Adresse",
+            "es": "Camera Dirección IP",
+            "fr": "Camera Adresse IP",
+            "it": "Camera Indirizzo IP",
+            "sv": "Camera IP-adress",
+            "pl": "Camera Adres IP",
+            "ru": "Camera IP-адрес",
+            "ko": "Camera IP 주소"
+          },
+          "value": "X.X.X.X"
+        },
+        {
+          "id": "duration",
+          "type": "number",
+          "label": {
+            "en": "Motion Duration",
+            "nl": "Bewegingsduur",
+            "no": "Bevegelsesvarighet",
+            "da": "Bevægelsesvarighed",
+            "de": "Bewegungsdauer",
+            "es": "Duración del movimiento",
+            "fr": "Durée du mouvement",
+            "it": "Durata del movimento",
+            "sv": "Rörelsens varaktighet",
+            "pl": "Czas trwania ruchu",
+            "ru": "Длительность движения",
+            "ko": "이동 시간"
+          },
+          "value": 10,
+          "min": 1,
+          "max": 240,
+          "units": {
+            "en": "seconds",
+            "nl": "seconden",
+            "no": "sekunder",
+            "da": "sekunder",
+            "de": "Sekunden",
+            "es": "segundos",
+            "fr": "secondes",
+            "it": "secondi",
+            "sv": "sekunder",
+            "pl": "sekundy",
+            "ru": "секунды",
+            "ko": "초"
+          }
+        }
+      ]
+    },
+    {
       "id": "color_bulb_ble",
       "name": {
         "en": "Colour Bulb (BLE)",
@@ -9928,7 +10078,64 @@
           "AAA",
           "AAA"
         ]
-      }
+      },
+      "settings": [
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": {
+            "en": "Alarm Mode",
+            "nl": "Alarmmodus",
+            "no": "Alarmmodus",
+            "da": "Alarmtilstand",
+            "de": "Alarmmodus",
+            "es": "Modo de alarma",
+            "fr": "Mode alarme",
+            "it": "Modalità allarme",
+            "sv": "Alarmläge",
+            "pl": "Tryb alarmu",
+            "ru": "Режим тревоги",
+            "ko": "알람 모드"
+          },
+          "value": "wet",
+          "values": [
+            {
+              "id": "wet",
+              "label": {
+                "en": "Alarm when wet",
+                "nl": "Alarm bij nat",
+                "no": "Alarm ved våt",
+                "da": "Alarm ved våd",
+                "de": "Alarm bei nass",
+                "es": "Alarma cuando está mojado",
+                "fr": "Alarme en cas d'humidité",
+                "it": "Allarme quando è bagnato",
+                "sv": "Larm när det är vått",
+                "pl": "Alarm, gdy jest mokro",
+                "ru": "Тревога при влажности",
+                "ko": "젖었을 때 알람"
+              }
+            },
+            {
+              "id": "dry",
+              "label": {
+                "en": "Alarm when dry",
+                "nl": "Alarm bij droog",
+                "no": "Alarm ved tørr",
+                "da": "Alarm ved tør",
+                "de": "Alarm bei trocken",
+                "es": "Alarma cuando está seco",
+                "fr": "Alarme en cas de sécheresse",
+                "it": "Allarme quando è asciutto",
+                "sv": "Larm när det är torrt",
+                "pl": "Alarm, gdy jest suche",
+                "ru": "Тревога при сухости",
+                "ko": "건조할 때 알람"
+              }
+            }
+          ]
+        }
+      ]
     }
   ],
   "capabilities": {
@@ -9949,6 +10156,23 @@
         "ko": "모드"
       },
       "values": [
+        {
+          "id": "0",
+          "title": {
+            "en": "Offline",
+            "no": "Frakoblet",
+            "nl": "Offline",
+            "da": "Frakoblet",
+            "de": "Offline",
+            "es": "Desconectado",
+            "fr": "Hors ligne",
+            "it": "Disconnesso",
+            "sv": "Frakopplad",
+            "pl": "Offline",
+            "ru": "Офлайн",
+            "ko": "오프라인"
+          }
+        },
         {
           "id": "1",
           "title": {

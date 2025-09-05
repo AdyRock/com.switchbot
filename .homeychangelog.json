@@ -767,5 +767,18 @@
 		"pl": "Naprawiono kartę przepływu zablokowaną Lock Ultra, która ciągle się uruchamiała",
 		"ru": "Исправлена карта потока Lock Ultra, которая постоянно срабатывала",
 		"ko": "Lock Ultra 잠금 플로우 카드가 지속적으로 트리거되는 문제 수정"
+	},
+	"2.0.38": {
+		"en": "Add device setting for water leak sensor alarm polarity (wet or dray mode)",
+		"no": "Legg til enhetsinnstilling for vannlekkasjesensor alarm polaritet (våt eller tørr modus)",
+		"nl": "Voeg apparaatinstelling toe voor waterleksensor alarm polariteit (natte of droge modus)",
+		"de": "Geräteeinstellung für die Polarität des Wasseraustrittssensors (nasser oder trockener Modus) hinzufügen",
+		"fr": "Ajouter un paramètre de périphérique pour la polarité de l'alarme du capteur de fuite d'eau (mode humide ou sec)",
+		"es": "Agregar configuración del dispositivo para la polaridad de la alarma del sensor de fugas de agua (modo húmedo o seco)",
+		"pt": "Adicionar configuração do dispositivo para polaridade do alarme do sensor de vazamento de água (modo úmido ou seco)",
+		"it": "Aggiungi impostazione del dispositivo per la polarità dell'allarme del sensore di perdita d'acqua (modalità bagnata o asciutta)",
+		"pl": "Dodaj ustawienie urządzenia dla polaryzacji alarmu czujnika wycieku wody (tryb mokry lub suchy)",
+		"ru": "Добавить настройку устройства для полярности сигнала тревоги датчика утечки воды (влажный или сухой режим)",
+		"ko": "누수 센서 경보 극성(습식 또는 건식 모드)에 대한 장치 설정 추가"
 	}
 }

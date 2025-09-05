@@ -16,6 +16,23 @@
 	},
 	"values": [
 		{
+			"id": "0",
+			"title": {
+				"en": "Offline",
+				"no": "Frakoblet",
+				"nl": "Offline",
+				"da": "Frakoblet",
+				"de": "Offline",
+				"es": "Desconectado",
+				"fr": "Hors ligne",
+				"it": "Disconnesso",
+				"sv": "Frakopplad",
+				"pl": "Offline",
+				"ru": "Офлайн",
+				"ko": "오프라인"
+			}
+		},
+		{
 			"id": "1",
 			"title": {
 				"en": "Fan",
