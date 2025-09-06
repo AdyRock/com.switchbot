@@ -81,41 +81,47 @@ class MyApp extends OAuth2App
 	}
 
 	static OAUTH2_CLIENT = SwitchBotOAuth2Client; // Default: OAuth2Client
-	static OAUTH2_DEBUG = false; // Default: false
+	static OAUTH2_DEBUG = true; // Default: false
 	static OAUTH2_MULTI_SESSION = false; // Default: false
 	static OAUTH2_DRIVERS = [
 		'air_con_hub',
 		'air_puifier_hub',
 		'blind_tilt_hub',
 		'bot_hub',
+		'camera_hub',
+		'camera_plus_hub',
 		'color_bulb_hub',
 		'contact_hub',
 		'curtains_hub',
 		'custom_remote_hub',
 		'dvd',
 		'fan_hub',
-		'humidifier2_hub',
+		'hub3',
 		'humidifier_hub',
+		'humidifier2_hub',
 		'light_remote_hub',
 		'lock_hub',
+		"lock_ultra_hub",
 		'meter_pro_CO2_hub',
 		'meter_pro_hub',
+		'plug_eu_hub',
 		'plug_hub',
 		'presence_hub',
 		'relay_hub',
+		'relay2pm_hub',
 		'robot_vaccum_hub',
+		'robot_vacuum_K20_hub',
 		'robot_vacuum_S10_hub',
 		'roller_blind_hub',
+		'S10_water_station',
 		'scene',
 		'settop_box_hub',
 		'smart_fan_hub',
 		'speaker',
 		'strip_light',
-		'S10_water_station',
 		'temperature_hub',
 		'tv_hub',
 		'water_leak_hub',
-		'camera_plus_hub',
 	];
 
 	/**
@@ -145,6 +151,10 @@ class MyApp extends OAuth2App
 		if (this.logLevel > 1)
 		{
 			this.enableOAuth2Debug();
+		}
+		else
+		{
+			this.disableOAuth2Debug();
 		}
 
 		this.processWebhookMessage.bind(this);

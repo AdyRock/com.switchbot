@@ -780,5 +780,18 @@
 		"pl": "Dodaj ustawienie urządzenia dla polaryzacji alarmu czujnika wycieku wody (tryb mokry lub suchy)",
 		"ru": "Добавить настройку устройства для полярности сигнала тревоги датчика утечки воды (влажный или сухой режим)",
 		"ko": "누수 센서 경보 극성(습식 또는 건식 모드)에 대한 장치 설정 추가"
+	},
+	"2.0.39": {
+		"en": "Fixed issue with Lock Ultra not connecting at startup when it is the only device",
+		"no": "Fikset problem med at Lock Ultra ikke kobler til ved oppstart når det er den eneste enheten",
+		"nl": "Probleem opgelost met Lock Ultra die niet verbindt bij opstart wanneer het het enige apparaat is",
+		"de": "Problem mit Lock Ultra, das beim Starten nicht verbindet, wenn es das einzige Gerät ist, behoben",
+		"fr": "Correction d'un problème avec Lock Ultra qui ne se connecte pas au démarrage lorsqu'il s'agit du seul appareil",
+		"es": "Se corrigió el problema con Lock Ultra que no se conecta al inicio cuando es el único dispositivo",
+		"pt": "Corrigido o problema com o status do Lock Ultra que não está sendo atualizado",
+		"it": "Risolto il problema con lo stato di Lock Ultra che non si aggiorna",
+		"pl": "Naprawiono problem z nieaktualizującym się stanem Lock Ultra",
+		"ru": "Исправлена проблема с не обновляющимся статусом Lock Ultra",
+		"ko": "Lock Ultra 상태가 업데이트되지 않는 문제 수정"
 	}
 }
