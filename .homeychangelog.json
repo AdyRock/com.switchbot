@@ -793,5 +793,18 @@
 		"pl": "Naprawiono problem z nieaktualizującym się stanem Lock Ultra",
 		"ru": "Исправлена проблема с не обновляющимся статусом Lock Ultra",
 		"ko": "Lock Ultra 상태가 업데이트되지 않는 문제 수정"
+	},
+	"2.0.40": {
+		"en": "Added support for the SwitchBot radiator thermostat",
+		"no": "Lagt til støtte for SwitchBot radiator termostat",
+		"nl": "Ondersteuning toegevoegd voor de SwitchBot radiatorthermostaat",
+		"de": "Unterstützung für das SwitchBot Heizkörperthermostat hinzugefügt",
+		"fr": "Ajout de la prise en charge du thermostat de radiateur SwitchBot",
+		"es": "Agregado soporte para el termostato de radiador SwitchBot",
+		"pt": "Adicionado suporte para o termostato de radiador SwitchBot",
+		"it": "Aggiunto supporto per il termostato del radiatore SwitchBot",
+		"pl": "Dodano obsługę termostatu grzejnikowego SwitchBot",
+		"ru": "Добавлена поддержка термостата радиатора SwitchBot",
+		"ko": "SwitchBot 라디에이터 온도 조절기 지원 추가"
 	}
 }

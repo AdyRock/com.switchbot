@@ -1,25 +1,31 @@
 {
-  "name": {
-    "en": "Radiator Thermostat",
-    "no": "Radiator Termostat",
-	"nl": "Radiator Thermostaat",
-	"de": "Heizkörperthermostat",
-	"fr": "Thermostat de radiateur",
-	"it": "Termostato del radiatore",
-	"es": "Termostato de radiador",
-	"sv": "Radiator Termostat",
-	"pl": "Termostat grzejnikowy",
-	"ru": "Термостат радиатора",
-	"ko": "라디에이터 온도 조절기"
-  },
-  "class": "thermostat",
-  "capabilities": [
-    "measure_temperature",
-	"target_temperature",
-	"radiator_thermostat_mode",
-	"measure_battery"
-  ],
-  "$extends": [
-    "hubDriver"
-  ]
+	"name": {
+		"en": "Radiator Thermostat",
+		"no": "Radiator Termostat",
+		"nl": "Radiator Thermostaat",
+		"de": "Heizkörperthermostat",
+		"fr": "Thermostat de radiateur",
+		"it": "Termostato del radiatore",
+		"es": "Termostato de radiador",
+		"sv": "Radiator Termostat",
+		"pl": "Termostat grzejnikowy",
+		"ru": "Термостат радиатора",
+		"ko": "라디에이터 온도 조절기"
+	},
+	"class": "thermostat",
+	"capabilities": [
+		"measure_temperature",
+		"target_temperature",
+		"radiator_thermostat_mode",
+		"measure_battery"
+	],
+	"energy": {
+		"batteries": [
+			"AA",
+			"AA"
+		]
+	},
+	"$extends": [
+		"hubDriver"
+	]
 }
