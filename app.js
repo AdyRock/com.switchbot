@@ -573,6 +573,13 @@ class MyApp extends OAuth2App
 				return args.device.onCapabilityOnOff('2', false);
 			});
 
+		const radiatorThermostatModeAction = this.homey.flow.getActionCard('set_radiator_thermostat_mode');
+		radiatorThermostatModeAction
+			.registerRunListener(async (args, state) =>
+			{
+				return args.device.onCapabilityRadiatorThermostatMode(args.mode);
+			});
+
 		/** * CONDITIONS ** */
 		this.conditionVaccumStateIs = this.homey.flow.getConditionCard('vaccum_state_is');
 		this.conditionVaccumStateIs.registerRunListener((args) =>
@@ -580,6 +587,29 @@ class MyApp extends OAuth2App
 			const { device, state } = args;
 			const conditionMet = (device.getCapabilityValue('robot_vaccum_state') === state);
 			return Promise.resolve(conditionMet);
+		});
+
+		// Device Triggers
+		this.stateChangedTrigger = this.homey.flow.getDeviceTriggerCard('vaccum_state_changed');
+		this.stateChangedToTrigger = this.homey.flow.getDeviceTriggerCard('vaccum_state_changed_to');
+		this.stateChangedToTrigger.registerRunListener(async (args, state) =>
+		{
+			if (args.state === state.state)
+			{
+				return true;
+			}
+			return false;
+		});
+
+		this.taskChangedTrigger = this.homey.flow.getDeviceTriggerCard('vaccum_task_changed');
+		this.taskChangedToTrigger = this.homey.flow.getDeviceTriggerCard('vaccum_task_changed_to');
+		this.taskChangedToTrigger.registerRunListener(async (args, state) =>
+		{
+			if (args.state === state.state)
+			{
+				return true;
+			}
+			return false;
 		});
 
 		this.homey.app.updateLog('****** App has initialised. ******');

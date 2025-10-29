@@ -1,0 +1,124 @@
+{
+	"type": "enum",
+	"title": {
+		"en": "Mode",
+		"no": "Modus",
+		"nl": "Modus",
+		"da": "Tilstand",
+		"de": "Modus",
+		"es": "Modo",
+		"fr": "Mode",
+		"it": "Modalità",
+		"sv": "Läge",
+		"pl": "Tryb",
+		"ru": "Режим",
+		"ko": "모드"
+	},
+	"values": [
+		{
+			"id": "0",
+			"title": {
+				"en": "Schedule",
+				"no": "Planlegge",
+				"nl": "Schema",
+				"da": "Planlægning",
+				"de": "Zeitplan",
+				"es": "Horario",
+				"fr": "Horaire",
+				"it": "Programma",
+				"sv": "Schema",
+				"pl": "Harmonogram",
+				"ru": "Расписание",
+				"ko": "일정"
+			}
+		},
+		{
+			"id": "1",
+			"title": {
+				"en": "Manual",
+				"no": "Manuell",
+				"nl": "Handmatig",
+				"da": "Manuel",
+				"de": "Manuell",
+				"es": "Manual",
+				"fr": "Manuel",
+				"it": "Manuale",
+				"sv": "Manuell",
+				"pl": "Ręczny",
+				"ru": "Ручной",
+				"ko": "수동"
+			}
+		},
+		{
+			"id": "2",
+			"title": {
+				"en": "Power off mode",
+				"no": "Strøm av-modus",
+				"nl": "Uitschakelmodus",
+				"da": "Strøm fra-tilstand",
+				"de": "Ausschaltmodus",
+				"es": "Modo de apagado",
+				"fr": "Mode d'arrêt",
+				"it": "Modalità di spegnimento",
+				"sv": "Avstängningsläge",
+				"pl": "Tryb wyłączania",
+				"ru": "Режим выключения",
+				"ko": "전원 끄기 모드"
+			}
+		},
+		{
+			"id": "3",
+			"title": {
+				"en": "Energy saving mode",
+				"no": "Energisparemodus",
+				"nl": "Energiebesparingsmodus",
+				"da": "Energibesparende tilstand",
+				"de": "Energiesparmodus",
+				"es": "Modo de ahorro de energía",
+				"fr": "Mode d'économie d'énergie",
+				"it": "Modalità di risparmio energetico",
+				"sv": "Energibesparingsläge",
+				"pl": "Tryb oszczędzania energii",
+				"ru": "Режим энергосбережения",
+				"ko": "에너지 절약 모드"
+			}
+		},
+		{
+			"id": "4",
+			"title": {
+				"en": "Comfort mode",
+				"no": "Komfortmodus",
+				"nl": "Comfortmodus",
+				"da": "Komforttilstand",
+				"de": "Komfortmodus",
+				"es": "Modo de confort",
+				"fr": "Mode de confort",
+				"it": "Modalità di comfort",
+				"sv": "Komfortläge",
+				"pl": "Tryb komfortu",
+				"ru": "Режим комфорта",
+				"ko": "편안 모드"
+			}
+		},
+		{
+			"id": "5",
+			"title": {
+				"en": "Quick heating mode",
+				"no": "Rask oppvarmingsmodus",
+				"nl": "Snelle verwarmingsmodus",
+				"da": "Hurtig opvarmnings-tilstand",
+				"de": "Schnellheizmodus",
+				"es": "Modo de calefacción rápida",
+				"fr": "Mode de chauffage rapide",
+				"it": "Modalità di riscaldamento rapido",
+				"sv": "Snabbuppvärmningsläge",
+				"pl": "Tryb szybkiego ogrzewania",
+				"ru": "Режим быстрого нагрева",
+				"ko": "빠른 난방 모드"
+			}
+		}
+	],
+	"getable": true,
+	"setable": true,
+	"icon": "/assets/fan_mode.svg"
+}

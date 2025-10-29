@@ -3527,6 +3527,180 @@
       },
       {
         "title": {
+          "en": "Set the thermostat mode",
+          "no": "Angi termostatmodus",
+          "nl": "Stel de thermostaatmodus in",
+          "da": "Indstil termostattilstand",
+          "de": "Stellen Sie den Thermostatmodus ein",
+          "es": "Establecer el modo del termostato",
+          "fr": "Définir le mode du thermostat",
+          "it": "Imposta la modalità del termostato",
+          "sv": "Ställ in termostatläget",
+          "pl": "Ustaw tryb termostatu",
+          "ru": "Установить режим термостата",
+          "ko": "온도 조절기 모드 설정"
+        },
+        "titleFormatted": {
+          "en": "Set the thermostat mode to [[mode]]",
+          "no": "Angi termostatmodus til [[mode]]",
+          "nl": "Stel de thermostaatmodus in op [[mode]]",
+          "da": "Indstil termostattilstand til [[mode]]",
+          "de": "Stellen Sie den Thermostatmodus auf [[mode]] ein",
+          "es": "Establecer el modo del termostato en [[mode]]",
+          "fr": "Définir le mode du thermostat sur [[mode]]",
+          "it": "Imposta la modalità del termostato su [[mode]]",
+          "sv": "Ställ in termostatläget på [[mode]]",
+          "pl": "Ustaw tryb termostatu na [[mode]]",
+          "ru": "Установить режим термостата на [[mode]]",
+          "ko": "온도 조절기 모드를 [[mode]](으)로 설정"
+        },
+        "hint": {
+          "en": "Change the mode of the thermostat",
+          "no": "Endre termostatmodus",
+          "nl": "Wijzig de modus van de thermostaat",
+          "da": "Skift tilstand for termostaten",
+          "de": "Ändern Sie den Modus des Thermostats",
+          "es": "Cambiar el modo del termostato",
+          "fr": "Changer le mode du thermostat",
+          "it": "Cambia la modalità del termostato",
+          "sv": "Ändra termostatläget",
+          "pl": "Zmień tryb termostatu",
+          "ru": "Изменить режим термостата",
+          "ko": "온도 조절기 모드 변경"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=radiator_themostat"
+          },
+          {
+            "name": "mode",
+            "type": "dropdown",
+            "title": {
+              "en": "Mode",
+              "no": "Modus",
+              "nl": "Modus",
+              "da": "Tilstand",
+              "de": "Modus",
+              "es": "Modo",
+              "fr": "Mode",
+              "it": "Modalità",
+              "sv": "Läge",
+              "pl": "Tryb",
+              "ru": "Режим",
+              "ko": "모드"
+            },
+            "values": [
+              {
+                "id": "0",
+                "label": {
+                  "en": "Schedule",
+                  "no": "Planlegge",
+                  "nl": "Schema",
+                  "da": "Planlægning",
+                  "de": "Zeitplan",
+                  "es": "Horario",
+                  "fr": "Horaire",
+                  "it": "Programma",
+                  "sv": "Schema",
+                  "pl": "Harmonogram",
+                  "ru": "Расписание",
+                  "ko": "일정"
+                }
+              },
+              {
+                "id": "1",
+                "label": {
+                  "en": "Manual",
+                  "no": "Manuell",
+                  "nl": "Handmatig",
+                  "da": "Manuel",
+                  "de": "Manuell",
+                  "es": "Manual",
+                  "fr": "Manuel",
+                  "it": "Manuale",
+                  "sv": "Manuell",
+                  "pl": "Ręczny",
+                  "ru": "Ручной",
+                  "ko": "수동"
+                }
+              },
+              {
+                "id": "2",
+                "label": {
+                  "en": "Power off mode",
+                  "no": "Strøm av-modus",
+                  "nl": "Uitschakelmodus",
+                  "da": "Strøm fra-tilstand",
+                  "de": "Ausschaltmodus",
+                  "es": "Modo de apagado",
+                  "fr": "Mode d'arrêt",
+                  "it": "Modalità di spegnimento",
+                  "sv": "Avstängningsläge",
+                  "pl": "Tryb wyłączania",
+                  "ru": "Режим выключения",
+                  "ko": "전원 끄기 모드"
+                }
+              },
+              {
+                "id": "3",
+                "label": {
+                  "en": "Energy saving mode",
+                  "no": "Energisparemodus",
+                  "nl": "Energiebesparingsmodus",
+                  "da": "Energibesparende tilstand",
+                  "de": "Energiesparmodus",
+                  "es": "Modo de ahorro de energía",
+                  "fr": "Mode d'économie d'énergie",
+                  "it": "Modalità di risparmio energetico",
+                  "sv": "Energibesparingsläge",
+                  "pl": "Tryb oszczędzania energii",
+                  "ru": "Режим энергосбережения",
+                  "ko": "에너지 절약 모드"
+                }
+              },
+              {
+                "id": "4",
+                "label": {
+                  "en": "Comfort mode",
+                  "no": "Komfortmodus",
+                  "nl": "Comfortmodus",
+                  "da": "Komforttilstand",
+                  "de": "Komfortmodus",
+                  "es": "Modo de confort",
+                  "fr": "Mode de confort",
+                  "it": "Modalità di comfort",
+                  "sv": "Komfortläge",
+                  "pl": "Tryb komfortu",
+                  "ru": "Режим комфорта",
+                  "ko": "편안 모드"
+                }
+              },
+              {
+                "id": "5",
+                "label": {
+                  "en": "Quick heating mode",
+                  "no": "Rask oppvarmingsmodus",
+                  "nl": "Snelle verwarmingsmodus",
+                  "da": "Hurtig opvarmnings-tilstand",
+                  "de": "Schnellheizmodus",
+                  "es": "Modo de calefacción rápida",
+                  "fr": "Mode de chauffage rapide",
+                  "it": "Modalità di riscaldamento rapido",
+                  "sv": "Snabbuppvärmningsläge",
+                  "pl": "Tryb szybkiego ogrzewania",
+                  "ru": "Режим быстрого нагрева",
+                  "ko": "빠른 난방 모드"
+                }
+              }
+            ]
+          }
+        ],
+        "id": "set_radiator_thermostat_mode"
+      },
+      {
+        "title": {
           "en": "Set the vacuum power level",
           "no": "Sett opp støvsuger styrken",
           "nl": "Stel het stofzuigerniveau in",
@@ -8420,6 +8594,64 @@
           "template": "login_oauth2"
         }
       ],
+      "icon": "/drivers/radiator_themostat/assets/icon.svg",
+      "images": {
+        "large": "/drivers/radiator_themostat/assets/images/large.jpg",
+        "small": "/drivers/radiator_themostat/assets/images/small.jpg"
+      },
+      "name": {
+        "en": "Radiator Thermostat",
+        "no": "Radiator Termostat",
+        "nl": "Radiator Thermostaat",
+        "de": "Heizkörperthermostat",
+        "fr": "Thermostat de radiateur",
+        "it": "Termostato del radiatore",
+        "es": "Termostato de radiador",
+        "sv": "Radiator Termostat",
+        "pl": "Termostat grzejnikowy",
+        "ru": "Термостат радиатора",
+        "ko": "라디에이터 온도 조절기"
+      },
+      "class": "thermostat",
+      "capabilities": [
+        "measure_temperature",
+        "target_temperature",
+        "radiator_thermostat_mode",
+        "measure_battery"
+      ],
+      "id": "radiator_themostat"
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        }
+      ],
       "icon": "/drivers/relay2pm_hub/assets/icon.svg",
       "images": {
         "large": "/drivers/relay2pm_hub/assets/images/large.jpg",
@@ -11503,6 +11735,130 @@
         "ko": "이전"
       },
       "icon": "/assets/prev.svg"
+    },
+    "radiator_thermostat_mode": {
+      "type": "enum",
+      "title": {
+        "en": "Mode",
+        "no": "Modus",
+        "nl": "Modus",
+        "da": "Tilstand",
+        "de": "Modus",
+        "es": "Modo",
+        "fr": "Mode",
+        "it": "Modalità",
+        "sv": "Läge",
+        "pl": "Tryb",
+        "ru": "Режим",
+        "ko": "모드"
+      },
+      "values": [
+        {
+          "id": "0",
+          "title": {
+            "en": "Schedule",
+            "no": "Planlegge",
+            "nl": "Schema",
+            "da": "Planlægning",
+            "de": "Zeitplan",
+            "es": "Horario",
+            "fr": "Horaire",
+            "it": "Programma",
+            "sv": "Schema",
+            "pl": "Harmonogram",
+            "ru": "Расписание",
+            "ko": "일정"
+          }
+        },
+        {
+          "id": "1",
+          "title": {
+            "en": "Manual",
+            "no": "Manuell",
+            "nl": "Handmatig",
+            "da": "Manuel",
+            "de": "Manuell",
+            "es": "Manual",
+            "fr": "Manuel",
+            "it": "Manuale",
+            "sv": "Manuell",
+            "pl": "Ręczny",
+            "ru": "Ручной",
+            "ko": "수동"
+          }
+        },
+        {
+          "id": "2",
+          "title": {
+            "en": "Power off mode",
+            "no": "Strøm av-modus",
+            "nl": "Uitschakelmodus",
+            "da": "Strøm fra-tilstand",
+            "de": "Ausschaltmodus",
+            "es": "Modo de apagado",
+            "fr": "Mode d'arrêt",
+            "it": "Modalità di spegnimento",
+            "sv": "Avstängningsläge",
+            "pl": "Tryb wyłączania",
+            "ru": "Режим выключения",
+            "ko": "전원 끄기 모드"
+          }
+        },
+        {
+          "id": "3",
+          "title": {
+            "en": "Energy saving mode",
+            "no": "Energisparemodus",
+            "nl": "Energiebesparingsmodus",
+            "da": "Energibesparende tilstand",
+            "de": "Energiesparmodus",
+            "es": "Modo de ahorro de energía",
+            "fr": "Mode d'économie d'énergie",
+            "it": "Modalità di risparmio energetico",
+            "sv": "Energibesparingsläge",
+            "pl": "Tryb oszczędzania energii",
+            "ru": "Режим энергосбережения",
+            "ko": "에너지 절약 모드"
+          }
+        },
+        {
+          "id": "4",
+          "title": {
+            "en": "Comfort mode",
+            "no": "Komfortmodus",
+            "nl": "Comfortmodus",
+            "da": "Komforttilstand",
+            "de": "Komfortmodus",
+            "es": "Modo de confort",
+            "fr": "Mode de confort",
+            "it": "Modalità di comfort",
+            "sv": "Komfortläge",
+            "pl": "Tryb komfortu",
+            "ru": "Режим комфорта",
+            "ko": "편안 모드"
+          }
+        },
+        {
+          "id": "5",
+          "title": {
+            "en": "Quick heating mode",
+            "no": "Rask oppvarmingsmodus",
+            "nl": "Snelle verwarmingsmodus",
+            "da": "Hurtig opvarmnings-tilstand",
+            "de": "Schnellheizmodus",
+            "es": "Modo de calefacción rápida",
+            "fr": "Mode de chauffage rapide",
+            "it": "Modalità di riscaldamento rapido",
+            "sv": "Snabbuppvärmningsläge",
+            "pl": "Tryb szybkiego ogrzewania",
+            "ru": "Режим быстрого нагрева",
+            "ko": "빠른 난방 모드"
+          }
+        }
+      ],
+      "getable": true,
+      "setable": true,
+      "icon": "/assets/fan_mode.svg"
     },
     "rewind": {
       "type": "boolean",
