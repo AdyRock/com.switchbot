@@ -8619,6 +8619,12 @@
         "radiator_thermostat_mode",
         "measure_battery"
       ],
+      "energy": {
+        "batteries": [
+          "AA",
+          "AA"
+        ]
+      },
       "id": "radiator_themostat"
     },
     {
