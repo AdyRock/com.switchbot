@@ -58,12 +58,14 @@ class AirPurifierHubDevice extends HubDevice
 		}
 		else
 		{
-			mode = this.getCapabilityValue('air_purifier_mode');
+			mode = parseInt(this.getCapabilityValue('air_purifier_mode'));
 		}
 
 		if (valueOj.fan_level)
 		{
 			fanGear = parseInt(valueOj.fan_level, 10);
+			mode = 1; // set to manual mode when fan level is set
+			this.setCapabilityValue('air_purifier_mode', '1').catch(this.error);
 		}
 		else
 		{
@@ -129,6 +131,10 @@ class AirPurifierHubDevice extends HubDevice
 				this.setCapabilityValue('onoff', message.context.power === 'ON').catch(this.error);
 				this.setCapabilityValue('air_purifier_mode', message.context.mode.toString()).catch(this.error);
 				this.setCapabilityValue('child_lock', (message.context.childLock === 1)).catch(this.error);
+				if (message.context.fanGear)
+				{
+					this.setCapabilityValue('fan_level', message.context.fanGear.toString()).catch(this.error);
+				}
 			}
 		}
 		catch (err)

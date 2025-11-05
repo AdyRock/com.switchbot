@@ -1,0 +1,57 @@
+{
+  "id": "robot_vacuum_S10_hub",
+  "name": {
+    "en": "K11+ Floor Cleaner",
+	"no": "K11+ Gulvvasker",
+	"nl": "K11+ Vloerreiniger",
+	"da": "K11+ Gulvrenser",
+	"de": "K11+ Bodenreiniger",
+	"es": "K11+ Limpiador de Suelos",
+	"fr": "K11+ Nettoyeur de Sol",
+	"it": "K11+ Pulitore per Pavimenti",
+	"sv": "K11+ Golvrenare",
+	"pl": "K11+ Odkurzacz",
+	"ru": "K11+ Робот-пылесос",
+	"ko": "K11+ 로봇 바닥 청소기"
+  },
+  "class": "vacuumcleaner",
+  "capabilities": [
+    "play",
+    "pause",
+    "robot_vaccum_dock",
+	"vaccum_clean_mode",
+    "vaccum_fan_level",
+	"vaccum_water_level",
+	"vaccum_times",
+    "robot_vaccum_state",
+	"robot_vaccum_task",
+    "measure_battery",
+	"volume_set"
+  ],
+  "capabilitiesOptions": {
+    "play": {
+      "title": {
+        "en": "Start",
+        "no": "Start",
+        "nl": "Start",
+        "da": "Start",
+        "de": "Start",
+        "es": "Comenzar",
+        "fr": "Commencer",
+        "it": "Inizio",
+        "sv": "Starta",
+        "pl": "Start",
+        "ru": "Старт",
+        "ko": "시작"
+      }
+    }
+  },
+  "energy": {
+    "batteries": [
+      "INTERNAL"
+    ]
+  },
+  "$extends": [
+    "hubDriver"
+  ]
+}

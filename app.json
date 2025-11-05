@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.switchbot",
-  "version": "2.0.40",
+  "version": "2.0.41",
   "compatibility": ">=12.2.0",
   "platforms": [
     "local",
@@ -1177,7 +1177,7 @@
           {
             "type": "device",
             "name": "device",
-            "filter": "driver_id=robot_vaccum_hub|robot_vacuum_S10_hub|robot_vaccum_K20_hub"
+            "filter": "driver_id=robot_vaccum_hub|robot_vacuum_S10_hub|robot_vaccum_K20_hub|robot_vacuum_K11_hub"
           }
         ],
         "id": "vaccum_state_changed"
@@ -1412,7 +1412,7 @@
           {
             "type": "device",
             "name": "device",
-            "filter": "driver_id=robot_vaccum_hub|robot_vacuum_S10_hub|robot_vaccum_K20_hub"
+            "filter": "driver_id=robot_vaccum_hub|robot_vacuum_S10_hub|robot_vaccum_K20_hub|robot_vacuum_K11_hub"
           }
         ],
         "id": "vaccum_state_changed_to"
@@ -1477,7 +1477,7 @@
           {
             "type": "device",
             "name": "device",
-            "filter": "driver_id=robot_vacuum_S10_hub|robot_vaccum_K20_hub"
+            "filter": "driver_id=robot_vacuum_S10_hub|robot_vaccum_K20_hub|robot_vacuum_K11_hub"
           }
         ],
         "id": "vaccum_task_changed"
@@ -1797,7 +1797,7 @@
           {
             "type": "device",
             "name": "device",
-            "filter": "driver_id=robot_vacuum_S10_hub|robot_vaccum_K20_hub"
+            "filter": "driver_id=robot_vacuum_S10_hub|robot_vaccum_K20_hub|robot_vacuum_K11_hub"
           }
         ],
         "id": "vaccum_task_changed_to"
@@ -9277,6 +9277,95 @@
             "pl": "Poziom mocy Maksymalny",
             "ru": "Уровень мощности Максимальный",
             "ko": "최대 모드"
+          }
+        }
+      },
+      "energy": {
+        "batteries": [
+          "INTERNAL"
+        ]
+      }
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        }
+      ],
+      "icon": "/drivers/robot_vacuum_K11_hub/assets/icon.svg",
+      "images": {
+        "large": "/drivers/robot_vacuum_K11_hub/assets/images/large.jpg",
+        "small": "/drivers/robot_vacuum_K11_hub/assets/images/small.jpg"
+      },
+      "id": "robot_vacuum_K11_hub",
+      "name": {
+        "en": "K11+ Floor Cleaner",
+        "no": "K11+ Gulvvasker",
+        "nl": "K11+ Vloerreiniger",
+        "da": "K11+ Gulvrenser",
+        "de": "K11+ Bodenreiniger",
+        "es": "K11+ Limpiador de Suelos",
+        "fr": "K11+ Nettoyeur de Sol",
+        "it": "K11+ Pulitore per Pavimenti",
+        "sv": "K11+ Golvrenare",
+        "pl": "K11+ Odkurzacz",
+        "ru": "K11+ Робот-пылесос",
+        "ko": "K11+ 로봇 바닥 청소기"
+      },
+      "class": "vacuumcleaner",
+      "capabilities": [
+        "play",
+        "pause",
+        "robot_vaccum_dock",
+        "vaccum_clean_mode",
+        "vaccum_fan_level",
+        "vaccum_water_level",
+        "vaccum_times",
+        "robot_vaccum_state",
+        "robot_vaccum_task",
+        "measure_battery",
+        "volume_set"
+      ],
+      "capabilitiesOptions": {
+        "play": {
+          "title": {
+            "en": "Start",
+            "no": "Start",
+            "nl": "Start",
+            "da": "Start",
+            "de": "Start",
+            "es": "Comenzar",
+            "fr": "Commencer",
+            "it": "Inizio",
+            "sv": "Starta",
+            "pl": "Start",
+            "ru": "Старт",
+            "ko": "시작"
           }
         }
       },

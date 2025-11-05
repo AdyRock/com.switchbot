@@ -806,5 +806,18 @@
 		"pl": "Dodano obsługę termostatu grzejnikowego SwitchBot",
 		"ru": "Добавлена поддержка термостата радиатора SwitchBot",
 		"ko": "SwitchBot 라디에이터 온도 조절기 지원 추가"
+	},
+	"2.0.41": {
+		"en": "Fixed issue with Air Purifier speed not being set correctly. Added Robot vacuum K11+ support. Reinstated old Open Token and Secret method for users having issues with OAuth.",
+		"no": "Fikset problem med at luftrenserhastigheten ikke ble satt riktig. La til støtte for Robotstøvsuger K11+. Gjeninnsatte gammel Open Token og Secret-metode for brukere som har problemer med OAuth.",
+		"nl": "Probleem opgelost met de luchtreiniger snelheid die niet correct werd ingesteld. Toegevoegde Robotstofzuiger K11+ ondersteuning. Oude Open Token en Secret-methode hersteld voor gebruikers met problemen met OAuth.",
+		"de": "Problem mit der Luftreiniger-Geschwindigkeit behoben, die nicht korrekt eingestellt wurde. Hinzugefügte Robotersauger K11+ Unterstützung. Alte Open Token und Secret-Methode für Benutzer mit Problemen mit OAuth wiederhergestellt.",
+		"fr": "Correction d'un problème avec la vitesse du purificateur d'air qui n'était pas correctement définie. Ajout du support du robot aspirateur K11+. Rétablissement de l'ancienne méthode Open Token et Secret pour les utilisateurs rencontrant des problèmes avec OAuth.",
+		"es": "Se corrigió el problema con la velocidad del purificador de aire que no se establecía correctamente. Se agregó soporte para Robot vacuum K11+. Se restableció el antiguo método Open Token y Secret para los usuarios que tienen problemas con OAuth.",
+		"pt": "Corrigido o problema com a velocidade do purificador de ar que não estava sendo definida corretamente. Adicionado suporte para Robot vacuum K11+. Reinstaurado o antigo método Open Token e Secret para usuários com problemas com OAuth.",
+		"it": "Risolto il problema con la velocità del purificatore d'aria che non veniva impostata correttamente. Aggiunto il supporto per Robot vacuum K11+. Ripristinato il vecchio metodo Open Token e Secret per gli utenti che hanno problemi con OAuth.",
+		"pl": "Naprawiono problem z nieprawidłowym ustawianiem prędkości oczyszczacza powietrza. Dodano obsługę odkurzacza robota K11+. Przywrócono starą metodę Open Token i Secret dla użytkowników mających problemy z OAuth.",
+		"ru": "Исправлена проблема с неправильной установкой скорости очистителя воздуха. Добавлена поддержка робота-пылесоса K11+. Восстановлен старый метод Open Token и Secret для пользователей, испытывающих проблемы с OAuth.",
+		"ko": "공기 청정기 속도가 올바르게 설정되지 않는 문제를 수정했습니다. 로봇 진공 K11+ 지원이 추가되었습니다. OAuth에 문제가 있는 사용자를 위해 이전 Open Token 및 Secret 방법이 복원되었습니다."
 	}
 }

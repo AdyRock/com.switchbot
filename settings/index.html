@@ -39,7 +39,7 @@
 		<button class="tablinks" onclick="setPage(event, 'detected')" id="defaultOpen">Detected</button>
 		<button class="tablinks" onclick="setPage(event, 'log')">Log</button>
 		<button class="tablinks" onclick="setPage(event, 'status')" id="deviceStatusTab">Get Status</button>
-		<button class="tablinks" onclick="setPage(event, 'oldSettings')" id="oldSettingsTab" style="display:none">Old Settings</button>
+		<button class="tablinks" onclick="setPage(event, 'oldSettings')" id="oldSettingsTab">Old Settings</button>
 		<button class="tablinks" onclick="setPage(event, 'simulator')" id="simLogTab" style="display:none">Simulation Data</button>
 	</div>
 
@@ -212,7 +212,6 @@
 				if (debugMode)
 				{
 					document.getElementById("simLogTab").style.display = "block";
-					document.getElementById("oldSettingsTab").style.display = "block";
 				}
 			});
 
