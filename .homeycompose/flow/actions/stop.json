@@ -17,7 +17,7 @@
     {
       "name": "device",
       "type": "device",
-      "filter": "driver_id=dvd|speaker|robot_vaccum_hub"
+      "filter": "driver_id=dvd|speaker|robot_vaccum_hub|robot_vacuum_S10_hub|robot_vaccum_K20_hub|robot_vacuum_K11_hub"
     }
   ],
   "platforms": [

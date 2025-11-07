@@ -819,5 +819,18 @@
 		"pl": "Naprawiono problem z nieprawidłowym ustawianiem prędkości oczyszczacza powietrza. Dodano obsługę odkurzacza robota K11+. Przywrócono starą metodę Open Token i Secret dla użytkowników mających problemy z OAuth.",
 		"ru": "Исправлена проблема с неправильной установкой скорости очистителя воздуха. Добавлена поддержка робота-пылесоса K11+. Восстановлен старый метод Open Token и Secret для пользователей, испытывающих проблемы с OAuth.",
 		"ko": "공기 청정기 속도가 올바르게 설정되지 않는 문제를 수정했습니다. 로봇 진공 K11+ 지원이 추가되었습니다. OAuth에 문제가 있는 사용자를 위해 이전 Open Token 및 Secret 방법이 복원되었습니다."
+	},
+	"2.0.42": {
+		"en": "Added missing Flow action cards to K11+ robot vacuum. Fixed Plug mini EU power consumption and current reporting. Added support for the Floor lamp",
+		"no": "Lagt til manglende flythandlingskort til K11+ robotstøvsuger. Fikset strømforbruk og strømrapportering for Plug mini EU. Lagt til støtte for gulvlampe.",
+		"nl": "Ontbrekende Flow-actiekaarten toegevoegd aan K11+ robotstofzuiger. Probleem met stroomverbruik en stroomrapportage van Plug mini EU opgelost. Ondersteuning toegevoegd voor de vloerlamp.",
+		"de": "Fehlende Flow-Aktionskarten zum K11+ Robotersauger hinzugefügt. Problem mit dem Stromverbrauch und der Stromberichterstattung des Plug mini EU behoben. Unterstützung für die Stehlampe hinzugefügt.",
+		"fr": "Ajout de cartes d'action de flux manquantes au robot aspirateur K11+. Correction de la consommation d'énergie et du rapport de courant du Plug mini EU. Ajout de la prise en charge de la lampe sur pied.",
+		"es": "Se agregaron tarjetas de acción de flujo faltantes al robot aspiradora K11+. Se corrigió el consumo de energía y el informe de corriente del Plug mini EU. Se agregó soporte para la lámpara de pie.",
+		"pt": "Adicionados cartões de ação de fluxo ausentes para o aspirador de pó robô K11+. Corrigido o consumo de energia e o relatório de corrente do Plug mini EU. Adicionado suporte para o abajur de chão.",
+		"it": "Aggiunti schede di azione di flusso mancanti al robot aspirapolvere K11+. Corretto il consumo di energia e la segnalazione della corrente del Plug mini EU. Aggiunto supporto per la lampada da terra.",
+		"pl": "Dodano brakujące karty akcji przepływu do odkurzacza robota K11+. Naprawiono zużycie energii i raportowanie prądu wtyczki mini EU. Dodano obsługę lampy podłogowej.",
+		"ru": "Добавлены отсутствующие карты действий потока для робота-пылесоса K11+. Исправлено потребление энергии и отчет о токе для Plug mini EU. Добавлена поддержка напольной лампы.",
+		"ko": "K11+ 로봇 진공청소기에 누락된 플로우 작업 카드 추가. Plug mini EU의 전력 소비 및 전류 보고서 수정. 플로어 램프 지원 추가."
 	}
 }

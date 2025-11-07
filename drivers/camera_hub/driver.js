@@ -18,7 +18,7 @@ class HubCameraDriver extends HubDriver
 
 	async onPairListDevices({ oAuth2Client })
 	{
-		return this.getHUBDevices(oAuth2Client, ['Indoor Cam', 'Pan/Tilt Cam'], false, false);
+		return this.getHUBDevices(oAuth2Client, ['Indoor Cam', 'Pan/Tilt Cam', 'Pan/Tilt Cam 2K'], false, false);
 	}
 
 }
