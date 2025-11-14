@@ -832,5 +832,18 @@
 		"pl": "Dodano brakujące karty akcji przepływu do odkurzacza robota K11+. Naprawiono zużycie energii i raportowanie prądu wtyczki mini EU. Dodano obsługę lampy podłogowej.",
 		"ru": "Добавлены отсутствующие карты действий потока для робота-пылесоса K11+. Исправлено потребление энергии и отчет о токе для Plug mini EU. Добавлена поддержка напольной лампы.",
 		"ko": "K11+ 로봇 진공청소기에 누락된 플로우 작업 카드 추가. Plug mini EU의 전력 소비 및 전류 보고서 수정. 플로어 램프 지원 추가."
+	},
+	"2.0.43": {
+		"en": "Added support for the SwitchBot Presence Sensor",
+		"no": "Lagt til støtte for SwitchBot Presence Sensor",
+		"nl": "Ondersteuning toegevoegd voor de SwitchBot Presence Sensor",
+		"de": "Unterstützung für den SwitchBot Presence Sensor hinzugefügt",
+		"fr": "Ajout de la prise en charge du capteur de présence SwitchBot",
+		"es": "Agregado soporte para el sensor de presencia SwitchBot",
+		"pt": "Adicionado suporte para o sensor de presença SwitchBot",
+		"it": "Aggiunto supporto per il sensore di presenza SwitchBot",
+		"pl": "Dodano obsługę czujnika obecności SwitchBot",
+		"ru": "Добавлена поддержка датчика присутствия SwitchBot",
+		"ko": "SwitchBot 프레즌스 센서 지원 추가"
 	}
 }

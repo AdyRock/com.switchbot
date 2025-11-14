@@ -1,0 +1,30 @@
+{
+  "id": "presence2_hub",
+  "name": {
+    "en": "Presence Sensor (HUB)",
+	"no": "Nærværsensor (HUB)",
+	"nl": "Aanwezigheidssensor (HUB)",
+	"da": "Tilstedeværelsessensor (HUB)",
+	"de": "Präsenzsensor (HUB)",
+	"es": "Sensor de presencia (HUB)",
+	"fr": "Capteur de présence (HUB)",
+	"it": "Sensore di presenza (HUB)",
+	"sv": "Närvarosensor (HUB)",
+	"pl": "Czujnik obecności (HUB)",
+	"ru": "Датчик присутствия (HUB)",
+	"ko": "프레즌스 센서 (HUB)"
+  },
+  "class": "sensor",
+  "capabilities": [
+    "alarm_presence"
+  ],
+  "energy": {
+    "batteries": [
+      "AAA",
+      "AAA"
+    ]
+  },
+  "$extends": [
+    "hubDriver"
+  ]
+}

@@ -14,6 +14,7 @@
 		"ru": "Pan/Tilt Camera Plus (HUB)",
 		"ko": "Pan/Tilt Camera Plus (HUB)"
 	},
+	"deprecated": true,
 	"class": "camera",
 	"capabilities": [
 		"alarm_motion"
