@@ -243,7 +243,7 @@ class BLEDriver extends Homey.Driver
 		let sd = null;
 
 		// Log the data with the buf in hex of two digits and a space
-		this.homey.app.updateLog(`BLE Device: ${device.address}, "${model}", (${device.rssi})\nServ: ${buf.toString('hex').match(/.{1,2}/g).join(' ')}\nManu: ${device.manufacturerData.toString('hex').match(/.{1,2}/g).join(' ')}`, 3);
+		this.homey.app.updateLog(`BLE Device: ${device.address}, "${model}", (${device.rssi})\nServ: ${buf.toString('hex').match(/.{1,2}/g).join(' ')}\nManu: ${device.manufacturerData ? device.manufacturerData.toString('hex').match(/.{1,2}/g).join(' ') : ''}`, 3);
 
 		if (model === 'H')
 		{ // WoHand

@@ -109,7 +109,7 @@ class MyApp extends OAuth2App
 		'presence_hub',
 		'relay_hub',
 		'relay2pm_hub',
-		'robot_vaccum_hub',
+		'robot_vacuum_hub',
 		'robot_vacuum_K20_hub',
 		'robot_vacuum_S10_hub',
 		'roller_blind_hub',
@@ -199,7 +199,11 @@ class MyApp extends OAuth2App
 		this.hub = new HubInterface(this.homey);
 
 		this.homeyID = await this.homey.cloud.getHomeyId();
-		this.setupSwitchBotWebhook();
+
+		// Setup the SwitchBot webhook after a short delay to allow devices to register
+		setTimeout(() => {
+			this.setupSwitchBotWebhook();
+		}, 5000);
 
 		this.homeyHash = this.homeyID;
 		this.homeyHash = this.hashCode(this.homeyHash).toString();
@@ -1212,7 +1216,7 @@ class MyApp extends OAuth2App
 	//
 	async onBLEPoll()
 	{
-		if (!this.bleBusy)
+		if (!this.bleBusy && !this.bleDiscovery)
 		{
 			this.bleBusy = true;
 			this.blePolling = true;

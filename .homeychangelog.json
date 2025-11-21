@@ -845,5 +845,18 @@
 		"pl": "Dodano obsługę czujnika obecności SwitchBot",
 		"ru": "Добавлена поддержка датчика присутствия SwitchBot",
 		"ko": "SwitchBot 프레즌스 센서 지원 추가"
+	},
+	"2.0.44": {
+		"en": "Fixed issue with BLE discovery.",
+		"no": "Fikset problem med BLE-oppdagelse.",
+		"nl": "Probleem met BLE-ontdekking opgelost.",
+		"de": "Problem mit der BLE-Erkennung behoben.",
+		"fr": "Correction d'un problème avec la découverte BLE.",
+		"es": "Se corrigió el problema con el descubrimiento de BLE.",
+		"pt": "Corrigido o problema com a descoberta BLE.",
+		"it": "Risolto il problema con la scoperta BLE.",
+		"pl": "Naprawiono problem z wykrywaniem BLE.",
+		"ru": "Исправлена проблема с обнаружением BLE.",
+		"ko": "BLE 검색 문제 수정."
 	}
 }
