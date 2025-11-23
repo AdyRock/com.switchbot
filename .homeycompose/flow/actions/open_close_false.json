@@ -1,0 +1,28 @@
+{
+	"title": {
+		"en": "Close",
+		"no": "Lukk",
+		"nl": "Sluit",
+		"da": "Luk",
+		"de": "Schließen",
+		"es": "Cerrar",
+		"fr": "Fermer",
+		"it": "Chiudi",
+		"sv": "Stäng",
+		"pl": "Zamknij",
+		"ru": "Закрыть",
+		"ko": "닫기"
+	},
+	"args": [
+		{
+			"name": "device",
+			"type": "device",
+			"filter": "driver_id=garage_door_opener"
+		}
+	],
+	"highlight": true,
+	"platforms": [
+		"local",
+		"cloud"
+	]
+}

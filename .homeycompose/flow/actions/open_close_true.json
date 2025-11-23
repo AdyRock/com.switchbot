@@ -1,0 +1,28 @@
+{
+	"title": {
+		"en": "Open",
+		"no": "Åpne",
+		"nl": "Openen",
+		"da": "Åbn",
+		"de": "Öffnen",
+		"es": "Abrir",
+		"fr": "Ouvrir",
+		"it": "Apri",
+		"sv": "Öppna",
+		"pl": "Otwórz",
+		"ru": "Открыть",
+		"ko": "열기"
+	},
+	"args": [
+		{
+			"name": "device",
+			"type": "device",
+			"filter": "driver_id=garage_door_opener"
+		}
+	],
+	"highlight": true,
+	"platforms": [
+		"local",
+		"cloud"
+	]
+}

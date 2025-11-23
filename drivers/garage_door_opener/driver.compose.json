@@ -1,0 +1,22 @@
+{
+	"id": "bot_hub",
+	"name": {
+		"en": "Garage Door Opener (HUB)",
+		"de": "Garagentoröffner (HUB)",
+		"nl": "Garage Deuropener (HUB)",
+		"fr": "Ouvre-porte de garage (HUB)",
+		"it": "Apriporta del garage (HUB)",
+		"es": "Abrepuertas de garaje (HUB)",
+		"pt": "Abridor de Porta de Garagem (HUB)",
+		"ru": "Открывалка гаражных ворот (HUB)",
+		"pl": "Otwieracz do bramy garażowej (HUB)",
+		"ko": "차고 문 개폐기 (HUB)"
+	},
+	"class": "garagedoor",
+	"capabilities": [
+		"open_close"
+	],
+	"$extends": [
+		"hubDriver"
+	]
+}

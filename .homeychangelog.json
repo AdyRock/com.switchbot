@@ -858,5 +858,44 @@
 		"pl": "Naprawiono problem z wykrywaniem BLE.",
 		"ru": "Исправлена проблема с обнаружением BLE.",
 		"ko": "BLE 검색 문제 수정."
+	},
+	"2.0.45": {
+		"en": "Fixed support for the SwitchBot Meter Pro BLE device",
+		"no": "Fikset støtte for SwitchBot Meter Pro BLE-enheten",
+		"nl": "Ondersteuning voor het SwitchBot Meter Pro BLE-apparaat opgelost",
+		"de": "Unterstützung für das SwitchBot Meter Pro BLE-Gerät behoben",
+		"fr": "Correction de la prise en charge de l'appareil SwitchBot Meter Pro BLE",
+		"es": "Se corrigió el soporte para el dispositivo SwitchBot Meter Pro BLE",
+		"pt": "Corrigido o suporte para o dispositivo SwitchBot Meter Pro BLE",
+		"it": "Risolto il supporto per il dispositivo SwitchBot Meter Pro BLE",
+		"pl": "Naprawiono obsługę urządzenia SwitchBot Meter Pro BLE",
+		"ru": "Исправлена поддержка устройства SwitchBot Meter Pro BLE",
+		"ko": "SwitchBot Meter Pro BLE 장치 지원 수정"
+	},
+	"2.0.46": {
+		"en": "Fixed check for Meter Pro model type",
+		"no": "Fikset sjekk for Meter Pro-modelltype",
+		"nl": "Probleem met controle van Meter Pro-modeltype opgelost",
+		"de": "Problem mit der Überprüfung des Meter Pro-Modelltyps behoben",
+		"fr": "Correction de la vérification du type de modèle Meter Pro",
+		"es": "Se corrigió la verificación del tipo de modelo Meter Pro",
+		"pt": "Corrigida a verificação do tipo de modelo Meter Pro",
+		"it": "Risolto il controllo del tipo di modello Meter Pro",
+		"pl": "Naprawiono sprawdzanie typu modelu Meter Pro",
+		"ru": "Исправлена проверка типа модели Meter Pro",
+		"ko": "Meter Pro 모델 유형 확인 수정"
+	},
+	"2.0.47": {
+		"en": "Added support for the SwitchBot Garage Door Opener",
+		"no": "Lagt til støtte for SwitchBot Garage Door Opener",
+		"nl": "Ondersteuning toegevoegd voor de SwitchBot Garage Door Opener",
+		"de": "Unterstützung für den SwitchBot Garage Door Opener hinzugefügt",
+		"fr": "Ajout de la prise en charge du SwitchBot Garage Door Opener",
+		"es": "Agregado soporte para el SwitchBot Garage Door Opener",
+		"pt": "Adicionado suporte para o SwitchBot Garage Door Opener",
+		"it": "Aggiunto supporto per il SwitchBot Garage Door Opener",
+		"pl": "Dodano obsługę urządzenia SwitchBot Garage Door Opener",
+		"ru": "Добавлена поддержка устройства SwitchBot Garage Door Opener",
+		"ko": "SwitchBot Garage Door Opener 지원 추가"
 	}
 }

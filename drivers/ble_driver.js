@@ -281,6 +281,10 @@ class BLEDriver extends Homey.Driver
 		{ // WoWaterLeak
 			sd = this._parseServiceDataForWaterLeak(buf, device.manufacturerData);
 		}
+		else if (model.charCodeAt(0) === 20)	// This one is ascii code 20
+		{ // WoMeterPro
+			sd = this._parseServiceDataForProMeter(buf, device.manufacturerData);
+		}
 		else if (model === '5')
 		{ // WoMeterPro(CO2)
 			sd = this._parseServiceDataForCO2Meter(buf, device.manufacturerData);
@@ -641,7 +645,7 @@ class BLEDriver extends Homey.Driver
 		tempF = Math.round(tempF * 10) / 10;
 
 		const data = {
-			model: '4',
+			model: 20,
 			modelName: 'MeterPro',
 			temperature:
 			{

@@ -1,0 +1,28 @@
+{
+	"title": {
+		"en": "Closed",
+		"no": "Rukket",
+		"nl": "Gesloten",
+		"da": "Lukket",
+		"de": "Geschlossen",
+		"es": "Cerrado",
+		"fr": "Fermé",
+		"it": "Chiuso",
+		"sv": "Stängd",
+		"pl": "Zamknięte",
+		"ru": "Закрыто",
+		"ko": "닫힘"
+	},
+	"highlight": true,
+	"platforms": [
+		"local",
+		"cloud"
+	],
+	"args": [
+		{
+			"type": "device",
+			"name": "device",
+			"filter": "driver_id=garage_door_opener"
+		}
+	]
+}

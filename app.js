@@ -584,6 +584,20 @@ class MyApp extends OAuth2App
 				return args.device.onCapabilityRadiatorThermostatMode(args.mode);
 			});
 
+		const openCloseOnAction = this.homey.flow.getActionCard('open_close_true');
+		openCloseOnAction
+			.registerRunListener(async (args, state) =>
+			{
+				return args.device.onCapabilityOpenClose(true)
+			});
+
+		const openCloseOffAction = this.homey.flow.getActionCard('open_close_false');
+		openCloseOffAction
+			.registerRunListener(async (args, state) =>
+			{
+				return args.device.onCapabilityOpenClose(false)
+			});
+
 		/** * CONDITIONS ** */
 		this.conditionVaccumStateIs = this.homey.flow.getConditionCard('vaccum_state_is');
 		this.conditionVaccumStateIs.registerRunListener((args) =>
