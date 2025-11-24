@@ -22,7 +22,7 @@ class ColorBulbDriver extends HubDriver
 	 */
 	async onPairListDevices({ oAuth2Client })
 	{
-		return this.getHUBDevices(oAuth2Client, ['Color Bulb', 'Floor Lamp']);
+		return this.getHUBDevices(oAuth2Client, ['Color Bulb', 'Floor Lamp', 'RGBICWW Floor Lamp']);
 	}
 
 }

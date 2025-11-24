@@ -897,5 +897,18 @@
 		"pl": "Dodano obsługę urządzenia SwitchBot Garage Door Opener",
 		"ru": "Добавлена поддержка устройства SwitchBot Garage Door Opener",
 		"ko": "SwitchBot Garage Door Opener 지원 추가"
+	},
+	"2.0.48": {
+		"en": "Added support for RGBICWW Floor Lamp",
+		"no": "Lagt til støtte for RGBICWW gulvlampe",
+		"nl": "Ondersteuning toegevoegd voor RGBICWW vloerlamp",
+		"de": "Unterstützung für RGBICWW Stehlampe hinzugefügt",
+		"fr": "Ajout de la prise en charge de la lampe sur pied RGBICWW",
+		"es": "Agregado soporte para la lámpara de pie RGBICWW",
+		"pt": "Adicionado suporte para o abajur de chão RGBICWW",
+		"it": "Aggiunto supporto per la lampada da terra RGBICWW",
+		"pl": "Dodano obsługę lampy podłogowej RGBICWW",
+		"ru": "Добавлена поддержка напольной лампы RGBICWW",
+		"ko": "RGBICWW 플로어 램프 지원 추가"
 	}
 }

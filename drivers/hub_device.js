@@ -115,7 +115,7 @@ class HubDevice extends OAuth2Device
 				}
 				else if (result.statusCode === 190)
 				{
-					throw new Error(`Error: ${result.statusCode} ${result.message}`);
+					throw new Error(`Error: ${result.statusCode} ${result.message}, ${this.homey.app.varToString(data)}`);
 				}
 				else
 				{
