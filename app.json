@@ -6144,7 +6144,6 @@
         "ru": "Pan/Tilt Camera Plus (HUB)",
         "ko": "Pan/Tilt Camera Plus (HUB)"
       },
-      "deprecated": true,
       "class": "camera",
       "capabilities": [
         "alarm_motion"
@@ -10522,6 +10521,209 @@
         "channel_up",
         "channel_down",
         "volume_mute"
+      ]
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        }
+      ],
+      "icon": "/drivers/video_doorbell/assets/icon.svg",
+      "images": {
+        "large": "/drivers/video_doorbell/assets/images/large.jpg",
+        "small": "/drivers/video_doorbell/assets/images/small.jpg"
+      },
+      "id": "video_doorbell",
+      "name": {
+        "en": "Video Doorbell (HUB)",
+        "no": "Video Ringeklokke (HUB)",
+        "de": "Video-Türklingel (HUB)",
+        "fr": "Sonnette vidéo (HUB)",
+        "nl": "Video Deurbel (HUB)",
+        "it": "Campanello video (HUB)",
+        "es": "Timbre de vídeo (HUB)",
+        "sv": "Video Dörrklocka (HUB)",
+        "pt": "Campainha de Vídeo (HUB)",
+        "pl": "Wideodomofon (HUB)",
+        "ru": "Видеозвонок (HUB)",
+        "ko": "비디오 초인종 (HUB)"
+      },
+      "class": "doorbell",
+      "capabilities": [
+        "alarm_motion",
+        "alarm_generic",
+        "measure_battery"
+      ],
+      "capabilitiesOptions": {
+        "alarm_generic": {
+          "title": {
+            "en": "Doorbell",
+            "no": "Ringeklokke",
+            "de": "Türklingel",
+            "fr": "Sonnette",
+            "nl": "Deurbel",
+            "it": "Campanello",
+            "es": "Timbre",
+            "sv": "Dörrklocka",
+            "pt": "Campainha",
+            "pl": "Dzwonek do drzwi",
+            "ru": "Звонок",
+            "ko": "초인종"
+          },
+          "titleTrue": {
+            "en": "Pressed",
+            "no": "Trykket",
+            "de": "Gedrückt",
+            "fr": "Appuyé",
+            "nl": "Ingedrukt",
+            "it": "Premuto",
+            "es": "Presionado",
+            "sv": "Tryckt",
+            "pt": "Pressionado",
+            "pl": "Naciśnięty",
+            "ru": "Нажато",
+            "ko": "눌림"
+          },
+          "insightsTitleTrue": {
+            "en": "Doorbell Pressed",
+            "no": "Ringeklokke Trykket",
+            "de": "Türklingel Gedrückt",
+            "fr": "Sonnette Appuyée",
+            "nl": "Deurbel Ingedrukt",
+            "it": "Campanello Premuto",
+            "es": "Timbre Presionado",
+            "sv": "Dörrklocka Tryckt",
+            "pt": "Campainha Pressionada",
+            "pl": "Dzwonek do drzwi Naciśnięty",
+            "ru": "Звонок Нажато",
+            "ko": "초인종 눌림"
+          }
+        }
+      },
+      "energy": {
+        "batteries": [
+          "INTERNAL"
+        ]
+      },
+      "settings": [
+        {
+          "id": "username",
+          "type": "text",
+          "label": {
+            "en": "Camera User name",
+            "nl": "Camera Gebruikersnaam",
+            "no": "Camera Brukernavn",
+            "da": "Camera Brugernavn",
+            "de": "Camera Benutzername",
+            "es": "Camera Nombre de usuario",
+            "fr": "Camera Nom d'utilisateur",
+            "it": "Camera Nome utente",
+            "sv": "Camera Användarnamn",
+            "pl": "Camera Nazwa użytkownika",
+            "ru": "Camera Имя пользователя",
+            "ko": "Camera 사용자 이름"
+          },
+          "value": "user"
+        },
+        {
+          "id": "password",
+          "type": "text",
+          "label": {
+            "en": "Camera Password",
+            "nl": "Camera Wachtwoord",
+            "no": "Camera Passord",
+            "da": "Camera Adgangskode",
+            "de": "Camera Passwort",
+            "es": "Camera Contraseña",
+            "fr": "Camera Mot de passe",
+            "it": "Camera Password",
+            "sv": "Camera Lösenord",
+            "pl": "Camera Hasło",
+            "ru": "Camera Пароль",
+            "ko": "Camera 비밀번호"
+          },
+          "value": "password"
+        },
+        {
+          "id": "ip",
+          "type": "text",
+          "label": {
+            "en": "Camera IP Address",
+            "nl": "Camera IP-adres",
+            "no": "Camera IP-adresse",
+            "da": "Camera IP-adresse",
+            "de": "Camera IP-Adresse",
+            "es": "Camera Dirección IP",
+            "fr": "Camera Adresse IP",
+            "it": "Camera Indirizzo IP",
+            "sv": "Camera IP-adress",
+            "pl": "Camera Adres IP",
+            "ru": "Camera IP-адрес",
+            "ko": "Camera IP 주소"
+          },
+          "value": "X.X.X.X"
+        },
+        {
+          "id": "duration",
+          "type": "number",
+          "label": {
+            "en": "Motion / Doorbell Duration",
+            "nl": "Duur Beweging / Deurbel",
+            "no": "Bevegelses- / Ringeklokkevarighet",
+            "da": "Bevægelses- / Dørklokkevarighed",
+            "de": "Bewegungs- / Türklingeldauer",
+            "es": "Duración de Movimiento / Timbre",
+            "fr": "Durée Mouvement / Sonnette",
+            "it": "Durata Movimento / Campanello",
+            "sv": "Rörelse- / Dörrklocka Varaktighet",
+            "pl": "Czas trwania ruchu / dzwonka",
+            "ru": "Продолжительность движения / звонка",
+            "ko": "모션 / 초인종 지속 시간"
+          },
+          "value": 10,
+          "min": 1,
+          "max": 240,
+          "units": {
+            "en": "seconds",
+            "nl": "seconden",
+            "no": "sekunder",
+            "da": "sekunder",
+            "de": "Sekunden",
+            "es": "segundos",
+            "fr": "secondes",
+            "it": "secondi",
+            "sv": "sekunder",
+            "pl": "sekundy",
+            "ru": "секунды",
+            "ko": "초"
+          }
+        }
       ]
     },
     {

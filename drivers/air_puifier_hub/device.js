@@ -25,7 +25,7 @@ class AirPurifierHubDevice extends HubDevice
 
 		this.registerCapabilityListener('onoff', this.onCapabilityOnOff.bind(this));
 		this.registerCapabilityListener('child_lock', this.onCapabilityChildLock.bind(this));
-		this.registerMultipleCapabilityListener(['air_purifier_mode', 'fan_level'], this.onCapabilityMode.bind(this));
+		this.registerMultipleCapabilityListener(['air_purifier_mode', 'fan_level'], this.onCapabilityMode.bind(this), 500);
 
 		const dd = this.getData();
 		this.homey.app.registerHomeyWebhook(dd.id).catch(this.error);
@@ -52,25 +52,27 @@ class AirPurifierHubDevice extends HubDevice
 		let mode = null;
 		let fanGear = null;
 
-		if (valueOj.air_purifier_mode)
-		{
-			mode = parseInt(valueOj.air_purifier_mode, 10);
-		}
-		else
-		{
-			mode = parseInt(this.getCapabilityValue('air_purifier_mode'));
-		}
-
 		if (valueOj.fan_level)
 		{
+			// The fan level is specified so use that as the default
 			fanGear = parseInt(valueOj.fan_level, 10);
-			mode = 1; // set to manual mode when fan level is set
-			this.setCapabilityValue('air_purifier_mode', '1').catch(this.error);
+			mode = 1; // Change to Fan mode, but it maybe overridden below if a mode is also specified
+			this.setCapabilityValue('fan_level', fanGear.toString()).catch(this.error);
 		}
 		else
 		{
+			// No fan level specified so use the current value
 			fanGear = this.getCapabilityValue('fan_level');
 		}
+
+		if (valueOj.air_purifier_mode)
+		{
+			// The mode is specified so use that
+			mode = parseInt(valueOj.air_purifier_mode, 10);
+		}
+
+		// Make sure we have a mode to set
+		this.setCapabilityValue('air_purifier_mode', mode.toString()).catch(this.error);
 
 		if (mode === 1)
 		{

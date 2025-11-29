@@ -1,0 +1,77 @@
+{
+	"id": "camera_hub",
+	"name": {
+		"en": "Video Doorbell (HUB)",
+		"no": "Video Ringeklokke (HUB)",
+		"de": "Video-Türklingel (HUB)",
+		"fr": "Sonnette vidéo (HUB)",
+		"nl": "Video Deurbel (HUB)",
+		"it": "Campanello video (HUB)",
+		"es": "Timbre de vídeo (HUB)",
+		"sv": "Video Dörrklocka (HUB)",
+		"pt": "Campainha de Vídeo (HUB)",
+		"pl": "Wideodomofon (HUB)",
+		"ru": "Видеозвонок (HUB)",
+		"ko": "비디오 초인종 (HUB)"
+	},
+	"class": "doorbell",
+	"capabilities": [
+		"alarm_motion",
+		"alarm_generic",
+		"measure_battery"
+	],
+	"capabilitiesOptions": {
+		"alarm_generic": {
+			"title": {
+				"en": "Doorbell",
+				"no": "Ringeklokke",
+				"de": "Türklingel",
+				"fr": "Sonnette",
+				"nl": "Deurbel",
+				"it": "Campanello",
+				"es": "Timbre",
+				"sv": "Dörrklocka",
+				"pt": "Campainha",
+				"pl": "Dzwonek do drzwi",
+				"ru": "Звонок",
+				"ko": "초인종"
+			},
+			"titleTrue": {
+				"en": "Pressed",
+				"no": "Trykket",
+				"de": "Gedrückt",
+				"fr": "Appuyé",
+				"nl": "Ingedrukt",
+				"it": "Premuto",
+				"es": "Presionado",
+				"sv": "Tryckt",
+				"pt": "Pressionado",
+				"pl": "Naciśnięty",
+				"ru": "Нажато",
+				"ko": "눌림"
+			},
+			"insightsTitleTrue": {
+				"en": "Doorbell Pressed",
+				"no": "Ringeklokke Trykket",
+				"de": "Türklingel Gedrückt",
+				"fr": "Sonnette Appuyée",
+				"nl": "Deurbel Ingedrukt",
+				"it": "Campanello Premuto",
+				"es": "Timbre Presionado",
+				"sv": "Dörrklocka Tryckt",
+				"pt": "Campainha Pressionada",
+				"pl": "Dzwonek do drzwi Naciśnięty",
+				"ru": "Звонок Нажато",
+				"ko": "초인종 눌림"
+			}
+		}
+	},
+	"energy": {
+		"batteries": [
+			"INTERNAL"
+		]
+	},
+	"$extends": [
+		"hubDriver"
+	]
+}

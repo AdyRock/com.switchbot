@@ -511,6 +511,8 @@ class MyApp extends OAuth2App
 		airPurifierModeAction
 			.registerRunListener(async (args, state) =>
 			{
+				args.device.setCapabilityValue('fan_level', args.fan_level.toString()).catch(this.error);
+				args.device.setCapabilityValue('air_purifier_mode', args.mode.toString()).catch(this.error);
 				return args.device.onCapabilityMode({ air_purifier_mode: args.mode, fan_level: args.fan_level });
 			});
 
