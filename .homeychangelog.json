@@ -910,5 +910,18 @@
 		"pl": "Dodano obsługę lampy podłogowej RGBICWW",
 		"ru": "Добавлена поддержка напольной лампы RGBICWW",
 		"ko": "RGBICWW 플로어 램프 지원 추가"
+	},
+	"2.0.49": {
+		"en": "Fixed issue with Air purifier Flow cards not working correctly. Added support for Video Doorbell, Aded support for Camera Plus 3K.",
+		"no": "Fikset problem med at luftrenser Flow-kort ikke fungerte riktig. Lagt til støtte for Video Doorbell, lagt til støtte for Camera Plus 3K.",
+		"nl": "Probleem opgelost met Air purifier Flow-kaarten die niet correct werkten. Ondersteuning toegevoegd voor Video Doorbell, ondersteuning toegevoegd voor Camera Plus 3K.",
+		"de": "Problem mit Air purifier Flow-Karten behoben, die nicht richtig funktionierten. Unterstützung für Video Doorbell hinzugefügt, Unterstützung für Camera Plus 3K hinzugefügt.",
+		"fr": "Correction d'un problème avec les cartes de flux du purificateur d'air qui ne fonctionnaient pas correctement. Ajout de la prise en charge de la sonnette vidéo, ajout de la prise en charge de la caméra Plus 3K.",
+		"es": "Se corrigió el problema con las tarjetas de flujo del purificador de aire que no funcionaban correctamente. Se agregó soporte para Video Doorbell, se agregó soporte para Camera Plus 3K.",
+		"pt": "Corrigido o problema com os cartões de fluxo do purificador de ar que não estavam funcionando corretamente. Adicionado suporte para Video Doorbell, adicionado suporte para Camera Plus 3K.",
+		"it": "Risolto il problema con le schede di flusso del purificatore d'aria che non funzionavano correttamente. Aggiunto supporto per Video Doorbell, aggiunto supporto per Camera Plus 3K.",
+		"pl": "Naprawiono problem z kartami przepływu oczyszczacza powietrza, które nie działały poprawnie. Dodano obsługę Video Doorbell, dodano obsługę Camera Plus 3K.",
+		"ru": "Исправлена проблема с картами потока очистителя воздуха, которые не работали должным образом. Добавлена поддержка видеозвонка, добавлена поддержка Camera Plus 3K.",
+		"ko": "공기 청정기 플로우 카드가 제대로 작동하지 않는 문제를 수정했습니다. 비디오 도어벨 지원이 추가되었으며 Camera Plus 3K 지원이 추가되었습니다."
 	}
 }
