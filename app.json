@@ -6244,6 +6244,71 @@
       ]
     },
     {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        }
+      ],
+      "icon": "/drivers/climate_panel_hub/assets/icon.svg",
+      "images": {
+        "large": "/drivers/climate_panel_hub/assets/images/large.jpg",
+        "small": "/drivers/climate_panel_hub/assets/images/small.jpg"
+      },
+      "name": {
+        "en": "Home Climate Panel",
+        "no": "Hjem Klimapanel",
+        "nl": "Home Climate Panel",
+        "da": "Hjem Klimapanel",
+        "de": "Home Klimapanel",
+        "es": "Panel climático doméstico",
+        "fr": "Panneau climatique domestique",
+        "it": "Pannello climatico domestico",
+        "sv": "Hem Klimatpanel",
+        "pl": "Panel klimatyczny do domu",
+        "ru": "Домашняя климатическая панель",
+        "ko": "홈 기후 패널"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "measure_temperature",
+        "measure_humidity",
+        "alarm_motion",
+        "measure_battery"
+      ],
+      "energy": {
+        "batteries": [
+          "AA",
+          "AA"
+        ]
+      },
+      "id": "climate_panel_hub"
+    },
+    {
       "id": "color_bulb_ble",
       "name": {
         "en": "Colour Bulb (BLE)",

@@ -1,0 +1,32 @@
+{
+	"name": {
+		"en": "Home Climate Panel",
+		"no": "Hjem Klimapanel",
+		"nl": "Home Climate Panel",
+		"da": "Hjem Klimapanel",
+		"de": "Home Klimapanel",
+		"es": "Panel climático doméstico",
+		"fr": "Panneau climatique domestique",
+		"it": "Pannello climatico domestico",
+		"sv": "Hem Klimatpanel",
+		"pl": "Panel klimatyczny do domu",
+		"ru": "Домашняя климатическая панель",
+		"ko": "홈 기후 패널"
+	},
+	"class": "sensor",
+	"capabilities": [
+		"measure_temperature",
+		"measure_humidity",
+		"alarm_motion",
+		"measure_battery"
+	],
+	"energy": {
+		"batteries": [
+			"AA",
+			"AA"
+		]
+	},
+	"$extends": [
+		"hubDriver"
+	]
+}
