@@ -228,7 +228,7 @@ class VacuumK11HubDevice extends HubDevice
 		catch (err)
 		{
 			this.homey.app.updateLog(`VacuumK11HubDevice getHubDeviceValues: ${this.homey.app.varToString(err.message)}`, 0);
-			this.setWarning(err.message);
+			this.setWarning(err.message).catch(this.error);;
 		}
 	}
 

@@ -105,7 +105,7 @@ class GarageDoorOpenerDevice extends HubDevice
 		catch (err)
 		{
 			this.homey.app.updateLog(`Garage Door Opener getHubDeviceValues: ${this.homey.app.varToString(err.message)}`, 0);
-			this.setWarning(err.message);
+			this.setWarning(err.message).catch(this.error);;
 		}
 	}
 

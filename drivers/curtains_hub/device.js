@@ -302,7 +302,7 @@ class CurtainsHubDevice extends HubDevice
 		catch (err)
 		{
 			this.homey.app.updateLog(`Curtains getHubDeviceValues: ${this.homey.app.varToString(err.message)}`, 0);
-			this.setWarning(err.message);
+			this.setWarning(err.message).catch(this.error);;
 		}
 	}
 

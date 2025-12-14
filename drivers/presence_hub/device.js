@@ -94,7 +94,7 @@ class PresenceHubDevice extends HubDevice
 		catch (err)
 		{
 			this.homey.app.updateLog(`Presence getHubDeviceValues: ${this.homey.app.varToString(err.message)}`);
-			this.setWarning(err.message);
+			this.setWarning(err.message).catch(this.error);;
 		}
 	}
 

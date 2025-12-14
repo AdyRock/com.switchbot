@@ -133,7 +133,7 @@ class LockUltraHubDevice extends HubDevice
 		catch (err)
 		{
 			this.homey.app.updateLog(`Lock getHubDeviceValues: ${this.homey.app.varToString(err.message)}`, 0);
-			this.setWarning(err.message);
+			this.setWarning(err.message).catch(this.error);;
 		}
 	}
 

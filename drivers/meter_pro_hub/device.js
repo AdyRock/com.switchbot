@@ -75,7 +75,7 @@ class MeterProHubDevice extends HubDevice
 		catch (err)
 		{
 			this.homey.app.updateLog(`MeterProHubDevice getHubDeviceValues: ${this.homey.app.varToString(err.message)}`, 0);
-			this.setWarning(err.message);
+			this.setWarning(err.message).catch(this.error);;
 		}
 	}
 
