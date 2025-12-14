@@ -936,5 +936,18 @@
 		"pl": "Dodano obsługę panelu Homee Climate. Zaktualizuj niektóre ikony.",
 		"ru": "Добавлена поддержка панели Homee Climate. Обновите некоторые значки.",
 		"ko": "Homee Climate 패널 지원 추가. 일부 아이콘 업데이트."
+	},
+	"2.0.51": {
+		"en": "Added error handler on SetWarning calls to prevent crashes.",
+		"no": "Lagt til feilhåndterer på SetWarning-anrop for å forhindre krasj.",
+		"nl": "Foutafhandelaar toegevoegd aan SetWarning-oproepen om crashes te voorkomen.",
+		"de": "Fehlerbehandler zu SetWarning-Aufrufen hinzugefügt, um Abstürze zu verhindern.",
+		"fr": "Ajout d'un gestionnaire d'erreurs sur les appels SetWarning pour éviter les plantages.",
+		"es": "Se agregó un controlador de errores en las llamadas SetWarning para evitar bloqueos.",
+		"pt": "Adicionado manipulador de erros em chamadas SetWarning para evitar falhas.",
+		"it": "Aggiunto gestore di errori alle chiamate SetWarning per prevenire arresti anomali.",
+		"pl": "Dodano obsługę błędów w wywołaniach SetWarning, aby zapobiec awariom.",
+		"ru": "Добавлен обработчик ошибок в вызовы SetWarning для предотвращения сбоев.",
+		"ko": "충돌을 방지하기 위해 SetWarning 호출에 오류 처리기 추가"
 	}
 }

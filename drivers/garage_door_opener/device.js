@@ -17,6 +17,11 @@ class GarageDoorOpenerDevice extends HubDevice
 
 		this.registerCapabilityListener('open_close', this.onCapabilityOpenClose.bind(this));
 
+		if (!this.hasCapability('alarm_contact'))
+		{
+			this.addCapability('alarm_contact').catch(this.error);
+		}
+
 		const dd = this.getData();
 		this.homey.app.registerHomeyWebhook(dd.id).catch(this.error);
 
@@ -90,15 +95,15 @@ class GarageDoorOpenerDevice extends HubDevice
 				this.setAvailable();
 				this.homey.app.updateLog(`Garage Door Opener got: ${this.homey.app.varToString(data)}`, 3);
 				const oldopenClosedStatus = this.getCapabilityValue('open_close');
+				const newDoorStatus = data.doorStatus === 0;
 
-				this.setCapabilityValue('open_close', data.doorStatus === 0).catch(this.error);
-				this.driver.onTrigger.trigger(this, null, null).catch(this.error);
-
-				if (oldopenClosedStatus !== this.getCapabilityValue('open_close'))
+				this.setCapabilityValue('open_close', newDoorStatus).catch(this.error);
+				if (oldopenClosedStatus !== newDoorStatus)
 				{
-					this.driver.onOpenClosedChangeTrigger.trigger(this, null, null).catch(this.error);
+					this.driver.onOpenClosedChangeTrigger(this, newDoorStatus, null).catch(this.error);
 				}
 
+				this.setCapabilityValue('alarm_contact', newDoorStatus).catch(this.error);
 			}
 			this.unsetWarning().catch(this.error);
 		}
@@ -124,7 +129,17 @@ class GarageDoorOpenerDevice extends HubDevice
 				// message is for this device
 				const data = message.context;
 				this.homey.app.updateLog(`processWebhookMessage: ${this.homey.app.varToString(data)}`, 3);
-				this.setCapabilityValue('open_close', data.doorStatus === 0).catch(this.error);
+
+				const oldopenClosedStatus = this.getCapabilityValue('open_close');
+				const newDoorStatus = data.doorStatus === 0;
+
+				this.setCapabilityValue('open_close', newDoorStatus).catch(this.error);
+				if (oldopenClosedStatus !== newDoorStatus)
+				{
+					this.driver.onOpenClosedChangeTrigger(this, newDoorStatus, null).catch(this.error);
+				}
+
+				this.setCapabilityValue('alarm_contact', newDoorStatus).catch(this.error);
 			}
 		}
 		catch (err)

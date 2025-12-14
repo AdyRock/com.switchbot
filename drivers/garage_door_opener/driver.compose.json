@@ -14,7 +14,8 @@
 	},
 	"class": "garagedoor",
 	"capabilities": [
-		"open_close"
+		"open_close",
+		"alarm_contact"
 	],
 	"$extends": [
 		"hubDriver"
