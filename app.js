@@ -22,16 +22,17 @@ class MyApp extends OAuth2App
 
 	overrideLoggingMethods()
 	{
-		const originalLog = console.log;
-		const originalError = console.error;
-		const originalWarn = console.warn;
-		const originalInfo = console.info;
+		// Store original console methods to restore later
+		this.originalLog = console.log;
+		this.originalError = console.error;
+		this.originalWarn = console.warn;
+		this.originalInfo = console.info;
 
 		console.log = (message, ...optionalParams) =>
 		{
 			if (this.handleLogMessage(message, ...optionalParams))
 			{
-				originalLog.apply(console, [message, ...optionalParams]);
+				this.originalLog.apply(console, [message, ...optionalParams]);
 			}
 		};
 
@@ -39,7 +40,7 @@ class MyApp extends OAuth2App
 		{
 			if (this.handleLogMessage(message, ...optionalParams))
 			{
-				originalError.apply(console, [message, ...optionalParams]);
+				this.originalError.apply(console, [message, ...optionalParams]);
 			}
 		};
 
@@ -47,7 +48,7 @@ class MyApp extends OAuth2App
 		{
 			if (this.handleLogMessage(message, ...optionalParams))
 			{
-				originalWarn.apply(console, [message, ...optionalParams]);
+				this.originalWarn.apply(console, [message, ...optionalParams]);
 			}
 		};
 
@@ -55,9 +56,20 @@ class MyApp extends OAuth2App
 		{
 			if (this.handleLogMessage(message, ...optionalParams))
 			{
-				originalInfo.apply(console, [message, ...optionalParams]);
+				this.originalInfo.apply(console, [message, ...optionalParams]);
 			}
 		};
+	}
+
+	restoreLoggingMethods()
+	{
+		if (this.originalLog)
+		{
+			console.log = this.originalLog;
+			console.error = this.originalError;
+			console.warn = this.originalWarn;
+			console.info = this.originalInfo;
+		}
 	}
 
 	handleLogMessage(message, ...optionalParams)
@@ -637,6 +649,7 @@ class MyApp extends OAuth2App
 
 	async onUninit()
 	{
+		this.restoreLoggingMethods();
 		await this.deleteSwitchBotWebhook();
 	}
 
@@ -713,36 +726,43 @@ class MyApp extends OAuth2App
 
 	updateLog(newMessage, errorLevel = 2)
 	{
-		this.logLevel = this.homey.settings.get('logLevel');
-		if (errorLevel <= this.logLevel)
+		try
 		{
-			const nowTime = new Date(Date.now());
+			this.logLevel = this.homey.settings.get('logLevel');
+			if (errorLevel <= this.logLevel)
+			{
+				const nowTime = new Date(Date.now());
 
-			this.diagLog += '\r\n* ';
-			this.diagLog += nowTime.toJSON();
-			this.diagLog += '\r\n';
+				this.diagLog += '\r\n* ';
+				this.diagLog += nowTime.toJSON();
+				this.diagLog += '\r\n';
 
-			if (errorLevel === 0)
-			{
-				// this.error(newMessage);
-				this.diagLog += '!!!!!! ';
-			}
-			else
-			{
-				// this.log(newMessage);
-				this.diagLog += '* ';
-			}
-			this.diagLog += newMessage;
-			this.diagLog += '\r\n';
-			if (this.diagLog.length > 60000)
-			{
-				this.diagLog = this.diagLog.substr(this.diagLog.length - 60000);
-			}
+				if (errorLevel === 0)
+				{
+					// this.error(newMessage);
+					this.diagLog += '!!!!!! ';
+				}
+				else
+				{
+					// this.log(newMessage);
+					this.diagLog += '* ';
+				}
+				this.diagLog += newMessage;
+				this.diagLog += '\r\n';
+				if (this.diagLog.length > 60000)
+				{
+					this.diagLog = this.diagLog.substr(this.diagLog.length - 60000);
+				}
 
-			if (this.homeyIP)
-			{
-				this.homey.api.realtime('com.switchbot.logupdated', { log: this.diagLog });
+				if (this.homeyIP)
+				{
+					this.homey.api.realtime('com.switchbot.logupdated', { log: this.diagLog });
+				}
 			}
+		}
+		catch (err)
+		{
+			this.originalError(`UpdateLog Error: ${newMessage}`);
 		}
 	}
 

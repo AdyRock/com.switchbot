@@ -949,5 +949,18 @@
 		"pl": "Dodano obsługę błędów w wywołaniach SetWarning, aby zapobiec awariom.",
 		"ru": "Добавлен обработчик ошибок в вызовы SetWarning для предотвращения сбоев.",
 		"ko": "충돌을 방지하기 위해 SetWarning 호출에 오류 처리기 추가"
+	},
+	"2.0.52": {
+		"en": "Fixed Flow cards for K10+ robot vacuum",
+		"no": "Fikset Flow-kort for K10+ robotstøvsuger",
+		"nl": "Flow-kaarten voor K10+ robotstofzuiger opgelost",
+		"de": "Flow-Karten für K10+ Robotersauger behoben",
+		"fr": "Correction des cartes de flux pour le robot aspirateur K10+",
+		"es": "Se corrigieron las tarjetas de flujo para el robot aspiradora K10+",
+		"pt": "Corrigidos os cartões de fluxo para o aspirador de pó robô K10+",
+		"it": "Corrette le schede di flusso per il robot aspirapolvere K10+",
+		"pl": "Naprawiono karty przepływu dla odkurzacza robota K10+",
+		"ru": "Исправлены карты потока для робота-пылесоса K10+",
+		"ko": "K10+ 로봇 진공청소기용 플로우 카드 수정"
 	}
 }
