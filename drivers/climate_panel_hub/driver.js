@@ -22,7 +22,7 @@ class ClimatePanelHubDevice extends HubDriver
 	 */
 	async onPairListDevices({ oAuth2Client })
 	{
-		return this.getHUBDevices(oAuth2Client, ['Climate Panel'], false, true);
+		return this.getHUBDevices(oAuth2Client, ['Climate Panel', 'Home Climate Panel'], false, true);
 	}
 
 }

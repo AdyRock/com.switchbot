@@ -962,5 +962,18 @@
 		"pl": "Naprawiono karty przepływu dla odkurzacza robota K10+",
 		"ru": "Исправлены карты потока для робота-пылесоса K10+",
 		"ko": "K10+ 로봇 진공청소기용 플로우 카드 수정"
+	},
+	"2.0.53": {
+		"en": "Fix Home Climate panel device type name. Avoid trying to register video streams on Homeys without the capability.",
+		"no": "Fikset Home Climate-panelenhetstype navn. Unngå å prøve å registrere videostrømmer på Homeys uten denne funksjonen.",
+		"nl": "Herstel de apparaattype naam van het Home Climate-paneel. Voorkom dat videostreams worden geregistreerd op Homeys zonder de mogelijkheid.",
+		"de": "Beheben Sie den Gerätenamen des Home Climate-Paneltyps. Vermeiden Sie das Registrieren von Videostreams auf Homeys ohne diese Funktion.",
+		"fr": "Corriger le nom du type de périphérique du panneau Home Climate. Évitez d'essayer d'enregistrer des flux vidéo sur les Homeys sans cette capacité.",
+		"es": "Corregir el nombre del tipo de dispositivo del panel Home Climate. Evite intentar registrar transmisiones de video en Homeys sin la capacidad.",
+		"pt": "Corrija o nome do tipo de dispositivo do painel Home Climate. Evite tentar registrar fluxos de vídeo em Homeys sem a capacidade.",
+		"it": "Correggi il nome del tipo di dispositivo del pannello Home Climate. Evita di provare a registrare flussi video su Homeys senza la capacità.",
+		"pl": "Popraw nazwę typu urządzenia panelu Home Climate. Unikaj próby rejestrowania strumieni wideo na Homeys bez tej funkcji.",
+		"ru": "Исправьте имя типа устройства панели Home Climate. Избегайте попыток регистрации видеопотоков на Homeys без этой возможности.",
+		"ko": "Home Climate 패널 장치 유형 이름 수정. 기능이 없는 Homeys에서 비디오 스트림을 등록하지 않도록 합니다."
 	}
 }

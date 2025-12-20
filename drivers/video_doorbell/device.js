@@ -65,21 +65,24 @@ class VideoDoorBellDevice extends HubDevice
 			this.video = null;
 		}
 
-		const settings = this.getSettings();
-		const data = this.getData();
-
-		if (settings.username && settings.password && settings.ip)
+		if ((typeof this.homey.hasFeature === 'function') && this.homey.hasFeature('camera-streaming'))
 		{
-			this.homey.app.updateLog('Registering Now video stream (' + this.name + ')');
-			this.video = await this.homey.videos.createVideoRTSP();
-			this.video.registerVideoUrlListener(async () =>
+			const settings = this.getSettings();
+			const data = this.getData();
+
+			if (settings.username && settings.password && settings.ip)
 			{
-				const url = `rtsp://${settings.username}:${settings.password}@${settings.ip}:554/${data.id}/live1`;
-				this.homey.app.updateLog(`Setting Live video stream to ${url}`);
-				return { url };
-			});
-			this.setCameraVideo('live_video', 'Live Video', this.video).catch(this.err);
-			this.homey.app.updateLog('registered Now video stream (' + this.name + ')');
+				this.homey.app.updateLog('Registering Now video stream (' + this.name + ')');
+				this.video = await this.homey.videos.createVideoRTSP();
+				this.video.registerVideoUrlListener(async () =>
+				{
+					const url = `rtsp://${settings.username}:${settings.password}@${settings.ip}:554/${data.id}/live1`;
+					this.homey.app.updateLog(`Setting Live video stream to ${url}`);
+					return { url };
+				});
+				this.setCameraVideo('live_video', 'Live Video', this.video).catch(this.err);
+				this.homey.app.updateLog('registered Now video stream (' + this.name + ')');
+			}
 		}
 	}
 
