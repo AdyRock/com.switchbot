@@ -66,20 +66,20 @@ class MeterProCO2BLEDevice extends Homey.Device
 		{
 			const dd = this.getData();
 
-			if (this.bestHub !== '')
-			{
-				// This device is being controlled by a BLE hub
-				if (this.homey.app.BLEHub && this.homey.app.BLEHub.IsBLEHubAvailable(this.bestHub))
-				{
-					return;
-				}
+			// if (this.bestHub !== '')
+			// {
+			// 	// This device is being controlled by a BLE hub
+			// 	if (this.homey.app.BLEHub && this.homey.app.BLEHub.IsBLEHubAvailable(this.bestHub))
+			// 	{
+			// 		return;
+			// 	}
 
-				this.bestHub = '';
-			}
+			// 	this.bestHub = '';
+			// }
 
 			if (dd.id)
 			{
-				this.homey.app.updateLog('Finding MeterProCO2 BLE device', 3);
+				this.homey.app.updateLog(`Finding MeterProCO2 BLE device ${dd.id}`, 3);
 				const bleAdvertisement = await this.homey.ble.find(dd.id);
 				if (!bleAdvertisement)
 				{
@@ -89,7 +89,7 @@ class MeterProCO2BLEDevice extends Homey.Device
 				}
 
 				this.homey.app.updateLog(this.homey.app.varToString(bleAdvertisement), 4);
-				const rssi = await bleAdvertisement.rssi;
+				const rssi = bleAdvertisement.rssi;
 				this.setCapabilityValue('rssi', rssi).catch(this.error);
 
 				const data = this.driver.parse(bleAdvertisement);
@@ -105,7 +105,7 @@ class MeterProCO2BLEDevice extends Homey.Device
 				}
 				else
 				{
-					this.homey.app.updateLog('Parsed MeterProCO2 BLE: No service data', 0);
+					this.homey.app.updateLog(`Parsed MeterProCO2 BLE: No data for ${dd.id}`, 0);
 				}
 			}
 			else

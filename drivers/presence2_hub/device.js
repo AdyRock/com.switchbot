@@ -14,6 +14,18 @@ class Presence2HubDevice extends HubDevice
 	{
 		await super.onInit();
 
+		if (!this.hasCapability('measure_luminance'))
+		{
+			try
+			{
+				await this.addCapability('measure_luminance');
+			}
+			catch (err)
+			{
+				this.log(err);
+			}
+		}
+
 		const dd = this.getData();
 		this.homey.app.registerHomeyWebhook(dd.id).catch(this.error);
 
@@ -56,6 +68,11 @@ class Presence2HubDevice extends HubDevice
 
 				this.setCapabilityValue('alarm_presence', data.detected).catch(this.error);
 
+				if (data.lightLevel)
+				{
+					this.setCapabilityValue('measure_luminance', data.lightLevel * 5).catch(this.error);
+				}
+
 				if (data.battery)
 				{
 					if (!this.hasCapability('measure_battery'))
@@ -91,6 +108,11 @@ class Presence2HubDevice extends HubDevice
 			{
 				// message is for this device
 				this.setCapabilityValue('alarm_presence', message.context.detectionState === 'DETECTED').catch(this.error);
+
+				if (this.hasCapability('measure_luminance') && message.context.lightLevel)
+				{
+					this.setCapabilityValue('measure_luminance', message.context.lightLevel * 5).catch(this.error);
+				}
 
 				if (message.context.battery)
 				{

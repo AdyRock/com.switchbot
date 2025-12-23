@@ -975,5 +975,18 @@
 		"pl": "Popraw nazwę typu urządzenia panelu Home Climate. Unikaj próby rejestrowania strumieni wideo na Homeys bez tej funkcji.",
 		"ru": "Исправьте имя типа устройства панели Home Climate. Избегайте попыток регистрации видеопотоков на Homeys без этой возможности.",
 		"ko": "Home Climate 패널 장치 유형 이름 수정. 기능이 없는 Homeys에서 비디오 스트림을 등록하지 않도록 합니다."
+	},
+	"2.0.54": {
+		"en": "Added measure luminance capability to the presence sensor",
+		"no": "Lagt til måle lysstyrkekapasitet til nærværsensoren",
+		"nl": "Meet luminantiecapaciteit toegevoegd aan de aanwezigheidssensor",
+		"de": "Messfähigkeit der Luminanz zum Präsenzsensor hinzugefügt",
+		"fr": "Ajout de la capacité de mesure de la luminance au capteur de présence",
+		"es": "Se agregó la capacidad de medir la luminancia al sensor de presencia",
+		"pt": "Adicionada capacidade de medir luminância ao sensor de presença",
+		"it": "Aggiunta la capacità di misurare la luminanza al sensore di presenza",
+		"pl": "Dodano możliwość pomiaru luminancji do czujnika obecności",
+		"ru": "Добавлена возможность измерения освещенности в датчик присутствия",
+		"ko": "프레즌스 센서에 조도 측정 기능 추가"
 	}
 }
