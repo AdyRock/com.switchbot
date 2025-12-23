@@ -22,7 +22,7 @@ class BLEMeterProDriver extends BLEDriver
 	 */
 	onPairListDevices()
 	{
-		return this.getBLEDevices(20);
+		return this.getBLEDevices('4');
 	}
 
 }

@@ -462,6 +462,10 @@ class BlindTiltBLEDevice extends Homey.Device
 				{
 					this.updateCapabilities(deviceInfo);
 				}
+				else
+				{
+					this.bestHub = '';
+				}
 			}
 			if (this.bestHub !== '')
 			{

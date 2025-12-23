@@ -988,5 +988,18 @@
 		"pl": "Dodano możliwość pomiaru luminancji do czujnika obecności",
 		"ru": "Добавлена возможность измерения освещенности в датчик присутствия",
 		"ko": "프레즌스 센서에 조도 측정 기능 추가"
+	},
+	"2.0.55": {
+		"en": "Fixed issue with Meter Pro temperature and humidity reporting over BLE",
+		"no": "Fikset problem med Meter Pro temperatur- og fuktighetsrapportering over BLE",
+		"nl": "Probleem met Meter Pro temperatuur- en vochtigheidsrapportage via BLE opgelost",
+		"de": "Problem mit der Temperatur- und Feuchtigkeitsberichterstattung von Meter Pro über BLE behoben",
+		"fr": "Correction d'un problème avec le rapport de température et d'humidité de Meter Pro via BLE",
+		"es": "Se corrigió el problema con el informe de temperatura y humedad de Meter Pro a través de BLE",
+		"pt": "Corrigido o problema com o relatório de temperatura e umidade do Meter Pro via BLE",
+		"it": "Risolto il problema con la segnalazione di temperatura e umidità di Meter Pro tramite BLE",
+		"pl": "Naprawiono problem z raportowaniem temperatury i wilgotności Meter Pro przez BLE",
+		"ru": "Исправлена проблема с отчетом о температуре и влажности Meter Pro через BLE",
+		"ko": "BLE를 통한 Meter Pro 온도 및 습도 보고 문제 수정"
 	}
 }
