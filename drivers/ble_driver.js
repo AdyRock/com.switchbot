@@ -281,7 +281,7 @@ class BLEDriver extends Homey.Driver
 		{ // WoWaterLeak
 			sd = this._parseServiceDataForWaterLeak(buf, device.manufacturerData);
 		}
-		else if (model.charCodeAt(0) === '4')
+		else if (model === '4')
 		{ // WoMeterPro
 			sd = this._parseServiceDataForProMeter(buf, device.manufacturerData);
 		}

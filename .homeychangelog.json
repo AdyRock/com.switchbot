@@ -1001,5 +1001,18 @@
 		"pl": "Naprawiono problem z raportowaniem temperatury i wilgotności Meter Pro przez BLE",
 		"ru": "Исправлена проблема с отчетом о температуре и влажности Meter Pro через BLE",
 		"ko": "BLE를 통한 Meter Pro 온도 및 습도 보고 문제 수정"
+	},
+	"2.0.56": {
+		"en": "Fixed detection for Meter Plus",
+		"no": "Fikset deteksjon for Meter Plus",
+		"nl": "Detectie voor Meter Plus opgelost",
+		"de": "Erkennung für Meter Plus behoben",
+		"fr": "Correction de la détection pour Meter Plus",
+		"es": "Se corrigió la detección para Meter Plus",
+		"pt": "Corrigida a detecção para Meter Plus",
+		"it": "Risolto il rilevamento per Meter Plus",
+		"pl": "Naprawiono wykrywanie Meter Plus",
+		"ru": "Исправлено обнаружение Meter Plus",
+		"ko": "Meter Plus 감지 수정"
 	}
 }
