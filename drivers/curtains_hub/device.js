@@ -280,6 +280,17 @@ class CurtainsHubDevice extends HubDevice
 				this.setCapabilityValue('windowcoverings_set', position).catch(this.error);
 				this.setCapabilityValue('position', position * 100).catch(this.error);
 
+				if (this.lastPosition)
+				{
+					if (this.lastPosition !== position)
+					{
+						this.homey.app.triggerPositionLessThan(this, { lastPosition: this.lastPosition, position }, { lastPosition: this.lastPosition, position }).catch(this.error);
+						this.homey.app.triggerPositionGreaterThan(this, { lastPosition: this.lastPosition, position }, { lastPosition: this.lastPosition, position }).catch(this.error);
+					}
+				}
+
+				this.lastPosition = position;
+
 				if (data.battery)
 				{
 					if (!this.hasCapability('measure_battery'))
@@ -336,6 +347,15 @@ class CurtainsHubDevice extends HubDevice
 					this.setCapabilityValue('open_close', false).catch(this.error);
 				}
 
+				if (this.lastPosition)
+				{
+					if (this.lastPosition !== position)
+					{
+						this.homey.app.triggerPositionLessThan(this, { lastPosition: this.lastPosition, position }, { lastPosition: this.lastPosition, position }).catch(this.error);
+						this.homey.app.triggerPositionGreaterThan(this, { lastPosition: this.lastPosition, position }, { lastPosition: this.lastPosition, position }).catch(this.error);
+					}
+				}
+
 				this.setCapabilityValue('windowcoverings_set', position).catch(this.error);
 				this.setCapabilityValue('position', position * 100).catch(this.error);
 
@@ -354,6 +374,8 @@ class CurtainsHubDevice extends HubDevice
 						this.getHubDeviceValues().catch(this.error);
 					}, 2000);
 				}
+
+				this.lastPosition = position;
 
 				if (data.battery)
 				{

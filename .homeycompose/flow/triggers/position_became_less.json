@@ -1,0 +1,132 @@
+{
+	"title": {
+		"en": "The position became less than",
+		"no": "Posisjonen ble mindre enn",
+		"nl": "De positie werd minder dan",
+		"da": "Positionen blev mindre end",
+		"de": "Die Position wurde kleiner als",
+		"es": "La posición se volvió menor que",
+		"fr": "La position est devenue inférieure à",
+		"it": "La posizione è diventata inferiore a",
+		"sv": "Positionen blev mindre än",
+		"pl": "Pozycja stała się mniejsza niż",
+		"ru": "Позиция стала меньше чем",
+		"ko": "위치가 다음보다 작아졌습니다"
+	},
+	"titleFormatted": {
+		"en": "The position became less than [[position_threshold]]",
+		"no": "Posisjonen ble mindre enn [[position_threshold]]",
+		"nl": "De positie werd minder dan [[position_threshold]]",
+		"da": "Positionen blev mindre end [[position_threshold]]",
+		"de": "Die Position wurde kleiner als [[position_threshold]]",
+		"es": "La posición se volvió menor que [[position_threshold]]",
+		"fr": "La position est devenue inférieure à [[position_threshold]]",
+		"it": "La posizione è diventata inferiore a [[position_threshold]]",
+		"sv": "Positionen blev mindre än [[position_threshold]]",
+		"pl": "Pozycja stała się mniejsza niż [[position_threshold]]",
+		"ru": "Позиция стала меньше чем [[position_threshold]]",
+		"ko": "위치가 [[position_threshold]]보다 작아졌습니다"
+	},
+	"platforms": [
+		"local",
+		"cloud"
+	],
+	"tokens": [
+		{
+			"name": "position",
+			"title": {
+				"en": "New position",
+				"no": "Ny posisjon",
+				"nl": "Nieuwe positie",
+				"da": "Ny position",
+				"de": "Neue Position",
+				"es": "Nueva posición",
+				"fr": "Nouvelle position",
+				"it": "Nuova posizione",
+				"sv": "Ny position",
+				"pl": "Nowa pozycja",
+				"ru": "Новое положение",
+				"ko": "새 위치"
+			},
+			"type": "number",
+			"example": {
+				"en": "1 to 100",
+				"no": "1 til 100",
+				"nl": "1 t/m 100",
+				"da": "1 til 100",
+				"de": "1 bis 100",
+				"es": "1 a 100",
+				"fr": "1 à 100",
+				"it": "1 a 100",
+				"sv": "1 till 100",
+				"pl": "1 do 100",
+				"ru": "1 до 100",
+				"ko": "1에서 100"
+			}
+		},
+		{
+			"name": "lastPosition",
+			"title": {
+				"en": "Old position",
+				"no": "Gammel posisjon",
+				"nl": "Oude positie",
+				"da": "Gammel position",
+				"de": "Alte Position",
+				"es": "Posición antigua",
+				"fr": "Ancienne position",
+				"it": "Posizione precedente",
+				"sv": "Gammal position",
+				"pl": "Stara pozycja",
+				"ru": "Старое положение",
+				"ko": "이전 위치"
+			},
+			"type": "number",
+			"example": {
+				"en": "1 to 100",
+				"no": "1 til 100",
+				"nl": "1 t/m 100",
+				"da": "1 til 100",
+				"de": "1 bis 100",
+				"es": "1 a 100",
+				"fr": "1 à 100",
+				"it": "1 a 100",
+				"sv": "1 till 100",
+				"pl": "1 do 100",
+				"ru": "1 до 100",
+				"ko": "1에서 100"
+			}
+		}
+	],
+	"args": [
+		{
+			"name": "position_threshold",
+			"type": "range",
+			"min": 0,
+			"max": 1,
+			"step": 0.01,
+			"value": 0.5,
+			"label": "%",
+			"labelMultiplier": 100,
+			"labelDecimals": 0,
+			"title": {
+				"en": "Position threshold",
+				"no": "Posisjonsgrense",
+				"nl": "Positiedrempel",
+				"da": "Positionstærskel",
+				"de": "Positionsschwelle",
+				"es": "Umbral de posición",
+				"fr": "Seuil de position",
+				"it": "Soglia di posizione",
+				"sv": "Positionsgräns",
+				"pl": "Próg pozycji",
+				"ru": "Порог позиции",
+				"ko": "위치 임계값"
+			}
+		},
+		{
+			"type": "device",
+			"name": "device",
+			"filter": "driver_id=curtains_ble|curtains_hub|roller_blind_ble|roller_blind_hub"
+		}
+	]
+}

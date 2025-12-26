@@ -452,6 +452,17 @@ class CurtainsBLEDevice extends Homey.Device
 					this.setCapabilityValue('windowcoverings_set', position).catch(this.error);
 					this.setCapabilityValue('position', position * 100).catch(this.error);
 
+					if (this.lastPosition)
+					{
+						if (this.lastPosition !== position)
+						{
+							this.homey.app.triggerPositionLessThan(this, { lastPosition: this.lastPosition, position }, { lastPosition: this.lastPosition, position }).catch(this.error);
+							this.homey.app.triggerPositionGreaterThan(this, { lastPosition: this.lastPosition, position }, { lastPosition: this.lastPosition, position }).catch(this.error);
+						}
+					}
+
+					this.lastPosition = position;
+
 					this.setCapabilityValue('measure_battery', data.serviceData.battery).catch(this.error);
 					this.homey.app.updateLog(`Parsed Curtain BLE (${name}): position = ${data.serviceData.position}, battery = ${data.serviceData.battery}`, 3);
 				}
@@ -499,6 +510,17 @@ class CurtainsBLEDevice extends Homey.Device
 					}
 					this.setCapabilityValue('windowcoverings_set', position).catch(this.error);
 					this.setCapabilityValue('position', position * 100).catch(this.error);
+
+					if (this.lastPosition)
+					{
+						if (this.lastPosition !== position)
+						{
+							this.homey.app.triggerPositionLessThan(this, { lastPosition: this.lastPosition, position }, { lastPosition: this.lastPosition, position }).catch(this.error);
+							this.homey.app.triggerPositionGreaterThan(this, { lastPosition: this.lastPosition, position }, { lastPosition: this.lastPosition, position }).catch(this.error);
+						}
+					}
+
+					this.lastPosition = position;
 
 					if (this.hasCapability('open_close'))
 					{

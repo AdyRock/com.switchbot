@@ -1014,5 +1014,18 @@
 		"pl": "Naprawiono wykrywanie Meter Plus",
 		"ru": "Исправлено обнаружение Meter Plus",
 		"ko": "Meter Plus 감지 수정"
+	},
+	"2.0.57": {
+		"en": "Added Flow cards for position became greater than and less than for curtains and blinds",
+		"no": "Lagt til Flow-kort for posisjon ble større enn og mindre enn for gardiner og persienner",
+		"nl": "Flow-kaarten toegevoegd voor positie werd groter dan en kleiner dan voor gordijnen en jaloezieën",
+		"de": "Flow-Karten für Position wurde größer als und kleiner als für Vorhänge und Jalousien hinzugefügt",
+		"fr": "Ajout de cartes de flux pour la position devenue supérieure à et inférieure à pour les rideaux et les stores",
+		"es": "Se agregaron tarjetas de flujo para la posición que se volvió mayor que y menor que para cortinas y persianas",
+		"pt": "Adicionados cartões de fluxo para posição tornou-se maior que e menor que para cortinas e persianas",
+		"it": "Aggiunte schede di flusso per la posizione diventata maggiore di e minore di per tende e persiane",
+		"pl": "Dodano karty przepływu dla pozycji stała się większa niż i mniejsza niż dla zasłon i żaluzji",
+		"ru": "Добавлены карты потока для позиции стала больше и меньше для штор и жалюзи",
+		"ko": "커튼 및 블라인드의 위치가 크거나 작아진 플로우 카드 추가"
 	}
 }

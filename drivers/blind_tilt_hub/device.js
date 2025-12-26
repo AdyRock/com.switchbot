@@ -101,6 +101,17 @@ class BlindTiltHubDevice extends HubDevice
 				const position = data.slidePosition / 100;
 				this.setCapabilityValue('windowcoverings_tilt_set', position).catch(this.error);
 
+				if (this.lastPosition)
+				{
+					if (this.lastPosition !== position)
+					{
+						this.homey.app.triggerPositionLessThan(this, { lastPosition: this.lastPosition, position }, { lastPosition: this.lastPosition, position }).catch(this.error);
+						this.homey.app.triggerPositionGreaterThan(this, { lastPosition: this.lastPosition, position }, { lastPosition: this.lastPosition, position }).catch(this.error);
+					}
+				}
+
+				this.lastPosition = position;
+
 				if (data.battery)
 				{
 					if (!this.hasCapability('measure_battery'))
@@ -139,6 +150,17 @@ class BlindTiltHubDevice extends HubDevice
 				const data = message.context;
 				const position = data.slidePosition / 100;
 				this.setCapabilityValue('windowcoverings_tilt_set', position).catch(this.error);
+
+				if (this.lastPosition)
+				{
+					if (this.lastPosition !== position)
+					{
+						this.homey.app.triggerPositionLessThan(this, { lastPosition: this.lastPosition, position }, { lastPosition: this.lastPosition, position }).catch(this.error);
+						this.homey.app.triggerPositionGreaterThan(this, { lastPosition: this.lastPosition, position }, { lastPosition: this.lastPosition, position }).catch(this.error);
+					}
+				}
+
+				this.lastPosition = position;
 
 				if (data.battery)
 				{

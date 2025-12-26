@@ -644,7 +644,37 @@ class MyApp extends OAuth2App
 			return false;
 		});
 
+		this.positionLessThanTrigger = this.homey.flow.getDeviceTriggerCard('position_became_less');
+		this.positionLessThanTrigger.registerRunListener(async (args, state) =>
+		{
+			if ((args.position_threshold > state.position) && (args.position_threshold <= state.lastPosition))
+			{
+				return true;
+			}
+			return false;
+		});
+
+		this.positionGreaterThanTrigger = this.homey.flow.getDeviceTriggerCard('position_became_greater');
+		this.positionGreaterThanTrigger.registerRunListener(async (args, state) =>
+		{
+			if ((args.position_threshold < state.position) && (args.position_threshold >= state.lastPosition))
+			{
+				return true;
+			}
+			return false;
+		});
+
 		this.homey.app.updateLog('****** App has initialised. ******');
+	}
+
+	async triggerPositionLessThan(device, tokens, state)
+	{
+		this.positionLessThanTrigger.trigger(device, tokens, state).catch(this.error);
+	}
+
+	async triggerPositionGreaterThan(device, tokens, state)
+	{
+		this.positionGreaterThanTrigger.trigger(device, tokens, state).catch(this.error);
 	}
 
 	async onUninit()
