@@ -14,6 +14,16 @@ class LockUltraHubDevice extends HubDevice
 	{
 		await super.onInit();
 
+		// if (!this.hasCapability('locked'))
+		// {
+		// 	await this.addCapability('locked');
+			const options = this.getCapabilityOptions('locked');
+			options.getable = false;
+			options.setable = false;
+			options.uiComponent = null;
+			this.setCapabilityOptions('locked', options);
+		//}
+
 		this.registerCapabilityListener('lock', this.onCapabilityLock.bind(this));
 		this.registerCapabilityListener('unlock', this.onCapabilityUnlock.bind(this));
 		this.registerCapabilityListener('deadbolt', this.onCapabilityDeadbolt.bind(this));
@@ -114,14 +124,17 @@ class LockUltraHubDevice extends HubDevice
 				{
 					if (data.lockState === 'Locked')
 					{
+						this.setCapabilityValue('locked', true).catch(this.error);
 						this.driver.triggerLocked(this, null, null).catch(this.error);
 					}
 					else if (data.lockState === 'latchBoltLocked')
 					{
+						this.setCapabilityValue('locked', true).catch(this.error);
 						this.driver.triggerUnlocked(this, null, null).catch(this.error);
 					}
 					else
 					{
+						this.setCapabilityValue('locked', false).catch(this.error);
 						this.driver.triggerUnlocked(this, null, null).catch(this.error);
 					}
 				}
@@ -173,14 +186,17 @@ class LockUltraHubDevice extends HubDevice
 				{
 					if (message.context.lockState === 'LOCKED')
 					{
+						this.setCapabilityValue('locked', true).catch(this.error);
 						this.driver.triggerLocked(this, null, null).catch(this.error);
 					}
 					else if (message.context.lockState === 'LATCHED')
 					{
+						this.setCapabilityValue('locked', true).catch(this.error);
 						this.driver.triggerLatched(this, null, null).catch(this.error);
 					}
 					else
 					{
+						this.setCapabilityValue('locked', false).catch(this.error);
 						this.driver.triggerUnlocked(this, null, null).catch(this.error);
 					}
 				}

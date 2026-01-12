@@ -1,27 +1,28 @@
 {
-  "title": {
-    "en": "Unlocked",
-	"no": "Låst opp",
-	"nl": "Ontgrendelen",
-	"da": "Låst op",
-	"de": "Entsperren",
-	"es": "Desbloquear",
-	"fr": "Déverrouiller",
-	"it": "Sbloccare",
-	"sv": "Låsa upp",
-	"pl": "Odblokować",
-	"ru": "Разблокировать",
-	"ko": "잠금 해제"
-  },
-  "platforms": [
-    "local",
-    "cloud"
-  ],
-  "args": [
-    {
-      "type": "device",
-      "name": "device",
-      "filter": "driver_id=lock_ultra_hub"
-    }
-  ]
+	"title": {
+		"en": "Unlocked",
+		"no": "Låst opp",
+		"nl": "Ontgrendelen",
+		"da": "Låst op",
+		"de": "Entsperren",
+		"es": "Desbloquear",
+		"fr": "Déverrouiller",
+		"it": "Sbloccare",
+		"sv": "Låsa upp",
+		"pl": "Odblokować",
+		"ru": "Разблокировать",
+		"ko": "잠금 해제"
+	},
+	"platforms": [
+		"local",
+		"cloud"
+	],
+	"deprecated": true,
+	"args": [
+		{
+			"type": "device",
+			"name": "device",
+			"filter": "driver_id=lock_ultra_hub"
+		}
+	]
 }

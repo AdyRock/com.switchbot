@@ -964,6 +964,7 @@
           "local",
           "cloud"
         ],
+        "deprecated": true,
         "args": [
           {
             "type": "device",
@@ -1432,6 +1433,7 @@
           "local",
           "cloud"
         ],
+        "deprecated": true,
         "args": [
           {
             "type": "device",
@@ -8496,12 +8498,17 @@
         "lock",
         "deadbolt",
         "unlock",
+        "locked",
         "locked_status",
         "alarm_generic",
         "alarm_contact",
         "measure_battery"
       ],
       "capabilitiesOptions": {
+        "locked": {
+          "getable": false,
+          "uiComponent": null
+        },
         "alarm_generic": {
           "title": {
             "en": "Door Jammed",
