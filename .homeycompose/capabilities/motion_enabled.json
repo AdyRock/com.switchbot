@@ -1,0 +1,13 @@
+{
+    "type": "boolean",
+    "title": {
+        "en": "Enable Motion Detection",
+        "de": "Bewegungserkennung aktivieren",
+        "nl": "Bewegingsdetectie inschakelen",
+        "it": "Abilita rilevamento movimento"
+    },
+    "getable": true,
+    "setable": true,
+    "uiComponent": "toggle",
+    "icon": "/assets/motion.svg"
+}

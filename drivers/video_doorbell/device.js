@@ -14,6 +14,15 @@ class VideoDoorBellDevice extends HubDevice
 	{
 		await super.onInit();
 
+		if (!this.hasCapability('motion_enabled'))
+		{
+			await this.addCapability('motion_enabled').catch(this.error);
+			this.setCapabilityValue('motion_enabled', true).catch(this.error);
+			this.enableMotion(true).catch(this.error);
+		}
+		this.registerCapabilityListener('motion_enabled', this.enableMotion.bind(this));
+
+
 		const dd = this.getData();
 		this.homey.app.registerHomeyWebhook(dd.id).catch(this.error);
 
@@ -29,6 +38,8 @@ class VideoDoorBellDevice extends HubDevice
 	async onAdded()
 	{
 		this.log('VideoDoorBellDevice has been added');
+		this.setCapabilityValue('motion_enabled', true).catch(this.error);
+		this.enableMotion(true).catch(this.error);
 	}
 
 	/**
@@ -55,6 +66,12 @@ class VideoDoorBellDevice extends HubDevice
 		{
 			this.registerVideoStream();
 		}
+	}
+
+	async enableMotion(value, opts)
+	{
+		const command = value ? 'enableMotionDetection' : 'disableMotionDetection';
+		return this._operateDevice(command);
 	}
 
 	async registerVideoStream()

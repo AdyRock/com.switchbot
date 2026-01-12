@@ -22,7 +22,7 @@ class StripLightDriver extends HubDriver
 	 */
 	async onPairListDevices({ oAuth2Client })
 	{
-		return this.getHUBDevices(oAuth2Client, ['Strip Light', 'Strip Light 3'], false, false);
+		return this.getHUBDevices(oAuth2Client, ['Strip Light', 'Strip Light 3', 'RGBIC Neon Wire Rope Light', 'RGBIC Neon Rope Light'], false, false);
 	}
 
 }

@@ -1027,5 +1027,18 @@
 		"pl": "Dodano karty przepływu dla pozycji stała się większa niż i mniejsza niż dla zasłon i żaluzji",
 		"ru": "Добавлены карты потока для позиции стала больше и меньше для штор и жалюзи",
 		"ko": "커튼 및 블라인드의 위치가 크거나 작아진 플로우 카드 추가"
+	},
+	"2.0.58": {
+		"en": "Added a button to enable / disable motion detection to the Video Doorbel.",
+		"no": "Lagt til en knapp for å aktivere / deaktivere bevegelsesdeteksjon til Video Doorbel.",
+		"nl": "Een knop toegevoegd om bewegingsdetectie in te schakelen / uit te schakelen voor de Video Doorbel.",
+		"de": "Eine Schaltfläche zum Aktivieren / Deaktivieren der Bewegungserkennung für die Video Doorbel hinzugefügt.",
+		"fr": "Ajout d'un bouton pour activer / désactiver la détection de mouvement à la sonnette vidéo.",
+		"es": "Se agregó un botón para habilitar / deshabilitar la detección de movimiento en el Video Doorbel.",
+		"pt": "Adicionado um botão para ativar / desativar a detecção de movimento para o Video Doorbel.",
+		"it": "Aggiunto un pulsante per abilitare / disabilitare il rilevamento del movimento al Video Doorbel.",
+		"pl": "Dodano przycisk do włączania / wyłączania wykrywania ruchu w Video Doorbel.",
+		"ru": "Добавлена кнопка для включения / отключения обнаружения движения на видеозвонке.",
+		"ko": "Video Doorbel에 모션 감지를 활성화/비활성화하는 버튼 추가"
 	}
 }

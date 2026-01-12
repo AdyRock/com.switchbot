@@ -16,6 +16,7 @@
 	},
 	"class": "doorbell",
 	"capabilities": [
+		"motion_enabled",
 		"alarm_motion",
 		"alarm_generic",
 		"measure_battery"

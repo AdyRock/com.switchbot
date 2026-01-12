@@ -187,7 +187,7 @@ class MyApp extends OAuth2App
 		// Set timer to reset the api counter at midnight
 		if (this.apiCountReset)
 		{
-			clearTimeout(this.apiCountReset);
+			this.homey.clearTimeout(this.apiCountReset);
 		}
 		const nowTime = new Date(Date.now());
 		let newTime = new Date(Date.now());
@@ -213,7 +213,7 @@ class MyApp extends OAuth2App
 		this.homeyID = await this.homey.cloud.getHomeyId();
 
 		// Setup the SwitchBot webhook after a short delay to allow devices to register
-		setTimeout(() => {
+		this.homey.setTimeout(() => {
 			this.setupSwitchBotWebhook();
 		}, 5000);
 
