@@ -1040,5 +1040,18 @@
 		"pl": "Dodano przycisk do włączania / wyłączania wykrywania ruchu w Video Doorbel.",
 		"ru": "Добавлена кнопка для включения / отключения обнаружения движения на видеозвонке.",
 		"ko": "Video Doorbel에 모션 감지를 활성화/비활성화하는 버튼 추가"
+	},
+	"2.0.59": {
+		"en": "Added Prences mm BLE driver",
+		"no": "Lagt til Prences mm BLE-driver",
+		"nl": "Prences mm BLE-driver toegevoegd",
+		"de": "Prences mm BLE-Treiber hinzugefügt",
+		"fr": "Ajout du pilote Prences mm BLE",
+		"es": "Se agregó el controlador Prences mm BLE",
+		"pt": "Adicionado driver Prences mm BLE",
+		"it": "Aggiunto il driver Prences mm BLE",
+		"pl": "Dodano sterownik Prences mm BLE",
+		"ru": "Добавлен драйвер Prences mm BLE",
+		"ko": "Prences mm BLE 드라이버 추가"
 	}
 }

@@ -61,7 +61,7 @@ class BLEDriver extends Homey.Driver
 
 								this.homey.app.detectedDevices += '\r\nBLE Hub Found device:\r\n';
 								this.homey.app.detectedDevices += this.homey.app.varToString(device);
-								this.homey.api.realtime('com.switchbot.detectedDevicesUpdated', { devices: this.homey.app.detectedDevices });
+								this.homey.api.realtime('com.switchbot.detectedDevicesUpdated', { devices: this.homey.app.detectedDevices }).catch(this.error);
 
 								// Add this device to the table
 								devices.push(device);
@@ -83,6 +83,10 @@ class BLEDriver extends Homey.Driver
 
 			const bleAdvertisements = await this.homey.ble.discover([], 5000);
 			this.homey.app.updateLog(`BLE Discovery found: ${this.homey.app.varToString(bleAdvertisements)}`, 3);
+
+			this.homey.app.detectedDevices += '\r\nBLE Hub Found device:\r\n';
+			this.homey.app.detectedDevices += this.homey.app.varToString(bleAdvertisements);
+			this.homey.api.realtime('com.switchbot.detectedDevicesUpdated', { devices: this.homey.app.detectedDevices }).catch(this.error);
 
 			for (const bleAdvertisement of bleAdvertisements)
 			{
@@ -292,6 +296,10 @@ class BLEDriver extends Homey.Driver
 		else if (model === "'")
 		{ // WoCurtain
 			sd = this._parseServiceDataForWoRollerblind(buf);
+		}
+		else if ((buf.length === 7) && buf[5] === 0xcc && buf[6] === 0xc8 && (buf[4] === 0x00 || buf[4] === 0x10))
+		{ // WoPresenceMM
+			sd = this._parseServiceDataForPresenceMM(buf, device.manufacturerData);
 		}
 		else
 		{
@@ -720,6 +728,70 @@ class BLEDriver extends Homey.Driver
 		};
 
 		return data;
+	}
+
+	_parseServiceDataForPresenceMM(buf, man)
+	{
+		if (!man || man.length < 12) return null;
+		// decode manufacturer payload AFTER the 2-byte company id (0x0969 => 69 09)
+		const p = man.subarray(2); // Buffer slice, 12 bytes
+
+		// let logData = '\r\n';
+		// logData += p.toString('hex').match(/.{1,2}/g).join(' ');
+
+		// {
+		// 	if (!this.homey.app.detectedDevices)
+		// 	{
+		// 		this.homey.app.detectedDevices = '';
+		// 	}
+		// 	this.homey.app.detectedDevices += logData;
+		// 	this.homey.api.realtime('com.switchbot.detectedDevicesUpdated', { devices: this.homey.app.detectedDevices }).catch(this.error);
+		// }
+
+		const uuidBytes = p.subarray(0, 6);
+		const uuid = [...uuidBytes].map(b => b.toString(16).padStart(2, '0')).join(' ');
+
+		const seq_number = p.readUInt8(6);
+
+		const flags = p.readUInt8(7);
+		const adaptive_state = (flags & 0x80) !== 0;
+		const presence = (flags & 0x40) !== 0;
+
+		const battery = this.batteryBucketToPercent(((flags >> 2) & 0x03)); // 0..3
+
+		const duration = (p.readUInt8(8) << 8) | p.readUInt8(9);
+		const trigger_flag = p.readUInt8(10);
+
+		const status = p.readUInt8(11);
+		const led_state = (status & 0x80) !== 0;
+		const light_level = status & 0x1F; // 0..31 raw bucket
+
+		return {
+			model: 'Presence',
+			modelName: 'Presence(mm)',
+			uuid,
+			seq_number,
+			adaptive_state,
+			presence,
+			battery,
+			duration,
+			trigger_flag,
+			led_state,
+			light_level,
+		};
+	}
+
+	batteryBucketToPercent(bucket)
+	{
+		// bucket is 0..3
+		switch (bucket)
+		{
+			case 0: return 10;   // very low / almost empty
+			case 1: return 35;   // low
+			case 2: return 65;   // medium
+			case 3: return 100;  // high / full
+			default: return 0;
+		}
 	}
 
 }

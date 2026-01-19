@@ -237,6 +237,11 @@
 				infoLogElement.value = data.log;
 			});
 
+			Homey.on('com.switchbot.detectedDevicesUpdated', function (data)
+			{
+				detectedDevicesElement.value = data.devices;
+			});
+
 			Homey.get('logLevel', function (err, logLevel)
 			{
 				if (err) return Homey.alert(err);
@@ -280,7 +285,7 @@
 
 			clearDeviceLogElement.addEventListener('click', function (e)
 			{
-				Homey.set('deviceLog', "", function (err)
+				Homey.set('detectedDevices', "", function (err)
 				{
 					if (err) return Homey.alert(err);
 				});

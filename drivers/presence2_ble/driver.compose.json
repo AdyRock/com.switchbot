@@ -1,0 +1,52 @@
+{
+  "id": "presence_ble",
+  "name": {
+    "en": "Presence Sensor (BLE)",
+	"de": "Präsenzsensor (BLE)",
+	"es": "Sensor de presencia (BLE)",
+	"fr": "Capteur de présence (BLE)",
+	"it": "Sensore di presenza (BLE)",
+	"nl": "Aanwezigheidssensor (BLE)",
+	"pl": "Czujnik obecności (BLE)",
+	"pt": "Sensor de Presença (BLE)",
+	"ru": "Датчик присутствия (BLE)",
+	"zh-cn": "存在传感器 (BLE)"
+  },
+  "platforms": [
+    "local",
+    "cloud"
+  ],
+  "connectivity": [
+    "ble"
+  ],
+  "class": "sensor",
+  "capabilities": [
+    "alarm_presence",
+    "light_level",
+    "measure_battery",
+    "rssi"
+  ],
+  "pair": [
+    {
+      "id": "list_my_devices",
+      "template": "list_devices",
+      "navigation": {
+        "next": "add_my_devices"
+      }
+    },
+    {
+      "id": "add_my_devices",
+      "template": "add_devices"
+    }
+  ],
+  "energy": {
+    "batteries": [
+      "AAA",
+      "AAA"
+    ]
+  },
+  "images": {
+    "large": "/drivers/presence_ble/assets/images/large.jpg",
+    "small": "/drivers/presence_ble/assets/images/small.jpg"
+  }
+}
