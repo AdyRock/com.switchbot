@@ -88,7 +88,7 @@ class PresenceBLEDevice extends Homey.Device
 				}
 
 				this.homey.app.updateLog(this.homey.app.varToString(bleAdvertisement), 4);
-				const rssi = await bleAdvertisement.rssi;
+				const rssi = bleAdvertisement.rssi;
 				this.setCapabilityValue('rssi', rssi).catch(this.error);
 
 				const data = this.driver.parse(bleAdvertisement);
@@ -142,7 +142,7 @@ class PresenceBLEDevice extends Homey.Device
 					{
 						this.setCapabilityValue('light_level', event.serviceData.light).catch(this.error);
 						const tokens = {
-							light_level: event.serviceData.lightLevel,
+							light_level: event.serviceData.light,
 						};
 
 						this.driver.triggerLightLevelChanged(this, tokens, null).catch(this.error);

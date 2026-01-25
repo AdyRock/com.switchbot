@@ -195,7 +195,16 @@ class BlindTiltBLEDevice extends Homey.Device
 			const deviceInfo = await this.homey.app.BLEHub.getBLEHubDevice(dd.address);
 			if (deviceInfo)
 			{
-				this.bestHub = deviceInfo.hubMAC;
+				// make sure the service data is present and is not a string
+				if (deviceInfo.serviceData && typeof deviceInfo.serviceData !== 'string')
+				{
+					this.bestHub = deviceInfo.hubMAC;
+				}
+				else
+				{
+					this.bestHub = '';
+					this.homey.app.updateLog(`BLE Hub for ${name} returned ${this.homey.app.varToString(deviceInfo)}`, 0);
+				}
 			}
 		}
 		if (this.bestHub !== '')
@@ -460,7 +469,17 @@ class BlindTiltBLEDevice extends Homey.Device
 				const deviceInfo = await this.homey.app.BLEHub.getBLEHubDevice(dd.address);
 				if (deviceInfo)
 				{
-					this.updateCapabilities(deviceInfo);
+					// make sure the service data is present and is not a string
+					if (deviceInfo.serviceData && typeof deviceInfo.serviceData !== 'string')
+					{
+						this.updateCapabilities(deviceInfo);
+						this.bestHub = deviceInfo.hubMAC;
+					}
+					else
+					{
+						this.bestHub = '';
+						this.homey.app.updateLog(`BLE Hub for ${name} returned ${this.homey.app.varToString(deviceInfo)}`, 0);
+					}
 				}
 				else
 				{
@@ -627,7 +646,11 @@ class BlindTiltBLEDevice extends Homey.Device
 
 		this.lastPosition = position;
 
-		this.setCapabilityValue('measure_battery', data.serviceData.battery).catch(this.error);
+		if (data.serviceData.battery)
+		{
+			this.setCapabilityValue('measure_battery', data.serviceData.battery).catch(this.error);
+		}
+
 		this.setCapabilityValue('rssi', data.rssi).catch(this.error);
 
 		const name = this.getName();

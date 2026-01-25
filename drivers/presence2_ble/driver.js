@@ -16,7 +16,7 @@ class BLEPresenceDriver extends BLEDriver
 		this.log('BLEPresenceDriver has been initialized');
 
 		// Device Triggers
-		this.bright_changed_trigger = this.homey.flow.getDeviceTriggerCard('bright_changed');
+		this.lightLevelChangedTrigger = this.homey.flow.getDeviceTriggerCard('light_level_changed');
 	}
 
 	bright_changed(device, bright)
@@ -37,6 +37,11 @@ class BLEPresenceDriver extends BLEDriver
 	onPairListDevices()
 	{
 		return this.getBLEDevices('Presence');
+	}
+
+	async triggerLightLevelChanged(device, tokens, state)
+	{
+		this.lightLevelChangedTrigger.trigger(device, tokens, state).catch(this.error);
 	}
 
 }
