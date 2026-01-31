@@ -1053,5 +1053,18 @@
 		"pl": "Dodano sterownik Prences mm BLE",
 		"ru": "Добавлен драйвер Prences mm BLE",
 		"ko": "Prences mm BLE 드라이버 추가"
+	},
+	"2.0.60": {
+		"en": "Added new device identifier for 'Robot Vacuum Cleaner K10+ Combo'",
+		"no": "Lagt til ny enhetsidentifikator for 'Robotstøvsuger K10+ Combo'",
+		"nl": "Nieuwe apparaatidentificatie toegevoegd voor 'Robot Vacuum Cleaner K10+ Combo'",
+		"de": "Neue Gerätekennung für den 'Robot Vacuum Cleaner K10+ Combo' hinzugefügt",
+		"fr": "Ajout d'un nouvel identifiant de périphérique pour le 'Robot Vacuum Cleaner K10+ Combo'",
+		"es": "Se agregó un nuevo identificador de dispositivo para 'Robot Vacuum Cleaner K10+ Combo'",
+		"pt": "Adicionado novo identificador de dispositivo para 'Robot Vacuum Cleaner K10+ Combo'",
+		"it": "Aggiunto un nuovo identificatore di dispositivo per 'Robot Vacuum Cleaner K10+ Combo'",
+		"pl": "Dodano nowy identyfikator urządzenia dla 'Robot Vacuum Cleaner K10+ Combo'",
+		"ru": "Добавлен новый идентификатор устройства для 'Robot Vacuum Cleaner K10+ Combo'",
+		"ko": "'Robot Vacuum Cleaner K10+ Combo'에 대한 새로운 장치 식별자 추가"
 	}
 }
