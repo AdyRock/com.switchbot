@@ -980,6 +980,12 @@ class MyApp extends OAuth2App
 		if (this.devicesMACs.findIndex((device) => device.localeCompare(DeviceMAC, 'en', { sensitivity: 'base' }) === 0) >= 0)
 		{
 			// Already registered
+			if (!this.webRegTimerID)
+			{
+				// Make sure the timer is started again to re-register all devices
+				this.webRegTimerID = this.homey.setTimeout(() => this.doWebhookReg(), 2000);
+			}
+
 			return;
 		}
 
