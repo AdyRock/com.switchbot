@@ -1039,7 +1039,7 @@ class MyApp extends OAuth2App
 				}
 				catch (err)
 				{
-					this.updateLog(`Homey Webhook message error: ${err.message}`, 1);
+					this.updateLog(`Homey Webhook message error: ${err.message}`, 0);
 
 					// Try again later
 					if (!this.webRegTimerID)
