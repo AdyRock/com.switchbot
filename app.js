@@ -227,7 +227,7 @@ class MyApp extends OAuth2App
 		catch (err)
 		{
 			// For cloud debugging only
-			this.logLevel = 3;
+			this.logLevel = 0;
 			this.homey.settings.set('logLevel', this.logLevel);
 			this.homeyIP = null;
 		}

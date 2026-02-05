@@ -1066,5 +1066,18 @@
 		"pl": "Dodano nowy identyfikator urządzenia dla 'Robot Vacuum Cleaner K10+ Combo'",
 		"ru": "Добавлен новый идентификатор устройства для 'Robot Vacuum Cleaner K10+ Combo'",
 		"ko": "'Robot Vacuum Cleaner K10+ Combo'에 대한 새로운 장치 식별자 추가"
+	},
+	"2.0.61": {
+		"en": "Reduce log level for Homey",
+		"no": "Reduser loggnivået for Homey",
+		"nl": "Logniveau verlagen voor Homey",
+		"de": "Log-Level für Homey reduzieren",
+		"fr": "Réduire le niveau de journalisation pour Homey",
+		"es": "Reducir el nivel de registro para Homey",
+		"pt": "Reduzir o nível de log para Homey",
+		"it": "Riduci il livello di log per Homey",
+		"pl": "Zmniejsz poziom logowania dla Homey",
+		"ru": "Уменьшить уровень логирования для Homey",
+		"ko": "Homey의 로그 수준 줄이기"
 	}
 }
