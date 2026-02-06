@@ -92,5 +92,6 @@
 	"jammed": "Jammed",
 	"locked": "Locked",
 	"unlocked": "Unlocked",
-	"latchboltlocked": "Latched"
+	"latchboltlocked": "Latched",
+	"latched": "Latched"
 }

@@ -1079,5 +1079,18 @@
 		"pl": "Zmniejsz poziom logowania dla Homey",
 		"ru": "Уменьшить уровень логирования для Homey",
 		"ko": "Homey의 로그 수준 줄이기"
+	},
+	"2.0.62": {
+		"en": "Fix Lock icon on the Lock Ultra",
+		"no": "Fikset låsikonet på Lock Ultra",
+		"nl": "Lock-pictogram op de Lock Ultra opgelost",
+		"de": "Lock-Symbol auf der Lock Ultra behoben",
+		"fr": "Correction de l'icône de verrouillage sur la Lock Ultra",
+		"es": "Se corrigió el ícono de bloqueo en la Lock Ultra",
+		"pt": "Corrigido o ícone de bloqueio na Lock Ultra",
+		"it": "Corretto l'icona di blocco sulla Lock Ultra",
+		"pl": "Naprawiono ikonę blokady na Lock Ultra",
+		"ru": "Исправлена иконка блокировки на Lock Ultra",
+		"ko": "Lock Ultra의 잠금 아이콘 수정"
 	}
 }
