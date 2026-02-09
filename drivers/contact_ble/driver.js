@@ -36,7 +36,7 @@ class BLEContactDriver extends BLEDriver
 	 */
 	onPairListDevices()
 	{
-		return this.getBLEDevices('C');
+		return this.getBLEDevices('d');
 	}
 
 }

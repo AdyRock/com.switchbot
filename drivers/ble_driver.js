@@ -503,7 +503,7 @@ class BLEDriver extends Homey.Driver
 		// this.log('Cd: ', buf);
 
 		const data = {
-			model: 'C',
+			model: 'd',
 			modelName: 'WoContact',
 			motion: ((byte1 & 0b01000000) === 0b01000000),
 			battery: (byte2 & 0b01111111),

@@ -1092,5 +1092,18 @@
 		"pl": "Naprawiono ikonę blokady na Lock Ultra",
 		"ru": "Исправлена иконка блокировки на Lock Ultra",
 		"ko": "Lock Ultra의 잠금 아이콘 수정"
+	},
+	"2.0.63": {
+		"en": "Fixed BLE type for the Contact Sensor",
+		"no": "Fikset BLE-type for kontaktsensoren",
+		"nl": "BLE-type voor de Contact Sensor opgelost",
+		"de": "BLE-Typ für den Kontaktsensor behoben",
+		"fr": "Correction du type BLE pour le capteur de contact",
+		"es": "Se corrigió el tipo de BLE para el sensor de contacto",
+		"pt": "Corrigido o tipo de BLE para o sensor de contato",
+		"it": "Corretto il tipo di BLE per il sensore di contatto",
+		"pl": "Naprawiono typ BLE dla czujnika kontaktowego",
+		"ru": "Исправлен тип BLE для датчика контакта",
+		"ko": "접촉 센서의 BLE 유형 수정"
 	}
 }
