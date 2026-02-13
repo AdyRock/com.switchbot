@@ -1105,5 +1105,18 @@
 		"pl": "Naprawiono typ BLE dla czujnika kontaktowego",
 		"ru": "Исправлен тип BLE для датчика контакта",
 		"ko": "접촉 센서의 BLE 유형 수정"
+	},
+	"2.0.64": {
+		"en": "Added support for the Lock Pro hub",
+		"no": "Lagt til støtte for Lock Pro-huben",
+		"nl": "Ondersteuning toegevoegd voor de Lock Pro-hub",
+		"de": "Unterstützung für die Lock Pro-Hub hinzugefügt",
+		"fr": "Ajout de la prise en charge du hub Lock Pro",
+		"es": "Agregado soporte para el hub Lock Pro",
+		"pt": "Adicionado suporte para o hub Lock Pro",
+		"it": "Aggiunto supporto per l'hub Lock Pro",
+		"pl": "Dodano obsługę huba Lock Pro",
+		"ru": "Добавлена поддержка хаба Lock Pro",
+		"ko": "Lock Pro 허브 지원 추가"
 	}
 }
