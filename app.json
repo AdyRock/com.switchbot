@@ -8480,18 +8480,18 @@
       },
       "id": "lock_ultra_hub",
       "name": {
-        "en": "Lock Ultra(HUB)",
-        "no": "Lås Ultra(HUB)",
-        "nl": "Slot Ultra(HUB)",
-        "da": "Lås Ultra(HUB)",
-        "de": "Schloss Ultra(HUB)",
-        "es": "Cerradura Ultra(HUB)",
-        "fr": "Serrure Ultra(HUB)",
-        "it": "Serratura Ultra(HUB)",
-        "sv": "Lås Ultra(HUB)",
-        "pl": "Zamek Ultra(HUB)",
-        "ru": "Замок Ultra(HUB)",
-        "ko": "잠금 장치 Ultra(HUB)"
+        "en": "Lock Pro and Ultra(HUB)",
+        "no": "Lås Pro og Ultra(HUB)",
+        "nl": "Slot Pro en Ultra(HUB)",
+        "da": "Lås Pro og Ultra(HUB)",
+        "de": "Schloss Pro und Ultra(HUB)",
+        "es": "Cerradura Pro y Ultra(HUB)",
+        "fr": "Serrure Pro et Ultra(HUB)",
+        "it": "Serratura Pro e Ultra(HUB)",
+        "sv": "Lås Pro och Ultra(HUB)",
+        "pl": "Zamek Pro i Ultra(HUB)",
+        "ru": "Замок Pro и Ultra(HUB)",
+        "ko": "잠금 장치 Pro 및 Ultra(HUB)"
       },
       "class": "lock",
       "capabilities": [
@@ -8774,6 +8774,53 @@
           "AA"
         ]
       }
+    },
+    {
+      "name": {
+        "en": "Plug (BLE)",
+        "no": "Plug (BLE)",
+        "nl": "Plug (BLE)",
+        "da": "Plug (BLE)",
+        "de": "Plug (BLE)",
+        "es": "Plug (BLE)",
+        "fr": "Plug (BLE)",
+        "it": "Plug (BLE)",
+        "sv": "Plug (BLE)",
+        "pl": "Plug (BLE)",
+        "ru": "Plug (BLE)",
+        "ko": "플러그 (BLE)"
+      },
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "ble"
+      ],
+      "class": "socket",
+      "deprecated": true,
+      "capabilities": [
+        "onoff",
+        "rssi"
+      ],
+      "pair": [
+        {
+          "id": "list_my_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_my_devices"
+          }
+        },
+        {
+          "id": "add_my_devices",
+          "template": "add_devices"
+        }
+      ],
+      "images": {
+        "large": "/drivers/bot_ble/assets/images/large.jpg",
+        "small": "/drivers/bot_ble/assets/images/small.jpg"
+      },
+      "id": "plug_eu_ble"
     },
     {
       "platforms": [

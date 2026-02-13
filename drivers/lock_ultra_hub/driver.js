@@ -25,7 +25,7 @@ class LockUltraHubDriver extends HubDriver
 	 */
 	async onPairListDevices({ oAuth2Client })
 	{
-		return this.getHUBDevices(oAuth2Client, 'Smart Lock Ultra', false, true);
+		return this.getHUBDevices(oAuth2Client, ['Smart Lock Pro', 'Smart Lock Ultra', false, true]);
 	}
 
 	async triggerLocked(device, tokens, state)

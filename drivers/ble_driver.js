@@ -293,6 +293,10 @@ class BLEDriver extends Homey.Driver
 		{ // WoMeterPro(CO2)
 			sd = this._parseServiceDataForCO2Meter(buf, device.manufacturerData);
 		}
+		else if (model === '?')
+		{ // WoMeterPro(CO2)
+			sd = this._parseServiceDataForPlug(buf, device.manufacturerData);
+		}
 		else if (model === "'")
 		{ // WoCurtain
 			sd = this._parseServiceDataForWoRollerblind(buf);
@@ -700,6 +704,36 @@ class BLEDriver extends Homey.Driver
 			humidity: (byte12 & 0b01111111),
 			battery: (byte2 & 0b01111111),
 			co2: (byte15 * 256) + byte16,
+		};
+
+		return data;
+	}
+
+	_parseServiceDataForPlug(buf, man)
+	{
+		if (man.length < 14)
+		{
+			return null;
+		}
+
+		const byte9 = man.readUInt8(9);
+		const byte10 = man.readUInt8(10);
+		const byte11 = man.readUInt8(11);
+		const byte12 = man.readUInt8(12);
+		const byte13 = man.readUInt8(13);
+
+		const state = (byte9 & 0b10000000) !== 0; // ON or OFF
+		const wifiRSSI = byte11; // Wi-Fi signal strength in dBm (0-255)
+		const overload = (byte12 & 0b10000000) !== 0; // Whether the overload protection is activated
+		const power = ((byte12 & 0b01111111) * 256) + byte13; // Current power consumption in watts (0-32767)
+
+		const data = {
+			model: '?',
+			modelName: 'Plug',
+			state,
+			wifiRSSI,
+			overload,
+			power,
 		};
 
 		return data;

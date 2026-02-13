@@ -1,0 +1,46 @@
+{
+  "name": {
+    "en": "Plug (BLE)",
+    "no": "Plug (BLE)",
+    "nl": "Plug (BLE)",
+    "da": "Plug (BLE)",
+    "de": "Plug (BLE)",
+    "es": "Plug (BLE)",
+    "fr": "Plug (BLE)",
+    "it": "Plug (BLE)",
+    "sv": "Plug (BLE)",
+    "pl": "Plug (BLE)",
+    "ru": "Plug (BLE)",
+    "ko": "플러그 (BLE)"
+  },
+  "platforms": [
+    "local",
+    "cloud"
+  ],
+  "connectivity": [
+    "ble"
+  ],
+  "class": "socket",
+  "deprecated": true,
+  "capabilities": [
+    "onoff",
+    "rssi"
+  ],
+  "pair": [
+    {
+      "id": "list_my_devices",
+      "template": "list_devices",
+      "navigation": {
+        "next": "add_my_devices"
+      }
+    },
+    {
+      "id": "add_my_devices",
+      "template": "add_devices"
+    }
+  ],
+  "images": {
+    "large": "/drivers/bot_ble/assets/images/large.jpg",
+    "small": "/drivers/bot_ble/assets/images/small.jpg"
+  }
+}
