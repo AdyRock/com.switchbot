@@ -128,7 +128,7 @@ class BlindTiltBLEDevice extends Homey.Device
 		}
 		else
 		{
-			value = this.closePosition === 'down' ? 1 : 0;
+			value = this.closePosition === 'up' ? 1 : 0;
 		}
 
 		return this.runToPos(value * 100, this.motionMode);
