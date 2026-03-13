@@ -425,11 +425,11 @@ class CurtainsBLEDevice extends Homey.Device
 						this.setCapabilityValue('windowcoverings_closed', false).catch(this.error);
 					}
 
-					if (position === 0)
+					if (position === 1)
 					{
 						this.setCapabilityValue('windowcoverings_state', 'up').catch(this.error);
 					}
-					else if (position === 1)
+					else if (position === 0)
 					{
 						this.setCapabilityValue('windowcoverings_state', 'down').catch(this.error);
 					}
@@ -542,11 +542,11 @@ class CurtainsBLEDevice extends Homey.Device
 						this.setCapabilityValue('windowcoverings_closed', false).catch(this.error);
 					}
 
-					if (position === 0)
+					if (position === 1)
 					{
 						this.setCapabilityValue('windowcoverings_state', 'up').catch(this.error);
 					}
-					else if (position === 1)
+					else if (position === 0)
 					{
 						this.setCapabilityValue('windowcoverings_state', 'down').catch(this.error);
 					}

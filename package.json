@@ -21,7 +21,7 @@
 		"@types/homey": "npm:homey-apps-sdk-v3-types@^0.2.2",
 		"eslint": "^8.15.0",
 		"eslint-config-athom": "^3.0.1",
-		"homey": "^3.10.0"
+		"homey": "^3.9.6"
 	},
 	"repository": {
 		"type": "git",

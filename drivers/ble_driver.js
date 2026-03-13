@@ -798,7 +798,7 @@ class BLEDriver extends Homey.Driver
 
 		const status = p.readUInt8(11);
 		const led_state = (status & 0x80) !== 0;
-		const light_level = status & 0x1F; // 0..31 raw bucket
+		const light_level = status & 0x0F; // 0..31 raw bucket
 
 		return {
 			model: 'Presence',

@@ -651,7 +651,10 @@ class BlindTiltBLEDevice extends Homey.Device
 			this.setCapabilityValue('measure_battery', data.serviceData.battery).catch(this.error);
 		}
 
-		this.setCapabilityValue('rssi', data.rssi).catch(this.error);
+		if (data.rssi)
+		{
+			this.setCapabilityValue('rssi', data.rssi).catch(this.error);
+		}
 
 		const name = this.getName();
 		this.homey.app.updateLog(`Parsed Blind Tilt BLE (${name}): position = ${data.serviceData.position}, battery = ${data.serviceData.battery}`, 3);

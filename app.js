@@ -761,6 +761,7 @@ class MyApp extends OAuth2App
 			this.logLevel = this.homey.settings.get('logLevel');
 			if (errorLevel <= this.logLevel)
 			{
+				this.originalLog(newMessage);
 				const nowTime = new Date(Date.now());
 
 				this.diagLog += '\r\n* ';
