@@ -1118,5 +1118,19 @@
 		"pl": "Dodano obsługę huba Lock Pro",
 		"ru": "Добавлена поддержка хаба Lock Pro",
 		"ko": "Lock Pro 허브 지원 추가"
+	},
+	"2.0.65": {
+		"en": "Reversed state logic for BLE curtains. Fix presence light level masking.",
+		"no": "Omvendt statlogikk for BLE-gardiner. Fix nærvær lysnivå maskering.",
+		"nl": "Omgekeerde statlogica voor BLE-gordijnen. Fix aanwezigheid lichtniveau maskering.",
+		"de": "Umgekehrte Statuslogik für BLE-Vorhänge. Fix Anwesenheit Lichtpegel Maskierung.",
+		"fr": "Logique d'état inversée pour les rideaux BLE. Correction du masquage du niveau de lumière de présence.",
+		"es": "Lógica de estado invertida para cortinas BLE. Corrección del enmascaramiento del nivel de luz de presencia.",
+		"pt": "Lógica de estado invertida para cortinas BLE. Correção da máscara de nível de luz de presença.",
+		"it": "Logica di stato invertita per le tende BLE. Correzione della maschera del livello di luce di presenza.",
+		"pl": "Odwrócona logika stanu dla zasłon BLE. Naprawa maskowania poziomu światła obecności.",
+		"ru": "Обратная логика состояния для BLE-занавесок. Исправление маскировки уровня света присутствия.",
+		"ko": "BLE 커튼에 대한 상태 논리 반전. 존재 조명 수준 마스킹 수정."
 	}
+
 }
