@@ -1120,17 +1120,29 @@
 		"ko": "Lock Pro 허브 지원 추가"
 	},
 	"2.0.65": {
-		"en": "Reversed state logic for BLE curtains. Fix presence light level masking. Added extra error code reporting for hub device fetches.",
-		"no": "Omvendt statlogikk for BLE-gardiner. Fix nærvær lysnivå maskering. Lagt til ekstra feilkode rapportering for hub-enhetsinnhenting.",
-		"nl": "Omgekeerde statlogica voor BLE-gordijnen. Fix aanwezigheid lichtniveau maskering. Extra foutcode rapportage toegevoegd voor hub-apparaat ophalen.",
-		"de": "Umgekehrte Statuslogik für BLE-Vorhänge. Fix Anwesenheit Lichtpegel Maskierung. Zusätzliche Fehlercode-Berichterstattung für Hub-Geräteabrufe hinzugefügt.",
-		"fr": "Logique d'état inversée pour les rideaux BLE. Correction du masquage du niveau de lumière de présence. Ajout de la prise en charge des codes d'erreur supplémentaires pour les récupérations de périphériques hub.",
-		"es": "Lógica de estado invertida para cortinas BLE. Corrección del enmascaramiento del nivel de luz de presencia. Se agregó la notificación de códigos de error adicionales para la obtención de dispositivos del hub.",
-		"pt": "Lógica de estado invertida para cortinas BLE. Correção da máscara de nível de luz de presença. Adicionado relatório de código de erro extra para buscas de dispositivos do hub.",
-		"it": "Logica di stato invertita per le tende BLE. Correzione della maschera del livello di luce di presenza. Aggiunta la segnalazione di codici di errore extra per il recupero dei dispositivi hub.",
-		"pl": "Odwrócona logika stanu dla zasłon BLE. Naprawa maskowania poziomu światła obecności. Dodano dodatkowe raportowanie kodów błędów dla pobierania urządzeń hub.",
-		"ru": "Обратная логика состояния для BLE-занавесок. Исправление маскировки уровня света присутствия. Добавлена дополнительная отчетность по кодам ошибок для получения устройств хаба.",
-		"ko": "BLE 커튼에 대한 상태 논리 반전. 존재 조명 수준 마스킹 수정. 허브 장치 가져오기에 대한 추가 오류 코드 보고 추가."
+		"en": "Reversed state logic for BLE curtains. Fix presence light level masking.",
+		"no": "Omvendt statlogikk for BLE-gardiner. Fix nærvær lysnivå maskering.",
+		"nl": "Omgekeerde statlogica voor BLE-gordijnen. Fix aanwezigheid lichtniveau maskering.",
+		"de": "Umgekehrte Statuslogik für BLE-Vorhänge. Fix Anwesenheit Lichtpegel Maskierung.",
+		"fr": "Logique d'état inversée pour les rideaux BLE. Correction du masquage du niveau de lumière de présence.",
+		"es": "Lógica de estado invertida para cortinas BLE. Corrección del enmascaramiento del nivel de luz de presencia.",
+		"pt": "Lógica de estado invertida para cortinas BLE. Correção da máscara de nível de luz de presença.",
+		"it": "Logica di stato invertita per le tende BLE. Correzione della maschera del livello di luce di presenza.",
+		"pl": "Odwrócona logika stanu dla zasłon BLE. Naprawa maskowania poziomu światła obecności.",
+		"ru": "Обратная логика состояния для BLE-занавесок. Исправление маскировки уровня света присутствия.",
+		"ko": "BLE 커튼에 대한 상태 논리 반전. 존재 조명 수준 마스킹 수정."
+	},
+	"2.0.66": {
+		"en": "Added extra error code reporting for hub device fetches.",
+		"no": "Lagt til ekstra feilkode rapportering for hub-enhetsinnhenting.",
+		"nl": "Extra foutcode rapportage toegevoegd voor hub-apparaat ophalen.",
+		"de": "Zusätzliche Fehlercode-Berichterstattung für Hub-Geräteabrufe hinzugefügt.",
+		"fr": "Ajout de la prise en charge des codes d'erreur supplémentaires pour les récupérations de périphériques hub.",
+		"es": "Se agregó la notificación de códigos de error adicionales para la obtención de dispositivos del hub.",
+		"pt": "Adicionado relatório de código de erro extra para buscas de dispositivos do hub.",
+		"it": "Aggiunta la segnalazione di codici di errore extra per il recupero dei dispositivi hub.",
+		"pl": "Dodano dodatkowe raportowanie kodów błędów dla pobierania urządzeń hub.",
+		"ru": "Добавлена дополнительная отчетность по кодам ошибок для получения устройств хаба.",
+		"ko": "허브 장치 가져오기에 대한 추가 오류 코드 보고 추가."
 	}
-
 }
