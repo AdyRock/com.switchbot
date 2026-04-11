@@ -925,7 +925,7 @@ class MyApp extends OAuth2App
 			{
 				if (response.statusCode !== 100)
 				{
-					this.homey.app.updateLog(`Invalid response code: ${response.statusCode} ${response.message}`);
+					this.homey.app.updateLog(`Invalid response code: ${response.statusCode}\nMessage: ${response.message}`);
 					throw (new Error(`Invalid response code: ${response.statusCode} ${response.message}`));
 				}
 
@@ -972,24 +972,20 @@ class MyApp extends OAuth2App
 
 	async registerHomeyWebhook(DeviceMAC)
 	{
+		// See if the SwitchBot device is already in the list of devices we are registering the webhook for.
+		if (this.devicesMACs.findIndex((device) => device.localeCompare(DeviceMAC, 'en', { sensitivity: 'base' }) === 0) >= 0)
+		{
+			// Device is already in the list so no need to register it again
+			return;
+		}
+
+		// Clear the existing timer to delay the webhook registration if it exists so we can start a new one with the updated list of devices
 		if (this.webRegTimerID)
 		{
 			this.homey.clearTimeout(this.webRegTimerID);
 		}
 
-		// See if the SwitchBot is already registered
-		if (this.devicesMACs.findIndex((device) => device.localeCompare(DeviceMAC, 'en', { sensitivity: 'base' }) === 0) >= 0)
-		{
-			// Already registered
-			if (!this.webRegTimerID)
-			{
-				// Make sure the timer is started again to re-register all devices
-				this.webRegTimerID = this.homey.setTimeout(() => this.doWebhookReg(), 2000);
-			}
-
-			return;
-		}
-
+		// Add the new device to the list of devices we want to register the webhook for
 		this.devicesMACs.push(DeviceMAC);
 
 		// Delay the actual registration to allow other devices to initialise and do them all at once
@@ -1066,6 +1062,26 @@ class MyApp extends OAuth2App
 
 	async setupSwitchBotWebhook()
 	{
+
+		// Setup a timer to ensure the webhook is registered every hour in case of issues with the SwitchBot cloud or the Homey webhook service
+		if (this.webRegTimerID)
+		{
+			this.homey.clearTimeout(this.webRegTimerID);
+		}
+
+		// Timer to check if the webhook is registered every hour. If not, try to register it again. If there are issues with the SwitchBot cloud or the Homey webhook service, try again every minute.
+		let timer = 60 * 60 * 1000;
+		if (!await this.ensureSwitchBotWebhook())
+		{
+			timer = 60 * 1000;
+		}
+
+		// setup to call this function again after the timer expires to ensure the webhook is always registered
+		this.webRegTimerID = this.homey.setTimeout(() => this.setupSwitchBotWebhook(), timer);
+	}
+
+	async ensureSwitchBotWebhook()
+	{
 		try
 		{
 			// Fetch the first OAuth client to use for checking / setting webhook
@@ -1082,7 +1098,7 @@ class MyApp extends OAuth2App
 						if (response1.body.urls[0].localeCompare(Homey.env.WEBHOOK_URL, 'en', { sensitivity: 'base' }) === 0)
 						{
 							this.homey.app.updateLog('SwitchBot webhook already registered', 1);
-							return;
+							return true;
 						}
 
 						// Delete the current web hook so we can replace it with ours
@@ -1092,7 +1108,7 @@ class MyApp extends OAuth2App
 							if (response2.statusCode !== 100)
 							{
 								this.homey.app.updateLog(`Delete webhook: ${response1.body.urls[0]}\nInvalid response code: ${response2.statusCode}\nMessage: ${response2.message}`, 0);
-								return;
+								return false;
 							}
 
 							this.homey.app.updateLog(`Deleted old webhook: ${response1.body.urls[0]}`, 3);
@@ -1106,13 +1122,13 @@ class MyApp extends OAuth2App
 					if (response.statusCode !== 100)
 					{
 						this.homey.app.updateLog(`Invalid response code: ${response.statusCode}\nMessage: ${response.message}`, 0);
-						return;
+						return false;
 					}
 					this.homey.app.updateLog('Registered SwitchBot webhook', 1);
-					return;
+					return true;
 				}
 				this.homey.app.updateLog('No response when registering the SwitchBot webhook', 0);
-				return;
+				return false;
 			}
 
 			this.homey.app.updateLog('No OAuth client available to register the SwitchBot webhook', 0);
@@ -1121,6 +1137,8 @@ class MyApp extends OAuth2App
 		{
 			this.homey.app.updateLog(`Invalid response: ${err.message}`, 0);
 		}
+
+		return false;
 	}
 
 	async getHUBDevices()
@@ -1136,7 +1154,7 @@ class MyApp extends OAuth2App
 				{
 					if (response.statusCode !== 100)
 					{
-						this.homey.app.updateLog(`Invalid response code: ${response.statusCode} ${response.message}`, 0);
+						this.homey.app.updateLog(`Invalid response code: ${response.statusCode}\nMessage: ${response.message}`, 0);
 						throw (new Error(`Invalid response code: ${response.statusCode} ${response.message}`));
 					}
 

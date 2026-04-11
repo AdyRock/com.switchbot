@@ -37,8 +37,8 @@ class HubDriver extends OAuth2Driver
 		{
 			if (response.statusCode !== 100)
 			{
-				this.homey.app.updateLog(`Invalid response code: ${this.homey.app.varToString(response)}`, 0);
-				throw (new Error(`Invalid response code: ${this.homey.app.varToString(response)}`));
+				this.homey.app.updateLog(`Invalid response code: ${response.statusCode}\nMessage: ${this.homey.app.varToString(response)}`, 0);
+				throw (new Error(`Invalid response code: ${response.statusCode}`));
 			}
 
 			const searchData = response.body;
@@ -154,7 +154,7 @@ class HubDriver extends OAuth2Driver
 		{
 			if (response.statusCode !== 100)
 			{
-				this.homey.app.updateLog(`Invalid response code: ${response.statusCode}`, 0);
+				this.homey.app.updateLog(`Invalid response code: ${response.statusCode}\nMessage: ${this.homey.app.varToString(response)}`, 0);
 				throw (new Error(`Invalid response code: ${response.statusCode}`));
 			}
 
