@@ -35,7 +35,7 @@ class HubDriver extends OAuth2Driver
 
 		if (response)
 		{
-			if (response.statusCode !== 100)
+			if (response.statusCode && response.statusCode !== 100)
 			{
 				this.homey.app.updateLog(`Invalid response code: ${response.statusCode}\nMessage: ${this.homey.app.varToString(response)}`, 0);
 				throw (new Error(`Invalid response code: ${response.statusCode}`));
@@ -152,7 +152,7 @@ class HubDriver extends OAuth2Driver
 		const response = await oAuth2Client.getScenes();
 		if (response)
 		{
-			if (response.statusCode !== 100)
+			if (response.statusCode && response.statusCode !== 100)
 			{
 				this.homey.app.updateLog(`Invalid response code: ${response.statusCode}\nMessage: ${this.homey.app.varToString(response)}`, 0);
 				throw (new Error(`Invalid response code: ${response.statusCode}`));

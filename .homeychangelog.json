@@ -1144,5 +1144,18 @@
 		"pl": "Dodano dodatkowe raportowanie kodów błędów dla pobierania urządzeń hub.",
 		"ru": "Добавлена дополнительная отчетность по кодам ошибок для получения устройств хаба.",
 		"ko": "허브 장치 가져오기에 대한 추가 오류 코드 보고 추가."
+	},
+	"2.0.67": {
+		"en": "Fix issue when a response code is not returned from the API.",
+		"no": "Fikset problem når en responskode ikke returneres fra API-et.",
+		"nl": "Probleem opgelost wanneer een responscode niet wordt geretourneerd door de API.",
+		"de": "Problem behoben, wenn ein Antwortcode nicht von der API zurückgegeben wird.",
+		"fr": "Correction d'un problème lorsque un code de réponse n'est pas renvoyé par l'API.",
+		"es": "Se solucionó un problema cuando un código de respuesta no se devuelve desde la API.",
+		"pt": "Corrigido problema quando um código de resposta não é retornado pela API.",
+		"it": "Risolto il problema quando un codice di risposta non viene restituito dall'API.",
+		"pl": "Naprawiono problem, gdy kod odpowiedzi nie jest zwracany przez API.",
+		"ru": "Исправлена проблема, когда код ответа не возвращается с API.",
+		"ko": "API에서 응답 코드가 반환되지 않을 때 문제 수정."
 	}
 }

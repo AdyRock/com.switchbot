@@ -923,7 +923,7 @@ class MyApp extends OAuth2App
 			const response = await oAuth2Client.getDeviceData(deviceId);
 			if (response)
 			{
-				if (response.statusCode !== 100)
+				if (response.statusCode && response.statusCode !== 100)
 				{
 					this.homey.app.updateLog(`Invalid response code: ${response.statusCode}\nMessage: ${response.message}`);
 					throw (new Error(`Invalid response code: ${response.statusCode} ${response.message}`));
@@ -1105,7 +1105,7 @@ class MyApp extends OAuth2App
 						const response2 = await oAuth2Client.deleteWebhook(response1.body.urls[0]);
 						if (response2)
 						{
-							if (response2.statusCode !== 100)
+							if (response2.statusCode && response2.statusCode !== 100)
 							{
 								this.homey.app.updateLog(`Delete webhook: ${response1.body.urls[0]}\nInvalid response code: ${response2.statusCode}\nMessage: ${response2.message}`, 0);
 								return false;
@@ -1152,7 +1152,7 @@ class MyApp extends OAuth2App
 				const response = await oAuth2Client.getDevices();
 				if (response)
 				{
-					if (response.statusCode !== 100)
+					if (response.statusCode && response.statusCode !== 100)
 					{
 						this.homey.app.updateLog(`Invalid response code: ${response.statusCode}\nMessage: ${response.message}`, 0);
 						throw (new Error(`Invalid response code: ${response.statusCode} ${response.message}`));
@@ -1195,7 +1195,7 @@ class MyApp extends OAuth2App
 		if (oAuth2Client)
 		{
 			const response = await oAuth2Client.getScenes();
-			if (response.statusCode !== 100)
+			if (response.statusCode && response.statusCode !== 100)
 			{
 				this.homey.app.updateLog(`Invalid response code: ${response.statusCode}`, 0);
 				throw (new Error(`Invalid response code: ${response.statusCode}`));
