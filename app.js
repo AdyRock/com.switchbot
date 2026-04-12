@@ -1159,12 +1159,17 @@ class MyApp extends OAuth2App
 					}
 
 					const devices = response.body;
-					const scenes = await oAuth2Client.getScenes();
-					if (scenes)
+					if (Array.isArray(devices))
 					{
-						devices.sceneList = scenes.body;
+						const scenes = await oAuth2Client.getScenes();
+						if (scenes)
+						{
+							devices.sceneList = scenes.body;
+						}
+						return this.homey.app.varToString(devices);
 					}
-					return this.homey.app.varToString(devices);
+
+					throw (new Error(`No devices found: ${this.varToString(response)}`));
 				}
 			}
 		}

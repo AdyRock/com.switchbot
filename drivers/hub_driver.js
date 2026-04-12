@@ -41,7 +41,12 @@ class HubDriver extends OAuth2Driver
 				throw (new Error(`Invalid response code: ${response.statusCode}`));
 			}
 
-			const searchData = response.body;
+			let searchData = response.body;
+			if (!searchData)
+			{
+				searchData = response;
+			}
+
 			this.homey.app.detectedDevices = this.homey.app.varToString(searchData);
 
 			if (type === '')
@@ -60,74 +65,30 @@ class HubDriver extends OAuth2Driver
 
 			if (RemoteList)
 			{
-				// Create an array of devices
-				for (const device of searchData.infraredRemoteList)
+				if (Array.isArray(searchData.infraredRemoteList))
 				{
-					if ((device.remoteType === type) || (device.remoteType === (`DIY ${type}`)))
+					// Create an array of devices
+					for (const device of searchData.infraredRemoteList)
 					{
-						this.homey.app.updateLog('Found device: ');
-						this.homey.app.updateLog(this.homey.app.varToString(device));
-
-						let data = {};
-						if (device.remoteType === (`DIY ${type}`))
-						{
-							data = {
-								id: device.deviceId,
-								diy: true,
-							};
-						}
-						else
-						{
-							data = {
-								id: device.deviceId,
-							};
-						}
-
-						// Add this device to the table
-						devices.push(
-							{
-								name: device.deviceName,
-								data,
-							},
-						);
-					}
-				}
-			}
-			else
-			{
-				// Create an array of devices
-				for (const device of searchData.deviceList)
-				{
-					let found = false;
-					if (Array.isArray(type))
-					{
-						found = (type.findIndex((typeEntry) => typeEntry === device.deviceType) >= 0);
-					}
-					else
-					{
-						found = (device.deviceType === type);
-					}
-
-					if (!found)
-					{
-						if (type === 'Curtain')
-						{
-							found = ((!device.deviceType) && (device.master === true));
-						}
-					}
-
-					if (found)
-					{
-						if (((device.master === undefined) || (device.master === true)) && (!requireHub || device.deviceType.includes('Hub') || device.hubDeviceId !== ''))
+						if ((device.remoteType === type) || (device.remoteType === (`DIY ${type}`)))
 						{
 							this.homey.app.updateLog('Found device: ');
 							this.homey.app.updateLog(this.homey.app.varToString(device));
 
 							let data = {};
-							data = {
-								id: device.deviceId,
-								type: device.deviceType,
-							};
+							if (device.remoteType === (`DIY ${type}`))
+							{
+								data = {
+									id: device.deviceId,
+									diy: true,
+								};
+							}
+							else
+							{
+								data = {
+									id: device.deviceId,
+								};
+							}
 
 							// Add this device to the table
 							devices.push(
@@ -136,6 +97,56 @@ class HubDriver extends OAuth2Driver
 									data,
 								},
 							);
+						}
+					}
+				}
+			}
+			else
+			{
+				if (Array.isArray(searchData.deviceList))
+				{
+					// Create an array of devices
+					for (const device of searchData.deviceList)
+					{
+						let found = false;
+						if (Array.isArray(type))
+						{
+							found = (type.findIndex((typeEntry) => typeEntry === device.deviceType) >= 0);
+						}
+						else
+						{
+							found = (device.deviceType === type);
+						}
+
+						if (!found)
+						{
+							if (type === 'Curtain')
+							{
+								found = ((!device.deviceType) && (device.master === true));
+							}
+						}
+
+						if (found)
+						{
+							if (((device.master === undefined) || (device.master === true)) && (!requireHub || device.deviceType.includes('Hub') || device.hubDeviceId !== ''))
+							{
+								this.homey.app.updateLog('Found device: ');
+								this.homey.app.updateLog(this.homey.app.varToString(device));
+
+								let data = {};
+								data = {
+									id: device.deviceId,
+									type: device.deviceType,
+								};
+
+								// Add this device to the table
+								devices.push(
+									{
+										name: device.deviceName,
+										data,
+									},
+								);
+							}
 						}
 					}
 				}
@@ -159,6 +170,11 @@ class HubDriver extends OAuth2Driver
 			}
 
 			const searchData = response.body;
+			if (!searchData)
+			{
+				searchData = response;
+			}
+
 			this.homey.app.detectedDevices = this.homey.app.varToString(searchData);
 			if (this.homey.app.BLEHub)
 			{
@@ -167,24 +183,27 @@ class HubDriver extends OAuth2Driver
 
 			const devices = [];
 
-			// Create an array of devices
-			for (const device of searchData)
+			if (Array.isArray(searchData))
 			{
-				this.homey.app.updateLog('Found device: ');
-				this.homey.app.updateLog(this.homey.app.varToString(device));
+				// Create an array of devices
+				for (const device of searchData)
+				{
+					this.homey.app.updateLog('Found device: ');
+					this.homey.app.updateLog(this.homey.app.varToString(device));
 
-				let data = {};
-				data = {
-					id: device.sceneId,
-				};
+					let data = {};
+					data = {
+						id: device.sceneId,
+					};
 
-				// Add this device to the table
-				devices.push(
-					{
-						name: device.sceneName,
-						data,
-					},
-				);
+					// Add this device to the table
+					devices.push(
+						{
+							name: device.sceneName,
+							data,
+						},
+					);
+				}
 			}
 			return devices;
 		}
