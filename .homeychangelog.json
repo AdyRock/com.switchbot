@@ -1157,5 +1157,31 @@
 		"pl": "Naprawiono problem, gdy kod odpowiedzi nie jest zwracany przez API.",
 		"ru": "Исправлена проблема, когда код ответа не возвращается с API.",
 		"ko": "API에서 응답 코드가 반환되지 않을 때 문제 수정."
+	},
+	"2.0.68": {
+		"en": "Fix issue when a response body is not returned from the API.",
+		"no": "Fikset problem når en responsbody ikke returneres fra API-et.",
+		"nl": "Probleem opgelost wanneer een responsebody niet wordt geretourneerd door de API.",
+		"de": "Problem behoben, wenn ein Antwortkörper nicht von der API zurückgegeben wird.",
+		"fr": "Correction d'un problème lorsque le corps de la réponse n'est pas renvoyé par l'API.",
+		"es": "Se solucionó un problema cuando no se devuelve un cuerpo de respuesta desde la API.",
+		"pt": "Corrigido problema quando um corpo de resposta não é retornado pela API.",
+		"it": "Risolto il problema quando un corpo di risposta non viene restituito dall'API.",
+		"pl": "Naprawiono problem, gdy ciało odpowiedzi nie jest zwracane przez API.",
+		"ru": "Исправлена проблема, когда тело ответа не возвращается с API.",
+		"ko": "API에서 응답 본문이 반환되지 않을 때 문제 수정."
+	},
+	"2.0.69": {
+		"en": "Added more diagnostic messages for hub device fetches.",
+		"no": "Lagt til flere diagnostiske meldinger for hub-enhetsinnhenting.",
+		"nl": "Meer diagnostische berichten toegevoegd voor het ophalen van hub-apparaten.",
+		"de": "Weitere Diagnosemeldungen für Hub-Geräteabrufe hinzugefügt.",
+		"fr": "Ajout de messages de diagnostic supplémentaires pour les récupérations de périphériques hub.",
+		"es": "Se agregaron más mensajes de diagnóstico para la obtención de dispositivos del hub.",
+		"pt": "Adicionado mais mensagens de diagnóstico para buscas de dispositivos do hub.",
+		"it": "Aggiunti ulteriori messaggi diagnostici per il recupero dei dispositivi hub.",
+		"pl": "Dodano więcej komunikatów diagnostycznych dla pobierania urządzeń hub.",
+		"ru": "Добавлены дополнительные диагностические сообщения для получения устройств хаба.",
+		"ko": "허브 장치 가져오기에 대한 추가 진단 메시지 추가."
 	}
 }

@@ -41,6 +41,8 @@ class HubDriver extends OAuth2Driver
 				throw (new Error(`Invalid response code: ${response.statusCode}`));
 			}
 
+			this.homey.app.updateLog(`Get devices: ${this.homey.app.varToString(response)}`, 2);
+
 			let searchData = response.body;
 			if (!searchData)
 			{

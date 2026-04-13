@@ -929,7 +929,7 @@ class MyApp extends OAuth2App
 					throw (new Error(`Invalid response code: ${response.statusCode} ${response.message}`));
 				}
 
-				return response.body;
+				return response.body ? response.body : response;
 			}
 		}
 
@@ -1092,26 +1092,31 @@ class MyApp extends OAuth2App
 				const response1 = await oAuth2Client.getWebhook();
 				if (response1)
 				{
-					if (response1.statusCode === 100)
+					if (!response1.statusCode || response1.statusCode === 100)
 					{
 						// We got a valid response so make sure it is the correct webhook
-						if (response1.body.urls[0].localeCompare(Homey.env.WEBHOOK_URL, 'en', { sensitivity: 'base' }) === 0)
+						const body = response1.body ? response1.body : response1;
+						if (!body.urls || !Array.isArray(body.urls) || body.urls.length === 0)
 						{
-							this.homey.app.updateLog('SwitchBot webhook already registered', 1);
-							return true;
+							this.homey.app.updateLog('No existing SwitchBot webhook found', 3);
+							if (body.urls[0].localeCompare(Homey.env.WEBHOOK_URL, 'en', { sensitivity: 'base' }) === 0)
+							{
+								this.homey.app.updateLog('SwitchBot webhook already registered', 1);
+								return true;
+							}
 						}
 
 						// Delete the current web hook so we can replace it with ours
-						const response2 = await oAuth2Client.deleteWebhook(response1.body.urls[0]);
+						const response2 = await oAuth2Client.deleteWebhook(body.urls[0]);
 						if (response2)
 						{
 							if (response2.statusCode && response2.statusCode !== 100)
 							{
-								this.homey.app.updateLog(`Delete webhook: ${response1.body.urls[0]}\nInvalid response code: ${response2.statusCode}\nMessage: ${response2.message}`, 0);
+								this.homey.app.updateLog(`Delete webhook: ${body.urls[0]}\nInvalid response code: ${response2.statusCode}\nMessage: ${response2.message}`, 0);
 								return false;
 							}
 
-							this.homey.app.updateLog(`Deleted old webhook: ${response1.body.urls[0]}`, 3);
+							this.homey.app.updateLog(`Deleted old webhook: ${body.urls[0]}`, 3);
 						}
 					}
 				}
@@ -1119,7 +1124,7 @@ class MyApp extends OAuth2App
 				const response = await oAuth2Client.setWebhook(Homey.env.WEBHOOK_URL);
 				if (response)
 				{
-					if (response.statusCode !== 100)
+					if (!response.statusCode || response.statusCode !== 100)
 					{
 						this.homey.app.updateLog(`Invalid response code: ${response.statusCode}\nMessage: ${response.message}`, 0);
 						return false;
@@ -1158,13 +1163,14 @@ class MyApp extends OAuth2App
 						throw (new Error(`Invalid response code: ${response.statusCode} ${response.message}`));
 					}
 
-					const devices = response.body;
+					const devices = response.body ? response.body : response;
+
 					if (Array.isArray(devices))
 					{
 						const scenes = await oAuth2Client.getScenes();
 						if (scenes)
 						{
-							devices.sceneList = scenes.body;
+							devices.sceneList = scenes.body ? scenes.body : scenes;
 						}
 						return this.homey.app.varToString(devices);
 					}
@@ -1187,7 +1193,7 @@ class MyApp extends OAuth2App
 		if (oAuth2Client)
 		{
 			const retData = await oAuth2Client.startScene(id);
-			return retData.body;
+			return retData.body ? retData.body : retData;
 		}
 
 		return this.hub.startScene(id);
@@ -1206,25 +1212,28 @@ class MyApp extends OAuth2App
 				throw (new Error(`Invalid response code: ${response.statusCode}`));
 			}
 
-			const searchData = response.body;
+			const searchData = response.body ? response.body : response;
 			const scenes = [];
 
-			// Create an array of devices
-			for (const scene of searchData)
+			if (Array.isArray(searchData))
 			{
-				// Add this scene to the table
-				let data = {};
-				data = {
-					id: scene.sceneId,
-				};
+				// Create an array of devices
+				for (const scene of searchData)
+				{
+					// Add this scene to the table
+					let data = {};
+					data = {
+						id: scene.sceneId,
+					};
 
-				// Add this device to the table
-				scenes.push(
-					{
-						name: scene.sceneName,
-						data,
-					},
-				);
+					// Add this device to the table
+					scenes.push(
+						{
+							name: scene.sceneName,
+							data,
+						},
+					);
+				}
 			}
 			return scenes;
 		}
