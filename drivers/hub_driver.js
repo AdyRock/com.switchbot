@@ -25,27 +25,30 @@ class HubDriver extends OAuth2Driver
 		{
 			if (this.homey.app.openToken)
 			{
+				this.homey.app.updateLog('Getting devices using openToken', 2);
 				response = await this.homey.app.getHUBDevices();
 			}
 			else
 			{
+				this.homey.app.updateLog('Getting devices using oAuth2Client', 2);
 				response = await oAuth2Client.getDevices();
 			}
 		}
 
 		if (response)
 		{
+			this.homey.app.updateLog(`Get devices: ${this.homey.app.varToString(response)}`, 2);
+
 			if (response.statusCode && response.statusCode !== 100)
 			{
 				this.homey.app.updateLog(`Invalid response code: ${response.statusCode}\nMessage: ${this.homey.app.varToString(response)}`, 0);
 				throw (new Error(`Invalid response code: ${response.statusCode}`));
 			}
 
-			this.homey.app.updateLog(`Get devices: ${this.homey.app.varToString(response)}`, 2);
-
 			let searchData = response.body;
 			if (!searchData)
 			{
+				this.homey.app.updateLog('Response body is empty, using complete response as searchData', 0);
 				searchData = response;
 			}
 
@@ -67,6 +70,7 @@ class HubDriver extends OAuth2Driver
 
 			if (RemoteList)
 			{
+				this.homey.app.updateLog('Getting devices from infraredRemoteList', 2);
 				if (Array.isArray(searchData.infraredRemoteList))
 				{
 					// Create an array of devices
@@ -107,6 +111,9 @@ class HubDriver extends OAuth2Driver
 			{
 				if (Array.isArray(searchData.deviceList))
 				{
+					// Log the complete list of devices
+					this.homey.app.updateLog(`Searching deviceList for: ${type}`);
+
 					// Create an array of devices
 					for (const device of searchData.deviceList)
 					{
@@ -149,10 +156,26 @@ class HubDriver extends OAuth2Driver
 									},
 								);
 							}
+							else
+							{
+								if (device.master)
+								{
+									this.homey.app.updateLog(`Device ${device.deviceName} found but it is a sub-device and will be ignored`, 2);
+								}
+								else
+								{
+									this.homey.app.updateLog(`Device ${device.deviceName} found but a hub id required but not defined so it will be ignored`, 2);
+								}
+							}
 						}
 					}
 				}
+				else
+				{
+					this.homey.app.updateLog(`searchData.deviceList is not an array: ${this.homey.app.varToString(searchData.deviceList)}`, 0);
+				}
 			}
+			this.homey.app.updateLog(`Devices found: ${this.homey.app.varToString(devices)}`, 2);
 			return devices;
 		}
 

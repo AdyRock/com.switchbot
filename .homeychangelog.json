@@ -1196,5 +1196,17 @@
 		"pl": "Naprawiono logikę pobierania huba, aby zapobiec niepotrzebnym pobraniom, i dodano więcej logowania do debugowania.",
 		"ru": "Исправлена логика получения хаба, чтобы предотвратить ненужные получения, и добавлено больше журналирования для отладки.",
 		"ko": "불필요한 가져오기를 방지하기 위해 허브 가져오기 로직을 수정하고 디버깅을 위해 더 많은 로깅을 추가했습니다."
+	},
+	"2.0.71": {
+		"en": "Added more logging for device fetching and handling sub-devices.",
+		"no": "Lagt til mer logging for henting av enheter og håndtering av underenheter.",
+		"nl": "Meer logging toegevoegd voor het ophalen van apparaten en het omgaan met sub-apparaten.",
+		"de": "Mehr Logging für das Abrufen von Geräten und die Handhabung von Untergeräten hinzugefügt.",
+		"fr": "Ajout de plus de journalisation pour la récupération des appareils et la gestion des sous-appareils.",
+		"es": "Se agregó más registro para la obtención de dispositivos y el manejo de subdispositivos.",
+		"pt": "Adicionado mais registro para busca de dispositivos e manipulação de subdispositivos.",
+		"it": "Aggiunto più logging per il recupero dei dispositivi e la gestione dei sotto-dispositivi.",
+		"pl": "Dodano więcej logowania dla pobierania urządzeń i obsługi pod-urządzeń.",
+		"ru": "Добавлено больше журналирования для получения устройств и обработки подустройств.",
+		"ko": "장치 가져오기 및 하위 장치 처리에 대한 추가 로깅이 추가되었습니다."
 	}
-}
