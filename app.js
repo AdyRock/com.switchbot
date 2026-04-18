@@ -712,17 +712,17 @@ class MyApp extends OAuth2App
 			}
 			if (source instanceof Error)
 			{
-				const stack = source.stack.replace('/\\n/g', '\n');
+				const stack = source.stack ? source.stack.replace(/\n/g, '\n') : '';
 				return `${source.message}\n${stack}`;
 			}
-			if (typeof (source) === 'object')
+			if (typeof source === 'object')
 			{
 				const getCircularReplacer = () =>
 				{
 					const seen = new WeakSet();
 					return (key, value) =>
 					{
-						if (key.startsWith('_'))
+						if (typeof key === 'string' && key.startsWith('_'))
 						{
 							return '...';
 						}
@@ -731,7 +731,7 @@ class MyApp extends OAuth2App
 						{
 							if (seen.has(value))
 							{
-								return '';
+								return '[Circular]';
 							}
 							seen.add(value);
 						}
@@ -741,7 +741,7 @@ class MyApp extends OAuth2App
 
 				return JSON.stringify(source, getCircularReplacer(), 2);
 			}
-			if (typeof (source) === 'string')
+			if (typeof source === 'string')
 			{
 				return source;
 			}
@@ -1165,7 +1165,7 @@ class MyApp extends OAuth2App
 
 					const devices = response.body ? response.body : response;
 
-					if (Array.isArray(devices))
+					if (devices && devices.deviceList)
 					{
 						const scenes = await oAuth2Client.getScenes();
 						if (scenes)
