@@ -1183,5 +1183,18 @@
 		"pl": "Dodano więcej komunikatów diagnostycznych dla pobierania urządzeń hub.",
 		"ru": "Добавлены дополнительные диагностические сообщения для получения устройств хаба.",
 		"ko": "허브 장치 가져오기에 대한 추가 진단 메시지 추가."
+	},
+	"2.0.70": {
+		"en": "Fix hub fetching logic to prevent unnecessary fetches and added more logging for debugging.",
+		"no": "Fikset hub-hentingslogikk for å forhindre unødvendige hentinger og lagt til mer logging for feilsøking.",
+		"nl": "Hub-fetching-logica opgelost om onnodige fetches te voorkomen en meer logging toegevoegd voor debugging.",
+		"de": "Hub-Fetching-Logik behoben, um unnötige Fetches zu verhindern, und mehr Logging für die Fehlerbehebung hinzugefügt.",
+		"fr": "Correction de la logique de récupération du hub pour éviter les récupérations inutiles et ajout de plus de journalisation pour le débogage.",
+		"es": "Se corrigió la lógica de obtención del hub para evitar obtenciones innecesarias y se agregó más registro para la depuración.",
+		"pt": "Corrigida a lógica de busca do hub para evitar buscas desnecessárias e adicionado mais registro para depuração.",
+		"it": "Corretto la logica di fetching dell'hub per prevenire fetch inutili e aggiunto più logging per il debug.",
+		"pl": "Naprawiono logikę pobierania huba, aby zapobiec niepotrzebnym pobraniom, i dodano więcej logowania do debugowania.",
+		"ru": "Исправлена логика получения хаба, чтобы предотвратить ненужные получения, и добавлено больше журналирования для отладки.",
+		"ko": "불필요한 가져오기를 방지하기 위해 허브 가져오기 로직을 수정하고 디버깅을 위해 더 많은 로깅을 추가했습니다."
 	}
 }
