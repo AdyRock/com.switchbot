@@ -221,7 +221,7 @@ class VacuumK20HubDevice extends HubDevice
 						}
 						catch (err)
 						{
-							this.log(err);
+							this.homey.app.updateLog(this.homey.app.varToString(err));
 						}
 					}
 
@@ -317,7 +317,7 @@ class VacuumK20HubDevice extends HubDevice
 							}
 							catch (err)
 							{
-								this.log(err);
+								this.homey.app.updateLog(this.homey.app.varToString(err));
 							}
 
 						}

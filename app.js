@@ -1148,40 +1148,40 @@ class MyApp extends OAuth2App
 
 	async getHUBDevices()
 	{
-		// Find an OAuth session
-		try
-		{
-			const oAuth2Client = this.getFirstSavedOAuth2Client();
-			if (oAuth2Client)
-			{
-				const response = await oAuth2Client.getDevices();
-				if (response)
-				{
-					if (response.statusCode && response.statusCode !== 100)
-					{
-						this.homey.app.updateLog(`Invalid response code: ${response.statusCode}\nMessage: ${response.message}`, 0);
-						throw (new Error(`Invalid response code: ${response.statusCode} ${response.message}`));
-					}
+		// // Find an OAuth session
+		// try
+		// {
+		// 	const oAuth2Client = this.getFirstSavedOAuth2Client();
+		// 	if (oAuth2Client)
+		// 	{
+		// 		const response = await oAuth2Client.getDevices();
+		// 		if (response)
+		// 		{
+		// 			if (response.statusCode && response.statusCode !== 100)
+		// 			{
+		// 				this.homey.app.updateLog(`Invalid response code: ${response.statusCode}\nMessage: ${response.message}`, 0);
+		// 				throw (new Error(`Invalid response code: ${response.statusCode} ${response.message}`));
+		// 			}
 
-					const devices = response.body ? response.body : response;
+		// 			const devices = response.body ? response.body : response;
 
-					if (devices && devices.deviceList)
-					{
-						const scenes = await oAuth2Client.getScenes();
-						if (scenes)
-						{
-							devices.sceneList = scenes.body ? scenes.body : scenes;
-						}
-						return this.homey.app.varToString(devices);
-					}
+		// 			if (devices && devices.deviceList)
+		// 			{
+		// 				const scenes = await oAuth2Client.getScenes();
+		// 				if (scenes)
+		// 				{
+		// 					devices.sceneList = scenes.body ? scenes.body : scenes;
+		// 				}
+		// 				return devices;
+		// 			}
 
-					throw (new Error(`No devices found: ${this.varToString(response)}`));
-				}
-			}
-		}
-		catch (err)
-		{
-		}
+		// 			throw (new Error(`No devices found: ${this.varToString(response)}`));
+		// 		}
+		// 	}
+		// }
+		// catch (err)
+		// {
+		// }
 
 		const response = await this.hub.getDevices();
 		return response;

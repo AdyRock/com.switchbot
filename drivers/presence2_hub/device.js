@@ -22,7 +22,7 @@ class Presence2HubDevice extends HubDevice
 			}
 			catch (err)
 			{
-				this.log(err);
+				this.homey.app.updateLog(this.homey.app.varToString(err));
 			}
 		}
 
@@ -83,7 +83,7 @@ class Presence2HubDevice extends HubDevice
 						}
 						catch (err)
 						{
-							this.log(err);
+							this.homey.app.updateLog(this.homey.app.varToString(err));
 						}
 					}
 
@@ -124,7 +124,7 @@ class Presence2HubDevice extends HubDevice
 						}
 						catch (err)
 						{
-							this.log(err);
+							this.homey.app.updateLog(this.homey.app.varToString(err));
 						}
 
 					}

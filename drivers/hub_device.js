@@ -15,7 +15,7 @@ class HubDevice extends OAuth2Device
 		}
 		catch (err)
 		{
-			this.log(err);
+			this.homey.app.updateLog(this.homey.app.varToString(err));
 		}
 
 		if (this.hasCapability('button.send_log'))
@@ -68,6 +68,22 @@ class HubDevice extends OAuth2Device
 	{
 		let result = null;
 		const dd = this.getData();
+
+		if (this.homey.app.openToken)
+		{
+			this.homey.app.updateLog(`Sending ${this.homey.app.varToString(data)} to ${dd.id} using API key`, 3);
+			try
+			{
+				result = await this.homey.app.hub.setDeviceData(dd.id, data);
+			}
+			catch (err)
+			{
+				this.homey.app.updateLog(this.homey.app.varToString(err));
+			}
+			this.homey.app.updateLog(`Success sending command to ${dd.id} using API key`);
+			return result;
+		}
+
 		if (this.oAuth2Client)
 		{
 			try
@@ -127,17 +143,9 @@ class HubDevice extends OAuth2Device
 			return true;
 		}
 
-		this.homey.app.updateLog(`Sending ${this.homey.app.varToString(data)} to ${dd.id} using API key`, 3);
-		try
-		{
-			result = await this.homey.app.hub.setDeviceData(dd.id, data);
-		}
-		catch(err)
-		{
-			this.log(err);
-		}
-		this.homey.app.updateLog(`Success sending command to ${dd.id} using API key`);
-		return result;
+		// No API key or OAuth client available, so we cannot send the command
+		this.homey.app.updateLog(`Failed to send command to ${dd.id}: No API key or OAuth client available`, 0);
+		return false;
 	}
 
 	// Override this method to get the device values
@@ -148,6 +156,17 @@ class HubDevice extends OAuth2Device
 	async _getHubDeviceValues()
 	{
 		const dd = this.getData();
+		if (this.homey.app.openToken)
+		{
+			const data = await this.homey.app.hub.getDeviceData(dd.id);
+			if (data.statusCode !== 100)
+			{
+				throw new Error(`${data.statusCode}: ${data.message} (${this.homey.app.apiCalls}) API calls`);
+			}
+
+			return data.body;
+		}
+
 		if (this.oAuth2Client)
 		{
 			this.homey.app.apiCalls++;
@@ -162,7 +181,7 @@ class HubDevice extends OAuth2Device
 			return data.body;
 		}
 
-		return this.homey.app.hub.getDeviceData(dd.id);
+		throw new Error('No API key or OAuth client available');
 	}
 
 	async onCapabilitySendLog(value)
@@ -201,6 +220,16 @@ class HubDevice extends OAuth2Device
 	async startScene()
 	{
 		const dd = this.getData();
+		if (this.homey.app.openToken)
+		{
+			const data = await this.homey.app.hub.startScene(dd.id);
+			if (data.statusCode !== 100)
+			{
+				throw new Error(`${data.statusCode}: ${data.message} (${this.homey.app.apiCalls}) API calls`);
+			}
+
+			return data.body;
+		}
 
 		if (this.oAuth2Client)
 		{
@@ -210,8 +239,6 @@ class HubDevice extends OAuth2Device
 			const retData = await this.oAuth2Client.startScene(dd.id);
 			return retData.body;
 		}
-
-		return this.homey.app.hub.startScene(dd.id);
 	}
 
 }

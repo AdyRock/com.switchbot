@@ -1209,5 +1209,18 @@
 		"pl": "Dodano więcej logowania dla pobierania urządzeń i obsługi pod-urządzeń.",
 		"ru": "Добавлено больше журналирования для получения устройств и обработки подустройств.",
 		"ko": "장치 가져오기 및 하위 장치 처리에 대한 추가 로깅이 추가되었습니다."
+	},
+	"2.0.72": {
+		"en": "Added more logging for device fetching and handling sub-devices. Improved use of app settings Token and Secret for API calls.",
+		"no": "Lagt til mer logging for henting av enheter og håndtering av underenheter. Forbedret bruk av app-innstillinger Token og Secret for API-kall.",
+		"nl": "Meer logging toegevoegd voor het ophalen van apparaten en het omgaan met sub-apparaten. Verbeterd gebruik van app-instellingen Token en Secret voor API-aanroepen.",
+		"de": "Mehr Logging für das Abrufen von Geräten und die Handhabung von Untergeräten hinzugefügt. Verbesserte Nutzung der App-Einstellungen Token und Secret für API-Aufrufe.",
+		"fr": "Ajout de plus de journalisation pour la récupération des appareils et la gestion des sous-appareils. Amélioration de l'utilisation des paramètres de l'application Token et Secret pour les appels API.",
+		"es": "Se agregó más registro para la obtención de dispositivos y el manejo de subdispositivos. Mejora del uso de los ajustes de la aplicación Token y Secret para las llamadas API.",
+		"pt": "Adicionado mais registro para busca de dispositivos e manipulação de subdispositivos. Melhor uso das configurações do aplicativo Token e Secret para chamadas de API.",
+		"it": "Aggiunto più logging per il recupero dei dispositivi e la gestione dei sotto-dispositivi. Migliorato l'uso delle impostazioni dell'app Token e Secret per le chiamate API.",
+		"pl": "Dodano więcej logowania dla pobierania urządzeń i obsługi pod-urządzeń. Ulepszono korzystanie z ustawień aplikacji Token i Secret dla wywołań API.",
+		"ru": "Добавлено больше журналирования для получения устройств и обработки подустройств. Улучшено использование настроек приложения Token и Secret для вызовов API.",
+		"ko": "장치 가져오기 및 하위 장치 처리에 대한 추가 로깅이 추가되었습니다. API 호출을 위한 앱 설정 Token 및 Secret 사용이 개선되었습니다."
 	}
 }
