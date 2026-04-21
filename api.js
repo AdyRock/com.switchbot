@@ -11,7 +11,7 @@ module.exports = {
 	{
 		try
 		{
-			homey.app.detectedDevices = await homey.app.getHUBDevices();
+			homey.app.detectedDevices = homey.app.varToString(await homey.app.getHUBDevices());
 		}
 		catch (err)
 		{

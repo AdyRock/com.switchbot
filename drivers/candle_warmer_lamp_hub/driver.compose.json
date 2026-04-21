@@ -1,0 +1,30 @@
+{
+  "name": {
+    "en": "Candle Warmer Lamp (HUB)",
+    "no": "Lysestakevarmer (HUB)",
+    "nl": "Kandelaarverwarmer (HUB)",
+    "da": "Kandelabervarmer (HUB)",
+    "de": "Kerzenlampenwärmer (HUB)",
+    "es": "Calentador de lámpara de vela (HUB)",
+    "fr": "Chauffe-lampe à bougie (HUB)",
+    "it": "Scalda lampada a candela (HUB)",
+    "sv": "Ljuslykta värmare (HUB)",
+    "pl": "Podgrzewacz lampy świecowej (HUB)",
+    "ru": "Подогреватель свечной лампы (HUB)",
+    "ko": "캔들 램프 워머 (HUB)"
+  },
+  "class": "light",
+  "capabilities": [
+    "onoff",
+    "dim"
+  ],
+  "energy": {
+    "approximation": {
+      "usageOn": 50,
+      "usageOff": 0.1
+    }
+  },
+  "$extends": [
+    "hubDriver"
+  ]
+}

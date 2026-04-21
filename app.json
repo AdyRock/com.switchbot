@@ -6542,6 +6542,69 @@
           "template": "login_oauth2"
         }
       ],
+      "icon": "/drivers/candle_warmer_lamp_hub/assets/icon.svg",
+      "images": {
+        "large": "/drivers/candle_warmer_lamp_hub/assets/images/large.jpg",
+        "small": "/drivers/candle_warmer_lamp_hub/assets/images/small.jpg"
+      },
+      "name": {
+        "en": "Candle Warmer Lamp (HUB)",
+        "no": "Lysestakevarmer (HUB)",
+        "nl": "Kandelaarverwarmer (HUB)",
+        "da": "Kandelabervarmer (HUB)",
+        "de": "Kerzenlampenwärmer (HUB)",
+        "es": "Calentador de lámpara de vela (HUB)",
+        "fr": "Chauffe-lampe à bougie (HUB)",
+        "it": "Scalda lampada a candela (HUB)",
+        "sv": "Ljuslykta värmare (HUB)",
+        "pl": "Podgrzewacz lampy świecowej (HUB)",
+        "ru": "Подогреватель свечной лампы (HUB)",
+        "ko": "캔들 램프 워머 (HUB)"
+      },
+      "class": "light",
+      "capabilities": [
+        "onoff",
+        "dim"
+      ],
+      "energy": {
+        "approximation": {
+          "usageOn": 50,
+          "usageOff": 0.1
+        }
+      },
+      "id": "candle_warmer_lamp_hub"
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        }
+      ],
       "icon": "/drivers/climate_panel_hub/assets/icon.svg",
       "images": {
         "large": "/drivers/climate_panel_hub/assets/images/large.jpg",

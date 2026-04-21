@@ -25,7 +25,10 @@ class LightHubDevice extends HubDevice
 			this.registerCapabilityListener('light_temperature', this.onCapabilityLightTemperature.bind(this));
 		}
 
-		this.registerMultipleCapabilityListener(['light_hue', 'light_saturation'], this.onCapabilityLightHueSat.bind(this), 500);
+		if (this.hasCapability('light_hue') && this.hasCapability('light_saturation'))
+		{
+			this.registerMultipleCapabilityListener(['light_hue', 'light_saturation'], this.onCapabilityLightHueSat.bind(this), 500);
+		}
 
 		// try
 		// {
@@ -204,7 +207,7 @@ class LightHubDevice extends HubDevice
 			if (data)
 			{
 				this.setAvailable();
-				this.homey.app.updateLog(`Strip Light Hub got: ${this.homey.app.varToString(data)}`, 3);
+				this.homey.app.updateLog(`Light Hub got: ${this.homey.app.varToString(data)}`, 3);
 
 				this.setCapabilityValue('onoff', data.power === 'on').catch(this.error);
 				this.setCapabilityValue('dim', data.brightness / 100).catch(this.error);
@@ -212,7 +215,7 @@ class LightHubDevice extends HubDevice
 				if (data.colorTemperature && (data.colorTemperature > 2700))
 				{
 					this.setCapabilityValue('light_mode', 'temperature').catch(this.error);
-					this.setCapabilityValue('light_temperature', 1 - (data.colorTemperature - 2700) / (6500 - 2700));
+					this.setCapabilityValue('light_temperature', 1 - (data.colorTemperature - 2700) / (6500 - 2700)).catch(this.error);
 				}
 				else
 				{
@@ -221,11 +224,14 @@ class LightHubDevice extends HubDevice
 						this.setCapabilityValue('light_mode', 'color').catch(this.error);
 					}
 
-					const rgb = data.color.split(':');
-					const hsl = this.rgbToHsl(rgb[0], rgb[1], rgb[2]);
+					if (this.hasCapability('light_hue') && this.hasCapability('light_saturation') && data.color)
+					{
+						const rgb = data.color.split(':');
+						const hsl = this.rgbToHsl(rgb[0], rgb[1], rgb[2]);
 
-					this.setCapabilityValue('light_hue', hsl[0] / 360).catch(this.error);
-					this.setCapabilityValue('light_saturation', hsl[1] / 100).catch(this.error);
+						this.setCapabilityValue('light_hue', hsl[0] / 360).catch(this.error);
+						this.setCapabilityValue('light_saturation', hsl[1] / 100).catch(this.error);
+					}
 				}
 				this.unsetWarning().catch(this.error);
 			}
@@ -273,11 +279,15 @@ class LightHubDevice extends HubDevice
 					{
 						this.setCapabilityValue('light_mode', 'color').catch(this.error);
 					}
-					const rgb = color.split(':');
-					const hsl = this.rgbToHsl(rgb[0], rgb[1], rgb[2]);
 
-					this.setCapabilityValue('light_hue', hsl[0] / 360).catch(this.error);
-					this.setCapabilityValue('light_saturation', hsl[1] / 100).catch(this.error);
+					if (this.hasCapability('light_hue') && this.hasCapability('light_saturation') && color)
+					{
+						const rgb = color.split(':');
+						const hsl = this.rgbToHsl(rgb[0], rgb[1], rgb[2]);
+
+						this.setCapabilityValue('light_hue', hsl[0] / 360).catch(this.error);
+						this.setCapabilityValue('light_saturation', hsl[1] / 100).catch(this.error);
+					}
 				}
 			}
 		}
