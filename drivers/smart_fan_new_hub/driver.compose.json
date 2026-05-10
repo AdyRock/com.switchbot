@@ -1,0 +1,28 @@
+{
+  "id": "smart_fan_hub",
+  "name": {
+    "en": "Circulator Fan (HUB)",
+    "no": "Sirkulasjonsvifte (HUB)",
+    "nl": "Circulatieventilator (HUB)",
+    "da": "Cirkulationsventilator (HUB)",
+    "de": "Zirkulationsventilator (HUB)",
+    "es": "Ventilador de Circulación (HUB)",
+    "fr": "Ventilateur de Circulation (HUB)",
+    "it": "Ventilatore a Circolazione (HUB)",
+    "sv": "Cirkulationsfläkt (HUB)",
+    "pl": "Wentylator Cyrkulacyjny (HUB)",
+    "ru": "Циркуляционный Вентилятор (HUB)",
+    "ko": "순환 팬 (HUB)"
+  },
+  "class": "fan",
+  "capabilities": [
+    "onoff",
+    "fan_speed",
+    "smart_fan_mode2",
+	"night_light",
+	"measure_battery"
+  ],
+  "$extends": [
+    "hubDriver"
+  ]
+}

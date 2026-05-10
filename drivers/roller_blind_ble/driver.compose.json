@@ -13,7 +13,6 @@
 	"ru": "Рулонный жалюзи (BLE)",
 	"ko": "롤러 블라인드 (BLE)"
   },
-  "deprecated": true,
   "platforms": [
     "local",
     "cloud"
@@ -23,8 +22,6 @@
   ],
   "class": "blinds",
   "capabilities": [
-    "windowcoverings_closed",
-    "windowcoverings_state",
     "measure_battery",
     "windowcoverings_set",
     "rssi",

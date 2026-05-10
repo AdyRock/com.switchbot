@@ -232,7 +232,7 @@ class CurtainsHubDevice extends HubDevice
 		const dd = this.getData();
 		if (!dd.type)
 		{
-			this.getHubDeviceValues();
+			await this.getHubDeviceValues();
 			return true;
 		}
 

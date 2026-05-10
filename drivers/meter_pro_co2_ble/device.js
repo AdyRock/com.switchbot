@@ -100,12 +100,12 @@ class MeterProCO2BLEDevice extends Homey.Device
 					this.setCapabilityValue('measure_humidity', data.serviceData.humidity).catch(this.error);
 					this.setCapabilityValue('measure_co2', data.serviceData.co2).catch(this.error);
 					this.setCapabilityValue('measure_battery', data.serviceData.battery).catch(this.error);
-					this.homey.app.updateLog(`Parsed MeterProCO2 BLE: co2 = ${data.serviceData.co2}, temperature = ${data.serviceData.co2.c}, humidity = ${data.serviceData.humidity}, battery = ${data.serviceData.battery}`, 2);
+					this.homey.app.updateLog(`Parsed MeterProCO2 BLE: co2 = ${data.serviceData.co2}, temperature = ${data.serviceData.temperature.c}, humidity = ${data.serviceData.humidity}, battery = ${data.serviceData.battery}`, 2);
 					this.deviceNotFound = false;
 				}
 				else
 				{
-					this.homey.app.updateLog(`Parsed MeterProCO2 BLE: No data for ${dd.id}`, 0);
+					this.homey.app.updateLog(`Parsed MeterProCO2 BLE: No data for ${dd.id}`, 2);
 				}
 			}
 			else

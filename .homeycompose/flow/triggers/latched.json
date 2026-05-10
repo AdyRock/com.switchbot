@@ -17,7 +17,6 @@
     "local",
     "cloud"
   ],
-  "deprecated": true,
   "args": [
     {
       "type": "device",

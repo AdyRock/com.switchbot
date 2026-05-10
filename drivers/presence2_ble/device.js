@@ -7,6 +7,28 @@ const Homey = require('homey');
 class PresenceBLEDevice extends Homey.Device
 {
 
+	formatMacAddress(value)
+	{
+		if (!value)
+		{
+			return value;
+		}
+
+		const macText = String(value);
+		if (macText.includes(':'))
+		{
+			return macText;
+		}
+
+		const hexText = macText.replace(/[^a-fA-F0-9]/g, '');
+		if (hexText.length !== 12)
+		{
+			return macText;
+		}
+
+		return hexText.match(/.{1,2}/g).join(':').toUpperCase();
+	}
+
 	/**
 	 * onInit is called when the device is initialized.
 	 */
@@ -59,12 +81,34 @@ class PresenceBLEDevice extends Homey.Device
 		this.log('PresenceBLEDevice has been deleted');
 	}
 
-	async getDeviceValues()
+	async getDeviceValues(ForceUpdate = false)
 	{
 		try
 		{
+			const name = this.getName();
 			const dd = this.getData();
-
+			if (((this.bestHub === '') || ForceUpdate) && this.homey.app.BLEHub)
+			{
+				const deviceInfo = await this.homey.app.BLEHub.getBLEHubDevice(dd.address);
+				if (deviceInfo)
+				{
+					// make sure the service data is present and is not a string
+					if (deviceInfo.serviceData && typeof deviceInfo.serviceData !== 'string')
+					{
+						this.updateCapabilities(deviceInfo);
+						this.bestHub = deviceInfo.hubMAC;
+					}
+					else
+					{
+						this.bestHub = '';
+						this.homey.app.updateLog(`BLE Hub for ${name} returned ${this.homey.app.varToString(deviceInfo)}`, 0);
+					}
+				}
+				else
+				{
+					this.bestHub = '';
+				}
+			}
 			if (this.bestHub !== '')
 			{
 				// This device is being controlled by a BLE hub
@@ -78,12 +122,13 @@ class PresenceBLEDevice extends Homey.Device
 
 			if (dd.id)
 			{
+				const deviceMac = this.formatMacAddress(dd.address || dd.id);
 				this.homey.app.updateLog('Finding Presence BLE device', 3);
 				const bleAdvertisement = await this.homey.ble.find(dd.id);
 				if (!bleAdvertisement)
 				{
 					const name = this.getName();
-					this.homey.app.updateLog(`BLE device ${name} not found`);
+					this.homey.app.updateLog(`BLE device ${name} (MAC: ${deviceMac}) not found`);
 					return;
 				}
 
@@ -94,23 +139,13 @@ class PresenceBLEDevice extends Homey.Device
 				const data = this.driver.parse(bleAdvertisement);
 				if (data)
 				{
-					this.homey.app.updateLog(`Parsed Presence BLE: ${this.homey.app.varToString(data)}`, 3);
-					this.setCapabilityValue('alarm_presence', data.serviceData.presence).catch(this.error);
-					if (this.getCapabilityValue('light_level') !== data.serviceData.light_level)
-					{
-						this.setCapabilityValue('light_level', data.serviceData.light_level).catch(this.error);
-						const tokens = {
-							light_level: data.serviceData.light_level,
-						};
-
-						this.driver.triggerLightLevelChanged(this, tokens, null).catch(this.error);
-					}
-					this.setCapabilityValue('measure_battery', data.serviceData.battery).catch(this.error);
-					this.homey.app.updateLog(`Parsed Presence BLE: battery = ${data.serviceData.battery}`, 3);
+					this.homey.app.updateLog(`Parsed Presence BLE (MAC: ${deviceMac}): ${this.homey.app.varToString(data)}`, 3);
+					this.updateCapabilities(data);
+					this.homey.app.updateLog(`Parsed Presence BLE (MAC: ${deviceMac}): battery = ${data.serviceData.battery}`, 3);
 				}
 				else
 				{
-					this.homey.app.updateLog('Parsed Presence BLE: No service data', 0);
+					this.homey.app.updateLog(`Parsed Presence BLE (MAC: ${deviceMac}): No service data`, 0);
 				}
 			}
 			else
@@ -120,7 +155,17 @@ class PresenceBLEDevice extends Homey.Device
 		}
 		catch (err)
 		{
-			this.homey.app.updateLog(err.message, 0);
+			const dd = this.getData();
+			const deviceMac = this.formatMacAddress(dd.address || dd.id);
+			const message = (err && err.message) ? err.message : String(err);
+			if (/Peripheral\s+Not\s+Found/i.test(message))
+			{
+				this.homey.app.updateLog(`${message} (MAC: ${deviceMac})`, 0);
+			}
+			else
+			{
+				this.homey.app.updateLog(message, 0);
+			}
 		}
 		finally
 		{
@@ -137,27 +182,15 @@ class PresenceBLEDevice extends Homey.Device
 			{
 				if (event.address && (event.address.localeCompare(dd.address, 'en', { sensitivity: 'base' }) === 0) && (event.serviceData.modelName === 'Presence(mm)'))
 				{
-					this.setCapabilityValue('alarm_presence', (event.serviceData.presence === 1)).catch(this.error);
-					if (this.getCapabilityValue('light_level') !== event.serviceData.light)
-					{
-						this.setCapabilityValue('light_level', event.serviceData.light).catch(this.error);
-						const tokens = {
+					const data = {
+						...event,
+						serviceData: {
+							...event.serviceData,
 							light_level: event.serviceData.light,
-						};
-
-						this.driver.triggerLightLevelChanged(this, tokens, null).catch(this.error);
-					}
-
-					this.setCapabilityValue('measure_battery', this.driver.batteryBucketToPercent(event.serviceData.battery)).catch(this.error);
-					this.setCapabilityValue('rssi', event.rssi).catch(this.error);
-
-					if (event.hubMAC && ((event.rssi < this.bestRSSI) || (event.hubMAC.localeCompare(this.bestHub, 'en', { sensitivity: 'base' }) === 0)))
-					{
-						this.bestHub = event.hubMAC;
-						this.bestRSSI = event.rssi;
-					}
-
-					this.setAvailable();
+							battery: this.driver.batteryBucketToPercent(event.serviceData.battery),
+						},
+					};
+					this.updateCapabilities(data);
 				}
 			}
 		}
@@ -165,6 +198,42 @@ class PresenceBLEDevice extends Homey.Device
 		{
 			this.homey.app.updateLog(`Error in Presence syncEvents: ${this.homey.app.varToString(error)}`, 0);
 		}
+	}
+
+	updateCapabilities(data)
+	{
+		const presence = (data.serviceData.presence === true) || (Number(data.serviceData.presence) === 1);
+		this.setCapabilityValue('alarm_presence', presence).catch(this.error);
+
+		const lightLevel = data.serviceData.light_level;
+		if (typeof lightLevel !== 'undefined' && this.getCapabilityValue('light_level') !== lightLevel)
+		{
+			this.setCapabilityValue('light_level', lightLevel).catch(this.error);
+			const tokens = {
+				light_level: lightLevel,
+			};
+
+			this.driver.triggerLightLevelChanged(this, tokens, null).catch(this.error);
+		}
+
+		const battery = data.serviceData.battery;
+		if (typeof battery !== 'undefined')
+		{
+			this.setCapabilityValue('measure_battery', battery).catch(this.error);
+		}
+
+		if (typeof data.rssi !== 'undefined')
+		{
+			this.setCapabilityValue('rssi', data.rssi).catch(this.error);
+		}
+
+		if (data.hubMAC && ((data.rssi < this.bestRSSI) || (data.hubMAC.localeCompare(this.bestHub, 'en', { sensitivity: 'base' }) === 0)))
+		{
+			this.bestHub = data.hubMAC;
+			this.bestRSSI = data.rssi;
+		}
+
+		this.setAvailable();
 	}
 
 }

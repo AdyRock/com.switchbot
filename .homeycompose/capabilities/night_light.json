@@ -1,0 +1,72 @@
+{
+	"type": "enum",
+	"title": {
+		"en": "Night Light",
+		"no": "Nattlys",
+		"nl": "Nachtlicht",
+		"da": "Natlys",
+		"de": "Nachtlicht",
+		"es": "Luz nocturna",
+		"fr": "Lumière nocturne",
+		"it": "Luce notturna",
+		"sv": "Nattljus",
+		"pl": "Światło nocne",
+		"ru": "Ночной свет",
+		"ko": "야간 조명"
+	},
+	"values": [
+		{
+			"id": "off",
+			"title": {
+				"en": "Off",
+				"no": "Av",
+				"nl": "Uit",
+				"da": "Fra",
+				"de": "Aus",
+				"es": "Apagado",
+				"fr": "Éteint",
+				"it": "Spento",
+				"sv": "Av",
+				"pl": "Wyłączony",
+				"ru": "Выкл",
+				"ko": "꺼짐"
+			}
+		},
+		{
+			"id": "1",
+			"title": {
+				"en": "Dim",
+				"no": "Dempet",
+				"nl": "Gedimd",
+				"da": "Dæmpet",
+				"de": "Gedimmt",
+				"es": "Atenuado",
+				"fr": "Faible",
+				"it": "Luce tenue",
+				"sv": "Dämpad",
+				"pl": "Przyciemnione",
+				"ru": "Тусклый",
+				"ko": "어둡게"
+			}
+		},
+		{
+			"id": "2",
+			"title": {
+				"en": "Bright",
+				"no": "Lys",
+				"nl": "Helder",
+				"da": "Lys",
+				"de": "Hell",
+				"es": "Brillante",
+				"fr": "Luminosité",
+				"it": "Luce intensa",
+				"sv": "Ljus",
+				"pl": "Jasne",
+				"ru": "Яркий",
+				"ko": "밝음"
+			}
+		}
+	],
+	"getable": true,
+	"setable": true
+}

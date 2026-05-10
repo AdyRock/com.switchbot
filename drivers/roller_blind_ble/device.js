@@ -32,17 +32,7 @@ class RollerBlindBLEDevice extends Homey.Device
 		}
 
 		// register a capability listener
-		if (this.hasCapability('open_close'))
-		{
-			this.registerCapabilityListener('open_close', this.onCapabilityopenClose.bind(this));
-		}
-
-		if (this.hasCapability('windowcoverings_closed'))
-		{
-			this.registerCapabilityListener('windowcoverings_closed', this.onCapabilityopenClose.bind(this));
-		}
 		this.registerCapabilityListener('windowcoverings_set', this.onCapabilityPosition.bind(this));
-		this.registerCapabilityListener('windowcoverings_state', this.onCapabilityState.bind(this));
 
 		this.homey.app.registerBLEPolling();
 
@@ -103,19 +93,6 @@ class RollerBlindBLEDevice extends Homey.Device
 		this.log('RollerBlindBLEDevice has been deleted');
 	}
 
-	// this method is called when the Homey device switches the device on or off
-	async onCapabilityopenClose(value, opts)
-	{
-		value = value ? 1 : 0;
-
-		if (this.invertPosition)
-		{
-			value = 1 - value;
-		}
-
-		return this.runToPos(value * 100, this.motionMode);
-	}
-
 	// this method is called when the Homey device has requested a position change ( 0 to 1)
 	async onCapabilityPosition(value, opts)
 	{
@@ -135,33 +112,6 @@ class RollerBlindBLEDevice extends Homey.Device
 			value = 1 - value;
 		}
 		return this.runToPos(value * 100, mode);
-	}
-
-	async onCapabilityState(value, opts)
-	{
-		if (this.pollTimer)
-		{
-			this.homey.clearTimeout(this.pollTimer);
-			this.pollTimer = null;
-		}
-
-		if (value === 'idle')
-		{
-			await this.pause();
-			this.pollTimer = this.homey.setTimeout(() => {
-				this.getDeviceValues(true).catch(this.error);
-			}, 1000);
-		}
-		else if (value === 'up')
-		{
-			return this.onCapabilityopenClose(true);
-		}
-		else if (value === 'down')
-		{
-			return this.onCapabilityopenClose(false);
-		}
-
-		return Promise.resolve();
 	}
 
 	/* ------------------------------------------------------------------
@@ -274,7 +224,7 @@ class RollerBlindBLEDevice extends Homey.Device
 			const bleAdvertisement = await this.homey.ble.find(dd.id);
 			if (!bleAdvertisement)
 			{
-				this.homey.app.updateLog(`BLE device ${name} not found`, 0);
+				this.homey.app.updateLog(`BLE device ${name} not found`, 2);
 				return false;
 			}
 
@@ -348,12 +298,35 @@ class RollerBlindBLEDevice extends Homey.Device
 		return true;
 	}
 
-	async getDeviceValues()
+	async getDeviceValues(ForceUpdate = false)
 	{
 		const name = this.getName();
 		try
 		{
 			const dd = this.getData();
+			if (((this.bestHub === '') || ForceUpdate) && this.homey.app.BLEHub)
+			{
+				const deviceInfo = await this.homey.app.BLEHub.getBLEHubDevice(dd.address);
+				if (deviceInfo)
+				{
+					// make sure the service data is present and is not a string
+					if (deviceInfo.serviceData && typeof deviceInfo.serviceData !== 'string')
+					{
+						this.updateCapabilities(deviceInfo);
+						this.bestHub = deviceInfo.hubMAC;
+					}
+					else
+					{
+						this.bestHub = '';
+						this.homey.app.updateLog(`BLE Hub for ${name} returned ${this.homey.app.varToString(deviceInfo)}`, 0);
+					}
+				}
+				else
+				{
+					this.bestHub = '';
+				}
+			}
+
 			if (this.bestHub !== '')
 			{
 				// This device is being controlled by a BLE hub
@@ -383,61 +356,7 @@ class RollerBlindBLEDevice extends Homey.Device
 				if (data)
 				{
 					this.homey.app.updateLog(`Parsed Roller Blind BLE (${name}) ${this.homey.app.varToString(data)}`, 3);
-					let position = data.serviceData.position / 100;
-					if (this.invertPosition)
-					{
-						position = 1 - position;
-					}
-
-					if (this.hasCapability('open_close'))
-					{
-						if (position > 0.5)
-						{
-							this.setCapabilityValue('open_close', true).catch(this.error);
-						}
-						else
-						{
-							this.setCapabilityValue('open_close', false).catch(this.error);
-						}
-					}
-					else if (position > 0.5)
-					{
-						this.setCapabilityValue('windowcoverings_closed', true).catch(this.error);
-					}
-					else
-					{
-						this.setCapabilityValue('windowcoverings_closed', false).catch(this.error);
-					}
-
-					if (position === 0)
-					{
-						this.setCapabilityValue('windowcoverings_state', 'up').catch(this.error);
-					}
-					else if (position === 1)
-					{
-						this.setCapabilityValue('windowcoverings_state', 'down').catch(this.error);
-					}
-					else
-					{
-						this.setCapabilityValue('windowcoverings_state', null).catch(this.error);
-					}
-
-					this.setCapabilityValue('windowcoverings_set', position).catch(this.error);
-					this.setCapabilityValue('position', position * 100).catch(this.error);
-
-					if (this.lastPosition)
-					{
-						if (this.lastPosition !== position)
-						{
-							this.homey.app.triggerPositionLessThan(this, { lastPosition: this.lastPosition, position }, { lastPosition: this.lastPosition, position }).catch(this.error);
-							this.homey.app.triggerPositionGreaterThan(this, { lastPosition: this.lastPosition, position }, { lastPosition: this.lastPosition, position }).catch(this.error);
-						}
-					}
-
-					this.lastPosition = position;
-
-					this.setCapabilityValue('measure_battery', data.serviceData.battery).catch(this.error);
-					this.homey.app.updateLog(`Parsed Roller Blind BLE (${name}): position = ${data.serviceData.position}, battery = ${data.serviceData.battery}`, 3);
+					this.updateCapabilities(data);
 				}
 				else
 				{
@@ -476,69 +395,7 @@ class RollerBlindBLEDevice extends Homey.Device
 						this.pollTimer = null;
 					}
 
-					let position = event.serviceData.position / 100;
-					if (this.invertPosition)
-					{
-						position = 1 - position;
-					}
-					this.setCapabilityValue('windowcoverings_set', position).catch(this.error);
-					this.setCapabilityValue('position', position * 100).catch(this.error);
-
-					if (this.hasCapability('open_close'))
-					{
-						if (position > 0.5)
-						{
-							this.setCapabilityValue('open_close', true).catch(this.error);
-						}
-						else
-						{
-							this.setCapabilityValue('open_close', false).catch(this.error);
-						}
-					}
-					else if (position > 0.5)
-					{
-						this.setCapabilityValue('windowcoverings_closed', true).catch(this.error);
-					}
-					else
-					{
-						this.setCapabilityValue('windowcoverings_closed', false).catch(this.error);
-					}
-
-					if (position === 0)
-					{
-						this.setCapabilityValue('windowcoverings_state', 'up').catch(this.error);
-					}
-					else if (position === 1)
-					{
-						this.setCapabilityValue('windowcoverings_state', 'down').catch(this.error);
-					}
-					else
-					{
-						this.setCapabilityValue('windowcoverings_state', null).catch(this.error);
-					}
-
-					if (this.lastPosition)
-					{
-						if (this.lastPosition !== position)
-						{
-							this.homey.app.triggerPositionLessThan(this, { lastPosition: this.lastPosition, position }, { lastPosition: this.lastPosition, position }).catch(this.error);
-							this.homey.app.triggerPositionGreaterThan(this, { lastPosition: this.lastPosition, position }, { lastPosition: this.lastPosition, position }).catch(this.error);
-						}
-					}
-
-					this.lastPosition = position;
-
-					this.setCapabilityValue('measure_battery', event.serviceData.battery).catch(this.error);
-					this.setCapabilityValue('rssi', event.rssi).catch(this.error);
-					this.homey.app.updateLog(`Parsed Roller Blind BLE (${name}): position = ${event.serviceData.position}, battery = ${event.serviceData.battery}`, 3);
-
-					if (event.hubMAC && ((event.rssi < this.bestRSSI) || (event.hubMAC.localeCompare(this.bestHub, 'en', { sensitivity: 'base' }) === 0)))
-					{
-						this.bestHub = event.hubMAC;
-						this.bestRSSI = event.rssi;
-					}
-
-					this.setAvailable();
+					this.updateCapabilities(event);
 				}
 			}
 		}
@@ -546,6 +403,50 @@ class RollerBlindBLEDevice extends Homey.Device
 		{
 			this.homey.app.updateLog(`Error in RollerBlind (${name}) syncEvents: ${this.homey.app.varToString(error)}`, 0);
 		}
+	}
+
+	updateCapabilities(data)
+	{
+		let position = data.serviceData.position / 100;
+		if (this.invertPosition)
+		{
+			position = 1 - position;
+		}
+
+		this.setCapabilityValue('windowcoverings_set', position).catch(this.error);
+		this.setCapabilityValue('position', position * 100).catch(this.error);
+
+		if (this.lastPosition)
+		{
+			if (this.lastPosition !== position)
+			{
+				this.homey.app.triggerPositionLessThan(this, { lastPosition: this.lastPosition, position }, { lastPosition: this.lastPosition, position }).catch(this.error);
+				this.homey.app.triggerPositionGreaterThan(this, { lastPosition: this.lastPosition, position }, { lastPosition: this.lastPosition, position }).catch(this.error);
+			}
+		}
+
+		this.lastPosition = position;
+
+		if (typeof data.serviceData.battery !== 'undefined')
+		{
+			this.setCapabilityValue('measure_battery', data.serviceData.battery).catch(this.error);
+		}
+
+		if (typeof data.rssi !== 'undefined')
+		{
+			this.setCapabilityValue('rssi', data.rssi).catch(this.error);
+		}
+
+		const name = this.getName();
+		this.homey.app.updateLog(`Parsed Roller Blind BLE (${name}): position = ${data.serviceData.position}, battery = ${data.serviceData.battery}`, 3);
+
+		if (data.hubMAC && ((data.rssi < this.bestRSSI) || (data.hubMAC.localeCompare(this.bestHub, 'en', { sensitivity: 'base' }) === 0)))
+		{
+			this.bestHub = data.hubMAC;
+			this.bestRSSI = data.rssi;
+		}
+
+		this.setAvailable();
 	}
 
 }

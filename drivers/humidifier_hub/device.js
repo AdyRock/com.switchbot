@@ -89,7 +89,7 @@ class HumidityHubDevice extends HubDevice
 
 	async pollHubDeviceValues()
 	{
-		this.getHubDeviceValues();
+		await this.getHubDeviceValues();
 		return true;
 	}
 

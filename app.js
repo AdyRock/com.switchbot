@@ -16,9 +16,74 @@ const BLEHubInterface = require('./lib/ble_hub_interface');
 const SwitchBotOAuth2Client = require('./lib/SwitchBotOAuth2Client');
 
 const MINIMUM_POLL_INTERVAL = 15; // in Seconds
+const SECONDS_PER_DAY = 86400;
+const DAILY_API_QUOTA = 10000;
+const COMMAND_API_OVERHEAD = 500;
+const POLLING_DAILY_BUDGET = DAILY_API_QUOTA - COMMAND_API_OVERHEAD;
 const BLE_POLLING_INTERVAL = 30000; // in milliSeconds
 class MyApp extends OAuth2App
 {
+
+	toPositiveInteger(value, fallback = 1)
+	{
+		const parsedValue = Number.parseInt(value, 10);
+		if (!Number.isFinite(parsedValue) || (parsedValue < 1))
+		{
+			return fallback;
+		}
+
+		return parsedValue;
+	}
+
+	incrementApiCalls(increment = 1)
+	{
+		const value = Number.parseInt(increment, 10);
+		const step = Number.isFinite(value) && (value > 0) ? value : 1;
+		this.apiCalls = this.toPositiveInteger(this.apiCalls, 0) + step;
+		this.homey.settings.set('apiCalls', this.apiCalls);
+		return this.apiCalls;
+	}
+
+	formatRateLimitErrorMessage(message)
+	{
+		const rawMessage = message ? String(message) : 'Unknown error';
+		const isRateLimitError = /rate\s*limit|too\s*many\s*requests|\b429\b|\b190\b/i.test(rawMessage);
+		if (!isRateLimitError || /API calls/i.test(rawMessage))
+		{
+			return rawMessage;
+		}
+
+		return `${rawMessage} (${this.apiCalls} API calls)`;
+	}
+
+	formatMacAddress(value)
+	{
+		if (!value)
+		{
+			return value;
+		}
+
+		const macText = String(value);
+		if (macText.includes(':'))
+		{
+			return macText;
+		}
+
+		const hexText = macText.replace(/[^a-fA-F0-9]/g, '');
+		if (hexText.length !== 12)
+		{
+			return macText;
+		}
+
+		return hexText.match(/.{1,2}/g).join(':').toUpperCase();
+	}
+
+	normalizeLogMessage(newMessage)
+	{
+		const message = (typeof newMessage === 'string') ? newMessage : this.varToString(newMessage);
+		const peripheralFormatted = message.replace(/(Peripheral Not Found:\s*)([a-fA-F0-9]{12})(\b)/g, (fullText, prefix, id, suffix) => `${prefix}${this.formatMacAddress(id)}${suffix}`);
+		return peripheralFormatted.replace(/(No data for\s*)([a-fA-F0-9]{12})(\b)/gi, (fullText, prefix, id, suffix) => `${prefix}${this.formatMacAddress(id)}${suffix}`);
+	}
 
 	overrideLoggingMethods()
 	{
@@ -74,7 +139,9 @@ class MyApp extends OAuth2App
 
 	handleLogMessage(message, ...optionalParams)
 	{
-		const logMessage = `${optionalParams.join(' ')}`;
+		const logMessage = optionalParams
+			.map((param) => this.varToString(param))
+			.join(' ');
 		// if the logMessage contains 'User-Agent' then replace the user-agent value with '***'
 		if (logMessage.includes('User-Agent:'))
 		{
@@ -88,7 +155,7 @@ class MyApp extends OAuth2App
 			return true;
 		}
 
-		this.updateLog(logMessage, 2);
+		this.updateLog(this.varToString(logMessage), 2);
 		return true;
 	}
 
@@ -160,7 +227,7 @@ class MyApp extends OAuth2App
 		this.devicesMACs = [];
 		this.webRegTimerID = null;
 
-		if (this.logLevel > 1)
+		if (this.logLevel >= 0)
 		{
 			this.enableOAuth2Debug();
 		}
@@ -171,8 +238,8 @@ class MyApp extends OAuth2App
 
 		this.processWebhookMessage.bind(this);
 
-		this.numConnections = this.homey.settings.get('numConnections');
-		if (!this.numConnections)
+		this.numConnections = this.toPositiveInteger(this.homey.settings.get('numConnections'));
+		if (!this.homey.settings.get('numConnections'))
 		{
 			this.numConnections = 1;
 			this.homey.settings.set('numConnections', this.numConnections);
@@ -259,7 +326,7 @@ class MyApp extends OAuth2App
 			}
 			else if (setting === 'numConnections')
 			{
-				this.numConnections = this.homey.settings.get('numConnections');
+				this.numConnections = this.toPositiveInteger(this.homey.settings.get('numConnections'));
 			}
 		});
 
@@ -692,6 +759,11 @@ class MyApp extends OAuth2App
 		this.apiCountReset = this.homey.setTimeout(this.resetAPICount, 86400 * 1000);
 	}
 
+	getAPICount()
+	{
+		return this.apiCalls;
+	}
+
 	hashCode(s)
 	{
 		let h = 0;
@@ -759,10 +831,11 @@ class MyApp extends OAuth2App
 	{
 		try
 		{
+			const message = this.normalizeLogMessage(newMessage);
 			this.logLevel = this.homey.settings.get('logLevel');
 			if (errorLevel <= this.logLevel)
 			{
-				this.originalLog(newMessage);
+				this.originalLog(message);
 				const nowTime = new Date(Date.now());
 
 				this.diagLog += '\r\n* ';
@@ -779,7 +852,7 @@ class MyApp extends OAuth2App
 					// this.log(newMessage);
 					this.diagLog += '* ';
 				}
-				this.diagLog += newMessage;
+				this.diagLog += message;
 				this.diagLog += '\r\n';
 				if (this.diagLog.length > 60000)
 				{
@@ -837,6 +910,7 @@ class MyApp extends OAuth2App
 					let retval = null;
 					if (oAuth2Client)
 					{
+						this.updateLog(`sendLog: fetching device status for ${deviceId}`, 1);
 						const data = await oAuth2Client.getDeviceData(deviceId);
 						retval = data.body;
 					}
@@ -943,7 +1017,8 @@ class MyApp extends OAuth2App
 		const oAuth2Client = this.getFirstSavedOAuth2Client();
 		if (oAuth2Client)
 		{
-			oAuth2Client.deleteWebhook(Homey.env.WEBHOOK_URL);
+			this.updateLog('Deleting SwitchBot webhook', 1);
+			await oAuth2Client.deleteWebhook(Homey.env.WEBHOOK_URL);
 		}
 	}
 
@@ -1141,7 +1216,8 @@ class MyApp extends OAuth2App
 		}
 		catch (err)
 		{
-			this.homey.app.updateLog(`Invalid response: ${err.message}`, 0);
+			const errorMessage = this.formatRateLimitErrorMessage(err && err.message ? err.message : err);
+			this.homey.app.updateLog(`Invalid response: ${errorMessage}`, 0);
 		}
 
 		return false;
@@ -1194,6 +1270,7 @@ class MyApp extends OAuth2App
 			}
 			catch (err)
 			{
+				this.homey.app.updateLog(`getHUBDevices OAuth2 error: ${err.message}`, 0);
 			}
 
 			return response;
@@ -1292,9 +1369,18 @@ class MyApp extends OAuth2App
 				{
 					if (device.pollHubDeviceValues)
 					{
-						if (await device.pollHubDeviceValues())
+						try
 						{
-							totalHuBDevices++;
+							if (await device.pollHubDeviceValues())
+							{
+								totalHuBDevices++;
+							}
+						}
+						catch (err)
+						{
+							const deviceName = (device.getName && typeof device.getName === 'function') ? device.getName() : 'Unknown device';
+							const deviceData = (device.getData && typeof device.getData === 'function') ? device.getData() : {};
+							this.homey.app.updateLog(`Hub poll failed for ${deviceName} (${deviceData.id || 'unknown id'}): ${err.message}`, 0);
 						}
 					}
 				}
@@ -1302,11 +1388,12 @@ class MyApp extends OAuth2App
 
 			if (totalHuBDevices > 0)
 			{
-				const nextInterval = (MINIMUM_POLL_INTERVAL * this.numConnections * 1000 * totalHuBDevices);
+				const minimumIntervalMs = MINIMUM_POLL_INTERVAL * 1000;
+				const quotaIntervalMs = Math.ceil((SECONDS_PER_DAY * 1000 * totalHuBDevices * this.numConnections) / POLLING_DAILY_BUDGET);
+				const nextInterval = Math.max(minimumIntervalMs, quotaIntervalMs);
 
-				this.homey.app.updateLog(`Next HUB polling interval = ${nextInterval / 1000}s: ${this.homey.app.apiCalls} API calls today`);
+				this.homey.app.updateLog(`Next HUB polling interval = ${nextInterval / 1000}s for ${totalHuBDevices} active devices across ${this.numConnections} Homey account connection(s): ${this.homey.app.apiCalls} API calls today`);
 				this.timerHubID = this.homey.setTimeout(this.onHubPoll, nextInterval);
-				// this.timerHubID = this.homey.setTimeout(this.onHubPoll, MINIMUM_POLL_INTERVAL * 1000);
 			}
 		}
 

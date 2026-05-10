@@ -294,11 +294,11 @@ class BLEDriver extends Homey.Driver
 			sd = this._parseServiceDataForCO2Meter(buf, device.manufacturerData);
 		}
 		else if (model === '?')
-		{ // WoMeterPro(CO2)
+		{ // WoPlug
 			sd = this._parseServiceDataForPlug(buf, device.manufacturerData);
 		}
-		else if (model === "'")
-		{ // WoCurtain
+		else if (model === "'" || model === ',')
+		{ // WoCRollerBlind
 			sd = this._parseServiceDataForWoRollerblind(buf);
 		}
 		else if ((buf.length === 7) && buf[5] === 0xcc && buf[6] === 0xc8 && (buf[4] === 0x00 || buf[4] === 0x10))

@@ -77,7 +77,7 @@ class Relay2pmHubDevice extends HubDevice
 
 	async pollHubDeviceValues()
 	{
-		this.getHubDeviceValues();
+		await this.getHubDeviceValues();
 		return true;
 	}
 

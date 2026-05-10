@@ -871,7 +871,6 @@
           "local",
           "cloud"
         ],
-        "deprecated": true,
         "args": [
           {
             "type": "device",
@@ -5584,6 +5583,136 @@
             "labelDecimals": 0
           }
         ]
+      },
+      {
+        "id": "circulating_fan_mode",
+        "title": {
+          "en": "Set fan mode",
+          "no": "Sett viftemodus",
+          "nl": "Zet ventilatormodus",
+          "da": "Indstil ventilatormodus",
+          "de": "Ventilatormodus einstellen",
+          "es": "Configurar modo de ventilador",
+          "fr": "Régler le mode ventilateur",
+          "it": "Imposta modalità ventilatore",
+          "sv": "Ställ in fläktläge",
+          "pl": "Ustaw tryb wentylatora",
+          "ru": "Установить режим вентилятора",
+          "ko": "팬 모드 설정"
+        },
+        "titleFormatted": {
+          "en": "Set the fan mode to [[fan_mode]]",
+          "no": "Sett viftemodus til [[fan_mode]]",
+          "nl": "Stel ventilatormodus in op [[fan_mode]]",
+          "da": "Indstil ventilatormodus til [[fan_mode]]",
+          "de": "Ventilatormodus auf [[fan_mode]] einstellen",
+          "es": "Configura el modo de ventilador a [[fan_mode]]",
+          "fr": "Réglez le mode ventilateur sur [[fan_mode]]",
+          "it": "Imposta la modalità ventilatore su [[fan_mode]]",
+          "sv": "Ställ in fläktläge till [[fan_mode]]",
+          "pl": "Ustaw tryb wentylatora na [[fan_mode]]",
+          "ru": "Установите режим вентилятора на [[fan_mode]]",
+          "ko": "팬 모드를 [[fan_mode]]로 설정"
+        },
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=smart_fan_new_hub"
+          },
+          {
+            "name": "fan_mode",
+            "title": {
+              "en": "Mode",
+              "no": "Viftemodus",
+              "nl": "Modus",
+              "da": "Modus",
+              "de": "Modus",
+              "es": "Modo",
+              "fr": "Mode",
+              "it": "Modalità",
+              "sv": "Läge",
+              "pl": "Tryb",
+              "ru": "Режим",
+              "ko": "모드"
+            },
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "direct",
+                "title": {
+                  "en": "Direct",
+                  "no": "Direkte",
+                  "nl": "Direct",
+                  "da": "Direkte",
+                  "de": "Direkt",
+                  "es": "Directo",
+                  "fr": "Direct",
+                  "it": "Diretto",
+                  "sv": "Direkt",
+                  "pl": "Bezpośredni",
+                  "ru": "Прямой",
+                  "ko": "직접"
+                }
+              },
+              {
+                "id": "natural",
+                "title": {
+                  "en": "Natural",
+                  "no": "Naturlig",
+                  "nl": "Natuurlijk",
+                  "da": "Naturlig",
+                  "de": "Natürlich",
+                  "es": "Natural",
+                  "fr": "Naturel",
+                  "it": "Naturale",
+                  "sv": "Naturlig",
+                  "pl": "Naturalny",
+                  "ru": "Естественный",
+                  "ko": "자연풍"
+                }
+              },
+              {
+                "id": "sleep",
+                "title": {
+                  "en": "Sleep",
+                  "no": "Søvn",
+                  "nl": "Slaap",
+                  "da": "Søvn",
+                  "de": "Schlaf",
+                  "es": "Dormir",
+                  "fr": "Sommeil",
+                  "it": "Sonno",
+                  "sv": "Sömn",
+                  "pl": "Sen",
+                  "ru": "Сон",
+                  "ko": "수면"
+                }
+              },
+              {
+                "id": "baby",
+                "title": {
+                  "en": "Baby",
+                  "no": "Baby",
+                  "nl": "Baby",
+                  "da": "Baby",
+                  "de": "Baby",
+                  "es": "Bebé",
+                  "fr": "Bébé",
+                  "it": "Bambino",
+                  "sv": "Baby",
+                  "pl": "Dziecko",
+                  "ru": "Младенец",
+                  "ko": "아기"
+                }
+              }
+            ]
+          }
+        ]
       }
     ]
   },
@@ -5830,6 +5959,64 @@
         "fan_speed_low",
         "fan_speed_middle",
         "fan_speed_high"
+      ]
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        }
+      ],
+      "icon": "/drivers/art_frame_hub/assets/icon.svg",
+      "images": {
+        "large": "/drivers/art_frame_hub/assets/images/large.jpg",
+        "small": "/drivers/art_frame_hub/assets/images/small.jpg"
+      },
+      "id": "art_frame_hub",
+      "name": {
+        "en": "Art Frame (HUB)",
+        "no": "Kunstramme (HUB)",
+        "nl": "Kunstframe (HUB)",
+        "da": "Kunstramme (HUB)",
+        "de": "Kunstrahmen (HUB)",
+        "es": "Marco de arte (HUB)",
+        "fr": "Cadre artistique (HUB)",
+        "it": "Cornice artistica (HUB)",
+        "sv": "Konstnärlig ram (HUB)",
+        "pl": "Ramka artystyczna (HUB)",
+        "ru": "Художественная рамка (HUB)",
+        "ko": "예술 프레임 (HUB)"
+      },
+      "class": "mediaplayer",
+      "capabilities": [
+        "speaker_next",
+        "speaker_prev",
+        "measure_battery"
       ]
     },
     {
@@ -10217,7 +10404,6 @@
         "ru": "Рулонный жалюзи (BLE)",
         "ko": "롤러 블라인드 (BLE)"
       },
-      "deprecated": true,
       "platforms": [
         "local",
         "cloud"
@@ -10227,8 +10413,6 @@
       ],
       "class": "blinds",
       "capabilities": [
-        "windowcoverings_closed",
-        "windowcoverings_state",
         "measure_battery",
         "windowcoverings_set",
         "rssi",
@@ -10715,6 +10899,66 @@
         "smart_fan_speed",
         "smart_fan_mode",
         "smart_fan_shake_range"
+      ]
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        }
+      ],
+      "icon": "/drivers/smart_fan_new_hub/assets/icon.svg",
+      "images": {
+        "large": "/drivers/smart_fan_new_hub/assets/images/large.jpg",
+        "small": "/drivers/smart_fan_new_hub/assets/images/small.jpg"
+      },
+      "id": "smart_fan_new_hub",
+      "name": {
+        "en": "Circulator Fan (HUB)",
+        "no": "Sirkulasjonsvifte (HUB)",
+        "nl": "Circulatieventilator (HUB)",
+        "da": "Cirkulationsventilator (HUB)",
+        "de": "Zirkulationsventilator (HUB)",
+        "es": "Ventilador de Circulación (HUB)",
+        "fr": "Ventilateur de Circulation (HUB)",
+        "it": "Ventilatore a Circolazione (HUB)",
+        "sv": "Cirkulationsfläkt (HUB)",
+        "pl": "Wentylator Cyrkulacyjny (HUB)",
+        "ru": "Циркуляционный Вентилятор (HUB)",
+        "ko": "순환 팬 (HUB)"
+      },
+      "class": "fan",
+      "capabilities": [
+        "onoff",
+        "fan_speed",
+        "smart_fan_mode2",
+        "night_light",
+        "measure_battery"
       ]
     },
     {
@@ -12600,6 +12844,78 @@
       },
       "icon": "/assets/next.svg"
     },
+    "night_light": {
+      "type": "enum",
+      "title": {
+        "en": "Night Light",
+        "no": "Nattlys",
+        "nl": "Nachtlicht",
+        "da": "Natlys",
+        "de": "Nachtlicht",
+        "es": "Luz nocturna",
+        "fr": "Lumière nocturne",
+        "it": "Luce notturna",
+        "sv": "Nattljus",
+        "pl": "Światło nocne",
+        "ru": "Ночной свет",
+        "ko": "야간 조명"
+      },
+      "values": [
+        {
+          "id": "off",
+          "title": {
+            "en": "Off",
+            "no": "Av",
+            "nl": "Uit",
+            "da": "Fra",
+            "de": "Aus",
+            "es": "Apagado",
+            "fr": "Éteint",
+            "it": "Spento",
+            "sv": "Av",
+            "pl": "Wyłączony",
+            "ru": "Выкл",
+            "ko": "꺼짐"
+          }
+        },
+        {
+          "id": "1",
+          "title": {
+            "en": "Dim",
+            "no": "Dempet",
+            "nl": "Gedimd",
+            "da": "Dæmpet",
+            "de": "Gedimmt",
+            "es": "Atenuado",
+            "fr": "Faible",
+            "it": "Luce tenue",
+            "sv": "Dämpad",
+            "pl": "Przyciemnione",
+            "ru": "Тусклый",
+            "ko": "어둡게"
+          }
+        },
+        {
+          "id": "2",
+          "title": {
+            "en": "Bright",
+            "no": "Lys",
+            "nl": "Helder",
+            "da": "Lys",
+            "de": "Hell",
+            "es": "Brillante",
+            "fr": "Luminosité",
+            "it": "Luce intensa",
+            "sv": "Ljus",
+            "pl": "Jasne",
+            "ru": "Яркий",
+            "ko": "밝음"
+          }
+        }
+      ],
+      "getable": true,
+      "setable": true
+    },
     "open_close": {
       "type": "boolean",
       "title": {
@@ -13162,6 +13478,96 @@
             "pl": "Naturalny",
             "ru": "Естественный",
             "ko": "자연스러운"
+          }
+        }
+      ],
+      "getable": true,
+      "setable": true,
+      "icon": "/assets/fan_mode.svg"
+    },
+    "smart_fan_mode2": {
+      "type": "enum",
+      "title": {
+        "en": "Mode",
+        "no": "Modus",
+        "nl": "Modus",
+        "da": "Tilstand",
+        "de": "Modus",
+        "es": "Modo",
+        "fr": "Mode",
+        "it": "Modalità",
+        "sv": "Läge",
+        "pl": "Tryb",
+        "ru": "Режим",
+        "ko": "모드"
+      },
+      "values": [
+        {
+          "id": "direct",
+          "title": {
+            "en": "Direct",
+            "no": "Direkte",
+            "nl": "Direct",
+            "da": "Direkte",
+            "de": "Direkt",
+            "es": "Directo",
+            "fr": "Direct",
+            "it": "Diretto",
+            "sv": "Direkt",
+            "pl": "Bezpośredni",
+            "ru": "Прямой",
+            "ko": "직접"
+          }
+        },
+        {
+          "id": "natural",
+          "title": {
+            "en": "Natural",
+            "no": "Naturlig",
+            "nl": "Natuurlijk",
+            "da": "Naturlig",
+            "de": "Natürlich",
+            "es": "Natural",
+            "fr": "Naturel",
+            "it": "Naturale",
+            "sv": "Naturlig",
+            "pl": "Naturalny",
+            "ru": "Естественный",
+            "ko": "자연스러운"
+          }
+        },
+        {
+          "id": "sleep",
+          "title": {
+            "en": "Sleep",
+            "no": "Søvn",
+            "nl": "Slaap",
+            "da": "Søvn",
+            "de": "Schlaf",
+            "es": "Sueño",
+            "fr": "Sommeil",
+            "it": "Sonno",
+            "sv": "Sömn",
+            "pl": "Sen",
+            "ru": "Сон",
+            "ko": "수면"
+          }
+        },
+        {
+          "id": "baby",
+          "title": {
+            "en": "Baby",
+            "no": "Barn",
+            "nl": "Baby",
+            "da": "Baby",
+            "de": "Baby",
+            "es": "Bebé",
+            "fr": "Bébé",
+            "it": "Bambino",
+            "sv": "Barn",
+            "pl": "Dziecko",
+            "ru": "Ребенок",
+            "ko": "아기"
           }
         }
       ],

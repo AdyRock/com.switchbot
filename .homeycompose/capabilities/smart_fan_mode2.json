@@ -1,0 +1,90 @@
+{
+	"type": "enum",
+	"title": {
+		"en": "Mode",
+		"no": "Modus",
+		"nl": "Modus",
+		"da": "Tilstand",
+		"de": "Modus",
+		"es": "Modo",
+		"fr": "Mode",
+		"it": "Modalità",
+		"sv": "Läge",
+		"pl": "Tryb",
+		"ru": "Режим",
+		"ko": "모드"
+	},
+	"values": [
+		{
+			"id": "direct",
+			"title": {
+				"en": "Direct",
+				"no": "Direkte",
+				"nl": "Direct",
+				"da": "Direkte",
+				"de": "Direkt",
+				"es": "Directo",
+				"fr": "Direct",
+				"it": "Diretto",
+				"sv": "Direkt",
+				"pl": "Bezpośredni",
+				"ru": "Прямой",
+				"ko": "직접"
+			}
+		},
+		{
+			"id": "natural",
+			"title": {
+				"en": "Natural",
+				"no": "Naturlig",
+				"nl": "Natuurlijk",
+				"da": "Naturlig",
+				"de": "Natürlich",
+				"es": "Natural",
+				"fr": "Naturel",
+				"it": "Naturale",
+				"sv": "Naturlig",
+				"pl": "Naturalny",
+				"ru": "Естественный",
+				"ko": "자연스러운"
+			}
+		},
+		{
+			"id": "sleep",
+			"title": {
+				"en": "Sleep",
+				"no": "Søvn",
+				"nl": "Slaap",
+				"da": "Søvn",
+				"de": "Schlaf",
+				"es": "Sueño",
+				"fr": "Sommeil",
+				"it": "Sonno",
+				"sv": "Sömn",
+				"pl": "Sen",
+				"ru": "Сон",
+				"ko": "수면"
+			}
+		},
+		{
+			"id": "baby",
+			"title": {
+				"en": "Baby",
+				"no": "Barn",
+				"nl": "Baby",
+				"da": "Baby",
+				"de": "Baby",
+				"es": "Bebé",
+				"fr": "Bébé",
+				"it": "Bambino",
+				"sv": "Barn",
+				"pl": "Dziecko",
+				"ru": "Ребенок",
+				"ko": "아기"
+			}
+		}
+	],
+	"getable": true,
+	"setable": true,
+	"icon": "/assets/fan_mode.svg"
+}

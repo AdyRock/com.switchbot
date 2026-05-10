@@ -7,6 +7,23 @@ const { OAuth2Device } = require('homey-oauth2app');
 class HubDevice extends OAuth2Device
 {
 
+	appendApiCallCountToRateLimitError(err)
+	{
+		const message = (err && err.message) ? err.message : String(err);
+		const isRateLimitError = /rate\s*limit|too\s*many\s*requests|\b190\b/i.test(message);
+		if (!isRateLimitError)
+		{
+			return err;
+		}
+
+		if (/API calls/i.test(message))
+		{
+			return err;
+		}
+
+		return new Error(`${message} (${this.homey.app.apiCalls}) API calls`);
+	}
+
 	async onInit()
 	{
 		try
@@ -88,9 +105,6 @@ class HubDevice extends OAuth2Device
 		{
 			try
 			{
-				this.homey.app.apiCalls++;
-				this.homey.settings.set('apiCalls', this.homey.app.apiCalls);
-
 				this.homey.app.updateLog(`Sending ${this.homey.app.varToString(data)} to ${dd.id} using OAuth`, 3);
 				result = await this.oAuth2Client.setDeviceData(dd.id, data);
 			}
@@ -158,7 +172,16 @@ class HubDevice extends OAuth2Device
 		const dd = this.getData();
 		if (this.homey.app.openToken)
 		{
-			const data = await this.homey.app.hub.getDeviceData(dd.id);
+			let data;
+			try
+			{
+				data = await this.homey.app.hub.getDeviceData(dd.id);
+			}
+			catch (err)
+			{
+				throw this.appendApiCallCountToRateLimitError(err);
+			}
+
 			if (data.statusCode !== 100)
 			{
 				throw new Error(`${data.statusCode}: ${data.message} (${this.homey.app.apiCalls}) API calls`);
@@ -169,10 +192,16 @@ class HubDevice extends OAuth2Device
 
 		if (this.oAuth2Client)
 		{
-			this.homey.app.apiCalls++;
-			this.homey.settings.set('apiCalls', this.homey.app.apiCalls);
+			let data;
+			try
+			{
+				data = await this.oAuth2Client.getDeviceData(dd.id);
+			}
+			catch (err)
+			{
+				throw this.appendApiCallCountToRateLimitError(err);
+			}
 
-			const data = await this.oAuth2Client.getDeviceData(dd.id);
 			if (data.statusCode !== 100)
 			{
 				throw new Error(`${data.statusCode}: ${data.message} (${this.homey.app.apiCalls}) API calls`);
@@ -233,9 +262,6 @@ class HubDevice extends OAuth2Device
 
 		if (this.oAuth2Client)
 		{
-			this.homey.app.apiCalls++;
-			this.homey.settings.set('apiCalls', this.homey.app.apiCalls);
-
 			const retData = await this.oAuth2Client.startScene(dd.id);
 			return retData.body;
 		}

@@ -1,0 +1,26 @@
+{
+  "id": "art_frame_hub",
+  "name": {
+    "en": "Art Frame (HUB)",
+    "no": "Kunstramme (HUB)",
+    "nl": "Kunstframe (HUB)",
+    "da": "Kunstramme (HUB)",
+    "de": "Kunstrahmen (HUB)",
+    "es": "Marco de arte (HUB)",
+    "fr": "Cadre artistique (HUB)",
+    "it": "Cornice artistica (HUB)",
+    "sv": "Konstnärlig ram (HUB)",
+    "pl": "Ramka artystyczna (HUB)",
+    "ru": "Художественная рамка (HUB)",
+    "ko": "예술 프레임 (HUB)"
+  },
+  "class": "mediaplayer",
+  "capabilities": [
+    "speaker_next",
+	"speaker_prev",
+	"measure_battery"
+  ],
+  "$extends": [
+    "hubDriver"
+  ]
+}

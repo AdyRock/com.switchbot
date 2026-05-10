@@ -101,7 +101,7 @@ class PlugEUHubDevice extends HubDevice
 	async pollHubDeviceValues()
 	{
 		// The webhook is only triggerd for on/off so we need polling for the motion and bright state
-		this.getHubDeviceValues();
+		await this.getHubDeviceValues();
 		return true;
 	}
 

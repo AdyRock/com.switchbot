@@ -1,0 +1,129 @@
+{
+	"actions": [
+		{
+			"id": "circulating_fan_mode",
+			"title": {
+				"en": "Set fan mode",
+				"no": "Sett viftemodus",
+				"nl": "Zet ventilatormodus",
+				"da": "Indstil ventilatormodus",
+				"de": "Ventilatormodus einstellen",
+				"es": "Configurar modo de ventilador",
+				"fr": "Régler le mode ventilateur",
+				"it": "Imposta modalità ventilatore",
+				"sv": "Ställ in fläktläge",
+				"pl": "Ustaw tryb wentylatora",
+				"ru": "Установить режим вентилятора",
+				"ko": "팬 모드 설정"
+			},
+			"titleFormatted": {
+				"en": "Set the fan mode to [[fan_mode]]",
+				"no": "Sett viftemodus til [[fan_mode]]",
+				"nl": "Stel ventilatormodus in op [[fan_mode]]",
+				"da": "Indstil ventilatormodus til [[fan_mode]]",
+				"de": "Ventilatormodus auf [[fan_mode]] einstellen",
+				"es": "Configura el modo de ventilador a [[fan_mode]]",
+				"fr": "Réglez le mode ventilateur sur [[fan_mode]]",
+				"it": "Imposta la modalità ventilatore su [[fan_mode]]",
+				"sv": "Ställ in fläktläge till [[fan_mode]]",
+				"pl": "Ustaw tryb wentylatora na [[fan_mode]]",
+				"ru": "Установите режим вентилятора на [[fan_mode]]",
+				"ko": "팬 모드를 [[fan_mode]]로 설정"
+			},
+			"platforms": [
+				"local",
+				"cloud"
+			],
+			"args": [
+				{
+					"name": "fan_mode",
+					"title": {
+						"en": "Mode",
+						"no": "Viftemodus",
+						"nl": "Modus",
+						"da": "Modus",
+						"de": "Modus",
+						"es": "Modo",
+						"fr": "Mode",
+						"it": "Modalità",
+						"sv": "Läge",
+						"pl": "Tryb",
+						"ru": "Режим",
+						"ko": "모드"
+					},
+					"type": "dropdown",
+					"values": [
+						{
+							"id": "direct",
+							"title": {
+								"en": "Direct",
+								"no": "Direkte",
+								"nl": "Direct",
+								"da": "Direkte",
+								"de": "Direkt",
+								"es": "Directo",
+								"fr": "Direct",
+								"it": "Diretto",
+								"sv": "Direkt",
+								"pl": "Bezpośredni",
+								"ru": "Прямой",
+								"ko": "직접"
+							}
+						},
+						{
+							"id": "natural",
+							"title": {
+								"en": "Natural",
+								"no": "Naturlig",
+								"nl": "Natuurlijk",
+								"da": "Naturlig",
+								"de": "Natürlich",
+								"es": "Natural",
+								"fr": "Naturel",
+								"it": "Naturale",
+								"sv": "Naturlig",
+								"pl": "Naturalny",
+								"ru": "Естественный",
+								"ko": "자연풍"
+							}
+						},
+						{
+							"id": "sleep",
+							"title": {
+								"en": "Sleep",
+								"no": "Søvn",
+								"nl": "Slaap",
+								"da": "Søvn",
+								"de": "Schlaf",
+								"es": "Dormir",
+								"fr": "Sommeil",
+								"it": "Sonno",
+								"sv": "Sömn",
+								"pl": "Sen",
+								"ru": "Сон",
+								"ko": "수면"
+							}
+						},
+						{
+							"id": "baby",
+							"title": {
+								"en": "Baby",
+								"no": "Baby",
+								"nl": "Baby",
+								"da": "Baby",
+								"de": "Baby",
+								"es": "Bebé",
+								"fr": "Bébé",
+								"it": "Bambino",
+								"sv": "Baby",
+								"pl": "Dziecko",
+								"ru": "Младенец",
+								"ko": "아기"
+							}
+						}
+					]
+				}
+			]
+		}
+	]
+}
