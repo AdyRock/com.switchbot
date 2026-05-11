@@ -574,6 +574,14 @@
     "requestDeviceStatus": {
       "method": "post",
       "path": "/requestDeviceStatus/"
+    },
+    "checkOAuthStatus": {
+      "method": "get",
+      "path": "/checkOAuthStatus/"
+    },
+    "startOAuth2Flow": {
+      "method": "get",
+      "path": "/startOAuth2Flow/"
     }
   },
   "flow": {

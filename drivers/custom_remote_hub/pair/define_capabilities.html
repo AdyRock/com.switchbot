@@ -1,192 +1,104 @@
-</br>
-<p data-i18n="pair.button_code.instructions" style="text-align:left;"></p>
-</br>
-<form id="form" name="form" onsubmit="return getForm()" action="javascript:void(0);" method="post" style="text-align:left;">
-    <div class="form-group">
-        <label for="button1" data-i18n="pair.button_code.button1"></label>
-        <input type="text" name="button1" id="button1" />
-        <label for="button2" data-i18n="pair.button_code.button2"></label>
-        <input type="text" name="button2" id="button2" />
-        <label for="button3" data-i18n="pair.button_code.button3"></label>
-        <input type="text" name="button3" id="button3" />
-        <label for="button4" data-i18n="pair.button_code.button4"></label>
-        <input type="text" name="button4" id="button4" />
-        <label for="button5" data-i18n="pair.button_code.button5"></label>
-        <input type="text" name="button5" id="button5" />
-        <label for="button6" data-i18n="pair.button_code.button6"></label>
-        <input type="text" name="button6" id="button6" />
-        <label for="button7" data-i18n="pair.button_code.button7"></label>
-        <input type="text" name="button7" id="button7" />
-        <label for="button8" data-i18n="pair.button_code.button8"></label>
-        <input type="text" name="button8" id="button8" />
-        <label for="button9" data-i18n="pair.button_code.button9"></label>
-        <input type="text" name="button9" id="button9" />
-        <label for="button10" data-i18n="pair.button_code.button10"></label>
-        <input type="text" name="button10" id="button10" />
-        <label for="button11" data-i18n="pair.button_code.button11"></label>
-        <input type="text" name="button11" id="button11" />
-        <label for="button12" data-i18n="pair.button_code.button12"></label>
-        <input type="text" name="button12" id="button12" />
-        <label for="button13" data-i18n="pair.button_code.button13"></label>
-        <input type="text" name="button13" id="button13" />
-        <label for="button14" data-i18n="pair.button_code.button14"></label>
-        <input type="text" name="button14" id="button14" />
-        <label for="button15" data-i18n="pair.button_code.button15"></label>
-        <input type="text" name="button15" id="button15" />
-        <label for="button16" data-i18n="pair.button_code.button16"></label>
-        <input type="text" name="button16" id="button16" />
-        <label for="button17" data-i18n="pair.button_code.button17"></label>
-        <input type="text" name="button17" id="button17" />
-        <label for="button18" data-i18n="pair.button_code.button18"></label>
-        <input type="text" name="button18" id="button18" />
-        <label for="button19" data-i18n="pair.button_code.button19"></label>
-        <input type="text" name="button19" id="button19" />
-        <label for="button20" data-i18n="pair.button_code.button20"></label>
-        <input type="text" name="button20" id="button20" />
-        <label for="button21" data-i18n="pair.button_code.button21"></label>
-        <input type="text" name="button21" id="button21" />
-        <label for="button22" data-i18n="pair.button_code.button22"></label>
-        <input type="text" name="button22" id="button22" />
-        <label for="button23" data-i18n="pair.button_code.button23"></label>
-        <input type="text" name="button23" id="button23" />
-        <label for="button24" data-i18n="pair.button_code.button24"></label>
-        <input type="text" name="button24" id="button24" />
-        <label for="button25" data-i18n="pair.button_code.button25"></label>
-        <input type="text" name="button25" id="button25" />
-        <label for="button26" data-i18n="pair.button_code.button26"></label>
-        <input type="text" name="button26" id="button26" />
-        <label for="button27" data-i18n="pair.button_code.button27"></label>
-        <input type="text" name="button27" id="button27" />
-        <label for="button28" data-i18n="pair.button_code.button28"></label>
-        <input type="text" name="button28" id="button28" />
-        <label for="button29" data-i18n="pair.button_code.button29"></label>
-        <input type="text" name="button29" id="button29" />
-        <label for="button30" data-i18n="pair.button_code.button30"></label>
-        <input type="text" name="button30" id="button30" />
-        <label for="button31" data-i18n="pair.button_code.button31"></label>
-        <input type="text" name="button31" id="button31" />
-        <label for="button32" data-i18n="pair.button_code.button32"></label>
-        <input type="text" name="button32" id="button32" />
-        <label for="button33" data-i18n="pair.button_code.button33"></label>
-        <input type="text" name="button33" id="button33" />
-        <label for="button34" data-i18n="pair.button_code.button34"></label>
-        <input type="text" name="button34" id="button34" />
-        <label for="button35" data-i18n="pair.button_code.button35"></label>
-        <input type="text" name="button35" id="button35" />
-        <label for="button36" data-i18n="pair.button_code.button36"></label>
-        <input type="text" name="button36" id="button36" />
+<style type="text/css">
+    .pair-form {
+        text-align: left;
+    }
 
-    </br>
-        <input type="submit" id="submit" value="Done" style="margin: 15px; padding: 10px; text-align:center; color: white; background-color: rgb(15, 170, 36);border-radius: 5px" />
+    .pair-buttons-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 6px;
+    }
+
+    .pair-submit {
+        margin: 15px;
+        padding: 10px;
+        text-align: center;
+        color: #ffffff;
+        background-color: rgb(15, 170, 36);
+        border-radius: 5px;
+        border: 0;
+        cursor: pointer;
+    }
+</style>
+
+<br />
+<p data-i18n="pair.button_code.instructions" class="pair-form"></p>
+<br />
+
+<form id="form" name="form" action="javascript:void(0);" method="post" class="pair-form">
+    <div class="form-group">
+        <div id="buttonsContainer" class="pair-buttons-grid"></div>
+        <input type="submit" id="submit" class="pair-submit" data-i18n="settings.save" value="Save" />
     </div>
 </form>
-
 
 <script type="text/javascript">
     Homey.setTitle(__('pair.button_code.title'));
 
-    document.getElementById('button1').value = '';
-    document.getElementById('button2').value = '';
-    document.getElementById('button3').value = '';
-    document.getElementById('button4').value = '';
-    document.getElementById('button5').value = '';
-    document.getElementById('button6').value = '';
-    document.getElementById('button7').value = '';
-    document.getElementById('button8').value = '';
-    document.getElementById('button9').value = '';
-    document.getElementById('button10').value = '';
-    document.getElementById('button11').value = '';
-    document.getElementById('button12').value = '';
-    document.getElementById('button13').value = '';
-    document.getElementById('button14').value = '';
-    document.getElementById('button15').value = '';
-    document.getElementById('button16').value = '';
-    document.getElementById('button17').value = '';
-    document.getElementById('button18').value = '';
-    document.getElementById('button19').value = '';
-    document.getElementById('button20').value = '';
-    document.getElementById('button21').value = '';
-    document.getElementById('button22').value = '';
-    document.getElementById('button23').value = '';
-    document.getElementById('button24').value = '';
-    document.getElementById('button25').value = '';
-    document.getElementById('button26').value = '';
-    document.getElementById('button27').value = '';
-    document.getElementById('button28').value = '';
-    document.getElementById('button29').value = '';
-    document.getElementById('button30').value = '';
-    document.getElementById('button31').value = '';
-    document.getElementById('button32').value = '';
-    document.getElementById('button33').value = '';
-    document.getElementById('button34').value = '';
-    document.getElementById('button35').value = '';
-    document.getElementById('button36').value = '';
+    const BUTTON_COUNT = 36;
+    const formElement = document.getElementById('form');
+    const submitElement = document.getElementById('submit');
+    const buttonsContainerElement = document.getElementById('buttonsContainer');
 
-    function getForm()
+    for (let index = 1; index <= BUTTON_COUNT; index++)
     {
-        // Mark as authenticating
-        document.getElementById('submit').disabled = 'disabled';
+        const id = `button${index}`;
+        const i18nKey = `pair.button_code.${id}`;
+        const labelText = __(i18nKey);
 
-        let buttons = [];
-        buttons.push(document.getElementById('button1').value);
-        buttons.push(document.getElementById('button2').value);
-        buttons.push(document.getElementById('button3').value);
-        buttons.push(document.getElementById('button4').value);
-        buttons.push(document.getElementById('button5').value);
-        buttons.push(document.getElementById('button6').value);
-        buttons.push(document.getElementById('button7').value);
-        buttons.push(document.getElementById('button8').value);
-        buttons.push(document.getElementById('button9').value);
-        buttons.push(document.getElementById('button10').value);
-        buttons.push(document.getElementById('button11').value);
-        buttons.push(document.getElementById('button12').value);
-        buttons.push(document.getElementById('button13').value);
-        buttons.push(document.getElementById('button14').value);
-        buttons.push(document.getElementById('button15').value);
-        buttons.push(document.getElementById('button16').value);
-        buttons.push(document.getElementById('button17').value);
-        buttons.push(document.getElementById('button18').value);
-        buttons.push(document.getElementById('button19').value);
-        buttons.push(document.getElementById('button20').value);
-        buttons.push(document.getElementById('button21').value);
-        buttons.push(document.getElementById('button22').value);
-        buttons.push(document.getElementById('button23').value);
-        buttons.push(document.getElementById('button24').value);
-        buttons.push(document.getElementById('button25').value);
-        buttons.push(document.getElementById('button26').value);
-        buttons.push(document.getElementById('button27').value);
-        buttons.push(document.getElementById('button28').value);
-        buttons.push(document.getElementById('button29').value);
-        buttons.push(document.getElementById('button30').value);
-        buttons.push(document.getElementById('button31').value);
-        buttons.push(document.getElementById('button32').value);
-        buttons.push(document.getElementById('button33').value);
-        buttons.push(document.getElementById('button34').value);
-        buttons.push(document.getElementById('button35').value);
-        buttons.push(document.getElementById('button36').value);
+        const labelElement = document.createElement('label');
+        labelElement.setAttribute('for', id);
+        labelElement.textContent = labelText;
 
-        Homey.emit('set_buttons', {buttons: buttons}).then(function(result)
-        {
-            if (result)
-            {
-                Homey.createDevice(result)
-                .then(Homey.done())
-                .catch(function(err)
-                {
-                    document.getElementById('submit').disabled = false;
-                    return Homey.alert(err.message);
-                });
-            }
-            else
-            {
-                console.log('set_buttons failed');
-                document.getElementById('submit').disabled = false;
-            }
-        })
-        .catch(function(err)
-        {
-            document.getElementById('submit').disabled = false;
-            return Homey.alert(err.message);
-        });
+        const inputElement = document.createElement('input');
+        inputElement.type = 'text';
+        inputElement.name = id;
+        inputElement.id = id;
+        inputElement.value = '';
+        inputElement.setAttribute('title', labelText);
+        inputElement.setAttribute('aria-label', labelText);
+
+        buttonsContainerElement.appendChild(labelElement);
+        buttonsContainerElement.appendChild(inputElement);
     }
+
+    formElement.addEventListener('submit', function getForm(event)
+    {
+        event.preventDefault();
+
+        // Mark as authenticating.
+        submitElement.disabled = true;
+
+        const buttons = Array.from({ length: BUTTON_COUNT }, function (_, index)
+        {
+            const value = document.getElementById(`button${index + 1}`).value;
+            return typeof value === 'string' ? value.trim() : value;
+        });
+
+        Homey.emit('set_buttons', { buttons: buttons })
+            .then(function (result)
+            {
+                if (!result)
+                {
+                    submitElement.disabled = false;
+                    return;
+                }
+
+                return Homey.createDevice(result)
+                    .then(function ()
+                    {
+                        Homey.done();
+                    })
+                    .catch(function (err)
+                    {
+                        submitElement.disabled = false;
+                        return Homey.alert(err.message);
+                    });
+            })
+            .catch(function (err)
+            {
+                submitElement.disabled = false;
+                return Homey.alert(err.message);
+            });
+    });
 </script>

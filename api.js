@@ -59,4 +59,41 @@ module.exports = {
 		homey.app.deviceStatusLog += data;
 		return homey.app.deviceStatusLog;
 	},
+	async checkOAuthStatus({ homey, query })
+	{
+		try
+		{
+			const savedSessions = homey.app.getSavedOAuth2Sessions();
+			// getSavedOAuth2Sessions returns an object of sessions by sessionId
+			const hasSession = savedSessions && Object.keys(savedSessions).length > 0;
+			return {
+				hasOAuthSession: hasSession,
+			};
+		}
+		catch (err)
+		{
+			return {
+				hasOAuthSession: false,
+			};
+		}
+	},
+	async startOAuth2Flow({ homey, query })
+	{
+		try
+		{
+			const { authUrl, flowId } = await homey.app.startSettingsOAuthLogin();
+			return {
+				authUrl,
+				flowId,
+				success: true,
+			};
+		}
+		catch (err)
+		{
+			return {
+				success: false,
+				error: err.message
+			};
+		}
+	},
 };

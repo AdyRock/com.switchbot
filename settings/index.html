@@ -1,7 +1,10 @@
 <!doctype html>
-<html>
+<html lang="en">
 
 <head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>SwitchBot Settings</title>
 	<link rel="stylesheet" type="text/css" href="lwsa.css">
 	<link rel="stylesheet" type="text/css" href="busy_indicator.css" />
 
@@ -20,6 +23,40 @@
 		#busybox.show {
 			display: block;
 		}
+
+		.sim-log-tab-hidden {
+			display: none;
+		}
+
+		.oauth-status-message {
+			display: none;
+			color: #ff6600;
+			margin-bottom: 10px;
+		}
+
+		.oauth-login-button {
+			display: none;
+			background-color: #0066cc;
+		}
+
+		.debug-send-button {
+			background-color: #0f9e16;
+			color: #ffffff;
+			margin: 5px 20px 5px 5px;
+		}
+
+		.debug-clear-button {
+			background-color: #a5510d;
+			color: #ffffff;
+			margin: 5px 20px 5px 5px;
+		}
+
+		.detected-actions {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 8px;
+			align-items: center;
+		}
 	</style>
 
 	<!-- The '/homey.js' script must be included in your settings view to work -->
@@ -35,12 +72,12 @@
 
 	<!-- Tab links -->
 	<div class="tab">
-		<button class="tablinks" onclick="setPage(event, 'appSettings')" id="appSettingsTab">AppSettings</button>
-		<button class="tablinks" onclick="setPage(event, 'detected')" id="defaultOpen">Detected</button>
-		<button class="tablinks" onclick="setPage(event, 'log')">Log</button>
-		<button class="tablinks" onclick="setPage(event, 'status')" id="deviceStatusTab">Get Status</button>
-		<button class="tablinks" onclick="setPage(event, 'oldSettings')" id="oldSettingsTab">Old Settings</button>
-		<button class="tablinks" onclick="setPage(event, 'simulator')" id="simLogTab" style="display:none">Simulation Data</button>
+		<button class="tablinks" onclick="setPage(event, 'appSettings')" id="appSettingsTab" data-i18n="settings.tabAppSettings" title="settings.tabAppSettings"></button>
+		<button class="tablinks" onclick="setPage(event, 'detected')" id="defaultOpen" data-i18n="settings.tabDetected" title="settings.tabDetected"></button>
+		<button class="tablinks" onclick="setPage(event, 'log')" data-i18n="settings.tabLog" title="settings.tabLog"></button>
+		<button class="tablinks" onclick="setPage(event, 'status')" id="deviceStatusTab" data-i18n="settings.tabGetStatus" title="settings.tabGetStatus"></button>
+		<button class="tablinks" onclick="setPage(event, 'oldSettings')" id="oldSettingsTab" data-i18n="settings.tabOldSettings" title="settings.tabOldSettings"></button>
+		<button class="tablinks sim-log-tab-hidden" onclick="setPage(event, 'simulator')" id="simLogTab" data-i18n="settings.tabSimulationData" title="settings.tabSimulationData"></button>
 	</div>
 
 	<!--APP SETTINGS PAGE -->
@@ -48,11 +85,11 @@
 		<fieldset>
 			<div class="field row">
 				<label class="homey-form-label" for="numConnections"><span data-i18n="settings.numConnections"></span></label>
-				<input class="homey-form-input" id="numConnections" type="number" min="1" value="1" />
+				<input class="homey-form-input" id="numConnections" type="number" min="1" value="1" title="Number of connections" aria-label="Number of connections" />
 			</div>
 			<p></p>
 			<p>
-				<button id="saveAppSettings" class="homey-button-small">Save</button>
+				<button id="saveAppSettings" class="homey-button-small" data-i18n="settings.save" title="settings.save"></button>
 			</p>
 		</fieldset>
 	</div>
@@ -60,13 +97,17 @@
 	<!-- detected-->
 	<div id="detected" class="tabcontent">
 		<fieldset>
-			<p>
-				<button id="getDeviceLog" class="homey-button-small" data-i18n="settings.getDevices"></button>
-				<button id="clearDeviceLog" class="homey-button-small" data-i18n="settings.clear"></button>
-				<button id="sendDeviceLog" class="homey-button-small" data-i18n="settings.send"></button>
+			<p id="oAuthStatusMessage" class="oauth-status-message">
+				<strong data-i18n="settings.oauthMissingSessionTitle"></strong> <span data-i18n="settings.oauthMissingSessionText"></span>
+			</p>
+			<p class="detected-actions">
+				<button id="loginWithOAuth" class="homey-button-small oauth-login-button" data-i18n="settings.loginWithSwitchBot" title="Login with SwitchBot Account"></button>
+				<button id="getDeviceLog" class="homey-button-small" data-i18n="settings.getDevices" title="Get HUB Devices"></button>
+				<button id="clearDeviceLog" class="homey-button-small" data-i18n="settings.clear" title="Clear Log"></button>
+				<button id="sendDeviceLog" class="homey-button-small" data-i18n="settings.send" title="Send Log"></button>
 			</p>
 			<div class="field row">
-				<textarea id="detectedDevices" class="homey-form-textarea" wrap="off"></textarea>
+				<textarea id="detectedDevices" class="homey-form-textarea" wrap="off" title="Detected devices"></textarea>
 			</div>
 		</fieldset>
 	</div>
@@ -74,25 +115,25 @@
 	<!-- LOG PAGE -->
 	<div id="log" class="tabcontent">
 		<fieldset>
-			<p> Diagnostics Log
+			<p><span data-i18n="settings.diagnosticsLog"></span>
 			</p>
 			<div class="field row">
 				<label class="homey-form-label" for="logLevel"><span data-i18n="settings.logLevel"></span></label>
-				<select class="homey-form-select" id="logLevel">
-					<option value=0>Errors Only</option>
-					<option value=1>Webhook Information</option>
-					<option value=2>Basic Information</option>
-					<option value=3>Detailed Information</option>
-					<option value=4>Full Information</option>
+				<select class="homey-form-select" id="logLevel" title="Log level" aria-label="Log level">
+					<option value=0 data-i18n="settings.logErrorsOnly"></option>
+					<option value=1 data-i18n="settings.logWebhookInfo"></option>
+					<option value=2 data-i18n="settings.logBasicInfo"></option>
+					<option value=3 data-i18n="settings.logDetailedInfo"></option>
+					<option value=4 data-i18n="settings.logFullInfo"></option>
 				</select>
 				<P></P>
 			</div>
 			<p>
-				<button id="clearInfoLog" class="homey-button-small" data-i18n="settings.clear"></button>
-				<button id="sendInfoLog" class="homey-button-small" data-i18n="settings.send"></button>
+				<button id="clearInfoLog" class="homey-button-small" data-i18n="settings.clear" title="Clear Log"></button>
+				<button id="sendInfoLog" class="homey-button-small" data-i18n="settings.send" title="Send Log"></button>
 			</p>
 			<div class="field row">
-				<textarea id="infoLog" class="homey-form-textarea" wrap="off"></textarea>
+				<textarea id="infoLog" class="homey-form-textarea" wrap="off" title="Diagnostics log"></textarea>
 			</div>
 		</fieldset>
 	</div>
@@ -100,13 +141,12 @@
 	<!--SEND COMMAND PAGE -->
 	<div id="send" class="tabcontent">
 		<fieldset>
-			<h1>For debug use only</h1>
-			<p><input id="commandData" type="text" value="" /><button id="sendCmd"
-					style="background-color:#0f9e16;color:white;margin:5px 20px 5px 5px;">Send</button><button
-					id="clearSend" style="background-color:#a5510d;color:white;margin:5px 20px 5px 5px;">Clear
-					Log</button></p>
+			<h1 data-i18n="settings.forDebugUseOnly"></h1>
+			<p><input id="commandData" type="text" value="" title="settings.commandData" aria-label="settings.commandData" /><button id="sendCmd"
+					class="debug-send-button" data-i18n="settings.send" title="settings.send"></button><button
+					id="clearSend" class="debug-clear-button" data-i18n="settings.clear" title="settings.clear"></button></p>
 			<div class="field row">
-				<textarea id="sendResponse" class="homey-form-textarea" wrap="off"></textarea>
+				<textarea id="sendResponse" class="homey-form-textarea" wrap="off" title="Send command response"></textarea>
 			</div>
 		</fieldset>
 	</div>
@@ -114,11 +154,11 @@
 	<!--SIMULATION PAGE -->
 	<div id="simulator" class="tabcontent">
 		<fieldset>
-			<h1>For debug use only</h1>
-			<p><button id="useSim" class="homey-button-small">Activate</button><button id="clearSim"
-					style="background-color:#a5510d;color:white;margin:5px 20px 5px 5px;">Clear Sim</button></p>
+			<h1 data-i18n="settings.forDebugUseOnly"></h1>
+			<p><button id="useSim" class="homey-button-small" data-i18n="settings.activate" title="settings.activate"></button><button id="clearSim"
+					class="debug-clear-button" data-i18n="settings.clearSim" title="settings.clearSim"></button></p>
 			<div class="field row">
-				<textarea id="simData" class="homey-form-textarea" wrap="off"></textarea>
+				<textarea id="simData" class="homey-form-textarea" wrap="off" title="Simulation data"></textarea>
 			</div>
 		</fieldset>
 	</div>
@@ -126,19 +166,19 @@
 	<!--DEVICE GET STATUS PAGE -->
 	<div id="status" class="tabcontent">
 		<fieldset>
-			<h1>For debug use only</h1>
+			<h1 data-i18n="settings.forDebugUseOnly"></h1>
 			<div class="field row">
-				<label class="homey-form-label" for="deviceID">Device ID</label>
-				<input class="homey-form-input" id="deviceID" type="text" value="" />
+				<label class="homey-form-label" for="deviceID" data-i18n="settings.deviceId"></label>
+				<input class="homey-form-input" id="deviceID" type="text" value="" title="settings.deviceId" aria-label="settings.deviceId" />
 			</div>
 			<p></p>
 			<p>
-				<button id="readStatus" class="homey-button-small">Read Status</button>
-				<button id="clearStatusLog" class="homey-button-small">Clear Log</button>
-				<button id="sendStatusLog" class="homey-button-small">Send Log</button>
+				<button id="readStatus" class="homey-button-small" data-i18n="settings.readStatus" title="settings.readStatus"></button>
+				<button id="clearStatusLog" class="homey-button-small" data-i18n="settings.clear" title="settings.clear"></button>
+				<button id="sendStatusLog" class="homey-button-small" data-i18n="settings.send" title="settings.send"></button>
 			</p>
 			<div class="field row">
-				<textarea id="statusData" class="homey-form-textarea" wrap="off"></textarea>
+				<textarea id="statusData" class="homey-form-textarea" wrap="off" title="Device status log"></textarea>
 			</div>
 		</fieldset>
 	</div>
@@ -146,18 +186,18 @@
 	<!--OLD SETTINGS PAGE -->
 	<div id="oldSettings" class="tabcontent">
 		<fieldset>
-			<h1>For debug use only</h1>
+			<h1 data-i18n="settings.forDebugUseOnly"></h1>
 			<div class="field row">
-				<label class="homey-form-label" for="openToken">Open Token</label>
-				<input class="homey-form-input" id="openToken" type="text" value="" />
+				<label class="homey-form-label" for="openToken" data-i18n="settings.openToken"></label>
+				<input class="homey-form-input" id="openToken" type="text" value="" title="settings.openToken" aria-label="settings.openToken" />
 			</div>
 			<div class="field row">
-				<label class="homey-form-label" for="openSecret">Open Secret</label>
-				<input class="homey-form-input" id="openSecret" type="text" value="" />
+				<label class="homey-form-label" for="openSecret" data-i18n="settings.openSecret"></label>
+				<input class="homey-form-input" id="openSecret" type="text" value="" title="settings.openSecret" aria-label="settings.openSecret" />
 			</div>
 			<p></p>
 			<p>
-				<button id="saveSettings" class="homey-button-small">Save</button>
+				<button id="saveSettings" class="homey-button-small" data-i18n="settings.save" title="settings.save"></button>
 			</p>
 		</fieldset>
 	</div>
@@ -170,14 +210,34 @@
 		var detectedDevicesElement = document.getElementById('detectedDevices');
 		var infoLogElement = document.getElementById('infoLog');
 		var logLevelElement = document.getElementById('logLevel');
-		var pollIntervalElement = document.getElementById('pollInterval');
 		var clearInfoLogElement = document.getElementById('clearInfoLog');
 		var sendInfoLogElement = document.getElementById('sendInfoLog');
 
-		var saveElement = document.getElementById('save');
 		var getDeviceLogElement = document.getElementById('getDeviceLog');
 		var clearDeviceLogElement = document.getElementById('clearDeviceLog');
 		var sendDeviceLogElement = document.getElementById('sendDeviceLog');
+		var loginWithOAuthElement = document.getElementById('loginWithOAuth');
+		var oAuthStatusMessageElement = document.getElementById('oAuthStatusMessage');
+
+		function setOAuthUiState(hasOAuthSession)
+		{
+			if (hasOAuthSession)
+			{
+				oAuthStatusMessageElement.style.display = 'none';
+				loginWithOAuthElement.style.display = 'none';
+				getDeviceLogElement.style.display = 'inline-block';
+				clearDeviceLogElement.style.display = 'inline-block';
+				sendDeviceLogElement.style.display = 'inline-block';
+			}
+			else
+			{
+				oAuthStatusMessageElement.style.display = 'block';
+				loginWithOAuthElement.style.display = 'inline-block';
+				getDeviceLogElement.style.display = 'none';
+				clearDeviceLogElement.style.display = 'none';
+				sendDeviceLogElement.style.display = 'none';
+			}
+		}
 
 		// Simulation log tab
 		var useSimElement = document.getElementById('useSim');
@@ -200,11 +260,57 @@
 		var numConnectionsElement = document.getElementById('numConnections');
 		var saveAppSettingsElement = document.getElementById('saveAppSettings');
 
+		// Function to check OAuth status
+		function checkOAuthStatus(Homey)
+		{
+			Homey.api('GET', '/checkOAuthStatus/', {}, function (err, result)
+			{
+				if (err)
+				{
+					console.error('OAuth check error:', err);
+					setOAuthUiState(false);
+					return;
+				}
+
+				if (result && result.hasOAuthSession)
+				{
+					setOAuthUiState(true);
+				}
+				else
+				{
+					setOAuthUiState(false);
+				}
+			});
+		}
+
 		// a method named 'onHomeyReady' must be present in your code
 		function onHomeyReady(Homey)
 		{
+			const t = (key, fallback) => {
+				const value = Homey.__(key);
+				return value === key ? fallback : value;
+			};
+
+			const localizeA11yPlaceholders = () => {
+				document.querySelectorAll('[title^="settings."]').forEach((element) => {
+					const key = element.getAttribute('title');
+					element.setAttribute('title', t(key, key));
+				});
+
+				document.querySelectorAll('[aria-label^="settings."]').forEach((element) => {
+					const key = element.getAttribute('aria-label');
+					element.setAttribute('aria-label', t(key, key));
+				});
+			};
+
 			// Tell Homey we're ready to be displayed
 			Homey.ready();
+
+			// Ensure placeholder accessibility labels are localized at runtime.
+			localizeA11yPlaceholders();
+
+			// Check OAuth status
+			checkOAuthStatus(Homey);
 
 			Homey.get('debugMode', function (err, debugMode)
 			{
@@ -262,24 +368,75 @@
 				});
 			});
 
-			getDeviceLogElement.addEventListener('click', function (e)
+			loginWithOAuthElement.addEventListener('click', function (e)
 			{
 				waitCursor(true);
-				Homey.api('GET', '/getDetect/',
-					{
-						notify: true,
-						hubDevices: true
-					}, function (err, result)
+				Homey.api('GET', '/startOAuth2Flow/', {}, function (err, result)
 				{
-					if (err)
-					{
-						Homey.alert(err);
-					}
-					else
-					{
-						detectedDevicesElement.value = result;
-					}
 					waitCursor(false);
+
+					if (err || !result || !result.authUrl)
+					{
+						Homey.alert(t('settings.oauthLoginStartError', 'Error initiating login. Please try again. If this persists, check your OAuth2 client configuration.'));
+						return;
+					}
+
+					// Use Homey.openURL to open the OAuth callback URL in the actual browser (outside settings webview)
+					Homey.openURL(result.authUrl);
+
+					// After user completes OAuth, check status periodically
+					Homey.alert(t('settings.oauthLoginOpened', 'A browser window has opened with the SwitchBot login page. After login, return here. The Get HUB devices button will be available once authenticated.'));
+
+					// Give user time to complete OAuth, then start checking
+					setTimeout(() => {
+						checkOAuthStatus(Homey);
+					}, 3000);
+
+					// Keep checking every 5 seconds for up to 5 minutes
+					const maxAttempts = 60;
+					let attempts = 0;
+					const checkInterval = setInterval(() => {
+						attempts++;
+						if (attempts >= maxAttempts)
+						{
+							clearInterval(checkInterval);
+							return;
+						}
+						checkOAuthStatus(Homey);
+					}, 5000);
+				});
+			});
+
+			getDeviceLogElement.addEventListener('click', function (e)
+			{
+				// Check OAuth status first
+				Homey.api('GET', '/checkOAuthStatus/', {}, function (err, result)
+				{
+					if (err || (result && !result.hasOAuthSession))
+					{
+						Homey.alert(t('settings.oauthLoginRequiredFirst', 'Please log in with your SwitchBot account first by clicking the Login with SwitchBot Account button.'));
+						oAuthStatusMessageElement.style.display = 'block';
+						loginWithOAuthElement.style.display = 'block';
+						return;
+					}
+
+					waitCursor(true);
+					Homey.api('GET', '/getDetect/',
+						{
+							notify: true,
+							hubDevices: true
+						}, function (err, result)
+					{
+						if (err)
+						{
+							Homey.alert(err);
+						}
+						else
+						{
+							detectedDevicesElement.value = result;
+						}
+						waitCursor(false);
+					});
 				});
 			});
 
@@ -296,9 +453,9 @@
 			{
 				if (detectedDevicesElement.value.length < 15)
 				{
-					return Homey.alert("No Data to send");
+					return Homey.alert(t('settings.noDataToSend', 'No Data to send'));
 				}
-				Homey.confirm("Send the device log contents to the developer?", null, function (e, ok)
+				Homey.confirm(t('settings.confirmSendDeviceLog', 'Send the device log contents to the developer?'), null, function (e, ok)
 				{
 					if (ok)
 					{
@@ -314,7 +471,7 @@
 							}
 							else
 							{
-								Homey.alert("Log sent successfully");
+								Homey.alert(t('settings.logSentSuccessfully', 'Log sent successfully'));
 							}
 							waitCursor(false);
 						});
@@ -326,10 +483,10 @@
 			{
 				if (infoLogElement.value.length < 15)
 				{
-					return Homey.alert("No Data to send");
+					return Homey.alert(t('settings.noDataToSend', 'No Data to send'));
 				}
 
-				Homey.confirm("Send the information log contents to the developer?", null, function (e, ok)
+				Homey.confirm(t('settings.confirmSendInfoLog', 'Send the information log contents to the developer?'), null, function (e, ok)
 				{
 					if (ok)
 					{
@@ -345,7 +502,7 @@
 							}
 							else
 							{
-								Homey.alert("Log sent successfully");
+								Homey.alert(t('settings.logSentSuccessfully', 'Log sent successfully'));
 							}
 							waitCursor(false);
 						});
@@ -383,7 +540,7 @@
 						}
 						else
 						{
-							Homey.alert("Simulator On");
+							Homey.alert(t('settings.simulatorOn', 'Simulator On'));
 						}
 					});
 				}
@@ -403,7 +560,7 @@
 					}
 					else
 					{
-						return Homey.alert("Simulator Off");
+						return Homey.alert(t('settings.simulatorOff', 'Simulator Off'));
 					}
 				});
 			});
@@ -445,10 +602,10 @@
 			{
 				if (statusDataElement.value.length < 15)
 				{
-					return Homey.alert("No Data to send");
+					return Homey.alert(t('settings.noDataToSend', 'No Data to send'));
 				}
 
-				Homey.confirm("Send the status log contents to the developer?", null, function (e, ok)
+				Homey.confirm(t('settings.confirmSendStatusLog', 'Send the status log contents to the developer?'), null, function (e, ok)
 				{
 					if (ok)
 					{
@@ -464,7 +621,7 @@
 							}
 							else
 							{
-								Homey.alert("Log sent successfully");
+								Homey.alert(t('settings.logSentSuccessfully', 'Log sent successfully'));
 							}
 							waitCursor(false);
 						});
@@ -535,7 +692,7 @@
 				});
 
 				// Make the log text area fill the page
-				infoLogElement.style.width = (logLevel.offsetWidth) + 'px';
+				infoLogElement.style.width = (logLevelElement.offsetWidth) + 'px';
 				infoLogElement.style.height = (window.innerHeight - infoLogElement.offsetTop - 60) + 'px';
 			}
 			else if (tabPage == 'detected')
@@ -558,7 +715,7 @@
 			else if (tabPage == 'status')
 			{
 				// Make the detected devices text area fill the page
-				statusDataElement.style.width = (deviceID.offsetWidth) + 'px';
+				statusDataElement.style.width = (deviceIDElement.offsetWidth) + 'px';
 				statusDataElement.style.height = (window.innerHeight - statusDataElement.offsetTop - 60) + 'px';
 			}
 			else if (tabPage == 'oldSettings')

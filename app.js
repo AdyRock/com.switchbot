@@ -301,7 +301,7 @@ class MyApp extends OAuth2App
 		}
 
 		// Callback for app settings changed
-		this.homey.settings.on('set', async function settingChanged(setting)
+		this.homey.settings.on('set', async (setting) =>
 		{
 			this.homey.app.updateLog(`Setting ${setting} has changed.`, 3);
 			if (setting === 'logLevel')
@@ -354,6 +354,12 @@ class MyApp extends OAuth2App
 		this.onBLEPoll = this.onBLEPoll.bind(this);
 		this.bleDevices = 0;
 		this.bleTimerID = null;
+
+		// Webhook registration backoff tracking
+		this.webhookRetryCount = 0;
+
+		// Track in-progress OAuth flows started from settings
+		this.settingsOAuthFlows = {};
 
 		// Register flow cards
 
@@ -694,7 +700,7 @@ class MyApp extends OAuth2App
 		this.stateChangedToTrigger = this.homey.flow.getDeviceTriggerCard('vaccum_state_changed_to');
 		this.stateChangedToTrigger.registerRunListener(async (args, state) =>
 		{
-			if (args.state === state.state)
+			if (state && (args.state === state.state))
 			{
 				return true;
 			}
@@ -705,7 +711,7 @@ class MyApp extends OAuth2App
 		this.taskChangedToTrigger = this.homey.flow.getDeviceTriggerCard('vaccum_task_changed_to');
 		this.taskChangedToTrigger.registerRunListener(async (args, state) =>
 		{
-			if (args.state === state.state)
+			if (state && (args.state === state.state))
 			{
 				return true;
 			}
@@ -747,6 +753,26 @@ class MyApp extends OAuth2App
 
 	async onUninit()
 	{
+		if (this.apiCountReset)
+		{
+			this.homey.clearTimeout(this.apiCountReset);
+			this.apiCountReset = null;
+		}
+		if (this.webRegTimerID)
+		{
+			this.homey.clearTimeout(this.webRegTimerID);
+			this.webRegTimerID = null;
+		}
+		if (this.timerHubID)
+		{
+			this.homey.clearTimeout(this.timerHubID);
+			this.timerHubID = null;
+		}
+		if (this.bleTimerID)
+		{
+			this.homey.clearTimeout(this.bleTimerID);
+			this.bleTimerID = null;
+		}
 		this.restoreLoggingMethods();
 		await this.deleteSwitchBotWebhook();
 	}
@@ -1065,6 +1091,7 @@ class MyApp extends OAuth2App
 		this.devicesMACs.push(DeviceMAC);
 
 		// Delay the actual registration to allow other devices to initialise and do them all at once
+		this.webhookRetryCount = 0;
 		this.webRegTimerID = this.homey.setTimeout(() => this.doWebhookReg(), 2000);
 	}
 
@@ -1091,10 +1118,15 @@ class MyApp extends OAuth2App
 			{
 				this.updateLog(`Homey Webhook failed to unregister, Error: ${err.message}`, 0);
 
-				// Try again later
+				// Try again later with exponential backoff
 				if (!this.webRegTimerID)
 				{
-					this.webRegTimerID = this.homey.setTimeout(() => this.doWebhookReg(), 2000);
+					this.webhookRetryCount++;
+					const baseDelay = Math.min(5000 * Math.pow(2, Math.min(this.webhookRetryCount - 1, 3)), 60000);
+					const jitter = Math.random() * 1000;
+					const nextDelay = Math.floor(baseDelay + jitter);
+					this.updateLog(`Homey Webhook will retry in ${nextDelay}ms (attempt ${this.webhookRetryCount})`, 1);
+					this.webRegTimerID = this.homey.setTimeout(() => this.doWebhookReg(), nextDelay);
 				}
 				return;
 			}
@@ -1117,43 +1149,33 @@ class MyApp extends OAuth2App
 					// Try again later
 					if (!this.webRegTimerID)
 					{
-						this.webRegTimerID = this.homey.setTimeout(() => this.doWebhookReg(), 2000);
+						this.webhookRetryCount++;
+						const baseDelay = Math.min(5000 * Math.pow(2, Math.min(this.webhookRetryCount - 1, 3)), 60000);
+						const jitter = Math.random() * 1000;
+						const nextDelay = Math.floor(baseDelay + jitter);
+						this.webRegTimerID = this.homey.setTimeout(() => this.doWebhookReg(), nextDelay);
 					}
 				}
 			});
 
 			this.updateLog(`Homey Webhook registered for devices ${this.homey.app.varToString(data)}`, 1);
+			this.webhookRetryCount = 0;
 		}
 		catch (err)
 		{
 			this.updateLog(`Homey Webhook registration failed for devices ${this.homey.app.varToString(data)}, Error: ${err.message}`, 0);
 
-			// Try again later
+			// Exponential backoff with jitter and cap
 			if (!this.webRegTimerID)
 			{
-				this.webRegTimerID = this.homey.setTimeout(() => this.doWebhookReg(), 2000);
+				this.webhookRetryCount++;
+				const baseDelay = Math.min(5000 * Math.pow(2, Math.min(this.webhookRetryCount - 1, 3)), 60000);
+				const jitter = Math.random() * 1000;
+				const nextDelay = Math.floor(baseDelay + jitter);
+				this.updateLog(`Homey Webhook will retry in ${nextDelay}ms (attempt ${this.webhookRetryCount})`, 1);
+				this.webRegTimerID = this.homey.setTimeout(() => this.doWebhookReg(), nextDelay);
 			}
 		}
-	}
-
-	async setupSwitchBotWebhook()
-	{
-
-		// Setup a timer to ensure the webhook is registered every hour in case of issues with the SwitchBot cloud or the Homey webhook service
-		if (this.webRegTimerID)
-		{
-			this.homey.clearTimeout(this.webRegTimerID);
-		}
-
-		// Timer to check if the webhook is registered every hour. If not, try to register it again. If there are issues with the SwitchBot cloud or the Homey webhook service, try again every minute.
-		let timer = 60 * 60 * 1000;
-		if (!await this.ensureSwitchBotWebhook())
-		{
-			timer = 60 * 1000;
-		}
-
-		// setup to call this function again after the timer expires to ensure the webhook is always registered
-		this.webRegTimerID = this.homey.setTimeout(() => this.setupSwitchBotWebhook(), timer);
 	}
 
 	async ensureSwitchBotWebhook()
@@ -1223,6 +1245,56 @@ class MyApp extends OAuth2App
 		return false;
 	}
 
+	async setupSwitchBotWebhook()
+	{
+
+		// Setup a timer to ensure the webhook is registered every hour in case of issues with the SwitchBot cloud or the Homey webhook service
+		if (this.webRegTimerID)
+		{
+			this.homey.clearTimeout(this.webRegTimerID);
+		}
+
+		// Timer to check if the webhook is registered every hour. If not, try to register it again. If there are issues with the SwitchBot cloud or the Homey webhook service, try again every minute.
+		let timer = 60 * 60 * 1000;
+		if (!await this.ensureSwitchBotWebhook())
+		{
+			timer = 60 * 1000;
+		}
+
+		// setup to call this function again after the timer expires to ensure the webhook is always registered
+		this.webRegTimerID = this.homey.setTimeout(() => this.setupSwitchBotWebhook(), timer);
+	}
+
+	/**
+	 * Helper method to get the first saved OAuth2 client.
+	 * getSavedOAuth2Sessions() returns an object of { sessionId: sessionData },
+	 * but the code often needs to work with a single client instance.
+	 * This safely retrieves the first one, or returns null if none exist.
+	 * @returns {OAuth2Client|null}
+	 */
+	getFirstSavedOAuth2Client()
+	{
+		try
+		{
+			const savedSessions = this.getSavedOAuth2Sessions();
+			if (savedSessions && Object.keys(savedSessions).length > 0)
+			{
+				// Get the first session ID and retrieve its client
+				const firstSessionId = Object.keys(savedSessions)[0];
+				return this.getOAuth2Client({
+					configId: 'default',
+					sessionId: firstSessionId,
+				});
+			}
+			return null;
+		}
+		catch (err)
+		{
+			this.updateLog(`Error getting first OAuth2 client: ${err.message}`, 0);
+			return null;
+		}
+	}
+
 	async getHUBDevices()
 	{
 		let response = null;
@@ -1278,198 +1350,297 @@ class MyApp extends OAuth2App
 	}
 
 	async runScene(id)
+	{
+		const oAuth2Client = this.getFirstSavedOAuth2Client();
+		if (oAuth2Client)
 		{
-			const oAuth2Client = this.getFirstSavedOAuth2Client();
-			if (oAuth2Client)
-			{
-				const retData = await oAuth2Client.startScene(id);
-				return retData.body ? retData.body : retData;
-			}
-
-			return this.hub.startScene(id);
+			const retData = await oAuth2Client.startScene(id);
+			return retData.body ? retData.body : retData;
 		}
+
+		return this.hub.startScene(id);
+	}
+
+	async startSettingsOAuthLogin()
+	{
+		try
+		{
+			const flowId = `settings-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+			const sessionId = `settings-session-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+
+			const client = this.createOAuth2Client({
+				sessionId,
+				configId: 'default',
+			});
+
+			const authorizationUrl = client.getAuthorizationUrl();
+			this.updateLog(`OAuth AuthUrl: ${authorizationUrl}`, 0);
+
+			const callback = await this.homey.cloud.createOAuth2Callback(authorizationUrl);
+			this.updateLog(`OAuth callback created`, 0);
+
+			this.settingsOAuthFlows[flowId] = {
+				sessionId,
+				status: 'pending',
+				startedAt: Date.now(),
+			};
+
+			// Set up the 'url' event listener first (before Promise)
+			let urlPromise;
+			const urlPromiseObj = new Promise((resolve) => {
+				callback.on('url', (url) => {
+					this.updateLog(`OAuth callback URL received: ${url.substring(0, 80)}...`, 0);
+					resolve(url);
+				});
+			});
+			urlPromise = urlPromiseObj;
+
+			// Set up the 'code' event listener (async handling, non-blocking)
+			callback.on('code', async (code) => {
+				try
+				{
+					this.updateLog(`OAuth code received: ${code.substring(0, 30)}...`, 0);
+					this.updateLog(`About to call getTokenByCode with client redirectUrl property: ${client._redirectUrl || 'UNDEFINED'}`, 0);
+					await client.getTokenByCode({ code });
+
+					// Get session information for display
+					const session = await client.onGetOAuth2SessionInformation();
+					const token = client.getToken();
+					const { title } = session;
+
+					// Set the title and token on the client
+					client.setTitle({ title });
+					client.setToken({ token });
+
+					// Save the client to persist the OAuth session
+					client.save();
+
+					this.settingsOAuthFlows[flowId] = {
+						...this.settingsOAuthFlows[flowId],
+						status: 'authorized',
+					};
+
+					this.updateLog(`Settings OAuth login successful for user: ${title}`, 2);
+				}
+				catch (err)
+				{
+					this.settingsOAuthFlows[flowId] = {
+						...this.settingsOAuthFlows[flowId],
+						status: 'failed',
+						error: err.message,
+					};
+					this.updateLog(`Settings OAuth code exchange failed: ${err.message}`, 0);
+				}
+			});
+
+			// Wait for the URL with timeout
+			const authUrl = await Promise.race([
+				urlPromise,
+				new Promise((_, reject) =>
+					this.homey.setTimeout(() => reject(new Error('Timed out while preparing OAuth callback URL')), 15000)
+				),
+			]);
+
+			return {
+				flowId,
+				authUrl,
+			};
+		}
+		catch (err)
+		{
+			this.logInformation('startSettingsOAuthLogin error:', err.message);
+			throw err;
+		}
+	}
 
 	async getScenes()
+	{
+		// Find an OAuth session
+		const oAuth2Client = this.getFirstSavedOAuth2Client();
+		if (oAuth2Client)
 		{
-			// Find an OAuth session
-			const oAuth2Client = this.getFirstSavedOAuth2Client();
-			if (oAuth2Client)
+			const response = await oAuth2Client.getScenes();
+			if (response.statusCode && response.statusCode !== 100)
 			{
-				const response = await oAuth2Client.getScenes();
-				if (response.statusCode && response.statusCode !== 100)
+				this.homey.app.updateLog(`Invalid response code: ${response.statusCode}`, 0);
+				throw (new Error(`Invalid response code: ${response.statusCode}`));
+			}
+
+			const searchData = response.body ? response.body : response;
+			const scenes = [];
+
+			if (Array.isArray(searchData))
+			{
+				// Create an array of devices
+				for (const scene of searchData)
 				{
-					this.homey.app.updateLog(`Invalid response code: ${response.statusCode}`, 0);
-					throw (new Error(`Invalid response code: ${response.statusCode}`));
+					// Add this scene to the table
+					let data = {};
+					data = {
+						id: scene.sceneId,
+					};
+
+					// Add this device to the table
+					scenes.push(
+						{
+							name: scene.sceneName,
+							data,
+						},
+					);
 				}
-
-				const searchData = response.body ? response.body : response;
-				const scenes = [];
-
-				if (Array.isArray(searchData))
-				{
-					// Create an array of devices
-					for (const scene of searchData)
-					{
-						// Add this scene to the table
-						let data = {};
-						data = {
-							id: scene.sceneId,
-						};
-
-						// Add this device to the table
-						scenes.push(
-							{
-								name: scene.sceneName,
-								data,
-							},
-						);
-					}
-				}
-				return scenes;
 			}
-
-			return this.hub.getScenes();
+			return scenes;
 		}
 
-		registerHUBPolling()
+		return this.hub.getScenes();
+	}
+
+	registerHUBPolling()
+	{
+		this.hubDevices++;
+		if (this.timerHubID === null)
 		{
-			this.hubDevices++;
-			if (this.timerHubID === null)
-			{
-				this.timerHubID = this.homey.setTimeout(this.onHubPoll, 1000);
-			}
+			this.timerHubID = this.homey.setTimeout(this.onHubPoll, 1000);
 		}
+	}
 
-		unregisterHUBPolling()
+	unregisterHUBPolling()
+	{
+		this.hubDevices = Math.max(0, this.hubDevices - 1);
+		if ((this.hubDevices === 0) && (this.timerHubID !== null))
 		{
-			this.hubDevices--;
-			if ((this.hubDevices === 0) && (this.timerHubID !== null))
-			{
-				this.homey.clearTimeout(this.timerHubID);
-				this.timerHubID = null;
-			}
+			this.homey.clearTimeout(this.timerHubID);
+			this.timerHubID = null;
 		}
+	}
 
 	async onHubPoll()
+	{
+		this.homey.app.updateLog(`Polling hub: ${this.homey.app.apiCalls} API calls today`);
+		if (this.timerHubID)
 		{
-			this.homey.app.updateLog(`Polling hub: ${this.homey.app.apiCalls} API calls today`);
-			if (this.timerHubID)
-			{
-				this.homey.clearTimeout(this.timerHubID);
-				this.timerHubID = null;
-			}
+			this.homey.clearTimeout(this.timerHubID);
+			this.timerHubID = null;
+		}
 
-			let totalHuBDevices = 0;
+		let totalHuBDevices = 0;
 
-			const drivers = this.homey.drivers.getDrivers();
-			for (const driver of Object.values(drivers))
+		const drivers = this.homey.drivers.getDrivers();
+		for (const driver of Object.values(drivers))
+		{
+			const devices = driver.getDevices();
+			for (const device of Object.values(devices))
 			{
-				const devices = driver.getDevices();
-				for (const device of Object.values(devices))
+				if (device.pollHubDeviceValues)
 				{
-					if (device.pollHubDeviceValues)
+					try
 					{
-						try
+						if (await device.pollHubDeviceValues())
 						{
-							if (await device.pollHubDeviceValues())
-							{
-								totalHuBDevices++;
-							}
+							totalHuBDevices++;
 						}
-						catch (err)
-						{
-							const deviceName = (device.getName && typeof device.getName === 'function') ? device.getName() : 'Unknown device';
-							const deviceData = (device.getData && typeof device.getData === 'function') ? device.getData() : {};
-							this.homey.app.updateLog(`Hub poll failed for ${deviceName} (${deviceData.id || 'unknown id'}): ${err.message}`, 0);
-						}
+					}
+					catch (err)
+					{
+						const deviceName = (device.getName && typeof device.getName === 'function') ? device.getName() : 'Unknown device';
+						const deviceData = (device.getData && typeof device.getData === 'function') ? device.getData() : {};
+						this.homey.app.updateLog(`Hub poll failed for ${deviceName} (${deviceData.id || 'unknown id'}): ${err.message}`, 0);
 					}
 				}
 			}
-
-			if (totalHuBDevices > 0)
-			{
-				const minimumIntervalMs = MINIMUM_POLL_INTERVAL * 1000;
-				const quotaIntervalMs = Math.ceil((SECONDS_PER_DAY * 1000 * totalHuBDevices * this.numConnections) / POLLING_DAILY_BUDGET);
-				const nextInterval = Math.max(minimumIntervalMs, quotaIntervalMs);
-
-				this.homey.app.updateLog(`Next HUB polling interval = ${nextInterval / 1000}s for ${totalHuBDevices} active devices across ${this.numConnections} Homey account connection(s): ${this.homey.app.apiCalls} API calls today`);
-				this.timerHubID = this.homey.setTimeout(this.onHubPoll, nextInterval);
-			}
 		}
 
-		registerBLEPolling()
+		if (totalHuBDevices > 0)
 		{
-			this.bleDevices++;
-			if (this.bleTimerID === null)
-			{
-				this.bleTimerID = this.homey.setTimeout(this.onBLEPoll, BLE_POLLING_INTERVAL);
-			}
-		}
+			const minimumIntervalMs = MINIMUM_POLL_INTERVAL * 1000;
+			const quotaIntervalMs = Math.ceil((SECONDS_PER_DAY * 1000 * totalHuBDevices * this.numConnections) / POLLING_DAILY_BUDGET);
+			const nextInterval = Math.max(minimumIntervalMs, quotaIntervalMs);
 
-		unregisterBLEPolling()
-		{
-			this.bleDevices--;
-			if ((this.bleDevices === 0) && (this.bleTimerID !== null))
-			{
-				this.homey.clearTimeout(this.bleTimerID);
-				this.bleTimerID = null;
-			}
+			this.homey.app.updateLog(`Next HUB polling interval = ${nextInterval / 1000}s for ${totalHuBDevices} active devices across ${this.numConnections} Homey account connection(s): ${this.homey.app.apiCalls} API calls today`);
+			this.timerHubID = this.homey.setTimeout(this.onHubPoll, nextInterval);
 		}
+	}
+
+	registerBLEPolling()
+	{
+		this.bleDevices++;
+		if (this.bleTimerID === null)
+		{
+			this.bleTimerID = this.homey.setTimeout(this.onBLEPoll, BLE_POLLING_INTERVAL);
+		}
+	}
+
+	unregisterBLEPolling()
+	{
+		this.bleDevices = Math.max(0, this.bleDevices - 1);
+		if ((this.bleDevices === 0) && (this.bleTimerID !== null))
+		{
+			this.homey.clearTimeout(this.bleTimerID);
+			this.bleTimerID = null;
+		}
+	}
 
 	/// ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Homey BLE
 	//
 	async onBLEPoll()
+	{
+		if (!this.bleBusy && !this.bleDiscovery)
 		{
-			if (!this.bleBusy && !this.bleDiscovery)
+			this.bleBusy = true;
+			this.blePolling = true;
+			this.updateLog('\r\n------ Polling BLE Starting ------');
+
+			const promises = [];
+			try
 			{
-				this.bleBusy = true;
-				this.blePolling = true;
-				this.updateLog('\r\n------ Polling BLE Starting ------');
+				// Run discovery too fetch new data
+				await this.homey.ble.discover(['cba20d00224d11e69fb80002a5d5c51b'], 2000);
+				this.updateLog('BLE Finished Discovery');
 
-				const promises = [];
-				try
+				// eslint-disable-next-line no-restricted-syntax
+				const drivers = this.homey.drivers.getDrivers();
+				for (const driver of Object.values(drivers))
 				{
-					// Run discovery too fetch new data
-					await this.homey.ble.discover(['cba20d00224d11e69fb80002a5d5c51b'], 2000);
-					this.updateLog('BLE Finished Discovery');
-
-					// eslint-disable-next-line no-restricted-syntax
-					const drivers = this.homey.drivers.getDrivers();
-					for (const driver of Object.values(drivers))
+					const devices = driver.getDevices();
+					for (const device of Object.values(devices))
 					{
-						const devices = driver.getDevices();
-						for (const device of Object.values(devices))
+						if (device.getDeviceValues)
 						{
-							if (device.getDeviceValues)
-							{
-								promises.push(device.getDeviceValues());
-							}
+							promises.push(device.getDeviceValues());
 						}
 					}
-
-					this.updateLog('Polling BLE: waiting for devices to update');
-					await Promise.all(promises);
-				}
-				catch (err)
-				{
-					this.updateLog(`BLE Polling Error: ${err.message}`);
 				}
 
-				this.blePolling = false;
-				this.bleBusy = false;
-				this.updateLog('------ Polling BLE Finished ------\r\n');
+				this.updateLog('Polling BLE: waiting for devices to update');
+				await Promise.all(promises);
 			}
-			else
+			catch (err)
 			{
-				this.updateLog('Polling BLE skipped while discovery in progress\r\n');
+				this.updateLog(`BLE Polling Error: ${err.message}`);
 			}
 
-			this.updateLog(`Next BLE polling interval = ${BLE_POLLING_INTERVAL}`);
-
-			this.bleTimerID = this.homey.setTimeout(this.onBLEPoll, BLE_POLLING_INTERVAL);
+			this.blePolling = false;
+			this.bleBusy = false;
+			this.updateLog('------ Polling BLE Finished ------\r\n');
+		}
+		else
+		{
+			this.updateLog('Polling BLE skipped while discovery in progress\r\n');
 		}
 
+		if (this.bleDevices > 0)
+		{
+			this.updateLog(`Next BLE polling interval = ${BLE_POLLING_INTERVAL}`);
+			this.bleTimerID = this.homey.setTimeout(this.onBLEPoll, BLE_POLLING_INTERVAL);
+		}
+		else
+		{
+			this.bleTimerID = null;
+			this.updateLog('BLE polling stopped: no registered BLE devices');
+		}
 	}
+
+}
 
 module.exports = MyApp;

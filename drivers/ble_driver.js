@@ -232,7 +232,16 @@ class BLEDriver extends Homey.Driver
 			return null;
 		}
 
+		if (!Array.isArray(device.serviceData) || !device.serviceData[0])
+		{
+			return null;
+		}
+
 		const { uuid } = device.serviceData[0];
+		if (typeof uuid !== 'string')
+		{
+			return null;
+		}
 		if ((uuid.search('0d00') < 0) && (uuid.search('fd3d') < 0))
 		{
 			return null;
@@ -246,8 +255,12 @@ class BLEDriver extends Homey.Driver
 		const model = buf.slice(0, 1).toString('utf8');
 		let sd = null;
 
-		// Log the data with the buf in hex of two digits and a space
-		this.homey.app.updateLog(`BLE Device: ${device.address}, "${model}", (${device.rssi})\nServ: ${buf.toString('hex').match(/.{1,2}/g).join(' ')}\nManu: ${device.manufacturerData ? device.manufacturerData.toString('hex').match(/.{1,2}/g).join(' ') : ''}`, 3);
+		// Log the data with bytes grouped to avoid null join errors on empty buffers.
+		const serviceHex = (buf.toString('hex').match(/.{1,2}/g) || []).join(' ');
+		const manufacturerHex = device.manufacturerData
+			? ((device.manufacturerData.toString('hex').match(/.{1,2}/g) || []).join(' '))
+			: '';
+		this.homey.app.updateLog(`BLE Device: ${device.address}, "${model}", (${device.rssi})\nServ: ${serviceHex}\nManu: ${manufacturerHex}`, 3);
 
 		if (model === 'H')
 		{ // WoHand
