@@ -80,9 +80,54 @@ class MyApp extends OAuth2App
 
 	normalizeLogMessage(newMessage)
 	{
-		const message = (typeof newMessage === 'string') ? newMessage : this.varToString(newMessage);
+		const message = this.redactSensitiveLogData((typeof newMessage === 'string') ? newMessage : this.varToString(newMessage));
 		const peripheralFormatted = message.replace(/(Peripheral Not Found:\s*)([a-fA-F0-9]{12})(\b)/g, (fullText, prefix, id, suffix) => `${prefix}${this.formatMacAddress(id)}${suffix}`);
 		return peripheralFormatted.replace(/(No data for\s*)([a-fA-F0-9]{12})(\b)/gi, (fullText, prefix, id, suffix) => `${prefix}${this.formatMacAddress(id)}${suffix}`);
+	}
+
+	redactSensitiveLogData(message)
+	{
+		if (typeof message !== 'string' || message.length === 0)
+		{
+			return message;
+		}
+
+		let sanitized = message;
+
+		// Redact known query/body secret patterns.
+		sanitized = sanitized
+			.replace(/([?&]client_id=)[^&\s]+/gi, '$1***')
+			.replace(/([?&]client_secret=)[^&\s]+/gi, '$1***')
+			.replace(/([?&]code=)[^&\s]+/gi, '$1***')
+			.replace(/([?&]token=)[^&\s]+/gi, '$1***')
+			.replace(/(Authorization\s*:\s*Bearer\s+)[^\s]+/gi, '$1***')
+			.replace(/(\"Authorization\"\s*:\s*\"Bearer\s+)[^\"]+(\")/gi, '$1***$2');
+
+		// Redact env.json values if they accidentally appear in logs.
+		const env = Homey && Homey.env ? Homey.env : {};
+		const envKeysToRedact = [
+			'CLIENT_ID',
+			'CLIENT_SECRET',
+			'MAIL_HOST',
+			'MAIL_USER',
+			'MAIL_SECRET',
+			'MAIL_RECIPIENT',
+			'WEBHOOK_ID',
+			'WEBHOOK_SECRET',
+			'WEBHOOK_URL',
+			'USER_AGENT_HEADER',
+		];
+
+		for (const key of envKeysToRedact)
+		{
+			const value = env[key];
+			if (typeof value === 'string' && value.length > 0)
+			{
+				sanitized = sanitized.split(value).join('***');
+			}
+		}
+
+		return sanitized;
 	}
 
 	overrideLoggingMethods()
@@ -1050,7 +1095,7 @@ class MyApp extends OAuth2App
 
 	async processWebhookMessage(message)
 	{
-		this.updateLog(`Got a webhook message! ${this.varToString(message)}`, 1);
+		this.updateLog('Got a webhook message!', 1);
 		const drivers = this.homey.drivers.getDrivers();
 		for (const driver of Object.values(drivers))
 		{
@@ -1210,11 +1255,11 @@ class MyApp extends OAuth2App
 						{
 							if (response2.statusCode && response2.statusCode !== 100)
 							{
-								this.homey.app.updateLog(`Delete webhook: ${body.urls[0]}\nInvalid response code: ${response2.statusCode}\nMessage: ${response2.message}`, 0);
+								this.homey.app.updateLog(`Delete webhook failed\nInvalid response code: ${response2.statusCode}\nMessage: ${response2.message}`, 0);
 								return false;
 							}
 
-							this.homey.app.updateLog(`Deleted old webhook: ${body.urls[0]}`, 3);
+							this.homey.app.updateLog('Deleted old webhook', 3);
 						}
 					}
 				}
@@ -1374,7 +1419,7 @@ class MyApp extends OAuth2App
 			});
 
 			const authorizationUrl = client.getAuthorizationUrl();
-			this.updateLog(`OAuth AuthUrl: ${authorizationUrl}`, 0);
+			this.updateLog('OAuth authorization URL prepared', 0);
 
 			const callback = await this.homey.cloud.createOAuth2Callback(authorizationUrl);
 			this.updateLog(`OAuth callback created`, 0);
@@ -1389,7 +1434,7 @@ class MyApp extends OAuth2App
 			let urlPromise;
 			const urlPromiseObj = new Promise((resolve) => {
 				callback.on('url', (url) => {
-					this.updateLog(`OAuth callback URL received: ${url.substring(0, 80)}...`, 0);
+					this.updateLog('OAuth callback URL received', 0);
 					resolve(url);
 				});
 			});
