@@ -227,10 +227,13 @@ class LightHubDevice extends HubDevice
 					if (this.hasCapability('light_hue') && this.hasCapability('light_saturation') && data.color)
 					{
 						const rgb = data.color.split(':');
-						const hsl = this.rgbToHsl(rgb[0], rgb[1], rgb[2]);
+						if (Array.isArray(rgb) && rgb.length >= 3)
+						{
+							const hsl = this.rgbToHsl(rgb[0], rgb[1], rgb[2]);
 
-						this.setCapabilityValue('light_hue', hsl[0] / 360).catch(this.error);
-						this.setCapabilityValue('light_saturation', hsl[1] / 100).catch(this.error);
+							this.setCapabilityValue('light_hue', hsl[0] / 360).catch(this.error);
+							this.setCapabilityValue('light_saturation', hsl[1] / 100).catch(this.error);
+						}
 					}
 				}
 				this.unsetWarning().catch(this.error);
@@ -283,10 +286,13 @@ class LightHubDevice extends HubDevice
 					if (this.hasCapability('light_hue') && this.hasCapability('light_saturation') && color)
 					{
 						const rgb = color.split(':');
-						const hsl = this.rgbToHsl(rgb[0], rgb[1], rgb[2]);
+						if (Array.isArray(rgb) && rgb.length >= 3)
+						{
+							const hsl = this.rgbToHsl(rgb[0], rgb[1], rgb[2]);
 
-						this.setCapabilityValue('light_hue', hsl[0] / 360).catch(this.error);
-						this.setCapabilityValue('light_saturation', hsl[1] / 100).catch(this.error);
+							this.setCapabilityValue('light_hue', hsl[0] / 360).catch(this.error);
+							this.setCapabilityValue('light_saturation', hsl[1] / 100).catch(this.error);
+						}
 					}
 				}
 			}

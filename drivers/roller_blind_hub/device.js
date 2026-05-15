@@ -40,6 +40,15 @@ class RollerBlindHubDevice extends HubDevice
 	 */
 	async onAdded()
 	{
+		try
+		{
+			await this.getHubDeviceValues();
+		}
+		catch (err)
+		{
+			this.setUnavailable(err.message);
+		}
+
 		this.log('RollerBlindHubDevice has been added');
 	}
 
@@ -139,13 +148,11 @@ class RollerBlindHubDevice extends HubDevice
 				this.setCapabilityValue('windowcoverings_set', position).catch(this.error);
 				this.setCapabilityValue('position', position * 100).catch(this.error);
 
-				if (this.lastPosition)
+				// Check if last position is known, and if it has changed trigger the Position Less Than and Position Greater Than flows
+				if ((this.lastPosition !== undefined) && (this.lastPosition !== null) && (this.lastPosition !== position))
 				{
-					if (this.lastPosition !== position)
-					{
-						this.homey.app.triggerPositionLessThan(this, { lastPosition: this.lastPosition, position }, { lastPosition: this.lastPosition, position }).catch(this.error);
-						this.homey.app.triggerPositionGreaterThan(this, { lastPosition: this.lastPosition, position }, { lastPosition: this.lastPosition, position }).catch(this.error);
-					}
+					this.homey.app.triggerPositionLessThan(this, { lastPosition: this.lastPosition, position }, { lastPosition: this.lastPosition, position }).catch(this.error);
+					this.homey.app.triggerPositionGreaterThan(this, { lastPosition: this.lastPosition, position }, { lastPosition: this.lastPosition, position }).catch(this.error);
 				}
 
 				this.lastPosition = position;
@@ -200,13 +207,11 @@ class RollerBlindHubDevice extends HubDevice
 				this.setCapabilityValue('windowcoverings_set', position).catch(this.error);
 				this.setCapabilityValue('position', position * 100).catch(this.error);
 
-				if (this.lastPosition)
+				// Check if last position is known, and if it has changed trigger the Position Less Than and Position Greater Than flows
+				if ((this.lastPosition !== undefined) && (this.lastPosition !== null) && (this.lastPosition !== position))
 				{
-					if (this.lastPosition !== position)
-					{
-						this.homey.app.triggerPositionLessThan(this, { lastPosition: this.lastPosition, position }, { lastPosition: this.lastPosition, position }).catch(this.error);
-						this.homey.app.triggerPositionGreaterThan(this, { lastPosition: this.lastPosition, position }, { lastPosition: this.lastPosition, position }).catch(this.error);
-					}
+					this.homey.app.triggerPositionLessThan(this, { lastPosition: this.lastPosition, position }, { lastPosition: this.lastPosition, position }).catch(this.error);
+					this.homey.app.triggerPositionGreaterThan(this, { lastPosition: this.lastPosition, position }, { lastPosition: this.lastPosition, position }).catch(this.error);
 				}
 
 				this.lastPosition = position;

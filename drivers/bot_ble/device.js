@@ -319,8 +319,11 @@ class BotBLEDevice extends Homey.Device
 
 					if (notification.status === true)
 					{
-						this.setCapabilityValue('measure_battery', notification.notificationData[1]).catch(this.error);
-						const operationMode = ((notification.notificationData[9] & 16) !== 0);
+						if (Array.isArray(notification.notificationData) && notification.notificationData.length > 1)
+						{
+							this.setCapabilityValue('measure_battery', notification.notificationData[1]).catch(this.error);
+						}
+						const operationMode = (Array.isArray(notification.notificationData) && notification.notificationData.length > 9) ? ((notification.notificationData[9] & 16) !== 0) : false;
 						if (this.operationMode !== operationMode)
 						{
 							this.operationMode = operationMode;

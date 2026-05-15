@@ -1359,11 +1359,15 @@ class MyApp extends OAuth2App
 			if (savedSessions && Object.keys(savedSessions).length > 0)
 			{
 				// Get the first session ID and retrieve its client
-				const firstSessionId = Object.keys(savedSessions)[0];
-				return this.getOAuth2Client({
-					configId: 'default',
-					sessionId: firstSessionId,
-				});
+				const sessionIds = Object.keys(savedSessions);
+				if (sessionIds && sessionIds.length > 0)
+				{
+					const firstSessionId = sessionIds[0];
+					return this.getOAuth2Client({
+						configId: 'default',
+						sessionId: firstSessionId,
+					});
+				}
 			}
 			return null;
 		}
