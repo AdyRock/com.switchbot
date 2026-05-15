@@ -20,6 +20,12 @@
 	"speaker_prev",
 	"measure_battery"
   ],
+  "energy": {
+    "batteries": [
+      "AA",
+      "AA"
+    ]
+  },
   "$extends": [
     "hubDriver"
   ]

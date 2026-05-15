@@ -67,7 +67,7 @@ class SmartFanNewHubDevice extends HubDevice
 			if (data)
 			{
 				this.setAvailable();
-				this.homey.app.updateLog(`Smart Fan New Hub got: ${this.homey.app.varToString(data)}`, 3);
+				this.homey.app.updateLog(`Smart Fan New Hub got: ${this.homey.app.varToString(data)}`, 3, 'hub');
 
 				this.setCapabilityValue('onoff', data.power === 'on').catch(this.error);
 				this.setCapabilityValue('smart_fan_mode2', data.mode).catch(this.error);
@@ -79,7 +79,7 @@ class SmartFanNewHubDevice extends HubDevice
 		}
 		catch (err)
 		{
-			this.homey.app.updateLog(`Smart Fan New Hub getHubDeviceValues: ${this.homey.app.varToString(err.message)}`, 0);
+			this.homey.app.updateLog(`Smart Fan New Hub getHubDeviceValues: ${this.homey.app.varToString(err.message)}`, 0, 'hub');
 			this.setWarning(err.message).catch(this.error);;
 		}
 	}
@@ -97,13 +97,13 @@ class SmartFanNewHubDevice extends HubDevice
 				this.setCapabilityValue('smart_fan_mode2', message.context.mode).catch(this.error);
 				this.setCapabilityValue('night_light', message.context.nightStatus).catch(this.error);
 //				this.setCapabilityValue('measure_battery', message.context.battery).catch(this.error);
-				this.homey.app.updateLog(`Smart Fan New Hub got webhook message: ${this.homey.app.varToString(message)}`, 3);
+				this.homey.app.updateLog(`Smart Fan New Hub got webhook message: ${this.homey.app.varToString(message)}`, 3, 'hub');
 				this.unsetWarning().catch(this.error);;
 			}
 		}
 		catch (err)
 		{
-			this.homey.app.updateLog(`processWebhookMessage error ${err.message}`, 0);
+			this.homey.app.updateLog(`processWebhookMessage error ${err.message}`, 0, 'hub');
 		}
 	}
 

@@ -122,7 +122,7 @@ class RelayHubDevice extends HubDevice
 			if (data)
 			{
 				this.setAvailable();
-				this.homey.app.updateLog(`Relay Hub got: ${this.homey.app.varToString(data)}`, 3);
+				this.homey.app.updateLog(`Relay Hub got: ${this.homey.app.varToString(data)}`, 3, 'hub', 'hub');
 
 				this.setCapabilityValue('onoff', data.switchStatus === 1).catch(this.error);
 				if (this.hasCapability('measure_voltage'))
@@ -137,7 +137,7 @@ class RelayHubDevice extends HubDevice
 		}
 		catch (err)
 		{
-			this.homey.app.updateLog(`Bot getHubDeviceValues: ${this.homey.app.varToString(err.message)}`, 0);
+			this.homey.app.updateLog(`Bot getHubDeviceValues: ${this.homey.app.varToString(err.message)}`, 0, 'hub', 'hub');
 			this.setWarning(err.message).catch(this.error);;
 		}
 	}
@@ -156,13 +156,13 @@ class RelayHubDevice extends HubDevice
 			{
 				// message is for this device
 				const data = message.context;
-				this.homey.app.updateLog(`processWebhookMessage: ${this.homey.app.varToString(data)}`, 3);
+				this.homey.app.updateLog(`processWebhookMessage: ${this.homey.app.varToString(data)}`, 3, 'hub', 'hub');
 				this.setCapabilityValue('onoff', data.switchStatus === 1).catch(this.error);
 			}
 		}
 		catch (err)
 		{
-			this.homey.app.updateLog(`processWebhookMessage error ${err.message}`, 0);
+			this.homey.app.updateLog(`processWebhookMessage error ${err.message}`, 0, 'hub', 'hub');
 		}
 	}
 

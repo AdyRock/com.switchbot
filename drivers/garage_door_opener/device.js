@@ -93,7 +93,7 @@ class GarageDoorOpenerDevice extends HubDevice
 			if (data)
 			{
 				this.setAvailable();
-				this.homey.app.updateLog(`Garage Door Opener got: ${this.homey.app.varToString(data)}`, 3);
+				this.homey.app.updateLog(`Garage Door Opener got: ${this.homey.app.varToString(data)}`, 3, 'hub');
 				const oldopenClosedStatus = this.getCapabilityValue('open_close');
 				const newDoorStatus = data.doorStatus === 0;
 
@@ -109,7 +109,7 @@ class GarageDoorOpenerDevice extends HubDevice
 		}
 		catch (err)
 		{
-			this.homey.app.updateLog(`Garage Door Opener getHubDeviceValues: ${this.homey.app.varToString(err.message)}`, 0);
+			this.homey.app.updateLog(`Garage Door Opener getHubDeviceValues: ${this.homey.app.varToString(err.message)}`, 0, 'hub');
 			this.setWarning(err.message).catch(this.error);;
 		}
 	}
@@ -128,7 +128,7 @@ class GarageDoorOpenerDevice extends HubDevice
 			{
 				// message is for this device
 				const data = message.context;
-				this.homey.app.updateLog(`processWebhookMessage: ${this.homey.app.varToString(data)}`, 3);
+				this.homey.app.updateLog(`processWebhookMessage: ${this.homey.app.varToString(data)}`, 3, 'hub');
 
 				const oldopenClosedStatus = this.getCapabilityValue('open_close');
 				const newDoorStatus = data.doorStatus === 0;
@@ -144,7 +144,7 @@ class GarageDoorOpenerDevice extends HubDevice
 		}
 		catch (err)
 		{
-			this.homey.app.updateLog(`processWebhookMessage error ${err.message}`, 0);
+			this.homey.app.updateLog(`processWebhookMessage error ${err.message}`, 0, 'hub');
 		}
 	}
 

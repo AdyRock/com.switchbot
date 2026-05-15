@@ -94,7 +94,7 @@ class LockHubDevice extends HubDevice
 			if (data)
 			{
 				this.setAvailable();
-				this.homey.app.updateLog(`Lock Hub got: ${this.homey.app.varToString(data)}`, 3);
+				this.homey.app.updateLog(`Lock Hub got: ${this.homey.app.varToString(data)}`, 3, 'hub');
 
 				this.setCapabilityValue('locked', data.lockState === 'locked').catch(this.error);
 				this.setCapabilityValue('alarm_generic', data.lockState === 'jammed').catch(this.error);
@@ -110,7 +110,7 @@ class LockHubDevice extends HubDevice
 						}
 						catch (err)
 						{
-							this.homey.app.updateLog(this.homey.app.varToString(err));
+							this.homey.app.updateLog(this.homey.app.varToString(err), 'hub');
 						}
 					}
 
@@ -121,7 +121,7 @@ class LockHubDevice extends HubDevice
 		}
 		catch (err)
 		{
-			this.homey.app.updateLog(`Lock getHubDeviceValues: ${this.homey.app.varToString(err.message)}`, 0);
+			this.homey.app.updateLog(`Lock getHubDeviceValues: ${this.homey.app.varToString(err.message)}`, 0, 'hub');
 			this.setWarning(err.message).catch(this.error);;
 		}
 	}
@@ -153,7 +153,7 @@ class LockHubDevice extends HubDevice
 						}
 						catch (err)
 						{
-							this.homey.app.updateLog(this.homey.app.varToString(err));
+							this.homey.app.updateLog(this.homey.app.varToString(err), 'hub');
 						}
 
 					}
@@ -164,7 +164,7 @@ class LockHubDevice extends HubDevice
 		}
 		catch (err)
 		{
-			this.homey.app.updateLog(`processWebhookMessage error ${err.message}`, 0);
+			this.homey.app.updateLog(`processWebhookMessage error ${err.message}`, 0, 'hub');
 		}
 	}
 

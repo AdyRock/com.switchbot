@@ -99,7 +99,7 @@ class HumidityHubDevice extends HubDevice
 			if (data)
 			{
 				this.setAvailable();
-				this.homey.app.updateLog(`Humidifier2 Hub got: ${this.homey.app.varToString(data)}`, 3);
+				this.homey.app.updateLog(`Humidifier2 Hub got: ${this.homey.app.varToString(data)}`, 3, 'hub');
 
 				this.setCapabilityValue('onoff', data.power === 'on').catch(this.error);
 				this.setCapabilityValue('humidifier_mode', data.mode).catch(this.error);
@@ -112,7 +112,7 @@ class HumidityHubDevice extends HubDevice
 		}
 		catch (err)
 		{
-			this.homey.app.updateLog(`Humidifier2 getHubDeviceValues: ${this.homey.app.varToString(err.message)}`, 0);
+			this.homey.app.updateLog(`Humidifier2 getHubDeviceValues: ${this.homey.app.varToString(err.message)}`, 0, 'hub');
 			this.setWarning(err.message).catch(this.error);;
 		}
 	}
@@ -131,7 +131,7 @@ class HumidityHubDevice extends HubDevice
 		}
 		catch (err)
 		{
-			this.homey.app.updateLog(`processWebhookMessage error ${err.message}`, 0);
+			this.homey.app.updateLog(`processWebhookMessage error ${err.message}`, 0, 'hub');
 		}
 	}
 

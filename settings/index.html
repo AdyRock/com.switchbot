@@ -128,6 +128,15 @@
 				</select>
 				<P></P>
 			</div>
+			<div class="field row">
+				<label class="homey-form-label" for="logSource"><span data-i18n="settings.logSource"></span></label>
+				<select class="homey-form-select" id="logSource" title="Log source" aria-label="Log source">
+					<option value="all" data-i18n="settings.logSourceAll"></option>
+					<option value="ble" data-i18n="settings.logSourceBLE"></option>
+					<option value="hub" data-i18n="settings.logSourceHub"></option>
+				</select>
+				<P></P>
+			</div>
 			<p>
 				<button id="clearInfoLog" class="homey-button-small" data-i18n="settings.clear" title="Clear Log"></button>
 				<button id="sendInfoLog" class="homey-button-small" data-i18n="settings.send" title="Send Log"></button>
@@ -210,6 +219,7 @@
 		var detectedDevicesElement = document.getElementById('detectedDevices');
 		var infoLogElement = document.getElementById('infoLog');
 		var logLevelElement = document.getElementById('logLevel');
+		var logSourceElement = document.getElementById('logSource');
 		var clearInfoLogElement = document.getElementById('clearInfoLog');
 		var sendInfoLogElement = document.getElementById('sendInfoLog');
 
@@ -354,6 +364,12 @@
 				logLevelElement.value = logLevel.toString();
 			});
 
+			Homey.get('logSource', function (err, logSource)
+			{
+				if (err) return Homey.alert(err);
+				logSourceElement.value = logSource || 'all';
+			});
+
 			Homey.get('numConnections', function (err, numConnections)
 			{
 				if (err) return Homey.alert(err);
@@ -363,6 +379,14 @@
 			logLevelElement.addEventListener('change', function (e)
 			{
 				Homey.set('logLevel', parseInt(logLevelElement.value), function (err)
+				{
+					if (err) return Homey.alert(err);
+				});
+			});
+
+			logSourceElement.addEventListener('change', function (e)
+			{
+				Homey.set('logSource', logSourceElement.value, function (err)
 				{
 					if (err) return Homey.alert(err);
 				});

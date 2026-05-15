@@ -6025,7 +6025,13 @@
         "speaker_next",
         "speaker_prev",
         "measure_battery"
-      ]
+      ],
+      "energy": {
+        "batteries": [
+          "AA",
+          "AA"
+        ]
+      }
     },
     {
       "id": "blind_tilt_ble",
@@ -10967,7 +10973,13 @@
         "smart_fan_mode2",
         "night_light",
         "measure_battery"
-      ]
+      ],
+      "energy": {
+        "batteries": [
+          "AA",
+          "AA"
+        ]
+      }
     },
     {
       "platforms": [

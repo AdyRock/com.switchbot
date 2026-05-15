@@ -25,30 +25,30 @@ class HubDriver extends OAuth2Driver
 		{
 			if (this.homey.app.openToken)
 			{
-				this.homey.app.updateLog('Getting devices using openToken', 2);
+				this.homey.app.updateLog('Getting devices using openToken', 2, 'hub');
 				response = await this.homey.app.getHUBDevices();
 			}
 			else
 			{
-				this.homey.app.updateLog('Getting devices using oAuth2Client', 2);
+				this.homey.app.updateLog('Getting devices using oAuth2Client', 2, 'hub');
 				response = await oAuth2Client.getDevices();
 			}
 		}
 
 		if (response)
 		{
-			this.homey.app.updateLog(`Get devices: ${this.homey.app.varToString(response)}`, 2);
+			this.homey.app.updateLog(`Get devices: ${this.homey.app.varToString(response)}`, 2, 'hub');
 
 			if (response.statusCode && response.statusCode !== 100)
 			{
-				this.homey.app.updateLog(`Invalid response code: ${response.statusCode}\nMessage: ${this.homey.app.varToString(response)}`, 0);
+				this.homey.app.updateLog(`Invalid response code: ${response.statusCode}\nMessage: ${this.homey.app.varToString(response)}`, 0, 'hub');
 				throw (new Error(`Invalid response code: ${response.statusCode}`));
 			}
 
 			let searchData = response.body;
 			if (!searchData)
 			{
-				this.homey.app.updateLog('Response body is empty, using complete response as searchData', 0);
+				this.homey.app.updateLog('Response body is empty, using complete response as searchData', 0, 'hub');
 				searchData = response;
 			}
 
@@ -70,7 +70,7 @@ class HubDriver extends OAuth2Driver
 
 			if (RemoteList)
 			{
-				this.homey.app.updateLog('Getting devices from infraredRemoteList', 2);
+				this.homey.app.updateLog('Getting devices from infraredRemoteList', 2, 'hub');
 				if (Array.isArray(searchData.infraredRemoteList))
 				{
 					// Create an array of devices
@@ -78,8 +78,8 @@ class HubDriver extends OAuth2Driver
 					{
 						if ((device.remoteType === type) || (device.remoteType === (`DIY ${type}`)))
 						{
-							this.homey.app.updateLog('Found device: ');
-							this.homey.app.updateLog(this.homey.app.varToString(device));
+							this.homey.app.updateLog('Found device: ', 'hub');
+							this.homey.app.updateLog(this.homey.app.varToString(device), 'hub');
 
 							let data = {};
 							if (device.remoteType === (`DIY ${type}`))
@@ -112,7 +112,7 @@ class HubDriver extends OAuth2Driver
 				if (Array.isArray(searchData.deviceList))
 				{
 					// Log the complete list of devices
-					this.homey.app.updateLog(`Searching deviceList for: ${type}`);
+					this.homey.app.updateLog(`Searching deviceList for: ${type}`, 'hub');
 
 					// Create an array of devices
 					for (const device of searchData.deviceList)
@@ -139,8 +139,8 @@ class HubDriver extends OAuth2Driver
 						{
 							if (((device.master === undefined) || (device.master === true)) && (!requireHub || device.deviceType.includes('Hub') || device.hubDeviceId !== ''))
 							{
-								this.homey.app.updateLog('Found device: ');
-								this.homey.app.updateLog(this.homey.app.varToString(device));
+								this.homey.app.updateLog('Found device: ', 'hub');
+								this.homey.app.updateLog(this.homey.app.varToString(device), 'hub');
 
 								let data = {};
 								data = {
@@ -160,11 +160,11 @@ class HubDriver extends OAuth2Driver
 							{
 								if (device.master)
 								{
-									this.homey.app.updateLog(`Device ${device.deviceName} found but it is a sub-device and will be ignored`, 2);
+									this.homey.app.updateLog(`Device ${device.deviceName} found but it is a sub-device and will be ignored`, 2, 'hub');
 								}
 								else
 								{
-									this.homey.app.updateLog(`Device ${device.deviceName} found but a hub id required but not defined so it will be ignored`, 2);
+									this.homey.app.updateLog(`Device ${device.deviceName} found but a hub id required but not defined so it will be ignored`, 2, 'hub');
 								}
 							}
 						}
@@ -172,14 +172,14 @@ class HubDriver extends OAuth2Driver
 				}
 				else
 				{
-					this.homey.app.updateLog(`searchData.deviceList is not an array: ${this.homey.app.varToString(searchData.deviceList)}`, 0);
+					this.homey.app.updateLog(`searchData.deviceList is not an array: ${this.homey.app.varToString(searchData.deviceList)}`, 0, 'hub');
 				}
 			}
-			this.homey.app.updateLog(`Devices found: ${this.homey.app.varToString(devices)}`, 2);
+			this.homey.app.updateLog(`Devices found: ${this.homey.app.varToString(devices)}`, 2, 'hub');
 			return devices;
 		}
 
-		this.homey.app.updateLog('Getting API Key returned NULL', 0);
+		this.homey.app.updateLog('Getting API Key returned NULL', 0, 'hub');
 		throw (new Error('HTTPS Error: Nothing returned'));
 	}
 
@@ -190,7 +190,7 @@ class HubDriver extends OAuth2Driver
 		{
 			if (response.statusCode && response.statusCode !== 100)
 			{
-				this.homey.app.updateLog(`Invalid response code: ${response.statusCode}\nMessage: ${this.homey.app.varToString(response)}`, 0);
+				this.homey.app.updateLog(`Invalid response code: ${response.statusCode}\nMessage: ${this.homey.app.varToString(response)}`, 0, 'hub');
 				throw (new Error(`Invalid response code: ${response.statusCode}`));
 			}
 
@@ -213,8 +213,8 @@ class HubDriver extends OAuth2Driver
 				// Create an array of devices
 				for (const device of searchData)
 				{
-					this.homey.app.updateLog('Found device: ');
-					this.homey.app.updateLog(this.homey.app.varToString(device));
+					this.homey.app.updateLog('Found device: ', 'hub');
+					this.homey.app.updateLog(this.homey.app.varToString(device), 'hub');
 
 					let data = {};
 					data = {
@@ -233,7 +233,7 @@ class HubDriver extends OAuth2Driver
 			return devices;
 		}
 
-		this.homey.app.updateLog('Getting API Key returned NULL', 0);
+		this.homey.app.updateLog('Getting API Key returned NULL', 0, 'hub');
 		throw (new Error('HTTPS Error: Nothing returned'));
 	}
 

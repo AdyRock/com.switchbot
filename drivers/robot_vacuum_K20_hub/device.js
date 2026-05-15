@@ -150,7 +150,7 @@ class VacuumK20HubDevice extends HubDevice
 			if (data)
 			{
 				this.setAvailable();
-				this.homey.app.updateLog(`VacuumK20HubDevice got: ${this.homey.app.varToString(data)}`, 3);
+				this.homey.app.updateLog(`VacuumK20HubDevice got: ${this.homey.app.varToString(data)}`, 3, 'hub');
 
 				// Check for working status
 				if (data.workingStatus)
@@ -221,7 +221,7 @@ class VacuumK20HubDevice extends HubDevice
 						}
 						catch (err)
 						{
-							this.homey.app.updateLog(this.homey.app.varToString(err));
+							this.homey.app.updateLog(this.homey.app.varToString(err), 'hub');
 						}
 					}
 
@@ -233,7 +233,7 @@ class VacuumK20HubDevice extends HubDevice
 		}
 		catch (err)
 		{
-			this.homey.app.updateLog(`VacuumK20HubDevice getHubDeviceValues: ${this.homey.app.varToString(err.message)}`, 0);
+			this.homey.app.updateLog(`VacuumK20HubDevice getHubDeviceValues: ${this.homey.app.varToString(err.message)}`, 0, 'hub');
 			this.setWarning(err.message).catch(this.error);;
 		}
 	}
@@ -317,7 +317,7 @@ class VacuumK20HubDevice extends HubDevice
 							}
 							catch (err)
 							{
-								this.homey.app.updateLog(this.homey.app.varToString(err));
+								this.homey.app.updateLog(this.homey.app.varToString(err), 'hub');
 							}
 
 						}
@@ -329,7 +329,7 @@ class VacuumK20HubDevice extends HubDevice
 		}
 		catch (err)
 		{
-			this.homey.app.updateLog(`VacuumK20HubDevice processWebhookMessage error ${err.message}`, 0);
+			this.homey.app.updateLog(`VacuumK20HubDevice processWebhookMessage error ${err.message}`, 0, 'hub');
 		}
 	}
 

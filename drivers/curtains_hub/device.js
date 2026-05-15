@@ -247,7 +247,7 @@ class CurtainsHubDevice extends HubDevice
 			if (data)
 			{
 				this.setAvailable();
-				this.homey.app.updateLog(`Curtain Hub got: ${this.homey.app.varToString(data)}`, 3);
+				this.homey.app.updateLog(`Curtain Hub got: ${this.homey.app.varToString(data)}`, 3, 'hub');
 
 				let position = data.slidePosition / 100;
 				if (this.invertPosition)
@@ -301,7 +301,7 @@ class CurtainsHubDevice extends HubDevice
 						}
 						catch (err)
 						{
-							this.homey.app.updateLog(this.homey.app.varToString(err));
+							this.homey.app.updateLog(this.homey.app.varToString(err), 'hub');
 						}
 					}
 
@@ -312,7 +312,7 @@ class CurtainsHubDevice extends HubDevice
 		}
 		catch (err)
 		{
-			this.homey.app.updateLog(`Curtains getHubDeviceValues: ${this.homey.app.varToString(err.message)}`, 0);
+			this.homey.app.updateLog(`Curtains getHubDeviceValues: ${this.homey.app.varToString(err.message)}`, 0, 'hub');
 			this.setWarning(err.message).catch(this.error);;
 		}
 	}
@@ -387,7 +387,7 @@ class CurtainsHubDevice extends HubDevice
 						}
 						catch (err)
 						{
-							this.homey.app.updateLog(this.homey.app.varToString(err));
+							this.homey.app.updateLog(this.homey.app.varToString(err), 'hub');
 						}
 					}
 
@@ -397,7 +397,7 @@ class CurtainsHubDevice extends HubDevice
 		}
 		catch (err)
 		{
-			this.homey.app.updateLog(`processWebhookMessage error ${err.message}`, 0);
+			this.homey.app.updateLog(`processWebhookMessage error ${err.message}`, 0, 'hub');
 		}
 	}
 

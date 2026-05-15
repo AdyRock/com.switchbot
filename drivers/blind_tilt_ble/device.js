@@ -174,7 +174,7 @@ class BlindTiltBLEDevice extends Homey.Device
 	 * ---------------------------------------------------------------- */
 	async runToPos(percent, mode = 0xff)
 	{
-		this.homey.app.updateLog(`COMMAND: Setting Blind Tilt to:${percent}`);
+		this.homey.app.updateLog(`COMMAND: Setting Blind Tilt to:${percent}`, 'ble');
 		this.setCapabilityValue('position', null).catch(this.error);
 		return this._operateBlind([0x57, 0x0f, 0x45, 0x01, 0x05, mode, percent]);
 	}
@@ -203,7 +203,7 @@ class BlindTiltBLEDevice extends Homey.Device
 				else
 				{
 					this.bestHub = '';
-					this.homey.app.updateLog(`BLE Hub for ${name} returned ${this.homey.app.varToString(deviceInfo)}`, 0);
+					this.homey.app.updateLog(`BLE Hub for ${name} returned ${this.homey.app.varToString(deviceInfo)}`, 0, 'ble');
 				}
 			}
 		}
@@ -240,21 +240,21 @@ class BlindTiltBLEDevice extends Homey.Device
 				if (response === true)
 				{
 					this.homey.app.bleBusy = false;
-					this.homey.app.updateLog(`Command complete for ${name}`);
+					this.homey.app.updateLog(`Command complete for ${name}`, 'ble');
 					this.sendingCommand = false;
 					return;
 				}
 			}
 			catch (err)
 			{
-				this.homey.app.updateLog(`_operateBot error: ${name} : ${err.message}`, 0);
+				this.homey.app.updateLog(`_operateBot error: ${name} : ${err.message}`, 0, 'ble');
 			}
 
 			this.homey.app.bleBusy = false;
 
 			if (loops > 0)
 			{
-				this.homey.app.updateLog(`Retry command (${4 - loops} of 3) for ${name} in 2 seconds`);
+				this.homey.app.updateLog(`Retry command (${4 - loops} of 3) for ${name} in 2 seconds`, 'ble');
 				await this.homey.app.Delay(2000);
 			}
 		}
@@ -263,7 +263,7 @@ class BlindTiltBLEDevice extends Homey.Device
 
 		if (response instanceof Error)
 		{
-			this.homey.app.updateLog(`!!!!!!! Command for ${name} failed\r\n`, 0);
+			this.homey.app.updateLog(`!!!!!!! Command for ${name} failed\r\n`, 0, 'ble');
 			throw response;
 		}
 	}
@@ -274,32 +274,32 @@ class BlindTiltBLEDevice extends Homey.Device
 
 		try
 		{
-			this.homey.app.updateLog(`Looking for BLE device: ${name}`);
+			this.homey.app.updateLog(`Looking for BLE device: ${name}`, 'ble');
 
 			const dd = this.getData();
 			const bleAdvertisement = await this.homey.ble.find(dd.id);
 			if (!bleAdvertisement)
 			{
-				this.homey.app.updateLog(`BLE device ${name} not found`, 2);
+				this.homey.app.updateLog(`BLE device ${name} not found`, 2, 'ble');
 				return false;
 			}
 
-			this.homey.app.updateLog(`Connecting to BLE device: ${name}`);
+			this.homey.app.updateLog(`Connecting to BLE device: ${name}`, 'ble');
 			const blePeripheral = await bleAdvertisement.connect();
-			this.homey.app.updateLog(`BLE device ${name} connected`);
+			this.homey.app.updateLog(`BLE device ${name} connected`, 'ble');
 
 			const reqBuf = Buffer.from(bytes);
 			try
 			{
-				this.homey.app.updateLog(`Getting service for ${name}`);
+				this.homey.app.updateLog(`Getting service for ${name}`, 'ble');
 				const bleService = await blePeripheral.getService('cba20d00224d11e69fb80002a5d5c51b');
 
-				this.homey.app.updateLog(`Getting write characteristic for ${name}`);
+				this.homey.app.updateLog(`Getting write characteristic for ${name}`, 'ble');
 				const bleCharacteristic = await bleService.getCharacteristic('cba20002224d11e69fb80002a5d5c51b');
 
 				if (parseInt(this.homey.version, 10) >= 6)
 				{
-					this.homey.app.updateLog(`Getting notify characteristic for ${name}`);
+					this.homey.app.updateLog(`Getting notify characteristic for ${name}`, 'ble');
 					const bleNotifyCharacteristic = await bleService.getCharacteristic('cba20003224d11e69fb80002a5d5c51b');
 
 					try
@@ -307,28 +307,28 @@ class BlindTiltBLEDevice extends Homey.Device
 						await bleNotifyCharacteristic.subscribeToNotifications((data) =>
 						{
 							sending = false;
-							this.homey.app.updateLog(`received notification for ${name}: ${this.homey.app.varToString(data)}`);
+							this.homey.app.updateLog(`received notification for ${name}: ${this.homey.app.varToString(data)}`, 'ble');
 						});
 					}
 					catch (err)
 					{
-						this.homey.app.updateLog(`subscribeToNotifications: ${name}: ${err.message}`, 0);
+						this.homey.app.updateLog(`subscribeToNotifications: ${name}: ${err.message}`, 0, 'ble');
 					}
 				}
 
-				this.homey.app.updateLog(`Writing data to ${name}`);
+				this.homey.app.updateLog(`Writing data to ${name}`, 'ble');
 				await bleCharacteristic.write(reqBuf);
 			}
 			catch (err)
 			{
-				this.homey.app.updateLog(`Catch 2: ${name}: ${err.message}`, 0);
+				this.homey.app.updateLog(`Catch 2: ${name}: ${err.message}`, 0, 'ble');
 				sending = false;
 				return err;
 				// throw(err);
 			}
 			finally
 			{
-				this.homey.app.updateLog(`Finally 2: ${name}`);
+				this.homey.app.updateLog(`Finally 2: ${name}`, 'ble');
 				let retries = 6;
 				while (sending && (retries-- > 0))
 				{
@@ -336,17 +336,17 @@ class BlindTiltBLEDevice extends Homey.Device
 				}
 
 				await blePeripheral.disconnect();
-				this.homey.app.updateLog(`Disconnected: ${name}`);
+				this.homey.app.updateLog(`Disconnected: ${name}`, 'ble');
 			}
 		}
 		catch (err)
 		{
-			this.homey.app.updateLog(`Catch 1: ${name}: ${err.toString()}`, 0);
+			this.homey.app.updateLog(`Catch 1: ${name}: ${err.toString()}`, 0, 'ble');
 			return err;
 		}
 		finally
 		{
-			this.homey.app.updateLog(`finally 1: ${name}`);
+			this.homey.app.updateLog(`finally 1: ${name}`, 'ble');
 		}
 
 		return true;
@@ -359,23 +359,23 @@ class BlindTiltBLEDevice extends Homey.Device
 
 		try
 		{
-			this.homey.app.updateLog(`Connecting to BLE device: ${name}`);
+			this.homey.app.updateLog(`Connecting to BLE device: ${name}`, 'ble');
 			const blePeripheral = await bleAdvertisement.connect();
-			this.homey.app.updateLog(`BLE device ${name} connected`);
+			this.homey.app.updateLog(`BLE device ${name} connected`, 'ble');
 
 			const bytes = [0x57, 0x02];
 			const reqBuf = Buffer.from(bytes);
 			try
 			{
-				this.homey.app.updateLog(`Getting service for ${name}`);
+				this.homey.app.updateLog(`Getting service for ${name}`, 'ble');
 				const bleService = await blePeripheral.getService('cba20d00224d11e69fb80002a5d5c51b');
 
-				this.homey.app.updateLog(`Getting write characteristic for ${name}`);
+				this.homey.app.updateLog(`Getting write characteristic for ${name}`, 'ble');
 				const bleCharacteristic = await bleService.getCharacteristic('cba20002224d11e69fb80002a5d5c51b');
 
 				if (parseInt(this.homey.version, 10) >= 6)
 				{
-					this.homey.app.updateLog(`Getting notify characteristic for ${name}`);
+					this.homey.app.updateLog(`Getting notify characteristic for ${name}`, 'ble');
 					const bleNotifyCharacteristic = await bleService.getCharacteristic('cba20003224d11e69fb80002a5d5c51b');
 
 					try
@@ -384,29 +384,29 @@ class BlindTiltBLEDevice extends Homey.Device
 						{
 							sending = false;
 							returnData = data;
-							this.homey.app.updateLog(`received notification for ${name}: ${this.homey.app.varToString(data)}`);
+							this.homey.app.updateLog(`received notification for ${name}: ${this.homey.app.varToString(data)}`, 'ble');
 						});
 					}
 					catch (err)
 					{
 						sending = false;
-						this.homey.app.updateLog(`subscribeToNotifications: ${name}: ${err.toString()}`, 0);
+						this.homey.app.updateLog(`subscribeToNotifications: ${name}: ${err.toString()}`, 0, 'ble');
 					}
 				}
 
-				this.homey.app.updateLog(`Writing data to ${name}`);
+				this.homey.app.updateLog(`Writing data to ${name}`, 'ble');
 				await bleCharacteristic.write(reqBuf);
 			}
 			catch (err)
 			{
-				this.homey.app.updateLog(`Catch 2: ${name}: ${err.toString()}`, 0);
+				this.homey.app.updateLog(`Catch 2: ${name}: ${err.toString()}`, 0, 'ble');
 				sending = false;
 				return err;
 				// throw(err);
 			}
 			finally
 			{
-				this.homey.app.updateLog(`Finally 2: ${name}`);
+				this.homey.app.updateLog(`Finally 2: ${name}`, 'ble');
 				let retries = 6;
 				while (sending && (retries-- > 0))
 				{
@@ -414,17 +414,17 @@ class BlindTiltBLEDevice extends Homey.Device
 				}
 
 				await blePeripheral.disconnect();
-				this.homey.app.updateLog(`Disconnected: ${name}`);
+				this.homey.app.updateLog(`Disconnected: ${name}`, 'ble');
 			}
 		}
 		catch (err)
 		{
-			this.homey.app.updateLog(`Catch 1: ${name}: ${err.toString()}`, 0);
+			this.homey.app.updateLog(`Catch 1: ${name}: ${err.toString()}`, 0, 'ble');
 			return err;
 		}
 		finally
 		{
-			this.homey.app.updateLog(`finally 1: ${name}`);
+			this.homey.app.updateLog(`finally 1: ${name}`, 'ble');
 		}
 
 		return returnData;
@@ -435,7 +435,7 @@ class BlindTiltBLEDevice extends Homey.Device
 		const data = this.driver._parseServiceDataForWoTilt(returnBytes);
 		if (data)
 		{
-			this.homey.app.updateLog(`Parsed Blind Tilt BLE (${name}) ${this.homey.app.varToString(data)}`, 3);
+			this.homey.app.updateLog(`Parsed Blind Tilt BLE (${name}) ${this.homey.app.varToString(data)}`, 3, 'ble');
 			const position = data.position / 100;
 
 			if ((position > 0.2) && (position < 0.8))
@@ -454,7 +454,7 @@ class BlindTiltBLEDevice extends Homey.Device
 		}
 		else
 		{
-			this.homey.app.updateLog(`Parsed Blind Tilt BLE (${name}): No service data`, 0);
+			this.homey.app.updateLog(`Parsed Blind Tilt BLE (${name}): No service data`, 0, 'ble');
 		}
 }
 
@@ -478,7 +478,7 @@ class BlindTiltBLEDevice extends Homey.Device
 					else
 					{
 						this.bestHub = '';
-						this.homey.app.updateLog(`BLE Hub for ${name} returned ${this.homey.app.varToString(deviceInfo)}`, 0);
+						this.homey.app.updateLog(`BLE Hub for ${name} returned ${this.homey.app.varToString(deviceInfo)}`, 0, 'ble');
 					}
 				}
 				else
@@ -511,15 +511,15 @@ class BlindTiltBLEDevice extends Homey.Device
 
 			if (dd.id)
 			{
-				this.homey.app.updateLog(`Finding Blind Tilt BLE device ${name}`, 3);
+				this.homey.app.updateLog(`Finding Blind Tilt BLE device ${name}`, 3, 'ble');
 				const bleAdvertisement = await this.homey.ble.find(dd.id);
 				if (!bleAdvertisement)
 				{
-					this.homey.app.updateLog(`BLE device ${name} not found`, 2);
+					this.homey.app.updateLog(`BLE device ${name} not found`, 2, 'ble');
 					return;
 				}
 
-				this.homey.app.updateLog(this.homey.app.varToString(bleAdvertisement), 4);
+				this.homey.app.updateLog(this.homey.app.varToString(bleAdvertisement), 4, 'ble');
 				const { rssi } = bleAdvertisement;
 				this.setCapabilityValue('rssi', rssi).catch(this.error);
 
@@ -535,7 +535,7 @@ class BlindTiltBLEDevice extends Homey.Device
 					const returnBytes = await this.getBlindInformation(name, bleAdvertisement);
 					if ((returnBytes instanceof Error) || (returnBytes === ''))
 					{
-						this.homey.app.updateLog(`BLE get information for ${name} failed: ${returnBytes.toString()}`, 0);
+						this.homey.app.updateLog(`BLE get information for ${name} failed: ${returnBytes.toString()}`, 0, 'ble');
 						return;
 					}
 
@@ -544,7 +544,7 @@ class BlindTiltBLEDevice extends Homey.Device
 
 				if (data)
 				{
-					this.homey.app.updateLog(`Parsed Blind Tilt BLE (${name}) ${this.homey.app.varToString(data)}`, 3);
+					this.homey.app.updateLog(`Parsed Blind Tilt BLE (${name}) ${this.homey.app.varToString(data)}`, 3, 'ble');
 					const position = data.serviceData.position / 100;
 
 					if ((position > 0.2) && (position < 0.8))
@@ -574,7 +574,7 @@ class BlindTiltBLEDevice extends Homey.Device
 				}
 				else
 				{
-					this.homey.app.updateLog(`Parsed Blind Tilt BLE (${name}): No service data`, 0);
+					this.homey.app.updateLog(`Parsed Blind Tilt BLE (${name}): No service data`, 0, 'ble');
 				}
 			}
 			else
@@ -584,18 +584,18 @@ class BlindTiltBLEDevice extends Homey.Device
 		}
 		catch (err)
 		{
-			this.homey.app.updateLog(err.message, 0);
+			this.homey.app.updateLog(err.message, 0, 'ble');
 		}
 		finally
 		{
-			this.homey.app.updateLog(`Finding Blind Tilt device (${name}) --- COMPLETE`, 3);
+			this.homey.app.updateLog(`Finding Blind Tilt device (${name}) --- COMPLETE`, 3, 'ble');
 		}
 	}
 
 	async syncBLEEvents(events)
 	{
 		const name = this.getName();
-		this.homey.app.updateLog(`syncEvents for (${name})`, 3);
+		this.homey.app.updateLog(`syncEvents for (${name})`, 3, 'ble');
 		try
 		{
 			const dd = this.getData();
@@ -616,7 +616,7 @@ class BlindTiltBLEDevice extends Homey.Device
 		}
 		catch (error)
 		{
-			this.homey.app.updateLog(`Error in Blind Tilt (${name}) syncEvents: ${this.homey.app.varToString(error)}`, 0);
+			this.homey.app.updateLog(`Error in Blind Tilt (${name}) syncEvents: ${this.homey.app.varToString(error)}`, 0, 'ble');
 		}
 	}
 
@@ -657,7 +657,7 @@ class BlindTiltBLEDevice extends Homey.Device
 		}
 
 		const name = this.getName();
-		this.homey.app.updateLog(`Parsed Blind Tilt BLE (${name}): position = ${data.serviceData.position}, battery = ${data.serviceData.battery}`, 3);
+		this.homey.app.updateLog(`Parsed Blind Tilt BLE (${name}): position = ${data.serviceData.position}, battery = ${data.serviceData.battery}`, 3, 'ble');
 
 		if (data.hubMAC && ((data.rssi < this.bestRSSI) || (data.hubMAC === this.bestHub)))
 		{

@@ -94,7 +94,7 @@ class Relay2pmHubDevice extends HubDevice
 			if (data)
 			{
 				this.setAvailable();
-				this.homey.app.updateLog(`Relay 2PM Hub got: ${this.homey.app.varToString(data)}`, 3);
+				this.homey.app.updateLog(`Relay 2PM Hub got: ${this.homey.app.varToString(data)}`, 3, 'hub', 'hub');
 
 				const oldRelay1Status = this.getCapabilityValue('onoff.one');
 				const oldRelay2Status = this.getCapabilityValue('onoff.two');
@@ -116,23 +116,23 @@ class Relay2pmHubDevice extends HubDevice
 				// Trigger flows for on/off
 				if ((data.switch1Status === 1) && (oldRelay1Status !== true))
 				{
-					this.homey.app.updateLog('Relay 2PM Trigger onoff_relay1_true', 3);
+					this.homey.app.updateLog('Relay 2PM Trigger onoff_relay1_true', 3, 'hub', 'hub');
 					this.driver.relay1OnTrigger.trigger(this, null, null).catch(this.error);
 				}
 				else if ((data.switch1Status === 0) && (oldRelay1Status !== false))
 				{
-					this.homey.app.updateLog('Relay 2PM Trigger onoff_relay1_false', 3);
+					this.homey.app.updateLog('Relay 2PM Trigger onoff_relay1_false', 3, 'hub', 'hub');
 					this.driver.relay1OffTrigger.trigger(this, null, null).catch(this.error);
 				}
 
 				if ((data.switch2Status === 1) && (oldRelay2Status !== true))
 				{
-					this.homey.app.updateLog('Relay 2PM Trigger onoff_relay2_true', 3);
+					this.homey.app.updateLog('Relay 2PM Trigger onoff_relay2_true', 3, 'hub', 'hub');
 					this.driver.relay2OnTrigger.trigger(this, null, null).catch(this.error);
 				}
 				else if ((data.switch2Status === 0) && (oldRelay2Status !== false))
 				{
-					this.homey.app.updateLog('Relay 2PM Trigger onoff_relay2_false', 3);
+					this.homey.app.updateLog('Relay 2PM Trigger onoff_relay2_false', 3, 'hub', 'hub');
 					this.driver.relay2OffTrigger.trigger(this, null, null).catch(this.error);
 				}
 			}
@@ -140,7 +140,7 @@ class Relay2pmHubDevice extends HubDevice
 		}
 		catch (err)
 		{
-			this.homey.app.updateLog(`Bot getHubDeviceValues: ${this.homey.app.varToString(err.message)}`, 0);
+			this.homey.app.updateLog(`Bot getHubDeviceValues: ${this.homey.app.varToString(err.message)}`, 0, 'hub', 'hub');
 			this.setWarning(err.message).catch(this.error);;
 		}
 	}
@@ -159,7 +159,7 @@ class Relay2pmHubDevice extends HubDevice
 			{
 				// message is for this device
 				const data = message.context;
-				this.homey.app.updateLog(`Relay 2PM processWebhookMessage: ${this.homey.app.varToString(data)}`, 3);
+				this.homey.app.updateLog(`Relay 2PM processWebhookMessage: ${this.homey.app.varToString(data)}`, 3, 'hub', 'hub');
 
 				if (data.switch1Status !== undefined)
 				{
@@ -168,12 +168,12 @@ class Relay2pmHubDevice extends HubDevice
 					// Trigger flow for on/off
 					if (data.switch1Status === 1)
 					{
-						this.homey.app.updateLog('Relay 2PM Trigger onoff_relay1_true', 3);
+						this.homey.app.updateLog('Relay 2PM Trigger onoff_relay1_true', 3, 'hub', 'hub');
 						this.driver.relay1OnTrigger.trigger(this, null, null).catch(this.error);
 					}
 					else
 					{
-						this.homey.app.updateLog('Relay 2PM Trigger onoff_relay1_false', 3);
+						this.homey.app.updateLog('Relay 2PM Trigger onoff_relay1_false', 3, 'hub', 'hub');
 						this.driver.relay1OffTrigger.trigger(this, null, null).catch(this.error);
 					}
 				}
@@ -185,12 +185,12 @@ class Relay2pmHubDevice extends HubDevice
 					// Trigger flow for on/off
 					if (data.switch2Status === 1)
 					{
-						this.homey.app.updateLog('Relay 2PM Trigger onoff_relay2_true', 3);
+						this.homey.app.updateLog('Relay 2PM Trigger onoff_relay2_true', 3, 'hub', 'hub');
 						this.driver.relay2OnTrigger.trigger(this, null, null).catch(this.error);
 					}
 					else
 					{
-						this.homey.app.updateLog('Relay 2PM Trigger onoff_relay2_false', 3);
+						this.homey.app.updateLog('Relay 2PM Trigger onoff_relay2_false', 3, 'hub', 'hub');
 						this.driver.relay2OffTrigger.trigger(this, null, null).catch(this.error);
 					}
 				}
@@ -218,7 +218,7 @@ class Relay2pmHubDevice extends HubDevice
 		}
 		catch (err)
 		{
-			this.homey.app.updateLog(`Relay 2PM processWebhookMessage error ${err.message}`, 0);
+			this.homey.app.updateLog(`Relay 2PM processWebhookMessage error ${err.message}`, 0, 'hub', 'hub');
 		}
 	}
 

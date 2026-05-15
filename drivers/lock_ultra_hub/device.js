@@ -20,7 +20,7 @@ class LockUltraHubDevice extends HubDevice
 		}
 		const options = this.getCapabilityOptions('locked');
 		options.getable = true;
-		options.setable = true;
+		options.setable = false;
 		options.uiComponent = null;
 		this.setCapabilityOptions('locked', options);
 

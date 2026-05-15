@@ -128,7 +128,7 @@ class RollerBlindHubDevice extends HubDevice
 			if (data)
 			{
 				this.setAvailable();
-				this.homey.app.updateLog(`Roller Blind Hub got: ${this.homey.app.varToString(data)}`, 3);
+				this.homey.app.updateLog(`Roller Blind Hub got: ${this.homey.app.varToString(data)}`, 3, 'hub');
 
 				let position = data.slidePosition / 100;
 				if (this.invertPosition)
@@ -160,7 +160,7 @@ class RollerBlindHubDevice extends HubDevice
 						}
 						catch (err)
 						{
-							this.homey.app.updateLog(this.homey.app.varToString(err));
+							this.homey.app.updateLog(this.homey.app.varToString(err), 'hub');
 						}
 					}
 
@@ -171,7 +171,7 @@ class RollerBlindHubDevice extends HubDevice
 		}
 		catch (err)
 		{
-			this.homey.app.updateLog(`Roller Blinds getHubDeviceValues: ${this.homey.app.varToString(err.message)}`, 0);
+			this.homey.app.updateLog(`Roller Blinds getHubDeviceValues: ${this.homey.app.varToString(err.message)}`, 0, 'hub');
 			this.setWarning(err.message).catch(this.error);;
 		}
 	}
@@ -221,7 +221,7 @@ class RollerBlindHubDevice extends HubDevice
 						}
 						catch (err)
 						{
-							this.homey.app.updateLog(this.homey.app.varToString(err));
+							this.homey.app.updateLog(this.homey.app.varToString(err), 'hub');
 						}
 					}
 
@@ -231,7 +231,7 @@ class RollerBlindHubDevice extends HubDevice
 		}
 		catch (err)
 		{
-			this.homey.app.updateLog(`processWebhookMessage error ${err.message}`, 0);
+			this.homey.app.updateLog(`processWebhookMessage error ${err.message}`, 0, 'hub');
 		}
 	}
 

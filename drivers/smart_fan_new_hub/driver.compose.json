@@ -22,6 +22,12 @@
 	"night_light",
 	"measure_battery"
   ],
+	"energy": {
+		"batteries": [
+			"AA",
+			"AA"
+		]
+	},
   "$extends": [
     "hubDriver"
   ]

@@ -32,7 +32,7 @@ class HubDevice extends OAuth2Device
 		}
 		catch (err)
 		{
-			this.homey.app.updateLog(this.homey.app.varToString(err));
+			this.homey.app.updateLog(this.homey.app.varToString(err), 'hub');
 		}
 
 		if (this.hasCapability('button.send_log'))
@@ -44,7 +44,7 @@ class HubDevice extends OAuth2Device
 		{
 			// Set a random timer to fetch initial values from the hub device
 			const randomDelay = Math.floor(Math.random() * 10000) + 5000; // between 5 and 15 seconds
-			this.homey.app.updateLog(`fetch initial values in ${randomDelay} ms`, 3);
+			this.homey.app.updateLog(`fetch initial values in ${randomDelay} ms`, 3, 'hub');
 			this.homey.setTimeout(() =>
 			{
 				this.getHubDeviceValues().catch(this.error);
@@ -88,16 +88,16 @@ class HubDevice extends OAuth2Device
 
 		if (this.homey.app.openToken)
 		{
-			this.homey.app.updateLog(`Sending ${this.homey.app.varToString(data)} to ${dd.id} using API key`, 3);
+			this.homey.app.updateLog(`Sending ${this.homey.app.varToString(data)} to ${dd.id} using API key`, 3, 'hub');
 			try
 			{
 				result = await this.homey.app.hub.setDeviceData(dd.id, data);
 			}
 			catch (err)
 			{
-				this.homey.app.updateLog(this.homey.app.varToString(err));
+				this.homey.app.updateLog(this.homey.app.varToString(err), 'hub');
 			}
-			this.homey.app.updateLog(`Success sending command to ${dd.id} using API key`);
+			this.homey.app.updateLog(`Success sending command to ${dd.id} using API key`, 'hub');
 			return result;
 		}
 
@@ -105,24 +105,24 @@ class HubDevice extends OAuth2Device
 		{
 			try
 			{
-				this.homey.app.updateLog(`Sending ${this.homey.app.varToString(data)} to ${dd.id} using OAuth`, 3);
+				this.homey.app.updateLog(`Sending ${this.homey.app.varToString(data)} to ${dd.id} using OAuth`, 3, 'hub');
 				result = await this.oAuth2Client.setDeviceData(dd.id, data);
 			}
 			catch (err)
 			{
-				this.homey.app.updateLog(`Failed to send command to ${dd.id} using OAuth: ${err.message}`, 0);
-				throw (err.message);
+				this.homey.app.updateLog(`Failed to send command to ${dd.id} using OAuth: ${err.message}`, 0, 'hub');
+				throw new Error(err.message);
 			}
 
 			if (!result)
 			{
-				this.homey.app.updateLog(`Failed to send command to ${dd.id} using OAuth: Nothing returned`, 0);
+				this.homey.app.updateLog(`Failed to send command to ${dd.id} using OAuth: Nothing returned`, 0, 'hub');
 				throw new Error('Nothing returned');
 			}
 
 			if (result.statusCode !== 100)
 			{
-				this.homey.app.updateLog(`Failed to send command to ${dd.id} using OAuth: ${result.statusCode}`, 0);
+				this.homey.app.updateLog(`Failed to send command to ${dd.id} using OAuth: ${result.statusCode}`, 0, 'hub');
 				if (result.statusCode === 152)
 				{
 					throw new Error('Error: Device not found by SwitchBot');
@@ -153,12 +153,12 @@ class HubDevice extends OAuth2Device
 				}
 			}
 
-			this.homey.app.updateLog(`Success sending command to ${dd.id} using OAuth`);
+			this.homey.app.updateLog(`Success sending command to ${dd.id} using OAuth`, 'hub');
 			return true;
 		}
 
 		// No API key or OAuth client available, so we cannot send the command
-		this.homey.app.updateLog(`Failed to send command to ${dd.id}: No API key or OAuth client available`, 0);
+		this.homey.app.updateLog(`Failed to send command to ${dd.id}: No API key or OAuth client available`, 0, 'hub');
 		return false;
 	}
 
@@ -216,7 +216,14 @@ class HubDevice extends OAuth2Device
 	async onCapabilitySendLog(value)
 	{
 		const dd = this.getData();
-		this.homey.app.sendLog('diag', this.getSetting('replyEmail'), dd.id, this.oAuth2Client);
+		try
+		{
+			await this.homey.app.sendLog('diag', this.getSetting('replyEmail'), dd.id, this.oAuth2Client);
+		}
+		catch (err)
+		{
+			this.homey.app.updateLog(`Failed to send diagnostics log: ${err.message}`, 0, 'hub');
+		}
 	}
 
 	async onCapabilityCommand(command, value, opts)
