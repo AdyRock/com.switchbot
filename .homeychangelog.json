@@ -1222,5 +1222,18 @@
 		"pl": "Dodano więcej logowania dla pobierania urządzeń i obsługi pod-urządzeń. Ulepszono korzystanie z ustawień aplikacji Token i Secret dla wywołań API.",
 		"ru": "Добавлено больше журналирования для получения устройств и обработки подустройств. Улучшено использование настроек приложения Token и Secret для вызовов API.",
 		"ko": "장치 가져오기 및 하위 장치 처리에 대한 추가 로깅이 추가되었습니다. API 호출을 위한 앱 설정 Token 및 Secret 사용이 개선되었습니다."
+	},
+	"2.0.73": {
+		"en": "Bumped the app version and hardened device capability option updates to avoid Redis timeout and driver lifecycle crashes. Added support for Standing Smart Fan, Art Frame, Candle Wamer Lamp and RGBICWW Strip Light.",
+		"no": "Bumpet app-versjonen og forsterket oppdateringer av enhetskapasitet for å unngå Redis timeout og krasj i driverens livssyklus. Lagt til støtte for Standing Smart Fan, Art Frame, Candle Wamer Lamp og RGBICWW Strip Light.",
+		"nl": "De app-versie verhoogd enn versterkte updates van apparaatcapaciteit om Redis-timeout en crashes in de levenscyclus van de driver te voorkomen. Ondersteuning toegevoegd voor Standing Smart Fan, Art Frame, Candle Wamer Lamp en RGBICWW Strip Light.",
+		"de": "Die App-Version erhöht und Updates der Gerätekapazität verstärkt, um Redis-Timeout und Abstürze im Lebenszyklus des Treibers zu vermeiden. Unterstützung für Standing Smart Fan, Art Frame, Candle Wamer Lamp und RGBICWW Strip Light hinzugefügt.",
+		"fr": "La version de l'application a été augmentée et les mises à jour de la capacité des appareils ont été renforcées pour éviter les délais d'attente de Redis et les plantages du cycle de vie du pilote. Ajout de la prise en charge du Standing Smart Fan, Art Frame, Candle Wamer Lamp et RGBICWW Strip Light.",
+		"es": "Se aumentó la versión de la aplicación y se reforzaron las actualizaciones de capacidad del dispositivo para evitar el tiempo de espera de Redis y los bloqueos del ciclo de vida del controlador. Agregado soporte para Standing Smart Fan, Art Frame, Candle Wamer Lamp y RGBICWW Strip Light.",
+		"pt": "Aumentada a versão do aplicativo e reforçadas as atualizações de capacidade do dispositivo para evitar o tempo de espera do Redis e falhas no ciclo de vida do driver. Adicionado suporte para Standing Smart Fan, Art Frame, Candle Wamer Lamp e RGBICWW Strip Light.",
+		"it": "Aumentata la versione dell'app e rafforzati gli aggiornamenti della capacità del dispositivo per evitare il timeout di Redis e i crash del ciclo di vita del driver. Aggiunto supporto per Standing Smart Fan, Art Frame, Candle Wamer Lamp e RGBICWW Strip Light.",
+		"pl": "Podniesiono wersję aplikacji i wzmocniono aktualizacje opcji możliwości urządzenia, aby uniknąć przekroczenia limitu czasu Redis i awarii cyklu życia sterownika. Dodano obsługę Standing Smart Fan, Art Frame, Candle Wamer Lamp i RGBICWW Strip Light.",
+		"ru": "Увеличена версия приложения и усилены обновления опций возможностей устройства, чтобы избежать тайм-аута Redis и сбоев жизненного цикла драйвера. Добавлена поддержка Standing Smart Fan, Art Frame, Candle Wamer Lamp и RGBICWW Strip Light.",
+		"ko": "앱 버전을 높이고 Redis 시간 초과 및 드라이버 수명 주기 충돌을 방지하기 위해 장치 기능 옵션 업데이트를 강화했습니다. Standing Smart Fan, Art Frame, Candle Wamer Lamp 및 RGBICWW Strip Light에 대한 지원이 추가되었습니다."
 	}
 }
