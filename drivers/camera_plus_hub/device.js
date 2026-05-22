@@ -59,38 +59,53 @@ class CameraHubDevice extends HubDevice
 
 	async registerVideoStream()
 	{
-		const previousVideo = this.video;
-		this.video = null;
-
-		if (previousVideo)
+		try
 		{
-			try
+			const previousVideo = this.video;
+			this.video = null;
+
+			if (previousVideo)
 			{
-				await this.homey.videos.unregisterVideo(previousVideo);
+				try
+				{
+					await this.homey.videos.unregisterVideo(previousVideo);
+				}
+				catch (err)
+				{
+					this.homey.app.updateLog(`Failed to unregister existing camera video stream: ${err.message}`, 0, 'hub');
+				}
 			}
-			catch (err)
+
+			if ((typeof this.homey.hasFeature === 'function') && this.homey.hasFeature('camera-streaming'))
 			{
-				this.homey.app.updateLog(`Failed to unregister existing camera video stream: ${err.message}`, 0, 'hub');
+				const settings = this.getSettings();
+
+				if (settings.username && settings.password && settings.ip)
+				{
+					this.homey.app.updateLog('Registering Now video stream (' + this.name + ')', 'hub');
+					this.video = await this.homey.videos.createVideoRTSP();
+					this.video.registerVideoUrlListener(async () =>
+					{
+						const url = `rtsp://${settings.username}:${settings.password}@${settings.ip}:554/live1`;
+						this.homey.app.updateLog(`Setting Live video stream to ${url}`, 'hub');
+						return { url };
+					});
+
+					try
+					{
+						await this.setCameraVideo('live_video', 'Live Video', this.video);
+						this.homey.app.updateLog('registered Now video stream (' + this.name + ')', 'hub');
+					}
+					catch (err)
+					{
+						this.homey.app.updateLog(`Failed to set camera video stream: ${err.message}`, 0, 'hub');
+					}
+				}
 			}
 		}
-
-		if ((typeof this.homey.hasFeature === 'function') && this.homey.hasFeature('camera-streaming'))
+		catch (err)
 		{
-			const settings = this.getSettings();
-
-			if (settings.username && settings.password && settings.ip)
-			{
-				this.homey.app.updateLog('Registering Now video stream (' + this.name + ')', 'hub');
-				this.video = await this.homey.videos.createVideoRTSP();
-				this.video.registerVideoUrlListener(async () =>
-				{
-					const url = `rtsp://${settings.username}:${settings.password}@${settings.ip}:554/live1`;
-					this.homey.app.updateLog(`Setting Live video stream to ${url}`, 'hub');
-					return { url };
-				});
-				this.setCameraVideo('live_video', 'Live Video', this.video).catch(this.err);
-				this.homey.app.updateLog('registered Now video stream (' + this.name + ')', 'hub');
-			}
+			this.homey.app.updateLog(`registerVideoStream error: ${err.message}`, 0, 'hub');
 		}
 	}
 

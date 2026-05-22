@@ -70,7 +70,25 @@ class VacuumHubDevice extends HubDevice
 
 	async onCapabilityPowerLevel(level, value, opts)
 	{
-		this._operateDevice('PowLevel', level);
+		const normalizedLevel = Number(level);
+		if (!Number.isInteger(normalizedLevel) || (normalizedLevel < 0) || (normalizedLevel > 3))
+		{
+			throw new Error(`Invalid vacuum power level: ${level}`);
+		}
+
+		try
+		{
+			return await this._operateDevice('PowLevel', normalizedLevel);
+		}
+		catch (err)
+		{
+			if (/\b190\b.*invalid\s*params/i.test(err.message || ''))
+			{
+				return this._operateDevice('PowLevel', String(normalizedLevel));
+			}
+
+			throw err;
+		}
 	}
 
 	async pollHubDeviceValues()

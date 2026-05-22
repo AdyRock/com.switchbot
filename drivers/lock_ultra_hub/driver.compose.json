@@ -27,7 +27,8 @@
   ],
   "capabilitiesOptions": {
 	"locked": {
-	  "getable": false,
+    "getable": true,
+    "setable": false,
 	  "uiComponent": null
 	},
     "alarm_generic": {

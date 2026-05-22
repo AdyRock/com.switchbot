@@ -279,9 +279,21 @@ class ColorBulbBLEDevice extends Homey.Device
 
 		if (response instanceof Error)
 		{
+			if (this.isPeripheralNotFoundError(response))
+			{
+				this.homey.app.updateLog(`BLE peripheral not found for ${name}; command skipped`, 1, 'ble');
+				return false;
+			}
+
 			this.homey.app.updateLog(`!!!!!!! Command for ${name} failed\r\n`, 0, 'ble');
 			throw response;
 		}
+	}
+
+	isPeripheralNotFoundError(err)
+	{
+		const message = (err && err.message) ? err.message : String(err);
+		return /Peripheral Not Found/i.test(message);
 	}
 
 	async _operateBulbLoop(name, bytes)
@@ -353,6 +365,13 @@ class ColorBulbBLEDevice extends Homey.Device
 			}
 			catch (err)
 			{
+				if (this.isPeripheralNotFoundError(err))
+				{
+					this.homey.app.updateLog(`BLE device ${name} temporarily unavailable`, 1, 'ble');
+					sending = false;
+					return false;
+				}
+
 				this.homey.app.updateLog(`Catch 2: ${name}: ${err.message}`, 0, 'ble');
 				sending = false;
 				return err;
@@ -373,6 +392,12 @@ class ColorBulbBLEDevice extends Homey.Device
 		}
 		catch (err)
 		{
+			if (this.isPeripheralNotFoundError(err))
+			{
+				this.homey.app.updateLog(`BLE device ${name} not found during operation`, 1, 'ble');
+				return false;
+			}
+
 			this.homey.app.updateLog(`Catch 1: ${name}: ${err.message}`, 0, 'ble');
 			return err;
 		}

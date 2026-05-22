@@ -15,7 +15,7 @@ class Hub3Device extends HubDevice
 		await super.onInit();
 
 		const dd = this.getData();
-		this.setCapabilityOptions('measure_luminance', { title: this.homey.__('capabilities.brightness'), units: '%' }).catch(this.error);
+		await this.safeSetCapabilityOptions('measure_luminance', { title: this.homey.__('capabilities.brightness'), units: '%' });
 
 		this.homey.app.registerHomeyWebhook(dd.id).catch(this.error);
 

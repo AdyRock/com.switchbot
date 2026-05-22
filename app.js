@@ -35,12 +35,99 @@ class MyApp extends OAuth2App
 		return parsedValue;
 	}
 
+	installProcessErrorGuards()
+	{
+		if (this.processErrorGuardsInstalled)
+		{
+			return;
+		}
+
+		this.processErrorGuardsInstalled = true;
+
+		process.on('unhandledRejection', (reason) =>
+		{
+			const message = this.varToString(reason);
+			try
+			{
+				this.updateLog(`Unhandled rejection captured: ${message}`, 0, 'hub');
+			}
+			catch (err)
+			{
+				if (this.originalError)
+				{
+					this.originalError(`Unhandled rejection captured: ${message}`);
+				}
+			}
+		});
+
+		process.on('uncaughtException', (error) =>
+		{
+			const message = this.varToString(error);
+			try
+			{
+				this.updateLog(`Uncaught exception captured: ${message}`, 0, 'hub');
+			}
+			catch (err)
+			{
+				if (this.originalError)
+				{
+					this.originalError(`Uncaught exception captured: ${message}`);
+				}
+			}
+		});
+	}
+
+	safeSetSetting(key, value)
+	{
+		try
+		{
+			const result = this.homey.settings.set(key, value);
+			if (result && typeof result.catch === 'function')
+			{
+				result.catch((err) =>
+				{
+					this.updateLog(`Failed to persist setting \"${key}\": ${err.message}`, 0, 'hub');
+				});
+			}
+		}
+		catch (err)
+		{
+			this.updateLog(`Failed to persist setting \"${key}\": ${err.message}`, 0, 'hub');
+		}
+	}
+
+	persistApiCalls(immediate = false)
+	{
+		if (immediate)
+		{
+			if (this.apiCallsPersistTimer)
+			{
+				this.homey.clearTimeout(this.apiCallsPersistTimer);
+				this.apiCallsPersistTimer = null;
+			}
+
+			this.safeSetSetting('apiCalls', this.apiCalls);
+			return;
+		}
+
+		if (this.apiCallsPersistTimer)
+		{
+			return;
+		}
+
+		this.apiCallsPersistTimer = this.homey.setTimeout(() =>
+		{
+			this.apiCallsPersistTimer = null;
+			this.safeSetSetting('apiCalls', this.apiCalls);
+		}, 5000);
+	}
+
 	incrementApiCalls(increment = 1)
 	{
 		const value = Number.parseInt(increment, 10);
 		const step = Number.isFinite(value) && (value > 0) ? value : 1;
 		this.apiCalls = this.toPositiveInteger(this.apiCalls, 0) + step;
-		this.homey.settings.set('apiCalls', this.apiCalls);
+		this.persistApiCalls();
 		return this.apiCalls;
 	}
 
@@ -254,13 +341,14 @@ class MyApp extends OAuth2App
 	async onOAuth2Init()
 	{
 		this.overrideLoggingMethods();
+		this.installProcessErrorGuards();
 
 		this.log('SwitchBot has been initialized');
 		this.logLevel = this.homey.settings.get('logLevel');
 		if (this.logLevel === null)
 		{
 			this.logLevel = 0;
-			this.homey.settings.set('logLevel', this.logLevel);
+			this.safeSetSetting('logLevel', this.logLevel);
 		}
 
 		this.diagLog = '';
@@ -272,6 +360,7 @@ class MyApp extends OAuth2App
 		this.devicesMACs = [];
 		this.homeyWebhookRegTimerID = null;
 		this.switchBotWebhookTimerID = null;
+		this.apiCallsPersistTimer = null;
 
 		if (this.logLevel >= 0)
 		{
@@ -288,7 +377,7 @@ class MyApp extends OAuth2App
 		if (!this.homey.settings.get('numConnections'))
 		{
 			this.numConnections = 1;
-			this.homey.settings.set('numConnections', this.numConnections);
+			this.safeSetSetting('numConnections', this.numConnections);
 		}
 
 		this.apiCalls = this.homey.settings.get('apiCalls');
@@ -314,11 +403,11 @@ class MyApp extends OAuth2App
 
 		if (process.env.DEBUG === '1')
 		{
-			this.homey.settings.set('debugMode', true);
+			this.safeSetSetting('debugMode', true);
 		}
 		else
 		{
-			this.homey.settings.set('debugMode', false);
+			this.safeSetSetting('debugMode', false);
 		}
 
 		this.hub = new HubInterface(this.homey);
@@ -350,37 +439,44 @@ class MyApp extends OAuth2App
 		{
 			// For cloud debugging only
 			this.logLevel = 0;
-			this.homey.settings.set('logLevel', this.logLevel);
+			this.safeSetSetting('logLevel', this.logLevel);
 			this.homeyIP = null;
 		}
 
 		// Callback for app settings changed
 		this.homey.settings.on('set', async (setting) =>
 		{
-			this.homey.app.updateLog(`Setting ${setting} has changed.`, 3, 'hub');
-			if (setting === 'logLevel')
+			try
 			{
-				this.logLevel = this.homey.settings.get('logLevel');
-				if (this.logLevel > 2)
+				this.homey.app.updateLog(`Setting ${setting} has changed.`, 3, 'hub');
+				if (setting === 'logLevel')
 				{
-					this.homey.app.enableOAuth2Debug();
+					this.logLevel = this.homey.settings.get('logLevel');
+					if (this.logLevel > 2)
+					{
+						this.homey.app.enableOAuth2Debug();
+					}
+					else
+					{
+						this.homey.app.disableOAuth2Debug();
+					}
 				}
-				else
+				else if (setting === 'openToken')
 				{
-					this.homey.app.disableOAuth2Debug();
+					this.openToken = this.homey.settings.get('openToken');
+				}
+				else if (setting === 'openSecret')
+				{
+					this.openSecret = this.homey.settings.get('openSecret');
+				}
+				else if (setting === 'numConnections')
+				{
+					this.numConnections = this.toPositiveInteger(this.homey.settings.get('numConnections'));
 				}
 			}
-			else if (setting === 'openToken')
+			catch (err)
 			{
-				this.openToken = this.homey.settings.get('openToken');
-			}
-			else if (setting === 'openSecret')
-			{
-				this.openSecret = this.homey.settings.get('openSecret');
-			}
-			else if (setting === 'numConnections')
-			{
-				this.numConnections = this.toPositiveInteger(this.homey.settings.get('numConnections'));
+				this.updateLog(`settings.on('set') handler error (${setting}): ${err.message}`, 0, 'hub');
 			}
 		});
 
@@ -832,6 +928,7 @@ class MyApp extends OAuth2App
 			this.homey.clearTimeout(this.bleTimerID);
 			this.bleTimerID = null;
 		}
+		this.persistApiCalls(true);
 		this.restoreLoggingMethods();
 		await this.deleteSwitchBotWebhook();
 	}
@@ -839,6 +936,7 @@ class MyApp extends OAuth2App
 	resetAPICount()
 	{
 		this.apiCalls = 0;
+		this.persistApiCalls(true);
 
 		// Set timer to reset the count at midnight
 		this.apiCountReset = this.homey.setTimeout(this.resetAPICount, 86400 * 1000);
@@ -947,7 +1045,14 @@ class MyApp extends OAuth2App
 
 				if (this.homeyIP)
 				{
-					this.homey.api.realtime('com.switchbot.logupdated', { log: this.diagLog });
+					const realtimeResult = this.homey.api.realtime('com.switchbot.logupdated', { log: this.diagLog });
+					if (realtimeResult && typeof realtimeResult.catch === 'function')
+					{
+						realtimeResult.catch((err) =>
+						{
+							this.originalError(`Realtime log update failed: ${err.message}`);
+						});
+					}
 				}
 			}
 		}

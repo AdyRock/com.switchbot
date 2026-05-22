@@ -7,6 +7,32 @@ const { OAuth2Device } = require('homey-oauth2app');
 class HubDevice extends OAuth2Device
 {
 
+	isTransientCapabilityOptionsError(err)
+	{
+		const message = (err && err.message) ? err.message : String(err);
+		return /setCapabilityOptionsTimeout|ECONNRESET|ETIMEDOUT|timeout|Not Found \(Redis\): Driver with ID/i.test(message);
+	}
+
+	async safeSetCapabilityOptions(capabilityId, options)
+	{
+		try
+		{
+			await this.setCapabilityOptions(capabilityId, options);
+			return true;
+		}
+		catch (err)
+		{
+			if (this.isTransientCapabilityOptionsError(err))
+			{
+				this.homey.app.updateLog(`Transient setCapabilityOptions error for ${capabilityId}: ${err.message}`, 0, 'hub');
+				return false;
+			}
+
+			this.homey.app.updateLog(`setCapabilityOptions error for ${capabilityId}: ${this.homey.app.varToString(err)}`, 0, 'hub');
+			return false;
+		}
+	}
+
 	appendApiCallCountToRateLimitError(err)
 	{
 		const message = (err && err.message) ? err.message : String(err);

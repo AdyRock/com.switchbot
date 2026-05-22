@@ -22,7 +22,7 @@ class TemperatureHubDevice extends HubDevice
 				this.addCapability('measure_luminance').catch(this.error);
 			}
 
-			this.setCapabilityOptions('measure_luminance', { title: this.homey.__('capabilities.brightness'), units: '%' }).catch(this.error);
+			await this.safeSetCapabilityOptions('measure_luminance', { title: this.homey.__('capabilities.brightness'), units: '%' });
 		}
 		else if (this.hasCapability('measure_luminance'))
 		{
