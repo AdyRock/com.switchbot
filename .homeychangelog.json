@@ -1235,5 +1235,18 @@
 		"pl": "Podniesiono wersję aplikacji i wzmocniono aktualizacje opcji możliwości urządzenia, aby uniknąć przekroczenia limitu czasu Redis i awarii cyklu życia sterownika. Dodano obsługę Standing Smart Fan, Art Frame, Candle Wamer Lamp i RGBICWW Strip Light.",
 		"ru": "Увеличена версия приложения и усилены обновления опций возможностей устройства, чтобы избежать тайм-аута Redis и сбоев жизненного цикла драйвера. Добавлена поддержка Standing Smart Fan, Art Frame, Candle Wamer Lamp и RGBICWW Strip Light.",
 		"ko": "앱 버전을 높이고 Redis 시간 초과 및 드라이버 수명 주기 충돌을 방지하기 위해 장치 기능 옵션 업데이트를 강화했습니다. Standing Smart Fan, Art Frame, Candle Wamer Lamp 및 RGBICWW Strip Light에 대한 지원이 추가되었습니다."
+	},
+	"2.0.74": {
+		"en": "Fix the reversed state for the Night Light brightness on the Standing Smart Fan, Added an Action Flow card for the Night Light brightness",
+		"no": "Fikset den omvendte tilstanden for nattlys lysstyrke på Standing Smart Fan, lagt til en Action Flow-kort for nattlys lysstyrke",
+		"nl": "De omgekeerde staat voor de helderheid van het nachtlicht op de Standing Smart Fan opgelost, een Action Flow-kaart toegevoegd voor de helderheid van het nachtlicht",
+		"de": "Der umgekehrte Zustand für die Helligkeit des Nachtlichts auf dem Standing Smart Fan behoben, eine Action Flow-Karte für die Helligkeit des Nachtlichts hinzugefügt",
+		"fr": "Correction de l'état inversé pour la luminosité de la veilleuse sur le Standing Smart Fan, ajout d'une carte Action Flow pour la luminosité de la veilleuse",
+		"es": "Se corrigió el estado invertido para el brillo de la luz nocturna en el Standing Smart Fan, se agregó una tarjeta de flujo de acción para el brillo de la luz nocturna",
+		"pt": "Corrigido o estado invertido para o brilho da luz noturna no Standing Smart Fan, adicionado um cartão de fluxo de ação para o brilho da luz noturna",
+		"it": "Corretto lo stato invertito per la luminosità della luce notturna sul Standing Smart Fan, aggiunta una scheda Action Flow per la luminosità della luce notturna",
+		"pl": "Naprawiono odwrócony stan jasności światła nocnego na Standing Smart Fan, dodano kartę Action Flow dla jasności światła nocnego",
+		"ru": "Исправлено обратное состояние для яркости ночного света на Standing Smart Fan, добавлена карта Action Flow для яркости ночного света",
+		"ko": "Standing Smart Fan의 나이트 라이트 밝기에 대한 역전된 상태 수정, 나이트 라이트 밝기에 대한 Action Flow 카드 추가"
 	}
 }

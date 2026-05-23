@@ -658,6 +658,13 @@ class MyApp extends OAuth2App
 			return args.device.onCapabilityFanSettings(args);
 		});
 
+		const setNightLightAction = this.homey.flow.getActionCard('set_night_light');
+		setNightLightAction.registerRunListener(async (args, state) =>
+		{
+			args.device.setCapabilityValue('night_light', args.night_light).catch(this.error);
+			return args.device.onCapabilityNightLight(args.night_light);
+		});
+
 		const fanSwingAction = this.homey.flow.getActionCard('fan_swing');
 		fanSwingAction
 			.registerRunListener(async (args, state) =>

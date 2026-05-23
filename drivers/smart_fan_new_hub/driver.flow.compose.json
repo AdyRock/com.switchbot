@@ -124,6 +124,114 @@
 					]
 				}
 			]
+		},
+		{
+			"id": "set_night_light",
+			"title": {
+				"en": "Set night light",
+				"no": "Sett nattlys",
+				"nl": "Stel nachtlicht in",
+				"da": "Indstil natlys",
+				"de": "Nachtlicht einstellen",
+				"es": "Establecer luz nocturna",
+				"fr": "Régler la lumière nocturne",
+				"it": "Imposta luce notturna",
+				"sv": "Ställ in nattljus",
+				"pl": "Ustaw światło nocne",
+				"ru": "Установить ночной свет",
+				"ko": "야간 조명 설정"
+			},
+			"titleFormatted": {
+				"en": "Set the night light to [[night_light]]",
+				"no": "Sett nattlyset til [[night_light]]",
+				"nl": "Stel het nachtlicht in op [[night_light]]",
+				"da": "Indstil natlyset til [[night_light]]",
+				"de": "Nachtlicht auf [[night_light]] einstellen",
+				"es": "Establecer la luz nocturna a [[night_light]]",
+				"fr": "Régler la lumière nocturne sur [[night_light]]",
+				"it": "Imposta la luce notturna su [[night_light]]",
+				"sv": "Ställ in nattljuset till [[night_light]]",
+				"pl": "Ustaw światło nocne na [[night_light]]",
+				"ru": "Установить ночной свет на [[night_light]]",
+				"ko": "야간 조명을 [[night_light]]로 설정"
+			},
+			"platforms": [
+				"local",
+				"cloud"
+			],
+			"args": [
+				{
+					"name": "night_light",
+					"title": {
+						"en": "Night Light",
+						"no": "Nattlys",
+						"nl": "Nachtlicht",
+						"da": "Natlys",
+						"de": "Nachtlicht",
+						"es": "Luz nocturna",
+						"fr": "Lumière nocturne",
+						"it": "Luce notturna",
+						"sv": "Nattljus",
+						"pl": "Światło nocne",
+						"ru": "Ночной свет",
+						"ko": "야간 조명"
+					},
+					"type": "dropdown",
+					"values": [
+						{
+							"id": "off",
+							"title": {
+								"en": "Off",
+								"no": "Av",
+								"nl": "Uit",
+								"da": "Fra",
+								"de": "Aus",
+								"es": "Apagado",
+								"fr": "Éteint",
+								"it": "Spento",
+								"sv": "Av",
+								"pl": "Wyłączony",
+								"ru": "Выкл",
+								"ko": "꺼짐"
+							}
+						},
+						{
+							"id": "2",
+							"title": {
+								"en": "Dim",
+								"no": "Dempet",
+								"nl": "Gedimd",
+								"da": "Dæmpet",
+								"de": "Gedimmt",
+								"es": "Atenuado",
+								"fr": "Faible",
+								"it": "Luce tenue",
+								"sv": "Dämpad",
+								"pl": "Przyciemnione",
+								"ru": "Тусклый",
+								"ko": "어둡게"
+							}
+						},
+						{
+							"id": "1",
+							"title": {
+								"en": "Bright",
+								"no": "Lys",
+								"nl": "Helder",
+								"da": "Lys",
+								"de": "Hell",
+								"es": "Brillante",
+								"fr": "Luminosité",
+								"it": "Luce intensa",
+								"sv": "Ljus",
+								"pl": "Jasne",
+								"ru": "Яркий",
+								"ko": "밝음"
+							}
+						}
+					]
+				}
+			]
 		}
 	]
 }
