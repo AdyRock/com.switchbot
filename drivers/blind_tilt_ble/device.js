@@ -45,7 +45,7 @@ class BlindTiltBLEDevice extends Homey.Device
 			this.motionMode = 2;
 		}
 
-		this.closePosition = Number(this.getSetting('closePosition'));
+		this.closePosition = this.getSetting('closePosition');
 		if (this.closePosition === null)
 		{
 			this.closePosition = 'down';
@@ -90,7 +90,7 @@ class BlindTiltBLEDevice extends Homey.Device
 
 		if (changedKeys.indexOf('closePosition') >= 0)
 		{
-			this.closePosition = Number(newSettings.closePosition);
+			this.closePosition = newSettings.closePosition;
 		}
 
 		setImmediate(() =>
@@ -128,7 +128,7 @@ class BlindTiltBLEDevice extends Homey.Device
 		}
 		else
 		{
-			value = this.closePosition ? 1 : 0;
+			value = this.closePosition === 'up' ? 1 : 0;
 		}
 
 		return this.runToPos(value * 100, this.motionMode);
