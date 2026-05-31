@@ -4,14 +4,14 @@
 
 const LockAdvancedHubDriver = require('../../lib/lock_advanced_hub_driver');
 
-class LockUltraHubDriver extends LockAdvancedHubDriver
+class LockVisionProHubDriver extends LockAdvancedHubDriver
 {
 
 	getSupportedLockTypes()
 	{
-		return ['Smart Lock Pro', 'Smart Lock Ultra'];
+		return ['Lock Vision Pro'];
 	}
 
 }
 
-module.exports = LockUltraHubDriver;
+module.exports = LockVisionProHubDriver;

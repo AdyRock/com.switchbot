@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.switchbot",
-  "version": "2.0.73",
+  "version": "2.0.74",
   "compatibility": ">=12.2.0",
   "platforms": [
     "local",
@@ -976,7 +976,7 @@
           {
             "type": "device",
             "name": "device",
-            "filter": "driver_id=lock_ultra_hub"
+            "filter": "driver_id=lock_ultra_hub|lock_vision_pro_hub"
           }
         ],
         "id": "locked"
@@ -1445,7 +1445,7 @@
           {
             "type": "device",
             "name": "device",
-            "filter": "driver_id=lock_ultra_hub"
+            "filter": "driver_id=lock_ultra_hub|lock_vision_pro_hub"
           }
         ],
         "id": "unlocked"
@@ -2879,7 +2879,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=lock_ultra_hub"
+            "filter": "driver_id=lock_ultra_hub|lock_vision_pro_hub"
           }
         ],
         "platforms": [
@@ -4658,7 +4658,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=lock_ultra_hub"
+            "filter": "driver_id=lock_ultra_hub|lock_vision_pro_hub"
           }
         ],
         "platforms": [
@@ -8874,6 +8874,112 @@
       "capabilities": [
         "lock",
         "deadbolt",
+        "unlock",
+        "locked",
+        "locked_status",
+        "alarm_generic",
+        "alarm_contact",
+        "measure_battery"
+      ],
+      "capabilitiesOptions": {
+        "locked": {
+          "getable": true,
+          "setable": false,
+          "uiComponent": null
+        },
+        "alarm_generic": {
+          "title": {
+            "en": "Door Jammed",
+            "no": "Dør blokkert",
+            "nl": "Deur Vastgelopen",
+            "da": "Dør Fastklemt",
+            "de": "Tür blockiert",
+            "es": "Puerta Atascada",
+            "fr": "Porte Bloquée",
+            "it": "Porta Bloccata",
+            "sv": "Dörr Fastnat",
+            "pl": "Drzwi Zacięte",
+            "ru": "Дверь Заклинило",
+            "ko": "문이 막힘"
+          }
+        },
+        "alarm_contact": {
+          "title": {
+            "en": "Door Open",
+            "no": "Dør åpen",
+            "nl": "Deur Open",
+            "da": "Dør Åben",
+            "de": "Tür Offen",
+            "es": "Puerta Abierta",
+            "fr": "Porte Ouverte",
+            "it": "Porta Aperta",
+            "sv": "Dörr Öppen",
+            "pl": "Drzwi Otwarte",
+            "ru": "Дверь Открыта",
+            "ko": "문 열림"
+          }
+        }
+      },
+      "energy": {
+        "batteries": [
+          "OTHER"
+        ]
+      }
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        }
+      ],
+      "icon": "/drivers/lock_vision_pro_hub/assets/icon.svg",
+      "images": {
+        "large": "/drivers/lock_vision_pro_hub/assets/images/large.jpg",
+        "small": "/drivers/lock_vision_pro_hub/assets/images/small.jpg"
+      },
+      "id": "lock_vision_pro_hub",
+      "name": {
+        "en": "Lock Vision Pro(HUB)",
+        "no": "Lock Vision Pro(HUB)",
+        "nl": "Lock Vision Pro(HUB)",
+        "da": "Lock Vision Pro(HUB)",
+        "de": "Lock Vision Pro(HUB)",
+        "es": "Lock Vision Pro(HUB)",
+        "fr": "Lock Vision Pro(HUB)",
+        "it": "Lock Vision Pro(HUB)",
+        "sv": "Lock Vision Pro(HUB)",
+        "pl": "Lock Vision Pro(HUB)",
+        "ru": "Lock Vision Pro(HUB)",
+        "ko": "Lock Vision Pro(HUB)"
+      },
+      "class": "lock",
+      "capabilities": [
+        "lock",
         "unlock",
         "locked",
         "locked_status",

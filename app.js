@@ -313,6 +313,7 @@ class MyApp extends OAuth2App
 		'light_remote_hub',
 		'lock_hub',
 		"lock_ultra_hub",
+		'lock_vision_pro_hub',
 		'meter_pro_CO2_hub',
 		'meter_pro_hub',
 		'plug_eu_hub',
