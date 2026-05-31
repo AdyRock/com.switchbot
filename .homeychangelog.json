@@ -1248,5 +1248,18 @@
 		"pl": "Naprawiono odwrócony stan jasności światła nocnego na Standing Smart Fan, dodano kartę Action Flow dla jasności światła nocnego",
 		"ru": "Исправлено обратное состояние для яркости ночного света на Standing Smart Fan, добавлена карта Action Flow для яркости ночного света",
 		"ko": "Standing Smart Fan의 나이트 라이트 밝기에 대한 역전된 상태 수정, 나이트 라이트 밝기에 대한 Action Flow 카드 추가"
+	},
+	"2.0.75": {
+		"en": "Added support Lock Vision Pro",
+		"no": "Lagt til støtte for Lock Vision Pro",
+		"nl": "Ondersteuning toegevoegd voor Lock Vision Pro",
+		"de": "Unterstützung für Lock Vision Pro hinzugefügt",
+		"fr": "Ajout de la prise en charge du Lock Vision Pro",
+		"es": "Agregado soporte para el Lock Vision Pro",
+		"pt": "Adicionado suporte para o Lock Vision Pro",
+		"it": "Aggiunto supporto per il Lock Vision Pro",
+		"pl": "Dodano obsługę dla Lock Vision Pro",
+		"ru": "Добавлена поддержка для Lock Vision Pro",
+		"ko": "Lock Vision Pro 지원 추가"
 	}
 }
