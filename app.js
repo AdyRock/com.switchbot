@@ -329,6 +329,7 @@ class MyApp extends OAuth2App
 		'scene',
 		'settop_box_hub',
 		'smart_fan_hub',
+		'smart_fan_new_hub',
 		'speaker',
 		'strip_light',
 		'temperature_hub',
@@ -657,6 +658,13 @@ class MyApp extends OAuth2App
 		smartFanAction.registerRunListener(async (args, state) =>
 		{
 			return args.device.onCapabilityFanSettings(args);
+		});
+
+		const circulatingFanAction = this.homey.flow.getActionCard('circulating_fan_mode');
+		circulatingFanAction.registerRunListener(async (args, state) =>
+		{
+			args.device.setCapabilityValue('smart_fan_mode2', args.fan_mode).catch(this.error);
+			return args.device.onCapabilityFanMode(args.fan_mode);
 		});
 
 		const setNightLightAction = this.homey.flow.getActionCard('set_night_light');

@@ -1261,5 +1261,18 @@
 		"pl": "Dodano obsługę dla Lock Vision Pro",
 		"ru": "Добавлена поддержка для Lock Vision Pro",
 		"ko": "Lock Vision Pro 지원 추가"
+	},
+	"2.0.76": {
+		"en": "Updated icons",
+		"no": "Oppdaterte ikoner",
+		"nl": "Bijgewerkte pictogrammen",
+		"de": "Aktualisierte Symbole",
+		"fr": "Icônes mises à jour",
+		"es": "Iconos actualizados",
+		"pt": "Ícones atualizados",
+		"it": "Icone aggiornate",
+		"pl": "Zaktualizowane ikony",
+		"ru": "Обновленные иконки",
+		"ko": "업데이트된 아이콘"
 	}
 }
