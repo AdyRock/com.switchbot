@@ -14,9 +14,13 @@ class CurtainsHubDevice extends HubDevice
 	{
 		await super.onInit();
 
-		if (!this.hasCapability('open_close'))
+		if (this.hasCapability('open_close'))
 		{
-			this.addCapability('open_close').catch(this.error);;
+			this.removeCapability('open_close').catch(this.error);;
+		}
+		if (!this.hasCapability('windowcoverings_closed'))
+		{
+			this.addCapability('windowcoverings_closed').catch(this.error);;
 		}
 		if (!this.hasCapability('position'))
 		{
@@ -47,7 +51,7 @@ class CurtainsHubDevice extends HubDevice
 		// {
 		// 	this.setUnavailable(err.message);
 		// }
-		this.registerCapabilityListener('open_close', this.onCapabilityopenClose.bind(this));
+		this.registerCapabilityListener('windowcoverings_closed', this.onCapabilityopenClose.bind(this));
 		this.registerCapabilityListener('windowcoverings_set', this.onCapabilityPosition.bind(this));
 		this.registerCapabilityListener('windowcoverings_state', this.onCapabilityState.bind(this));
 
@@ -257,11 +261,11 @@ class CurtainsHubDevice extends HubDevice
 
 				if (position > 0.5)
 				{
-					this.setCapabilityValue('open_close', true).catch(this.error);
+					this.setCapabilityValue('windowcoverings_closed', true).catch(this.error);
 				}
 				else
 				{
-					this.setCapabilityValue('open_close', false).catch(this.error);
+					this.setCapabilityValue('windowcoverings_closed', false).catch(this.error);
 				}
 
 				if (position === 0)
@@ -340,11 +344,11 @@ class CurtainsHubDevice extends HubDevice
 
 				if (position > 0.5)
 				{
-					this.setCapabilityValue('open_close', true).catch(this.error);
+					this.setCapabilityValue('windowcoverings_closed', true).catch(this.error);
 				}
 				else
 				{
-					this.setCapabilityValue('open_close', false).catch(this.error);
+					this.setCapabilityValue('windowcoverings_closed', false).catch(this.error);
 				}
 
 				if (this.lastPosition)

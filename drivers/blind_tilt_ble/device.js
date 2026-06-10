@@ -12,9 +12,13 @@ class BlindTiltBLEDevice extends Homey.Device
 	 */
 	async onInit()
 	{
-		if (!this.hasCapability('open_close'))
+		if (this.hasCapability('open_close'))
 		{
-			this.addCapability('open_close').catch(this.error);;
+			this.removeCapability('open_close').catch(this.error);;
+		}
+		if (!this.hasCapability('windowcoverings_closed'))
+		{
+			this.addCapability('windowcoverings_closed').catch(this.error);;
 		}
 		if (!this.hasCapability('position'))
 		{
@@ -52,7 +56,7 @@ class BlindTiltBLEDevice extends Homey.Device
 		}
 
 		// register a capability listener
-		this.registerCapabilityListener('open_close', this.onCapabilityopenClose.bind(this));
+		this.registerCapabilityListener('windowcoverings_closed', this.onCapabilityopenClose.bind(this));
 		this.registerCapabilityListener('windowcoverings_tilt_set', this.onCapabilityPosition.bind(this));
 
 		this.homey.app.registerBLEPolling();
@@ -440,11 +444,11 @@ class BlindTiltBLEDevice extends Homey.Device
 
 			if ((position > 0.2) && (position < 0.8))
 			{
-				this.setCapabilityValue('open_close', !this.invertPosition).catch(this.error);
+				this.setCapabilityValue('windowcoverings_closed', !this.invertPosition).catch(this.error);
 			}
 			else
 			{
-				this.setCapabilityValue('open_close', this.invertPosition).catch(this.error);
+				this.setCapabilityValue('windowcoverings_closed', this.invertPosition).catch(this.error);
 			}
 
 			this.setCapabilityValue('windowcoverings_tilt_set', position).catch(this.error);
@@ -549,11 +553,11 @@ class BlindTiltBLEDevice extends Homey.Device
 
 					if ((position > 0.2) && (position < 0.8))
 					{
-						this.setCapabilityValue('open_close', !this.invertPosition).catch(this.error);
+						this.setCapabilityValue('windowcoverings_closed', !this.invertPosition).catch(this.error);
 					}
 					else
 					{
-						this.setCapabilityValue('open_close', this.invertPosition).catch(this.error);
+						this.setCapabilityValue('windowcoverings_closed', this.invertPosition).catch(this.error);
 					}
 
 					this.setCapabilityValue('windowcoverings_tilt_set', position).catch(this.error);
@@ -628,11 +632,11 @@ class BlindTiltBLEDevice extends Homey.Device
 
 		if ((position > 0.2) && (position < 0.8))
 		{
-			this.setCapabilityValue('open_close', !this.invertPosition).catch(this.error);
+			this.setCapabilityValue('windowcoverings_closed', !this.invertPosition).catch(this.error);
 		}
 		else
 		{
-			this.setCapabilityValue('open_close', this.invertPosition).catch(this.error);
+			this.setCapabilityValue('windowcoverings_closed', this.invertPosition).catch(this.error);
 		}
 
 		if (this.lastPosition)

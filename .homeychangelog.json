@@ -1274,5 +1274,18 @@
 		"pl": "Zaktualizowane ikony",
 		"ru": "Обновленные иконки",
 		"ko": "업데이트된 아이콘"
+	},
+	"2.0.77": {
+		"en": "Replace 'open_close' capability with 'windowcoverings_closed' for blinds and curtains",
+		"no": "Erstatt 'open_close' kapasitet med 'windowcoverings_closed' for persienner og gardiner",
+		"nl": "Vervang 'open_close' capaciteit door 'windowcoverings_closed' voor jaloezieën en gordijnen",
+		"de": "Ersetzen Sie die 'open_close'-Fähigkeit durch 'windowcoverings_closed' für Jalousien und Vorhänge",
+		"fr": "Remplacez la capacité 'open_close' par 'windowcoverings_closed' pour les stores et les rideaux",
+		"es": "Reemplaza la capacidad 'open_close' con 'windowcoverings_closed' para persianas y cortinas",
+		"pt": "Substitua a capacidade 'open_close' por 'windowcoverings_closed' para persianas e cortinas",
+		"it": "Sostituisci la capacità 'open_close' con 'windowcoverings_closed' per tende e persiane",
+		"pl": "Zastąp zdolność 'open_close' zdolnością 'windowcoverings_closed' dla żaluzji i zasłon",
+		"ru": "Замените способность 'open_close' на 'windowcoverings_closed' для жалюзи и штор",
+		"ko": "블라인드 및 커튼에 'open_close' 기능을 'windowcoverings_closed'로 교체"
 	}
 }

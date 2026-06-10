@@ -12,6 +12,14 @@ class CurtainsBLEDevice extends Homey.Device
 	 */
 	async onInit()
 	{
+		if (this.hasCapability('open_close'))
+		{
+			this.removeCapability('open_close').catch(this.error);;
+		}
+		if (!this.hasCapability('windowcoverings_closed'))
+		{
+			this.addCapability('windowcoverings_closed').catch(this.error);;
+		}
 		if (!this.hasCapability('position'))
 		{
 			this.addCapability('position').catch(this.error);;
@@ -48,16 +56,11 @@ class CurtainsBLEDevice extends Homey.Device
 			this.motionMode = 2;
 		}
 
-		// register a capability listener
-		if (this.hasCapability('open_close'))
-		{
-			this.registerCapabilityListener('open_close', this.onCapabilityopenClose.bind(this));
-		}
-
 		if (this.hasCapability('windowcoverings_closed'))
 		{
 			this.registerCapabilityListener('windowcoverings_closed', this.onCapabilityopenClose.bind(this));
 		}
+
 		this.registerCapabilityListener('windowcoverings_set', this.onCapabilityPosition.bind(this));
 		this.registerCapabilityListener('windowcoverings_state', this.onCapabilityState.bind(this));
 
