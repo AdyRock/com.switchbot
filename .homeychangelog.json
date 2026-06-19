@@ -1287,5 +1287,18 @@
 		"pl": "Zastąp zdolność 'open_close' zdolnością 'windowcoverings_closed' dla żaluzji i zasłon",
 		"ru": "Замените способность 'open_close' на 'windowcoverings_closed' для жалюзи и штор",
 		"ko": "블라인드 및 커튼에 'open_close' 기능을 'windowcoverings_closed'로 교체"
+	},
+	"2.0.78": {
+		"en": "Improved token-only webhook registration fallback, fixed detected devices output, and improved Presence2 occupancy state handling.",
+		"no": "Forbedret token-only webhook-registreringsfallback, fikset oppdaget enheter utgang, og forbedret Presence2 okkupasjonstilstandshåndtering.",
+		"nl": "Verbeterde token-only webhook-registratie fallback, gereparerd gedetecteerde apparatenuitvoer en verbeterde Presence2-bezettingsstatusafhandeling.",
+		"de": "Verbesserte Token-Only-Webhook-Registrierungs-Fallback, behobene erkannte Geräteausgabe und verbesserte Presence2-Belegungsstatusbehandlung.",
+		"fr": "Amélioration de la prise en charge du fallback d'enregistrement de webhook uniquement par jeton, correction de la sortie des appareils détectés et amélioration de la gestion de l'état d'occupation Presence2.",
+		"es": "Mejora de la compatibilidad con el registro de webhook solo con token, corrección de la salida de dispositivos detectados y mejora del manejo del estado de ocupación Presence2.",
+		"pt": "Melhoria do fallback de registro de webhook apenas com token, correção da saída de dispositivos detectados e melhoria do manuseio do estado de ocupação Presence2.",
+		"it": "Migliorato il fallback di registrazione del webhook solo con token, corretto l'output dei dispositivi rilevati e migliorata la gestione dello stato di occupazione Presence2.",
+		"pl": "Ulepszono rejestrację webhooków tylko z tokenem, naprawiono wyjście wykrytych urządzeń i ulepszono obsługę stanu zajętości Presence2.",
+		"ru": "Улучшена регистрация веб-хуков только с токеном, исправлен вывод обнаруженных устройств и улучшена обработка состояния занятости Presence2.",
+		"ko": "토큰 전용 웹후크 등록 폴백 개선, 감지된 장치 출력 수정 및 Presence2 점유 상태 처리 개선."
 	}
 }

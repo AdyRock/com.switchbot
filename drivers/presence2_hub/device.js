@@ -7,6 +7,58 @@ const HubDevice = require('../hub_device');
 class Presence2HubDevice extends HubDevice
 {
 
+	parsePresenceState(value)
+	{
+		if (typeof value === 'boolean')
+		{
+			return value;
+		}
+
+		if (typeof value === 'number')
+		{
+			return value !== 0;
+		}
+
+		if (typeof value === 'string')
+		{
+			const text = value.trim().toUpperCase();
+			if (['DETECTED', 'OCCUPIED', 'PRESENT', 'TRUE', '1', 'MOTION'].includes(text))
+			{
+				return true;
+			}
+
+			if (['NOT_DETECTED', 'UNOCCUPIED', 'ABSENT', 'FALSE', '0', 'CLEAR', 'NONE'].includes(text))
+			{
+				return false;
+			}
+		}
+
+		return null;
+	}
+
+	resolvePresenceState(data)
+	{
+		if (!data || typeof data !== 'object')
+		{
+			return null;
+		}
+
+		const candidateFields = ['detected', 'presence', 'moveDetected', 'motionDetected', 'detectionState', 'occupancy', 'occupancyState'];
+		for (const field of candidateFields)
+		{
+			if (typeof data[field] !== 'undefined')
+			{
+				const parsed = this.parsePresenceState(data[field]);
+				if (parsed !== null)
+				{
+					return parsed;
+				}
+			}
+		}
+
+		return null;
+	}
+
 	/**
 	 * onInit is called when the device is initialized.
 	 */
@@ -66,7 +118,16 @@ class Presence2HubDevice extends HubDevice
 				this.setAvailable();
 				this.homey.app.updateLog(`Presence Hub got: ${this.homey.app.varToString(data)}`, 3, 'hub');
 
-				this.setCapabilityValue('alarm_presence', data.detected).catch(this.error);
+				const presenceDetected = this.resolvePresenceState(data);
+				if (presenceDetected !== null)
+				{
+					this.setCapabilityValue('alarm_presence', presenceDetected).catch(this.error);
+				}
+				else
+				{
+					this.homey.app.updateLog(`Presence state not found in payload, defaulting to false: ${this.homey.app.varToString(data)}`, 1, 'hub');
+					this.setCapabilityValue('alarm_presence', false).catch(this.error);
+				}
 
 				if (data.lightLevel)
 				{
@@ -107,7 +168,8 @@ class Presence2HubDevice extends HubDevice
 			if (dd.id === message.context.deviceMac)
 			{
 				// message is for this device
-				this.setCapabilityValue('alarm_presence', message.context.detectionState === 'DETECTED').catch(this.error);
+				const presenceDetected = this.resolvePresenceState(message.context);
+				this.setCapabilityValue('alarm_presence', presenceDetected === null ? false : presenceDetected).catch(this.error);
 
 				if (this.hasCapability('measure_luminance') && message.context.lightLevel)
 				{

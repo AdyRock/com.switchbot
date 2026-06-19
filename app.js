@@ -165,6 +165,22 @@ class MyApp extends OAuth2App
 		return hexText.match(/.{1,2}/g).join(':').toUpperCase();
 	}
 
+	getWebhookAuthMode()
+	{
+		const oAuth2Client = this.getFirstSavedOAuth2Client();
+		if (oAuth2Client)
+		{
+			return 'OAuth2 session';
+		}
+
+		if (this.openToken && this.openSecret)
+		{
+			return 'API token/secret';
+		}
+
+		return 'unavailable (no OAuth session and no API token/secret)';
+	}
+
 	normalizeLogMessage(newMessage)
 	{
 		const message = this.redactSensitiveLogData((typeof newMessage === 'string') ? newMessage : this.varToString(newMessage));
@@ -421,10 +437,11 @@ class MyApp extends OAuth2App
 		catch (err)
 		{
 			this.homeyID = 'unknown-homey';
-			this.updateLog(`Failed to get Homey ID at startup: ${err.message}`, 0, 'hub');
+			this.updateLog(`Failed to get Homey ID at startup: ${err.message}`, 0, 'all');
 		}
 
 		// Setup the SwitchBot webhook after a short delay to allow devices to register
+		this.updateLog(`Webhook auth mode at startup: ${this.getWebhookAuthMode()}`, 0, 'all');
 		this.switchBotWebhookTimerID = this.homey.setTimeout(() =>
 		{
 			this.setupSwitchBotWebhook();
@@ -1226,6 +1243,13 @@ class MyApp extends OAuth2App
 		{
 			this.updateLog('Deleting SwitchBot webhook', 1, 'hub');
 			await oAuth2Client.deleteWebhook(Homey.env.WEBHOOK_URL);
+			return;
+		}
+
+		if (this.openToken && this.openSecret)
+		{
+			this.updateLog('Deleting SwitchBot webhook using API token', 1, 'hub');
+			await this.hub.deleteWebhook(Homey.env.WEBHOOK_URL);
 		}
 	}
 
@@ -1363,12 +1387,28 @@ class MyApp extends OAuth2App
 	{
 		try
 		{
-			// Fetch the first OAuth client to use for checking / setting webhook
-			const oAuth2Client = this.getFirstSavedOAuth2Client();
-			if (oAuth2Client)
+			let webhookClient = this.getFirstSavedOAuth2Client();
+			let webhookClientType = 'OAuth2';
+
+			if (!webhookClient)
+			{
+				if (this.openToken && this.openSecret)
+				{
+					webhookClient = this.hub;
+					webhookClientType = 'API token';
+					this.homey.app.updateLog('No OAuth client available, using API token/secret for SwitchBot webhook', 1, 'hub');
+				}
+				else
+				{
+					this.homey.app.updateLog('No OAuth client or API token/secret available to register the SwitchBot webhook', 0, 'hub');
+					return false;
+				}
+			}
+
+			if (webhookClient)
 			{
 				// Fetch any exitsing webhook
-				const response1 = await oAuth2Client.getWebhook();
+				const response1 = await webhookClient.getWebhook();
 				if (response1)
 				{
 					if (!response1.statusCode || response1.statusCode === 100)
@@ -1379,12 +1419,12 @@ class MyApp extends OAuth2App
 						{
 							if (body.urls[0].localeCompare(Homey.env.WEBHOOK_URL, 'en', { sensitivity: 'base' }) === 0)
 							{
-								this.homey.app.updateLog('SwitchBot webhook already registered', 1, 'hub');
+								this.homey.app.updateLog(`SwitchBot webhook already registered (${webhookClientType})`, 1, 'hub');
 								return true;
 							}
 
 							// Delete the current web hook so we can replace it with ours
-							const response2 = await oAuth2Client.deleteWebhook(body.urls[0]);
+							const response2 = await webhookClient.deleteWebhook(body.urls[0]);
 							if (response2)
 							{
 								if (response2.statusCode && response2.statusCode !== 100)
@@ -1393,17 +1433,17 @@ class MyApp extends OAuth2App
 									return false;
 								}
 
-								this.homey.app.updateLog('Deleted old webhook', 3, 'hub');
+								this.homey.app.updateLog(`Deleted old webhook (${webhookClientType})`, 3, 'hub');
 							}
 						}
 						else
 						{
-							this.homey.app.updateLog('No existing SwitchBot webhook found', 3, 'hub');
+							this.homey.app.updateLog(`No existing SwitchBot webhook found (${webhookClientType})`, 3, 'hub');
 						}
 					}
 				}
 
-				const response = await oAuth2Client.setWebhook(Homey.env.WEBHOOK_URL);
+				const response = await webhookClient.setWebhook(Homey.env.WEBHOOK_URL);
 				if (response)
 				{
 					if (!response.statusCode || response.statusCode !== 100)
@@ -1411,14 +1451,12 @@ class MyApp extends OAuth2App
 						this.homey.app.updateLog(`Invalid response code: ${response.statusCode}\nMessage: ${response.message}`, 0, 'hub');
 						return false;
 					}
-					this.homey.app.updateLog('Registered SwitchBot webhook', 1, 'hub');
+					this.homey.app.updateLog(`Registered SwitchBot webhook (${webhookClientType})`, 1, 'hub');
 					return true;
 				}
-				this.homey.app.updateLog('No response when registering the SwitchBot webhook', 0, 'hub');
+				this.homey.app.updateLog(`No response when registering the SwitchBot webhook (${webhookClientType})`, 0, 'hub');
 				return false;
 			}
-
-			this.homey.app.updateLog('No OAuth client available to register the SwitchBot webhook', 0, 'hub');
 		}
 		catch (err)
 		{
@@ -1510,6 +1548,22 @@ class MyApp extends OAuth2App
 				this.homey.app.updateLog(`Invalid response code: ${response.statusCode}\nMessage: ${response.message}`, 0, 'hub');
 				throw (new Error(`Invalid response code: ${response.statusCode} ${response.message}`));
 			}
+
+			const devices = response.body ? response.body : response;
+			if (devices && devices.deviceList)
+			{
+				try
+				{
+					devices.sceneList = await this.hub.getScenes();
+				}
+				catch (err)
+				{
+					this.homey.app.updateLog(`getHUBDevices scenes error: ${err.message}`, 0, 'hub');
+				}
+				return devices;
+			}
+
+			throw (new Error(`No devices found: ${this.varToString(response)}`));
 		}
 		else
 		{

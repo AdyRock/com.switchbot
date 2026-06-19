@@ -26,7 +26,29 @@ class HubDriver extends OAuth2Driver
 			if (this.homey.app.openToken)
 			{
 				this.homey.app.updateLog('Getting devices using openToken', 2, 'hub');
-				response = await this.homey.app.getHUBDevices();
+				try
+				{
+					response = await this.homey.app.getHUBDevices();
+				}
+				catch (err)
+				{
+					this.homey.app.updateLog(`openToken device fetch failed: ${err.message}`, 0, 'hub');
+					if (oAuth2Client)
+					{
+						this.homey.app.updateLog('Falling back to oAuth2Client for device retrieval', 2, 'hub');
+						response = await oAuth2Client.getDevices();
+					}
+					else
+					{
+						throw err;
+					}
+				}
+
+				if (!response && oAuth2Client)
+				{
+					this.homey.app.updateLog('openToken returned no data, falling back to oAuth2Client', 0, 'hub');
+					response = await oAuth2Client.getDevices();
+				}
 			}
 			else
 			{
