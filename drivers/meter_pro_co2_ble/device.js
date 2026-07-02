@@ -14,7 +14,7 @@ class MeterProCO2BLEDevice extends Homey.Device
 	{
 		this.bestRSSI = 100;
 		this.bestHub = '';
-		this.homey.app.registerBLEPolling();
+		this.homey.app.registerBLEPolling(this);
 		this.log('MeterProCO2BLEDevice has been initialized');
 		this.deviceNotFound = false;
 	}
@@ -55,7 +55,7 @@ class MeterProCO2BLEDevice extends Homey.Device
 	 */
 	async onDeleted()
 	{
-		this.homey.app.unregisterBLEPolling();
+		this.homey.app.unregisterBLEPolling(this);
 		await this.blePeripheral.disconnect();
 		this.log('MeterProCO2BLEDevice has been deleted');
 	}
@@ -158,3 +158,4 @@ class MeterProCO2BLEDevice extends Homey.Device
 }
 
 module.exports = MeterProCO2BLEDevice;
+

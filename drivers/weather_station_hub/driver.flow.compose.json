@@ -1,0 +1,77 @@
+{
+	"actions": [
+		{
+			"id": "customQuote",
+			"title": {
+				"en": "Set custom quote"
+			},
+			"titleFormatted": {
+				"en": "Set Weather Station custom quote to [[custom_text]]"
+			},
+			"hint": {
+				"en": "Set a custom quote on a Weather Station"
+			},
+			"args": [
+				{
+					"name": "custom_text",
+					"type": "text",
+					"title": {
+						"en": "Custom quote"
+					},
+					"placeholder": {
+						"en": "Type custom quote"
+					}
+				}
+			],
+			"platforms": [
+				"local",
+				"cloud"
+			]
+		},
+		{
+			"id": "cancelCustom",
+			"title": {
+				"en": "Cancel custom quote"
+			},
+			"titleFormatted": {
+				"en": "Cancel Weather Station custom quote"
+			},
+			"hint": {
+				"en": "Cancel the Weather Station custom quote and revert to default"
+			},
+			"args": [],
+			"platforms": [
+				"local",
+				"cloud"
+			]
+		},
+		{
+			"id": "customPage",
+			"title": {
+				"en": "Set custom page"
+			},
+			"titleFormatted": {
+				"en": "Set Weather Station custom page to [[custom_text]]"
+			},
+			"hint": {
+				"en": "Set custom page text on a Weather Station"
+			},
+			"args": [
+				{
+					"name": "custom_text",
+					"type": "text",
+					"title": {
+						"en": "Custom page text"
+					},
+					"placeholder": {
+						"en": "Type custom page text"
+					}
+				}
+			],
+			"platforms": [
+				"local",
+				"cloud"
+			]
+		}
+	]
+}

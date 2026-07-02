@@ -15,7 +15,7 @@ class WaterLeakBLEDevice extends Homey.Device
 		this.bestRSSI = 100;
 		this.bestHub = '';
 
-		this.homey.app.registerBLEPolling();
+		this.homey.app.registerBLEPolling(this);
 		this.log('WaterLeakBLEDevice has been initialized');
 	}
 
@@ -55,7 +55,7 @@ class WaterLeakBLEDevice extends Homey.Device
 	 */
 	async onDeleted()
 	{
-		this.homey.app.unregisterBLEPolling();
+		this.homey.app.unregisterBLEPolling(this);
 		await this.blePeripheral.disconnect();
 		this.log('WaterLeakBLEDevice has been deleted');
 	}
@@ -151,3 +151,4 @@ class WaterLeakBLEDevice extends Homey.Device
 }
 
 module.exports = WaterLeakBLEDevice;
+

@@ -34,7 +34,7 @@ class RollerBlindBLEDevice extends Homey.Device
 		// register a capability listener
 		this.registerCapabilityListener('windowcoverings_set', this.onCapabilityPosition.bind(this));
 
-		this.homey.app.registerBLEPolling();
+		this.homey.app.registerBLEPolling(this);
 
 		this.log('RollerBlindBLEDevice has been initialized');
 	}
@@ -88,7 +88,7 @@ class RollerBlindBLEDevice extends Homey.Device
 	 */
 	async onDeleted()
 	{
-		this.homey.app.unregisterBLEPolling();
+		this.homey.app.unregisterBLEPolling(this);
 		await this.blePeripheral.disconnect();
 		this.log('RollerBlindBLEDevice has been deleted');
 	}
@@ -452,3 +452,4 @@ class RollerBlindBLEDevice extends Homey.Device
 }
 
 module.exports = RollerBlindBLEDevice;
+

@@ -48,7 +48,7 @@ class ContactBLEDevice extends Homey.Device
 			this.addCapability('exit_id').catch(this.error);
 		}
 
-		this.homey.app.registerBLEPolling();
+		this.homey.app.registerBLEPolling(this);
 		this.log('ContactBLEDevice has been initialized');
 	}
 
@@ -88,7 +88,7 @@ class ContactBLEDevice extends Homey.Device
 	 */
 	async onDeleted()
 	{
-		this.homey.app.unregisterBLEPolling();
+		this.homey.app.unregisterBLEPolling(this);
 		await this.blePeripheral.disconnect();
 		this.log('ContactBLEDevice has been deleted');
 	}
@@ -219,3 +219,4 @@ class ContactBLEDevice extends Homey.Device
 }
 
 module.exports = ContactBLEDevice;
+

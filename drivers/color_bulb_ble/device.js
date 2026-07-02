@@ -22,7 +22,7 @@ class ColorBulbBLEDevice extends Homey.Device
 		this.registerCapabilityListener('light_temperature', this.onCapabilityLightTemperature.bind(this));
 		this.registerMultipleCapabilityListener(['light_hue', 'light_saturation'], this.onCapabilityLightHueSat.bind(this), 500);
 
-		this.homey.app.registerBLEPolling();
+		this.homey.app.registerBLEPolling(this);
 
 		this.log('ColorBulbBLEDevice has been initialized');
 	}
@@ -40,7 +40,7 @@ class ColorBulbBLEDevice extends Homey.Device
 	 */
 	async onDeleted()
 	{
-		this.homey.app.unregisterBLEPolling();
+		this.homey.app.unregisterBLEPolling(this);
 		await this.blePeripheral.disconnect();
 		this.log('ColorBulbBLEDevice has been deleted');
 	}
@@ -563,3 +563,4 @@ class ColorBulbBLEDevice extends Homey.Device
 }
 
 module.exports = ColorBulbBLEDevice;
+

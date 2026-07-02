@@ -1,0 +1,21 @@
+{
+	"id": "weather_station_hub",
+	"name": {
+		"en": "Weather Station (HUB)"
+	},
+	"class": "sensor",
+	"capabilities": [
+		"measure_temperature",
+		"measure_humidity",
+		"measure_battery"
+	],
+	"energy": {
+		"batteries": [
+			"AA",
+			"AA"
+		]
+	},
+	"$extends": [
+		"hubDriver"
+	]
+}

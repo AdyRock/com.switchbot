@@ -24,7 +24,7 @@ class PlugBLEDevice extends Homey.Device
 		// register a capability listener
 		this.registerCapabilityListener('onoff', this.onCapabilityOnOff.bind(this));
 
-		this.homey.app.registerBLEPolling();
+		this.homey.app.registerBLEPolling(this);
 
 		this.log('PlugBLEDevice has been initialized');
 	}
@@ -64,7 +64,7 @@ class PlugBLEDevice extends Homey.Device
 	 */
 	async onDeleted()
 	{
-		this.homey.app.unregisterBLEPolling();
+		this.homey.app.unregisterBLEPolling(this);
 		await this.blePeripheral.disconnect();
 		this.log('PlugBLEDevice has been deleted');
 	}
@@ -333,3 +333,4 @@ class PlugBLEDevice extends Homey.Device
 }
 
 module.exports = PlugBLEDevice;
+

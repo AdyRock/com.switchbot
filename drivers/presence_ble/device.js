@@ -36,7 +36,7 @@ class PresenceBLEDevice extends Homey.Device
 	{
 		this.bestRSSI = 100;
 		this.bestHub = '';
-		this.homey.app.registerBLEPolling();
+		this.homey.app.registerBLEPolling(this);
 		this.log('PresenceBLEDevice has been initialized');
 	}
 
@@ -76,7 +76,7 @@ class PresenceBLEDevice extends Homey.Device
 	 */
 	async onDeleted()
 	{
-		this.homey.app.unregisterBLEPolling();
+		this.homey.app.unregisterBLEPolling(this);
 		await this.blePeripheral.disconnect();
 		this.log('PresenceBLEDevice has been deleted');
 	}
@@ -130,7 +130,7 @@ class PresenceBLEDevice extends Homey.Device
 				}
 				else
 				{
-					this.homey.app.updateLog(`Parsed Presence BLE (MAC: ${deviceMac}): No service data`, 0, 'ble');
+					this.homey.app.updateLog(`Parsed Presence BLE (MAC: ${deviceMac}): No service data`, 3, 'ble');
 				}
 			}
 			else
@@ -191,3 +191,4 @@ class PresenceBLEDevice extends Homey.Device
 }
 
 module.exports = PresenceBLEDevice;
+

@@ -64,7 +64,7 @@ class CurtainsBLEDevice extends Homey.Device
 		this.registerCapabilityListener('windowcoverings_set', this.onCapabilityPosition.bind(this));
 		this.registerCapabilityListener('windowcoverings_state', this.onCapabilityState.bind(this));
 
-		this.homey.app.registerBLEPolling();
+		this.homey.app.registerBLEPolling(this);
 
 		this.log('CurtainsBLEDevice has been initialized');
 	}
@@ -118,7 +118,7 @@ class CurtainsBLEDevice extends Homey.Device
 	 */
 	async onDeleted()
 	{
-		this.homey.app.unregisterBLEPolling();
+		this.homey.app.unregisterBLEPolling(this);
 		await this.blePeripheral.disconnect();
 		this.log('CurtainsBLEDevice has been deleted');
 	}
@@ -592,3 +592,4 @@ class CurtainsBLEDevice extends Homey.Device
 }
 
 module.exports = CurtainsBLEDevice;
+

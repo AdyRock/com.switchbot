@@ -21,6 +21,7 @@ const DAILY_API_QUOTA = 10000;
 const COMMAND_API_OVERHEAD = 500;
 const POLLING_DAILY_BUDGET = DAILY_API_QUOTA - COMMAND_API_OVERHEAD;
 const BLE_POLLING_INTERVAL = 30000; // in milliSeconds
+const BLE_ADVERTISEMENT_RATE_LIMIT_MS = 5000;
 class MyApp extends OAuth2App
 {
 
@@ -350,6 +351,7 @@ class MyApp extends OAuth2App
 		'strip_light',
 		'temperature_hub',
 		'tv_hub',
+		'weather_station_hub',
 		'water_leak_hub',
 	];
 
@@ -523,6 +525,23 @@ class MyApp extends OAuth2App
 		this.onBLEPoll = this.onBLEPoll.bind(this);
 		this.bleDevices = 0;
 		this.bleTimerID = null;
+		this.bleAdvertisementSupported = this.homey.hasFeature('ble-advertisements');
+		this.bleAdvertisementSubscriptions = new Map();
+		this.bleAdvertisementSubscriptionPending = new Map();
+		this.bleAdvertisementDeviceToId = new Map();
+		this.bleAdvertisementDevicePayloadFingerprint = new Map();
+		this.bleAdvertisementDeviceParsedStateFingerprint = new Map();
+		this.bleAdvertisementDeviceKeys = new WeakMap();
+		this.bleAdvertisementNextKey = 1;
+		this.blePollingFallbackDevices = new Set();
+		if (this.bleAdvertisementSupported)
+		{
+			this.updateLog('BLE advertisement subscriptions enabled', 1, 'ble');
+		}
+		else
+		{
+			this.updateLog('BLE advertisement subscriptions unavailable on this Homey, using polling fallback', 1, 'ble');
+		}
 
 		// Webhook registration backoff tracking
 		this.webhookRetryCount = 0;
@@ -733,6 +752,39 @@ class MyApp extends OAuth2App
 			{
 				return result.name.toLowerCase().includes(query.toLowerCase());
 			});
+		});
+
+		const customQuoteAction = this.homey.flow.getActionCard('customQuote');
+		customQuoteAction.registerRunListener(async (args, state) =>
+		{
+			if (typeof args.device.onCapabilityCustomQuote === 'function')
+			{
+				return args.device.onCapabilityCustomQuote(args.custom_text);
+			}
+
+			return args.device._operateDevice('customQuote', args.custom_text);
+		});
+
+		const cancelCustomAction = this.homey.flow.getActionCard('cancelCustom');
+		cancelCustomAction.registerRunListener(async (args, state) =>
+		{
+			if (typeof args.device.onCapabilityCancelCustom === 'function')
+			{
+				return args.device.onCapabilityCancelCustom();
+			}
+
+			return args.device._operateDevice('cancelCustom', 'default');
+		});
+
+		const customPageAction = this.homey.flow.getActionCard('customPage');
+		customPageAction.registerRunListener(async (args, state) =>
+		{
+			if (typeof args.device.onCapabilityCustomPage === 'function')
+			{
+				return args.device.onCapabilityCustomPage(args.custom_text);
+			}
+
+			return args.device._operateDevice('customPage', args.custom_text);
 		});
 
 		const brightnessDownAction = this.homey.flow.getActionCard('brightness_down');
@@ -961,6 +1013,8 @@ class MyApp extends OAuth2App
 			this.homey.clearTimeout(this.bleTimerID);
 			this.bleTimerID = null;
 		}
+
+		await this.unregisterAllBLEAdvertisementSubscriptions();
 		this.persistApiCalls(true);
 		this.restoreLoggingMethods();
 		await this.deleteSwitchBotWebhook();
@@ -1819,8 +1873,157 @@ class MyApp extends OAuth2App
 		}
 	}
 
-	registerBLEPolling()
+	getBLEDeviceSubscriptionKey(device)
 	{
+		if (!device)
+		{
+			return null;
+		}
+
+		let key = this.bleAdvertisementDeviceKeys.get(device);
+		if (!key)
+		{
+			key = `ble-device-${this.bleAdvertisementNextKey++}`;
+			this.bleAdvertisementDeviceKeys.set(device, key);
+		}
+
+		return key;
+	}
+
+	normalizeBLEAdvertisementId(bleId)
+	{
+		if (!bleId)
+		{
+			return null;
+		}
+
+		return String(bleId).trim().toLowerCase();
+	}
+
+	bufferLikeToHex(value)
+	{
+		if (!value)
+		{
+			return '';
+		}
+
+		if (Buffer.isBuffer(value))
+		{
+			return value.toString('hex');
+		}
+
+		if (value instanceof Uint8Array)
+		{
+			return Buffer.from(value).toString('hex');
+		}
+
+		if (Array.isArray(value))
+		{
+			return Buffer.from(value).toString('hex');
+		}
+
+		return String(value);
+	}
+
+	getBLEAdvertisementFingerprint(advertisement)
+	{
+		if (!advertisement)
+		{
+			return 'md:|sd:';
+		}
+
+		const manufacturerDataHex = this.bufferLikeToHex(advertisement.manufacturerData);
+		let serviceDataText = '';
+
+		if (Array.isArray(advertisement.serviceData))
+		{
+			serviceDataText = advertisement.serviceData
+				.map((entry) =>
+				{
+					const uuid = entry && entry.uuid ? String(entry.uuid).toLowerCase() : '';
+					const dataHex = this.bufferLikeToHex(entry && entry.data ? entry.data : '');
+					return `${uuid}:${dataHex}`;
+				})
+				.join('|');
+		}
+		else if (advertisement.serviceData && typeof advertisement.serviceData === 'object')
+		{
+			serviceDataText = Object.keys(advertisement.serviceData)
+				.sort()
+				.map((key) => `${String(key).toLowerCase()}:${this.bufferLikeToHex(advertisement.serviceData[key])}`)
+				.join('|');
+		}
+		else
+		{
+			serviceDataText = this.bufferLikeToHex(advertisement.serviceData);
+		}
+
+		return `md:${manufacturerDataHex}|sd:${serviceDataText}`;
+	}
+
+	toStableJSONString(value)
+	{
+		if (Array.isArray(value))
+		{
+			return `[${value.map((entry) => this.toStableJSONString(entry)).join(',')}]`;
+		}
+
+		if (value && typeof value === 'object')
+		{
+			const keys = Object.keys(value).sort();
+			return `{${keys.map((key) => `${JSON.stringify(key)}:${this.toStableJSONString(value[key])}`).join(',')}}`;
+		}
+
+		return JSON.stringify(value);
+	}
+
+	stripVolatileParsedFields(parsedEvent)
+	{
+		if (!parsedEvent || typeof parsedEvent !== 'object')
+		{
+			return parsedEvent;
+		}
+
+		const normalized = {
+			...parsedEvent,
+			serviceData: parsedEvent.serviceData && typeof parsedEvent.serviceData === 'object'
+				? { ...parsedEvent.serviceData }
+				: parsedEvent.serviceData,
+		};
+
+		if (!normalized.serviceData || typeof normalized.serviceData !== 'object')
+		{
+			return normalized;
+		}
+
+		const modelName = normalized.serviceData.modelName;
+		const model = normalized.serviceData.model;
+		if ((modelName === 'Presence(mm)') || (modelName === 'WoPresence') || (model === 's'))
+		{
+			delete normalized.serviceData.duration;
+			delete normalized.serviceData.seq_number;
+		}
+
+		return normalized;
+	}
+
+	getBLEParsedStateFingerprint(parsedEvent)
+	{
+		return this.toStableJSONString(this.stripVolatileParsedFields(parsedEvent));
+	}
+
+	registerBLEPollingFallback(deviceKey = null)
+	{
+		if (deviceKey)
+		{
+			if (this.blePollingFallbackDevices.has(deviceKey))
+			{
+				return;
+			}
+
+			this.blePollingFallbackDevices.add(deviceKey);
+		}
+
 		this.bleDevices++;
 		if (this.bleTimerID === null)
 		{
@@ -1828,13 +2031,294 @@ class MyApp extends OAuth2App
 		}
 	}
 
-	unregisterBLEPolling()
+	unregisterBLEPollingFallback(deviceKey = null)
 	{
+		if (deviceKey)
+		{
+			if (!this.blePollingFallbackDevices.has(deviceKey))
+			{
+				return;
+			}
+
+			this.blePollingFallbackDevices.delete(deviceKey);
+		}
+
 		this.bleDevices = Math.max(0, this.bleDevices - 1);
 		if ((this.bleDevices === 0) && (this.bleTimerID !== null))
 		{
 			this.homey.clearTimeout(this.bleTimerID);
 			this.bleTimerID = null;
+		}
+	}
+
+	registerBLEPolling(device)
+	{
+		const deviceKey = this.getBLEDeviceSubscriptionKey(device);
+
+		if (!this.bleAdvertisementSupported || !device)
+		{
+			this.registerBLEPollingFallback(deviceKey);
+			return;
+		}
+
+		this.registerBLEAdvertisementSubscription(device)
+			.catch((err) =>
+			{
+				const name = (device.getName && typeof device.getName === 'function') ? device.getName() : 'Unknown BLE device';
+				this.updateLog(`BLE advertisement subscription failed for ${name}: ${err.message}. Using polling fallback.`, 0, 'ble');
+				this.registerBLEPollingFallback(deviceKey);
+			});
+	}
+
+	unregisterBLEPolling(device)
+	{
+		const deviceKey = this.getBLEDeviceSubscriptionKey(device);
+
+		if (this.bleAdvertisementSupported && device)
+		{
+			this.unregisterBLEAdvertisementSubscription(device)
+				.catch((err) =>
+				{
+					const name = (device.getName && typeof device.getName === 'function') ? device.getName() : 'Unknown BLE device';
+					this.updateLog(`BLE advertisement unsubscribe failed for ${name}: ${err.message}`, 0, 'ble');
+				});
+		}
+
+		this.unregisterBLEPollingFallback(deviceKey);
+	}
+
+	async registerBLEAdvertisementSubscription(device)
+	{
+		const key = this.getBLEDeviceSubscriptionKey(device);
+		if (!key)
+		{
+			throw new Error('Invalid BLE device registration');
+		}
+
+		if (this.bleAdvertisementDeviceToId.has(key))
+		{
+			return;
+		}
+
+		const deviceData = (device.getData && typeof device.getData === 'function') ? device.getData() : null;
+		const bleId = this.normalizeBLEAdvertisementId(deviceData && deviceData.id ? deviceData.id : null);
+		if (!bleId)
+		{
+			throw new Error('Missing BLE advertisement id');
+		}
+
+		const existingSubscription = this.bleAdvertisementSubscriptions.get(bleId);
+		if (existingSubscription)
+		{
+			existingSubscription.devices.set(key, device);
+			this.bleAdvertisementDeviceToId.set(key, bleId);
+			return;
+		}
+
+		const pendingSubscription = this.bleAdvertisementSubscriptionPending.get(bleId);
+		if (pendingSubscription)
+		{
+			await pendingSubscription;
+
+			const subscribed = this.bleAdvertisementSubscriptions.get(bleId);
+			if (!subscribed)
+			{
+				throw new Error(`BLE advertisement subscription for ${bleId} was not created`);
+			}
+
+			subscribed.devices.set(key, device);
+			this.bleAdvertisementDeviceToId.set(key, bleId);
+			return;
+		}
+
+		const devices = new Map();
+		devices.set(key, device);
+
+		const callback = async (advertisement) =>
+		{
+			await this.handleBLEAdvertisement(bleId, advertisement);
+		};
+
+		const subscribePromise = this.homey.ble.subscribeToAdvertisements(
+			bleId,
+			{ rateLimitMs: BLE_ADVERTISEMENT_RATE_LIMIT_MS },
+			callback,
+		)
+			.catch(async (err) =>
+			{
+				const message = (err && err.message) ? err.message : String(err);
+				const alreadyExported = /AdvertisementMonitor1.+already exported/i.test(message);
+				if (!alreadyExported)
+				{
+					throw err;
+				}
+
+				this.updateLog(`BLE advertisement monitor already exported for ${bleId}, retrying subscription once`, 1, 'ble');
+
+				try
+				{
+					await this.homey.ble.unsubscribeFromAdvertisements(bleId);
+				}
+				catch (unsubscribeErr)
+				{
+					this.updateLog(`BLE advertisement unsubscribe before retry failed for ${bleId}: ${unsubscribeErr.message}`, 2, 'ble');
+				}
+
+				await this.homey.ble.subscribeToAdvertisements(
+					bleId,
+					{ rateLimitMs: BLE_ADVERTISEMENT_RATE_LIMIT_MS },
+					callback,
+				);
+			})
+			.then(() =>
+			{
+				this.bleAdvertisementSubscriptions.set(bleId, { callback, devices });
+			});
+
+		this.bleAdvertisementSubscriptionPending.set(bleId, subscribePromise);
+
+		try
+		{
+			await subscribePromise;
+			this.bleAdvertisementDeviceToId.set(key, bleId);
+		}
+		finally
+		{
+			this.bleAdvertisementSubscriptionPending.delete(bleId);
+		}
+
+		const name = (device.getName && typeof device.getName === 'function') ? device.getName() : bleId;
+		this.updateLog(`Subscribed to BLE advertisements for ${name}`, 2, 'ble');
+	}
+
+	async unregisterBLEAdvertisementSubscription(device)
+	{
+		const key = this.getBLEDeviceSubscriptionKey(device);
+		if (!key)
+		{
+			return;
+		}
+
+		const bleId = this.normalizeBLEAdvertisementId(this.bleAdvertisementDeviceToId.get(key));
+		if (!bleId)
+		{
+			return;
+		}
+
+		const pendingSubscription = this.bleAdvertisementSubscriptionPending.get(bleId);
+		if (pendingSubscription)
+		{
+			await pendingSubscription.catch(() => null);
+		}
+
+		this.bleAdvertisementDeviceToId.delete(key);
+		this.bleAdvertisementDevicePayloadFingerprint.delete(key);
+		this.bleAdvertisementDeviceParsedStateFingerprint.delete(key);
+
+		const subscription = this.bleAdvertisementSubscriptions.get(bleId);
+		if (!subscription)
+		{
+			return;
+		}
+
+		subscription.devices.delete(key);
+		if (subscription.devices.size > 0)
+		{
+			return;
+		}
+
+		await this.homey.ble.unsubscribeFromAdvertisements(bleId);
+		this.bleAdvertisementSubscriptions.delete(bleId);
+	}
+
+	async unregisterAllBLEAdvertisementSubscriptions()
+	{
+		const pendingSubscriptions = Array.from(this.bleAdvertisementSubscriptionPending.values());
+		if (pendingSubscriptions.length > 0)
+		{
+			await Promise.allSettled(pendingSubscriptions);
+		}
+
+		const bleIds = Array.from(this.bleAdvertisementSubscriptions.keys());
+		for (const bleId of bleIds)
+		{
+			try
+			{
+				await this.homey.ble.unsubscribeFromAdvertisements(bleId);
+			}
+			catch (err)
+			{
+				this.updateLog(`Failed to unsubscribe BLE advertisements for ${bleId}: ${err.message}`, 0, 'ble');
+			}
+		}
+
+		this.bleAdvertisementSubscriptions.clear();
+		this.bleAdvertisementSubscriptionPending.clear();
+		this.bleAdvertisementDeviceToId.clear();
+		this.bleAdvertisementDevicePayloadFingerprint.clear();
+		this.bleAdvertisementDeviceParsedStateFingerprint.clear();
+		this.blePollingFallbackDevices.clear();
+	}
+
+	async handleBLEAdvertisement(bleId, advertisement)
+	{
+		const subscription = this.bleAdvertisementSubscriptions.get(bleId);
+		if (!subscription)
+		{
+			return;
+		}
+
+		this.updateLog(`Received BLE advertisement for ${bleId}: ${this.varToString(advertisement)}`, 4, 'ble');
+		const devices = Array.from(subscription.devices.values());
+		for (const device of devices)
+		{
+			try
+			{
+				if (!device || !device.syncBLEEvents)
+				{
+					continue;
+				}
+
+				const deviceKey = this.getBLEDeviceSubscriptionKey(device);
+				if (!deviceKey)
+				{
+					continue;
+				}
+
+				const payloadFingerprint = this.getBLEAdvertisementFingerprint(advertisement);
+				const previousFingerprint = this.bleAdvertisementDevicePayloadFingerprint.get(deviceKey);
+				if (previousFingerprint === payloadFingerprint)
+				{
+					continue;
+				}
+
+				this.bleAdvertisementDevicePayloadFingerprint.set(deviceKey, payloadFingerprint);
+
+				let parsedEvent = null;
+				if (device.driver && typeof device.driver.parse === 'function')
+				{
+					parsedEvent = device.driver.parse(advertisement);
+				}
+
+				if (parsedEvent)
+				{
+					const parsedStateFingerprint = this.getBLEParsedStateFingerprint(parsedEvent);
+					const previousParsedStateFingerprint = this.bleAdvertisementDeviceParsedStateFingerprint.get(deviceKey);
+					if (previousParsedStateFingerprint === parsedStateFingerprint)
+					{
+						continue;
+					}
+
+					this.bleAdvertisementDeviceParsedStateFingerprint.set(deviceKey, parsedStateFingerprint);
+					this.updateLog(`Parsed BLE advertisement for ${bleId}: ${this.varToString(parsedEvent)}`, 1, 'ble');
+					await device.syncBLEEvents([parsedEvent]);
+				}
+			}
+			catch (err)
+			{
+				const name = (device && device.getName && typeof device.getName === 'function') ? device.getName() : bleId;
+				this.updateLog(`BLE advertisement handling failed for ${name}: ${err.message}`, 0, 'ble');
+			}
 		}
 	}
 

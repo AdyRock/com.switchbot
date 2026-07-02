@@ -14,7 +14,7 @@ class TemperatureBLEDevice extends Homey.Device
 	{
 		this.bestRSSI = 100;
 		this.bestHub = '';
-		this.homey.app.registerBLEPolling();
+		this.homey.app.registerBLEPolling(this);
 		this.log('TemperatureBLEDevice has been initialized');
 		this.deviceNotFound = false;
 	}
@@ -55,7 +55,7 @@ class TemperatureBLEDevice extends Homey.Device
 	 */
 	async onDeleted()
 	{
-		this.homey.app.unregisterBLEPolling();
+		this.homey.app.unregisterBLEPolling(this);
 		await this.blePeripheral.disconnect();
 		this.log('TemperatureBLEDevice has been deleted');
 	}
@@ -156,3 +156,4 @@ class TemperatureBLEDevice extends Homey.Device
 }
 
 module.exports = TemperatureBLEDevice;
+
