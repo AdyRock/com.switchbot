@@ -97,6 +97,35 @@ class VacuumHubDevice extends HubDevice
 		return true;
 	}
 
+	isCleaningState(state)
+	{
+		if (!state)
+		{
+			return false;
+		}
+
+		const normalizedState = String(state).trim().toLowerCase();
+		const translatedClearing = String(this.homey.__('clearing') || '').trim().toLowerCase();
+		const translatedCleaning = String(this.homey.__('cleaning') || '').trim().toLowerCase();
+
+		return ['clearing', 'cleaning', translatedClearing, translatedCleaning].includes(normalizedState);
+	}
+
+	onVacuumWorkingStatusChanged(previousState, currentRawState)
+	{
+		const wasCleaning = this.isCleaningState(previousState);
+		const isCleaning = this.isCleaningState(currentRawState);
+
+		if (!wasCleaning && isCleaning)
+		{
+			this.driver.triggerCleaningStarted(this).catch(this.error);
+		}
+		else if (wasCleaning && !isCleaning)
+		{
+			this.driver.triggerCleaningStopped(this).catch(this.error);
+		}
+	}
+
 	async getHubDeviceValues()
 	{
 		try
@@ -107,7 +136,8 @@ class VacuumHubDevice extends HubDevice
 				this.setAvailable();
 				this.homey.app.updateLog(`Vacuum Hub got: ${this.homey.app.varToString(data)}`, 3, 'hub');
 
-				if (data.workingStatus && data.workingStatus !== this.getCapabilityValue('robot_vaccum_state'))
+				const previousState = this.getCapabilityValue('robot_vaccum_state');
+				if (data.workingStatus && data.workingStatus !== previousState)
 				{
 					this.setCapabilityValue('robot_vaccum_state', data.workingStatus).catch(this.error);
 
@@ -121,6 +151,7 @@ class VacuumHubDevice extends HubDevice
 						state: data.workingStatus,
 					};
 					this.driver.triggerStateChangedTo(this, null, args).catch(this.error);
+					this.onVacuumWorkingStatusChanged(previousState, data.workingStatus);
 				}
 
 				if (data.battery)
@@ -161,7 +192,8 @@ class VacuumHubDevice extends HubDevice
 				const data = message.context;
 				this.homey.app.updateLog(`Vacuum Hub got: ${this.homey.app.varToString(data)}`, 3, 'hub');
 
-				if (data.workingStatus && data.workingStatus !== this.getCapabilityValue('robot_vaccum_state'))
+				const previousState = this.getCapabilityValue('robot_vaccum_state');
+				if (data.workingStatus && data.workingStatus !== previousState)
 				{
 					this.setCapabilityValue('robot_vaccum_state', data.workingStatus).catch(this.error);
 
@@ -175,6 +207,7 @@ class VacuumHubDevice extends HubDevice
 						state: data.workingStatus,
 					};
 					this.driver.triggerStateChangedTo(this, null, args).catch(this.error);
+					this.onVacuumWorkingStatusChanged(previousState, data.workingStatus);
 				}
 
 				if (data.battery)

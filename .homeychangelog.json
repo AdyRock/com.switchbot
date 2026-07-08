@@ -1300,5 +1300,18 @@
 		"pl": "Ulepszono rejestrację webhooków tylko z tokenem, naprawiono wyjście wykrytych urządzeń i ulepszono obsługę stanu zajętości Presence2.",
 		"ru": "Улучшена регистрация веб-хуков только с токеном, исправлен вывод обнаруженных устройств и улучшена обработка состояния занятости Presence2.",
 		"ko": "토큰 전용 웹후크 등록 폴백 개선, 감지된 장치 출력 수정 및 Presence2 점유 상태 처리 개선."
+	},
+	"2.0.79": {
+		"en": "Added support the new Homey BLE advertimsent format for BLE devices. Add new Flow trigger cards for vacuum started and vacuum stopped.",
+		"no": "Lagt til støtte for det nye Homey BLE-annonseringsformatet for BLE-enheter. Legg til nye Flow-utløserkort for støvsuger startet og støvsuger stoppet.",
+		"nl": "Ondersteuning toegevoegd voor het nieuwe Homey BLE-advertentieformaat voor BLE-apparaten. Voeg nieuwe Flow-triggerkaarten toe voor stofzuiger gestart en stofzuiger gestopt.",
+		"de": "Unterstützung für das neue Homey BLE-Werbeformat für BLE-Geräte hinzugefügt. Neue Flow-Auslöserkarten für Staubsauger gestartet und Staubsauger gestoppt hinzugefügt.",
+		"fr": "Ajout de la prise en charge du nouveau format de publicité Homey BLE pour les appareils BLE. Ajout de nouvelles cartes de déclenchement de flux pour aspirateur démarré et aspirateur arrêté.",
+		"es": "Se agregó soporte para el nuevo formato de publicidad BLE de Homey para dispositivos BLE. Agregar nuevas tarjetas de activación de flujo para aspiradora iniciada y aspiradora detenida.",
+		"pt": "Adicionado suporte ao novo formato de anúncio BLE do Homey para dispositivos BLE. Adicionado novos cartões de gatilho de fluxo para aspirador iniciado e aspirador parado.",
+		"it": "Aggiunto supporto per il nuovo formato di pubblicità BLE di Homey per i dispositivi BLE. Aggiunte nuove schede di trigger del flusso per aspirapolvere avviato e aspirapolvere fermato.",
+		"pl": "Dodano obsługę nowego formatu reklam BLE Homey dla urządzeń BLE. Dodano nowe karty wyzwalaczy przepływu dla odkurzacza rozpoczętego i odkurzacza zatrzymanego.",
+		"ru": "Добавлена поддержка нового формата рекламы Homey BLE для устройств BLE. Добавлены новые карты триггеров потока для пылесоса, начавшего и остановившегося.",
+		"ko": "BLE 장치에 대한 새로운 Homey BLE 광고 형식 지원 추가. 청소기 시작 및 청소기 중지에 대한 새로운 플로우 트리거 카드 추가."
 	}
 }

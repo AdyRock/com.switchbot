@@ -36,8 +36,21 @@ class PresenceBLEDevice extends Homey.Device
 	{
 		this.bestRSSI = 100;
 		this.bestHub = '';
+		this.lastHubStateFingerprint = null;
 		this.homey.app.registerBLEPolling(this);
 		this.log('PresenceBLEDevice has been initialized');
+	}
+
+	logESP32StateIfChanged(state)
+	{
+		const fingerprint = JSON.stringify(state);
+		if (this.lastHubStateFingerprint === fingerprint)
+		{
+			return;
+		}
+
+		this.lastHubStateFingerprint = fingerprint;
+		this.homey.app.updateLog(`[esp32] Presence event (${this.getName()}): ${this.homey.app.varToString(state)}`, 1, 'ble');
 	}
 
 	/**
@@ -167,10 +180,18 @@ class PresenceBLEDevice extends Homey.Device
 			{
 				if (event.address && (event.address.localeCompare(dd.address, 'en', { sensitivity: 'base' }) === 0) && (event.serviceData.modelName === 'WoPresence'))
 				{
-					this.setCapabilityValue('alarm_motion', (event.serviceData.motion === 1)).catch(this.error);
-					this.setCapabilityValue('bright', (event.serviceData.light === 1)).catch(this.error);
-					this.setCapabilityValue('measure_battery', event.serviceData.battery).catch(this.error);
+					const motion = (event.serviceData.motion === 1);
+					const bright = (event.serviceData.light === 1);
+					const battery = event.serviceData.battery;
+					this.setCapabilityValue('alarm_motion', motion).catch(this.error);
+					this.setCapabilityValue('bright', bright).catch(this.error);
+					this.setCapabilityValue('measure_battery', battery).catch(this.error);
 					this.setCapabilityValue('rssi', event.rssi).catch(this.error);
+
+					if (event.hubMAC)
+					{
+						this.logESP32StateIfChanged({ motion, bright, battery, rssi: event.rssi, hubMAC: event.hubMAC });
+					}
 
 					if (event.hubMAC && ((event.rssi < this.bestRSSI) || (event.hubMAC.localeCompare(this.bestHub, 'en', { sensitivity: 'base' }) === 0)))
 					{

@@ -36,8 +36,21 @@ class PresenceBLEDevice extends Homey.Device
 	{
 		this.bestRSSI = 100;
 		this.bestHub = '';
+		this.lastHubStateFingerprint = null;
 		this.homey.app.registerBLEPolling(this);
 		this.log('PresenceBLEDevice has been initialized');
+	}
+
+	logESP32StateIfChanged(state)
+	{
+		const fingerprint = JSON.stringify(state);
+		if (this.lastHubStateFingerprint === fingerprint)
+		{
+			return;
+		}
+
+		this.lastHubStateFingerprint = fingerprint;
+		this.homey.app.updateLog(`[esp32] Presence2 event (${this.getName()}): ${this.homey.app.varToString(state)}`, 1, 'ble');
 	}
 
 	/**
@@ -190,6 +203,19 @@ class PresenceBLEDevice extends Homey.Device
 							battery: this.driver.batteryBucketToPercent(event.serviceData.battery),
 						},
 					};
+
+					if (event.hubMAC)
+					{
+						this.logESP32StateIfChanged({
+							presence: data.serviceData.presence,
+							light_level: data.serviceData.light_level,
+							battery: data.serviceData.battery,
+							trigger_flag: data.serviceData.trigger_flag,
+							rssi: data.rssi,
+							hubMAC: event.hubMAC,
+						});
+					}
+
 					this.updateCapabilities(data);
 				}
 			}

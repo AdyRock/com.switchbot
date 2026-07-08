@@ -1,6 +1,6 @@
 {
 	"id": "com.switchbot",
-	"version": "2.0.78",
+	"version": "2.0.79",
 	"compatibility": ">=12.2.0",
 	"platforms": [
 		"local",
@@ -24,7 +24,7 @@
 	},
 	"description": {
 		"en": "A simple way to make your entire home a Smart Home",
-		"no": "En enkel måte å gjøre hele ditt hjem til et Smart Hjem.",
+		"no": "En enkel måte å gjøre hele ditt hjem til et Smart Hjem.",
 		"nl": "Een eenvoudige manier om van je hele huis een slim huis te maken",
 		"da": "En enkel måde at gøre hele dit hjem til et smart hjem",
 		"de": "Eine einfache Möglichkeit, Ihr gesamtes Zuhause zu einem Smart Home zu machen",

@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.switchbot",
-  "version": "2.0.78",
+  "version": "2.0.79",
   "compatibility": ">=12.2.0",
   "platforms": [
     "local",
@@ -25,7 +25,7 @@
   },
   "description": {
     "en": "A simple way to make your entire home a Smart Home",
-    "no": "En enkel måte å gjøre hele ditt hjem til et Smart Hjem.",
+    "no": "En enkel måte å gjøre hele ditt hjem til et Smart Hjem.",
     "nl": "Een eenvoudige manier om van je hele huis een slim huis te maken",
     "da": "En enkel måde at gøre hele dit hjem til et smart hjem",
     "de": "Eine einfache Möglichkeit, Ihr gesamtes Zuhause zu einem Smart Home zu machen",
@@ -1449,6 +1449,70 @@
           }
         ],
         "id": "unlocked"
+      },
+      {
+        "title": {
+          "en": "Vacuum Cleaning Started",
+          "no": "Støvsugerrengjøring startet",
+          "nl": "Stofzuigerreiniging gestart",
+          "da": "Støvsugerrengøring startet",
+          "de": "Staubsaugerreinigung gestartet",
+          "es": "Limpieza de la aspiradora iniciada",
+          "fr": "Nettoyage de l'aspirateur démarré",
+          "it": "Pulizia dell'aspirapolvere avviata",
+          "sv": "Dammsugarrengöring startad",
+          "pl": "Rozpoczęto sprzątanie odkurzaczem",
+          "ru": "Уборка пылесосом началась",
+          "ko": "청소기 청소 시작됨"
+        },
+        "highlight": true,
+        "platforms": [
+          "local"
+        ],
+        "connectivity": [
+          "local",
+          "cloud"
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=robot_vacuum_hub|robot_vacuum_S10_hub|robot_vacuum_K20_hub|robot_vacuum_K11_hub"
+          }
+        ],
+        "id": "vaccum_cleaning_started"
+      },
+      {
+        "title": {
+          "en": "Vacuum Cleaning Stopped",
+          "no": "Støvsugerrengjøring stoppet",
+          "nl": "Stofzuigerreiniging gestopt",
+          "da": "Støvsugerrengøring stoppet",
+          "de": "Staubsaugerreinigung gestoppt",
+          "es": "Limpieza de la aspiradora detenida",
+          "fr": "Nettoyage de l'aspirateur arrêté",
+          "it": "Pulizia dell'aspirapolvere interrotta",
+          "sv": "Dammsugarrengöring stoppad",
+          "pl": "Zatrzymano sprzątanie odkurzaczem",
+          "ru": "Уборка пылесосом остановлена",
+          "ko": "청소기 청소 중지됨"
+        },
+        "highlight": true,
+        "platforms": [
+          "local"
+        ],
+        "connectivity": [
+          "local",
+          "cloud"
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=robot_vacuum_hub|robot_vacuum_S10_hub|robot_vacuum_K20_hub|robot_vacuum_K11_hub"
+          }
+        ],
+        "id": "vaccum_cleaning_stopped"
       },
       {
         "title": {

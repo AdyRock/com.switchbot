@@ -182,6 +182,11 @@ class MyApp extends OAuth2App
 		return 'unavailable (no OAuth session and no API token/secret)';
 	}
 
+	hasWebhookEligibleDevices()
+	{
+		return Array.isArray(this.devicesMACs) && this.devicesMACs.length > 0;
+	}
+
 	normalizeLogMessage(newMessage)
 	{
 		const message = this.redactSensitiveLogData((typeof newMessage === 'string') ? newMessage : this.varToString(newMessage));
@@ -442,12 +447,8 @@ class MyApp extends OAuth2App
 			this.updateLog(`Failed to get Homey ID at startup: ${err.message}`, 0, 'all');
 		}
 
-		// Setup the SwitchBot webhook after a short delay to allow devices to register
-		this.updateLog(`Webhook auth mode at startup: ${this.getWebhookAuthMode()}`, 0, 'all');
-		this.switchBotWebhookTimerID = this.homey.setTimeout(() =>
-		{
-			this.setupSwitchBotWebhook();
-		}, 5000);
+		// Webhook setup starts when a hub/cloud device registers for webhook updates.
+		this.updateLog('SwitchBot webhook setup deferred until a hub/cloud device is registered', 1, 'all');
 
 		this.homeyHash = this.homeyID;
 		this.homeyHash = this.hashCode(this.homeyHash).toString();
@@ -531,6 +532,7 @@ class MyApp extends OAuth2App
 		this.bleAdvertisementDeviceToId = new Map();
 		this.bleAdvertisementDevicePayloadFingerprint = new Map();
 		this.bleAdvertisementDeviceParsedStateFingerprint = new Map();
+		this.bleAdvertisementDeviceLocalSeenAt = new Map();
 		this.bleAdvertisementDeviceKeys = new WeakMap();
 		this.bleAdvertisementNextKey = 1;
 		this.blePollingFallbackDevices = new Set();
@@ -953,6 +955,9 @@ class MyApp extends OAuth2App
 			return false;
 		});
 
+		this.vaccumCleaningStartedTrigger = this.homey.flow.getDeviceTriggerCard('vaccum_cleaning_started');
+		this.vaccumCleaningStoppedTrigger = this.homey.flow.getDeviceTriggerCard('vaccum_cleaning_stopped');
+
 		this.positionLessThanTrigger = this.homey.flow.getDeviceTriggerCard('position_became_less');
 		this.positionLessThanTrigger.registerRunListener(async (args, state) =>
 		{
@@ -1349,6 +1354,12 @@ class MyApp extends OAuth2App
 		// Add the new device to the list of devices we want to register the webhook for
 		this.devicesMACs.push(DeviceMAC);
 
+		if (!this.switchBotWebhookTimerID)
+		{
+			this.updateLog(`Webhook auth mode: ${this.getWebhookAuthMode()}`, 1, 'hub');
+			this.switchBotWebhookTimerID = this.homey.setTimeout(() => this.setupSwitchBotWebhook(), 5000);
+		}
+
 		// Delay the actual registration to allow other devices to initialise and do them all at once
 		this.webhookRetryCount = 0;
 		this.homeyWebhookRegTimerID = this.homey.setTimeout(() => this.doWebhookReg(), 2000);
@@ -1523,6 +1534,18 @@ class MyApp extends OAuth2App
 
 	async setupSwitchBotWebhook()
 	{
+		if (!this.hasWebhookEligibleDevices())
+		{
+			if (this.switchBotWebhookTimerID)
+			{
+				this.homey.clearTimeout(this.switchBotWebhookTimerID);
+				this.switchBotWebhookTimerID = null;
+			}
+
+			this.updateLog('Skipping SwitchBot webhook setup: no hub/cloud devices registered', 1, 'hub');
+			return;
+		}
+
 		const isStartupAttempt = !this.switchBotWebhookTimerID;
 
 		// Setup a timer to ensure the webhook is registered every hour in case of issues with the SwitchBot cloud or the Homey webhook service
@@ -1961,6 +1984,65 @@ class MyApp extends OAuth2App
 		return `md:${manufacturerDataHex}|sd:${serviceDataText}`;
 	}
 
+	getBLEUnparsedReason(advertisement)
+	{
+		if (!advertisement)
+		{
+			return 'empty-advertisement';
+		}
+
+		if (!advertisement.serviceData || advertisement.serviceData.length === 0)
+		{
+			if (advertisement.localName === 'WoHand')
+			{
+				return 'bot-no-service-data-fallback';
+			}
+
+			return 'no-service-data';
+		}
+
+		if (!Array.isArray(advertisement.serviceData) || !advertisement.serviceData[0])
+		{
+			return 'service-data-not-array';
+		}
+
+		const { uuid } = advertisement.serviceData[0];
+		if (typeof uuid !== 'string')
+		{
+			return 'service-uuid-missing';
+		}
+
+		if ((uuid.search('0d00') < 0) && (uuid.search('fd3d') < 0))
+		{
+			return 'service-uuid-mismatch';
+		}
+
+		const buf = advertisement.serviceData[0].data;
+		if (!buf || !Buffer.isBuffer(buf) || buf.length < 3)
+		{
+			return 'service-buffer-invalid';
+		}
+
+		const model = buf.slice(0, 1).toString('utf8');
+		const knownModels = ['H', 'T', 'i', 'c', '{', 's', 'd', 'u', 'w', 'W', 'x', '&', '4', '5', '?', "'", ','];
+		if (knownModels.includes(model))
+		{
+			return 'parser-returned-null';
+		}
+
+		if ((buf.length === 7) && (buf[5] === 0xcc) && (buf[6] === 0xc8) && ((buf[4] === 0x00) || (buf[4] === 0x10)))
+		{
+			if (!advertisement.manufacturerData || !Buffer.isBuffer(advertisement.manufacturerData) || (advertisement.manufacturerData.length < 12))
+			{
+				return 'presence-mm-manufacturer-invalid';
+			}
+
+			return 'presence-mm-parse-failed';
+		}
+
+		return `unknown-model:${model}`;
+	}
+
 	toStableJSONString(value)
 	{
 		if (Array.isArray(value))
@@ -2214,6 +2296,7 @@ class MyApp extends OAuth2App
 		this.bleAdvertisementDeviceToId.delete(key);
 		this.bleAdvertisementDevicePayloadFingerprint.delete(key);
 		this.bleAdvertisementDeviceParsedStateFingerprint.delete(key);
+		this.bleAdvertisementDeviceLocalSeenAt.delete(key);
 
 		const subscription = this.bleAdvertisementSubscriptions.get(bleId);
 		if (!subscription)
@@ -2257,6 +2340,7 @@ class MyApp extends OAuth2App
 		this.bleAdvertisementDeviceToId.clear();
 		this.bleAdvertisementDevicePayloadFingerprint.clear();
 		this.bleAdvertisementDeviceParsedStateFingerprint.clear();
+		this.bleAdvertisementDeviceLocalSeenAt.clear();
 		this.blePollingFallbackDevices.clear();
 	}
 
@@ -2285,6 +2369,15 @@ class MyApp extends OAuth2App
 					continue;
 				}
 
+				const nowMs = Date.now();
+				const previousSeenMs = this.bleAdvertisementDeviceLocalSeenAt.get(deviceKey) || 0;
+				if ((nowMs - previousSeenMs) >= 60000)
+				{
+					const name = (device.getName && typeof device.getName === 'function') ? device.getName() : bleId;
+					this.updateLog(`[local-subscription] BLE advertisement received for ${name} (${bleId})`, 2, 'ble');
+					this.bleAdvertisementDeviceLocalSeenAt.set(deviceKey, nowMs);
+				}
+
 				const payloadFingerprint = this.getBLEAdvertisementFingerprint(advertisement);
 				const previousFingerprint = this.bleAdvertisementDevicePayloadFingerprint.get(deviceKey);
 				if (previousFingerprint === payloadFingerprint)
@@ -2310,8 +2403,13 @@ class MyApp extends OAuth2App
 					}
 
 					this.bleAdvertisementDeviceParsedStateFingerprint.set(deviceKey, parsedStateFingerprint);
-					this.updateLog(`Parsed BLE advertisement for ${bleId}: ${this.varToString(parsedEvent)}`, 1, 'ble');
+					this.updateLog(`[local-subscription] Parsed BLE advertisement for ${bleId}: ${this.varToString(parsedEvent)}`, 1, 'ble');
 					await device.syncBLEEvents([parsedEvent]);
+				}
+				else
+				{
+					const reason = this.getBLEUnparsedReason(advertisement);
+					this.updateLog(`[local-subscription] Unparsed BLE advertisement for ${bleId} (${reason})`, 2, 'ble');
 				}
 			}
 			catch (err)
