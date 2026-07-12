@@ -73,7 +73,7 @@ class RGBICWWCeilingLightHubDevice extends LightHubDevice
 	async onCapabilityLightTemperature(value)
 	{
 		const temperatureValue = Math.round(((1 - value) * (6500 - 2700)) + 2700);
-		const command = 'setColorTemperature';
+		const command = 'setMainLightColorTemp';
 		return this.sendCommand(command, temperatureValue);
 	}
 
@@ -82,7 +82,7 @@ class RGBICWWCeilingLightHubDevice extends LightHubDevice
 		const dim = 0.5;
 		const rgb = this.hslToRgb(capabilityValues.light_hue, capabilityValues.light_saturation, dim);
 
-		const command = 'SetColorLightRGB';
+		const command = 'setColorLightRGB';
 		return this.sendCommand(command, `${rgb[0]}:${rgb[1]}:${rgb[2]}`);
 	}
 
