@@ -57,6 +57,23 @@
 			gap: 8px;
 			align-items: center;
 		}
+
+		.auth-warning-banner {
+			display: none;
+			margin: 12px 0;
+			padding: 10px 12px;
+			border-radius: 6px;
+			border: 1px solid #f0ad4e;
+			background-color: #fff7e6;
+			color: #8a5a00;
+		}
+
+		.auth-warning-actions {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 8px;
+			margin-top: 8px;
+		}
 	</style>
 
 	<!-- The '/homey.js' script must be included in your settings view to work -->
@@ -78,6 +95,15 @@
 		<button class="tablinks" onclick="setPage(event, 'status')" id="deviceStatusTab" data-i18n="settings.tabGetStatus" title="settings.tabGetStatus"></button>
 		<button class="tablinks" onclick="setPage(event, 'oldSettings')" id="oldSettingsTab" data-i18n="settings.tabOldSettings" title="settings.tabOldSettings"></button>
 		<button class="tablinks sim-log-tab-hidden" onclick="setPage(event, 'simulator')" id="simLogTab" data-i18n="settings.tabSimulationData" title="settings.tabSimulationData"></button>
+	</div>
+
+	<div id="globalAuthWarning" class="auth-warning-banner" role="alert" aria-live="polite">
+		<strong data-i18n="settings.oauthMissingSessionTitle" title="settings.oauthMissingSessionTitle"></strong>
+		<span data-i18n="settings.oauthMissingSessionText" title="settings.oauthMissingSessionText"></span>
+		<div class="auth-warning-actions">
+			<button id="globalAuthLogin" class="homey-button-small" data-i18n="settings.loginWithSwitchBot" title="settings.loginWithSwitchBot"></button>
+			<button id="globalAuthLegacy" class="homey-button-small" data-i18n="settings.tabOldSettings" title="settings.tabOldSettings"></button>
+		</div>
 	</div>
 
 	<!--APP SETTINGS PAGE -->
@@ -228,6 +254,42 @@
 		var sendDeviceLogElement = document.getElementById('sendDeviceLog');
 		var loginWithOAuthElement = document.getElementById('loginWithOAuth');
 		var oAuthStatusMessageElement = document.getElementById('oAuthStatusMessage');
+		var globalAuthWarningElement = document.getElementById('globalAuthWarning');
+		var globalAuthLoginElement = document.getElementById('globalAuthLogin');
+		var globalAuthLegacyElement = document.getElementById('globalAuthLegacy');
+		var homeyInstance = null;
+
+		function hasTextValue(value)
+		{
+			return typeof value === 'string' && value.trim().length > 0;
+		}
+
+		function updateGlobalAuthWarning(hasOAuthSession)
+		{
+			if (!homeyInstance || !globalAuthWarningElement)
+			{
+				return;
+			}
+
+			homeyInstance.get('openToken', function (tokenErr, openToken)
+			{
+				homeyInstance.get('openSecret', function (secretErr, openSecret)
+				{
+					const hasLegacyAuth = hasTextValue(openToken) && hasTextValue(openSecret);
+					const shouldShowWarning = !hasOAuthSession && !hasLegacyAuth;
+					globalAuthWarningElement.style.display = shouldShowWarning ? 'block' : 'none';
+
+					if (tokenErr)
+					{
+						console.error('Failed to read openToken setting:', tokenErr);
+					}
+					if (secretErr)
+					{
+						console.error('Failed to read openSecret setting:', secretErr);
+					}
+				});
+			});
+		}
 
 		function setOAuthUiState(hasOAuthSession)
 		{
@@ -247,6 +309,8 @@
 				clearDeviceLogElement.style.display = 'none';
 				sendDeviceLogElement.style.display = 'none';
 			}
+
+			updateGlobalAuthWarning(hasOAuthSession);
 		}
 
 		// Simulation log tab
@@ -296,6 +360,7 @@
 		// a method named 'onHomeyReady' must be present in your code
 		function onHomeyReady(Homey)
 		{
+			homeyInstance = Homey;
 			const t = (key, fallback) => {
 				const value = Homey.__(key);
 				return value === key ? fallback : value;
@@ -429,6 +494,16 @@
 						checkOAuthStatus(Homey);
 					}, 5000);
 				});
+			});
+
+			globalAuthLoginElement.addEventListener('click', function ()
+			{
+				loginWithOAuthElement.click();
+			});
+
+			globalAuthLegacyElement.addEventListener('click', function ()
+			{
+				document.getElementById('oldSettingsTab').click();
 			});
 
 			getDeviceLogElement.addEventListener('click', function (e)
@@ -670,6 +745,11 @@
 						return Homey.alert(err);
 					}
 				});
+
+				setTimeout(function ()
+				{
+					checkOAuthStatus(Homey);
+				}, 100);
 			});
 
 			saveAppSettingsElement.addEventListener('click', function (e)

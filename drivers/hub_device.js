@@ -36,7 +36,7 @@ class HubDevice extends OAuth2Device
 	appendApiCallCountToRateLimitError(err)
 	{
 		const message = (err && err.message) ? err.message : String(err);
-		const isRateLimitError = /rate\s*limit|too\s*many\s*requests|\b190\b/i.test(message);
+		const isRateLimitError = /rate\s*limit|too\s*many\s*requests|\b429\b/i.test(message);
 		if (!isRateLimitError)
 		{
 			return err;
@@ -129,53 +129,83 @@ class HubDevice extends OAuth2Device
 
 		if (this.oAuth2Client)
 		{
-			try
+			const maxAttempts = 3;
+			let responseCode = 100;
+			let responseMessage = '';
+
+			for (let attempt = 1; attempt <= maxAttempts; attempt++)
 			{
-				this.homey.app.updateLog(`Sending ${this.homey.app.varToString(data)} to ${dd.id} using OAuth`, 3, 'hub');
-				result = await this.oAuth2Client.setDeviceData(dd.id, data);
-			}
-			catch (err)
-			{
-				this.homey.app.updateLog(`Failed to send command to ${dd.id} using OAuth: ${err.message}`, 0, 'hub');
-				throw new Error(err.message);
+				try
+				{
+					this.homey.app.updateLog(`Sending ${this.homey.app.varToString(data)} to ${dd.id} using OAuth${attempt > 1 ? ` (attempt ${attempt}/${maxAttempts})` : ''}`, 3, 'hub');
+					result = await this.oAuth2Client.setDeviceData(dd.id, data);
+				}
+				catch (err)
+				{
+					this.homey.app.updateLog(`Failed to send command to ${dd.id} using OAuth: ${err.message}`, 0, 'hub');
+					throw new Error(err.message);
+				}
+
+				if (!result)
+				{
+					if (attempt < maxAttempts)
+					{
+						const baseDelay = 700 * Math.pow(2, attempt - 1);
+						const retryDelay = baseDelay + Math.floor(Math.random() * 250);
+						this.homey.app.updateLog(`OAuth command to ${dd.id} returned no body, retrying in ${retryDelay}ms (attempt ${attempt}/${maxAttempts})`, 1, 'hub');
+						await new Promise((resolve) => this.homey.setTimeout(resolve, retryDelay));
+						continue;
+					}
+
+					this.homey.app.updateLog(`Failed to send command to ${dd.id} using OAuth: Nothing returned`, 0, 'hub');
+					throw new Error('Nothing returned');
+				}
+
+				responseCode = Number.parseInt(result.statusCode ?? result.body?.statusCode ?? 100, 10);
+				responseMessage = result.message ?? result.body?.message ?? '';
+
+				if ((responseCode === 161 || responseCode === 171) && (attempt < maxAttempts))
+				{
+					const baseDelay = 700 * Math.pow(2, attempt - 1);
+					const retryDelay = baseDelay + Math.floor(Math.random() * 250);
+					this.homey.app.updateLog(`Transient SwitchBot response ${responseCode} for ${dd.id}, retrying in ${retryDelay}ms (attempt ${attempt}/${maxAttempts})`, 1, 'hub');
+					await new Promise((resolve) => this.homey.setTimeout(resolve, retryDelay));
+					continue;
+				}
+
+				break;
 			}
 
-			if (!result)
+			if (responseCode !== 100)
 			{
-				this.homey.app.updateLog(`Failed to send command to ${dd.id} using OAuth: Nothing returned`, 0, 'hub');
-				throw new Error('Nothing returned');
-			}
-
-			if (result.statusCode !== 100)
-			{
-				this.homey.app.updateLog(`Failed to send command to ${dd.id} using OAuth: ${result.statusCode}`, 0, 'hub');
-				if (result.statusCode === 152)
+				this.homey.app.updateLog(`Failed to send command to ${dd.id} using OAuth: ${responseCode} ${responseMessage}`.trim(), 0, 'hub');
+				if (responseCode === 152)
 				{
 					throw new Error('Error: Device not found by SwitchBot');
 				}
-				else if (result.statusCode === 160)
+				else if (responseCode === 160)
 				{
 					throw new Error('Error: Command is not supported by SwitchBot');
 				}
-				else if (result.statusCode === 161)
+				else if (responseCode === 161)
 				{
 					throw new Error('Error: SwitchBot device is offline');
 				}
-				else if (result.statusCode === 171)
+				else if (responseCode === 171)
 				{
 					throw new Error('Error: SwitchBot hub is offline');
 				}
-				else if (result.statusCode === 174)
+				else if (responseCode === 174)
 				{
 					throw new Error('Cloud option is not enabled in the SwitchBot app');
 				}
-				else if (result.statusCode === 190)
+				else if (responseCode === 190)
 				{
-					throw new Error(`Error: ${result.statusCode} ${result.message}, ${this.homey.app.varToString(data)}`);
+					throw new Error(`Error: ${responseCode} ${responseMessage || 'Command rejected by SwitchBot'}, ${this.homey.app.varToString(data)}`);
 				}
 				else
 				{
-					throw new Error(`Error: An unknown code (${result.statusCode}) returned by SwitchBot`);
+					throw new Error(`Error: An unknown code (${responseCode}) returned by SwitchBot`);
 				}
 			}
 

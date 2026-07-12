@@ -1,0 +1,31 @@
+{
+  "name": {
+    "en": "Ceiling Light White (HUB)",
+    "no": "Taklampe Hvit (HUB)",
+    "nl": "Plafondlamp Wit (HUB)",
+    "da": "Loftlampe Hvid (HUB)",
+    "de": "Deckenleuchte Weiß (HUB)",
+    "es": "Luz de techo Blanca (HUB)",
+    "fr": "Plafonnier Blanc (HUB)",
+    "it": "Luce da soffitto Bianca (HUB)",
+    "sv": "Taklampa Vit (HUB)",
+    "pl": "Lampa sufitowa Biała (HUB)",
+    "ru": "Потолочный светильник Белый (HUB)",
+    "ko": "천장 조명 흰색 (HUB)"
+  },
+  "class": "light",
+  "capabilities": [
+    "onoff",
+    "dim",
+    "light_temperature"
+  ],
+  "energy": {
+    "approximation": {
+      "usageOn": 10,
+      "usageOff": 0.1
+    }
+  },
+  "$extends": [
+    "hubDriver"
+  ]
+}

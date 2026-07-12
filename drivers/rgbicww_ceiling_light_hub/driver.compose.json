@@ -1,0 +1,102 @@
+{
+  "name": {
+    "en": "RGBICWW Ceiling Light (HUB)",
+    "no": "RGBICWW taklampe (HUB)",
+    "nl": "RGBICWW plafondlamp (HUB)",
+    "da": "RGBICWW loftlampe (HUB)",
+    "de": "RGBICWW Deckenleuchte (HUB)",
+    "es": "Luz de techo RGBICWW (HUB)",
+    "fr": "Plafonnier RGBICWW (HUB)",
+    "it": "Luce da soffitto RGBICWW (HUB)",
+    "sv": "RGBICWW taklampa (HUB)",
+    "pl": "Lampa sufitowa RGBICWW (HUB)",
+    "ru": "Потолочный светильник RGBICWW (HUB)",
+    "ko": "RGBICWW 천장 조명 (HUB)"
+  },
+  "class": "light",
+  "capabilities": [
+    "onoff.white",
+    "dim.white",
+    "onoff.colour",
+    "dim.colour",
+    "light_hue",
+    "light_saturation",
+    "light_temperature",
+    "light_mode"
+  ],
+  "capabilitiesOptions": {
+    "onoff.white": {
+      "title": {
+        "en": "Main Light",
+        "nl": "Hoofdlicht",
+        "da": "Hovedlys",
+        "de": "Hauptlicht",
+        "es": "Luz principal",
+        "fr": "Lumiere principale",
+        "it": "Luce principale",
+        "no": "Hovedlys",
+        "sv": "Huvudljus",
+        "pl": "Swiatlo glowne",
+        "ru": "Osnovnoi svet",
+        "ko": "메인 조명"
+      }
+    },
+    "dim.white": {
+      "title": {
+        "en": "Main Brightness",
+        "nl": "Helderheid hoofdlicht",
+        "da": "Hovedlysstyrke",
+        "de": "Helligkeit Hauptlicht",
+        "es": "Brillo principal",
+        "fr": "Luminosite principale",
+        "it": "Luminosita principale",
+        "no": "Hovedlysstyrke",
+        "sv": "Huvudljusstyrka",
+        "pl": "Jasnosc swiatla glownego",
+        "ru": "Yarkost osnovnogo sveta",
+        "ko": "메인 밝기"
+      }
+    },
+    "onoff.colour": {
+      "title": {
+        "en": "Color Light",
+        "nl": "Kleurlicht",
+        "da": "Farvelys",
+        "de": "Farblicht",
+        "es": "Luz de color",
+        "fr": "Lumiere couleur",
+        "it": "Luce colore",
+        "no": "Fargelys",
+        "sv": "Fargljus",
+        "pl": "Swiatlo kolorowe",
+        "ru": "Tsvetnoi svet",
+        "ko": "컬러 조명"
+      }
+    },
+    "dim.colour": {
+      "title": {
+        "en": "Color Brightness",
+        "nl": "Helderheid kleurlicht",
+        "da": "Farvelysstyrke",
+        "de": "Helligkeit Farblicht",
+        "es": "Brillo de color",
+        "fr": "Luminosite couleur",
+        "it": "Luminosita colore",
+        "no": "Fargelysstyrke",
+        "sv": "Fargljusstyrka",
+        "pl": "Jasnosc swiatla kolorowego",
+        "ru": "Yarkost tsvetnogo sveta",
+        "ko": "컬러 밝기"
+      }
+    }
+  },
+  "energy": {
+    "approximation": {
+      "usageOn": 15,
+      "usageOff": 0.1
+    }
+  },
+  "$extends": [
+    "hubDriver"
+  ]
+}

@@ -22,6 +22,8 @@ const COMMAND_API_OVERHEAD = 500;
 const POLLING_DAILY_BUDGET = DAILY_API_QUOTA - COMMAND_API_OVERHEAD;
 const BLE_POLLING_INTERVAL = 30000; // in milliSeconds
 const BLE_ADVERTISEMENT_RATE_LIMIT_MS = 5000;
+const HUB_POLL_MISSING_AUTH_INTERVAL_MS = 60000;
+const WEBHOOK_AUTH_MISSING_INTERVAL_MS = 5 * 60 * 1000;
 class MyApp extends OAuth2App
 {
 
@@ -135,7 +137,7 @@ class MyApp extends OAuth2App
 	formatRateLimitErrorMessage(message)
 	{
 		const rawMessage = message ? String(message) : 'Unknown error';
-		const isRateLimitError = /rate\s*limit|too\s*many\s*requests|\b429\b|\b190\b/i.test(rawMessage);
+		const isRateLimitError = /rate\s*limit|too\s*many\s*requests|\b429\b/i.test(rawMessage);
 		if (!isRateLimitError || /API calls/i.test(rawMessage))
 		{
 			return rawMessage;
@@ -180,6 +182,16 @@ class MyApp extends OAuth2App
 		}
 
 		return 'unavailable (no OAuth session and no API token/secret)';
+	}
+
+	hasHubAuthAvailable()
+	{
+		if (this.openToken && this.openSecret)
+		{
+			return true;
+		}
+
+		return Boolean(this.getFirstSavedOAuth2Client());
 	}
 
 	hasWebhookEligibleDevices()
@@ -386,6 +398,10 @@ class MyApp extends OAuth2App
 		this.homeyWebhookRegTimerID = null;
 		this.switchBotWebhookTimerID = null;
 		this.apiCallsPersistTimer = null;
+		this.hubAuthMissingLogged = false;
+		this.webhookAuthMissingLogged = false;
+		this.cachedFirstOAuth2Client = null;
+		this.cachedFirstOAuth2SessionId = null;
 
 		if (this.logLevel >= 0)
 		{
@@ -1543,7 +1559,32 @@ class MyApp extends OAuth2App
 			}
 
 			this.updateLog('Skipping SwitchBot webhook setup: no hub/cloud devices registered', 1, 'hub');
+			this.webhookAuthMissingLogged = false;
 			return;
+		}
+
+		if (!this.hasHubAuthAvailable())
+		{
+			if (this.switchBotWebhookTimerID)
+			{
+				this.homey.clearTimeout(this.switchBotWebhookTimerID);
+				this.switchBotWebhookTimerID = null;
+			}
+
+			if (!this.webhookAuthMissingLogged)
+			{
+				this.updateLog('SwitchBot webhook setup paused: no OAuth session or API token/secret available.', 0, 'hub');
+				this.webhookAuthMissingLogged = true;
+			}
+
+			this.switchBotWebhookTimerID = this.homey.setTimeout(() => this.setupSwitchBotWebhook(), WEBHOOK_AUTH_MISSING_INTERVAL_MS);
+			return;
+		}
+
+		if (this.webhookAuthMissingLogged)
+		{
+			this.updateLog('SwitchBot webhook setup resumed: authentication is available again.', 1, 'hub');
+			this.webhookAuthMissingLogged = false;
 		}
 
 		const isStartupAttempt = !this.switchBotWebhookTimerID;
@@ -1592,23 +1633,38 @@ class MyApp extends OAuth2App
 		try
 		{
 			const savedSessions = this.getSavedOAuth2Sessions();
-			if (savedSessions && Object.keys(savedSessions).length > 0)
+			if (!savedSessions || Object.keys(savedSessions).length === 0)
 			{
-				// Get the first session ID and retrieve its client
-				const sessionIds = Object.keys(savedSessions);
-				if (sessionIds && sessionIds.length > 0)
-				{
-					const firstSessionId = sessionIds[0];
-					return this.getOAuth2Client({
-						configId: 'default',
-						sessionId: firstSessionId,
-					});
-				}
+				this.cachedFirstOAuth2Client = null;
+				this.cachedFirstOAuth2SessionId = null;
+				return null;
 			}
+
+			const sessionIds = Object.keys(savedSessions);
+			if (sessionIds && sessionIds.length > 0)
+			{
+				const firstSessionId = sessionIds[0];
+				if (this.cachedFirstOAuth2Client && this.cachedFirstOAuth2SessionId === firstSessionId)
+				{
+					return this.cachedFirstOAuth2Client;
+				}
+
+				const client = this.getOAuth2Client({
+					configId: 'default',
+					sessionId: firstSessionId,
+				});
+
+				this.cachedFirstOAuth2Client = client;
+				this.cachedFirstOAuth2SessionId = firstSessionId;
+				return client;
+			}
+
 			return null;
 		}
 		catch (err)
 		{
+			this.cachedFirstOAuth2Client = null;
+			this.cachedFirstOAuth2SessionId = null;
 			this.updateLog(`Error getting first OAuth2 client: ${err.message}`, 0, 'hub');
 			return null;
 		}
@@ -1856,6 +1912,28 @@ class MyApp extends OAuth2App
 		{
 			this.homey.clearTimeout(this.timerHubID);
 			this.timerHubID = null;
+		}
+
+		if (!this.hasHubAuthAvailable())
+		{
+			if (!this.hubAuthMissingLogged)
+			{
+				this.homey.app.updateLog('Hub polling paused: no API key/secret or OAuth2 session available. Re-authenticate in app settings to restore control.', 0, 'hub');
+				this.hubAuthMissingLogged = true;
+			}
+
+			if (this.hubDevices > 0)
+			{
+				this.timerHubID = this.homey.setTimeout(this.onHubPoll, HUB_POLL_MISSING_AUTH_INTERVAL_MS);
+			}
+
+			return;
+		}
+
+		if (this.hubAuthMissingLogged)
+		{
+			this.homey.app.updateLog('Hub polling resumed: authentication is available again.', 1, 'hub');
+			this.hubAuthMissingLogged = false;
 		}
 
 		let totalHuBDevices = 0;

@@ -4,7 +4,7 @@
 
 const HubDriver = require('../hub_driver');
 
-class SmartFanNewDriver extends HubDriver
+class RGBICWWCeilingLightDriver extends HubDriver
 {
 
 	/**
@@ -13,7 +13,7 @@ class SmartFanNewDriver extends HubDriver
 	async onOAuth2Init()
 	{
 		super.onOAuth2Init();
-		this.log('SmartFanNewDriver has been initialized');
+		this.log('RGBICWWCeilingLightDriver has been initialized');
 	}
 
 	/**
@@ -22,9 +22,9 @@ class SmartFanNewDriver extends HubDriver
 	 */
 	async onPairListDevices({ oAuth2Client })
 	{
-		return this.getHUBDevices(oAuth2Client, ['Standing Fan', 'Battery Circulator Fan']);
+		return this.getHUBDevices(oAuth2Client, ['RGBICWW Ceiling Light'], false, false);
 	}
 
 }
 
-module.exports = SmartFanNewDriver;
+module.exports = RGBICWWCeilingLightDriver;
