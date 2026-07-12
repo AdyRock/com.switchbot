@@ -36,6 +36,20 @@
 		{
 			"name": "brightness",
 			"type": "range",
+			"title": {
+				"en": "Brightness",
+				"no": "Lysstyrke",
+				"nl": "Helderheid",
+				"da": "Lysstyrke",
+				"de": "Helligkeit",
+				"es": "Brillo",
+				"fr": "Luminosité",
+				"it": "Luminosità",
+				"sv": "Ljusstyrka",
+				"pl": "Jasność",
+				"ru": "Яркость",
+				"ko": "밝기"
+			},
 			"min": 0,
 			"max": 1,
 			"step": 0.01,
