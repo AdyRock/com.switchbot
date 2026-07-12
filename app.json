@@ -725,6 +725,55 @@
       },
       {
         "title": {
+          "en": "The colour dim level changed",
+          "no": "Fargedimnivå endret",
+          "nl": "Kleur dimniveau gewijzigd",
+          "da": "Farvedæmpningsniveau ændret",
+          "de": "Farb-Dimmstufe geändert",
+          "es": "Nivel de atenuación de color cambiado",
+          "fr": "Niveau de variation de couleur modifie",
+          "it": "Livello dimmer colore cambiato",
+          "sv": "Färgdimmnivå ändrat",
+          "pl": "Poziom ściemniania koloru zmieniony",
+          "ru": "Уровень диммирования цветного света изменен",
+          "ko": "컬러 디밍 레벨 변경됨"
+        },
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "tokens": [
+          {
+            "name": "brightness",
+            "title": {
+              "en": "Brightness",
+              "no": "Lysstyrke",
+              "nl": "Helderheid",
+              "da": "Lysstyrke",
+              "de": "Helligkeit",
+              "es": "Brillo",
+              "fr": "Luminosite",
+              "it": "Luminosita",
+              "sv": "Ljusstyrka",
+              "pl": "Jasność",
+              "ru": "Яркость",
+              "ko": "밝기"
+            },
+            "type": "number",
+            "example": 0.6
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=rgbicww_ceiling_light_hub"
+          }
+        ],
+        "id": "dim_colour_changed"
+      },
+      {
+        "title": {
           "en": "Direction Changed",
           "no": "Retning endret",
           "nl": "Richting Veranderd",
@@ -980,6 +1029,64 @@
           }
         ],
         "id": "locked"
+      },
+      {
+        "title": {
+          "en": "Color light turned off",
+          "no": "Fargelys slått av",
+          "nl": "Kleurlicht uitgeschakeld",
+          "da": "Farvelys slukket",
+          "de": "Farblicht ausgeschaltet",
+          "es": "Luz de color apagada",
+          "fr": "Lumiere couleur eteinte",
+          "it": "Luce colore spenta",
+          "sv": "Färgljus avstängt",
+          "pl": "Światło kolorowe wyłączone",
+          "ru": "Цветной свет выключен",
+          "ko": "컬러 조명 꺼짐"
+        },
+        "highlight": true,
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=rgbicww_ceiling_light_hub"
+          }
+        ],
+        "id": "onoff_colour_false"
+      },
+      {
+        "title": {
+          "en": "Color light turned on",
+          "no": "Fargelys slått på",
+          "nl": "Kleurlicht ingeschakeld",
+          "da": "Farvelys tændt",
+          "de": "Farblicht eingeschaltet",
+          "es": "Luz de color encendida",
+          "fr": "Lumiere couleur allumee",
+          "it": "Luce colore accesa",
+          "sv": "Färgljus påslaget",
+          "pl": "Światło kolorowe włączone",
+          "ru": "Цветной свет включен",
+          "ko": "컬러 조명 켜짐"
+        },
+        "highlight": true,
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=rgbicww_ceiling_light_hub"
+          }
+        ],
+        "id": "onoff_colour_true"
       },
       {
         "title": {
@@ -2444,6 +2551,34 @@
     "conditions": [
       {
         "title": {
+          "en": "Color light is turned on",
+          "no": "Fargelys er slått på",
+          "nl": "Kleurlicht is ingeschakeld",
+          "da": "Farvelys er tændt",
+          "de": "Farblicht ist eingeschaltet",
+          "es": "La luz de color está encendida",
+          "fr": "La lumiere couleur est allumee",
+          "it": "La luce colore è accesa",
+          "sv": "Färgljuset är påslaget",
+          "pl": "Światło kolorowe jest włączone",
+          "ru": "Цветной свет включен",
+          "ko": "컬러 조명이 켜져 있음"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=rgbicww_ceiling_light_hub"
+          }
+        ],
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "id": "onoff_colour_is_true"
+      },
+      {
+        "title": {
           "en": "The state !{{is|isn't}} [[state]]",
           "no": "Kjøremodus !{{er|er ikke}} [[state]]",
           "nl": "De status !{{is|is niet}} [[state]]",
@@ -3063,6 +3198,64 @@
           "cloud"
         ],
         "id": "on"
+      },
+      {
+        "title": {
+          "en": "Turn off color light",
+          "no": "Slå av fargelys",
+          "nl": "Kleurlicht uitschakelen",
+          "da": "Sluk farvelys",
+          "de": "Farblicht ausschalten",
+          "es": "Apagar luz de color",
+          "fr": "Eteindre la lumiere couleur",
+          "it": "Spegni luce colore",
+          "sv": "Stäng av färgljus",
+          "pl": "Wyłącz światło kolorowe",
+          "ru": "Выключить цветной свет",
+          "ko": "컬러 조명 끄기"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=rgbicww_ceiling_light_hub"
+          }
+        ],
+        "highlight": true,
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "id": "onoff_colour_false"
+      },
+      {
+        "title": {
+          "en": "Turn on color light",
+          "no": "Slå på fargelys",
+          "nl": "Kleurlicht inschakelen",
+          "da": "Tænd farvelys",
+          "de": "Farblicht einschalten",
+          "es": "Encender luz de color",
+          "fr": "Allumer la lumiere couleur",
+          "it": "Accendi luce colore",
+          "sv": "Slå på färgljus",
+          "pl": "Włącz światło kolorowe",
+          "ru": "Включить цветной свет",
+          "ko": "컬러 조명 켜기"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=rgbicww_ceiling_light_hub"
+          }
+        ],
+        "highlight": true,
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "id": "onoff_colour_true"
       },
       {
         "title": {
@@ -3748,6 +3941,59 @@
           "cloud"
         ],
         "id": "set_channel"
+      },
+      {
+        "title": {
+          "en": "Set colour dim",
+          "no": "Sett fargedim",
+          "nl": "Stel kleurdim in",
+          "da": "Indstil farvedæmpning",
+          "de": "Farbdimmung einstellen",
+          "es": "Configurar atenuación de color",
+          "fr": "Regler la gradation couleur",
+          "it": "Imposta dim colore",
+          "sv": "Ställ in färgdimning",
+          "pl": "Ustaw ściemnianie koloru",
+          "ru": "Установить диммирование цветного света",
+          "ko": "컬러 디밍 설정"
+        },
+        "titleFormatted": {
+          "en": "Set colour dim to [[brightness]]%",
+          "no": "Sett fargedim til [[brightness]]%",
+          "nl": "Stel kleurdim in op [[brightness]]%",
+          "da": "Indstil farvedæmpning til [[brightness]]%",
+          "de": "Farbdimmung auf [[brightness]]% einstellen",
+          "es": "Configurar atenuación de color en [[brightness]]%",
+          "fr": "Regler la gradation couleur a [[brightness]]%",
+          "it": "Imposta dim colore a [[brightness]]%",
+          "sv": "Ställ in färgdimning till [[brightness]]%",
+          "pl": "Ustaw ściemnianie koloru na [[brightness]]%",
+          "ru": "Установить диммирование цветного света на [[brightness]]%",
+          "ko": "컬러 디밍을 [[brightness]]%로 설정"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=rgbicww_ceiling_light_hub"
+          },
+          {
+            "name": "brightness",
+            "type": "range",
+            "min": 0,
+            "max": 1,
+            "step": 0.01,
+            "value": 0.5,
+            "label": "%",
+            "labelMultiplier": 100,
+            "labelDecimals": 0
+          }
+        ],
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "id": "set_dim_colour"
       },
       {
         "title": {
@@ -10470,8 +10716,8 @@
       },
       "class": "light",
       "capabilities": [
-        "onoff.white",
-        "dim.white",
+        "onoff",
+        "dim",
         "onoff.colour",
         "dim.colour",
         "light_hue",
@@ -10480,7 +10726,7 @@
         "light_mode"
       ],
       "capabilitiesOptions": {
-        "onoff.white": {
+        "onoff": {
           "title": {
             "en": "Main Light",
             "nl": "Hoofdlicht",
@@ -10496,7 +10742,7 @@
             "ko": "메인 조명"
           }
         },
-        "dim.white": {
+        "dim": {
           "title": {
             "en": "Main Brightness",
             "nl": "Helderheid hoofdlicht",

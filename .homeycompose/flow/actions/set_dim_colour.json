@@ -1,0 +1,53 @@
+{
+	"title": {
+		"en": "Dim color light",
+		"no": "Dim fargelys",
+		"nl": "Dim kleurlicht",
+		"da": "Dæmp farvelys",
+		"de": "Farblicht dimmen",
+		"es": "Atenuar luz de color",
+		"fr": "Diminuer la lumière couleur",
+		"it": "Dim luce colore",
+		"sv": "Dimma färgljus",
+		"pl": "Przyciemnij światło kolorowe",
+		"ru": "Диммировать цветной свет",
+		"ko": "컬러 조명 디밍 설정"
+	},
+	"titleFormatted": {
+		"en": "Dim color light to [[brightness]]%",
+		"no": "Dim fargelys til [[brightness]]%",
+		"nl": "Dim kleurlicht tot [[brightness]]%",
+		"da": "Dæmp farvelys til [[brightness]]%",
+		"de": "Dimme Farblicht auf [[brightness]]%",
+		"es": "Atenuar luz de color a [[brightness]]%",
+		"fr": "Diminuer la lumière couleur à [[brightness]]%",
+		"it": "Dim luce colore a [[brightness]]%",
+		"sv": "Dimma färgljus till [[brightness]]%",
+		"pl": "Przyciemnij światło kolorowe do [[brightness]]%",
+		"ru": "Диммировать цветной свет до [[brightness]]%",
+		"ko": "컬러 조명을 [[brightness]]%로 디밍 설정"
+	},
+	"args": [
+		{
+			"name": "device",
+			"type": "device",
+			"filter": "driver_id=rgbicww_ceiling_light_hub"
+		},
+		{
+			"name": "brightness",
+			"type": "range",
+			"min": 0,
+			"max": 1,
+			"step": 0.01,
+			"value": 0.5,
+			"label": "%",
+			"labelMultiplier": 100,
+			"labelDecimals": 0
+		}
+	],
+	"highlight": true,
+	"platforms": [
+		"local",
+		"cloud"
+	]
+}

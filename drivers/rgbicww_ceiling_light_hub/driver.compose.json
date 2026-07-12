@@ -15,8 +15,8 @@
   },
   "class": "light",
   "capabilities": [
-    "onoff.white",
-    "dim.white",
+    "onoff",
+    "dim",
     "onoff.colour",
     "dim.colour",
     "light_hue",
@@ -25,7 +25,7 @@
     "light_mode"
   ],
   "capabilitiesOptions": {
-    "onoff.white": {
+    "onoff": {
       "title": {
         "en": "Main Light",
         "nl": "Hoofdlicht",
@@ -41,7 +41,7 @@
         "ko": "메인 조명"
       }
     },
-    "dim.white": {
+    "dim": {
       "title": {
         "en": "Main Brightness",
         "nl": "Helderheid hoofdlicht",

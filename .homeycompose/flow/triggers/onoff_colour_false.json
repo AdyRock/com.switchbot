@@ -1,0 +1,28 @@
+{
+  "title": {
+    "en": "Color light turned off",
+    "no": "Fargelys slått av",
+    "nl": "Kleurlicht uitgeschakeld",
+    "da": "Farvelys slukket",
+    "de": "Farblicht ausgeschaltet",
+    "es": "Luz de color apagada",
+    "fr": "Lumiere couleur eteinte",
+    "it": "Luce colore spenta",
+    "sv": "Färgljus avstängt",
+    "pl": "Światło kolorowe wyłączone",
+    "ru": "Цветной свет выключен",
+    "ko": "컬러 조명 꺼짐"
+  },
+  "highlight": true,
+  "platforms": [
+    "local",
+    "cloud"
+  ],
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=rgbicww_ceiling_light_hub"
+    }
+  ]
+}

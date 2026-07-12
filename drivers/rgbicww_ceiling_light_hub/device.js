@@ -14,17 +14,17 @@ class RGBICWWCeilingLightHubDevice extends LightHubDevice
 	{
 		await super.onInit();
 
-		if (this.hasCapability('onoff.white'))
+		if (this.hasCapability('onoff'))
 		{
-			this.registerCapabilityListener('onoff.white', this.onCapabilityMainOnOff.bind(this));
+			this.registerCapabilityListener('onoff', this.onCapabilityMainOnOff.bind(this));
 		}
 		if (this.hasCapability('onoff.colour'))
 		{
 			this.registerCapabilityListener('onoff.colour', this.onCapabilityColorOnOff.bind(this));
 		}
-		if (this.hasCapability('dim.white'))
+		if (this.hasCapability('dim'))
 		{
-			this.registerCapabilityListener('dim.white', this.onCapabilityMainDim.bind(this));
+			this.registerCapabilityListener('dim', this.onCapabilityMainDim.bind(this));
 		}
 		if (this.hasCapability('dim.colour'))
 		{
@@ -99,28 +99,48 @@ class RGBICWWCeilingLightHubDevice extends LightHubDevice
 
 	updateChannelCapabilities(status)
 	{
+		const oldColorOn = this.hasCapability('onoff.colour') ? this.getCapabilityValue('onoff.colour') : null;
+		const oldColorDim = this.hasCapability('dim.colour') ? this.getCapabilityValue('dim.colour') : null;
+
 		const mainLightPower = String(status.mainLightPower || status.powerState || '').toLowerCase();
 		if (mainLightPower != '')
 		{
-			this.setCapabilityValue('onoff.white', mainLightPower === 'on').catch(this.error);
+			this.setCapabilityValue('onoff', mainLightPower === 'on').catch(this.error);
 		}
 
 		const colorLightPower = String(status.colorLightPower || status.colorLightPowerState || '').toLowerCase();
 		if (colorLightPower != '')
 		{
-			this.setCapabilityValue('onoff.colour', colorLightPower === 'on').catch(this.error);
+			const newColorOn = colorLightPower === 'on';
+			this.setCapabilityValue('onoff.colour', newColorOn).catch(this.error);
+			if ((oldColorOn !== null) && (oldColorOn !== newColorOn))
+			{
+				if (newColorOn)
+				{
+					this.driver.triggerColorOn(this, null, null);
+				}
+				else
+				{
+					this.driver.triggerColorOff(this, null, null);
+				}
+			}
 		}
 
 		const mainDim = Number.parseInt(status.mainLightBrightness ?? status.brightness, 10);
 		if (Number.isFinite(mainDim) && mainDim > 0)
 		{
-			this.setCapabilityValue('dim.white', Math.max(0.01, Math.min(1, mainDim / 100))).catch(this.error);
+			this.setCapabilityValue('dim', Math.max(0.01, Math.min(1, mainDim / 100))).catch(this.error);
 		}
 
 		const colorDim = Number.parseInt(status.colorLightBrightness, 10);
 		if (Number.isFinite(colorDim) && colorDim > 0)
 		{
-			this.setCapabilityValue('dim.colour', Math.max(0.01, Math.min(1, colorDim / 100))).catch(this.error);
+			const newColorDim = Math.max(0.01, Math.min(1, colorDim / 100));
+			this.setCapabilityValue('dim.colour', newColorDim).catch(this.error);
+			if ((oldColorDim !== null) && (Math.abs(newColorDim - oldColorDim) > 0.0001))
+			{
+				this.driver.triggerColorDimChanged(this, { brightness: newColorDim }, null);
+			}
 		}
 
 		const colorTemp = Number.parseInt(status.mainLightColorTemp ?? status.colorTemperature, 10);

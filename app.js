@@ -918,6 +918,27 @@ class MyApp extends OAuth2App
 				return args.device.onCapabilityOnOff('2', false);
 			});
 
+		const colourOnAction = this.homey.flow.getActionCard('onoff_colour_true');
+		colourOnAction
+			.registerRunListener(async (args, state) =>
+			{
+				return args.device.onCapabilityColorOnOff(true);
+			});
+
+		const colourOffAction = this.homey.flow.getActionCard('onoff_colour_false');
+		colourOffAction
+			.registerRunListener(async (args, state) =>
+			{
+				return args.device.onCapabilityColorOnOff(false);
+			});
+
+		const dimColourAction = this.homey.flow.getActionCard('set_dim_colour');
+		dimColourAction
+			.registerRunListener(async (args, state) =>
+			{
+				return args.device.onCapabilityColorDim(args.brightness);
+			});
+
 		const radiatorThermostatModeAction = this.homey.flow.getActionCard('set_radiator_thermostat_mode');
 		radiatorThermostatModeAction
 			.registerRunListener(async (args, state) =>
@@ -945,6 +966,14 @@ class MyApp extends OAuth2App
 		{
 			const { device, state } = args;
 			const conditionMet = (device.getCapabilityValue('robot_vaccum_state') === state);
+			return Promise.resolve(conditionMet);
+		});
+
+		this.conditionOnoffColourIsTrue = this.homey.flow.getConditionCard('onoff_colour_is_true');
+		this.conditionOnoffColourIsTrue.registerRunListener((args) =>
+		{
+			const { device } = args;
+			const conditionMet = (device.getCapabilityValue('onoff.colour') === true);
 			return Promise.resolve(conditionMet);
 		});
 

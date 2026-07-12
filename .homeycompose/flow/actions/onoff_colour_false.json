@@ -1,0 +1,28 @@
+{
+	"title": {
+		"en": "Turn off color light",
+		"no": "Slå av fargelys",
+		"nl": "Kleurlicht uitschakelen",
+		"da": "Sluk farvelys",
+		"de": "Farblicht ausschalten",
+		"es": "Apagar luz de color",
+		"fr": "Eteindre la lumiere couleur",
+		"it": "Spegni luce colore",
+		"sv": "Stäng av färgljus",
+		"pl": "Wyłącz światło kolorowe",
+		"ru": "Выключить цветной свет",
+		"ko": "컬러 조명 끄기"
+	},
+	"args": [
+		{
+			"name": "device",
+			"type": "device",
+			"filter": "driver_id=rgbicww_ceiling_light_hub"
+		}
+	],
+	"highlight": true,
+	"platforms": [
+		"local",
+		"cloud"
+	]
+}

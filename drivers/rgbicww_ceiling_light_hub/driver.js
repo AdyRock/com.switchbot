@@ -13,6 +13,9 @@ class RGBICWWCeilingLightDriver extends HubDriver
 	async onOAuth2Init()
 	{
 		super.onOAuth2Init();
+		this.colorOnTrigger = this.homey.flow.getDeviceTriggerCard('onoff_colour_true');
+		this.colorOffTrigger = this.homey.flow.getDeviceTriggerCard('onoff_colour_false');
+		this.colorDimChangedTrigger = this.homey.flow.getDeviceTriggerCard('dim_colour_changed');
 		this.log('RGBICWWCeilingLightDriver has been initialized');
 	}
 
@@ -23,6 +26,21 @@ class RGBICWWCeilingLightDriver extends HubDriver
 	async onPairListDevices({ oAuth2Client })
 	{
 		return this.getHUBDevices(oAuth2Client, ['RGBICWW Ceiling Light'], false, false);
+	}
+
+	triggerColorOn(device, tokens, state)
+	{
+		this.colorOnTrigger.trigger(device, tokens, state).catch(this.error);
+	}
+
+	triggerColorOff(device, tokens, state)
+	{
+		this.colorOffTrigger.trigger(device, tokens, state).catch(this.error);
+	}
+
+	triggerColorDimChanged(device, tokens, state)
+	{
+		this.colorDimChangedTrigger.trigger(device, tokens, state).catch(this.error);
 	}
 
 }

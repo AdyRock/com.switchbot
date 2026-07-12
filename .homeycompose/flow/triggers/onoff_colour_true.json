@@ -1,0 +1,28 @@
+{
+  "title": {
+    "en": "Color light turned on",
+    "no": "Fargelys slått på",
+    "nl": "Kleurlicht ingeschakeld",
+    "da": "Farvelys tændt",
+    "de": "Farblicht eingeschaltet",
+    "es": "Luz de color encendida",
+    "fr": "Lumiere couleur allumee",
+    "it": "Luce colore accesa",
+    "sv": "Färgljus påslaget",
+    "pl": "Światło kolorowe włączone",
+    "ru": "Цветной свет включен",
+    "ko": "컬러 조명 켜짐"
+  },
+  "highlight": true,
+  "platforms": [
+    "local",
+    "cloud"
+  ],
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=rgbicww_ceiling_light_hub"
+    }
+  ]
+}
