@@ -96,7 +96,10 @@ class SmartFanNewHubDevice extends HubDevice
 				this.setCapabilityValue('fan_speed', message.context.fanSpeed / 100).catch(this.error);
 				this.setCapabilityValue('smart_fan_mode2', message.context.mode).catch(this.error);
 				this.setCapabilityValue('night_light', message.context.nightStatus).catch(this.error);
-//				this.setCapabilityValue('measure_battery', message.context.battery).catch(this.error);
+				if (typeof message.context.battery !== 'undefined')
+				{
+					this.setCapabilityValue('measure_battery', message.context.battery).catch(this.error);
+				}
 				this.homey.app.updateLog(`Smart Fan New Hub got webhook message: ${this.homey.app.varToString(message)}`, 3, 'hub');
 				this.unsetWarning().catch(this.error);;
 			}

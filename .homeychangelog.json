@@ -1313,5 +1313,18 @@
 		"pl": "Dodano obsługę nowego formatu reklam BLE Homey dla urządzeń BLE. Dodano nowe karty wyzwalaczy przepływu dla odkurzacza rozpoczętego i odkurzacza zatrzymanego. Ulepszono obsługę poleceń OAuth przez ponawianie przy tymczasowych odpowiedziach offline (161/171), bardziej czytelne logowanie statusu/komunikatu oraz poprawione wykrywanie limitu żądań, aby kod 190 był traktowany jako odrzucenie polecenia. Dodano obsługę lampy sufitowej RGBICWW (HUB).",
 		"ru": "Добавлена поддержка нового формата рекламы Homey BLE для устройств BLE. Добавлены новые карты триггеров потока для пылесоса, начавшего и остановившегося. Улучшена обработка команд OAuth с повторными попытками при временных офлайн-ответах (161/171), сделано более понятное логирование статуса/сообщения и исправлено определение лимита запросов, чтобы код 190 трактовался как отклонение команды. Добавлена поддержка потолочного светильника RGBICWW (HUB).",
 		"ko": "BLE 장치에 대한 새로운 Homey BLE 광고 형식 지원 추가. 청소기 시작 및 청소기 중지에 대한 새로운 플로우 트리거 카드 추가. 일시적인 오프라인 응답(161/171)에 대해 재시도하는 OAuth 명령 처리 개선, 상태/메시지 로깅 명확화, 그리고 코드 190이 명령 거부로 처리되도록 속도 제한 감지 로직을 수정했습니다. RGBICWW 천장 조명 (HUB) 지원 추가."
+	},
+	"2.0.80": {
+		"en": "Fixed batter level reporting for the standing fan.",
+		"no": "Fikset batterinivårapportering for stående vifte.",
+		"nl": "Batterijniveau-rapportage voor de staande ventilator opgelost.",
+		"de": "Batteriestand-Berichterstattung für den Standventilator behoben.",
+		"fr": "Correction du rapport de niveau de batterie pour le ventilateur sur pied.",
+		"es": "Se corrigió el informe del nivel de batería para el ventilador de pie.",
+		"pt": "Corrigido o relatório do nível da bateria para o ventilador de pé.",
+		"it": "Corretto il rapporto del livello della batteria per il ventilatore da terra.",
+		"pl": "Naprawiono raportowanie poziomu baterii dla wentylatora stojącego.",
+		"ru": "Исправлена отчетность о уровне заряда батареи для напольного вентилятора.",
+		"ko": "스탠딩 팬의 배터리 수준 보고 수정"
 	}
 }
