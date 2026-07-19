@@ -1326,5 +1326,18 @@
 		"pl": "Naprawiono raportowanie poziomu baterii dla wentylatora stojącego.",
 		"ru": "Исправлена отчетность о уровне заряда батареи для напольного вентилятора.",
 		"ko": "스탠딩 팬의 배터리 수준 보고 수정"
+	},
+	"2.0.81": {
+		"en": "Improved hub command reliability: fallback to saved OAuth sessions when available, reduced repeated missing-auth/offline command noise, and show/clear device offline warnings automatically when connectivity changes.",
+		"no": "Forbedret hub-kommando pålitelighet: fallback til lagrede OAuth-økter når tilgjengelig, redusert gjentatt manglende autentisering / offline kommando støy, og vis / fjern enhets offline advarsler automatisk når tilkoblingen endres.",
+		"nl": "Verbeterde hub-commando betrouwbaarheid: terugvallen op opgeslagen OAuth-sessies wanneer beschikbaar, verminderde herhaalde ontbrekende-auth/offline commando ruis, en automatisch tonen/verwijderen van apparaat offline waarschuwingen wanneer de connectiviteit verandert.",
+		"de": "Verbesserte Hub-Befehlszuverlässigkeit: Rückfall auf gespeicherte OAuth-Sitzungen, wenn verfügbar, reduzierte wiederholte fehlende Authentifizierungs-/Offline-Befehlsgeräusche und automatische Anzeige/Löschung von Geräte-Offline-Warnungen, wenn sich die Konnektivität ändert.",
+		"fr": "Fiabilité améliorée des commandes du hub : retour aux sessions OAuth enregistrées lorsque disponibles, réduction du bruit des commandes manquantes/authentification hors ligne répétées, et affichage/suppression automatique des avertissements de périphérique hors ligne lorsque la connectivité change.",
+		"es": "Fiabilidad mejorada de los comandos del hub: retroceso a sesiones OAuth guardadas cuando estén disponibles, reducción del ruido de comandos faltantes/offline repetidos, y mostrar/borrar automáticamente las advertencias de dispositivo sin conexión cuando cambia la conectividad.",
+		"pt": "Confiabilidade aprimorada do comando do hub: fallback para sessões OAuth salvas quando disponíveis, redução do ruído de comando ausente/offline repetido e exibição/limpeza automática de avisos de dispositivo offline quando a conectividade muda.",
+		"it": "Affidabilità migliorata dei comandi del hub: fallback alle sessioni OAuth salvate quando disponibili, riduzione del rumore dei comandi mancanti/offline ripetuti e visualizzazione/cancellazione automatica degli avvisi di dispositivo offline quando la connettività cambia.",
+		"pl": "Poprawiona niezawodność poleceń huba: powrót do zapisanych sesji OAuth, gdy są dostępne, zmniejszenie powtarzającego się hałasu poleceń brakujących uwierzytelnienia/offline oraz automatyczne wyświetlanie/usuwanie ostrzeżeń o urządzeniu offline, gdy zmienia się łączność.",
+		"ru": "Повышена надежность команд хаба: возврат к сохраненным сеансам OAuth при их наличии, уменьшение повторяющегося шума команд отсутствия аутентификации/офлайн и автоматическое отображение/очистка предупреждений об отключении устройства при изменении подключения.",
+		"ko": "허브 명령 신뢰성 향상: 사용 가능한 경우 저장된 OAuth 세션으로 폴백, 반복적인 인증 누락/오프라인 명령 소음 감소, 연결 상태 변경 시 장치 오프라인 경고 자동 표시/지우기."
 	}
 }

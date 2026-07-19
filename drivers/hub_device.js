@@ -4,8 +4,95 @@
 
 const { OAuth2Device } = require('homey-oauth2app');
 
+const MISSING_AUTH_LOG_THROTTLE_MS = 5 * 60 * 1000;
+const DEVICE_OFFLINE_COOLDOWN_MS = 30 * 1000;
+
 class HubDevice extends OAuth2Device
 {
+
+	getOAuth2ClientForDevice()
+	{
+		if (this.oAuth2Client)
+		{
+			return this.oAuth2Client;
+		}
+
+		if (this.homey && this.homey.app && this.homey.app.getFirstSavedOAuth2Client)
+		{
+			return this.homey.app.getFirstSavedOAuth2Client();
+		}
+
+		return null;
+	}
+
+	logMissingAuthOnce(deviceId)
+	{
+		const now = Date.now();
+		if (!this._missingAuthLogAt)
+		{
+			this._missingAuthLogAt = 0;
+		}
+
+		if ((now - this._missingAuthLogAt) >= MISSING_AUTH_LOG_THROTTLE_MS)
+		{
+			this.homey.app.updateLog(`Failed to send command to ${deviceId}: No API key or OAuth client available`, 0, 'hub');
+			this._missingAuthLogAt = now;
+		}
+	}
+
+	getOfflineCooldownUntil(deviceId)
+	{
+		if (!this._offlineCooldownByDevice)
+		{
+			this._offlineCooldownByDevice = {};
+		}
+
+		return this._offlineCooldownByDevice[deviceId] || 0;
+	}
+
+	setOfflineCooldown(deviceId, cooldownMs = DEVICE_OFFLINE_COOLDOWN_MS)
+	{
+		if (!this._offlineCooldownByDevice)
+		{
+			this._offlineCooldownByDevice = {};
+		}
+
+		this._offlineCooldownByDevice[deviceId] = Date.now() + cooldownMs;
+	}
+
+	clearOfflineCooldown(deviceId)
+	{
+		if (!this._offlineCooldownByDevice)
+		{
+			return;
+		}
+
+		delete this._offlineCooldownByDevice[deviceId];
+	}
+
+	async setDeviceOfflineWarning(deviceId)
+	{
+		try
+		{
+			await this.setWarning(`SwitchBot device ${deviceId} is offline`);
+		}
+		catch (err)
+		{
+			this.homey.app.updateLog(`Unable to set offline warning for ${deviceId}: ${err.message}`, 1, 'hub');
+		}
+	}
+
+	async clearDeviceOfflineWarning(deviceId)
+	{
+		try
+		{
+			await this.unsetWarning();
+		}
+		catch (err)
+		{
+			this.homey.app.updateLog(`Unable to clear offline warning for ${deviceId}: ${err.message}`, 1, 'hub');
+		}
+	}
 
 	isTransientCapabilityOptionsError(err)
 	{
@@ -111,6 +198,7 @@ class HubDevice extends OAuth2Device
 	{
 		let result = null;
 		const dd = this.getData();
+		const oAuth2Client = this.getOAuth2ClientForDevice();
 
 		if (this.homey.app.openToken)
 		{
@@ -127,8 +215,17 @@ class HubDevice extends OAuth2Device
 			return result;
 		}
 
-		if (this.oAuth2Client)
+		if (oAuth2Client)
 		{
+			const offlineCooldownUntil = this.getOfflineCooldownUntil(dd.id);
+			if (offlineCooldownUntil > Date.now())
+			{
+				const remainingMs = offlineCooldownUntil - Date.now();
+				this.homey.app.updateLog(`Skipping command to ${dd.id}: recent offline response, retrying after ${Math.ceil(remainingMs / 1000)}s`, 1, 'hub');
+				await this.setDeviceOfflineWarning(dd.id);
+				throw new Error('Error: SwitchBot device is offline');
+			}
+
 			const maxAttempts = 3;
 			let responseCode = 100;
 			let responseMessage = '';
@@ -138,7 +235,7 @@ class HubDevice extends OAuth2Device
 				try
 				{
 					this.homey.app.updateLog(`Sending ${this.homey.app.varToString(data)} to ${dd.id} using OAuth${attempt > 1 ? ` (attempt ${attempt}/${maxAttempts})` : ''}`, 3, 'hub');
-					result = await this.oAuth2Client.setDeviceData(dd.id, data);
+					result = await oAuth2Client.setDeviceData(dd.id, data);
 				}
 				catch (err)
 				{
@@ -164,7 +261,7 @@ class HubDevice extends OAuth2Device
 				responseCode = Number.parseInt(result.statusCode ?? result.body?.statusCode ?? 100, 10);
 				responseMessage = result.message ?? result.body?.message ?? '';
 
-				if ((responseCode === 161 || responseCode === 171) && (attempt < maxAttempts))
+				if ((responseCode === 171) && (attempt < maxAttempts))
 				{
 					const baseDelay = 700 * Math.pow(2, attempt - 1);
 					const retryDelay = baseDelay + Math.floor(Math.random() * 250);
@@ -189,6 +286,8 @@ class HubDevice extends OAuth2Device
 				}
 				else if (responseCode === 161)
 				{
+					this.setOfflineCooldown(dd.id);
+					await this.setDeviceOfflineWarning(dd.id);
 					throw new Error('Error: SwitchBot device is offline');
 				}
 				else if (responseCode === 171)
@@ -209,12 +308,14 @@ class HubDevice extends OAuth2Device
 				}
 			}
 
+			this.clearOfflineCooldown(dd.id);
+			await this.clearDeviceOfflineWarning(dd.id);
 			this.homey.app.updateLog(`Success sending command to ${dd.id} using OAuth`, 'hub');
 			return true;
 		}
 
 		// No API key or OAuth client available, so we cannot send the command
-		this.homey.app.updateLog(`Failed to send command to ${dd.id}: No API key or OAuth client available`, 0, 'hub');
+		this.logMissingAuthOnce(dd.id);
 		return false;
 	}
 
@@ -226,6 +327,7 @@ class HubDevice extends OAuth2Device
 	async _getHubDeviceValues()
 	{
 		const dd = this.getData();
+		const oAuth2Client = this.getOAuth2ClientForDevice();
 		if (this.homey.app.openToken)
 		{
 			let data;
@@ -243,15 +345,17 @@ class HubDevice extends OAuth2Device
 				throw new Error(`${data.statusCode}: ${data.message} (${this.homey.app.apiCalls}) API calls`);
 			}
 
+			this.clearOfflineCooldown(dd.id);
+			await this.clearDeviceOfflineWarning(dd.id);
 			return data.body;
 		}
 
-		if (this.oAuth2Client)
+		if (oAuth2Client)
 		{
 			let data;
 			try
 			{
-				data = await this.oAuth2Client.getDeviceData(dd.id);
+				data = await oAuth2Client.getDeviceData(dd.id);
 			}
 			catch (err)
 			{
@@ -263,6 +367,8 @@ class HubDevice extends OAuth2Device
 				throw new Error(`${data.statusCode}: ${data.message} (${this.homey.app.apiCalls}) API calls`);
 			}
 
+			this.clearOfflineCooldown(dd.id);
+			await this.clearDeviceOfflineWarning(dd.id);
 			return data.body;
 		}
 
@@ -312,6 +418,7 @@ class HubDevice extends OAuth2Device
 	async startScene()
 	{
 		const dd = this.getData();
+		const oAuth2Client = this.getOAuth2ClientForDevice();
 		if (this.homey.app.openToken)
 		{
 			const data = await this.homey.app.hub.startScene(dd.id);
@@ -323,9 +430,9 @@ class HubDevice extends OAuth2Device
 			return data.body;
 		}
 
-		if (this.oAuth2Client)
+		if (oAuth2Client)
 		{
-			const retData = await this.oAuth2Client.startScene(dd.id);
+			const retData = await oAuth2Client.startScene(dd.id);
 			return retData.body;
 		}
 	}
