@@ -1339,5 +1339,18 @@
 		"pl": "Poprawiona niezawodność poleceń huba: powrót do zapisanych sesji OAuth, gdy są dostępne, zmniejszenie powtarzającego się hałasu poleceń brakujących uwierzytelnienia/offline oraz automatyczne wyświetlanie/usuwanie ostrzeżeń o urządzeniu offline, gdy zmienia się łączność.",
 		"ru": "Повышена надежность команд хаба: возврат к сохраненным сеансам OAuth при их наличии, уменьшение повторяющегося шума команд отсутствия аутентификации/офлайн и автоматическое отображение/очистка предупреждений об отключении устройства при изменении подключения.",
 		"ko": "허브 명령 신뢰성 향상: 사용 가능한 경우 저장된 OAuth 세션으로 폴백, 반복적인 인증 누락/오프라인 명령 소음 감소, 연결 상태 변경 시 장치 오프라인 경고 자동 표시/지우기."
+	},
+	"2.0.82": {
+		"en": "Added further checks for error 161 device offline responses, and improved handling of device offline state changes.",
+		"no": "Lagt til ytterligere kontroller for feil 161 enhet offline-responser, og forbedret håndtering av enhet offline-tilstandsendringer.",
+		"nl": "Toegevoegd verdere controles voor fout 161 apparaat offline reacties, en verbeterde afhandeling van apparaat offline statuswijzigingen.",
+		"de": "Weitere Prüfungen für Fehler 161 Gerät offline Antworten hinzugefügt und die Handhabung von Geräte-Offline-Zustandsänderungen verbessert.",
+		"fr": "Ajout de contrôles supplémentaires pour les réponses hors ligne de l'appareil d'erreur 161 et amélioration de la gestion des changements d'état hors ligne de l'appareil.",
+		"es": "Se agregaron más comprobaciones para las respuestas de error 161 de dispositivo sin conexión y se mejoró el manejo de los cambios de estado sin conexión del dispositivo.",
+		"pt": "Adicionadas verificações adicionais para respostas de dispositivo offline de erro 161 e melhorado o manuseio de alterações de estado offline do dispositivo.",
+		"it": "Aggiunti ulteriori controlli per le risposte offline del dispositivo di errore 161 e migliorata la gestione dei cambiamenti di stato offline del dispositivo.",
+		"pl": "Dodano dalsze kontrole dla odpowiedzi offline urządzenia błędu 161 i ulepszono obsługę zmian stanu offline urządzenia.",
+		"ru": "Добавлены дополнительные проверки для ответов устройства в автономном режиме с ошибкой 161 и улучшена обработка изменений состояния устройства в автономном режиме.",
+		"ko": "오류 161 장치 오프라인 응답에 대한 추가 확인이 추가되었으며 장치 오프라인 상태 변경 처리 개선."
 	}
 }

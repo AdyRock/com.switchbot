@@ -12,6 +12,23 @@ class HubDevice extends OAuth2Device
 
 	getOAuth2ClientForDevice()
 	{
+		if (typeof super.getOAuth2Client === 'function')
+		{
+			try
+			{
+				const deviceOAuth2Client = super.getOAuth2Client();
+				if (deviceOAuth2Client)
+				{
+					this.oAuth2Client = deviceOAuth2Client;
+					return deviceOAuth2Client;
+				}
+			}
+			catch (err)
+			{
+				this.homey.app.updateLog(`Unable to resolve OAuth client for device: ${err.message}`, 1, 'hub');
+			}
+		}
+
 		if (this.oAuth2Client)
 		{
 			return this.oAuth2Client;
@@ -91,6 +108,34 @@ class HubDevice extends OAuth2Device
 		catch (err)
 		{
 			this.homey.app.updateLog(`Unable to clear offline warning for ${deviceId}: ${err.message}`, 1, 'hub');
+		}
+	}
+
+	async confirmDeviceOffline(oAuth2Client, deviceId)
+	{
+		if (!oAuth2Client)
+		{
+			return true;
+		}
+
+		try
+		{
+			const statusResponse = await oAuth2Client.getDeviceData(deviceId);
+			const statusCode = Number.parseInt(statusResponse?.statusCode ?? statusResponse?.body?.statusCode ?? 100, 10);
+			if (statusCode === 100)
+			{
+				this.homey.app.updateLog(`Status probe for ${deviceId} succeeded after command returned offline`, 1, 'hub');
+				return false;
+			}
+
+			const statusMessage = statusResponse?.message ?? statusResponse?.body?.message ?? 'unknown';
+			this.homey.app.updateLog(`Status probe for ${deviceId} confirmed command failure: ${statusCode} ${statusMessage}`.trim(), 1, 'hub');
+			return true;
+		}
+		catch (err)
+		{
+			this.homey.app.updateLog(`Status probe for ${deviceId} failed after command returned offline: ${err.message}`, 1, 'hub');
+			return true;
 		}
 	}
 
@@ -286,9 +331,17 @@ class HubDevice extends OAuth2Device
 				}
 				else if (responseCode === 161)
 				{
-					this.setOfflineCooldown(dd.id);
-					await this.setDeviceOfflineWarning(dd.id);
-					throw new Error('Error: SwitchBot device is offline');
+					const confirmedOffline = await this.confirmDeviceOffline(oAuth2Client, dd.id);
+					if (confirmedOffline)
+					{
+						this.setOfflineCooldown(dd.id);
+						await this.setDeviceOfflineWarning(dd.id);
+						throw new Error('Error: SwitchBot device is offline');
+					}
+
+					this.clearOfflineCooldown(dd.id);
+					await this.clearDeviceOfflineWarning(dd.id);
+					throw new Error('Error: SwitchBot reported the device offline for this command, but a follow-up status check succeeded');
 				}
 				else if (responseCode === 171)
 				{
