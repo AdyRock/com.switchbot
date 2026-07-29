@@ -121,10 +121,27 @@ class HubDevice extends OAuth2Device
 		try
 		{
 			const statusResponse = await oAuth2Client.getDeviceData(deviceId);
+			const statusBody = statusResponse?.body ?? statusResponse;
+			this.homey.app.updateLog(`Status probe response for ${deviceId}: ${this.homey.app.varToString(statusBody)}`, 1, 'hub');
+
 			const statusCode = Number.parseInt(statusResponse?.statusCode ?? statusResponse?.body?.statusCode ?? 100, 10);
+			const explicitOnline = (statusBody && typeof statusBody === 'object' && typeof statusBody.online !== 'undefined') ? Boolean(statusBody.online) : null;
+			if (explicitOnline === false)
+			{
+				this.homey.app.updateLog(`Status probe for ${deviceId} explicitly reported the device offline`, 1, 'hub');
+				return true;
+			}
+
 			if (statusCode === 100)
 			{
-				this.homey.app.updateLog(`Status probe for ${deviceId} succeeded after command returned offline`, 1, 'hub');
+				if (explicitOnline === true)
+				{
+					this.homey.app.updateLog(`Status probe for ${deviceId} succeeded and reported the device online`, 1, 'hub');
+				}
+				else
+				{
+					this.homey.app.updateLog(`Status probe for ${deviceId} succeeded after command returned offline`, 1, 'hub');
+				}
 				return false;
 			}
 
@@ -315,25 +332,12 @@ class HubDevice extends OAuth2Device
 					continue;
 				}
 
-				break;
-			}
-
-			if (responseCode !== 100)
-			{
-				this.homey.app.updateLog(`Failed to send command to ${dd.id} using OAuth: ${responseCode} ${responseMessage}`.trim(), 0, 'hub');
-				if (responseCode === 152)
-				{
-					throw new Error('Error: Device not found by SwitchBot');
-				}
-				else if (responseCode === 160)
-				{
-					throw new Error('Error: Command is not supported by SwitchBot');
-				}
-				else if (responseCode === 161)
+				if (responseCode === 161)
 				{
 					const confirmedOffline = await this.confirmDeviceOffline(oAuth2Client, dd.id);
 					if (confirmedOffline)
 					{
+						this.homey.app.updateLog(`Failed to send command to ${dd.id} using OAuth: ${responseCode} ${responseMessage}`.trim(), 0, 'hub');
 						this.setOfflineCooldown(dd.id);
 						await this.setDeviceOfflineWarning(dd.id);
 						throw new Error('Error: SwitchBot device is offline');
@@ -341,22 +345,52 @@ class HubDevice extends OAuth2Device
 
 					this.clearOfflineCooldown(dd.id);
 					await this.clearDeviceOfflineWarning(dd.id);
-					throw new Error('Error: SwitchBot reported the device offline for this command, but a follow-up status check succeeded');
+					if (attempt < maxAttempts)
+					{
+						const baseDelay = 700 * Math.pow(2, attempt - 1);
+						const retryDelay = baseDelay + Math.floor(Math.random() * 250);
+						this.homey.app.updateLog(`Transient SwitchBot response ${responseCode} for ${dd.id}, status probe succeeded, retrying in ${retryDelay}ms (attempt ${attempt}/${maxAttempts})`, 1, 'hub');
+						await new Promise((resolve) => this.homey.setTimeout(resolve, retryDelay));
+						continue;
+					}
+
+					this.homey.app.updateLog(`SwitchBot reported ${responseCode} for ${dd.id} but a follow-up status check succeeded; treating command as completed`, 1, 'hub');
+					return true;
+				}
+
+				break;
+			}
+
+			if (responseCode !== 100)
+			{
+				if (responseCode === 152)
+				{
+					this.homey.app.updateLog(`Failed to send command to ${dd.id} using OAuth: ${responseCode} ${responseMessage}`.trim(), 0, 'hub');
+					throw new Error('Error: Device not found by SwitchBot');
+				}
+				else if (responseCode === 160)
+				{
+					this.homey.app.updateLog(`Failed to send command to ${dd.id} using OAuth: ${responseCode} ${responseMessage}`.trim(), 0, 'hub');
+					throw new Error('Error: Command is not supported by SwitchBot');
 				}
 				else if (responseCode === 171)
 				{
+					this.homey.app.updateLog(`Failed to send command to ${dd.id} using OAuth: ${responseCode} ${responseMessage}`.trim(), 0, 'hub');
 					throw new Error('Error: SwitchBot hub is offline');
 				}
 				else if (responseCode === 174)
 				{
+					this.homey.app.updateLog(`Failed to send command to ${dd.id} using OAuth: ${responseCode} ${responseMessage}`.trim(), 0, 'hub');
 					throw new Error('Cloud option is not enabled in the SwitchBot app');
 				}
 				else if (responseCode === 190)
 				{
+					this.homey.app.updateLog(`Failed to send command to ${dd.id} using OAuth: ${responseCode} ${responseMessage}`.trim(), 0, 'hub');
 					throw new Error(`Error: ${responseCode} ${responseMessage || 'Command rejected by SwitchBot'}, ${this.homey.app.varToString(data)}`);
 				}
 				else
 				{
+					this.homey.app.updateLog(`Failed to send command to ${dd.id} using OAuth: ${responseCode} ${responseMessage}`.trim(), 0, 'hub');
 					throw new Error(`Error: An unknown code (${responseCode}) returned by SwitchBot`);
 				}
 			}
