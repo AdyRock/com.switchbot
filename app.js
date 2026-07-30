@@ -16,9 +16,240 @@ const BLEHubInterface = require('./lib/ble_hub_interface');
 const SwitchBotOAuth2Client = require('./lib/SwitchBotOAuth2Client');
 
 const MINIMUM_POLL_INTERVAL = 15; // in Seconds
+const SECONDS_PER_DAY = 86400;
+const DAILY_API_QUOTA = 10000;
+const COMMAND_API_OVERHEAD = 500;
+const POLLING_DAILY_BUDGET = DAILY_API_QUOTA - COMMAND_API_OVERHEAD;
 const BLE_POLLING_INTERVAL = 30000; // in milliSeconds
+const BLE_ADVERTISEMENT_RATE_LIMIT_MS = 5000;
+const HUB_POLL_MISSING_AUTH_INTERVAL_MS = 60000;
+const WEBHOOK_AUTH_MISSING_INTERVAL_MS = 5 * 60 * 1000;
 class MyApp extends OAuth2App
 {
+
+	toPositiveInteger(value, fallback = 1)
+	{
+		const parsedValue = Number.parseInt(value, 10);
+		if (!Number.isFinite(parsedValue) || (parsedValue < 1))
+		{
+			return fallback;
+		}
+
+		return parsedValue;
+	}
+
+	installProcessErrorGuards()
+	{
+		if (this.processErrorGuardsInstalled)
+		{
+			return;
+		}
+
+		this.processErrorGuardsInstalled = true;
+
+		process.on('unhandledRejection', (reason) =>
+		{
+			const message = this.varToString(reason);
+			try
+			{
+				this.updateLog(`Unhandled rejection captured: ${message}`, 0, 'hub');
+			}
+			catch (err)
+			{
+				if (this.originalError)
+				{
+					this.originalError(`Unhandled rejection captured: ${message}`);
+				}
+			}
+		});
+
+		process.on('uncaughtException', (error) =>
+		{
+			const message = this.varToString(error);
+			try
+			{
+				this.updateLog(`Uncaught exception captured: ${message}`, 0, 'hub');
+			}
+			catch (err)
+			{
+				if (this.originalError)
+				{
+					this.originalError(`Uncaught exception captured: ${message}`);
+				}
+			}
+		});
+	}
+
+	safeSetSetting(key, value)
+	{
+		try
+		{
+			const result = this.homey.settings.set(key, value);
+			if (result && typeof result.catch === 'function')
+			{
+				result.catch((err) =>
+				{
+					this.updateLog(`Failed to persist setting \"${key}\": ${err.message}`, 0, 'hub');
+				});
+			}
+		}
+		catch (err)
+		{
+			this.updateLog(`Failed to persist setting \"${key}\": ${err.message}`, 0, 'hub');
+		}
+	}
+
+	persistApiCalls(immediate = false)
+	{
+		if (immediate)
+		{
+			if (this.apiCallsPersistTimer)
+			{
+				this.homey.clearTimeout(this.apiCallsPersistTimer);
+				this.apiCallsPersistTimer = null;
+			}
+
+			this.safeSetSetting('apiCalls', this.apiCalls);
+			return;
+		}
+
+		if (this.apiCallsPersistTimer)
+		{
+			return;
+		}
+
+		this.apiCallsPersistTimer = this.homey.setTimeout(() =>
+		{
+			this.apiCallsPersistTimer = null;
+			this.safeSetSetting('apiCalls', this.apiCalls);
+		}, 5000);
+	}
+
+	incrementApiCalls(increment = 1)
+	{
+		const value = Number.parseInt(increment, 10);
+		const step = Number.isFinite(value) && (value > 0) ? value : 1;
+		this.apiCalls = this.toPositiveInteger(this.apiCalls, 0) + step;
+		this.persistApiCalls();
+		return this.apiCalls;
+	}
+
+	formatRateLimitErrorMessage(message)
+	{
+		const rawMessage = message ? String(message) : 'Unknown error';
+		const isRateLimitError = /rate\s*limit|too\s*many\s*requests|\b429\b/i.test(rawMessage);
+		if (!isRateLimitError || /API calls/i.test(rawMessage))
+		{
+			return rawMessage;
+		}
+
+		return `${rawMessage} (${this.apiCalls} API calls)`;
+	}
+
+	formatMacAddress(value)
+	{
+		if (!value)
+		{
+			return value;
+		}
+
+		const macText = String(value);
+		if (macText.includes(':'))
+		{
+			return macText;
+		}
+
+		const hexText = macText.replace(/[^a-fA-F0-9]/g, '');
+		if (hexText.length !== 12)
+		{
+			return macText;
+		}
+
+		return hexText.match(/.{1,2}/g).join(':').toUpperCase();
+	}
+
+	getWebhookAuthMode()
+	{
+		const oAuth2Client = this.getFirstSavedOAuth2Client();
+		if (oAuth2Client)
+		{
+			return 'OAuth2 session';
+		}
+
+		if (this.openToken && this.openSecret)
+		{
+			return 'API token/secret';
+		}
+
+		return 'unavailable (no OAuth session and no API token/secret)';
+	}
+
+	hasHubAuthAvailable()
+	{
+		if (this.openToken && this.openSecret)
+		{
+			return true;
+		}
+
+		return Boolean(this.getFirstSavedOAuth2Client());
+	}
+
+	hasWebhookEligibleDevices()
+	{
+		return Array.isArray(this.devicesMACs) && this.devicesMACs.length > 0;
+	}
+
+	normalizeLogMessage(newMessage)
+	{
+		const message = this.redactSensitiveLogData((typeof newMessage === 'string') ? newMessage : this.varToString(newMessage));
+		const peripheralFormatted = message.replace(/(Peripheral Not Found:\s*)([a-fA-F0-9]{12})(\b)/g, (fullText, prefix, id, suffix) => `${prefix}${this.formatMacAddress(id)}${suffix}`);
+		return peripheralFormatted.replace(/(No data for\s*)([a-fA-F0-9]{12})(\b)/gi, (fullText, prefix, id, suffix) => `${prefix}${this.formatMacAddress(id)}${suffix}`);
+	}
+
+	redactSensitiveLogData(message)
+	{
+		if (typeof message !== 'string' || message.length === 0)
+		{
+			return message;
+		}
+
+		let sanitized = message;
+
+		// Redact known query/body secret patterns.
+		sanitized = sanitized
+			.replace(/([?&]client_id=)[^&\s]+/gi, '$1***')
+			.replace(/([?&]client_secret=)[^&\s]+/gi, '$1***')
+			.replace(/([?&]code=)[^&\s]+/gi, '$1***')
+			.replace(/([?&]token=)[^&\s]+/gi, '$1***')
+			.replace(/(Authorization\s*:\s*Bearer\s+)[^\s]+/gi, '$1***')
+			.replace(/(\"Authorization\"\s*:\s*\"Bearer\s+)[^\"]+(\")/gi, '$1***$2');
+
+		// Redact env.json values if they accidentally appear in logs.
+		const env = Homey && Homey.env ? Homey.env : {};
+		const envKeysToRedact = [
+			'CLIENT_ID',
+			'CLIENT_SECRET',
+			'MAIL_HOST',
+			'MAIL_USER',
+			'MAIL_SECRET',
+			'MAIL_RECIPIENT',
+			'WEBHOOK_ID',
+			'WEBHOOK_SECRET',
+			'WEBHOOK_URL',
+			'USER_AGENT_HEADER',
+		];
+
+		for (const key of envKeysToRedact)
+		{
+			const value = env[key];
+			if (typeof value === 'string' && value.length > 0)
+			{
+				sanitized = sanitized.split(value).join('***');
+			}
+		}
+
+		return sanitized;
+	}
 
 	overrideLoggingMethods()
 	{
@@ -74,7 +305,9 @@ class MyApp extends OAuth2App
 
 	handleLogMessage(message, ...optionalParams)
 	{
-		const logMessage = `${optionalParams.join(' ')}`;
+		const logMessage = optionalParams
+			.map((param) => this.varToString(param))
+			.join(' ');
 		// if the logMessage contains 'User-Agent' then replace the user-agent value with '***'
 		if (logMessage.includes('User-Agent:'))
 		{
@@ -84,11 +317,11 @@ class MyApp extends OAuth2App
 			{
 				logMessageArray[userAgentIndex + 2] = '***';
 			}
-			this.updateLog(logMessageArray.join(' '), 2);
+			this.updateLog(logMessageArray.join(' '), 2, 'hub');
 			return true;
 		}
 
-		this.updateLog(logMessage, 2);
+		this.updateLog(this.varToString(logMessage), 2, 'hub');
 		return true;
 	}
 
@@ -114,6 +347,7 @@ class MyApp extends OAuth2App
 		'light_remote_hub',
 		'lock_hub',
 		"lock_ultra_hub",
+		'lock_vision_pro_hub',
 		'meter_pro_CO2_hub',
 		'meter_pro_hub',
 		'plug_eu_hub',
@@ -129,10 +363,12 @@ class MyApp extends OAuth2App
 		'scene',
 		'settop_box_hub',
 		'smart_fan_hub',
+		'smart_fan_new_hub',
 		'speaker',
 		'strip_light',
 		'temperature_hub',
 		'tv_hub',
+		'weather_station_hub',
 		'water_leak_hub',
 	];
 
@@ -142,13 +378,14 @@ class MyApp extends OAuth2App
 	async onOAuth2Init()
 	{
 		this.overrideLoggingMethods();
+		this.installProcessErrorGuards();
 
 		this.log('SwitchBot has been initialized');
 		this.logLevel = this.homey.settings.get('logLevel');
 		if (this.logLevel === null)
 		{
 			this.logLevel = 0;
-			this.homey.settings.set('logLevel', this.logLevel);
+			this.safeSetSetting('logLevel', this.logLevel);
 		}
 
 		this.diagLog = '';
@@ -158,9 +395,15 @@ class MyApp extends OAuth2App
 		this.blePolling = false;
 		this.bleBusy = false;
 		this.devicesMACs = [];
-		this.webRegTimerID = null;
+		this.homeyWebhookRegTimerID = null;
+		this.switchBotWebhookTimerID = null;
+		this.apiCallsPersistTimer = null;
+		this.hubAuthMissingLogged = false;
+		this.webhookAuthMissingLogged = false;
+		this.cachedFirstOAuth2Client = null;
+		this.cachedFirstOAuth2SessionId = null;
 
-		if (this.logLevel > 1)
+		if (this.logLevel >= 0)
 		{
 			this.enableOAuth2Debug();
 		}
@@ -171,11 +414,11 @@ class MyApp extends OAuth2App
 
 		this.processWebhookMessage.bind(this);
 
-		this.numConnections = this.homey.settings.get('numConnections');
-		if (!this.numConnections)
+		this.numConnections = this.toPositiveInteger(this.homey.settings.get('numConnections'));
+		if (!this.homey.settings.get('numConnections'))
 		{
 			this.numConnections = 1;
-			this.homey.settings.set('numConnections', this.numConnections);
+			this.safeSetSetting('numConnections', this.numConnections);
 		}
 
 		this.apiCalls = this.homey.settings.get('apiCalls');
@@ -201,21 +444,27 @@ class MyApp extends OAuth2App
 
 		if (process.env.DEBUG === '1')
 		{
-			this.homey.settings.set('debugMode', true);
+			this.safeSetSetting('debugMode', true);
 		}
 		else
 		{
-			this.homey.settings.set('debugMode', false);
+			this.safeSetSetting('debugMode', false);
 		}
 
 		this.hub = new HubInterface(this.homey);
 
-		this.homeyID = await this.homey.cloud.getHomeyId();
+		try
+		{
+			this.homeyID = await this.homey.cloud.getHomeyId();
+		}
+		catch (err)
+		{
+			this.homeyID = 'unknown-homey';
+			this.updateLog(`Failed to get Homey ID at startup: ${err.message}`, 0, 'all');
+		}
 
-		// Setup the SwitchBot webhook after a short delay to allow devices to register
-		this.homey.setTimeout(() => {
-			this.setupSwitchBotWebhook();
-		}, 5000);
+		// Webhook setup starts when a hub/cloud device registers for webhook updates.
+		this.updateLog('SwitchBot webhook setup deferred until a hub/cloud device is registered', 1, 'all');
 
 		this.homeyHash = this.homeyID;
 		this.homeyHash = this.hashCode(this.homeyHash).toString();
@@ -228,37 +477,44 @@ class MyApp extends OAuth2App
 		{
 			// For cloud debugging only
 			this.logLevel = 0;
-			this.homey.settings.set('logLevel', this.logLevel);
+			this.safeSetSetting('logLevel', this.logLevel);
 			this.homeyIP = null;
 		}
 
 		// Callback for app settings changed
-		this.homey.settings.on('set', async function settingChanged(setting)
+		this.homey.settings.on('set', async (setting) =>
 		{
-			this.homey.app.updateLog(`Setting ${setting} has changed.`, 3);
-			if (setting === 'logLevel')
+			try
 			{
-				this.logLevel = this.homey.settings.get('logLevel');
-				if (this.logLevel > 2)
+				this.homey.app.updateLog(`Setting ${setting} has changed.`, 3, 'hub');
+				if (setting === 'logLevel')
 				{
-					this.homey.app.enableOAuth2Debug();
+					this.logLevel = this.homey.settings.get('logLevel');
+					if (this.logLevel > 2)
+					{
+						this.homey.app.enableOAuth2Debug();
+					}
+					else
+					{
+						this.homey.app.disableOAuth2Debug();
+					}
 				}
-				else
+				else if (setting === 'openToken')
 				{
-					this.homey.app.disableOAuth2Debug();
+					this.openToken = this.homey.settings.get('openToken');
+				}
+				else if (setting === 'openSecret')
+				{
+					this.openSecret = this.homey.settings.get('openSecret');
+				}
+				else if (setting === 'numConnections')
+				{
+					this.numConnections = this.toPositiveInteger(this.homey.settings.get('numConnections'));
 				}
 			}
-			else if (setting === 'openToken')
+			catch (err)
 			{
-				this.openToken = this.homey.settings.get('openToken');
-			}
-			else if (setting === 'openSecret')
-			{
-				this.openSecret = this.homey.settings.get('openSecret');
-			}
-			else if (setting === 'numConnections')
-			{
-				this.numConnections = this.homey.settings.get('numConnections');
+				this.updateLog(`settings.on('set') handler error (${setting}): ${err.message}`, 0, 'hub');
 			}
 		});
 
@@ -286,6 +542,30 @@ class MyApp extends OAuth2App
 		this.onBLEPoll = this.onBLEPoll.bind(this);
 		this.bleDevices = 0;
 		this.bleTimerID = null;
+		this.bleAdvertisementSupported = this.homey.hasFeature('ble-advertisements');
+		this.bleAdvertisementSubscriptions = new Map();
+		this.bleAdvertisementSubscriptionPending = new Map();
+		this.bleAdvertisementDeviceToId = new Map();
+		this.bleAdvertisementDevicePayloadFingerprint = new Map();
+		this.bleAdvertisementDeviceParsedStateFingerprint = new Map();
+		this.bleAdvertisementDeviceLocalSeenAt = new Map();
+		this.bleAdvertisementDeviceKeys = new WeakMap();
+		this.bleAdvertisementNextKey = 1;
+		this.blePollingFallbackDevices = new Set();
+		if (this.bleAdvertisementSupported)
+		{
+			this.updateLog('BLE advertisement subscriptions enabled', 1, 'ble');
+		}
+		else
+		{
+			this.updateLog('BLE advertisement subscriptions unavailable on this Homey, using polling fallback', 1, 'ble');
+		}
+
+		// Webhook registration backoff tracking
+		this.webhookRetryCount = 0;
+
+		// Track in-progress OAuth flows started from settings
+		this.settingsOAuthFlows = {};
 
 		// Register flow cards
 
@@ -434,6 +714,20 @@ class MyApp extends OAuth2App
 			return args.device.onCapabilityFanSettings(args);
 		});
 
+		const circulatingFanAction = this.homey.flow.getActionCard('circulating_fan_mode');
+		circulatingFanAction.registerRunListener(async (args, state) =>
+		{
+			args.device.setCapabilityValue('smart_fan_mode2', args.fan_mode).catch(this.error);
+			return args.device.onCapabilityFanMode(args.fan_mode);
+		});
+
+		const setNightLightAction = this.homey.flow.getActionCard('set_night_light');
+		setNightLightAction.registerRunListener(async (args, state) =>
+		{
+			args.device.setCapabilityValue('night_light', args.night_light).catch(this.error);
+			return args.device.onCapabilityNightLight(args.night_light);
+		});
+
 		const fanSwingAction = this.homey.flow.getActionCard('fan_swing');
 		fanSwingAction
 			.registerRunListener(async (args, state) =>
@@ -476,6 +770,39 @@ class MyApp extends OAuth2App
 			{
 				return result.name.toLowerCase().includes(query.toLowerCase());
 			});
+		});
+
+		const customQuoteAction = this.homey.flow.getActionCard('customQuote');
+		customQuoteAction.registerRunListener(async (args, state) =>
+		{
+			if (typeof args.device.onCapabilityCustomQuote === 'function')
+			{
+				return args.device.onCapabilityCustomQuote(args.custom_text);
+			}
+
+			return args.device._operateDevice('customQuote', args.custom_text);
+		});
+
+		const cancelCustomAction = this.homey.flow.getActionCard('cancelCustom');
+		cancelCustomAction.registerRunListener(async (args, state) =>
+		{
+			if (typeof args.device.onCapabilityCancelCustom === 'function')
+			{
+				return args.device.onCapabilityCancelCustom();
+			}
+
+			return args.device._operateDevice('cancelCustom', 'default');
+		});
+
+		const customPageAction = this.homey.flow.getActionCard('customPage');
+		customPageAction.registerRunListener(async (args, state) =>
+		{
+			if (typeof args.device.onCapabilityCustomPage === 'function')
+			{
+				return args.device.onCapabilityCustomPage(args.custom_text);
+			}
+
+			return args.device._operateDevice('customPage', args.custom_text);
 		});
 
 		const brightnessDownAction = this.homey.flow.getActionCard('brightness_down');
@@ -591,6 +918,27 @@ class MyApp extends OAuth2App
 				return args.device.onCapabilityOnOff('2', false);
 			});
 
+		const colourOnAction = this.homey.flow.getActionCard('onoff_colour_true');
+		colourOnAction
+			.registerRunListener(async (args, state) =>
+			{
+				return args.device.onCapabilityColorOnOff(true);
+			});
+
+		const colourOffAction = this.homey.flow.getActionCard('onoff_colour_false');
+		colourOffAction
+			.registerRunListener(async (args, state) =>
+			{
+				return args.device.onCapabilityColorOnOff(false);
+			});
+
+		const dimColourAction = this.homey.flow.getActionCard('set_dim_colour');
+		dimColourAction
+			.registerRunListener(async (args, state) =>
+			{
+				return args.device.onCapabilityColorDim(args.brightness);
+			});
+
 		const radiatorThermostatModeAction = this.homey.flow.getActionCard('set_radiator_thermostat_mode');
 		radiatorThermostatModeAction
 			.registerRunListener(async (args, state) =>
@@ -621,12 +969,20 @@ class MyApp extends OAuth2App
 			return Promise.resolve(conditionMet);
 		});
 
+		this.conditionOnoffColourIsTrue = this.homey.flow.getConditionCard('onoff_colour_is_true');
+		this.conditionOnoffColourIsTrue.registerRunListener((args) =>
+		{
+			const { device } = args;
+			const conditionMet = (device.getCapabilityValue('onoff.colour') === true);
+			return Promise.resolve(conditionMet);
+		});
+
 		// Device Triggers
 		this.stateChangedTrigger = this.homey.flow.getDeviceTriggerCard('vaccum_state_changed');
 		this.stateChangedToTrigger = this.homey.flow.getDeviceTriggerCard('vaccum_state_changed_to');
 		this.stateChangedToTrigger.registerRunListener(async (args, state) =>
 		{
-			if (args.state === state.state)
+			if (state && (args.state === state.state))
 			{
 				return true;
 			}
@@ -637,12 +993,15 @@ class MyApp extends OAuth2App
 		this.taskChangedToTrigger = this.homey.flow.getDeviceTriggerCard('vaccum_task_changed_to');
 		this.taskChangedToTrigger.registerRunListener(async (args, state) =>
 		{
-			if (args.state === state.state)
+			if (state && (args.state === state.state))
 			{
 				return true;
 			}
 			return false;
 		});
+
+		this.vaccumCleaningStartedTrigger = this.homey.flow.getDeviceTriggerCard('vaccum_cleaning_started');
+		this.vaccumCleaningStoppedTrigger = this.homey.flow.getDeviceTriggerCard('vaccum_cleaning_stopped');
 
 		this.positionLessThanTrigger = this.homey.flow.getDeviceTriggerCard('position_became_less');
 		this.positionLessThanTrigger.registerRunListener(async (args, state) =>
@@ -664,7 +1023,7 @@ class MyApp extends OAuth2App
 			return false;
 		});
 
-		this.homey.app.updateLog('****** App has initialised. ******');
+		this.homey.app.updateLog('****** App has initialised. ******', 'hub');
 	}
 
 	async triggerPositionLessThan(device, tokens, state)
@@ -679,6 +1038,34 @@ class MyApp extends OAuth2App
 
 	async onUninit()
 	{
+		if (this.apiCountReset)
+		{
+			this.homey.clearTimeout(this.apiCountReset);
+			this.apiCountReset = null;
+		}
+		if (this.homeyWebhookRegTimerID)
+		{
+			this.homey.clearTimeout(this.homeyWebhookRegTimerID);
+			this.homeyWebhookRegTimerID = null;
+		}
+		if (this.switchBotWebhookTimerID)
+		{
+			this.homey.clearTimeout(this.switchBotWebhookTimerID);
+			this.switchBotWebhookTimerID = null;
+		}
+		if (this.timerHubID)
+		{
+			this.homey.clearTimeout(this.timerHubID);
+			this.timerHubID = null;
+		}
+		if (this.bleTimerID)
+		{
+			this.homey.clearTimeout(this.bleTimerID);
+			this.bleTimerID = null;
+		}
+
+		await this.unregisterAllBLEAdvertisementSubscriptions();
+		this.persistApiCalls(true);
 		this.restoreLoggingMethods();
 		await this.deleteSwitchBotWebhook();
 	}
@@ -686,9 +1073,15 @@ class MyApp extends OAuth2App
 	resetAPICount()
 	{
 		this.apiCalls = 0;
+		this.persistApiCalls(true);
 
 		// Set timer to reset the count at midnight
 		this.apiCountReset = this.homey.setTimeout(this.resetAPICount, 86400 * 1000);
+	}
+
+	getAPICount()
+	{
+		return this.apiCalls;
 	}
 
 	hashCode(s)
@@ -712,17 +1105,17 @@ class MyApp extends OAuth2App
 			}
 			if (source instanceof Error)
 			{
-				const stack = source.stack.replace('/\\n/g', '\n');
+				const stack = source.stack ? source.stack.replace(/\n/g, '\n') : '';
 				return `${source.message}\n${stack}`;
 			}
-			if (typeof (source) === 'object')
+			if (typeof source === 'object')
 			{
 				const getCircularReplacer = () =>
 				{
 					const seen = new WeakSet();
 					return (key, value) =>
 					{
-						if (key.startsWith('_'))
+						if (typeof key === 'string' && key.startsWith('_'))
 						{
 							return '...';
 						}
@@ -731,7 +1124,7 @@ class MyApp extends OAuth2App
 						{
 							if (seen.has(value))
 							{
-								return '';
+								return '[Circular]';
 							}
 							seen.add(value);
 						}
@@ -741,26 +1134,29 @@ class MyApp extends OAuth2App
 
 				return JSON.stringify(source, getCircularReplacer(), 2);
 			}
-			if (typeof (source) === 'string')
+			if (typeof source === 'string')
 			{
 				return source;
 			}
 		}
 		catch (err)
 		{
-			this.homey.app.updateLog(`VarToString Error: ${err}`, 0);
+			this.homey.app.updateLog(`VarToString Error: ${err}`, 0, 'hub');
 		}
 
 		return source.toString();
 	}
 
-	updateLog(newMessage, errorLevel = 2)
+	updateLog(newMessage, errorLevel = 2, logSource = 'hub')
 	{
 		try
 		{
+			const message = this.normalizeLogMessage(newMessage);
 			this.logLevel = this.homey.settings.get('logLevel');
-			if (errorLevel <= this.logLevel)
+			const logFilter = this.homey.settings.get('logSource') || 'all';
+			if (errorLevel === 0 || (errorLevel <= this.logLevel && (logFilter === 'all' || logFilter === logSource)))
 			{
+				this.originalLog(message);
 				const nowTime = new Date(Date.now());
 
 				this.diagLog += '\r\n* ';
@@ -777,7 +1173,7 @@ class MyApp extends OAuth2App
 					// this.log(newMessage);
 					this.diagLog += '* ';
 				}
-				this.diagLog += newMessage;
+				this.diagLog += message;
 				this.diagLog += '\r\n';
 				if (this.diagLog.length > 60000)
 				{
@@ -786,7 +1182,14 @@ class MyApp extends OAuth2App
 
 				if (this.homeyIP)
 				{
-					this.homey.api.realtime('com.switchbot.logupdated', { log: this.diagLog });
+					const realtimeResult = this.homey.api.realtime('com.switchbot.logupdated', { log: this.diagLog });
+					if (realtimeResult && typeof realtimeResult.catch === 'function')
+					{
+						realtimeResult.catch((err) =>
+						{
+							this.originalError(`Realtime log update failed: ${err.message}`);
+						});
+					}
 				}
 			}
 		}
@@ -835,6 +1238,7 @@ class MyApp extends OAuth2App
 					let retval = null;
 					if (oAuth2Client)
 					{
+						this.updateLog(`sendLog: fetching device status for ${deviceId}`, 1, 'hub');
 						const data = await oAuth2Client.getDeviceData(deviceId);
 						retval = data.body;
 					}
@@ -889,7 +1293,7 @@ class MyApp extends OAuth2App
 			}
 			catch (err)
 			{
-				this.logInformation('Send log error', err);
+				this.updateLog(`Send log error: ${err.message}`, 0, 'hub');
 				return {
 					error: err,
 					message: null,
@@ -922,13 +1326,13 @@ class MyApp extends OAuth2App
 			const response = await oAuth2Client.getDeviceData(deviceId);
 			if (response)
 			{
-				if (response.statusCode !== 100)
+				if (response.statusCode && response.statusCode !== 100)
 				{
-					this.homey.app.updateLog(`Invalid response code: ${response.statusCode} ${response.message}`);
+					this.homey.app.updateLog(`Invalid response code: ${response.statusCode}\nMessage: ${response.message}`, 'hub');
 					throw (new Error(`Invalid response code: ${response.statusCode} ${response.message}`));
 				}
 
-				return response.body;
+				return response.body ? response.body : response;
 			}
 		}
 
@@ -941,13 +1345,21 @@ class MyApp extends OAuth2App
 		const oAuth2Client = this.getFirstSavedOAuth2Client();
 		if (oAuth2Client)
 		{
-			oAuth2Client.deleteWebhook(Homey.env.WEBHOOK_URL);
+			this.updateLog('Deleting SwitchBot webhook', 1, 'hub');
+			await oAuth2Client.deleteWebhook(Homey.env.WEBHOOK_URL);
+			return;
+		}
+
+		if (this.openToken && this.openSecret)
+		{
+			this.updateLog('Deleting SwitchBot webhook using API token', 1, 'hub');
+			await this.hub.deleteWebhook(Homey.env.WEBHOOK_URL);
 		}
 	}
 
 	async processWebhookMessage(message)
 	{
-		this.updateLog(`Got a webhook message! ${this.varToString(message)}`, 1);
+		this.updateLog(`Got a webhook message! ${this.varToString(message)}`, 1, 'hub');
 		const drivers = this.homey.drivers.getDrivers();
 		for (const driver of Object.values(drivers))
 		{
@@ -962,7 +1374,7 @@ class MyApp extends OAuth2App
 					}
 					catch (err)
 					{
-						this.updateLog(`Error processing webhook message! ${err.message}`, 0);
+						this.updateLog(`Error processing webhook message! ${err.message}`, 0, 'hub');
 					}
 				}
 			}
@@ -971,33 +1383,36 @@ class MyApp extends OAuth2App
 
 	async registerHomeyWebhook(DeviceMAC)
 	{
-		if (this.webRegTimerID)
-		{
-			this.homey.clearTimeout(this.webRegTimerID);
-		}
-
-		// See if the SwitchBot is already registered
+		// See if the SwitchBot device is already in the list of devices we are registering the webhook for.
 		if (this.devicesMACs.findIndex((device) => device.localeCompare(DeviceMAC, 'en', { sensitivity: 'base' }) === 0) >= 0)
 		{
-			// Already registered
-			if (!this.webRegTimerID)
-			{
-				// Make sure the timer is started again to re-register all devices
-				this.webRegTimerID = this.homey.setTimeout(() => this.doWebhookReg(), 2000);
-			}
-
+			// Device is already in the list so no need to register it again
 			return;
 		}
 
+		// Clear the existing timer to delay the webhook registration if it exists so we can start a new one with the updated list of devices
+		if (this.homeyWebhookRegTimerID)
+		{
+			this.homey.clearTimeout(this.homeyWebhookRegTimerID);
+		}
+
+		// Add the new device to the list of devices we want to register the webhook for
 		this.devicesMACs.push(DeviceMAC);
 
+		if (!this.switchBotWebhookTimerID)
+		{
+			this.updateLog(`Webhook auth mode: ${this.getWebhookAuthMode()}`, 1, 'hub');
+			this.switchBotWebhookTimerID = this.homey.setTimeout(() => this.setupSwitchBotWebhook(), 5000);
+		}
+
 		// Delay the actual registration to allow other devices to initialise and do them all at once
-		this.webRegTimerID = this.homey.setTimeout(() => this.doWebhookReg(), 2000);
+		this.webhookRetryCount = 0;
+		this.homeyWebhookRegTimerID = this.homey.setTimeout(() => this.doWebhookReg(), 2000);
 	}
 
 	async doWebhookReg()
 	{
-		this.webRegTimerID = null;
+		this.homeyWebhookRegTimerID = null;
 		const data = {
 			$keys: this.devicesMACs,
 		};
@@ -1016,12 +1431,17 @@ class MyApp extends OAuth2App
 			}
 			catch (err)
 			{
-				this.updateLog(`Homey Webhook failed to unregister, Error: ${err.message}`, 0);
+				this.updateLog(`Homey Webhook failed to unregister, Error: ${err.message}`, 0, 'hub');
 
-				// Try again later
-				if (!this.webRegTimerID)
+				// Try again later with exponential backoff
+				if (!this.homeyWebhookRegTimerID)
 				{
-					this.webRegTimerID = this.homey.setTimeout(() => this.doWebhookReg(), 2000);
+					this.webhookRetryCount++;
+					const baseDelay = Math.min(5000 * Math.pow(2, Math.min(this.webhookRetryCount - 1, 3)), 60000);
+					const jitter = Math.random() * 1000;
+					const nextDelay = Math.floor(baseDelay + jitter);
+					this.updateLog(`Homey Webhook will retry in ${nextDelay}ms (attempt ${this.webhookRetryCount})`, 1, 'hub');
+					this.homeyWebhookRegTimerID = this.homey.setTimeout(() => this.doWebhookReg(), nextDelay);
 				}
 				return;
 			}
@@ -1039,122 +1459,314 @@ class MyApp extends OAuth2App
 				}
 				catch (err)
 				{
-					this.updateLog(`Homey Webhook message error: ${err.message}`, 0);
+					this.updateLog(`Homey Webhook message error: ${err.message}`, 0, 'hub');
 
 					// Try again later
-					if (!this.webRegTimerID)
+					if (!this.homeyWebhookRegTimerID)
 					{
-						this.webRegTimerID = this.homey.setTimeout(() => this.doWebhookReg(), 2000);
+						this.webhookRetryCount++;
+						const baseDelay = Math.min(5000 * Math.pow(2, Math.min(this.webhookRetryCount - 1, 3)), 60000);
+						const jitter = Math.random() * 1000;
+						const nextDelay = Math.floor(baseDelay + jitter);
+						this.homeyWebhookRegTimerID = this.homey.setTimeout(() => this.doWebhookReg(), nextDelay);
 					}
 				}
 			});
 
-			this.updateLog(`Homey Webhook registered for devices ${this.homey.app.varToString(data)}`, 1);
+			this.updateLog(`Homey Webhook registered for devices ${this.homey.app.varToString(data)}`, 1, 'hub');
+			this.webhookRetryCount = 0;
 		}
 		catch (err)
 		{
-			this.updateLog(`Homey Webhook registration failed for devices ${this.homey.app.varToString(data)}, Error: ${err.message}`, 0);
+			this.updateLog(`Homey Webhook registration failed for devices ${this.homey.app.varToString(data)}, Error: ${err.message}`, 0, 'hub');
 
-			// Try again later
-			if (!this.webRegTimerID)
+			// Exponential backoff with jitter and cap
+			if (!this.homeyWebhookRegTimerID)
 			{
-				this.webRegTimerID = this.homey.setTimeout(() => this.doWebhookReg(), 2000);
+				this.webhookRetryCount++;
+				const baseDelay = Math.min(5000 * Math.pow(2, Math.min(this.webhookRetryCount - 1, 3)), 60000);
+				const jitter = Math.random() * 1000;
+				const nextDelay = Math.floor(baseDelay + jitter);
+				this.updateLog(`Homey Webhook will retry in ${nextDelay}ms (attempt ${this.webhookRetryCount})`, 1, 'hub');
+				this.homeyWebhookRegTimerID = this.homey.setTimeout(() => this.doWebhookReg(), nextDelay);
 			}
 		}
 	}
 
-	async setupSwitchBotWebhook()
+	async ensureSwitchBotWebhook()
 	{
 		try
 		{
-			// Fetch the first OAuth client to use for checking / setting webhook
-			const oAuth2Client = this.getFirstSavedOAuth2Client();
-			if (oAuth2Client)
+			let webhookClient = this.getFirstSavedOAuth2Client();
+			let webhookClientType = 'OAuth2';
+
+			if (!webhookClient)
 			{
-				// Fetch any exitsing webhook
-				const response1 = await oAuth2Client.getWebhook();
-				if (response1)
+				if (this.openToken && this.openSecret)
 				{
-					if (response1.statusCode === 100)
-					{
-						// We got a valid response so make sure it is the correct webhook
-						if (response1.body.urls[0].localeCompare(Homey.env.WEBHOOK_URL, 'en', { sensitivity: 'base' }) === 0)
-						{
-							this.homey.app.updateLog('SwitchBot webhook already registered', 1);
-							return;
-						}
-
-						// Delete the current web hook so we can replace it with ours
-						const response2 = await oAuth2Client.deleteWebhook(response1.body.urls[0]);
-						if (response2)
-						{
-							if (response2.statusCode !== 100)
-							{
-								this.homey.app.updateLog(`Delete webhook: ${response1.body.urls[0]}\nInvalid response code: ${response2.statusCode}\nMessage: ${response2.message}`, 0);
-								return;
-							}
-
-							this.homey.app.updateLog(`Deleted old webhook: ${response1.body.urls[0]}`, 3);
-						}
-					}
+					webhookClient = this.hub;
+					webhookClientType = 'API token';
+					this.homey.app.updateLog('No OAuth client available, using API token/secret for SwitchBot webhook', 1, 'hub');
 				}
-
-				const response = await oAuth2Client.setWebhook(Homey.env.WEBHOOK_URL);
-				if (response)
+				else
 				{
-					if (response.statusCode !== 100)
-					{
-						this.homey.app.updateLog(`Invalid response code: ${response.statusCode}\nMessage: ${response.message}`, 0);
-						return;
-					}
-					this.homey.app.updateLog('Registered SwitchBot webhook', 1);
-					return;
+					this.homey.app.updateLog('No OAuth client or API token/secret available to register the SwitchBot webhook', 0, 'hub');
+					return false;
 				}
-				this.homey.app.updateLog('No response when registering the SwitchBot webhook', 0);
-				return;
 			}
 
-			this.homey.app.updateLog('No OAuth client available to register the SwitchBot webhook', 0);
+			if (webhookClient)
+			{
+				// Fetch any exitsing webhook
+				const response1 = await webhookClient.getWebhook();
+				if (response1)
+				{
+					if (!response1.statusCode || response1.statusCode === 100)
+					{
+						// We got a valid response so make sure it is the correct webhook
+						const body = response1.body ? response1.body : response1;
+						if (body.urls && Array.isArray(body.urls) && body.urls.length > 0)
+						{
+							if (body.urls[0].localeCompare(Homey.env.WEBHOOK_URL, 'en', { sensitivity: 'base' }) === 0)
+							{
+								this.homey.app.updateLog(`SwitchBot webhook already registered (${webhookClientType})`, 1, 'hub');
+								return true;
+							}
+
+							// Delete the current web hook so we can replace it with ours
+							const response2 = await webhookClient.deleteWebhook(body.urls[0]);
+							if (response2)
+							{
+								if (response2.statusCode && response2.statusCode !== 100)
+								{
+									this.homey.app.updateLog(`Delete webhook failed\nInvalid response code: ${response2.statusCode}\nMessage: ${response2.message}`, 0, 'hub');
+									return false;
+								}
+
+								this.homey.app.updateLog(`Deleted old webhook (${webhookClientType})`, 3, 'hub');
+							}
+						}
+						else
+						{
+							this.homey.app.updateLog(`No existing SwitchBot webhook found (${webhookClientType})`, 3, 'hub');
+						}
+					}
+				}
+
+				const response = await webhookClient.setWebhook(Homey.env.WEBHOOK_URL);
+				if (response)
+				{
+					if (!response.statusCode || response.statusCode !== 100)
+					{
+						this.homey.app.updateLog(`Invalid response code: ${response.statusCode}\nMessage: ${response.message}`, 0, 'hub');
+						return false;
+					}
+					this.homey.app.updateLog(`Registered SwitchBot webhook (${webhookClientType})`, 1, 'hub');
+					return true;
+				}
+				this.homey.app.updateLog(`No response when registering the SwitchBot webhook (${webhookClientType})`, 0, 'hub');
+				return false;
+			}
 		}
 		catch (err)
 		{
-			this.homey.app.updateLog(`Invalid response: ${err.message}`, 0);
+			const errorMessage = this.formatRateLimitErrorMessage(err && err.message ? err.message : err);
+			this.homey.app.updateLog(`Invalid response: ${errorMessage}`, 0, 'hub');
+		}
+
+		return false;
+	}
+
+	async setupSwitchBotWebhook()
+	{
+		if (!this.hasWebhookEligibleDevices())
+		{
+			if (this.switchBotWebhookTimerID)
+			{
+				this.homey.clearTimeout(this.switchBotWebhookTimerID);
+				this.switchBotWebhookTimerID = null;
+			}
+
+			this.updateLog('Skipping SwitchBot webhook setup: no hub/cloud devices registered', 1, 'hub');
+			this.webhookAuthMissingLogged = false;
+			return;
+		}
+
+		if (!this.hasHubAuthAvailable())
+		{
+			if (this.switchBotWebhookTimerID)
+			{
+				this.homey.clearTimeout(this.switchBotWebhookTimerID);
+				this.switchBotWebhookTimerID = null;
+			}
+
+			if (!this.webhookAuthMissingLogged)
+			{
+				this.updateLog('SwitchBot webhook setup paused: no OAuth session or API token/secret available.', 0, 'hub');
+				this.webhookAuthMissingLogged = true;
+			}
+
+			this.switchBotWebhookTimerID = this.homey.setTimeout(() => this.setupSwitchBotWebhook(), WEBHOOK_AUTH_MISSING_INTERVAL_MS);
+			return;
+		}
+
+		if (this.webhookAuthMissingLogged)
+		{
+			this.updateLog('SwitchBot webhook setup resumed: authentication is available again.', 1, 'hub');
+			this.webhookAuthMissingLogged = false;
+		}
+
+		const isStartupAttempt = !this.switchBotWebhookTimerID;
+
+		// Setup a timer to ensure the webhook is registered every hour in case of issues with the SwitchBot cloud or the Homey webhook service
+		if (this.switchBotWebhookTimerID)
+		{
+			this.homey.clearTimeout(this.switchBotWebhookTimerID);
+		}
+
+		// Timer to check if the webhook is registered every hour. If not, try to register it again. If there are issues with the SwitchBot cloud or the Homey webhook service, try again every minute.
+		const startedAt = Date.now();
+		let timer = 60 * 60 * 1000;
+		const isRegistered = await this.ensureSwitchBotWebhook();
+		if (!isRegistered)
+		{
+			timer = 60 * 1000;
+		}
+
+		if (isStartupAttempt)
+		{
+			const elapsedMs = Date.now() - startedAt;
+			if (isRegistered)
+			{
+				this.updateLog(`Startup webhook ensure succeeded in ${elapsedMs}ms; next check in ${Math.floor(timer / 60000)}m`, 1, 'hub');
+			}
+			else
+			{
+				this.updateLog(`Startup webhook ensure failed in ${elapsedMs}ms; next retry in ${Math.floor(timer / 1000)}s`, 0, 'hub');
+			}
+		}
+
+		// setup to call this function again after the timer expires to ensure the webhook is always registered
+		this.switchBotWebhookTimerID = this.homey.setTimeout(() => this.setupSwitchBotWebhook(), timer);
+	}
+
+	/**
+	 * Helper method to get the first saved OAuth2 client.
+	 * getSavedOAuth2Sessions() returns an object of { sessionId: sessionData },
+	 * but the code often needs to work with a single client instance.
+	 * This safely retrieves the first one, or returns null if none exist.
+	 * @returns {OAuth2Client|null}
+	 */
+	getFirstSavedOAuth2Client()
+	{
+		try
+		{
+			const savedSessions = this.getSavedOAuth2Sessions();
+			if (!savedSessions || Object.keys(savedSessions).length === 0)
+			{
+				this.cachedFirstOAuth2Client = null;
+				this.cachedFirstOAuth2SessionId = null;
+				return null;
+			}
+
+			const sessionIds = Object.keys(savedSessions);
+			if (sessionIds && sessionIds.length > 0)
+			{
+				const firstSessionId = sessionIds[0];
+				if (this.cachedFirstOAuth2Client && this.cachedFirstOAuth2SessionId === firstSessionId)
+				{
+					return this.cachedFirstOAuth2Client;
+				}
+
+				const client = this.getOAuth2Client({
+					configId: 'default',
+					sessionId: firstSessionId,
+				});
+
+				this.cachedFirstOAuth2Client = client;
+				this.cachedFirstOAuth2SessionId = firstSessionId;
+				return client;
+			}
+
+			return null;
+		}
+		catch (err)
+		{
+			this.cachedFirstOAuth2Client = null;
+			this.cachedFirstOAuth2SessionId = null;
+			this.updateLog(`Error getting first OAuth2 client: ${err.message}`, 0, 'hub');
+			return null;
 		}
 	}
 
 	async getHUBDevices()
 	{
-		// Find an OAuth session
-		try
+		let response = null;
+		if (this.homey.app.openToken)
 		{
-			const oAuth2Client = this.getFirstSavedOAuth2Client();
-			if (oAuth2Client)
+			response = await this.hub.getDevices();
+			if (response.statusCode && response.statusCode !== 100)
 			{
-				const response = await oAuth2Client.getDevices();
-				if (response)
-				{
-					if (response.statusCode !== 100)
-					{
-						this.homey.app.updateLog(`Invalid response code: ${response.statusCode} ${response.message}`, 0);
-						throw (new Error(`Invalid response code: ${response.statusCode} ${response.message}`));
-					}
+				this.homey.app.updateLog(`Invalid response code: ${response.statusCode}\nMessage: ${response.message}`, 0, 'hub');
+				throw (new Error(`Invalid response code: ${response.statusCode} ${response.message}`));
+			}
 
-					const devices = response.body;
-					const scenes = await oAuth2Client.getScenes();
-					if (scenes)
+			const devices = response.body ? response.body : response;
+			if (devices && devices.deviceList)
+			{
+				try
+				{
+					devices.sceneList = await this.hub.getScenes();
+				}
+				catch (err)
+				{
+					this.homey.app.updateLog(`getHUBDevices scenes error: ${err.message}`, 0, 'hub');
+				}
+				return devices;
+			}
+
+			throw (new Error(`No devices found: ${this.varToString(response)}`));
+		}
+		else
+		{
+			// Find an OAuth session
+			try
+			{
+				const oAuth2Client = this.getFirstSavedOAuth2Client();
+				if (oAuth2Client)
+				{
+					response = await oAuth2Client.getDevices();
+					if (response)
 					{
-						devices.sceneList = scenes.body;
+						if (response.statusCode && response.statusCode !== 100)
+						{
+							this.homey.app.updateLog(`Invalid response code: ${response.statusCode}\nMessage: ${response.message}`, 0, 'hub');
+							throw (new Error(`Invalid response code: ${response.statusCode} ${response.message}`));
+						}
+
+						const devices = response.body ? response.body : response;
+
+						if (devices && devices.deviceList)
+						{
+							const scenes = await oAuth2Client.getScenes();
+							if (scenes)
+							{
+								devices.sceneList = scenes.body ? scenes.body : scenes;
+							}
+							return devices;
+						}
+
+						throw (new Error(`No devices found: ${this.varToString(response)}`));
 					}
-					return this.homey.app.varToString(devices);
 				}
 			}
-		}
-		catch (err)
-		{
-		}
+			catch (err)
+			{
+				this.homey.app.updateLog(`getHUBDevices OAuth2 error: ${err.message}`, 0, 'hub');
+			}
 
-		const response = await this.hub.getDevices();
-		return response;
+			return response;
+		}
 	}
 
 	async runScene(id)
@@ -1163,10 +1775,102 @@ class MyApp extends OAuth2App
 		if (oAuth2Client)
 		{
 			const retData = await oAuth2Client.startScene(id);
-			return retData.body;
+			return retData.body ? retData.body : retData;
 		}
 
 		return this.hub.startScene(id);
+	}
+
+	async startSettingsOAuthLogin()
+	{
+		try
+		{
+			const flowId = `settings-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+			const sessionId = `settings-session-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+
+			const client = this.createOAuth2Client({
+				sessionId,
+				configId: 'default',
+			});
+
+			const authorizationUrl = client.getAuthorizationUrl();
+			this.updateLog('OAuth authorization URL prepared', 0, 'hub');
+
+			const callback = await this.homey.cloud.createOAuth2Callback(authorizationUrl);
+			this.updateLog(`OAuth callback created`, 0, 'hub');
+
+			this.settingsOAuthFlows[flowId] = {
+				sessionId,
+				status: 'pending',
+				startedAt: Date.now(),
+			};
+
+			// Set up the 'url' event listener first (before Promise)
+			let urlPromise;
+			const urlPromiseObj = new Promise((resolve) => {
+				callback.on('url', (url) => {
+					this.updateLog('OAuth callback URL received', 0, 'hub');
+					resolve(url);
+				});
+			});
+			urlPromise = urlPromiseObj;
+
+			// Set up the 'code' event listener (async handling, non-blocking)
+			callback.on('code', async (code) => {
+				try
+				{
+					this.updateLog(`OAuth code received: ${code.substring(0, 30)}...`, 0, 'hub');
+					this.updateLog(`About to call getTokenByCode with client redirectUrl property: ${client._redirectUrl || 'UNDEFINED'}`, 0, 'hub');
+					await client.getTokenByCode({ code });
+
+					// Get session information for display
+					const session = await client.onGetOAuth2SessionInformation();
+					const token = client.getToken();
+					const { title } = session;
+
+					// Set the title and token on the client
+					client.setTitle({ title });
+					client.setToken({ token });
+
+					// Save the client to persist the OAuth session
+					client.save();
+
+					this.settingsOAuthFlows[flowId] = {
+						...this.settingsOAuthFlows[flowId],
+						status: 'authorized',
+					};
+
+					this.updateLog(`Settings OAuth login successful for user: ${title}`, 2, 'hub');
+				}
+				catch (err)
+				{
+					this.settingsOAuthFlows[flowId] = {
+						...this.settingsOAuthFlows[flowId],
+						status: 'failed',
+						error: err.message,
+					};
+					this.updateLog(`Settings OAuth code exchange failed: ${err.message}`, 0, 'hub');
+				}
+			});
+
+			// Wait for the URL with timeout
+			const authUrl = await Promise.race([
+				urlPromise,
+				new Promise((_, reject) =>
+					this.homey.setTimeout(() => reject(new Error('Timed out while preparing OAuth callback URL')), 15000)
+				),
+			]);
+
+			return {
+				flowId,
+				authUrl,
+			};
+		}
+		catch (err)
+		{
+			this.updateLog(`startSettingsOAuthLogin error: ${err.message}`, 0, 'hub');
+			throw err;
+		}
 	}
 
 	async getScenes()
@@ -1176,31 +1880,34 @@ class MyApp extends OAuth2App
 		if (oAuth2Client)
 		{
 			const response = await oAuth2Client.getScenes();
-			if (response.statusCode !== 100)
+			if (response.statusCode && response.statusCode !== 100)
 			{
-				this.homey.app.updateLog(`Invalid response code: ${response.statusCode}`, 0);
+				this.homey.app.updateLog(`Invalid response code: ${response.statusCode}`, 0, 'hub');
 				throw (new Error(`Invalid response code: ${response.statusCode}`));
 			}
 
-			const searchData = response.body;
+			const searchData = response.body ? response.body : response;
 			const scenes = [];
 
-			// Create an array of devices
-			for (const scene of searchData)
+			if (Array.isArray(searchData))
 			{
-				// Add this scene to the table
-				let data = {};
-				data = {
-					id: scene.sceneId,
-				};
+				// Create an array of devices
+				for (const scene of searchData)
+				{
+					// Add this scene to the table
+					let data = {};
+					data = {
+						id: scene.sceneId,
+					};
 
-				// Add this device to the table
-				scenes.push(
-					{
-						name: scene.sceneName,
-						data,
-					},
-				);
+					// Add this device to the table
+					scenes.push(
+						{
+							name: scene.sceneName,
+							data,
+						},
+					);
+				}
 			}
 			return scenes;
 		}
@@ -1219,7 +1926,7 @@ class MyApp extends OAuth2App
 
 	unregisterHUBPolling()
 	{
-		this.hubDevices--;
+		this.hubDevices = Math.max(0, this.hubDevices - 1);
 		if ((this.hubDevices === 0) && (this.timerHubID !== null))
 		{
 			this.homey.clearTimeout(this.timerHubID);
@@ -1229,11 +1936,33 @@ class MyApp extends OAuth2App
 
 	async onHubPoll()
 	{
-		this.homey.app.updateLog(`Polling hub: ${this.homey.app.apiCalls} API calls today`);
+		this.homey.app.updateLog(`Polling hub: ${this.homey.app.apiCalls} API calls today`, 'hub');
 		if (this.timerHubID)
 		{
 			this.homey.clearTimeout(this.timerHubID);
 			this.timerHubID = null;
+		}
+
+		if (!this.hasHubAuthAvailable())
+		{
+			if (!this.hubAuthMissingLogged)
+			{
+				this.homey.app.updateLog('Hub polling paused: no API key/secret or OAuth2 session available. Re-authenticate in app settings to restore control.', 0, 'hub');
+				this.hubAuthMissingLogged = true;
+			}
+
+			if (this.hubDevices > 0)
+			{
+				this.timerHubID = this.homey.setTimeout(this.onHubPoll, HUB_POLL_MISSING_AUTH_INTERVAL_MS);
+			}
+
+			return;
+		}
+
+		if (this.hubAuthMissingLogged)
+		{
+			this.homey.app.updateLog('Hub polling resumed: authentication is available again.', 1, 'hub');
+			this.hubAuthMissingLogged = false;
 		}
 
 		let totalHuBDevices = 0;
@@ -1246,9 +1975,18 @@ class MyApp extends OAuth2App
 			{
 				if (device.pollHubDeviceValues)
 				{
-					if (await device.pollHubDeviceValues())
+					try
 					{
-						totalHuBDevices++;
+						if (await device.pollHubDeviceValues())
+						{
+							totalHuBDevices++;
+						}
+					}
+					catch (err)
+					{
+						const deviceName = (device.getName && typeof device.getName === 'function') ? device.getName() : 'Unknown device';
+						const deviceData = (device.getData && typeof device.getData === 'function') ? device.getData() : {};
+						this.homey.app.updateLog(`Hub poll failed for ${deviceName} (${deviceData.id || 'unknown id'}): ${err.message}`, 0, 'hub');
 					}
 				}
 			}
@@ -1256,16 +1994,225 @@ class MyApp extends OAuth2App
 
 		if (totalHuBDevices > 0)
 		{
-			const nextInterval = (MINIMUM_POLL_INTERVAL * this.numConnections * 1000 * totalHuBDevices);
+			const minimumIntervalMs = MINIMUM_POLL_INTERVAL * 1000;
+			const quotaIntervalMs = Math.ceil((SECONDS_PER_DAY * 1000 * totalHuBDevices * this.numConnections) / POLLING_DAILY_BUDGET);
+			const nextInterval = Math.max(minimumIntervalMs, quotaIntervalMs);
 
-			this.homey.app.updateLog(`Next HUB polling interval = ${nextInterval / 1000}s: ${this.homey.app.apiCalls} API calls today`);
+			this.homey.app.updateLog(`Next HUB polling interval = ${nextInterval / 1000}s for ${totalHuBDevices} active devices across ${this.numConnections} Homey account connection(s): ${this.homey.app.apiCalls} API calls today`, 'hub');
 			this.timerHubID = this.homey.setTimeout(this.onHubPoll, nextInterval);
-			// this.timerHubID = this.homey.setTimeout(this.onHubPoll, MINIMUM_POLL_INTERVAL * 1000);
 		}
 	}
 
-	registerBLEPolling()
+	getBLEDeviceSubscriptionKey(device)
 	{
+		if (!device)
+		{
+			return null;
+		}
+
+		let key = this.bleAdvertisementDeviceKeys.get(device);
+		if (!key)
+		{
+			key = `ble-device-${this.bleAdvertisementNextKey++}`;
+			this.bleAdvertisementDeviceKeys.set(device, key);
+		}
+
+		return key;
+	}
+
+	normalizeBLEAdvertisementId(bleId)
+	{
+		if (!bleId)
+		{
+			return null;
+		}
+
+		return String(bleId).trim().toLowerCase();
+	}
+
+	bufferLikeToHex(value)
+	{
+		if (!value)
+		{
+			return '';
+		}
+
+		if (Buffer.isBuffer(value))
+		{
+			return value.toString('hex');
+		}
+
+		if (value instanceof Uint8Array)
+		{
+			return Buffer.from(value).toString('hex');
+		}
+
+		if (Array.isArray(value))
+		{
+			return Buffer.from(value).toString('hex');
+		}
+
+		return String(value);
+	}
+
+	getBLEAdvertisementFingerprint(advertisement)
+	{
+		if (!advertisement)
+		{
+			return 'md:|sd:';
+		}
+
+		const manufacturerDataHex = this.bufferLikeToHex(advertisement.manufacturerData);
+		let serviceDataText = '';
+
+		if (Array.isArray(advertisement.serviceData))
+		{
+			serviceDataText = advertisement.serviceData
+				.map((entry) =>
+				{
+					const uuid = entry && entry.uuid ? String(entry.uuid).toLowerCase() : '';
+					const dataHex = this.bufferLikeToHex(entry && entry.data ? entry.data : '');
+					return `${uuid}:${dataHex}`;
+				})
+				.join('|');
+		}
+		else if (advertisement.serviceData && typeof advertisement.serviceData === 'object')
+		{
+			serviceDataText = Object.keys(advertisement.serviceData)
+				.sort()
+				.map((key) => `${String(key).toLowerCase()}:${this.bufferLikeToHex(advertisement.serviceData[key])}`)
+				.join('|');
+		}
+		else
+		{
+			serviceDataText = this.bufferLikeToHex(advertisement.serviceData);
+		}
+
+		return `md:${manufacturerDataHex}|sd:${serviceDataText}`;
+	}
+
+	getBLEUnparsedReason(advertisement)
+	{
+		if (!advertisement)
+		{
+			return 'empty-advertisement';
+		}
+
+		if (!advertisement.serviceData || advertisement.serviceData.length === 0)
+		{
+			if (advertisement.localName === 'WoHand')
+			{
+				return 'bot-no-service-data-fallback';
+			}
+
+			return 'no-service-data';
+		}
+
+		if (!Array.isArray(advertisement.serviceData) || !advertisement.serviceData[0])
+		{
+			return 'service-data-not-array';
+		}
+
+		const { uuid } = advertisement.serviceData[0];
+		if (typeof uuid !== 'string')
+		{
+			return 'service-uuid-missing';
+		}
+
+		if ((uuid.search('0d00') < 0) && (uuid.search('fd3d') < 0))
+		{
+			return 'service-uuid-mismatch';
+		}
+
+		const buf = advertisement.serviceData[0].data;
+		if (!buf || !Buffer.isBuffer(buf) || buf.length < 3)
+		{
+			return 'service-buffer-invalid';
+		}
+
+		const model = buf.slice(0, 1).toString('utf8');
+		const knownModels = ['H', 'T', 'i', 'c', '{', 's', 'd', 'u', 'w', 'W', 'x', '&', '4', '5', '?', "'", ','];
+		if (knownModels.includes(model))
+		{
+			return 'parser-returned-null';
+		}
+
+		if ((buf.length === 7) && (buf[5] === 0xcc) && (buf[6] === 0xc8) && ((buf[4] === 0x00) || (buf[4] === 0x10)))
+		{
+			if (!advertisement.manufacturerData || !Buffer.isBuffer(advertisement.manufacturerData) || (advertisement.manufacturerData.length < 12))
+			{
+				return 'presence-mm-manufacturer-invalid';
+			}
+
+			return 'presence-mm-parse-failed';
+		}
+
+		return `unknown-model:${model}`;
+	}
+
+	toStableJSONString(value)
+	{
+		if (Array.isArray(value))
+		{
+			return `[${value.map((entry) => this.toStableJSONString(entry)).join(',')}]`;
+		}
+
+		if (value && typeof value === 'object')
+		{
+			const keys = Object.keys(value).sort();
+			return `{${keys.map((key) => `${JSON.stringify(key)}:${this.toStableJSONString(value[key])}`).join(',')}}`;
+		}
+
+		return JSON.stringify(value);
+	}
+
+	stripVolatileParsedFields(parsedEvent)
+	{
+		if (!parsedEvent || typeof parsedEvent !== 'object')
+		{
+			return parsedEvent;
+		}
+
+		const normalized = {
+			...parsedEvent,
+			serviceData: parsedEvent.serviceData && typeof parsedEvent.serviceData === 'object'
+				? { ...parsedEvent.serviceData }
+				: parsedEvent.serviceData,
+		};
+
+		if (!normalized.serviceData || typeof normalized.serviceData !== 'object')
+		{
+			return normalized;
+		}
+
+		const modelName = normalized.serviceData.modelName;
+		const model = normalized.serviceData.model;
+		if ((modelName === 'Presence(mm)') || (modelName === 'WoPresence') || (model === 's'))
+		{
+			delete normalized.serviceData.duration;
+			delete normalized.serviceData.seq_number;
+		}
+
+		return normalized;
+	}
+
+	getBLEParsedStateFingerprint(parsedEvent)
+	{
+		return this.toStableJSONString(this.stripVolatileParsedFields(parsedEvent));
+	}
+
+	registerBLEPollingFallback(deviceKey = null)
+	{
+		if (deviceKey)
+		{
+			if (this.blePollingFallbackDevices.has(deviceKey))
+			{
+				return;
+			}
+
+			this.blePollingFallbackDevices.add(deviceKey);
+		}
+
 		this.bleDevices++;
 		if (this.bleTimerID === null)
 		{
@@ -1273,13 +2220,310 @@ class MyApp extends OAuth2App
 		}
 	}
 
-	unregisterBLEPolling()
+	unregisterBLEPollingFallback(deviceKey = null)
 	{
-		this.bleDevices--;
+		if (deviceKey)
+		{
+			if (!this.blePollingFallbackDevices.has(deviceKey))
+			{
+				return;
+			}
+
+			this.blePollingFallbackDevices.delete(deviceKey);
+		}
+
+		this.bleDevices = Math.max(0, this.bleDevices - 1);
 		if ((this.bleDevices === 0) && (this.bleTimerID !== null))
 		{
 			this.homey.clearTimeout(this.bleTimerID);
 			this.bleTimerID = null;
+		}
+	}
+
+	registerBLEPolling(device)
+	{
+		const deviceKey = this.getBLEDeviceSubscriptionKey(device);
+
+		if (!this.bleAdvertisementSupported || !device)
+		{
+			this.registerBLEPollingFallback(deviceKey);
+			return;
+		}
+
+		this.registerBLEAdvertisementSubscription(device)
+			.catch((err) =>
+			{
+				const name = (device.getName && typeof device.getName === 'function') ? device.getName() : 'Unknown BLE device';
+				this.updateLog(`BLE advertisement subscription failed for ${name}: ${err.message}. Using polling fallback.`, 0, 'ble');
+				this.registerBLEPollingFallback(deviceKey);
+			});
+	}
+
+	unregisterBLEPolling(device)
+	{
+		const deviceKey = this.getBLEDeviceSubscriptionKey(device);
+
+		if (this.bleAdvertisementSupported && device)
+		{
+			this.unregisterBLEAdvertisementSubscription(device)
+				.catch((err) =>
+				{
+					const name = (device.getName && typeof device.getName === 'function') ? device.getName() : 'Unknown BLE device';
+					this.updateLog(`BLE advertisement unsubscribe failed for ${name}: ${err.message}`, 0, 'ble');
+				});
+		}
+
+		this.unregisterBLEPollingFallback(deviceKey);
+	}
+
+	async registerBLEAdvertisementSubscription(device)
+	{
+		const key = this.getBLEDeviceSubscriptionKey(device);
+		if (!key)
+		{
+			throw new Error('Invalid BLE device registration');
+		}
+
+		if (this.bleAdvertisementDeviceToId.has(key))
+		{
+			return;
+		}
+
+		const deviceData = (device.getData && typeof device.getData === 'function') ? device.getData() : null;
+		const bleId = this.normalizeBLEAdvertisementId(deviceData && deviceData.id ? deviceData.id : null);
+		if (!bleId)
+		{
+			throw new Error('Missing BLE advertisement id');
+		}
+
+		const existingSubscription = this.bleAdvertisementSubscriptions.get(bleId);
+		if (existingSubscription)
+		{
+			existingSubscription.devices.set(key, device);
+			this.bleAdvertisementDeviceToId.set(key, bleId);
+			return;
+		}
+
+		const pendingSubscription = this.bleAdvertisementSubscriptionPending.get(bleId);
+		if (pendingSubscription)
+		{
+			await pendingSubscription;
+
+			const subscribed = this.bleAdvertisementSubscriptions.get(bleId);
+			if (!subscribed)
+			{
+				throw new Error(`BLE advertisement subscription for ${bleId} was not created`);
+			}
+
+			subscribed.devices.set(key, device);
+			this.bleAdvertisementDeviceToId.set(key, bleId);
+			return;
+		}
+
+		const devices = new Map();
+		devices.set(key, device);
+
+		const callback = async (advertisement) =>
+		{
+			await this.handleBLEAdvertisement(bleId, advertisement);
+		};
+
+		const subscribePromise = this.homey.ble.subscribeToAdvertisements(
+			bleId,
+			{ rateLimitMs: BLE_ADVERTISEMENT_RATE_LIMIT_MS },
+			callback,
+		)
+			.catch(async (err) =>
+			{
+				const message = (err && err.message) ? err.message : String(err);
+				const alreadyExported = /AdvertisementMonitor1.+already exported/i.test(message);
+				if (!alreadyExported)
+				{
+					throw err;
+				}
+
+				this.updateLog(`BLE advertisement monitor already exported for ${bleId}, retrying subscription once`, 1, 'ble');
+
+				try
+				{
+					await this.homey.ble.unsubscribeFromAdvertisements(bleId);
+				}
+				catch (unsubscribeErr)
+				{
+					this.updateLog(`BLE advertisement unsubscribe before retry failed for ${bleId}: ${unsubscribeErr.message}`, 2, 'ble');
+				}
+
+				await this.homey.ble.subscribeToAdvertisements(
+					bleId,
+					{ rateLimitMs: BLE_ADVERTISEMENT_RATE_LIMIT_MS },
+					callback,
+				);
+			})
+			.then(() =>
+			{
+				this.bleAdvertisementSubscriptions.set(bleId, { callback, devices });
+			});
+
+		this.bleAdvertisementSubscriptionPending.set(bleId, subscribePromise);
+
+		try
+		{
+			await subscribePromise;
+			this.bleAdvertisementDeviceToId.set(key, bleId);
+		}
+		finally
+		{
+			this.bleAdvertisementSubscriptionPending.delete(bleId);
+		}
+
+		const name = (device.getName && typeof device.getName === 'function') ? device.getName() : bleId;
+		this.updateLog(`Subscribed to BLE advertisements for ${name}`, 2, 'ble');
+	}
+
+	async unregisterBLEAdvertisementSubscription(device)
+	{
+		const key = this.getBLEDeviceSubscriptionKey(device);
+		if (!key)
+		{
+			return;
+		}
+
+		const bleId = this.normalizeBLEAdvertisementId(this.bleAdvertisementDeviceToId.get(key));
+		if (!bleId)
+		{
+			return;
+		}
+
+		const pendingSubscription = this.bleAdvertisementSubscriptionPending.get(bleId);
+		if (pendingSubscription)
+		{
+			await pendingSubscription.catch(() => null);
+		}
+
+		this.bleAdvertisementDeviceToId.delete(key);
+		this.bleAdvertisementDevicePayloadFingerprint.delete(key);
+		this.bleAdvertisementDeviceParsedStateFingerprint.delete(key);
+		this.bleAdvertisementDeviceLocalSeenAt.delete(key);
+
+		const subscription = this.bleAdvertisementSubscriptions.get(bleId);
+		if (!subscription)
+		{
+			return;
+		}
+
+		subscription.devices.delete(key);
+		if (subscription.devices.size > 0)
+		{
+			return;
+		}
+
+		await this.homey.ble.unsubscribeFromAdvertisements(bleId);
+		this.bleAdvertisementSubscriptions.delete(bleId);
+	}
+
+	async unregisterAllBLEAdvertisementSubscriptions()
+	{
+		const pendingSubscriptions = Array.from(this.bleAdvertisementSubscriptionPending.values());
+		if (pendingSubscriptions.length > 0)
+		{
+			await Promise.allSettled(pendingSubscriptions);
+		}
+
+		const bleIds = Array.from(this.bleAdvertisementSubscriptions.keys());
+		for (const bleId of bleIds)
+		{
+			try
+			{
+				await this.homey.ble.unsubscribeFromAdvertisements(bleId);
+			}
+			catch (err)
+			{
+				this.updateLog(`Failed to unsubscribe BLE advertisements for ${bleId}: ${err.message}`, 0, 'ble');
+			}
+		}
+
+		this.bleAdvertisementSubscriptions.clear();
+		this.bleAdvertisementSubscriptionPending.clear();
+		this.bleAdvertisementDeviceToId.clear();
+		this.bleAdvertisementDevicePayloadFingerprint.clear();
+		this.bleAdvertisementDeviceParsedStateFingerprint.clear();
+		this.bleAdvertisementDeviceLocalSeenAt.clear();
+		this.blePollingFallbackDevices.clear();
+	}
+
+	async handleBLEAdvertisement(bleId, advertisement)
+	{
+		const subscription = this.bleAdvertisementSubscriptions.get(bleId);
+		if (!subscription)
+		{
+			return;
+		}
+
+		this.updateLog(`Received BLE advertisement for ${bleId}: ${this.varToString(advertisement)}`, 4, 'ble');
+		const devices = Array.from(subscription.devices.values());
+		for (const device of devices)
+		{
+			try
+			{
+				if (!device || !device.syncBLEEvents)
+				{
+					continue;
+				}
+
+				const deviceKey = this.getBLEDeviceSubscriptionKey(device);
+				if (!deviceKey)
+				{
+					continue;
+				}
+
+				const nowMs = Date.now();
+				const previousSeenMs = this.bleAdvertisementDeviceLocalSeenAt.get(deviceKey) || 0;
+				if ((nowMs - previousSeenMs) >= 60000)
+				{
+					const name = (device.getName && typeof device.getName === 'function') ? device.getName() : bleId;
+					this.updateLog(`[local-subscription] BLE advertisement received for ${name} (${bleId})`, 2, 'ble');
+					this.bleAdvertisementDeviceLocalSeenAt.set(deviceKey, nowMs);
+				}
+
+				const payloadFingerprint = this.getBLEAdvertisementFingerprint(advertisement);
+				const previousFingerprint = this.bleAdvertisementDevicePayloadFingerprint.get(deviceKey);
+				if (previousFingerprint === payloadFingerprint)
+				{
+					continue;
+				}
+
+				this.bleAdvertisementDevicePayloadFingerprint.set(deviceKey, payloadFingerprint);
+
+				let parsedEvent = null;
+				if (device.driver && typeof device.driver.parse === 'function')
+				{
+					parsedEvent = device.driver.parse(advertisement);
+				}
+
+				if (parsedEvent)
+				{
+					const parsedStateFingerprint = this.getBLEParsedStateFingerprint(parsedEvent);
+					const previousParsedStateFingerprint = this.bleAdvertisementDeviceParsedStateFingerprint.get(deviceKey);
+					if (previousParsedStateFingerprint === parsedStateFingerprint)
+					{
+						continue;
+					}
+
+					this.bleAdvertisementDeviceParsedStateFingerprint.set(deviceKey, parsedStateFingerprint);
+					this.updateLog(`[local-subscription] Parsed BLE advertisement for ${bleId}: ${this.varToString(parsedEvent)}`, 1, 'ble');
+					await device.syncBLEEvents([parsedEvent]);
+				}
+				else
+				{
+					const reason = this.getBLEUnparsedReason(advertisement);
+					this.updateLog(`[local-subscription] Unparsed BLE advertisement for ${bleId} (${reason})`, 2, 'ble');
+				}
+			}
+			catch (err)
+			{
+				const name = (device && device.getName && typeof device.getName === 'function') ? device.getName() : bleId;
+				this.updateLog(`BLE advertisement handling failed for ${name}: ${err.message}`, 0, 'ble');
+			}
 		}
 	}
 
@@ -1292,14 +2536,14 @@ class MyApp extends OAuth2App
 		{
 			this.bleBusy = true;
 			this.blePolling = true;
-			this.updateLog('\r\n------ Polling BLE Starting ------');
+			this.updateLog('\r\n------ Polling BLE Starting ------', 'hub');
 
 			const promises = [];
 			try
 			{
 				// Run discovery too fetch new data
 				await this.homey.ble.discover(['cba20d00224d11e69fb80002a5d5c51b'], 2000);
-				this.updateLog('BLE Finished Discovery');
+				this.updateLog('BLE Finished Discovery', 'hub');
 
 				// eslint-disable-next-line no-restricted-syntax
 				const drivers = this.homey.drivers.getDrivers();
@@ -1315,26 +2559,33 @@ class MyApp extends OAuth2App
 					}
 				}
 
-				this.updateLog('Polling BLE: waiting for devices to update');
+				this.updateLog('Polling BLE: waiting for devices to update', 'hub');
 				await Promise.all(promises);
 			}
 			catch (err)
 			{
-				this.updateLog(`BLE Polling Error: ${err.message}`);
+				this.updateLog(`BLE Polling Error: ${err.message}`, 'hub');
 			}
 
 			this.blePolling = false;
 			this.bleBusy = false;
-			this.updateLog('------ Polling BLE Finished ------\r\n');
+			this.updateLog('------ Polling BLE Finished ------\r\n', 'hub');
 		}
 		else
 		{
-			this.updateLog('Polling BLE skipped while discovery in progress\r\n');
+			this.updateLog('Polling BLE skipped while discovery in progress\r\n', 'hub');
 		}
 
-		this.updateLog(`Next BLE polling interval = ${BLE_POLLING_INTERVAL}`);
-
-		this.bleTimerID = this.homey.setTimeout(this.onBLEPoll, BLE_POLLING_INTERVAL);
+		if (this.bleDevices > 0)
+		{
+			this.updateLog(`Next BLE polling interval = ${BLE_POLLING_INTERVAL}`, 'hub');
+			this.bleTimerID = this.homey.setTimeout(this.onBLEPoll, BLE_POLLING_INTERVAL);
+		}
+		else
+		{
+			this.bleTimerID = null;
+			this.updateLog('BLE polling stopped: no registered BLE devices', 'hub');
+		}
 	}
 
 }

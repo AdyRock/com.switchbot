@@ -1,0 +1,31 @@
+{
+  "title": {
+    "en": "Vacuum Cleaning Started",
+    "no": "Støvsugerrengjøring startet",
+    "nl": "Stofzuigerreiniging gestart",
+    "da": "Støvsugerrengøring startet",
+    "de": "Staubsaugerreinigung gestartet",
+    "es": "Limpieza de la aspiradora iniciada",
+    "fr": "Nettoyage de l'aspirateur démarré",
+    "it": "Pulizia dell'aspirapolvere avviata",
+    "sv": "Dammsugarrengöring startad",
+    "pl": "Rozpoczęto sprzątanie odkurzaczem",
+    "ru": "Уборка пылесосом началась",
+    "ko": "청소기 청소 시작됨"
+  },
+  "highlight": true,
+  "platforms": [
+    "local"
+  ],
+  "connectivity": [
+    "local",
+    "cloud"
+  ],
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=robot_vacuum_hub|robot_vacuum_S10_hub|robot_vacuum_K20_hub|robot_vacuum_K11_hub"
+    }
+  ]
+}

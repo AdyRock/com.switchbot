@@ -23,7 +23,7 @@ class BLEDriver extends Homey.Driver
 	async getBLEDevices(type)
 	{
 		this.homey.app.bleDiscovery = true;
-		this.homey.app.updateLog('BLE Discovery started');
+		this.homey.app.updateLog('BLE Discovery started', 'ble');
 		this.homey.app.detectedDevices = '';
 		try
 		{
@@ -32,7 +32,7 @@ class BLEDriver extends Homey.Driver
 			if (this.homey.app.BLEHub)
 			{
 				const searchData = await this.homey.app.BLEHub.getBLEHubDevices();
-				this.homey.app.updateLog(`BLE HUB Discovery: ${this.homey.app.varToString(searchData)}`, 3);
+				this.homey.app.updateLog(`BLE HUB Discovery: ${this.homey.app.varToString(searchData)}`, 3, 'ble');
 
 				// Create an array of devices
 				for (const deviceData of searchData)
@@ -70,7 +70,7 @@ class BLEDriver extends Homey.Driver
 					}
 					catch (err)
 					{
-						this.homey.app.updateLog(`BLE Discovery: ${err.message}`, 0);
+						this.homey.app.updateLog(`BLE Discovery: ${err.message}`, 0, 'ble');
 					}
 				}
 			}
@@ -82,7 +82,7 @@ class BLEDriver extends Homey.Driver
 			}
 
 			const bleAdvertisements = await this.homey.ble.discover([], 5000);
-			this.homey.app.updateLog(`BLE Discovery found: ${this.homey.app.varToString(bleAdvertisements)}`, 3);
+			this.homey.app.updateLog(`BLE Discovery found: ${this.homey.app.varToString(bleAdvertisements)}`, 3, 'ble');
 
 			this.homey.app.detectedDevices += '\r\nBLE Hub Found device:\r\n';
 			this.homey.app.detectedDevices += this.homey.app.varToString(bleAdvertisements);
@@ -129,17 +129,17 @@ class BLEDriver extends Homey.Driver
 				}
 				catch (err)
 				{
-					this.homey.app.updateLog(`BLE Discovery: ${err.message}`, 0);
+					this.homey.app.updateLog(`BLE Discovery: ${err.message}`, 0, 'ble');
 				}
 			}
 
-			this.homey.app.updateLog('BLE Discovery finished');
+			this.homey.app.updateLog('BLE Discovery finished', 'ble');
 			this.homey.app.bleDiscovery = false;
 			return devices;
 		}
 		catch (err)
 		{
-			this.homey.app.updateLog(`BLE Discovery: ${err.message}`, 0);
+			this.homey.app.updateLog(`BLE Discovery: ${err.message}`, 0, 'ble');
 			this.homey.app.bleDiscovery = false;
 			throw new Error(err.msg);
 		}
@@ -232,7 +232,16 @@ class BLEDriver extends Homey.Driver
 			return null;
 		}
 
+		if (!Array.isArray(device.serviceData) || !device.serviceData[0])
+		{
+			return null;
+		}
+
 		const { uuid } = device.serviceData[0];
+		if (typeof uuid !== 'string')
+		{
+			return null;
+		}
 		if ((uuid.search('0d00') < 0) && (uuid.search('fd3d') < 0))
 		{
 			return null;
@@ -246,8 +255,12 @@ class BLEDriver extends Homey.Driver
 		const model = buf.slice(0, 1).toString('utf8');
 		let sd = null;
 
-		// Log the data with the buf in hex of two digits and a space
-		this.homey.app.updateLog(`BLE Device: ${device.address}, "${model}", (${device.rssi})\nServ: ${buf.toString('hex').match(/.{1,2}/g).join(' ')}\nManu: ${device.manufacturerData ? device.manufacturerData.toString('hex').match(/.{1,2}/g).join(' ') : ''}`, 3);
+		// Log the data with bytes grouped to avoid null join errors on empty buffers.
+		const serviceHex = (buf.toString('hex').match(/.{1,2}/g) || []).join(' ');
+		const manufacturerHex = device.manufacturerData
+			? ((device.manufacturerData.toString('hex').match(/.{1,2}/g) || []).join(' '))
+			: '';
+		this.homey.app.updateLog(`BLE Device: ${device.address}, "${model}", (${device.rssi})\nServ: ${serviceHex}\nManu: ${manufacturerHex}`, 3, 'ble');
 
 		if (model === 'H')
 		{ // WoHand
@@ -294,11 +307,11 @@ class BLEDriver extends Homey.Driver
 			sd = this._parseServiceDataForCO2Meter(buf, device.manufacturerData);
 		}
 		else if (model === '?')
-		{ // WoMeterPro(CO2)
+		{ // WoPlug
 			sd = this._parseServiceDataForPlug(buf, device.manufacturerData);
 		}
-		else if (model === "'")
-		{ // WoCurtain
+		else if (model === "'" || model === ',')
+		{ // WoCRollerBlind
 			sd = this._parseServiceDataForWoRollerblind(buf);
 		}
 		else if ((buf.length === 7) && buf[5] === 0xcc && buf[6] === 0xc8 && (buf[4] === 0x00 || buf[4] === 0x10))
@@ -798,7 +811,7 @@ class BLEDriver extends Homey.Driver
 
 		const status = p.readUInt8(11);
 		const led_state = (status & 0x80) !== 0;
-		const light_level = status & 0x1F; // 0..31 raw bucket
+		const light_level = status & 0x0F; // 0..31 raw bucket
 
 		return {
 			model: 'Presence',

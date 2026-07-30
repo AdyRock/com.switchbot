@@ -85,7 +85,7 @@ class SmartFanHubDevice extends HubDevice
 			if (data)
 			{
 				this.setAvailable();
-				this.homey.app.updateLog(`Smart Fan Hub got: ${this.homey.app.varToString(data)}`, 3);
+				this.homey.app.updateLog(`Smart Fan Hub got: ${this.homey.app.varToString(data)}`, 3, 'hub');
 
 				this.setCapabilityValue('onoff', data.power === 'on').catch(this.error);
 				this.setCapabilityValue('smart_fan_mode', data.mode).catch(this.error);
@@ -96,7 +96,7 @@ class SmartFanHubDevice extends HubDevice
 		}
 		catch (err)
 		{
-			this.homey.app.updateLog(`Fan getHubDeviceValues: ${this.homey.app.varToString(err.message)}`, 0);
+			this.homey.app.updateLog(`Fan getHubDeviceValues: ${this.homey.app.varToString(err.message)}`, 0, 'hub');
 			this.setWarning(err.message).catch(this.error);;
 		}
 	}

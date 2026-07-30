@@ -1,0 +1,48 @@
+{
+  "title": {
+    "en": "The colour dim level changed",
+    "no": "Fargedimnivå endret",
+    "nl": "Kleur dimniveau gewijzigd",
+    "da": "Farvedæmpningsniveau ændret",
+    "de": "Farb-Dimmstufe geändert",
+    "es": "Nivel de atenuación de color cambiado",
+    "fr": "Niveau de variation de couleur modifie",
+    "it": "Livello dimmer colore cambiato",
+    "sv": "Färgdimmnivå ändrat",
+    "pl": "Poziom ściemniania koloru zmieniony",
+    "ru": "Уровень диммирования цветного света изменен",
+    "ko": "컬러 디밍 레벨 변경됨"
+  },
+  "platforms": [
+    "local",
+    "cloud"
+  ],
+  "tokens": [
+    {
+      "name": "brightness",
+      "title": {
+        "en": "Brightness",
+        "no": "Lysstyrke",
+        "nl": "Helderheid",
+        "da": "Lysstyrke",
+        "de": "Helligkeit",
+        "es": "Brillo",
+        "fr": "Luminosite",
+        "it": "Luminosita",
+        "sv": "Ljusstyrka",
+        "pl": "Jasność",
+        "ru": "Яркость",
+        "ko": "밝기"
+      },
+      "type": "number",
+      "example": 0.6
+    }
+  ],
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=rgbicww_ceiling_light_hub"
+    }
+  ]
+}

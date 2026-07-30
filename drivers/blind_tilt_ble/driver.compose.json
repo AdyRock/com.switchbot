@@ -23,7 +23,7 @@
 	],
 	"class": "blinds",
 	"capabilities": [
-		"open_close",
+		"windowcoverings_closed",
 		"measure_battery",
 		"windowcoverings_tilt_set",
 		"rssi",

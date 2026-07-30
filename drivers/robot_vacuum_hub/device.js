@@ -70,13 +70,60 @@ class VacuumHubDevice extends HubDevice
 
 	async onCapabilityPowerLevel(level, value, opts)
 	{
-		this._operateDevice('PowLevel', level);
+		const normalizedLevel = Number(level);
+		if (!Number.isInteger(normalizedLevel) || (normalizedLevel < 0) || (normalizedLevel > 3))
+		{
+			throw new Error(`Invalid vacuum power level: ${level}`);
+		}
+
+		try
+		{
+			return await this._operateDevice('PowLevel', normalizedLevel);
+		}
+		catch (err)
+		{
+			if (/\b190\b.*invalid\s*params/i.test(err.message || ''))
+			{
+				return this._operateDevice('PowLevel', String(normalizedLevel));
+			}
+
+			throw err;
+		}
 	}
 
 	async pollHubDeviceValues()
 	{
-		this.getHubDeviceValues();
+		await this.getHubDeviceValues();
 		return true;
+	}
+
+	isCleaningState(state)
+	{
+		if (!state)
+		{
+			return false;
+		}
+
+		const normalizedState = String(state).trim().toLowerCase();
+		const translatedClearing = String(this.homey.__('clearing') || '').trim().toLowerCase();
+		const translatedCleaning = String(this.homey.__('cleaning') || '').trim().toLowerCase();
+
+		return ['clearing', 'cleaning', translatedClearing, translatedCleaning].includes(normalizedState);
+	}
+
+	onVacuumWorkingStatusChanged(previousState, currentRawState)
+	{
+		const wasCleaning = this.isCleaningState(previousState);
+		const isCleaning = this.isCleaningState(currentRawState);
+
+		if (!wasCleaning && isCleaning)
+		{
+			this.driver.triggerCleaningStarted(this).catch(this.error);
+		}
+		else if (wasCleaning && !isCleaning)
+		{
+			this.driver.triggerCleaningStopped(this).catch(this.error);
+		}
 	}
 
 	async getHubDeviceValues()
@@ -87,9 +134,10 @@ class VacuumHubDevice extends HubDevice
 			if (data)
 			{
 				this.setAvailable();
-				this.homey.app.updateLog(`Vacuum Hub got: ${this.homey.app.varToString(data)}`, 3);
+				this.homey.app.updateLog(`Vacuum Hub got: ${this.homey.app.varToString(data)}`, 3, 'hub');
 
-				if (data.workingStatus && data.workingStatus !== this.getCapabilityValue('robot_vaccum_state'))
+				const previousState = this.getCapabilityValue('robot_vaccum_state');
+				if (data.workingStatus && data.workingStatus !== previousState)
 				{
 					this.setCapabilityValue('robot_vaccum_state', data.workingStatus).catch(this.error);
 
@@ -103,6 +151,7 @@ class VacuumHubDevice extends HubDevice
 						state: data.workingStatus,
 					};
 					this.driver.triggerStateChangedTo(this, null, args).catch(this.error);
+					this.onVacuumWorkingStatusChanged(previousState, data.workingStatus);
 				}
 
 				if (data.battery)
@@ -115,7 +164,7 @@ class VacuumHubDevice extends HubDevice
 						}
 						catch (err)
 						{
-							this.log(err);
+							this.homey.app.updateLog(this.homey.app.varToString(err), 'hub');
 						}
 					}
 
@@ -127,7 +176,7 @@ class VacuumHubDevice extends HubDevice
 		}
 		catch (err)
 		{
-			this.homey.app.updateLog(`BlindTilt getHubDeviceValues: ${this.homey.app.varToString(err.message)}`, 0);
+			this.homey.app.updateLog(`BlindTilt getHubDeviceValues: ${this.homey.app.varToString(err.message)}`, 0, 'hub');
 			this.setWarning(err.message).catch(this.error);;
 		}
 	}
@@ -141,9 +190,10 @@ class VacuumHubDevice extends HubDevice
 			{
 				// message is for this device
 				const data = message.context;
-				this.homey.app.updateLog(`Vacuum Hub got: ${this.homey.app.varToString(data)}`, 3);
+				this.homey.app.updateLog(`Vacuum Hub got: ${this.homey.app.varToString(data)}`, 3, 'hub');
 
-				if (data.workingStatus && data.workingStatus !== this.getCapabilityValue('robot_vaccum_state'))
+				const previousState = this.getCapabilityValue('robot_vaccum_state');
+				if (data.workingStatus && data.workingStatus !== previousState)
 				{
 					this.setCapabilityValue('robot_vaccum_state', data.workingStatus).catch(this.error);
 
@@ -157,6 +207,7 @@ class VacuumHubDevice extends HubDevice
 						state: data.workingStatus,
 					};
 					this.driver.triggerStateChangedTo(this, null, args).catch(this.error);
+					this.onVacuumWorkingStatusChanged(previousState, data.workingStatus);
 				}
 
 				if (data.battery)
@@ -169,7 +220,7 @@ class VacuumHubDevice extends HubDevice
 						}
 						catch (err)
 						{
-							this.log(err);
+							this.homey.app.updateLog(this.homey.app.varToString(err), 'hub');
 						}
 
 					}
@@ -180,7 +231,7 @@ class VacuumHubDevice extends HubDevice
 		}
 		catch (err)
 		{
-			this.homey.app.updateLog(`processWebhookMessage error ${err.message}`, 0);
+			this.homey.app.updateLog(`processWebhookMessage error ${err.message}`, 0, 'hub');
 		}
 	}
 

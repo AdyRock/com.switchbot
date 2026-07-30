@@ -42,6 +42,16 @@ class HubVacuumS10Driver extends HubDriver
 		this.homey.app.taskChangedToTrigger.trigger(device, tokens, state).catch(this.error);
 	}
 
+	async triggerCleaningStarted(device)
+	{
+		this.homey.app.vaccumCleaningStartedTrigger.trigger(device).catch(this.error);
+	}
+
+	async triggerCleaningStopped(device)
+	{
+		this.homey.app.vaccumCleaningStoppedTrigger.trigger(device).catch(this.error);
+	}
+
 }
 
 module.exports = HubVacuumS10Driver;

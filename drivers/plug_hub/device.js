@@ -84,7 +84,7 @@ class PlugHubDevice extends HubDevice
 			if (data)
 			{
 				this.setAvailable();
-				this.homey.app.updateLog(`Plug Hub got: ${this.homey.app.varToString(data)}`, 3);
+				this.homey.app.updateLog(`Plug Hub got: ${this.homey.app.varToString(data)}`, 3, 'hub');
 
 				if (data.power)
 				{
@@ -100,7 +100,7 @@ class PlugHubDevice extends HubDevice
 		}
 		catch (err)
 		{
-			this.homey.app.updateLog(`Plug getHubDeviceValues: ${this.homey.app.varToString(err.message)}`, 0);
+			this.homey.app.updateLog(`Plug getHubDeviceValues: ${this.homey.app.varToString(err.message)}`, 0, 'hub');
 			this.setWarning(err.message).catch(this.error);;
 		}
 	}
@@ -108,7 +108,7 @@ class PlugHubDevice extends HubDevice
 	async pollHubDeviceValues()
 	{
 		// The webhook is only triggerd for the door contact so we need polling for the motion and bright state
-		this.getHubDeviceValues();
+		await this.getHubDeviceValues();
 		return true;
 	}
 
@@ -129,7 +129,7 @@ class PlugHubDevice extends HubDevice
 		}
 		catch (err)
 		{
-			this.homey.app.updateLog(`processWebhookMessage error ${err.message}`, 0);
+			this.homey.app.updateLog(`processWebhookMessage error ${err.message}`, 0, 'hub');
 		}
 	}
 

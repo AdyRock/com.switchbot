@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.switchbot",
-  "version": "2.0.64",
+  "version": "2.0.82",
   "compatibility": ">=12.2.0",
   "platforms": [
     "local",
@@ -25,7 +25,7 @@
   },
   "description": {
     "en": "A simple way to make your entire home a Smart Home",
-    "no": "En enkel måte å gjøre hele ditt hjem til et Smart Hjem.",
+    "no": "En enkel måte å gjøre hele ditt hjem til et Smart Hjem.",
     "nl": "Een eenvoudige manier om van je hele huis een slim huis te maken",
     "da": "En enkel måde at gøre hele dit hjem til et smart hjem",
     "de": "Eine einfache Möglichkeit, Ihr gesamtes Zuhause zu einem Smart Home zu machen",
@@ -574,6 +574,14 @@
     "requestDeviceStatus": {
       "method": "post",
       "path": "/requestDeviceStatus/"
+    },
+    "checkOAuthStatus": {
+      "method": "get",
+      "path": "/checkOAuthStatus/"
+    },
+    "startOAuth2Flow": {
+      "method": "get",
+      "path": "/startOAuth2Flow/"
     }
   },
   "flow": {
@@ -714,6 +722,55 @@
           }
         ],
         "id": "bright_true"
+      },
+      {
+        "title": {
+          "en": "The colour dim level changed",
+          "no": "Fargedimnivå endret",
+          "nl": "Kleur dimniveau gewijzigd",
+          "da": "Farvedæmpningsniveau ændret",
+          "de": "Farb-Dimmstufe geändert",
+          "es": "Nivel de atenuación de color cambiado",
+          "fr": "Niveau de variation de couleur modifie",
+          "it": "Livello dimmer colore cambiato",
+          "sv": "Färgdimmnivå ändrat",
+          "pl": "Poziom ściemniania koloru zmieniony",
+          "ru": "Уровень диммирования цветного света изменен",
+          "ko": "컬러 디밍 레벨 변경됨"
+        },
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "tokens": [
+          {
+            "name": "brightness",
+            "title": {
+              "en": "Brightness",
+              "no": "Lysstyrke",
+              "nl": "Helderheid",
+              "da": "Lysstyrke",
+              "de": "Helligkeit",
+              "es": "Brillo",
+              "fr": "Luminosite",
+              "it": "Luminosita",
+              "sv": "Ljusstyrka",
+              "pl": "Jasność",
+              "ru": "Яркость",
+              "ko": "밝기"
+            },
+            "type": "number",
+            "example": 0.6
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=rgbicww_ceiling_light_hub"
+          }
+        ],
+        "id": "dim_colour_changed"
       },
       {
         "title": {
@@ -871,7 +928,6 @@
           "local",
           "cloud"
         ],
-        "deprecated": true,
         "args": [
           {
             "type": "device",
@@ -969,10 +1025,68 @@
           {
             "type": "device",
             "name": "device",
-            "filter": "driver_id=lock_ultra_hub"
+            "filter": "driver_id=lock_ultra_hub|lock_vision_pro_hub"
           }
         ],
         "id": "locked"
+      },
+      {
+        "title": {
+          "en": "Color light turned off",
+          "no": "Fargelys slått av",
+          "nl": "Kleurlicht uitgeschakeld",
+          "da": "Farvelys slukket",
+          "de": "Farblicht ausgeschaltet",
+          "es": "Luz de color apagada",
+          "fr": "Lumiere couleur eteinte",
+          "it": "Luce colore spenta",
+          "sv": "Färgljus avstängt",
+          "pl": "Światło kolorowe wyłączone",
+          "ru": "Цветной свет выключен",
+          "ko": "컬러 조명 꺼짐"
+        },
+        "highlight": true,
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=rgbicww_ceiling_light_hub"
+          }
+        ],
+        "id": "onoff_colour_false"
+      },
+      {
+        "title": {
+          "en": "Color light turned on",
+          "no": "Fargelys slått på",
+          "nl": "Kleurlicht ingeschakeld",
+          "da": "Farvelys tændt",
+          "de": "Farblicht eingeschaltet",
+          "es": "Luz de color encendida",
+          "fr": "Lumiere couleur allumee",
+          "it": "Luce colore accesa",
+          "sv": "Färgljus påslaget",
+          "pl": "Światło kolorowe włączone",
+          "ru": "Цветной свет включен",
+          "ko": "컬러 조명 켜짐"
+        },
+        "highlight": true,
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=rgbicww_ceiling_light_hub"
+          }
+        ],
+        "id": "onoff_colour_true"
       },
       {
         "title": {
@@ -1438,10 +1552,74 @@
           {
             "type": "device",
             "name": "device",
-            "filter": "driver_id=lock_ultra_hub"
+            "filter": "driver_id=lock_ultra_hub|lock_vision_pro_hub"
           }
         ],
         "id": "unlocked"
+      },
+      {
+        "title": {
+          "en": "Vacuum Cleaning Started",
+          "no": "Støvsugerrengjøring startet",
+          "nl": "Stofzuigerreiniging gestart",
+          "da": "Støvsugerrengøring startet",
+          "de": "Staubsaugerreinigung gestartet",
+          "es": "Limpieza de la aspiradora iniciada",
+          "fr": "Nettoyage de l'aspirateur démarré",
+          "it": "Pulizia dell'aspirapolvere avviata",
+          "sv": "Dammsugarrengöring startad",
+          "pl": "Rozpoczęto sprzątanie odkurzaczem",
+          "ru": "Уборка пылесосом началась",
+          "ko": "청소기 청소 시작됨"
+        },
+        "highlight": true,
+        "platforms": [
+          "local"
+        ],
+        "connectivity": [
+          "local",
+          "cloud"
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=robot_vacuum_hub|robot_vacuum_S10_hub|robot_vacuum_K20_hub|robot_vacuum_K11_hub"
+          }
+        ],
+        "id": "vaccum_cleaning_started"
+      },
+      {
+        "title": {
+          "en": "Vacuum Cleaning Stopped",
+          "no": "Støvsugerrengjøring stoppet",
+          "nl": "Stofzuigerreiniging gestopt",
+          "da": "Støvsugerrengøring stoppet",
+          "de": "Staubsaugerreinigung gestoppt",
+          "es": "Limpieza de la aspiradora detenida",
+          "fr": "Nettoyage de l'aspirateur arrêté",
+          "it": "Pulizia dell'aspirapolvere interrotta",
+          "sv": "Dammsugarrengöring stoppad",
+          "pl": "Zatrzymano sprzątanie odkurzaczem",
+          "ru": "Уборка пылесосом остановлена",
+          "ko": "청소기 청소 중지됨"
+        },
+        "highlight": true,
+        "platforms": [
+          "local"
+        ],
+        "connectivity": [
+          "local",
+          "cloud"
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=robot_vacuum_hub|robot_vacuum_S10_hub|robot_vacuum_K20_hub|robot_vacuum_K11_hub"
+          }
+        ],
+        "id": "vaccum_cleaning_stopped"
       },
       {
         "title": {
@@ -2373,6 +2551,34 @@
     "conditions": [
       {
         "title": {
+          "en": "Color light is turned on",
+          "no": "Fargelys er slått på",
+          "nl": "Kleurlicht is ingeschakeld",
+          "da": "Farvelys er tændt",
+          "de": "Farblicht ist eingeschaltet",
+          "es": "La luz de color está encendida",
+          "fr": "La lumiere couleur est allumee",
+          "it": "La luce colore è accesa",
+          "sv": "Färgljuset är påslaget",
+          "pl": "Światło kolorowe jest włączone",
+          "ru": "Цветной свет включен",
+          "ko": "컬러 조명이 켜져 있음"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=rgbicww_ceiling_light_hub"
+          }
+        ],
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "id": "onoff_colour_is_true"
+      },
+      {
+        "title": {
           "en": "The state !{{is|isn't}} [[state]]",
           "no": "Kjøremodus !{{er|er ikke}} [[state]]",
           "nl": "De status !{{is|is niet}} [[state]]",
@@ -2872,7 +3078,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=lock_ultra_hub"
+            "filter": "driver_id=lock_ultra_hub|lock_vision_pro_hub"
           }
         ],
         "platforms": [
@@ -2992,6 +3198,64 @@
           "cloud"
         ],
         "id": "on"
+      },
+      {
+        "title": {
+          "en": "Turn off color light",
+          "no": "Slå av fargelys",
+          "nl": "Kleurlicht uitschakelen",
+          "da": "Sluk farvelys",
+          "de": "Farblicht ausschalten",
+          "es": "Apagar luz de color",
+          "fr": "Eteindre la lumiere couleur",
+          "it": "Spegni luce colore",
+          "sv": "Stäng av färgljus",
+          "pl": "Wyłącz światło kolorowe",
+          "ru": "Выключить цветной свет",
+          "ko": "컬러 조명 끄기"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=rgbicww_ceiling_light_hub"
+          }
+        ],
+        "highlight": true,
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "id": "onoff_colour_false"
+      },
+      {
+        "title": {
+          "en": "Turn on color light",
+          "no": "Slå på fargelys",
+          "nl": "Kleurlicht inschakelen",
+          "da": "Tænd farvelys",
+          "de": "Farblicht einschalten",
+          "es": "Encender luz de color",
+          "fr": "Allumer la lumiere couleur",
+          "it": "Accendi luce colore",
+          "sv": "Slå på färgljus",
+          "pl": "Włącz światło kolorowe",
+          "ru": "Включить цветной свет",
+          "ko": "컬러 조명 켜기"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=rgbicww_ceiling_light_hub"
+          }
+        ],
+        "highlight": true,
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "id": "onoff_colour_true"
       },
       {
         "title": {
@@ -3677,6 +3941,74 @@
           "cloud"
         ],
         "id": "set_channel"
+      },
+      {
+        "title": {
+          "en": "Dim color light",
+          "no": "Dim fargelys",
+          "nl": "Dim kleurlicht",
+          "da": "Dæmp farvelys",
+          "de": "Farblicht dimmen",
+          "es": "Atenuar luz de color",
+          "fr": "Diminuer la lumière couleur",
+          "it": "Dim luce colore",
+          "sv": "Dimma färgljus",
+          "pl": "Przyciemnij światło kolorowe",
+          "ru": "Диммировать цветной свет",
+          "ko": "컬러 조명 디밍 설정"
+        },
+        "titleFormatted": {
+          "en": "Dim color light to [[brightness]]%",
+          "no": "Dim fargelys til [[brightness]]%",
+          "nl": "Dim kleurlicht tot [[brightness]]%",
+          "da": "Dæmp farvelys til [[brightness]]%",
+          "de": "Dimme Farblicht auf [[brightness]]%",
+          "es": "Atenuar luz de color a [[brightness]]%",
+          "fr": "Diminuer la lumière couleur à [[brightness]]%",
+          "it": "Dim luce colore a [[brightness]]%",
+          "sv": "Dimma färgljus till [[brightness]]%",
+          "pl": "Przyciemnij światło kolorowe do [[brightness]]%",
+          "ru": "Диммировать цветной свет до [[brightness]]%",
+          "ko": "컬러 조명을 [[brightness]]%로 디밍 설정"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=rgbicww_ceiling_light_hub"
+          },
+          {
+            "name": "brightness",
+            "type": "range",
+            "title": {
+              "en": "Brightness",
+              "no": "Lysstyrke",
+              "nl": "Helderheid",
+              "da": "Lysstyrke",
+              "de": "Helligkeit",
+              "es": "Brillo",
+              "fr": "Luminosité",
+              "it": "Luminosità",
+              "sv": "Ljusstyrka",
+              "pl": "Jasność",
+              "ru": "Яркость",
+              "ko": "밝기"
+            },
+            "min": 0,
+            "max": 1,
+            "step": 0.01,
+            "value": 0.5,
+            "label": "%",
+            "labelMultiplier": 100,
+            "labelDecimals": 0
+          }
+        ],
+        "highlight": true,
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "id": "set_dim_colour"
       },
       {
         "title": {
@@ -4651,7 +4983,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=lock_ultra_hub"
+            "filter": "driver_id=lock_ultra_hub|lock_vision_pro_hub"
           }
         ],
         "platforms": [
@@ -5584,6 +5916,338 @@
             "labelDecimals": 0
           }
         ]
+      },
+      {
+        "id": "circulating_fan_mode",
+        "title": {
+          "en": "Set fan mode",
+          "no": "Sett viftemodus",
+          "nl": "Zet ventilatormodus",
+          "da": "Indstil ventilatormodus",
+          "de": "Ventilatormodus einstellen",
+          "es": "Configurar modo de ventilador",
+          "fr": "Régler le mode ventilateur",
+          "it": "Imposta modalità ventilatore",
+          "sv": "Ställ in fläktläge",
+          "pl": "Ustaw tryb wentylatora",
+          "ru": "Установить режим вентилятора",
+          "ko": "팬 모드 설정"
+        },
+        "titleFormatted": {
+          "en": "Set the fan mode to [[fan_mode]]",
+          "no": "Sett viftemodus til [[fan_mode]]",
+          "nl": "Stel ventilatormodus in op [[fan_mode]]",
+          "da": "Indstil ventilatormodus til [[fan_mode]]",
+          "de": "Ventilatormodus auf [[fan_mode]] einstellen",
+          "es": "Configura el modo de ventilador a [[fan_mode]]",
+          "fr": "Réglez le mode ventilateur sur [[fan_mode]]",
+          "it": "Imposta la modalità ventilatore su [[fan_mode]]",
+          "sv": "Ställ in fläktläge till [[fan_mode]]",
+          "pl": "Ustaw tryb wentylatora na [[fan_mode]]",
+          "ru": "Установите режим вентилятора на [[fan_mode]]",
+          "ko": "팬 모드를 [[fan_mode]]로 설정"
+        },
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=smart_fan_new_hub"
+          },
+          {
+            "name": "fan_mode",
+            "title": {
+              "en": "Mode",
+              "no": "Viftemodus",
+              "nl": "Modus",
+              "da": "Modus",
+              "de": "Modus",
+              "es": "Modo",
+              "fr": "Mode",
+              "it": "Modalità",
+              "sv": "Läge",
+              "pl": "Tryb",
+              "ru": "Режим",
+              "ko": "모드"
+            },
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "direct",
+                "title": {
+                  "en": "Direct",
+                  "no": "Direkte",
+                  "nl": "Direct",
+                  "da": "Direkte",
+                  "de": "Direkt",
+                  "es": "Directo",
+                  "fr": "Direct",
+                  "it": "Diretto",
+                  "sv": "Direkt",
+                  "pl": "Bezpośredni",
+                  "ru": "Прямой",
+                  "ko": "직접"
+                }
+              },
+              {
+                "id": "natural",
+                "title": {
+                  "en": "Natural",
+                  "no": "Naturlig",
+                  "nl": "Natuurlijk",
+                  "da": "Naturlig",
+                  "de": "Natürlich",
+                  "es": "Natural",
+                  "fr": "Naturel",
+                  "it": "Naturale",
+                  "sv": "Naturlig",
+                  "pl": "Naturalny",
+                  "ru": "Естественный",
+                  "ko": "자연풍"
+                }
+              },
+              {
+                "id": "sleep",
+                "title": {
+                  "en": "Sleep",
+                  "no": "Søvn",
+                  "nl": "Slaap",
+                  "da": "Søvn",
+                  "de": "Schlaf",
+                  "es": "Dormir",
+                  "fr": "Sommeil",
+                  "it": "Sonno",
+                  "sv": "Sömn",
+                  "pl": "Sen",
+                  "ru": "Сон",
+                  "ko": "수면"
+                }
+              },
+              {
+                "id": "baby",
+                "title": {
+                  "en": "Baby",
+                  "no": "Baby",
+                  "nl": "Baby",
+                  "da": "Baby",
+                  "de": "Baby",
+                  "es": "Bebé",
+                  "fr": "Bébé",
+                  "it": "Bambino",
+                  "sv": "Baby",
+                  "pl": "Dziecko",
+                  "ru": "Младенец",
+                  "ko": "아기"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "set_night_light",
+        "title": {
+          "en": "Set night light",
+          "no": "Sett nattlys",
+          "nl": "Stel nachtlicht in",
+          "da": "Indstil natlys",
+          "de": "Nachtlicht einstellen",
+          "es": "Establecer luz nocturna",
+          "fr": "Régler la lumière nocturne",
+          "it": "Imposta luce notturna",
+          "sv": "Ställ in nattljus",
+          "pl": "Ustaw światło nocne",
+          "ru": "Установить ночной свет",
+          "ko": "야간 조명 설정"
+        },
+        "titleFormatted": {
+          "en": "Set the night light to [[night_light]]",
+          "no": "Sett nattlyset til [[night_light]]",
+          "nl": "Stel het nachtlicht in op [[night_light]]",
+          "da": "Indstil natlyset til [[night_light]]",
+          "de": "Nachtlicht auf [[night_light]] einstellen",
+          "es": "Establecer la luz nocturna a [[night_light]]",
+          "fr": "Régler la lumière nocturne sur [[night_light]]",
+          "it": "Imposta la luce notturna su [[night_light]]",
+          "sv": "Ställ in nattljuset till [[night_light]]",
+          "pl": "Ustaw światło nocne na [[night_light]]",
+          "ru": "Установить ночной свет на [[night_light]]",
+          "ko": "야간 조명을 [[night_light]]로 설정"
+        },
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=smart_fan_new_hub"
+          },
+          {
+            "name": "night_light",
+            "title": {
+              "en": "Night Light",
+              "no": "Nattlys",
+              "nl": "Nachtlicht",
+              "da": "Natlys",
+              "de": "Nachtlicht",
+              "es": "Luz nocturna",
+              "fr": "Lumière nocturne",
+              "it": "Luce notturna",
+              "sv": "Nattljus",
+              "pl": "Światło nocne",
+              "ru": "Ночной свет",
+              "ko": "야간 조명"
+            },
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "off",
+                "title": {
+                  "en": "Off",
+                  "no": "Av",
+                  "nl": "Uit",
+                  "da": "Fra",
+                  "de": "Aus",
+                  "es": "Apagado",
+                  "fr": "Éteint",
+                  "it": "Spento",
+                  "sv": "Av",
+                  "pl": "Wyłączony",
+                  "ru": "Выкл",
+                  "ko": "꺼짐"
+                }
+              },
+              {
+                "id": "2",
+                "title": {
+                  "en": "Dim",
+                  "no": "Dempet",
+                  "nl": "Gedimd",
+                  "da": "Dæmpet",
+                  "de": "Gedimmt",
+                  "es": "Atenuado",
+                  "fr": "Faible",
+                  "it": "Luce tenue",
+                  "sv": "Dämpad",
+                  "pl": "Przyciemnione",
+                  "ru": "Тусклый",
+                  "ko": "어둡게"
+                }
+              },
+              {
+                "id": "1",
+                "title": {
+                  "en": "Bright",
+                  "no": "Lys",
+                  "nl": "Helder",
+                  "da": "Lys",
+                  "de": "Hell",
+                  "es": "Brillante",
+                  "fr": "Luminosité",
+                  "it": "Luce intensa",
+                  "sv": "Ljus",
+                  "pl": "Jasne",
+                  "ru": "Яркий",
+                  "ko": "밝음"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "customQuote",
+        "title": {
+          "en": "Set custom quote"
+        },
+        "titleFormatted": {
+          "en": "Set Weather Station custom quote to [[custom_text]]"
+        },
+        "hint": {
+          "en": "Set a custom quote on a Weather Station"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=weather_station_hub"
+          },
+          {
+            "name": "custom_text",
+            "type": "text",
+            "title": {
+              "en": "Custom quote"
+            },
+            "placeholder": {
+              "en": "Type custom quote"
+            }
+          }
+        ],
+        "platforms": [
+          "local",
+          "cloud"
+        ]
+      },
+      {
+        "id": "cancelCustom",
+        "title": {
+          "en": "Cancel custom quote"
+        },
+        "titleFormatted": {
+          "en": "Cancel Weather Station custom quote"
+        },
+        "hint": {
+          "en": "Cancel the Weather Station custom quote and revert to default"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=weather_station_hub"
+          }
+        ],
+        "platforms": [
+          "local",
+          "cloud"
+        ]
+      },
+      {
+        "id": "customPage",
+        "title": {
+          "en": "Set custom page"
+        },
+        "titleFormatted": {
+          "en": "Set Weather Station custom page to [[custom_text]]"
+        },
+        "hint": {
+          "en": "Set custom page text on a Weather Station"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=weather_station_hub"
+          },
+          {
+            "name": "custom_text",
+            "type": "text",
+            "title": {
+              "en": "Custom page text"
+            },
+            "placeholder": {
+              "en": "Type custom page text"
+            }
+          }
+        ],
+        "platforms": [
+          "local",
+          "cloud"
+        ]
       }
     ]
   },
@@ -5833,6 +6497,70 @@
       ]
     },
     {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        }
+      ],
+      "icon": "/drivers/art_frame_hub/assets/icon.svg",
+      "images": {
+        "large": "/drivers/art_frame_hub/assets/images/large.jpg",
+        "small": "/drivers/art_frame_hub/assets/images/small.jpg"
+      },
+      "id": "art_frame_hub",
+      "name": {
+        "en": "Art Frame (HUB)",
+        "no": "Kunstramme (HUB)",
+        "nl": "Kunstframe (HUB)",
+        "da": "Kunstramme (HUB)",
+        "de": "Kunstrahmen (HUB)",
+        "es": "Marco de arte (HUB)",
+        "fr": "Cadre artistique (HUB)",
+        "it": "Cornice artistica (HUB)",
+        "sv": "Konstnärlig ram (HUB)",
+        "pl": "Ramka artystyczna (HUB)",
+        "ru": "Художественная рамка (HUB)",
+        "ko": "예술 프레임 (HUB)"
+      },
+      "class": "mediaplayer",
+      "capabilities": [
+        "speaker_next",
+        "speaker_prev",
+        "measure_battery"
+      ],
+      "energy": {
+        "batteries": [
+          "AA",
+          "AA"
+        ]
+      }
+    },
+    {
       "id": "blind_tilt_ble",
       "name": {
         "en": "Blind Tilt (BLE)",
@@ -5857,7 +6585,7 @@
       ],
       "class": "blinds",
       "capabilities": [
-        "open_close",
+        "windowcoverings_closed",
         "measure_battery",
         "windowcoverings_tilt_set",
         "rssi",
@@ -6510,6 +7238,133 @@
           }
         }
       ]
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        }
+      ],
+      "icon": "/drivers/candle_warmer_lamp_hub/assets/icon.svg",
+      "images": {
+        "large": "/drivers/candle_warmer_lamp_hub/assets/images/large.jpg",
+        "small": "/drivers/candle_warmer_lamp_hub/assets/images/small.jpg"
+      },
+      "name": {
+        "en": "Candle Warmer Lamp (HUB)",
+        "no": "Lysestakevarmer (HUB)",
+        "nl": "Kandelaarverwarmer (HUB)",
+        "da": "Kandelabervarmer (HUB)",
+        "de": "Kerzenlampenwärmer (HUB)",
+        "es": "Calentador de lámpara de vela (HUB)",
+        "fr": "Chauffe-lampe à bougie (HUB)",
+        "it": "Scalda lampada a candela (HUB)",
+        "sv": "Ljuslykta värmare (HUB)",
+        "pl": "Podgrzewacz lampy świecowej (HUB)",
+        "ru": "Подогреватель свечной лампы (HUB)",
+        "ko": "캔들 램프 워머 (HUB)"
+      },
+      "class": "light",
+      "capabilities": [
+        "onoff",
+        "dim"
+      ],
+      "energy": {
+        "approximation": {
+          "usageOn": 50,
+          "usageOff": 0.1
+        }
+      },
+      "id": "candle_warmer_lamp_hub"
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        }
+      ],
+      "icon": "/drivers/ceiling_light_hub/assets/icon.svg",
+      "images": {
+        "large": "/drivers/ceiling_light_hub/assets/images/large.jpg",
+        "small": "/drivers/ceiling_light_hub/assets/images/small.jpg"
+      },
+      "name": {
+        "en": "Ceiling Light White (HUB)",
+        "no": "Taklampe Hvit (HUB)",
+        "nl": "Plafondlamp Wit (HUB)",
+        "da": "Loftlampe Hvid (HUB)",
+        "de": "Deckenleuchte Weiß (HUB)",
+        "es": "Luz de techo Blanca (HUB)",
+        "fr": "Plafonnier Blanc (HUB)",
+        "it": "Luce da soffitto Bianca (HUB)",
+        "sv": "Taklampa Vit (HUB)",
+        "pl": "Lampa sufitowa Biała (HUB)",
+        "ru": "Потолочный светильник Белый (HUB)",
+        "ko": "천장 조명 흰색 (HUB)"
+      },
+      "class": "light",
+      "capabilities": [
+        "onoff",
+        "dim",
+        "light_temperature"
+      ],
+      "energy": {
+        "approximation": {
+          "usageOn": 10,
+          "usageOff": 0.1
+        }
+      },
+      "id": "ceiling_light_hub"
     },
     {
       "platforms": [
@@ -7212,7 +8067,7 @@
       },
       "class": "curtain",
       "capabilities": [
-        "open_close",
+        "windowcoverings_closed",
         "windowcoverings_state",
         "windowcoverings_set",
         "position"
@@ -8506,7 +9361,114 @@
       ],
       "capabilitiesOptions": {
         "locked": {
-          "getable": false,
+          "getable": true,
+          "setable": false,
+          "uiComponent": null
+        },
+        "alarm_generic": {
+          "title": {
+            "en": "Door Jammed",
+            "no": "Dør blokkert",
+            "nl": "Deur Vastgelopen",
+            "da": "Dør Fastklemt",
+            "de": "Tür blockiert",
+            "es": "Puerta Atascada",
+            "fr": "Porte Bloquée",
+            "it": "Porta Bloccata",
+            "sv": "Dörr Fastnat",
+            "pl": "Drzwi Zacięte",
+            "ru": "Дверь Заклинило",
+            "ko": "문이 막힘"
+          }
+        },
+        "alarm_contact": {
+          "title": {
+            "en": "Door Open",
+            "no": "Dør åpen",
+            "nl": "Deur Open",
+            "da": "Dør Åben",
+            "de": "Tür Offen",
+            "es": "Puerta Abierta",
+            "fr": "Porte Ouverte",
+            "it": "Porta Aperta",
+            "sv": "Dörr Öppen",
+            "pl": "Drzwi Otwarte",
+            "ru": "Дверь Открыта",
+            "ko": "문 열림"
+          }
+        }
+      },
+      "energy": {
+        "batteries": [
+          "OTHER"
+        ]
+      }
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        }
+      ],
+      "icon": "/drivers/lock_vision_pro_hub/assets/icon.svg",
+      "images": {
+        "large": "/drivers/lock_vision_pro_hub/assets/images/large.jpg",
+        "small": "/drivers/lock_vision_pro_hub/assets/images/small.jpg"
+      },
+      "id": "lock_vision_pro_hub",
+      "name": {
+        "en": "Lock Vision Pro(HUB)",
+        "no": "Lock Vision Pro(HUB)",
+        "nl": "Lock Vision Pro(HUB)",
+        "da": "Lock Vision Pro(HUB)",
+        "de": "Lock Vision Pro(HUB)",
+        "es": "Lock Vision Pro(HUB)",
+        "fr": "Lock Vision Pro(HUB)",
+        "it": "Lock Vision Pro(HUB)",
+        "sv": "Lock Vision Pro(HUB)",
+        "pl": "Lock Vision Pro(HUB)",
+        "ru": "Lock Vision Pro(HUB)",
+        "ko": "Lock Vision Pro(HUB)"
+      },
+      "class": "lock",
+      "capabilities": [
+        "lock",
+        "unlock",
+        "locked",
+        "locked_status",
+        "alarm_generic",
+        "alarm_contact",
+        "measure_battery"
+      ],
+      "capabilitiesOptions": {
+        "locked": {
+          "getable": true,
+          "setable": false,
           "uiComponent": null
         },
         "alarm_generic": {
@@ -9748,6 +10710,141 @@
           "template": "login_oauth2"
         }
       ],
+      "icon": "/drivers/rgbicww_ceiling_light_hub/assets/icon.svg",
+      "images": {
+        "large": "/drivers/rgbicww_ceiling_light_hub/assets/images/large.jpg",
+        "small": "/drivers/rgbicww_ceiling_light_hub/assets/images/small.jpg"
+      },
+      "name": {
+        "en": "RGBICWW Ceiling Light (HUB)",
+        "no": "RGBICWW taklampe (HUB)",
+        "nl": "RGBICWW plafondlamp (HUB)",
+        "da": "RGBICWW loftlampe (HUB)",
+        "de": "RGBICWW Deckenleuchte (HUB)",
+        "es": "Luz de techo RGBICWW (HUB)",
+        "fr": "Plafonnier RGBICWW (HUB)",
+        "it": "Luce da soffitto RGBICWW (HUB)",
+        "sv": "RGBICWW taklampa (HUB)",
+        "pl": "Lampa sufitowa RGBICWW (HUB)",
+        "ru": "Потолочный светильник RGBICWW (HUB)",
+        "ko": "RGBICWW 천장 조명 (HUB)"
+      },
+      "class": "light",
+      "capabilities": [
+        "onoff",
+        "dim",
+        "onoff.colour",
+        "dim.colour",
+        "light_hue",
+        "light_saturation",
+        "light_temperature",
+        "light_mode"
+      ],
+      "capabilitiesOptions": {
+        "onoff": {
+          "title": {
+            "en": "Main Light",
+            "nl": "Hoofdlicht",
+            "da": "Hovedlys",
+            "de": "Hauptlicht",
+            "es": "Luz principal",
+            "fr": "Lumiere principale",
+            "it": "Luce principale",
+            "no": "Hovedlys",
+            "sv": "Huvudljus",
+            "pl": "Swiatlo glowne",
+            "ru": "Osnovnoi svet",
+            "ko": "메인 조명"
+          }
+        },
+        "dim": {
+          "title": {
+            "en": "Main Brightness",
+            "nl": "Helderheid hoofdlicht",
+            "da": "Hovedlysstyrke",
+            "de": "Helligkeit Hauptlicht",
+            "es": "Brillo principal",
+            "fr": "Luminosite principale",
+            "it": "Luminosita principale",
+            "no": "Hovedlysstyrke",
+            "sv": "Huvudljusstyrka",
+            "pl": "Jasnosc swiatla glownego",
+            "ru": "Yarkost osnovnogo sveta",
+            "ko": "메인 밝기"
+          }
+        },
+        "onoff.colour": {
+          "title": {
+            "en": "Color Light",
+            "nl": "Kleurlicht",
+            "da": "Farvelys",
+            "de": "Farblicht",
+            "es": "Luz de color",
+            "fr": "Lumiere couleur",
+            "it": "Luce colore",
+            "no": "Fargelys",
+            "sv": "Fargljus",
+            "pl": "Swiatlo kolorowe",
+            "ru": "Tsvetnoi svet",
+            "ko": "컬러 조명"
+          }
+        },
+        "dim.colour": {
+          "title": {
+            "en": "Color Brightness",
+            "nl": "Helderheid kleurlicht",
+            "da": "Farvelysstyrke",
+            "de": "Helligkeit Farblicht",
+            "es": "Brillo de color",
+            "fr": "Luminosite couleur",
+            "it": "Luminosita colore",
+            "no": "Fargelysstyrke",
+            "sv": "Fargljusstyrka",
+            "pl": "Jasnosc swiatla kolorowego",
+            "ru": "Yarkost tsvetnogo sveta",
+            "ko": "컬러 밝기"
+          }
+        }
+      },
+      "energy": {
+        "approximation": {
+          "usageOn": 15,
+          "usageOff": 0.1
+        }
+      },
+      "id": "rgbicww_ceiling_light_hub"
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        }
+      ],
       "icon": "/drivers/robot_vacuum_K11_hub/assets/icon.svg",
       "images": {
         "large": "/drivers/robot_vacuum_K11_hub/assets/images/large.jpg",
@@ -10154,7 +11251,6 @@
         "ru": "Рулонный жалюзи (BLE)",
         "ko": "롤러 블라인드 (BLE)"
       },
-      "deprecated": true,
       "platforms": [
         "local",
         "cloud"
@@ -10164,8 +11260,6 @@
       ],
       "class": "blinds",
       "capabilities": [
-        "windowcoverings_closed",
-        "windowcoverings_state",
         "measure_battery",
         "windowcoverings_set",
         "rssi",
@@ -10653,6 +11747,72 @@
         "smart_fan_mode",
         "smart_fan_shake_range"
       ]
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        }
+      ],
+      "icon": "/drivers/smart_fan_new_hub/assets/icon.svg",
+      "images": {
+        "large": "/drivers/smart_fan_new_hub/assets/images/large.jpg",
+        "small": "/drivers/smart_fan_new_hub/assets/images/small.jpg"
+      },
+      "id": "smart_fan_new_hub",
+      "name": {
+        "en": "Circulator Fan (HUB)",
+        "no": "Sirkulasjonsvifte (HUB)",
+        "nl": "Circulatieventilator (HUB)",
+        "da": "Cirkulationsventilator (HUB)",
+        "de": "Zirkulationsventilator (HUB)",
+        "es": "Ventilador de Circulación (HUB)",
+        "fr": "Ventilateur de Circulation (HUB)",
+        "it": "Ventilatore a Circolazione (HUB)",
+        "sv": "Cirkulationsfläkt (HUB)",
+        "pl": "Wentylator Cyrkulacyjny (HUB)",
+        "ru": "Циркуляционный Вентилятор (HUB)",
+        "ko": "순환 팬 (HUB)"
+      },
+      "class": "fan",
+      "capabilities": [
+        "onoff",
+        "fan_speed",
+        "smart_fan_mode2",
+        "night_light",
+        "measure_battery"
+      ],
+      "energy": {
+        "batteries": [
+          "AA",
+          "AA"
+        ]
+      }
     },
     {
       "platforms": [
@@ -11338,6 +12498,59 @@
           ]
         }
       ]
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        }
+      ],
+      "icon": "/drivers/weather_station_hub/assets/icon.svg",
+      "images": {
+        "large": "/drivers/weather_station_hub/assets/images/large.jpg",
+        "small": "/drivers/weather_station_hub/assets/images/small.jpg"
+      },
+      "id": "weather_station_hub",
+      "name": {
+        "en": "Weather Station (HUB)"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "measure_temperature",
+        "measure_humidity",
+        "measure_battery"
+      ],
+      "energy": {
+        "batteries": [
+          "AA",
+          "AA"
+        ]
+      }
     }
   ],
   "capabilities": {
@@ -12537,6 +13750,78 @@
       },
       "icon": "/assets/next.svg"
     },
+    "night_light": {
+      "type": "enum",
+      "title": {
+        "en": "Night Light",
+        "no": "Nattlys",
+        "nl": "Nachtlicht",
+        "da": "Natlys",
+        "de": "Nachtlicht",
+        "es": "Luz nocturna",
+        "fr": "Lumière nocturne",
+        "it": "Luce notturna",
+        "sv": "Nattljus",
+        "pl": "Światło nocne",
+        "ru": "Ночной свет",
+        "ko": "야간 조명"
+      },
+      "values": [
+        {
+          "id": "off",
+          "title": {
+            "en": "Off",
+            "no": "Av",
+            "nl": "Uit",
+            "da": "Fra",
+            "de": "Aus",
+            "es": "Apagado",
+            "fr": "Éteint",
+            "it": "Spento",
+            "sv": "Av",
+            "pl": "Wyłączony",
+            "ru": "Выкл",
+            "ko": "꺼짐"
+          }
+        },
+        {
+          "id": "2",
+          "title": {
+            "en": "Dim",
+            "no": "Dempet",
+            "nl": "Gedimd",
+            "da": "Dæmpet",
+            "de": "Gedimmt",
+            "es": "Atenuado",
+            "fr": "Faible",
+            "it": "Luce tenue",
+            "sv": "Dämpad",
+            "pl": "Przyciemnione",
+            "ru": "Тусклый",
+            "ko": "어둡게"
+          }
+        },
+        {
+          "id": "1",
+          "title": {
+            "en": "Bright",
+            "no": "Lys",
+            "nl": "Helder",
+            "da": "Lys",
+            "de": "Hell",
+            "es": "Brillante",
+            "fr": "Luminosité",
+            "it": "Luce intensa",
+            "sv": "Ljus",
+            "pl": "Jasne",
+            "ru": "Яркий",
+            "ko": "밝음"
+          }
+        }
+      ],
+      "getable": true,
+      "setable": true
+    },
     "open_close": {
       "type": "boolean",
       "title": {
@@ -13099,6 +14384,96 @@
             "pl": "Naturalny",
             "ru": "Естественный",
             "ko": "자연스러운"
+          }
+        }
+      ],
+      "getable": true,
+      "setable": true,
+      "icon": "/assets/fan_mode.svg"
+    },
+    "smart_fan_mode2": {
+      "type": "enum",
+      "title": {
+        "en": "Mode",
+        "no": "Modus",
+        "nl": "Modus",
+        "da": "Tilstand",
+        "de": "Modus",
+        "es": "Modo",
+        "fr": "Mode",
+        "it": "Modalità",
+        "sv": "Läge",
+        "pl": "Tryb",
+        "ru": "Режим",
+        "ko": "모드"
+      },
+      "values": [
+        {
+          "id": "direct",
+          "title": {
+            "en": "Direct",
+            "no": "Direkte",
+            "nl": "Direct",
+            "da": "Direkte",
+            "de": "Direkt",
+            "es": "Directo",
+            "fr": "Direct",
+            "it": "Diretto",
+            "sv": "Direkt",
+            "pl": "Bezpośredni",
+            "ru": "Прямой",
+            "ko": "직접"
+          }
+        },
+        {
+          "id": "natural",
+          "title": {
+            "en": "Natural",
+            "no": "Naturlig",
+            "nl": "Natuurlijk",
+            "da": "Naturlig",
+            "de": "Natürlich",
+            "es": "Natural",
+            "fr": "Naturel",
+            "it": "Naturale",
+            "sv": "Naturlig",
+            "pl": "Naturalny",
+            "ru": "Естественный",
+            "ko": "자연스러운"
+          }
+        },
+        {
+          "id": "sleep",
+          "title": {
+            "en": "Sleep",
+            "no": "Søvn",
+            "nl": "Slaap",
+            "da": "Søvn",
+            "de": "Schlaf",
+            "es": "Sueño",
+            "fr": "Sommeil",
+            "it": "Sonno",
+            "sv": "Sömn",
+            "pl": "Sen",
+            "ru": "Сон",
+            "ko": "수면"
+          }
+        },
+        {
+          "id": "baby",
+          "title": {
+            "en": "Baby",
+            "no": "Barn",
+            "nl": "Baby",
+            "da": "Baby",
+            "de": "Baby",
+            "es": "Bebé",
+            "fr": "Bébé",
+            "it": "Bambino",
+            "sv": "Barn",
+            "pl": "Dziecko",
+            "ru": "Ребенок",
+            "ko": "아기"
           }
         }
       ],

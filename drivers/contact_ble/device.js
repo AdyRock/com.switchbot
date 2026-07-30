@@ -7,6 +7,28 @@ const Homey = require('homey');
 class ContactBLEDevice extends Homey.Device
 {
 
+	formatMacAddress(value)
+	{
+		if (!value)
+		{
+			return value;
+		}
+
+		const macText = String(value);
+		if (macText.includes(':'))
+		{
+			return macText;
+		}
+
+		const hexText = macText.replace(/[^a-fA-F0-9]/g, '');
+		if (hexText.length !== 12)
+		{
+			return macText;
+		}
+
+		return hexText.match(/.{1,2}/g).join(':').toUpperCase();
+	}
+
 	/**
 	 * onInit is called when the device is initialized.
 	 */
@@ -26,7 +48,7 @@ class ContactBLEDevice extends Homey.Device
 			this.addCapability('exit_id').catch(this.error);
 		}
 
-		this.homey.app.registerBLEPolling();
+		this.homey.app.registerBLEPolling(this);
 		this.log('ContactBLEDevice has been initialized');
 	}
 
@@ -66,7 +88,7 @@ class ContactBLEDevice extends Homey.Device
 	 */
 	async onDeleted()
 	{
-		this.homey.app.unregisterBLEPolling();
+		this.homey.app.unregisterBLEPolling(this);
 		await this.blePeripheral.disconnect();
 		this.log('ContactBLEDevice has been deleted');
 	}
@@ -90,23 +112,24 @@ class ContactBLEDevice extends Homey.Device
 
 			if (dd.id)
 			{
-				this.homey.app.updateLog('Finding Presence BLE device', 3);
+				const deviceMac = this.formatMacAddress(dd.address || dd.id);
+				this.homey.app.updateLog('Finding Presence BLE device', 3, 'ble');
 				const bleAdvertisement = await this.homey.ble.find(dd.id);
 				if (!bleAdvertisement)
 				{
 					const name = this.getName();
-					this.homey.app.updateLog(`BLE device ${name} not found`);
+					this.homey.app.updateLog(`BLE device ${name} (MAC: ${deviceMac}) not found`, 'ble');
 					return;
 				}
 
-				this.homey.app.updateLog(this.homey.app.varToString(bleAdvertisement), 4);
+				this.homey.app.updateLog(this.homey.app.varToString(bleAdvertisement), 4, 'ble');
 				const { rssi } = bleAdvertisement;
 				this.setCapabilityValue('rssi', rssi).catch(this.error);
 
 				const data = this.driver.parse(bleAdvertisement);
 				if (data)
 				{
-					this.homey.app.updateLog(`Parsed Presence BLE: ${this.homey.app.varToString(data)}`, 3);
+					this.homey.app.updateLog(`Parsed Presence BLE (MAC: ${deviceMac}): ${this.homey.app.varToString(data)}`, 3, 'ble');
 					this.setCapabilityValue('alarm_motion', data.serviceData.motion).catch(this.error);
 					this.setCapabilityValue('alarm_contact', data.serviceData.contact).catch(this.error);
 					if (this.getCapabilityValue('bright') !== data.serviceData.light)
@@ -123,7 +146,7 @@ class ContactBLEDevice extends Homey.Device
 				}
 				else
 				{
-					this.homey.app.updateLog('Parsed Presence BLE: No service data', 0);
+					this.homey.app.updateLog(`Parsed Presence BLE (MAC: ${deviceMac}): No service data`, 0, 'ble');
 				}
 			}
 			else
@@ -133,11 +156,21 @@ class ContactBLEDevice extends Homey.Device
 		}
 		catch (err)
 		{
-			this.homey.app.updateLog(err.message, 0);
+			const dd = this.getData();
+			const deviceMac = this.formatMacAddress(dd.address || dd.id);
+			const message = (err && err.message) ? err.message : String(err);
+			if (/Peripheral\s+Not\s+Found/i.test(message))
+			{
+				this.homey.app.updateLog(`${message} (MAC: ${deviceMac})`, 0, 'ble');
+			}
+			else
+			{
+				this.homey.app.updateLog(message, 0, 'ble');
+			}
 		}
 		finally
 		{
-			this.homey.app.updateLog('Finding Presence BLE device --- COMPLETE', 3);
+			this.homey.app.updateLog('Finding Presence BLE device --- COMPLETE', 3, 'ble');
 		}
 	}
 
@@ -179,10 +212,11 @@ class ContactBLEDevice extends Homey.Device
 		}
 		catch (error)
 		{
-			this.homey.app.updateLog(`Error in Presence syncEvents: ${this.homey.app.varToString(error)}`, 0);
+			this.homey.app.updateLog(`Error in Presence syncEvents: ${this.homey.app.varToString(error)}`, 0, 'ble');
 		}
 	}
 
 }
 
 module.exports = ContactBLEDevice;
+

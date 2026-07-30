@@ -18,7 +18,7 @@ class CameraHubDevice extends HubDevice
 		this.homey.app.registerHomeyWebhook(dd.id).catch(this.error);
 
 		this.video = null;
-		this.registerVideoStream();
+		this.registerVideoStream().catch(this.error);
 
 		this.log('CameraHubDevice has been initialising');
 	}
@@ -53,35 +53,59 @@ class CameraHubDevice extends HubDevice
 		}
 		if ((changedKeys.indexOf('ip') >= 0) || (changedKeys.indexOf('username') >= 0) || (changedKeys.indexOf('password') >= 0))
 		{
-			this.registerVideoStream();
+			this.registerVideoStream().catch(this.error);
 		}
 	}
 
 	async registerVideoStream()
 	{
-		if (this.video)
+		try
 		{
-			this.homey.videos.unregisterVideo(this.video);
+			const previousVideo = this.video;
 			this.video = null;
-		}
 
-		if ((typeof this.homey.hasFeature === 'function') && this.homey.hasFeature('camera-streaming'))
-		{
-			const settings = this.getSettings();
-
-			if (settings.username && settings.password && settings.ip)
+			if (previousVideo)
 			{
-				this.homey.app.updateLog('Registering Now video stream (' + this.name + ')');
-				this.video = await this.homey.videos.createVideoRTSP();
-				this.video.registerVideoUrlListener(async () =>
+				try
 				{
-					const url = `rtsp://${settings.username}:${settings.password}@${settings.ip}:554/live1`;
-					this.homey.app.updateLog(`Setting Live video stream to ${url}`);
-					return { url };
-				});
-				this.setCameraVideo('live_video', 'Live Video', this.video).catch(this.err);
-				this.homey.app.updateLog('registered Now video stream (' + this.name + ')');
+					await this.homey.videos.unregisterVideo(previousVideo);
+				}
+				catch (err)
+				{
+					this.homey.app.updateLog(`Failed to unregister existing camera video stream: ${err.message}`, 0, 'hub');
+				}
 			}
+
+			if ((typeof this.homey.hasFeature === 'function') && this.homey.hasFeature('camera-streaming'))
+			{
+				const settings = this.getSettings();
+
+				if (settings.username && settings.password && settings.ip)
+				{
+					this.homey.app.updateLog('Registering Now video stream (' + this.name + ')', 'hub');
+					this.video = await this.homey.videos.createVideoRTSP();
+					this.video.registerVideoUrlListener(async () =>
+					{
+						const url = `rtsp://${settings.username}:${settings.password}@${settings.ip}:554/live1`;
+						this.homey.app.updateLog(`Setting Live video stream to ${url}`, 'hub');
+						return { url };
+					});
+
+					try
+					{
+						await this.setCameraVideo('live_video', 'Live Video', this.video);
+						this.homey.app.updateLog('registered Now video stream (' + this.name + ')', 'hub');
+					}
+					catch (err)
+					{
+						this.homey.app.updateLog(`Failed to set camera video stream: ${err.message}`, 0, 'hub');
+					}
+				}
+			}
+		}
+		catch (err)
+		{
+			this.homey.app.updateLog(`registerVideoStream error: ${err.message}`, 0, 'hub');
 		}
 	}
 
@@ -106,7 +130,7 @@ class CameraHubDevice extends HubDevice
 		}
 		catch (err)
 		{
-			this.homey.app.updateLog(`processWebhookMessage error ${err.message}`, 0);
+			this.homey.app.updateLog(`processWebhookMessage error ${err.message}`, 0, 'hub');
 		}
 	}
 

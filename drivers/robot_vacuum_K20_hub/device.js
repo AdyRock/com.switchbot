@@ -138,8 +138,37 @@ class VacuumK20HubDevice extends HubDevice
 
 	async pollHubDeviceValues()
 	{
-		this.getHubDeviceValues();
+		await this.getHubDeviceValues();
 		return true;
+	}
+
+	isCleaningState(state)
+	{
+		if (!state)
+		{
+			return false;
+		}
+
+		const normalizedState = String(state).trim().toLowerCase();
+		const translatedClearing = String(this.homey.__('clearing') || '').trim().toLowerCase();
+		const translatedCleaning = String(this.homey.__('cleaning') || '').trim().toLowerCase();
+
+		return ['clearing', 'cleaning', translatedClearing, translatedCleaning].includes(normalizedState);
+	}
+
+	onVacuumWorkingStatusChanged(previousState, currentRawState, currentTranslatedState)
+	{
+		const wasCleaning = this.isCleaningState(previousState);
+		const isCleaning = this.isCleaningState(currentRawState) || this.isCleaningState(currentTranslatedState);
+
+		if (!wasCleaning && isCleaning)
+		{
+			this.driver.triggerCleaningStarted(this).catch(this.error);
+		}
+		else if (wasCleaning && !isCleaning)
+		{
+			this.driver.triggerCleaningStopped(this).catch(this.error);
+		}
 	}
 
 	async getHubDeviceValues()
@@ -150,7 +179,7 @@ class VacuumK20HubDevice extends HubDevice
 			if (data)
 			{
 				this.setAvailable();
-				this.homey.app.updateLog(`VacuumK20HubDevice got: ${this.homey.app.varToString(data)}`, 3);
+				this.homey.app.updateLog(`VacuumK20HubDevice got: ${this.homey.app.varToString(data)}`, 3, 'hub');
 
 				// Check for working status
 				if (data.workingStatus)
@@ -164,7 +193,8 @@ class VacuumK20HubDevice extends HubDevice
 						workingStatus = data.workingStatus;
 					}
 
-					if (workingStatus !== this.getCapabilityValue('robot_vaccum_state'))
+					const previousState = this.getCapabilityValue('robot_vaccum_state');
+					if (workingStatus !== previousState)
 					{
 						this.setCapabilityValue('robot_vaccum_state', workingStatus).catch(this.error);
 
@@ -178,6 +208,7 @@ class VacuumK20HubDevice extends HubDevice
 							state: data.workingStatus,
 						};
 						this.driver.triggerStateChangedTo(this, null, args).catch(this.error);
+						this.onVacuumWorkingStatusChanged(previousState, data.workingStatus, workingStatus);
 					}
 				}
 
@@ -221,7 +252,7 @@ class VacuumK20HubDevice extends HubDevice
 						}
 						catch (err)
 						{
-							this.log(err);
+							this.homey.app.updateLog(this.homey.app.varToString(err), 'hub');
 						}
 					}
 
@@ -233,7 +264,7 @@ class VacuumK20HubDevice extends HubDevice
 		}
 		catch (err)
 		{
-			this.homey.app.updateLog(`VacuumK20HubDevice getHubDeviceValues: ${this.homey.app.varToString(err.message)}`, 0);
+			this.homey.app.updateLog(`VacuumK20HubDevice getHubDeviceValues: ${this.homey.app.varToString(err.message)}`, 0, 'hub');
 			this.setWarning(err.message).catch(this.error);;
 		}
 	}
@@ -261,7 +292,8 @@ class VacuumK20HubDevice extends HubDevice
 							workingStatus = data.workingStatus;
 						}
 
-						if (workingStatus !== this.getCapabilityValue('robot_vaccum_state'))
+						const previousState = this.getCapabilityValue('robot_vaccum_state');
+						if (workingStatus !== previousState)
 						{
 							this.setCapabilityValue('robot_vaccum_state', workingStatus).catch(this.error);
 
@@ -275,6 +307,7 @@ class VacuumK20HubDevice extends HubDevice
 								state: data.workingStatus,
 							};
 							this.driver.triggerStateChangedTo(this, null, args).catch(this.error);
+							this.onVacuumWorkingStatusChanged(previousState, data.workingStatus, workingStatus);
 						}
 					}
 
@@ -317,7 +350,7 @@ class VacuumK20HubDevice extends HubDevice
 							}
 							catch (err)
 							{
-								this.log(err);
+								this.homey.app.updateLog(this.homey.app.varToString(err), 'hub');
 							}
 
 						}
@@ -329,7 +362,7 @@ class VacuumK20HubDevice extends HubDevice
 		}
 		catch (err)
 		{
-			this.homey.app.updateLog(`VacuumK20HubDevice processWebhookMessage error ${err.message}`, 0);
+			this.homey.app.updateLog(`VacuumK20HubDevice processWebhookMessage error ${err.message}`, 0, 'hub');
 		}
 	}
 

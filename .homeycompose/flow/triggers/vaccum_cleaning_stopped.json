@@ -1,0 +1,31 @@
+{
+  "title": {
+    "en": "Vacuum Cleaning Stopped",
+    "no": "Støvsugerrengjøring stoppet",
+    "nl": "Stofzuigerreiniging gestopt",
+    "da": "Støvsugerrengøring stoppet",
+    "de": "Staubsaugerreinigung gestoppt",
+    "es": "Limpieza de la aspiradora detenida",
+    "fr": "Nettoyage de l'aspirateur arrêté",
+    "it": "Pulizia dell'aspirapolvere interrotta",
+    "sv": "Dammsugarrengöring stoppad",
+    "pl": "Zatrzymano sprzątanie odkurzaczem",
+    "ru": "Уборка пылесосом остановлена",
+    "ko": "청소기 청소 중지됨"
+  },
+  "highlight": true,
+  "platforms": [
+    "local"
+  ],
+  "connectivity": [
+    "local",
+    "cloud"
+  ],
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=robot_vacuum_hub|robot_vacuum_S10_hub|robot_vacuum_K20_hub|robot_vacuum_K11_hub"
+    }
+  ]
+}

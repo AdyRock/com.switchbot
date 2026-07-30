@@ -40,6 +40,15 @@ class RollerBlindHubDevice extends HubDevice
 	 */
 	async onAdded()
 	{
+		try
+		{
+			await this.getHubDeviceValues();
+		}
+		catch (err)
+		{
+			this.setUnavailable(err.message);
+		}
+
 		this.log('RollerBlindHubDevice has been added');
 	}
 
@@ -113,7 +122,7 @@ class RollerBlindHubDevice extends HubDevice
 		const dd = this.getData();
 		if (!dd.type)
 		{
-			this.getHubDeviceValues();
+			await this.getHubDeviceValues();
 			return true;
 		}
 
@@ -128,7 +137,7 @@ class RollerBlindHubDevice extends HubDevice
 			if (data)
 			{
 				this.setAvailable();
-				this.homey.app.updateLog(`Roller Blind Hub got: ${this.homey.app.varToString(data)}`, 3);
+				this.homey.app.updateLog(`Roller Blind Hub got: ${this.homey.app.varToString(data)}`, 3, 'hub');
 
 				let position = data.slidePosition / 100;
 				if (this.invertPosition)
@@ -139,13 +148,11 @@ class RollerBlindHubDevice extends HubDevice
 				this.setCapabilityValue('windowcoverings_set', position).catch(this.error);
 				this.setCapabilityValue('position', position * 100).catch(this.error);
 
-				if (this.lastPosition)
+				// Check if last position is known, and if it has changed trigger the Position Less Than and Position Greater Than flows
+				if ((this.lastPosition !== undefined) && (this.lastPosition !== null) && (this.lastPosition !== position))
 				{
-					if (this.lastPosition !== position)
-					{
-						this.homey.app.triggerPositionLessThan(this, { lastPosition: this.lastPosition, position }, { lastPosition: this.lastPosition, position }).catch(this.error);
-						this.homey.app.triggerPositionGreaterThan(this, { lastPosition: this.lastPosition, position }, { lastPosition: this.lastPosition, position }).catch(this.error);
-					}
+					this.homey.app.triggerPositionLessThan(this, { lastPosition: this.lastPosition, position }, { lastPosition: this.lastPosition, position }).catch(this.error);
+					this.homey.app.triggerPositionGreaterThan(this, { lastPosition: this.lastPosition, position }, { lastPosition: this.lastPosition, position }).catch(this.error);
 				}
 
 				this.lastPosition = position;
@@ -160,7 +167,7 @@ class RollerBlindHubDevice extends HubDevice
 						}
 						catch (err)
 						{
-							this.log(err);
+							this.homey.app.updateLog(this.homey.app.varToString(err), 'hub');
 						}
 					}
 
@@ -171,7 +178,7 @@ class RollerBlindHubDevice extends HubDevice
 		}
 		catch (err)
 		{
-			this.homey.app.updateLog(`Roller Blinds getHubDeviceValues: ${this.homey.app.varToString(err.message)}`, 0);
+			this.homey.app.updateLog(`Roller Blinds getHubDeviceValues: ${this.homey.app.varToString(err.message)}`, 0, 'hub');
 			this.setWarning(err.message).catch(this.error);;
 		}
 	}
@@ -200,13 +207,11 @@ class RollerBlindHubDevice extends HubDevice
 				this.setCapabilityValue('windowcoverings_set', position).catch(this.error);
 				this.setCapabilityValue('position', position * 100).catch(this.error);
 
-				if (this.lastPosition)
+				// Check if last position is known, and if it has changed trigger the Position Less Than and Position Greater Than flows
+				if ((this.lastPosition !== undefined) && (this.lastPosition !== null) && (this.lastPosition !== position))
 				{
-					if (this.lastPosition !== position)
-					{
-						this.homey.app.triggerPositionLessThan(this, { lastPosition: this.lastPosition, position }, { lastPosition: this.lastPosition, position }).catch(this.error);
-						this.homey.app.triggerPositionGreaterThan(this, { lastPosition: this.lastPosition, position }, { lastPosition: this.lastPosition, position }).catch(this.error);
-					}
+					this.homey.app.triggerPositionLessThan(this, { lastPosition: this.lastPosition, position }, { lastPosition: this.lastPosition, position }).catch(this.error);
+					this.homey.app.triggerPositionGreaterThan(this, { lastPosition: this.lastPosition, position }, { lastPosition: this.lastPosition, position }).catch(this.error);
 				}
 
 				this.lastPosition = position;
@@ -221,7 +226,7 @@ class RollerBlindHubDevice extends HubDevice
 						}
 						catch (err)
 						{
-							this.log(err);
+							this.homey.app.updateLog(this.homey.app.varToString(err), 'hub');
 						}
 					}
 
@@ -231,7 +236,7 @@ class RollerBlindHubDevice extends HubDevice
 		}
 		catch (err)
 		{
-			this.homey.app.updateLog(`processWebhookMessage error ${err.message}`, 0);
+			this.homey.app.updateLog(`processWebhookMessage error ${err.message}`, 0, 'hub');
 		}
 	}
 

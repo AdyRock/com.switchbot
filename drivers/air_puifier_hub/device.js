@@ -7,6 +7,12 @@ const HubDevice = require('../hub_device');
 class AirPurifierHubDevice extends HubDevice
 {
 
+	isDriverNotFoundRedisError(err)
+	{
+		const message = (err && err.message) ? err.message : String(err);
+		return /Not Found \(Redis\): Driver with ID/i.test(message);
+	}
+
 	/**
 	 * onInit is called when the device is initialized.
 	 */
@@ -95,7 +101,7 @@ class AirPurifierHubDevice extends HubDevice
 
 	async pollHubDeviceValues()
 	{
-		this.getHubDeviceValues();
+		await this.getHubDeviceValues();
 		return true;
 	}
 
@@ -106,19 +112,37 @@ class AirPurifierHubDevice extends HubDevice
 			const data = await this._getHubDeviceValues();
 			if (data)
 			{
-				this.setAvailable();
-				this.homey.app.updateLog(`AirPurifierHubDevice got: ${this.homey.app.varToString(data)}`, 3);
+				this.setAvailable().catch((err) =>
+				{
+					if (!this.isDriverNotFoundRedisError(err))
+					{
+						this.error(err);
+					}
+				});
+				this.homey.app.updateLog(`AirPurifierHubDevice got: ${this.homey.app.varToString(data)}`, 3, 'hub');
 
 				this.setCapabilityValue('onoff', data.power === 'ON').catch(this.error);
 				this.setCapabilityValue('air_purifier_mode', data.mode.toString()).catch(this.error);
 				this.setCapabilityValue('child_lock', (data.childLock === 1)).catch(this.error);
 			}
-			this.unsetWarning().catch(this.error);
+			this.unsetWarning().catch((err) =>
+			{
+				if (!this.isDriverNotFoundRedisError(err))
+				{
+					this.error(err);
+				}
+			});
 		}
 		catch (err)
 		{
-			this.homey.app.updateLog(`AirPurifierHubDevice getHubDeviceValues: ${this.homey.app.varToString(err.message)}`, 0);
-			this.setWarning(err.message);
+			this.homey.app.updateLog(`AirPurifierHubDevice getHubDeviceValues: ${this.homey.app.varToString(err.message)}`, 0, 'hub');
+			this.setWarning(err.message).catch((warningErr) =>
+			{
+				if (!this.isDriverNotFoundRedisError(warningErr))
+				{
+					this.error(warningErr);
+				}
+			});
 		}
 	}
 
@@ -141,7 +165,7 @@ class AirPurifierHubDevice extends HubDevice
 		}
 		catch (err)
 		{
-			this.homey.app.updateLog(`processWebhookMessage error ${err.message}`, 0);
+			this.homey.app.updateLog(`processWebhookMessage error ${err.message}`, 0, 'hub');
 		}
 	}
 

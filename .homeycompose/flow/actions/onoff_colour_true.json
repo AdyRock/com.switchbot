@@ -1,0 +1,28 @@
+{
+	"title": {
+		"en": "Turn on color light",
+		"no": "Slå på fargelys",
+		"nl": "Kleurlicht inschakelen",
+		"da": "Tænd farvelys",
+		"de": "Farblicht einschalten",
+		"es": "Encender luz de color",
+		"fr": "Allumer la lumiere couleur",
+		"it": "Accendi luce colore",
+		"sv": "Slå på färgljus",
+		"pl": "Włącz światło kolorowe",
+		"ru": "Включить цветной свет",
+		"ko": "컬러 조명 켜기"
+	},
+	"args": [
+		{
+			"name": "device",
+			"type": "device",
+			"filter": "driver_id=rgbicww_ceiling_light_hub"
+		}
+	],
+	"highlight": true,
+	"platforms": [
+		"local",
+		"cloud"
+	]
+}

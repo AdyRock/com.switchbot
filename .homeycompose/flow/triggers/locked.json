@@ -22,7 +22,7 @@
 		{
 			"type": "device",
 			"name": "device",
-			"filter": "driver_id=lock_ultra_hub"
+			"filter": "driver_id=lock_ultra_hub|lock_vision_pro_hub"
 		}
 	]
 }

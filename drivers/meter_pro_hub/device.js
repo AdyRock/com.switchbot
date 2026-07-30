@@ -55,7 +55,7 @@ class MeterProHubDevice extends HubDevice
 			if (data)
 			{
 				this.setAvailable();
-				this.homey.app.updateLog(`Temperature Hub got: ${this.homey.app.varToString(data)}`, 3);
+				this.homey.app.updateLog(`Temperature Hub got: ${this.homey.app.varToString(data)}`, 3, 'hub');
 
 				if (data.scale && (data.scale !== 'CELSIUS'))
 				{
@@ -74,7 +74,7 @@ class MeterProHubDevice extends HubDevice
 		}
 		catch (err)
 		{
-			this.homey.app.updateLog(`MeterProHubDevice getHubDeviceValues: ${this.homey.app.varToString(err.message)}`, 0);
+			this.homey.app.updateLog(`MeterProHubDevice getHubDeviceValues: ${this.homey.app.varToString(err.message)}`, 0, 'hub');
 			this.setWarning(err.message).catch(this.error);;
 		}
 	}
@@ -110,7 +110,7 @@ class MeterProHubDevice extends HubDevice
 		}
 		catch (err)
 		{
-			this.homey.app.updateLog(`processWebhookMessage error ${err.message}`, 0);
+			this.homey.app.updateLog(`processWebhookMessage error ${err.message}`, 0, 'hub');
 		}
 	}
 
