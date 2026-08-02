@@ -50,7 +50,30 @@ class PresenceBLEDevice extends Homey.Device
 		}
 
 		this.lastHubStateFingerprint = fingerprint;
-		this.homey.app.updateLog(`[esp32] Presence event (${this.getName()}): ${this.homey.app.varToString(state)}`, 1, 'ble');
+		const summaryParts = [];
+		if (typeof state.motion !== 'undefined')
+		{
+			summaryParts.push(`motion=${state.motion}`);
+		}
+		if (typeof state.bright !== 'undefined')
+		{
+			summaryParts.push(`bright=${state.bright}`);
+		}
+		if (typeof state.battery !== 'undefined')
+		{
+			summaryParts.push(`battery=${state.battery}`);
+		}
+		if (typeof state.rssi !== 'undefined')
+		{
+			summaryParts.push(`rssi=${state.rssi}`);
+		}
+		if (state.hubMAC)
+		{
+			summaryParts.push(`hub=${state.hubMAC}`);
+		}
+		const summary = summaryParts.length > 0 ? summaryParts.join(', ') : 'decoded values unavailable';
+		this.homey.app.updateLog(`[webhook/ble] ${this.getName()}: ${summary}`, 1, 'ble');
+		this.homey.app.updateLog(`[detailed] Presence event raw (${this.getName()}): ${this.homey.app.varToString(state)}`, 3, 'ble');
 	}
 
 	/**

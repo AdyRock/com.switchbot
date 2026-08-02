@@ -2451,16 +2451,73 @@ class MyApp extends OAuth2App
 		this.blePollingFallbackDevices.clear();
 	}
 
-	async handleBLEAdvertisement(bleId, advertisement)
+	getBLEAdvertisementDispatchDevices()
 	{
-		const subscription = this.bleAdvertisementSubscriptions.get(bleId);
-		if (!subscription)
+		const devices = [];
+		const drivers = this.homey.drivers.getDrivers();
+		for (const driver of Object.values(drivers))
 		{
-			return;
+			if (!driver || typeof driver.getDevices !== 'function')
+			{
+				continue;
+			}
+
+			for (const device of Object.values(driver.getDevices()))
+			{
+				if (device && typeof device.syncBLEEvents === 'function')
+				{
+					devices.push(device);
+				}
+			}
 		}
 
-		this.updateLog(`Received BLE advertisement for ${bleId}: ${this.varToString(advertisement)}`, 4, 'ble');
-		const devices = Array.from(subscription.devices.values());
+		return devices;
+	}
+
+	getBLEAdvertisementWebhookSummary(device, parsedEvent, bleId)
+	{
+		const deviceName = (device && device.getName && typeof device.getName === 'function') ? device.getName() : (parsedEvent && parsedEvent.address ? parsedEvent.address : bleId);
+		const summaryParts = [];
+
+		if (parsedEvent && parsedEvent.address)
+		{
+			summaryParts.push(`address=${parsedEvent.address}`);
+		}
+
+		if (parsedEvent && typeof parsedEvent.rssi !== 'undefined')
+		{
+			summaryParts.push(`rssi=${parsedEvent.rssi}`);
+		}
+
+		if (parsedEvent && parsedEvent.serviceData && typeof parsedEvent.serviceData === 'object')
+		{
+			const serviceData = parsedEvent.serviceData;
+			if (serviceData.modelName)
+			{
+				summaryParts.push(`model=${serviceData.modelName}`);
+			}
+
+			for (const key of ['battery', 'position', 'motion', 'light', 'presence', 'temperature', 'humidity', 'light_level', 'trigger_flag'])
+			{
+				if (typeof serviceData[key] !== 'undefined')
+				{
+					summaryParts.push(`${key}=${serviceData[key]}`);
+				}
+			}
+		}
+
+		if (summaryParts.length === 0)
+		{
+			return `${deviceName}: decoded values unavailable`;
+		}
+
+		return `${deviceName}: ${summaryParts.join(', ')}`;
+	}
+
+	async handleBLEAdvertisement(bleId, advertisement)
+	{
+		this.updateLog(`[detailed] BLE advertisement payload received for ${bleId}: ${this.varToString(advertisement)}`, 3, 'ble');
+		const devices = this.getBLEAdvertisementDispatchDevices();
 		for (const device of devices)
 		{
 			try
@@ -2510,13 +2567,14 @@ class MyApp extends OAuth2App
 					}
 
 					this.bleAdvertisementDeviceParsedStateFingerprint.set(deviceKey, parsedStateFingerprint);
-					this.updateLog(`[local-subscription] Parsed BLE advertisement for ${bleId}: ${this.varToString(parsedEvent)}`, 1, 'ble');
+					this.updateLog(`[webhook/ble] ${this.getBLEAdvertisementWebhookSummary(device, parsedEvent, bleId)}`, 1, 'ble');
+					this.updateLog(`[detailed] Parsed BLE advertisement for ${bleId}: ${this.varToString(parsedEvent)}`, 3, 'ble');
 					await device.syncBLEEvents([parsedEvent]);
 				}
 				else
 				{
 					const reason = this.getBLEUnparsedReason(advertisement);
-					this.updateLog(`[local-subscription] Unparsed BLE advertisement for ${bleId} (${reason})`, 2, 'ble');
+					this.updateLog(`[detailed] Unparsed BLE advertisement for ${bleId} (${reason})`, 3, 'ble');
 				}
 			}
 			catch (err)

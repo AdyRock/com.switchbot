@@ -1352,5 +1352,18 @@
 		"pl": "Dodano dalsze kontrole dla odpowiedzi offline urządzenia błędu 161 i ulepszono obsługę zmian stanu offline urządzenia.",
 		"ru": "Добавлены дополнительные проверки для ответов устройства в автономном режиме с ошибкой 161 и улучшена обработка изменений состояния устройства в автономном режиме.",
 		"ko": "오류 161 장치 오프라인 응답에 대한 추가 확인이 추가되었으며 장치 오프라인 상태 변경 처리 개선."
+	},
+	"2.0.83": {
+		"en": "Enhance BLE advertisement handling with detailed logging and payload summarization, and improved handling of BLE device state changes.",
+		"no": "Forbedre BLE-annonseringshåndtering med detaljert logging og payload-sammendrag, og forbedret håndtering av BLE-enhetstilstandsendringer.",
+		"nl": "Verbeter de BLE-advertentieafhandeling met gedetailleerde logging en samenvatting van de payload, en verbeterde afhandeling van BLE-apparaatstatuswijzigingen.",
+		"de": "Verbessern Sie die BLE-Werbungshandhabung mit detaillierter Protokollierung und Payload-Zusammenfassung sowie verbesserter Handhabung von BLE-Gerätestatusänderungen.",
+		"fr": "Améliorer la gestion des publicités BLE avec une journalisation détaillée et un résumé de la charge utile, et une meilleure gestion des changements d'état des appareils BLE.",
+		"es": "Mejorar el manejo de anuncios BLE con registro detallado y resumen de carga útil, y mejorar el manejo de los cambios de estado del dispositivo BLE.",
+		"pt": "Melhorar o manuseio de anúncios BLE com registro detalhado e resumo de carga útil, e melhorar o manuseio de alterações de estado do dispositivo BLE.",
+		"it": "Migliorare la gestione della pubblicità BLE con registrazione dettagliata e riepilogo del payload, e migliorare la gestione dei cambiamenti di stato del dispositivo BLE.",
+		"pl": "Ulepsz obsługę reklam BLE dzięki szczegółowemu logowaniu i podsumowaniu ładunku, a także ulepszoną obsługę zmian stanu urządzenia BLE.",
+		"ru": "Улучшена обработка рекламы BLE с подробным журналированием и суммированием полезной нагрузки, а также улучшена обработка изменений состояния устройства BLE.",
+		"ko": "자세한 로깅 및 페이로드 요약과 함께 BLE 광고 처리를 강화하고 BLE 장치 상태 변경 처리를 개선했습니다."
 	}
 }
