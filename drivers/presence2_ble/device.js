@@ -76,7 +76,7 @@ class PresenceBLEDevice extends Homey.Device
 			summaryParts.push(`hub=${state.hubMAC}`);
 		}
 		const summary = summaryParts.length > 0 ? summaryParts.join(', ') : 'decoded values unavailable';
-		this.homey.app.updateLog(`[webhook/ble] ${this.getName()}: ${summary}`, 1, 'ble');
+		this.homey.app.updateLog(`[esp32-callback/ble] ${this.getName()}: ${summary}`, 1, 'ble');
 		this.homey.app.updateLog(`[detailed] Presence2 event raw (${this.getName()}): ${this.homey.app.varToString(state)}`, 3, 'ble');
 	}
 
@@ -179,6 +179,7 @@ class PresenceBLEDevice extends Homey.Device
 				const data = this.driver.parse(bleAdvertisement);
 				if (data)
 				{
+					this.homey.app.markBLEDeviceSeenFromPoll(this);
 					this.homey.app.updateLog(`Parsed Presence BLE (MAC: ${deviceMac}): ${this.homey.app.varToString(data)}`, 3, 'ble');
 					this.updateCapabilities(data);
 					this.homey.app.updateLog(`Parsed Presence BLE (MAC: ${deviceMac}): battery = ${data.serviceData.battery}`, 3, 'ble');
@@ -227,7 +228,7 @@ class PresenceBLEDevice extends Homey.Device
 						serviceData: {
 							...event.serviceData,
 							light_level: event.serviceData.light,
-							battery: this.driver.batteryBucketToPercent(event.serviceData.battery),
+							battery: this.normalizePresenceBattery(event.serviceData.battery),
 						},
 					};
 
@@ -253,6 +254,22 @@ class PresenceBLEDevice extends Homey.Device
 		}
 	}
 
+	normalizePresenceBattery(value)
+	{
+		const numericValue = Number(value);
+		if (!Number.isFinite(numericValue))
+		{
+			return value;
+		}
+
+		if ((numericValue >= 0) && (numericValue <= 3) && Number.isInteger(numericValue))
+		{
+			return this.driver.batteryBucketToPercent(numericValue);
+		}
+
+		return numericValue;
+	}
+
 	updateCapabilities(data)
 	{
 		const presence = (data.serviceData.presence === true) || (Number(data.serviceData.presence) === 1);
@@ -269,7 +286,7 @@ class PresenceBLEDevice extends Homey.Device
 			this.driver.triggerLightLevelChanged(this, tokens, null).catch(this.error);
 		}
 
-		const battery = data.serviceData.battery;
+		const battery = this.normalizePresenceBattery(data.serviceData.battery);
 		if (typeof battery !== 'undefined')
 		{
 			this.setCapabilityValue('measure_battery', battery).catch(this.error);

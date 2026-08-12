@@ -473,6 +473,7 @@ class ColorBulbBLEDevice extends Homey.Device
 				const data = this.driver.parse(bleAdvertisement);
 				if (data)
 				{
+					this.homey.app.markBLEDeviceSeenFromPoll(this);
 					if (data.serviceData.on_off)
 					{
 						this.setCapabilityValue('onoff', true).catch(this.error);

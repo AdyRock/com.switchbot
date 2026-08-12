@@ -548,6 +548,7 @@ class BlindTiltBLEDevice extends Homey.Device
 
 				if (data)
 				{
+					this.homey.app.markBLEDeviceSeenFromPoll(this);
 					this.homey.app.updateLog(`Parsed Blind Tilt BLE (${name}) ${this.homey.app.varToString(data)}`, 3, 'ble');
 					const position = data.serviceData.position / 100;
 

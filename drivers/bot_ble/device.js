@@ -319,6 +319,7 @@ class BotBLEDevice extends Homey.Device
 
 					if (notification.status === true)
 					{
+						this.homey.app.markBLEDeviceSeenFromPoll(this);
 						if (Array.isArray(notification.notificationData) && notification.notificationData.length > 1)
 						{
 							this.setCapabilityValue('measure_battery', notification.notificationData[1]).catch(this.error);
@@ -354,6 +355,7 @@ class BotBLEDevice extends Homey.Device
 					const data = this.driver.parse(bleAdvertisement);
 					if (data)
 					{
+						this.homey.app.markBLEDeviceSeenFromPoll(this);
 						this.homey.app.updateLog(`Parsed Bot BLE (${name}) ${this.homey.app.varToString(data)}`, 3, 'ble');
 
 						this.setAvailable();

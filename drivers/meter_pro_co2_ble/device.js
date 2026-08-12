@@ -95,6 +95,7 @@ class MeterProCO2BLEDevice extends Homey.Device
 				const data = this.driver.parse(bleAdvertisement);
 				if (data)
 				{
+					this.homey.app.markBLEDeviceSeenFromPoll(this);
 					this.homey.app.updateLog(`Parsed MeterProCO2 BLE: ${this.homey.app.varToString(data)}`, 3, 'ble');
 					this.setCapabilityValue('measure_temperature', data.serviceData.temperature.c).catch(this.error);
 					this.setCapabilityValue('measure_humidity', data.serviceData.humidity).catch(this.error);

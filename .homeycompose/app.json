@@ -545,6 +545,10 @@
 			"method": "get",
 			"path": "/getDetect/"
 		},
+		"getBLEStatistics": {
+			"method": "get",
+			"path": "/getBLEStatistics/"
+		},
 		"clearLog": {
 			"method": "post",
 			"path": "/clearLog/"

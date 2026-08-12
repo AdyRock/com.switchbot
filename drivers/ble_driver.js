@@ -208,8 +208,12 @@ class BLEDriver extends Homey.Driver
 		{
 			return null;
 		}
-		if (!device.serviceData || device.serviceData.length === 0)
+		const hasNoServiceData = !device.serviceData || (Array.isArray(device.serviceData)
+			? device.serviceData.length === 0
+			: Object.keys(device.serviceData).length === 0);
+		if (hasNoServiceData)
 		{
+			this.homey.app.updateLog(`BLE Device missing serviceData for ${device.address || device.uuid || 'unknown'} (localName=${device.localName || 'n/a'}, manufacturerData=${device.manufacturerData ? 'present' : 'missing'})`, 4, 'ble');
 			if (device.localName === 'WoHand')
 			{
 				// looks like a bot device with no service data so make it up
@@ -414,7 +418,7 @@ class BLEDriver extends Homey.Driver
 
 	_parseServiceDataForWoIOSensor(buf, man)
 	{
-		if (man.length !== 14)
+		if (!man || man.length !== 14)
 		{
 			return null;
 		}
@@ -564,7 +568,7 @@ class BLEDriver extends Homey.Driver
 
 	_parseServiceDataForWoTilt(buf, man)
 	{
-		if ((buf.length === 3) && ((man.length !== 11) && (man.length !== 13)))
+		if ((buf.length === 3) && (!man || ((man.length !== 11) && (man.length !== 13))))
 		{
 			const byte2 = buf.readUInt8(2);
 			const battery = (byte2 & 0b01111111); // %
@@ -577,7 +581,7 @@ class BLEDriver extends Homey.Driver
 			};
 			return data;
 		}
-		if ((buf.length === 3) && (man.length === 13))
+		if ((buf.length === 3) && man && (man.length === 13))
 		{
 			const byte2 = buf.readUInt8(2);
 			const battery = (byte2 & 0b01111111); // %
@@ -592,7 +596,7 @@ class BLEDriver extends Homey.Driver
 			};
 			return data;
 		}
-		if ((buf.length === 3) && (man.length === 11))
+		if ((buf.length === 3) && man && (man.length === 11))
 		{
 			const byte2 = buf.readUInt8(2);
 			const battery = (byte2 & 0b01111111); // %
@@ -632,7 +636,7 @@ class BLEDriver extends Homey.Driver
 
 	_parseServiceDataForWaterLeak(buf, man)
 	{
-		if (buf.length !== 3 || man.length < 11)
+		if (buf.length !== 3 || !man || man.length < 11)
 		{
 			return null;
 		}
@@ -654,7 +658,7 @@ class BLEDriver extends Homey.Driver
 
 	_parseServiceDataForProMeter(buf, man)
 	{
-		if (man.length < 12)
+		if (!man || man.length < 12)
 		{
 			return null;
 		}
@@ -687,7 +691,7 @@ class BLEDriver extends Homey.Driver
 
 	_parseServiceDataForCO2Meter(buf, man)
 	{
-		if (man.length < 16)
+		if (!man || man.length < 16)
 		{
 			return null;
 		}
@@ -724,7 +728,7 @@ class BLEDriver extends Homey.Driver
 
 	_parseServiceDataForPlug(buf, man)
 	{
-		if (man.length < 14)
+		if (!man || man.length < 14)
 		{
 			return null;
 		}

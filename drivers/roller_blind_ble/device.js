@@ -355,6 +355,7 @@ class RollerBlindBLEDevice extends Homey.Device
 				const data = this.driver.parse(bleAdvertisement);
 				if (data)
 				{
+					this.homey.app.markBLEDeviceSeenFromPoll(this);
 					this.homey.app.updateLog(`Parsed Roller Blind BLE (${name}) ${this.homey.app.varToString(data)}`, 3, 'ble');
 					this.updateCapabilities(data);
 				}

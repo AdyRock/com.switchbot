@@ -22,6 +22,10 @@ module.exports = {
 		}
 		return homey.app.detectedDevices;
 	},
+	async getBLEStatistics({ homey, query })
+	{
+		return homey.app.getBLEStatistics();
+	},
 	async clearLog({ homey, query })
 	{
 		homey.app.diagLog = '';

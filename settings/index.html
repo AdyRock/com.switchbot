@@ -20,19 +20,103 @@
 			background-color: rgba(30, 30, 30, 0.5);
 		}
 
-		#busybox.show {
-			display: block;
-		}
+			#statistics {
+				height: calc(100vh - 110px);
+				min-height: 280px;
+				width: 100%;
+				max-width: 100%;
+				box-sizing: border-box;
+			}
 
-		.sim-log-tab-hidden {
-			display: none;
-		}
+			#statistics fieldset {
+				display: flex;
+				flex-direction: column;
+				height: calc(100% - 10px);
+				overflow: hidden;
+				min-height: 0;
+				min-width: 0;
+				max-width: 100%;
+				box-sizing: border-box;
+				margin: 0;
+			}
 
-		.oauth-status-message {
-			display: none;
-			color: #ff6600;
-			margin-bottom: 10px;
-		}
+			#statistics .statistics-scroll {
+				flex: 1 1 auto;
+				overflow-x: auto;
+				overflow-y: auto;
+				height: calc(100% - 24px);
+				max-height: calc(100% - 24px);
+				min-height: 340px;
+				border: 1px solid rgba(0,0,0,0.12);
+				border-radius: 4px;
+				display: block;
+				position: relative;
+				scrollbar-gutter: stable;
+				min-width: 0;
+				max-width: 100%;
+				scrollbar-width: thin;
+				box-sizing: border-box;
+				align-self: stretch;
+			}
+
+			#statistics .statistics-scroll::-webkit-scrollbar {
+				width: 10px;
+				height: 10px;
+			}
+
+			#statistics .statistics-scroll::-webkit-scrollbar-thumb {
+				background-color: rgba(74, 110, 155, 0.45);
+				border-radius: 8px;
+			}
+
+			#statistics .statistics-scroll::-webkit-scrollbar-track {
+				background: rgba(0, 0, 0, 0.05);
+			}
+
+			#bleStatisticsTable {
+				border-collapse: collapse;
+				table-layout: fixed;
+				width: 600px;
+				min-width: 600px;
+			}
+
+			#bleStatisticsTable thead {
+				position: sticky;
+				top: 0;
+				z-index: 3;
+			}
+
+			#bleStatisticsTable thead th {
+				background: #edf2f8;
+				z-index: 3;
+				text-align: left;
+				border-bottom: 1px solid rgba(0,0,0,0.12);
+				padding: 6px 8px;
+			}
+
+			#bleStatisticsTable thead tr:nth-child(2) th {
+				border-top: 1px solid rgba(0,0,0,0.12);
+			}
+
+			#bleStatisticsTable td {
+				padding: 6px 8px;
+				background: white;
+				border-bottom: 1px solid rgba(0,0,0,0.08);
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+			}
+
+			#bleStatisticsTable td:nth-child(4) {
+				overflow: visible;
+				text-overflow: clip;
+			}
+
+			#bleStatisticsTable td:nth-child(2),
+			#bleStatisticsTable td:nth-child(3),
+			#bleStatisticsTable td:nth-child(5) {
+				text-align: right;
+			}
 
 		.oauth-login-button {
 			display: none;
@@ -74,6 +158,25 @@
 			gap: 8px;
 			margin-top: 8px;
 		}
+
+		.statistics-actions {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: 8px;
+			margin: 0 0 8px 0;
+		}
+
+		.statistics-actions p {
+			margin: 0;
+		}
+
+		#bleStatisticsTable,
+		#bleStatisticsTable th,
+		#bleStatisticsTable td {
+			-webkit-user-select: text;
+			user-select: text;
+		}
 	</style>
 
 	<!-- The '/homey.js' script must be included in your settings view to work -->
@@ -90,6 +193,7 @@
 	<!-- Tab links -->
 	<div class="tab">
 		<button class="tablinks" onclick="setPage(event, 'appSettings')" id="appSettingsTab" data-i18n="settings.tabAppSettings" title="settings.tabAppSettings"></button>
+		<button class="tablinks" onclick="setPage(event, 'statistics')" id="statisticsTab">Statistics</button>
 		<button class="tablinks" onclick="setPage(event, 'detected')" id="defaultOpen" data-i18n="settings.tabDetected" title="settings.tabDetected"></button>
 		<button class="tablinks" onclick="setPage(event, 'log')" data-i18n="settings.tabLog" title="settings.tabLog"></button>
 		<button class="tablinks" onclick="setPage(event, 'status')" id="deviceStatusTab" data-i18n="settings.tabGetStatus" title="settings.tabGetStatus"></button>
@@ -117,6 +221,43 @@
 			<p>
 				<button id="saveAppSettings" class="homey-button-small" data-i18n="settings.save" title="settings.save"></button>
 			</p>
+		</fieldset>
+	</div>
+
+	<!-- STATISTICS PAGE -->
+	<div id="statistics" class="tabcontent">
+		<fieldset>
+			<div class="statistics-actions">
+				<p>Live BLE service-data statistics for the registered devices.</p>
+				<button id="copyBLEStatistics" class="homey-button-small" type="button">Copy Table</button>
+			</div>
+			<div class="statistics-scroll" style="padding: 0;">
+				<table id="bleStatisticsTable">
+					<colgroup>
+						<col style="width: 30%;" />
+						<col style="width: 16%;" />
+						<col style="width: 16%;" />
+						<col style="width: 20%;" />
+						<col style="width: 18%;" />
+					</colgroup>
+					<thead>
+						<tr>
+							<th>Device</th>
+							<th colspan="2" style="text-align:center;">Service Data</th>
+							<th>Last Seen</th>
+							<th style="text-align:right;">Polled</th>
+						</tr>
+						<tr>
+							<th></th>
+							<th style="text-align:right;">Missing</th>
+							<th style="text-align:right;">Present</th>
+							<th>HH:MM:SS ago</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
+			</div>
 		</fieldset>
 	</div>
 
@@ -333,6 +474,139 @@
 		// App settings tab
 		var numConnectionsElement = document.getElementById('numConnections');
 		var saveAppSettingsElement = document.getElementById('saveAppSettings');
+		var bleStatisticsTableElement = document.getElementById('bleStatisticsTable');
+		var copyBLEStatisticsElement = document.getElementById('copyBLEStatistics');
+		var bleStatisticsRefreshTimer = null;
+
+		function getBLEStatisticsClipboardText()
+		{
+			const rows = [];
+			rows.push(['Device', 'Missing', 'Present', 'Last Seen (HH:MM:SS ago)', 'Polled'].join('\t'));
+
+			const tbody = bleStatisticsTableElement && bleStatisticsTableElement.querySelector('tbody');
+			if (!tbody)
+			{
+				return rows.join('\n');
+			}
+
+			const bodyRows = Array.from(tbody.querySelectorAll('tr'));
+			for (const row of bodyRows)
+			{
+				const cells = Array.from(row.querySelectorAll('td'));
+				if (cells.length < 5)
+				{
+					continue;
+				}
+
+				const values = cells.map((cell) => cell.textContent.replace(/\s+/g, ' ').trim());
+				if (values[0] === 'No BLE devices registered.')
+				{
+					continue;
+				}
+
+				rows.push(values.join('\t'));
+			}
+
+			return rows.join('\n');
+		}
+
+		async function copyBLEStatisticsToClipboard()
+		{
+			const text = getBLEStatisticsClipboardText();
+			try
+			{
+				if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function')
+				{
+					await navigator.clipboard.writeText(text);
+				}
+				else
+				{
+					throw new Error('Clipboard API unavailable');
+				}
+
+				if (homeyInstance)
+				{
+					homeyInstance.alert('Statistics table copied to clipboard.');
+				}
+			}
+			catch (err)
+			{
+				const fallbackArea = document.createElement('textarea');
+				fallbackArea.value = text;
+				fallbackArea.setAttribute('readonly', 'readonly');
+				fallbackArea.style.position = 'fixed';
+				fallbackArea.style.top = '-1000px';
+				document.body.appendChild(fallbackArea);
+				fallbackArea.select();
+				fallbackArea.setSelectionRange(0, fallbackArea.value.length);
+
+				const copied = document.execCommand('copy');
+				document.body.removeChild(fallbackArea);
+
+				if (homeyInstance)
+				{
+					homeyInstance.alert(copied
+						? 'Statistics table copied to clipboard.'
+						: 'Could not copy automatically. Please select and copy the table manually.');
+				}
+			}
+		}
+
+		function renderBLEStatistics(rows)
+		{
+			const formatElapsedSince = (lastSeenAt) => {
+				const timestamp = Number(lastSeenAt || 0);
+				if (!timestamp)
+				{
+					return 'Never';
+				}
+
+				const elapsedSeconds = Math.max(0, Math.floor((Date.now() - timestamp) / 1000));
+				const hours = Math.floor(elapsedSeconds / 3600);
+				const minutes = Math.floor((elapsedSeconds % 3600) / 60);
+				const seconds = elapsedSeconds % 60;
+				return `${hours}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+			};
+
+			const tbody = bleStatisticsTableElement && bleStatisticsTableElement.querySelector('tbody');
+			if (!tbody)
+			{
+				return;
+			}
+
+			if (!Array.isArray(rows) || rows.length === 0)
+			{
+				tbody.innerHTML = '<tr><td colspan="5" style="padding:8px;">No BLE devices registered.</td></tr>';
+				return;
+			}
+
+			tbody.innerHTML = rows.map((row) => {
+				const lastSeenText = formatElapsedSince(row.lastSeenAt);
+				return `
+					<tr>
+						<td style="padding:6px 8px;">${(row.name || 'Unknown').replace(/[<>]/g, '')}</td>
+						<td style="padding:6px 8px; text-align:right;">${Number(row.missing || 0)}</td>
+						<td style="padding:6px 8px; text-align:right;">${Number(row.present || 0)}</td>
+						<td style="padding:6px 8px;">${lastSeenText}</td>
+						<td style="padding:6px 8px; text-align:right;">${Number(row.polls || 0)}</td>
+					</tr>
+				`;
+			}).join('');
+		}
+
+		function refreshBLEStatistics()
+		{
+			Homey.api('GET', '/getBLEStatistics/', {}, function (err, result)
+			{
+				if (err)
+				{
+					console.error('BLE statistics refresh failed:', err);
+					return;
+				}
+
+				renderBLEStatistics(Array.isArray(result) ? result : []);
+			});
+		}
 
 		// Function to check OAuth status
 		function checkOAuthStatus(Homey)
@@ -397,6 +671,20 @@
 			});
 
 			document.getElementById("defaultOpen").click();
+			refreshBLEStatistics();
+			if (bleStatisticsRefreshTimer)
+			{
+				clearInterval(bleStatisticsRefreshTimer);
+			}
+			bleStatisticsRefreshTimer = setInterval(refreshBLEStatistics, 10000);
+
+			if (copyBLEStatisticsElement)
+			{
+				copyBLEStatisticsElement.addEventListener('click', function ()
+				{
+					copyBLEStatisticsToClipboard();
+				});
+			}
 
 			Homey.api('GET', '/getLog/',
 				{
@@ -843,6 +1131,10 @@
 					if (err) return Homey.alert(err);
 					numConnectionsElement.value = numConnections;
 				});
+			}
+			else if (tabPage == 'statistics')
+			{
+				refreshBLEStatistics();
 			}
 		}
 
