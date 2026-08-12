@@ -2182,6 +2182,7 @@ class MyApp extends OAuth2App
 				parsedSeenAt: 0,
 				noServiceDataCount: 0,
 				serviceDataPresentCount: 0,
+				advertisementCount: 0,
 				pollCount: 0,
 			};
 			this.bleAdvertisementDeviceState.set(deviceKey, state);
@@ -2195,7 +2196,7 @@ class MyApp extends OAuth2App
 		return state;
 	}
 
-	markBLEDeviceSeenFromPoll(device)
+	markBLEPollServiceData(device, hasServiceData)
 	{
 		if (!device)
 		{
@@ -2209,7 +2210,20 @@ class MyApp extends OAuth2App
 		}
 
 		const state = this.getOrCreateBLEAdvertisementDeviceState(deviceKey, device);
-		state.localSeenAt = Date.now();
+		if (hasServiceData)
+		{
+			state.serviceDataPresentCount = Number(state.serviceDataPresentCount || 0) + 1;
+			state.localSeenAt = Date.now();
+		}
+		else
+		{
+			state.noServiceDataCount = Number(state.noServiceDataCount || 0) + 1;
+		}
+	}
+
+	markBLEDeviceSeenFromPoll(device)
+	{
+		this.markBLEPollServiceData(device, true);
 	}
 
 	normalizeBLEAdvertisementId(bleId)
@@ -2677,6 +2691,7 @@ class MyApp extends OAuth2App
 			state.localSeenAt = 0;
 			state.noServiceDataCount = 0;
 			state.serviceDataPresentCount = 0;
+			state.advertisementCount = 0;
 			state.pollCount = 0;
 		}
 
@@ -2762,6 +2777,7 @@ class MyApp extends OAuth2App
 				name,
 				missing: Number(state.noServiceDataCount || 0),
 				present: Number(state.serviceDataPresentCount || 0),
+				advertisements: Number(state.advertisementCount || 0),
 				lastSeenAt: lastSeenAt,
 				polls: Number(state.pollCount || 0),
 			});
@@ -2892,6 +2908,7 @@ class MyApp extends OAuth2App
 			}
 
 			const state = this.getOrCreateBLEAdvertisementDeviceState(deviceKey, device);
+			state.advertisementCount = Number(state.advertisementCount || 0) + 1;
 
 			const payloadFingerprint = this.getBLEAdvertisementFingerprint(advertisement);
 			const previousFingerprint = state.payloadFingerprint;

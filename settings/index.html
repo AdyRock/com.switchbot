@@ -76,8 +76,8 @@
 			#bleStatisticsTable {
 				border-collapse: collapse;
 				table-layout: fixed;
-				width: 600px;
-				min-width: 600px;
+				width: 650px;
+				min-width: 650px;
 			}
 
 			#bleStatisticsTable thead {
@@ -108,13 +108,18 @@
 			}
 
 			#bleStatisticsTable td:nth-child(4) {
+				text-align: right;
+			}
+
+			#bleStatisticsTable td:nth-child(5) {
 				overflow: visible;
 				text-overflow: clip;
 			}
 
 			#bleStatisticsTable td:nth-child(2),
 			#bleStatisticsTable td:nth-child(3),
-			#bleStatisticsTable td:nth-child(5) {
+			#bleStatisticsTable td:nth-child(4),
+			#bleStatisticsTable td:nth-child(6) {
 				text-align: right;
 			}
 
@@ -234,25 +239,28 @@
 			<div class="statistics-scroll" style="padding: 0;">
 				<table id="bleStatisticsTable">
 					<colgroup>
-						<col style="width: 30%;" />
-						<col style="width: 16%;" />
-						<col style="width: 16%;" />
-						<col style="width: 20%;" />
-						<col style="width: 18%;" />
+						<col style="width: 26%;" />
+						<col style="width: 13%;" />
+						<col style="width: 13%;" />
+						<col style="width: 13%;" />
+						<col style="width: 13%;" />
+						<col style="width: 22%;" />
 					</colgroup>
 					<thead>
 						<tr>
 							<th>Device</th>
 							<th colspan="2" style="text-align:center;">Service Data</th>
-							<th>Last Seen</th>
+							<th style="text-align:right;">Adverts</th>
 							<th style="text-align:right;">Polled</th>
+							<th>Last Seen</th>
 						</tr>
 						<tr>
 							<th></th>
 							<th style="text-align:right;">Missing</th>
 							<th style="text-align:right;">Present</th>
-							<th>HH:MM:SS ago</th>
 							<th></th>
+							<th></th>
+							<th>HH:MM:SS ago</th>
 						</tr>
 					</thead>
 					<tbody></tbody>
@@ -481,7 +489,7 @@
 		function getBLEStatisticsClipboardText()
 		{
 			const rows = [];
-			rows.push(['Device', 'Missing', 'Present', 'Last Seen (HH:MM:SS ago)', 'Polled'].join('\t'));
+			rows.push(['Device', 'Missing', 'Present', 'Advertisements', 'Polled', 'Last Seen (HH:MM:SS ago)'].join('\t'));
 
 			const tbody = bleStatisticsTableElement && bleStatisticsTableElement.querySelector('tbody');
 			if (!tbody)
@@ -493,7 +501,7 @@
 			for (const row of bodyRows)
 			{
 				const cells = Array.from(row.querySelectorAll('td'));
-				if (cells.length < 5)
+				if (cells.length < 6)
 				{
 					continue;
 				}
@@ -576,7 +584,7 @@
 
 			if (!Array.isArray(rows) || rows.length === 0)
 			{
-				tbody.innerHTML = '<tr><td colspan="5" style="padding:8px;">No BLE devices registered.</td></tr>';
+				tbody.innerHTML = '<tr><td colspan="6" style="padding:8px;">No BLE devices registered.</td></tr>';
 				return;
 			}
 
@@ -587,8 +595,9 @@
 						<td style="padding:6px 8px;">${(row.name || 'Unknown').replace(/[<>]/g, '')}</td>
 						<td style="padding:6px 8px; text-align:right;">${Number(row.missing || 0)}</td>
 						<td style="padding:6px 8px; text-align:right;">${Number(row.present || 0)}</td>
-						<td style="padding:6px 8px;">${lastSeenText}</td>
+						<td style="padding:6px 8px; text-align:right;">${Number(row.advertisements || 0)}</td>
 						<td style="padding:6px 8px; text-align:right;">${Number(row.polls || 0)}</td>
+						<td style="padding:6px 8px; text-align:left;">${lastSeenText}</td>
 					</tr>
 				`;
 			}).join('');

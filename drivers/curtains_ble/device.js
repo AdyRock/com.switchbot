@@ -401,7 +401,7 @@ class CurtainsBLEDevice extends Homey.Device
 				const data = this.driver.parse(bleAdvertisement);
 				if (data)
 				{
-					this.homey.app.markBLEDeviceSeenFromPoll(this);
+					this.homey.app.markBLEPollServiceData(this, true);
 					this.homey.app.updateLog(`Parsed Curtain BLE (${name}) ${this.homey.app.varToString(data)}`, 3, 'ble');
 					let position = data.serviceData.position / 100;
 					if (this.invertPosition)
@@ -472,6 +472,7 @@ class CurtainsBLEDevice extends Homey.Device
 				}
 				else
 				{
+					this.homey.app.markBLEPollServiceData(this, false);
 					this.homey.app.updateLog(`Parsed Curtain BLE (${name}): No service data`, 0, 'ble');
 				}
 			}

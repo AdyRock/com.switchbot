@@ -153,7 +153,7 @@ class PresenceBLEDevice extends Homey.Device
 				const data = this.driver.parse(bleAdvertisement);
 				if (data)
 				{
-					this.homey.app.markBLEDeviceSeenFromPoll(this);
+					this.homey.app.markBLEPollServiceData(this, true);
 					this.homey.app.updateLog(`Parsed Presence BLE (MAC: ${deviceMac}): ${this.homey.app.varToString(data)}`, 3, 'ble');
 					this.setCapabilityValue('alarm_motion', data.serviceData.motion).catch(this.error);
 					if (this.getCapabilityValue('bright') !== data.serviceData.light)
@@ -167,6 +167,7 @@ class PresenceBLEDevice extends Homey.Device
 				}
 				else
 				{
+					this.homey.app.markBLEPollServiceData(this, false);
 					this.homey.app.updateLog(`Parsed Presence BLE (MAC: ${deviceMac}): No service data`, 3, 'ble');
 				}
 			}

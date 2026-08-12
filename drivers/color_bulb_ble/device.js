@@ -473,7 +473,7 @@ class ColorBulbBLEDevice extends Homey.Device
 				const data = this.driver.parse(bleAdvertisement);
 				if (data)
 				{
-					this.homey.app.markBLEDeviceSeenFromPoll(this);
+					this.homey.app.markBLEPollServiceData(this, true);
 					if (data.serviceData.on_off)
 					{
 						this.setCapabilityValue('onoff', true).catch(this.error);
@@ -493,6 +493,7 @@ class ColorBulbBLEDevice extends Homey.Device
 				}
 				else
 				{
+					this.homey.app.markBLEPollServiceData(this, false);
 					this.homey.app.updateLog(`Parsed Bulb BLE (${name}): No service data`, 0, 'ble');
 				}
 			}

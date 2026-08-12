@@ -95,13 +95,14 @@ class WaterLeakBLEDevice extends Homey.Device
 				const data = this.driver.parse(bleAdvertisement);
 				if (data)
 				{
-					this.homey.app.markBLEDeviceSeenFromPoll(this);
+					this.homey.app.markBLEPollServiceData(this, true);
 					this.homey.app.updateLog(`Parsed Water Leak BLE: ${this.homey.app.varToString(data)}`, 3, 'ble');
 					this.setCapabilityValue('alarm_water', data.serviceData.status).catch(this.error);
 					this.setCapabilityValue('measure_battery', data.serviceData.battery).catch(this.error);
 				}
 				else
 				{
+					this.homey.app.markBLEPollServiceData(this, false);
 					this.homey.app.updateLog('Parsed Water Leak BLE: No service data', 0, 'ble');
 				}
 			}
