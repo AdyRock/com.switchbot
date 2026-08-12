@@ -129,7 +129,7 @@ class ContactBLEDevice extends Homey.Device
 				const data = this.driver.parse(bleAdvertisement);
 				if (data)
 				{
-					this.homey.app.markBLEPollServiceData(this, true);
+					this.homey.app.markBLEPollServiceData(this, true, rssi);
 					this.homey.app.updateLog(`Parsed Presence BLE (MAC: ${deviceMac}): ${this.homey.app.varToString(data)}`, 3, 'ble');
 					this.setCapabilityValue('alarm_motion', data.serviceData.motion).catch(this.error);
 					this.setCapabilityValue('alarm_contact', data.serviceData.contact).catch(this.error);
@@ -147,7 +147,7 @@ class ContactBLEDevice extends Homey.Device
 				}
 				else
 				{
-					this.homey.app.markBLEPollServiceData(this, false);
+					this.homey.app.markBLEPollServiceData(this, false, rssi);
 					this.homey.app.updateLog(`Parsed Presence BLE (MAC: ${deviceMac}): No service data`, 0, 'ble');
 				}
 			}

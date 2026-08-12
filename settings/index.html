@@ -76,8 +76,8 @@
 			#bleStatisticsTable {
 				border-collapse: collapse;
 				table-layout: fixed;
-				width: 650px;
-				min-width: 650px;
+				width: 1120px;
+				min-width: 1120px;
 			}
 
 			#bleStatisticsTable thead {
@@ -94,8 +94,18 @@
 				padding: 6px 8px;
 			}
 
+			#bleStatisticsTable thead th.sortable {
+				cursor: pointer;
+				-webkit-user-select: none;
+				user-select: none;
+			}
+
 			#bleStatisticsTable thead tr:nth-child(2) th {
 				border-top: 1px solid rgba(0,0,0,0.12);
+			}
+
+			#bleStatisticsTable thead tr:nth-child(2) th:nth-child(9) {
+				white-space: nowrap;
 			}
 
 			#bleStatisticsTable td {
@@ -111,15 +121,16 @@
 				text-align: right;
 			}
 
-			#bleStatisticsTable td:nth-child(5) {
+			#bleStatisticsTable td:nth-child(9) {
 				overflow: visible;
 				text-overflow: clip;
 			}
 
-			#bleStatisticsTable td:nth-child(2),
-			#bleStatisticsTable td:nth-child(3),
 			#bleStatisticsTable td:nth-child(4),
-			#bleStatisticsTable td:nth-child(6) {
+			#bleStatisticsTable td:nth-child(5),
+			#bleStatisticsTable td:nth-child(6),
+			#bleStatisticsTable td:nth-child(7),
+			#bleStatisticsTable td:nth-child(8) {
 				text-align: right;
 			}
 
@@ -174,6 +185,11 @@
 
 		.statistics-actions p {
 			margin: 0;
+		}
+
+		.statistics-actions > div {
+			display: flex;
+			gap: 8px;
 		}
 
 		#bleStatisticsTable,
@@ -234,32 +250,44 @@
 		<fieldset>
 			<div class="statistics-actions">
 				<p>Live BLE service-data statistics for the registered devices.</p>
-				<button id="copyBLEStatistics" class="homey-button-small" type="button">Copy Table</button>
+				<div>
+					<button id="clearBLEStatistics" class="homey-button-small" type="button">Clear Stats</button>
+					<button id="copyBLEStatistics" class="homey-button-small" type="button">Copy Table</button>
+				</div>
 			</div>
 			<div class="statistics-scroll" style="padding: 0;">
 				<table id="bleStatisticsTable">
 					<colgroup>
-						<col style="width: 26%;" />
+						<col style="width: 17%;" />
+						<col style="width: 14%;" />
 						<col style="width: 13%;" />
-						<col style="width: 13%;" />
-						<col style="width: 13%;" />
-						<col style="width: 13%;" />
-						<col style="width: 22%;" />
+						<col style="width: 8%;" />
+						<col style="width: 8%;" />
+						<col style="width: 10%;" />
+						<col style="width: 8%;" />
+						<col style="width: 6%;" />
+						<col style="width: 16%;" />
 					</colgroup>
 					<thead>
 						<tr>
-							<th>Device</th>
+							<th class="sortable" data-sort-key="name">Device</th>
+							<th class="sortable" data-sort-key="mac">MAC</th>
+							<th class="sortable" data-sort-key="driverType">Driver</th>
 							<th colspan="2" style="text-align:center;">Service Data</th>
-							<th style="text-align:right;">Adverts</th>
-							<th style="text-align:right;">Polled</th>
-							<th>Last Seen</th>
+							<th class="sortable" data-sort-key="advertisements" style="text-align:right;">Adverts</th>
+							<th class="sortable" data-sort-key="polls" style="text-align:right;">Polled</th>
+							<th class="sortable" data-sort-key="rssi" style="text-align:right;">RSSI</th>
+							<th class="sortable" data-sort-key="lastSeenAt">Last Seen</th>
 						</tr>
 						<tr>
 							<th></th>
-							<th style="text-align:right;">Missing</th>
-							<th style="text-align:right;">Present</th>
 							<th></th>
 							<th></th>
+							<th class="sortable" data-sort-key="missing" style="text-align:right;">Missing</th>
+							<th class="sortable" data-sort-key="present" style="text-align:right;">Present</th>
+							<th></th>
+							<th></th>
+							<th style="text-align:right;">dBm</th>
 							<th>HH:MM:SS ago</th>
 						</tr>
 					</thead>
@@ -483,13 +511,100 @@
 		var numConnectionsElement = document.getElementById('numConnections');
 		var saveAppSettingsElement = document.getElementById('saveAppSettings');
 		var bleStatisticsTableElement = document.getElementById('bleStatisticsTable');
+		var clearBLEStatisticsElement = document.getElementById('clearBLEStatistics');
 		var copyBLEStatisticsElement = document.getElementById('copyBLEStatistics');
 		var bleStatisticsRefreshTimer = null;
+		var bleStatisticsSort = {
+			key: 'name',
+			direction: 'asc',
+		};
+
+		function compareBLEStatisticsRows(left, right, key, direction)
+		{
+			const factor = direction === 'desc' ? -1 : 1;
+			if (key === 'name' || key === 'mac' || key === 'driverType')
+			{
+				const leftText = String((left && left[key]) || '').toLowerCase();
+				const rightText = String((right && right[key]) || '').toLowerCase();
+				return leftText.localeCompare(rightText) * factor;
+			}
+
+			const leftValue = Number((left && left[key]) || 0);
+			const rightValue = Number((right && right[key]) || 0);
+			if (leftValue === rightValue)
+			{
+				const leftName = String((left && left.name) || '').toLowerCase();
+				const rightName = String((right && right.name) || '').toLowerCase();
+				return leftName.localeCompare(rightName);
+			}
+
+			return (leftValue - rightValue) * factor;
+		}
+
+		function updateBLEStatisticsSortIndicators()
+		{
+			const headers = bleStatisticsTableElement
+				? bleStatisticsTableElement.querySelectorAll('thead th.sortable[data-sort-key]')
+				: [];
+
+			headers.forEach((header) => {
+				const sortKey = header.getAttribute('data-sort-key');
+				const baseLabel = header.getAttribute('data-base-label') || header.textContent.replace(/\s*[▲▼]$/, '');
+				header.setAttribute('data-base-label', baseLabel);
+				if (sortKey === bleStatisticsSort.key)
+				{
+					header.textContent = `${baseLabel} ${bleStatisticsSort.direction === 'asc' ? '▲' : '▼'}`;
+				}
+				else
+				{
+					header.textContent = baseLabel;
+				}
+			});
+		}
+
+		function setBLEStatisticsSort(sortKey)
+		{
+			if (!sortKey)
+			{
+				return;
+			}
+
+			if (bleStatisticsSort.key === sortKey)
+			{
+				bleStatisticsSort.direction = bleStatisticsSort.direction === 'asc' ? 'desc' : 'asc';
+			}
+			else
+			{
+				bleStatisticsSort.key = sortKey;
+				bleStatisticsSort.direction = 'asc';
+			}
+
+			updateBLEStatisticsSortIndicators();
+			refreshBLEStatistics();
+		}
+
+		function initializeBLEStatisticsSorting()
+		{
+			if (!bleStatisticsTableElement)
+			{
+				return;
+			}
+
+			const headers = bleStatisticsTableElement.querySelectorAll('thead th.sortable[data-sort-key]');
+			headers.forEach((header) => {
+				header.addEventListener('click', function ()
+				{
+					setBLEStatisticsSort(header.getAttribute('data-sort-key'));
+				});
+			});
+
+			updateBLEStatisticsSortIndicators();
+		}
 
 		function getBLEStatisticsClipboardText()
 		{
 			const rows = [];
-			rows.push(['Device', 'Missing', 'Present', 'Advertisements', 'Polled', 'Last Seen (HH:MM:SS ago)'].join('\t'));
+			rows.push(['Device', 'MAC', 'Driver', 'Missing', 'Present', 'Advertisements', 'Polled', 'RSSI (dBm)', 'Last Seen (HH:MM:SS ago)'].join('\t'));
 
 			const tbody = bleStatisticsTableElement && bleStatisticsTableElement.querySelector('tbody');
 			if (!tbody)
@@ -501,7 +616,7 @@
 			for (const row of bodyRows)
 			{
 				const cells = Array.from(row.querySelectorAll('td'));
-				if (cells.length < 6)
+				if (cells.length < 9)
 				{
 					continue;
 				}
@@ -560,6 +675,28 @@
 			}
 		}
 
+		function clearBLEStatistics()
+		{
+			Homey.confirm('Clear BLE statistics counters and keep Last Seen values?', null, function (err, ok)
+			{
+				if (err || !ok)
+				{
+					return;
+				}
+
+				Homey.api('POST', '/clearBLEStatistics/', {}, function (apiErr)
+				{
+					if (apiErr)
+					{
+						Homey.alert(apiErr);
+						return;
+					}
+
+					refreshBLEStatistics();
+				});
+			});
+		}
+
 		function renderBLEStatistics(rows)
 		{
 			const formatElapsedSince = (lastSeenAt) => {
@@ -584,19 +721,29 @@
 
 			if (!Array.isArray(rows) || rows.length === 0)
 			{
-				tbody.innerHTML = '<tr><td colspan="6" style="padding:8px;">No BLE devices registered.</td></tr>';
+				tbody.innerHTML = '<tr><td colspan="9" style="padding:8px;">No BLE devices registered.</td></tr>';
 				return;
 			}
 
-			tbody.innerHTML = rows.map((row) => {
+			const sortedRows = rows
+				.slice()
+				.sort((left, right) => compareBLEStatisticsRows(left, right, bleStatisticsSort.key, bleStatisticsSort.direction));
+
+			tbody.innerHTML = sortedRows.map((row) => {
 				const lastSeenText = formatElapsedSince(row.lastSeenAt);
+				const rssiText = (typeof row.rssi === 'number' && Number.isFinite(row.rssi)) ? String(Math.round(row.rssi)) : '-';
+				const macText = (row.mac || '').replace(/[<>]/g, '');
+				const driverText = (row.driverType || '').replace(/[<>]/g, '');
 				return `
 					<tr>
 						<td style="padding:6px 8px;">${(row.name || 'Unknown').replace(/[<>]/g, '')}</td>
+						<td style="padding:6px 8px;">${macText}</td>
+						<td style="padding:6px 8px;">${driverText}</td>
 						<td style="padding:6px 8px; text-align:right;">${Number(row.missing || 0)}</td>
 						<td style="padding:6px 8px; text-align:right;">${Number(row.present || 0)}</td>
 						<td style="padding:6px 8px; text-align:right;">${Number(row.advertisements || 0)}</td>
 						<td style="padding:6px 8px; text-align:right;">${Number(row.polls || 0)}</td>
+						<td style="padding:6px 8px; text-align:right;">${rssiText}</td>
 						<td style="padding:6px 8px; text-align:left;">${lastSeenText}</td>
 					</tr>
 				`;
@@ -663,6 +810,7 @@
 
 			// Tell Homey we're ready to be displayed
 			Homey.ready();
+			initializeBLEStatisticsSorting();
 
 			// Ensure placeholder accessibility labels are localized at runtime.
 			localizeA11yPlaceholders();
@@ -692,6 +840,14 @@
 				copyBLEStatisticsElement.addEventListener('click', function ()
 				{
 					copyBLEStatisticsToClipboard();
+				});
+			}
+
+			if (clearBLEStatisticsElement)
+			{
+				clearBLEStatisticsElement.addEventListener('click', function ()
+				{
+					clearBLEStatistics();
 				});
 			}
 

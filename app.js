@@ -2177,6 +2177,7 @@ class MyApp extends OAuth2App
 				device: device || null,
 				bleId: null,
 				localSeenAt: 0,
+				lastRSSI: null,
 				payloadFingerprint: null,
 				parsedStateFingerprint: null,
 				parsedSeenAt: 0,
@@ -2196,7 +2197,7 @@ class MyApp extends OAuth2App
 		return state;
 	}
 
-	markBLEPollServiceData(device, hasServiceData)
+	markBLEPollServiceData(device, hasServiceData, rssi = null)
 	{
 		if (!device)
 		{
@@ -2210,6 +2211,11 @@ class MyApp extends OAuth2App
 		}
 
 		const state = this.getOrCreateBLEAdvertisementDeviceState(deviceKey, device);
+		if (typeof rssi === 'number' && Number.isFinite(rssi))
+		{
+			state.lastRSSI = rssi;
+		}
+
 		if (hasServiceData)
 		{
 			state.serviceDataPresentCount = Number(state.serviceDataPresentCount || 0) + 1;
@@ -2689,6 +2695,7 @@ class MyApp extends OAuth2App
 			state.parsedStateFingerprint = null;
 			state.parsedSeenAt = 0;
 			state.localSeenAt = 0;
+			state.lastRSSI = null;
 			state.noServiceDataCount = 0;
 			state.serviceDataPresentCount = 0;
 			state.advertisementCount = 0;
@@ -2760,6 +2767,31 @@ class MyApp extends OAuth2App
 		return devices;
 	}
 
+	clearBLEStatistics(preserveLastSeen = true)
+	{
+		for (const state of this.bleAdvertisementDeviceState.values())
+		{
+			if (!state)
+			{
+				continue;
+			}
+
+			if (!preserveLastSeen)
+			{
+				state.localSeenAt = 0;
+				state.parsedSeenAt = 0;
+			}
+
+			state.noServiceDataCount = 0;
+			state.serviceDataPresentCount = 0;
+			state.advertisementCount = 0;
+			state.pollCount = 0;
+			state.lastRSSI = null;
+		}
+
+		return true;
+	}
+
 	getBLEStatistics()
 	{
 		const rows = [];
@@ -2771,13 +2803,22 @@ class MyApp extends OAuth2App
 			}
 
 			const device = state.device;
+			const deviceData = (device && device.getData && typeof device.getData === 'function') ? device.getData() : null;
 			const name = (device && device.getName && typeof device.getName === 'function') ? device.getName() : (state.bleId || deviceKey);
+			const mac = this.normalizeBLEAdvertisementId(deviceData && deviceData.address ? deviceData.address : null)
+				|| this.normalizeBLEAdvertisementId(deviceData && (deviceData.id || deviceData.pid) ? (deviceData.id || deviceData.pid) : null)
+				|| state.bleId
+				|| '';
+			const driverType = String((device && device.driver && (device.driver.id || (device.driver.manifest && device.driver.manifest.id))) || 'unknown');
 			const lastSeenAt = Math.max(state.localSeenAt || 0, state.parsedSeenAt || 0);
 			rows.push({
 				name,
+				mac,
+				driverType,
 				missing: Number(state.noServiceDataCount || 0),
 				present: Number(state.serviceDataPresentCount || 0),
 				advertisements: Number(state.advertisementCount || 0),
+				rssi: (typeof state.lastRSSI === 'number' && Number.isFinite(state.lastRSSI)) ? Math.round(state.lastRSSI) : null,
 				lastSeenAt: lastSeenAt,
 				polls: Number(state.pollCount || 0),
 			});
@@ -2909,15 +2950,12 @@ class MyApp extends OAuth2App
 
 			const state = this.getOrCreateBLEAdvertisementDeviceState(deviceKey, device);
 			state.advertisementCount = Number(state.advertisementCount || 0) + 1;
-
+			if (typeof advertisement?.rssi === 'number' && Number.isFinite(advertisement.rssi))
+			{
+				state.lastRSSI = advertisement.rssi;
+			}
 			const payloadFingerprint = this.getBLEAdvertisementFingerprint(advertisement);
 			const previousFingerprint = state.payloadFingerprint;
-			if (previousFingerprint === payloadFingerprint)
-			{
-				return;
-			}
-
-			state.payloadFingerprint = payloadFingerprint;
 
 			const serviceDataIsPresent = !!advertisement
 				&& !!advertisement.serviceData
@@ -2946,12 +2984,19 @@ class MyApp extends OAuth2App
 
 			const nowMs = Date.now();
 			const previousSeenMs = state.localSeenAt || 0;
+			state.localSeenAt = nowMs;
 			if ((nowMs - previousSeenMs) >= 60000)
 			{
 				const name = (device.getName && typeof device.getName === 'function') ? device.getName() : bleId;
 				this.updateLog(`[local-subscription] BLE advertisement received for ${name} (${bleId})`, 1, 'ble');
-				state.localSeenAt = nowMs;
 			}
+
+			if (previousFingerprint === payloadFingerprint)
+			{
+				return;
+			}
+
+			state.payloadFingerprint = payloadFingerprint;
 
 			let parsedEvent = null;
 			if (device.driver && typeof device.driver.parse === 'function')

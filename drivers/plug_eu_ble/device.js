@@ -269,7 +269,7 @@ class PlugBLEDevice extends Homey.Device
 				const data = this.driver.parse(bleAdvertisement);
 				if (data)
 				{
-					this.homey.app.markBLEPollServiceData(this, true);
+					this.homey.app.markBLEPollServiceData(this, true, rssi);
 					this.homey.app.updateLog(`Parsed Plug BLE (${name}) ${this.homey.app.varToString(data)}`, 3, 'ble');
 
 					this.setAvailable();
@@ -280,7 +280,7 @@ class PlugBLEDevice extends Homey.Device
 				}
 				else
 				{
-					this.homey.app.markBLEPollServiceData(this, false);
+					this.homey.app.markBLEPollServiceData(this, false, rssi);
 					this.homey.app.updateLog(`Parsed Plug BLE (${name}): No service data`, 0, 'ble');
 				}
 			}

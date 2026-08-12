@@ -549,6 +549,10 @@
 			"method": "get",
 			"path": "/getBLEStatistics/"
 		},
+		"clearBLEStatistics": {
+			"method": "post",
+			"path": "/clearBLEStatistics/"
+		},
 		"clearLog": {
 			"method": "post",
 			"path": "/clearLog/"

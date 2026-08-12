@@ -26,6 +26,11 @@ module.exports = {
 	{
 		return homey.app.getBLEStatistics();
 	},
+	async clearBLEStatistics({ homey, query })
+	{
+		homey.app.clearBLEStatistics(true);
+		return 'OK';
+	},
 	async clearLog({ homey, query })
 	{
 		homey.app.diagLog = '';
