@@ -1380,6 +1380,8 @@ class MyApp extends OAuth2App
 		}
 
 		const context = message.context || message;
+
+		// Build a set of normalized lookup keys from the webhook message and context.
 		const lookupKeys = new Set();
 		for (const rawKey of [
 			context && context.deviceMac,
@@ -1397,7 +1399,10 @@ class MyApp extends OAuth2App
 		const devices = [];
 		for (const lookupKey of lookupKeys)
 		{
+			// Check the cached registry for a matching device registration.
 			let registration = this.webhookDeviceRegistry.get(lookupKey);
+
+			// If no valid registration is found, scan the loaded drivers for a matching device with a processWebhookMessage handler.
 			if (!registration || !registration.device || (typeof registration.device.processWebhookMessage !== 'function'))
 			{
 				if (registration && registration.device && (typeof registration.device.processWebhookMessage !== 'function'))
@@ -1472,9 +1477,11 @@ class MyApp extends OAuth2App
 	{
 		this.updateLog(`Got a webhook message! ${this.varToString(message)}`, 1, 'hub');
 
+		// Determine which devices should receive the webhook message.
 		const directDevices = this.getWebhookDispatchDevices(message);
 		if (directDevices.length === 0)
 		{
+			// No devices were found to handle the webhook message. Log diagnostic information for debugging.
 			const context = message && message.context ? message.context : (message || {});
 			const ignoredKeys = new Set();
 			for (const rawKey of [context.deviceMac, context.deviceId, message && message.deviceMac, message && message.deviceId])
@@ -1549,6 +1556,7 @@ class MyApp extends OAuth2App
 			return;
 		}
 
+		// Dispatch the webhook message to each resolved device.
 		for (const device of directDevices)
 		{
 			try
