@@ -1391,5 +1391,18 @@
 		"pl": "Napraw awarię na starszych Homeys podczas sprawdzania obsługi reklam BLE.",
 		"ru": "Исправить сбой на старых Homeys при проверке поддержки рекламы BLE.",
 		"ko": "BLE 광고 지원을 확인할 때 이전 Homeys에서 충돌 수정"
+	},
+	"2.0.86": {
+		"en": "Added support for the Circulator Fan 2 Pro. Ensure webhook mac address details are consistent.",
+		"no": "Lagt til støtte for Circulator Fan 2 Pro. Sørg for at webhook mac-adressedetaljer er konsistente.",
+		"nl": "Ondersteuning toegevoegd voor de Circulator Fan 2 Pro. Zorg ervoor dat de details van het webhook-mac-adres consistent zijn.",
+		"de": "Unterstützung für den Circulator Fan 2 Pro hinzugefügt. Stellen Sie sicher, dass die Details der Webhook-MAC-Adresse konsistent sind.",
+		"fr": "Ajout de la prise en charge du Circulator Fan 2 Pro. Assurez-vous que les détails de l'adresse MAC du webhook sont cohérents.",
+		"es": "Se agregó soporte para el Circulator Fan 2 Pro. Asegúrese de que los detalles de la dirección mac del webhook sean consistentes.",
+		"pt": "Adicionado suporte para o Circulator Fan 2 Pro. Certifique-se de que os detalhes do endereço mac do webhook sejam consistentes.",
+		"it": "Aggiunto supporto per il Circulator Fan 2 Pro. Assicurati che i dettagli dell'indirizzo mac del webhook siano coerenti.",
+		"pl": "Dodano obsługę Circulator Fan 2 Pro. Upewnij się, że szczegóły adresu mac webhooka są spójne.",
+		"ru": "Добавлена поддержка Circulator Fan 2 Pro. Убедьтесь, что детали адреса mac вебхука согласованы.",
+		"ko": "Circulator Fan 2 Pro 지원 추가. 웹후크 mac 주소 세부 정보가 일관되도록 합니다."
 	}
 }

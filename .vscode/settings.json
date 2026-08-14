@@ -14,5 +14,11 @@
         "-NoLogo"
       ]
     }
-  }
+},
+"chat.tools.terminal.autoApprove": {
+	"/^Get-ChildItem -Path drivers -Recurse -Filter device\\.js \\| Select-String -Pattern \"async processWebhookMessage\\\\\\(message\\\\\\)\" -Context 0,35 \\| ForEach-Object \\{ \"`n--- \\$\\(\\$_\\.Path\\) ---\"; \\$_\\.Line; \\$_\\.Context\\.PostContext \\}$/": {
+		"approve": true,
+		"matchCommandLine": true
+	}
+}
 }

@@ -155,11 +155,14 @@ class AirPurifierHubDevice extends HubDevice
 			{
 				// message is for this device
 				this.setCapabilityValue('onoff', message.context.power === 'ON').catch(this.error);
-				this.setCapabilityValue('air_purifier_mode', message.context.mode.toString()).catch(this.error);
-				this.setCapabilityValue('child_lock', (message.context.childLock === 1)).catch(this.error);
-				if (message.context.fanGear)
+				if (typeof message.context.mode !== 'undefined' && message.context.mode !== null)
 				{
-					this.setCapabilityValue('fan_level', message.context.fanGear.toString()).catch(this.error);
+					this.setCapabilityValue('air_purifier_mode', String(message.context.mode)).catch(this.error);
+				}
+				this.setCapabilityValue('child_lock', (message.context.childLock === 1)).catch(this.error);
+				if (typeof message.context.fanGear !== 'undefined' && message.context.fanGear !== null)
+				{
+					this.setCapabilityValue('fan_level', String(message.context.fanGear)).catch(this.error);
 				}
 			}
 		}

@@ -1379,29 +1379,32 @@ class MyApp extends OAuth2App
 		}
 
 		const context = message.context || message;
-		const lookupKeys = new Set(
-			[
-				context && context.deviceMac,
-				context && context.deviceId,
-				context && context.id,
-				context && context.pid,
-				context && context.uuid,
-				message && message.deviceMac,
-				message && message.deviceId,
-				message && message.id,
-				message && message.pid,
-				message && message.uuid,
-			]
-				.map((value) => this.normalizeBLEAdvertisementId(value))
-				.filter(Boolean),
-		);
+		const lookupKeys = new Set();
+		for (const rawKey of [
+			context && context.deviceMac,
+			context && context.deviceId,
+			message && message.deviceMac,
+			message && message.deviceId,
+		])
+		{
+			for (const key of this.getNormalizedLookupKeys(rawKey))
+			{
+				lookupKeys.add(key);
+			}
+		}
 
 		const devices = [];
 		for (const lookupKey of lookupKeys)
 		{
 			let registration = this.webhookDeviceRegistry.get(lookupKey);
-			if (!registration || !registration.device)
+			if (!registration || !registration.device || (typeof registration.device.processWebhookMessage !== 'function'))
 			{
+				if (registration && registration.device && (typeof registration.device.processWebhookMessage !== 'function'))
+				{
+					const invalidName = registration.name || (registration.device.getName && typeof registration.device.getName === 'function' ? registration.device.getName() : 'Unknown webhook device');
+					this.updateLog(`Ignoring webhook registry entry without handler for key ${lookupKey}: ${invalidName}`, 2, 'hub');
+				}
+
 				const drivers = this.homey && this.homey.drivers ? this.homey.drivers.getDrivers() : {};
 				for (const driver of Object.values(drivers))
 				{
@@ -1413,11 +1416,21 @@ class MyApp extends OAuth2App
 							continue;
 						}
 
+						if (typeof device.processWebhookMessage !== 'function')
+						{
+							continue;
+						}
+
 						const deviceData = device.getData();
-						const candidateIds = [deviceData && (deviceData.id || deviceData.pid), deviceData && deviceData.address]
-							.map((value) => this.normalizeBLEAdvertisementId(value))
-							.filter(Boolean);
-						if (!candidateIds.includes(lookupKey))
+						const candidateIds = new Set();
+						for (const candidateValue of [deviceData && (deviceData.id || deviceData.pid), deviceData && deviceData.address])
+						{
+							for (const key of this.getNormalizedLookupKeys(candidateValue))
+							{
+								candidateIds.add(key);
+							}
+						}
+						if (!candidateIds.has(lookupKey))
 						{
 							continue;
 						}
@@ -1438,7 +1451,7 @@ class MyApp extends OAuth2App
 				}
 			}
 
-			if (!registration || !registration.device || !registration.device.processWebhookMessage)
+			if (!registration || !registration.device || (typeof registration.device.processWebhookMessage !== 'function'))
 			{
 				continue;
 			}
@@ -1459,7 +1472,76 @@ class MyApp extends OAuth2App
 		const directDevices = this.getWebhookDispatchDevices(message);
 		if (directDevices.length === 0)
 		{
-			this.updateLog('Ignored webhook message for unregistered cloud/hub device', 2, 'hub');
+			const context = message && message.context ? message.context : (message || {});
+			const ignoredKeys = new Set();
+			for (const rawKey of [context.deviceMac, context.deviceId, message && message.deviceMac, message && message.deviceId])
+			{
+				for (const key of this.getNormalizedLookupKeys(rawKey))
+				{
+					ignoredKeys.add(key);
+				}
+			}
+
+			const registryMatches = [];
+			for (const key of ignoredKeys)
+			{
+				const registration = this.webhookDeviceRegistry.get(key);
+				if (registration)
+				{
+					const hasHandler = Boolean(registration.device && (typeof registration.device.processWebhookMessage === 'function'));
+					registryMatches.push(`${key}->${registration.name || 'unknown'} (handler: ${hasHandler})`);
+				}
+			}
+
+			const runtimeMatches = [];
+			const drivers = this.homey && this.homey.drivers ? this.homey.drivers.getDrivers() : {};
+			for (const driver of Object.values(drivers))
+			{
+				const driverDevices = driver && typeof driver.getDevices === 'function' ? driver.getDevices() : {};
+				for (const device of Object.values(driverDevices))
+				{
+					if (!device || typeof device.getData !== 'function')
+					{
+						continue;
+					}
+
+					const deviceData = device.getData();
+					const candidateKeys = new Set([
+						...this.getNormalizedLookupKeys(deviceData && (deviceData.id || deviceData.pid) ? (deviceData.id || deviceData.pid) : null),
+						...this.getNormalizedLookupKeys(deviceData && deviceData.address ? deviceData.address : null),
+					]);
+
+					let hasMatch = false;
+					for (const key of ignoredKeys)
+					{
+						if (candidateKeys.has(key))
+						{
+							hasMatch = true;
+							break;
+						}
+					}
+
+					if (!hasMatch)
+					{
+						continue;
+					}
+
+					const name = (device.getName && typeof device.getName === 'function') ? device.getName() : 'Unknown device';
+					const hasHandler = (typeof device.processWebhookMessage === 'function');
+					runtimeMatches.push(`${name} (handler: ${hasHandler})`);
+					if (runtimeMatches.length >= 5)
+					{
+						break;
+					}
+				}
+
+				if (runtimeMatches.length >= 5)
+				{
+					break;
+				}
+			}
+
+			this.updateLog(`Ignored webhook message for unregistered cloud/hub device (lookup keys: ${Array.from(ignoredKeys).join(', ') || 'none'}; registry matches: ${registryMatches.join('; ') || 'none'}; runtime matches: ${runtimeMatches.join('; ') || 'none'})`, 2, 'hub');
 			return;
 		}
 
@@ -1467,7 +1549,52 @@ class MyApp extends OAuth2App
 		{
 			try
 			{
-				await device.processWebhookMessage(message);
+				const deviceData = (device && typeof device.getData === 'function') ? device.getData() : null;
+				const context = (message && message.context) ? message.context : (message || {});
+				const originalDeviceMac = context && context.deviceMac ? context.deviceMac : null;
+				const originalDeviceId = context && context.deviceId ? context.deviceId : null;
+				const incomingKeys = new Set([
+					...this.getNormalizedLookupKeys(originalDeviceMac),
+					...this.getNormalizedLookupKeys(originalDeviceId),
+				]);
+				const candidateKeys = new Set([
+					...this.getNormalizedLookupKeys(deviceData && (deviceData.id || deviceData.pid) ? (deviceData.id || deviceData.pid) : null),
+					...this.getNormalizedLookupKeys(deviceData && deviceData.address ? deviceData.address : null),
+				]);
+
+				if (incomingKeys.size > 0)
+				{
+					let hasKeyMatch = false;
+					for (const incomingKey of incomingKeys)
+					{
+						if (candidateKeys.has(incomingKey))
+						{
+							hasKeyMatch = true;
+							break;
+						}
+					}
+
+					if (!hasKeyMatch)
+					{
+						this.updateLog(`Skipping webhook dispatch for mismatched device mapping (incoming: ${Array.from(incomingKeys).join(', ') || 'none'}, candidate: ${Array.from(candidateKeys).join(', ') || 'none'})`, 0, 'hub');
+						continue;
+					}
+				}
+
+				const resolvedDeviceMac = deviceData && (deviceData.id || deviceData.pid || deviceData.address)
+					? (deviceData.id || deviceData.pid || deviceData.address)
+					: originalDeviceMac;
+				const messageForDevice = {
+					...(message || {}),
+					context: {
+						...((message && message.context) ? message.context : {}),
+						deviceMac: resolvedDeviceMac,
+					},
+				};
+
+				this.updateLog(`Dispatching webhook message to device ${(deviceData && (deviceData.id || deviceData.pid || deviceData.address)) || 'unknown'} (original deviceMac: ${originalDeviceMac || 'none'}, original deviceId: ${originalDeviceId || 'none'}, resolved deviceMac: ${resolvedDeviceMac || 'none'})`, 2, 'hub');
+
+				await device.processWebhookMessage(messageForDevice);
 			}
 			catch (err)
 			{
@@ -1479,18 +1606,34 @@ class MyApp extends OAuth2App
 	async registerHomeyWebhook(DeviceMAC, device = null)
 	{
 		const lookupKey = this.normalizeBLEAdvertisementId(DeviceMAC);
+		const hasWebhookHandler = (candidate) => Boolean(candidate && (typeof candidate.processWebhookMessage === 'function'));
+		const registerWebhookKeys = (registration, values) =>
+		{
+			for (const value of values)
+			{
+				for (const key of this.getNormalizedLookupKeys(value))
+				{
+					this.webhookDeviceRegistry.set(key, registration);
+				}
+			}
+		};
 		if (lookupKey)
 		{
 			if (device && device.getData)
 			{
+				if (!hasWebhookHandler(device))
+				{
+					const skippedName = (device.getName && typeof device.getName === 'function') ? device.getName() : 'Unknown webhook device';
+					this.updateLog(`Skipping webhook registry for ${skippedName}: no processWebhookMessage handler`, 2, 'hub');
+				}
+				else
+				{
 				const deviceData = device.getData();
 				const deviceName = (device.getName && typeof device.getName === 'function') ? device.getName() : 'Unknown webhook device';
 				const deviceId = this.normalizeBLEAdvertisementId(deviceData && (deviceData.id || deviceData.pid) ? (deviceData.id || deviceData.pid) : null);
 				const deviceAddress = this.normalizeBLEAdvertisementId(deviceData && deviceData.address ? deviceData.address : null);
 				const registration = { device, name: deviceName, id: deviceId, address: deviceAddress };
-				for (const key of [deviceId, deviceAddress, lookupKey].filter(Boolean))
-				{
-					this.webhookDeviceRegistry.set(key, registration);
+				registerWebhookKeys(registration, [deviceId, deviceAddress, lookupKey]);
 				}
 			}
 			else
@@ -1506,21 +1649,28 @@ class MyApp extends OAuth2App
 							continue;
 						}
 
+						if (!hasWebhookHandler(candidateDevice))
+						{
+							continue;
+						}
+
 						const data = candidateDevice.getData();
-						const candidateKeys = [data && (data.id || data.pid), data && data.address, lookupKey]
-							.map((value) => this.normalizeBLEAdvertisementId(value))
-							.filter(Boolean);
-						if (!candidateKeys.includes(lookupKey))
+						const candidateKeys = new Set();
+						for (const candidateValue of [data && (data.id || data.pid), data && data.address])
+						{
+							for (const key of this.getNormalizedLookupKeys(candidateValue))
+							{
+								candidateKeys.add(key);
+							}
+						}
+						if (!candidateKeys.has(lookupKey))
 						{
 							continue;
 						}
 
 						const candidateName = (candidateDevice.getName && typeof candidateDevice.getName === 'function') ? candidateDevice.getName() : 'Unknown webhook device';
 						const registration = { device: candidateDevice, name: candidateName, id: this.normalizeBLEAdvertisementId(data && (data.id || data.pid) ? (data.id || data.pid) : null), address: this.normalizeBLEAdvertisementId(data && data.address ? data.address : null) };
-						for (const key of [registration.id, registration.address, lookupKey].filter(Boolean))
-						{
-							this.webhookDeviceRegistry.set(key, registration);
-						}
+						registerWebhookKeys(registration, [registration.id, registration.address, lookupKey]);
 						break;
 					}
 					if (this.webhookDeviceRegistry.has(lookupKey))
@@ -2245,6 +2395,25 @@ class MyApp extends OAuth2App
 		}
 
 		return String(bleId).trim().toLowerCase();
+	}
+
+	getNormalizedLookupKeys(value)
+	{
+		const normalized = this.normalizeBLEAdvertisementId(value);
+		if (!normalized)
+		{
+			return [];
+		}
+
+		const keys = new Set([normalized]);
+		const compactHex = normalized.replace(/[^a-f0-9]/g, '');
+		if (compactHex.length === 12)
+		{
+			keys.add(compactHex);
+			keys.add(compactHex.match(/.{1,2}/g).join(':'));
+		}
+
+		return Array.from(keys);
 	}
 
 	registerBLEDeviceAdvertisement(device)
