@@ -550,6 +550,7 @@ class MyApp extends OAuth2App
 		this.bleAdvertisementDeviceState = new Map();
 		this.bleAdvertisementDeviceKeys = new WeakMap();
 		this.bleAdvertisementDeviceRegistry = new Map();
+		// Lookup used by webhook dispatch; keys are normalized device ids/addresses.
 		this.webhookDeviceRegistry = new Map();
 		this.bleAdvertisementNextKey = 1;
 		this.blePollingFallbackDevices = new Set();
@@ -1406,6 +1407,7 @@ class MyApp extends OAuth2App
 				}
 
 				const drivers = this.homey && this.homey.drivers ? this.homey.drivers.getDrivers() : {};
+				// Fallback path: recover from stale/missing registry entries by scanning loaded drivers.
 				for (const driver of Object.values(drivers))
 				{
 					const driverDevices = driver && typeof driver.getDevices === 'function' ? driver.getDevices() : {};
@@ -1436,6 +1438,7 @@ class MyApp extends OAuth2App
 						}
 
 						const deviceName = (device.getName && typeof device.getName === 'function') ? device.getName() : 'Unknown webhook device';
+						// Cache the successful mapping so next webhook can be routed without a full scan.
 						registration = { device, name: deviceName, id: lookupKey, address: this.normalizeBLEAdvertisementId(deviceData && deviceData.address ? deviceData.address : null) };
 						this.webhookDeviceRegistry.set(lookupKey, registration);
 						if (registration.address)
@@ -1483,6 +1486,7 @@ class MyApp extends OAuth2App
 			}
 
 			const registryMatches = [];
+			// Diagnostics: compare lookup keys with cached registry entries and live runtime devices.
 			for (const key of ignoredKeys)
 			{
 				const registration = this.webhookDeviceRegistry.get(key);
@@ -1576,6 +1580,7 @@ class MyApp extends OAuth2App
 
 					if (!hasKeyMatch)
 					{
+						// Guardrail: never dispatch a webhook update to a device that does not share the incoming key.
 						this.updateLog(`Skipping webhook dispatch for mismatched device mapping (incoming: ${Array.from(incomingKeys).join(', ') || 'none'}, candidate: ${Array.from(candidateKeys).join(', ') || 'none'})`, 0, 'hub');
 						continue;
 					}
@@ -1609,6 +1614,7 @@ class MyApp extends OAuth2App
 		const hasWebhookHandler = (candidate) => Boolean(candidate && (typeof candidate.processWebhookMessage === 'function'));
 		const registerWebhookKeys = (registration, values) =>
 		{
+			// Store multiple normalized key variants (with/without separators) for robust matching.
 			for (const value of values)
 			{
 				for (const key of this.getNormalizedLookupKeys(value))
@@ -1623,6 +1629,7 @@ class MyApp extends OAuth2App
 			{
 				if (!hasWebhookHandler(device))
 				{
+					// BLE-only devices can share ids with hub devices; keep them out of webhook routing.
 					const skippedName = (device.getName && typeof device.getName === 'function') ? device.getName() : 'Unknown webhook device';
 					this.updateLog(`Skipping webhook registry for ${skippedName}: no processWebhookMessage handler`, 2, 'hub');
 				}
