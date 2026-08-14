@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.switchbot",
-  "version": "2.0.84",
+  "version": "2.0.85",
   "compatibility": ">=12.2.0",
   "platforms": [
     "local",
@@ -4251,6 +4251,119 @@
       },
       {
         "title": {
+          "en": "Set night light",
+          "no": "Sett nattlys",
+          "nl": "Stel nachtlicht in",
+          "da": "Indstil natlys",
+          "de": "Nachtlicht einstellen",
+          "es": "Establecer luz nocturna",
+          "fr": "Régler la lumière nocturne",
+          "it": "Imposta luce notturna",
+          "sv": "Ställ in nattljus",
+          "pl": "Ustaw światło nocne",
+          "ru": "Установить ночной свет",
+          "ko": "야간 조명 설정"
+        },
+        "titleFormatted": {
+          "en": "Set the night light to [[night_light]]",
+          "no": "Sett nattlyset til [[night_light]]",
+          "nl": "Stel het nachtlicht in op [[night_light]]",
+          "da": "Indstil natlyset til [[night_light]]",
+          "de": "Nachtlicht auf [[night_light]] einstellen",
+          "es": "Establecer la luz nocturna a [[night_light]]",
+          "fr": "Régler la lumière nocturne sur [[night_light]]",
+          "it": "Imposta la luce notturna su [[night_light]]",
+          "sv": "Ställ in nattljuset till [[night_light]]",
+          "pl": "Ustaw światło nocne na [[night_light]]",
+          "ru": "Установить ночной свет на [[night_light]]",
+          "ko": "야간 조명을 [[night_light]]로 설정"
+        },
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "args": [
+          {
+            "name": "night_light",
+            "title": {
+              "en": "Night Light",
+              "no": "Nattlys",
+              "nl": "Nachtlicht",
+              "da": "Natlys",
+              "de": "Nachtlicht",
+              "es": "Luz nocturna",
+              "fr": "Lumière nocturne",
+              "it": "Luce notturna",
+              "sv": "Nattljus",
+              "pl": "Światło nocne",
+              "ru": "Ночной свет",
+              "ko": "야간 조명"
+            },
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "off",
+                "title": {
+                  "en": "Off",
+                  "no": "Av",
+                  "nl": "Uit",
+                  "da": "Fra",
+                  "de": "Aus",
+                  "es": "Apagado",
+                  "fr": "Éteint",
+                  "it": "Spento",
+                  "sv": "Av",
+                  "pl": "Wyłączony",
+                  "ru": "Выкл",
+                  "ko": "꺼짐"
+                }
+              },
+              {
+                "id": "2",
+                "title": {
+                  "en": "Dim",
+                  "no": "Dempet",
+                  "nl": "Gedimd",
+                  "da": "Dæmpet",
+                  "de": "Gedimmt",
+                  "es": "Atenuado",
+                  "fr": "Faible",
+                  "it": "Luce tenue",
+                  "sv": "Dämpad",
+                  "pl": "Przyciemnione",
+                  "ru": "Тусклый",
+                  "ko": "어둡게"
+                }
+              },
+              {
+                "id": "1",
+                "title": {
+                  "en": "Bright",
+                  "no": "Lys",
+                  "nl": "Helder",
+                  "da": "Lys",
+                  "de": "Hell",
+                  "es": "Brillante",
+                  "fr": "Luminosité",
+                  "it": "Luce intensa",
+                  "sv": "Ljus",
+                  "pl": "Jasne",
+                  "ru": "Яркий",
+                  "ko": "밝음"
+                }
+              }
+            ]
+          },
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=smart_fan_new_hub|smart_fan_Pro2_hub"
+          }
+        ],
+        "id": "set_night_light"
+      },
+      {
+        "title": {
           "en": "Set the thermostat mode",
           "no": "Angi termostatmodus",
           "nl": "Stel de thermostaatmodus in",
@@ -5763,6 +5876,153 @@
         ]
       },
       {
+        "id": "circulating_fan_mode3",
+        "title": {
+          "en": "Set fan mode",
+          "no": "Sett viftemodus",
+          "nl": "Zet ventilatormodus",
+          "da": "Indstil ventilatormodus",
+          "de": "Ventilatormodus einstellen",
+          "es": "Configurar modo de ventilador",
+          "fr": "Régler le mode ventilateur",
+          "it": "Imposta modalità ventilatore",
+          "sv": "Ställ in fläktläge",
+          "pl": "Ustaw tryb wentylatora",
+          "ru": "Установить режим вентилятора",
+          "ko": "팬 모드 설정"
+        },
+        "titleFormatted": {
+          "en": "Set the fan mode to [[fan_mode]]",
+          "no": "Sett viftemodus til [[fan_mode]]",
+          "nl": "Stel ventilatormodus in op [[fan_mode]]",
+          "da": "Indstil ventilatormodus til [[fan_mode]]",
+          "de": "Ventilatormodus auf [[fan_mode]] einstellen",
+          "es": "Configura el modo de ventilador a [[fan_mode]]",
+          "fr": "Réglez le mode ventilateur sur [[fan_mode]]",
+          "it": "Imposta la modalità ventilatore su [[fan_mode]]",
+          "sv": "Ställ in fläktläge till [[fan_mode]]",
+          "pl": "Ustaw tryb wentylatora na [[fan_mode]]",
+          "ru": "Установите режим вентилятора на [[fan_mode]]",
+          "ko": "팬 모드를 [[fan_mode]]로 설정"
+        },
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=smart_fan_Pro2_hub"
+          },
+          {
+            "name": "fan_mode",
+            "title": {
+              "en": "Mode",
+              "no": "Viftemodus",
+              "nl": "Modus",
+              "da": "Modus",
+              "de": "Modus",
+              "es": "Modo",
+              "fr": "Mode",
+              "it": "Modalità",
+              "sv": "Läge",
+              "pl": "Tryb",
+              "ru": "Режим",
+              "ko": "모드"
+            },
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "direct",
+                "title": {
+                  "en": "Direct",
+                  "no": "Direkte",
+                  "nl": "Direct",
+                  "da": "Direkte",
+                  "de": "Direkt",
+                  "es": "Directo",
+                  "fr": "Direct",
+                  "it": "Diretto",
+                  "sv": "Direkt",
+                  "pl": "Bezpośredni",
+                  "ru": "Прямой",
+                  "ko": "직접"
+                }
+              },
+              {
+                "id": "natural",
+                "title": {
+                  "en": "Natural",
+                  "no": "Naturlig",
+                  "nl": "Natuurlijk",
+                  "da": "Naturlig",
+                  "de": "Natürlich",
+                  "es": "Natural",
+                  "fr": "Naturel",
+                  "it": "Naturale",
+                  "sv": "Naturlig",
+                  "pl": "Naturalny",
+                  "ru": "Естественный",
+                  "ko": "자연풍"
+                }
+              },
+              {
+                "id": "sleep",
+                "title": {
+                  "en": "Sleep",
+                  "no": "Søvn",
+                  "nl": "Slaap",
+                  "da": "Søvn",
+                  "de": "Schlaf",
+                  "es": "Dormir",
+                  "fr": "Sommeil",
+                  "it": "Sonno",
+                  "sv": "Sömn",
+                  "pl": "Sen",
+                  "ru": "Сон",
+                  "ko": "수면"
+                }
+              },
+              {
+                "id": "hurricane",
+                "title": {
+                  "en": "Hurricane",
+                  "no": "Orkan",
+                  "nl": "Orkaan",
+                  "da": "Orkan",
+                  "de": "Hurrikan",
+                  "es": "Huracán",
+                  "fr": "Ouragan",
+                  "it": "Uragano",
+                  "sv": "Orkan",
+                  "pl": "Huragan",
+                  "ru": "Ураган",
+                  "ko": "허리케인"
+                }
+              },
+              {
+                "id": "custom",
+                "title": {
+                  "en": "Custom",
+                  "no": "Tilpasset",
+                  "nl": "Aangepast",
+                  "da": "Tilpasset",
+                  "de": "Benutzerdefiniert",
+                  "es": "Personalizado",
+                  "fr": "Personnalisé",
+                  "it": "Personalizzato",
+                  "sv": "Anpassad",
+                  "pl": "Niestandardowy",
+                  "ru": "Пользовательский",
+                  "ko": "사용자 정의"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
         "id": "smart_fan_mode",
         "title": {
           "en": "Set fan mode",
@@ -6049,119 +6309,6 @@
                   "pl": "Dziecko",
                   "ru": "Младенец",
                   "ko": "아기"
-                }
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "id": "set_night_light",
-        "title": {
-          "en": "Set night light",
-          "no": "Sett nattlys",
-          "nl": "Stel nachtlicht in",
-          "da": "Indstil natlys",
-          "de": "Nachtlicht einstellen",
-          "es": "Establecer luz nocturna",
-          "fr": "Régler la lumière nocturne",
-          "it": "Imposta luce notturna",
-          "sv": "Ställ in nattljus",
-          "pl": "Ustaw światło nocne",
-          "ru": "Установить ночной свет",
-          "ko": "야간 조명 설정"
-        },
-        "titleFormatted": {
-          "en": "Set the night light to [[night_light]]",
-          "no": "Sett nattlyset til [[night_light]]",
-          "nl": "Stel het nachtlicht in op [[night_light]]",
-          "da": "Indstil natlyset til [[night_light]]",
-          "de": "Nachtlicht auf [[night_light]] einstellen",
-          "es": "Establecer la luz nocturna a [[night_light]]",
-          "fr": "Régler la lumière nocturne sur [[night_light]]",
-          "it": "Imposta la luce notturna su [[night_light]]",
-          "sv": "Ställ in nattljuset till [[night_light]]",
-          "pl": "Ustaw światło nocne na [[night_light]]",
-          "ru": "Установить ночной свет на [[night_light]]",
-          "ko": "야간 조명을 [[night_light]]로 설정"
-        },
-        "platforms": [
-          "local",
-          "cloud"
-        ],
-        "args": [
-          {
-            "type": "device",
-            "name": "device",
-            "filter": "driver_id=smart_fan_new_hub"
-          },
-          {
-            "name": "night_light",
-            "title": {
-              "en": "Night Light",
-              "no": "Nattlys",
-              "nl": "Nachtlicht",
-              "da": "Natlys",
-              "de": "Nachtlicht",
-              "es": "Luz nocturna",
-              "fr": "Lumière nocturne",
-              "it": "Luce notturna",
-              "sv": "Nattljus",
-              "pl": "Światło nocne",
-              "ru": "Ночной свет",
-              "ko": "야간 조명"
-            },
-            "type": "dropdown",
-            "values": [
-              {
-                "id": "off",
-                "title": {
-                  "en": "Off",
-                  "no": "Av",
-                  "nl": "Uit",
-                  "da": "Fra",
-                  "de": "Aus",
-                  "es": "Apagado",
-                  "fr": "Éteint",
-                  "it": "Spento",
-                  "sv": "Av",
-                  "pl": "Wyłączony",
-                  "ru": "Выкл",
-                  "ko": "꺼짐"
-                }
-              },
-              {
-                "id": "2",
-                "title": {
-                  "en": "Dim",
-                  "no": "Dempet",
-                  "nl": "Gedimd",
-                  "da": "Dæmpet",
-                  "de": "Gedimmt",
-                  "es": "Atenuado",
-                  "fr": "Faible",
-                  "it": "Luce tenue",
-                  "sv": "Dämpad",
-                  "pl": "Przyciemnione",
-                  "ru": "Тусклый",
-                  "ko": "어둡게"
-                }
-              },
-              {
-                "id": "1",
-                "title": {
-                  "en": "Bright",
-                  "no": "Lys",
-                  "nl": "Helder",
-                  "da": "Lys",
-                  "de": "Hell",
-                  "es": "Brillante",
-                  "fr": "Luminosité",
-                  "it": "Luce intensa",
-                  "sv": "Ljus",
-                  "pl": "Jasne",
-                  "ru": "Яркий",
-                  "ko": "밝음"
                 }
               }
             ]
@@ -11728,6 +11875,65 @@
           "template": "login_oauth2"
         }
       ],
+      "icon": "/drivers/smart_fan_Pro2_hub/assets/icon.svg",
+      "images": {
+        "large": "/drivers/smart_fan_Pro2_hub/assets/images/large.jpg",
+        "small": "/drivers/smart_fan_Pro2_hub/assets/images/small.jpg"
+      },
+      "name": {
+        "en": "Circulator Fan 2 Pro (HUB)",
+        "no": "Sirkulasjonsvifte 2 Pro (HUB)",
+        "nl": "Circulatieventilator 2 Pro (HUB)",
+        "da": "Cirkulationsventilator 2 Pro (HUB)",
+        "de": "Zirkulationsventilator 2 Pro (HUB)",
+        "es": "Ventilador de circulación 2 Pro (HUB)",
+        "fr": "Ventilateur de circulation 2 Pro (HUB)",
+        "it": "Ventilatore a circolazione 2 Pro (HUB)",
+        "sv": "Cirkulationsfläkt 2 Pro (HUB)",
+        "pl": "Wentylator cyrkulacyjny 2 Pro (HUB)",
+        "ru": "Циркуляционный вентилятор 2 Pro (HUB)",
+        "ko": "순환 팬 2 Pro (HUB)"
+      },
+      "class": "fan",
+      "capabilities": [
+        "onoff",
+        "fan_speed",
+        "smart_fan_mode3",
+        "night_light"
+      ],
+      "id": "smart_fan_Pro2_hub"
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        }
+      ],
       "icon": "/drivers/smart_fan_hub/assets/icon.svg",
       "images": {
         "large": "/drivers/smart_fan_hub/assets/images/large.jpg",
@@ -11748,7 +11954,7 @@
         "ru": "Умный Вентилятор (HUB)",
         "ko": "스마트 팬 (HUB)"
       },
-      "class": "other",
+      "class": "fan",
       "capabilities": [
         "onoff",
         "smart_fan_speed",
@@ -14482,6 +14688,113 @@
             "pl": "Dziecko",
             "ru": "Ребенок",
             "ko": "아기"
+          }
+        }
+      ],
+      "getable": true,
+      "setable": true,
+      "icon": "/assets/fan_mode.svg"
+    },
+    "smart_fan_mode3": {
+      "type": "enum",
+      "title": {
+        "en": "Mode",
+        "no": "Modus",
+        "nl": "Modus",
+        "da": "Tilstand",
+        "de": "Modus",
+        "es": "Modo",
+        "fr": "Mode",
+        "it": "Modalità",
+        "sv": "Läge",
+        "pl": "Tryb",
+        "ru": "Режим",
+        "ko": "모드"
+      },
+      "values": [
+        {
+          "id": "direct",
+          "title": {
+            "en": "Direct",
+            "no": "Direkte",
+            "nl": "Direct",
+            "da": "Direkte",
+            "de": "Direkt",
+            "es": "Directo",
+            "fr": "Direct",
+            "it": "Diretto",
+            "sv": "Direkt",
+            "pl": "Bezpośredni",
+            "ru": "Прямой",
+            "ko": "직접"
+          }
+        },
+        {
+          "id": "natural",
+          "title": {
+            "en": "Natural",
+            "no": "Naturlig",
+            "nl": "Natuurlijk",
+            "da": "Naturlig",
+            "de": "Natürlich",
+            "es": "Natural",
+            "fr": "Naturel",
+            "it": "Naturale",
+            "sv": "Naturlig",
+            "pl": "Naturalny",
+            "ru": "Естественный",
+            "ko": "자연스러운"
+          }
+        },
+        {
+          "id": "sleep",
+          "title": {
+            "en": "Sleep",
+            "no": "Søvn",
+            "nl": "Slaap",
+            "da": "Søvn",
+            "de": "Schlaf",
+            "es": "Sueño",
+            "fr": "Sommeil",
+            "it": "Sonno",
+            "sv": "Sömn",
+            "pl": "Sen",
+            "ru": "Сон",
+            "ko": "수면"
+          }
+        },
+        {
+          "id": "hurricane",
+          "title": {
+            "en": "Hurricane",
+            "no": "Orkan",
+            "nl": "Orkaan",
+            "da": "Orkan",
+            "de": "Hurrikan",
+            "es": "Huracán",
+            "fr": "Ouragan",
+            "it": "Uragano",
+            "sv": "Orkan",
+            "pl": "Huragan",
+            "ru": "Ураган",
+            "ko": "허리케인"
+          }
+        },
+        {
+          "id": "custom",
+          "title": {
+            "en": "Custom",
+            "no": "Tilpasset",
+            "nl": "Aangepast",
+            "da": "Brugerdefineret",
+            "de": "Benutzerdefiniert",
+            "es": "Personalizado",
+            "fr": "Personnalisé",
+            "it": "Personalizzato",
+            "sv": "Anpassad",
+            "pl": "Niestandardowy",
+            "ru": "Пользовательский",
+            "ko": "사용자 정의"
           }
         }
       ],

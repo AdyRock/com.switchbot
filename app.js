@@ -543,7 +543,8 @@ class MyApp extends OAuth2App
 		this.onBLEPoll = this.onBLEPoll.bind(this);
 		this.bleDevices = 0;
 		this.bleTimerID = null;
-		this.bleAdvertisementSupported = this.homey.hasFeature('ble-advertisements');
+		const hasHomeyFeatureApi = this.homey && (typeof this.homey.hasFeature === 'function');
+		this.bleAdvertisementSupported = hasHomeyFeatureApi ? this.homey.hasFeature('ble-advertisements') : false;
 		this.bleAdvertisementSubscriptions = new Map();
 		this.bleAdvertisementSubscriptionPending = new Map();
 		this.bleAdvertisementDeviceState = new Map();
@@ -554,6 +555,10 @@ class MyApp extends OAuth2App
 		this.blePollingFallbackDevices = new Set();
 		this.bleRegisteredDevices = new Set();
 		this.bleDiscoverUnavailableLogged = false;
+		if (!hasHomeyFeatureApi)
+		{
+			this.updateLog('Homey runtime has no hasFeature API, using polling fallback', 1, 'ble');
+		}
 		if (this.bleAdvertisementSupported)
 		{
 			this.updateLog('BLE advertisement subscriptions enabled', 1, 'ble');

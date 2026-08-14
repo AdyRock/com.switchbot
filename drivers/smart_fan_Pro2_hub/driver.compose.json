@@ -1,0 +1,26 @@
+{
+  "name": {
+    "en": "Circulator Fan 2 Pro (HUB)",
+	"no": "Sirkulasjonsvifte 2 Pro (HUB)",
+	"nl": "Circulatieventilator 2 Pro (HUB)",
+	"da": "Cirkulationsventilator 2 Pro (HUB)",
+	"de": "Zirkulationsventilator 2 Pro (HUB)",
+	"es": "Ventilador de circulación 2 Pro (HUB)",
+	"fr": "Ventilateur de circulation 2 Pro (HUB)",
+	"it": "Ventilatore a circolazione 2 Pro (HUB)",
+	"sv": "Cirkulationsfläkt 2 Pro (HUB)",
+	"pl": "Wentylator cyrkulacyjny 2 Pro (HUB)",
+	"ru": "Циркуляционный вентилятор 2 Pro (HUB)",
+	"ko": "순환 팬 2 Pro (HUB)"
+  },
+  "class": "fan",
+  "capabilities": [
+    "onoff",
+    "fan_speed",
+    "smart_fan_mode3",
+	"night_light"
+  ],
+  "$extends": [
+    "hubDriver"
+  ]
+}
