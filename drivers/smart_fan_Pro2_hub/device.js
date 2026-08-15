@@ -75,12 +75,12 @@ class SmartFanPro2HubDevice extends HubDevice
 				this.setCapabilityValue('night_light', data.nightStatus).catch(this.error);
 				this.setCapabilityValue('measure_battery', data.battery).catch(this.error);
 			}
-			this.unsetWarning().catch(this.error);;
+			this.unsetWarning().catch(this.error);
 		}
 		catch (err)
 		{
 			this.homey.app.updateLog(`Smart Fan Pro2 Hub getHubDeviceValues: ${this.homey.app.varToString(err.message)}`, 0, 'hub');
-			this.setWarning(err.message).catch(this.error);;
+			this.setWarning(err.message).catch(this.error);
 		}
 	}
 
@@ -97,7 +97,7 @@ class SmartFanPro2HubDevice extends HubDevice
 				this.setCapabilityValue('smart_fan_mode3', message.context.mode).catch(this.error);
 				this.setCapabilityValue('night_light', message.context.nightStatus).catch(this.error);
 				this.homey.app.updateLog(`Smart Fan Pro2 Hub got webhook message: ${this.homey.app.varToString(message)}`, 3, 'hub');
-				this.unsetWarning().catch(this.error);;
+				this.unsetWarning().catch(this.error);
 			}
 		}
 		catch (err)

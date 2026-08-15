@@ -113,7 +113,7 @@ class HumidityHubDevice extends HubDevice
 		catch (err)
 		{
 			this.homey.app.updateLog(`Humidifier2 getHubDeviceValues: ${this.homey.app.varToString(err.message)}`, 0, 'hub');
-			this.setWarning(err.message).catch(this.error);;
+			this.setWarning(err.message).catch(this.error);
 		}
 	}
 

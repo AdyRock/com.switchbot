@@ -242,7 +242,7 @@ class LightHubDevice extends HubDevice
 		catch (err)
 		{
 			this.homey.app.updateLog(`Light getHubDeviceValues: ${this.homey.app.varToString(err.message)}`, 0, 'hub');
-			this.setWarning(err.message).catch(this.error);;
+			this.setWarning(err.message).catch(this.error);
 		}
 	}
 

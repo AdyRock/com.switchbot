@@ -130,7 +130,6 @@ class HubDriver extends OAuth2Driver
 				}
 			}
 			else
-			{
 				if (Array.isArray(searchData.deviceList))
 				{
 					// Log the complete list of devices
@@ -179,7 +178,6 @@ class HubDriver extends OAuth2Driver
 								);
 							}
 							else
-							{
 								if (device.master)
 								{
 									this.homey.app.updateLog(`Device ${device.deviceName} found but it is a sub-device and will be ignored`, 2, 'hub');
@@ -188,7 +186,6 @@ class HubDriver extends OAuth2Driver
 								{
 									this.homey.app.updateLog(`Device ${device.deviceName} found but a hub id required but not defined so it will be ignored`, 2, 'hub');
 								}
-							}
 						}
 					}
 				}
@@ -196,7 +193,6 @@ class HubDriver extends OAuth2Driver
 				{
 					this.homey.app.updateLog(`searchData.deviceList is not an array: ${this.homey.app.varToString(searchData.deviceList)}`, 0, 'hub');
 				}
-			}
 			this.homey.app.updateLog(`Devices found: ${this.homey.app.varToString(devices)}`, 2, 'hub');
 			return devices;
 		}
@@ -216,7 +212,7 @@ class HubDriver extends OAuth2Driver
 				throw (new Error(`Invalid response code: ${response.statusCode}`));
 			}
 
-			const searchData = response.body;
+			let searchData = response.body;
 			if (!searchData)
 			{
 				searchData = response;

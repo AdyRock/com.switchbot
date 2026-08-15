@@ -28,15 +28,15 @@ class AirConHubDevice extends HubDevice
 		{
 			if (this.hasCapability('target_temperature'))
 			{
-				this.removeCapability('target_temperature').catch(this.error);;
+				this.removeCapability('target_temperature').catch(this.error);
 			}
 			if (this.hasCapability('aircon_mode'))
 			{
-				this.removeCapability('aircon_mode').catch(this.error);;
+				this.removeCapability('aircon_mode').catch(this.error);
 			}
 			if (this.hasCapability('aircon_fan_speed'))
 			{
-				this.removeCapability('aircon_fan_speed').catch(this.error);;
+				this.removeCapability('aircon_fan_speed').catch(this.error);
 			}
 		}
 		else

@@ -92,12 +92,12 @@ class SmartFanHubDevice extends HubDevice
 				this.setCapabilityValue('smart_fan_speed', data.speed).catch(this.error);
 				this.setCapabilityValue('smart_fan_shake_range', data.shakeRange).catch(this.error);
 			}
-			this.unsetWarning().catch(this.error);;
+			this.unsetWarning().catch(this.error);
 		}
 		catch (err)
 		{
 			this.homey.app.updateLog(`Fan getHubDeviceValues: ${this.homey.app.varToString(err.message)}`, 0, 'hub');
-			this.setWarning(err.message).catch(this.error);;
+			this.setWarning(err.message).catch(this.error);
 		}
 	}
 

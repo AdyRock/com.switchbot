@@ -133,12 +133,12 @@ class RelayHubDevice extends HubDevice
 					this.setCapabilityValue('meter_power', data.usedElectricity).catch(this.error);
 				}
 			}
-			this.unsetWarning().catch(this.error);;
+			this.unsetWarning().catch(this.error);
 		}
 		catch (err)
 		{
 			this.homey.app.updateLog(`Bot getHubDeviceValues: ${this.homey.app.varToString(err.message)}`, 0, 'hub', 'hub');
-			this.setWarning(err.message).catch(this.error);;
+			this.setWarning(err.message).catch(this.error);
 		}
 	}
 

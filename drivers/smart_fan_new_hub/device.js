@@ -75,12 +75,12 @@ class SmartFanNewHubDevice extends HubDevice
 				this.setCapabilityValue('night_light', data.nightStatus).catch(this.error);
 				this.setCapabilityValue('measure_battery', data.battery).catch(this.error);
 			}
-			this.unsetWarning().catch(this.error);;
+			this.unsetWarning().catch(this.error);
 		}
 		catch (err)
 		{
 			this.homey.app.updateLog(`Smart Fan New Hub getHubDeviceValues: ${this.homey.app.varToString(err.message)}`, 0, 'hub');
-			this.setWarning(err.message).catch(this.error);;
+			this.setWarning(err.message).catch(this.error);
 		}
 	}
 
@@ -101,7 +101,7 @@ class SmartFanNewHubDevice extends HubDevice
 					this.setCapabilityValue('measure_battery', message.context.battery).catch(this.error);
 				}
 				this.homey.app.updateLog(`Smart Fan New Hub got webhook message: ${this.homey.app.varToString(message)}`, 3, 'hub');
-				this.unsetWarning().catch(this.error);;
+				this.unsetWarning().catch(this.error);
 			}
 		}
 		catch (err)

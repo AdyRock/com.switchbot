@@ -87,13 +87,13 @@ class S10WaterStationHubDevice extends HubDevice
 					this.setCapabilityValue('measure_battery', data.waterBaseBattery).catch(this.error);
 				}
 
-				this.unsetWarning().catch(this.error);;
+				this.unsetWarning().catch(this.error);
 			}
 		}
 		catch (err)
 		{
 			this.homey.app.updateLog(`S10WaterStationHubDevice getHubDeviceValues: ${this.homey.app.varToString(err.message)}`, 0, 'hub');
-			this.setWarning(err.message).catch(this.error);;
+			this.setWarning(err.message).catch(this.error);
 		}
 	}
 

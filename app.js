@@ -90,13 +90,13 @@ class MyApp extends OAuth2App
 			{
 				result.catch((err) =>
 				{
-					this.updateLog(`Failed to persist setting \"${key}\": ${err.message}`, 0, 'hub');
+					this.updateLog(`Failed to persist setting "${key}": ${err.message}`, 0, 'hub');
 				});
 			}
 		}
 		catch (err)
 		{
-			this.updateLog(`Failed to persist setting \"${key}\": ${err.message}`, 0, 'hub');
+			this.updateLog(`Failed to persist setting "${key}": ${err.message}`, 0, 'hub');
 		}
 	}
 
@@ -223,7 +223,7 @@ class MyApp extends OAuth2App
 			.replace(/([?&]code=)[^&\s]+/gi, '$1***')
 			.replace(/([?&]token=)[^&\s]+/gi, '$1***')
 			.replace(/(Authorization\s*:\s*Bearer\s+)[^\s]+/gi, '$1***')
-			.replace(/(\"Authorization\"\s*:\s*\"Bearer\s+)[^\"]+(\")/gi, '$1***$2');
+			.replace(/("Authorization"\s*:\s*"Bearer\s+)[^"]+(")/gi, '$1***$2');
 
 		// Redact env.json values if they accidentally appear in logs.
 		const env = Homey && Homey.env ? Homey.env : {};
@@ -252,6 +252,7 @@ class MyApp extends OAuth2App
 		return sanitized;
 	}
 
+	/* eslint-disable no-console */
 	overrideLoggingMethods()
 	{
 		// Store original console methods to restore later
@@ -303,6 +304,7 @@ class MyApp extends OAuth2App
 			console.info = this.originalInfo;
 		}
 	}
+	/* eslint-enable no-console */
 
 	handleLogMessage(message, ...optionalParams)
 	{
@@ -347,7 +349,7 @@ class MyApp extends OAuth2App
 		'humidifier2_hub',
 		'light_remote_hub',
 		'lock_hub',
-		"lock_ultra_hub",
+		'lock_ultra_hub',
 		'lock_vision_pro_hub',
 		'meter_pro_CO2_hub',
 		'meter_pro_hub',
@@ -850,7 +852,7 @@ class MyApp extends OAuth2App
 				const valueObj = {
 					humidifier_mode: parseInt(args.mode, 10),
 					target_humidity: parseInt(args.humidity, 10),
-				}
+				};
 				return args.device.onCapabilityMode(valueObj);
 			});
 
@@ -902,21 +904,21 @@ class MyApp extends OAuth2App
 		relay1OnAction
 			.registerRunListener(async (args, state) =>
 			{
-				return args.device.onCapabilityOnOff('1', true)
+				return args.device.onCapabilityOnOff('1', true);
 			});
 
 		const relay1OffAction = this.homey.flow.getActionCard('onoff_relay1_false');
 		relay1OffAction
 			.registerRunListener(async (args, state) =>
 			{
-				return args.device.onCapabilityOnOff('1', false)
+				return args.device.onCapabilityOnOff('1', false);
 			});
 
 		const relay2OnAction = this.homey.flow.getActionCard('onoff_relay2_true');
 		relay2OnAction
 			.registerRunListener(async (args, state) =>
 			{
-				return args.device.onCapabilityOnOff('2', true)
+				return args.device.onCapabilityOnOff('2', true);
 			});
 
 		const relay2OffAction = this.homey.flow.getActionCard('onoff_relay2_false');
@@ -958,14 +960,14 @@ class MyApp extends OAuth2App
 		openCloseOnAction
 			.registerRunListener(async (args, state) =>
 			{
-				return args.device.onCapabilityOpenClose(true)
+				return args.device.onCapabilityOpenClose(true);
 			});
 
 		const openCloseOffAction = this.homey.flow.getActionCard('open_close_false');
 		openCloseOffAction
 			.registerRunListener(async (args, state) =>
 			{
-				return args.device.onCapabilityOpenClose(false)
+				return args.device.onCapabilityOpenClose(false);
 			});
 
 		/** * CONDITIONS ** */
@@ -1597,6 +1599,7 @@ class MyApp extends OAuth2App
 				const resolvedDeviceMac = deviceData && (deviceData.id || deviceData.pid || deviceData.address)
 					? (deviceData.id || deviceData.pid || deviceData.address)
 					: originalDeviceMac;
+				const dispatchDeviceId = (deviceData && (deviceData.id || deviceData.pid || deviceData.address)) || 'unknown';
 				const messageForDevice = {
 					...(message || {}),
 					context: {
@@ -1605,7 +1608,7 @@ class MyApp extends OAuth2App
 					},
 				};
 
-				this.updateLog(`Dispatching webhook message to device ${(deviceData && (deviceData.id || deviceData.pid || deviceData.address)) || 'unknown'} (original deviceMac: ${originalDeviceMac || 'none'}, original deviceId: ${originalDeviceId || 'none'}, resolved deviceMac: ${resolvedDeviceMac || 'none'})`, 2, 'hub');
+				this.updateLog(`Dispatching webhook message to device ${dispatchDeviceId} (original deviceMac: ${originalDeviceMac || 'none'}, original deviceId: ${originalDeviceId || 'none'}, resolved deviceMac: ${resolvedDeviceMac || 'none'})`, 2, 'hub');
 
 				await device.processWebhookMessage(messageForDevice);
 			}
@@ -1750,7 +1753,7 @@ class MyApp extends OAuth2App
 				if (!this.homeyWebhookRegTimerID)
 				{
 					this.webhookRetryCount++;
-					const baseDelay = Math.min(5000 * Math.pow(2, Math.min(this.webhookRetryCount - 1, 3)), 60000);
+					const baseDelay = Math.min(5000 * (2 ** Math.min(this.webhookRetryCount - 1, 3)), 60000);
 					const jitter = Math.random() * 1000;
 					const nextDelay = Math.floor(baseDelay + jitter);
 					this.updateLog(`Homey Webhook will retry in ${nextDelay}ms (attempt ${this.webhookRetryCount})`, 1, 'hub');
@@ -1778,7 +1781,7 @@ class MyApp extends OAuth2App
 					if (!this.homeyWebhookRegTimerID)
 					{
 						this.webhookRetryCount++;
-						const baseDelay = Math.min(5000 * Math.pow(2, Math.min(this.webhookRetryCount - 1, 3)), 60000);
+						const baseDelay = Math.min(5000 * (2 ** Math.min(this.webhookRetryCount - 1, 3)), 60000);
 						const jitter = Math.random() * 1000;
 						const nextDelay = Math.floor(baseDelay + jitter);
 						this.homeyWebhookRegTimerID = this.homey.setTimeout(() => this.doWebhookReg(), nextDelay);
@@ -1797,7 +1800,7 @@ class MyApp extends OAuth2App
 			if (!this.homeyWebhookRegTimerID)
 			{
 				this.webhookRetryCount++;
-				const baseDelay = Math.min(5000 * Math.pow(2, Math.min(this.webhookRetryCount - 1, 3)), 60000);
+				const baseDelay = Math.min(5000 * (2 ** Math.min(this.webhookRetryCount - 1, 3)), 60000);
 				const jitter = Math.random() * 1000;
 				const nextDelay = Math.floor(baseDelay + jitter);
 				this.updateLog(`Homey Webhook will retry in ${nextDelay}ms (attempt ${this.webhookRetryCount})`, 1, 'hub');
@@ -2110,7 +2113,7 @@ class MyApp extends OAuth2App
 			this.updateLog('OAuth authorization URL prepared', 0, 'hub');
 
 			const callback = await this.homey.cloud.createOAuth2Callback(authorizationUrl);
-			this.updateLog(`OAuth callback created`, 0, 'hub');
+			this.updateLog('OAuth callback created', 0, 'hub');
 
 			this.settingsOAuthFlows[flowId] = {
 				sessionId,
@@ -2119,14 +2122,12 @@ class MyApp extends OAuth2App
 			};
 
 			// Set up the 'url' event listener first (before Promise)
-			let urlPromise;
-			const urlPromiseObj = new Promise((resolve) => {
+			const urlPromise = new Promise((resolve) => {
 				callback.on('url', (url) => {
 					this.updateLog('OAuth callback URL received', 0, 'hub');
 					resolve(url);
 				});
 			});
-			urlPromise = urlPromiseObj;
 
 			// Set up the 'code' event listener (async handling, non-blocking)
 			callback.on('code', async (code) => {
@@ -2169,9 +2170,7 @@ class MyApp extends OAuth2App
 			// Wait for the URL with timeout
 			const authUrl = await Promise.race([
 				urlPromise,
-				new Promise((_, reject) =>
-					this.homey.setTimeout(() => reject(new Error('Timed out while preparing OAuth callback URL')), 15000)
-				),
+				new Promise((_, reject) => this.homey.setTimeout(() => reject(new Error('Timed out while preparing OAuth callback URL')), 15000)),
 			]);
 
 			return {
@@ -2633,8 +2632,8 @@ class MyApp extends OAuth2App
 			return normalized;
 		}
 
-		const modelName = normalized.serviceData.modelName;
-		const model = normalized.serviceData.model;
+		const { modelName } = normalized.serviceData;
+		const { model } = normalized.serviceData;
 		if ((modelName === 'Presence(mm)') || (modelName === 'WoPresence') || (model === 's'))
 		{
 			delete normalized.serviceData.duration;
@@ -2991,7 +2990,7 @@ class MyApp extends OAuth2App
 				continue;
 			}
 
-			const device = state.device;
+			const { device } = state;
 			const deviceData = (device && device.getData && typeof device.getData === 'function') ? device.getData() : null;
 			const name = (device && device.getName && typeof device.getName === 'function') ? device.getName() : (state.bleId || deviceKey);
 			const mac = this.normalizeBLEAdvertisementId(deviceData && deviceData.address ? deviceData.address : null)
@@ -3008,7 +3007,7 @@ class MyApp extends OAuth2App
 				present: Number(state.serviceDataPresentCount || 0),
 				advertisements: Number(state.advertisementCount || 0),
 				rssi: (typeof state.lastRSSI === 'number' && Number.isFinite(state.lastRSSI)) ? Math.round(state.lastRSSI) : null,
-				lastSeenAt: lastSeenAt,
+				lastSeenAt,
 				polls: Number(state.pollCount || 0),
 			});
 		}
@@ -3044,7 +3043,15 @@ class MyApp extends OAuth2App
 
 	getBLEAdvertisementWebhookSummary(device, parsedEvent, bleId)
 	{
-		const deviceName = (device && device.getName && typeof device.getName === 'function') ? device.getName() : (parsedEvent && parsedEvent.address ? parsedEvent.address : bleId);
+		let deviceName = bleId;
+		if (parsedEvent && parsedEvent.address)
+		{
+			deviceName = parsedEvent.address;
+		}
+		if (device && device.getName && typeof device.getName === 'function')
+		{
+			deviceName = device.getName();
+		}
 		const summaryParts = [];
 
 		if (parsedEvent && parsedEvent.address)
@@ -3059,7 +3066,7 @@ class MyApp extends OAuth2App
 
 		if (parsedEvent && parsedEvent.serviceData && typeof parsedEvent.serviceData === 'object')
 		{
-			const serviceData = parsedEvent.serviceData;
+			const { serviceData } = parsedEvent;
 			if (serviceData.modelName)
 			{
 				summaryParts.push(`model=${serviceData.modelName}`);

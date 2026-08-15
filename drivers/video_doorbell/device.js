@@ -22,7 +22,6 @@ class VideoDoorBellDevice extends HubDevice
 		}
 		this.registerCapabilityListener('motion_enabled', this.enableMotion.bind(this));
 
-
 		const dd = this.getData();
 		this.homey.app.registerHomeyWebhook(dd.id).catch(this.error);
 
@@ -100,7 +99,7 @@ class VideoDoorBellDevice extends HubDevice
 
 				if (settings.username && settings.password && settings.ip)
 				{
-					this.homey.app.updateLog('Registering Now video stream (' + this.name + ')', 'hub');
+					this.homey.app.updateLog(`Registering Now video stream (${this.name})`, 'hub');
 					this.video = await this.homey.videos.createVideoRTSP();
 					this.video.registerVideoUrlListener(async () =>
 					{
@@ -112,7 +111,7 @@ class VideoDoorBellDevice extends HubDevice
 					try
 					{
 						await this.setCameraVideo('live_video', 'Live Video', this.video);
-						this.homey.app.updateLog('registered Now video stream (' + this.name + ')', 'hub');
+						this.homey.app.updateLog(`registered Now video stream (${this.name})`, 'hub');
 					}
 					catch (err)
 					{

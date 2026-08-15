@@ -110,12 +110,12 @@ class HumidityHubDevice extends HubDevice
 				this.setCapabilityValue('measure_humidity', data.humidity).catch(this.error);
 				this.setCapabilityValue('alarm_water', data.lackWater).catch(this.error);
 			}
-			this.unsetWarning().catch(this.error);;
+			this.unsetWarning().catch(this.error);
 		}
 		catch (err)
 		{
 			this.homey.app.updateLog(`Hunidifier getHubDeviceValues: ${this.homey.app.varToString(err.message)}`, 0, 'hub');
-			this.setWarning(err.message).catch(this.error);;
+			this.setWarning(err.message).catch(this.error);
 		}
 	}
 

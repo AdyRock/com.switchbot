@@ -3,7 +3,6 @@
 'use strict';
 
 const Homey = require('homey');
-const crc = require('crc-32');
 
 class PlugBLEDevice extends Homey.Device
 {
@@ -45,10 +44,6 @@ class PlugBLEDevice extends Homey.Device
 	 * @param {string[]} event.changedKeys An array of keys changed since the previous version
 	 * @returns {Promise<string|void>} return a custom message that will be displayed
 	 */
-	async onSettings({ Settings, newSettings, changedKeys })
-	{
-	}
-
 	/**
 	 * onRenamed is called when the user updates the device's name.
 	 * This method can be used this to synchronise the name to the device.
@@ -84,7 +79,7 @@ class PlugBLEDevice extends Homey.Device
 			cmd = [0x57, 0x0F, 0x50, 0x01, 0x01, 0x00];
 		}
 		await this._operatePlug(cmd);
-		return;
+
 	}
 
 	async _operatePlug(bytes)
@@ -263,7 +258,7 @@ class PlugBLEDevice extends Homey.Device
 				}
 
 				this.homey.app.updateLog(this.homey.app.varToString(bleAdvertisement), 4, 'ble');
-				const rssi = bleAdvertisement.rssi;
+				const { rssi } = bleAdvertisement;
 				this.setCapabilityValue('rssi', rssi).catch(this.error);
 
 				const data = this.driver.parse(bleAdvertisement);
@@ -335,4 +330,3 @@ class PlugBLEDevice extends Homey.Device
 }
 
 module.exports = PlugBLEDevice;
-

@@ -39,12 +39,12 @@ class ContactBLEDevice extends Homey.Device
 
 		if (!this.hasCapability('alarm_contact.left_open'))
 		{
-			this.addCapability('alarm_contact.left_open').catch(this.error);;
-			this.addCapability('button_press_id').catch(this.error);;
+			this.addCapability('alarm_contact.left_open').catch(this.error);
+			this.addCapability('button_press_id').catch(this.error);
 		}
 		if (!this.hasCapability('entry_id'))
 		{
-			this.addCapability('entry_id').catch(this.error);;
+			this.addCapability('entry_id').catch(this.error);
 			this.addCapability('exit_id').catch(this.error);
 		}
 
@@ -221,4 +221,3 @@ class ContactBLEDevice extends Homey.Device
 }
 
 module.exports = ContactBLEDevice;
-

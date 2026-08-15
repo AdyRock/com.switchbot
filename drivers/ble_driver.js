@@ -734,7 +734,6 @@ class BLEDriver extends Homey.Driver
 		}
 
 		const byte9 = man.readUInt8(9);
-		const byte10 = man.readUInt8(10);
 		const byte11 = man.readUInt8(11);
 		const byte12 = man.readUInt8(12);
 		const byte13 = man.readUInt8(13);
@@ -800,7 +799,7 @@ class BLEDriver extends Homey.Driver
 		// }
 
 		const uuidBytes = p.subarray(0, 6);
-		const uuid = [...uuidBytes].map(b => b.toString(16).padStart(2, '0')).join(' ');
+		const uuid = [...uuidBytes].map((b) => b.toString(16).padStart(2, '0')).join(' ');
 
 		const seq_number = p.readUInt8(6);
 
@@ -837,10 +836,10 @@ class BLEDriver extends Homey.Driver
 		// bucket is 0..3
 		switch (bucket)
 		{
-			case 0: return 10;   // very low / almost empty
-			case 1: return 35;   // low
-			case 2: return 65;   // medium
-			case 3: return 100;  // high / full
+			case 0: return 10; // very low / almost empty
+			case 1: return 35; // low
+			case 2: return 65; // medium
+			case 3: return 100; // high / full
 			default: return 0;
 		}
 	}

@@ -89,7 +89,7 @@ class MeterProCO2BLEDevice extends Homey.Device
 				}
 
 				this.homey.app.updateLog(this.homey.app.varToString(bleAdvertisement), 4, 'ble');
-				const rssi = bleAdvertisement.rssi;
+				const { rssi } = bleAdvertisement;
 				this.setCapabilityValue('rssi', rssi).catch(this.error);
 
 				const data = this.driver.parse(bleAdvertisement);
@@ -160,4 +160,3 @@ class MeterProCO2BLEDevice extends Homey.Device
 }
 
 module.exports = MeterProCO2BLEDevice;
-

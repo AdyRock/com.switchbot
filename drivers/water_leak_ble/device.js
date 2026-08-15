@@ -153,4 +153,3 @@ class WaterLeakBLEDevice extends Homey.Device
 }
 
 module.exports = WaterLeakBLEDevice;
-

@@ -89,7 +89,7 @@ class TemperatureBLEDevice extends Homey.Device
 				}
 
 				this.homey.app.updateLog(this.homey.app.varToString(bleAdvertisement), 4, 'ble');
-				const rssi = bleAdvertisement.rssi;
+				const { rssi } = bleAdvertisement;
 				this.setCapabilityValue('rssi', rssi).catch(this.error);
 
 				const data = this.driver.parse(bleAdvertisement);
@@ -158,4 +158,3 @@ class TemperatureBLEDevice extends Homey.Device
 }
 
 module.exports = TemperatureBLEDevice;
-
