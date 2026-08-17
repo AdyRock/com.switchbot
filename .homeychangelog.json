@@ -1404,5 +1404,18 @@
 		"pl": "Dodano obsługę Circulator Fan 2 Pro. Upewnij się, że szczegóły adresu mac webhooka są spójne.",
 		"ru": "Добавлена поддержка Circulator Fan 2 Pro. Убедьтесь, что детали адреса mac вебхука согласованы.",
 		"ko": "Circulator Fan 2 Pro 지원 추가. 웹후크 mac 주소 세부 정보가 일관되도록 합니다."
+	},
+	"2.0.87": {
+		"en": "Updated Circulator Fan 2 Pro icon.",
+		"no": "Oppdatert Circulator Fan 2 Pro-ikon.",
+		"nl": "Bijgewerkt Circulator Fan 2 Pro-pictogram.",
+		"de": "Aktualisiertes Circulator Fan 2 Pro-Symbol.",
+		"fr": "Icône Circulator Fan 2 Pro mise à jour.",
+		"es": "Icono de Circulator Fan 2 Pro actualizado.",
+		"pt": "Ícone do Circulator Fan 2 Pro atualizado.",
+		"it": "Icona Circulator Fan 2 Pro aggiornata.",
+		"pl": "Zaktualizowano ikonę Circulator Fan 2 Pro.",
+		"ru": "Обновлена иконка Circulator Fan 2 Pro.",
+		"ko": "Circulator Fan 2 Pro 아이콘 업데이트."
 	}
 }
