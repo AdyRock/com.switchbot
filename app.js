@@ -3072,7 +3072,7 @@ class MyApp extends OAuth2App
 				summaryParts.push(`model=${serviceData.modelName}`);
 			}
 
-			for (const key of ['battery', 'position', 'motion', 'light', 'presence', 'temperature', 'humidity', 'light_level', 'trigger_flag'])
+			for (const key of ['battery', 'position', 'motion', 'contact', 'leftOpen', 'light', 'presence', 'temperature', 'humidity', 'light_level', 'trigger_flag', 'buttonPresses', 'entryCount', 'exitCount', 'lastMotion', 'lastContact'])
 			{
 				if (typeof serviceData[key] !== 'undefined')
 				{

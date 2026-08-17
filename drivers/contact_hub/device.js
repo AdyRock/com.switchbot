@@ -28,7 +28,7 @@ class ContactHubDevice extends HubDevice
 		// }
 
 		const dd = this.getData();
-		this.homey.app.registerHomeyWebhook(dd.id).catch(this.error);
+		this.homey.app.registerHomeyWebhook(dd.id, this).catch(this.error);
 
 		this.log('ContactHubDevice has been initialising');
 	}
@@ -110,23 +110,32 @@ class ContactHubDevice extends HubDevice
 		try
 		{
 			const dd = this.getData();
-			if (dd.id === message.context.deviceMac)
+			const context = message && message.context;
+			if (context && (dd.id === context.deviceMac))
 			{
 				// message is for this device
-				this.setCapabilityValue('alarm_motion', message.context.detectionState === 'DETECTED').catch(this.error);
-				this.setCapabilityValue('alarm_contact', message.context.openState !== 'close').catch(this.error);
-				if (message.context.openState === 'open')
+				if (typeof context.detectionState !== 'undefined')
 				{
-					this.setCapabilityValue('direction', message.context.doorMode === 'OUT_DOOR').catch(this.error);
-					this.driver.direction_changed(this, message.context.doorMode === 'OUT_DOOR');
-				}
-				else
-				{
-					this.setCapabilityValue('direction', null).catch(this.error);
-					this.setCapabilityValue('alarm_contact.left_open', message.context.openState === 'timeOutNotClose').catch(this.error);
+					this.setCapabilityValue('alarm_motion', context.detectionState === 'DETECTED').catch(this.error);
 				}
 
-				if (message.context.battery)
+				if (typeof context.openState !== 'undefined')
+				{
+					this.setCapabilityValue('alarm_contact', context.openState !== 'close').catch(this.error);
+					this.setCapabilityValue('alarm_contact.left_open', context.openState === 'timeOutNotClose').catch(this.error);
+					if ((context.openState === 'open') && (typeof context.doorMode !== 'undefined'))
+					{
+						const direction = context.doorMode === 'OUT_DOOR';
+						this.setCapabilityValue('direction', direction).catch(this.error);
+						this.driver.direction_changed(this, direction);
+					}
+					else if (context.openState !== 'open')
+					{
+						this.setCapabilityValue('direction', null).catch(this.error);
+					}
+				}
+
+				if ((typeof context.battery !== 'undefined') && (context.battery !== null))
 				{
 					if (!this.hasCapability('measure_battery'))
 					{
@@ -140,7 +149,7 @@ class ContactHubDevice extends HubDevice
 						}
 					}
 
-					this.setCapabilityValue('measure_battery', message.context.battery).catch(this.error);
+					this.setCapabilityValue('measure_battery', context.battery).catch(this.error);
 				}
 			}
 		}
