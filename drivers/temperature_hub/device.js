@@ -87,7 +87,7 @@ class TemperatureHubDevice extends HubDevice
 						{
 							await this.addCapability('measure_battery');
 						}
-						catch(err)
+						catch (err)
 						{
 							this.homey.app.updateLog(this.homey.app.varToString(err), 'hub');
 						}
@@ -96,12 +96,12 @@ class TemperatureHubDevice extends HubDevice
 					this.setCapabilityValue('measure_battery', data.battery).catch(this.error);
 				}
 			}
-			this.unsetWarning().catch(this.error);;
+			this.unsetWarning().catch(this.error);
 		}
 		catch (err)
 		{
 			this.homey.app.updateLog(`Temperature getHubDeviceValues: ${this.homey.app.varToString(err.message)}`, 0, 'hub');
-			this.setWarning(err.message).catch(this.error);;
+			this.setWarning(err.message).catch(this.error);
 		}
 	}
 
@@ -136,7 +136,7 @@ class TemperatureHubDevice extends HubDevice
 						{
 							await this.addCapability('measure_battery');
 						}
-						catch(err)
+						catch (err)
 						{
 							this.homey.app.updateLog(this.homey.app.varToString(err), 'hub');
 						}

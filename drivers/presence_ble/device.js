@@ -147,12 +147,13 @@ class PresenceBLEDevice extends Homey.Device
 				}
 
 				this.homey.app.updateLog(this.homey.app.varToString(bleAdvertisement), 4, 'ble');
-				const rssi = bleAdvertisement.rssi;
+				const { rssi } = bleAdvertisement;
 				this.setCapabilityValue('rssi', rssi).catch(this.error);
 
 				const data = this.driver.parse(bleAdvertisement);
 				if (data)
 				{
+					this.homey.app.markBLEPollServiceData(this, true, rssi);
 					this.homey.app.updateLog(`Parsed Presence BLE (MAC: ${deviceMac}): ${this.homey.app.varToString(data)}`, 3, 'ble');
 					this.setCapabilityValue('alarm_motion', data.serviceData.motion).catch(this.error);
 					if (this.getCapabilityValue('bright') !== data.serviceData.light)
@@ -166,6 +167,7 @@ class PresenceBLEDevice extends Homey.Device
 				}
 				else
 				{
+					this.homey.app.markBLEPollServiceData(this, false, rssi);
 					this.homey.app.updateLog(`Parsed Presence BLE (MAC: ${deviceMac}): No service data`, 3, 'ble');
 				}
 			}
@@ -205,7 +207,7 @@ class PresenceBLEDevice extends Homey.Device
 				{
 					const motion = (event.serviceData.motion === 1);
 					const bright = (event.serviceData.light === 1);
-					const battery = event.serviceData.battery;
+					const { battery } = event.serviceData;
 					this.setCapabilityValue('alarm_motion', motion).catch(this.error);
 					this.setCapabilityValue('bright', bright).catch(this.error);
 					this.setCapabilityValue('measure_battery', battery).catch(this.error);
@@ -235,4 +237,3 @@ class PresenceBLEDevice extends Homey.Device
 }
 
 module.exports = PresenceBLEDevice;
-

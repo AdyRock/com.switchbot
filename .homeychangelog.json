@@ -1365,5 +1365,57 @@
 		"pl": "Ulepsz obsługę reklam BLE dzięki szczegółowemu logowaniu i podsumowaniu ładunku, a także ulepszoną obsługę zmian stanu urządzenia BLE.",
 		"ru": "Улучшена обработка рекламы BLE с подробным журналированием и суммированием полезной нагрузки, а также улучшена обработка изменений состояния устройства BLE.",
 		"ko": "자세한 로깅 및 페이로드 요약과 함께 BLE 광고 처리를 강화하고 BLE 장치 상태 변경 처리를 개선했습니다."
+	},
+	"2.0.84": {
+		"en": "Expanded BLE diagnostics and statistics: Last Seen now shows elapsed time (HH:MM:SS), polling is limited to stale devices (>30s), Last Seen updates only when valid data is received, poll hit/miss and advertisement counters were added, and RSSI/MAC/Driver columns were added. The statistics table is now sortable, can be copied to clipboard, and includes a Clear Stats action that resets counters while preserving Last Seen values.",
+		"no": "Utvidet BLE-diagnostikk og statistikk: Last Seen viser nå forløpt tid (HH:MM:SS), polling er begrenset til utdaterte enheter (>30s), Last Seen oppdateres kun når gyldige data mottas, tellere for polling treff/bom og annonseringer er lagt til, og kolonner for RSSI/MAC/Driver er lagt til. Statistikktabellen er nå sorterbar, kan kopieres til utklippstavlen, og inkluderer en Clear Stats-handling som nullstiller tellere mens Last Seen beholdes.",
+		"nl": "Uitgebreide BLE-diagnostiek en statistieken: Last Seen toont nu verstreken tijd (HH:MM:SS), polling is beperkt tot verouderde apparaten (>30s), Last Seen wordt alleen bijgewerkt wanneer geldige gegevens zijn ontvangen, tellers voor polling treffers/missers en advertenties zijn toegevoegd, en kolommen voor RSSI/MAC/Driver zijn toegevoegd. De statistiektabel is nu sorteerbaar, kan naar het klembord worden gekopieerd en bevat een Clear Stats-actie die tellers reset terwijl Last Seen behouden blijft.",
+		"de": "Erweiterte BLE-Diagnose und Statistik: Last Seen zeigt jetzt die vergangene Zeit (HH:MM:SS), Polling ist auf veraltete Geräte (>30s) beschränkt, Last Seen wird nur bei gültigen Daten aktualisiert, Zähler für Polling-Treffer/Fehler und Werbeereignisse wurden hinzugefügt, und Spalten für RSSI/MAC/Treiber wurden ergänzt. Die Statistiktabelle ist nun sortierbar, kann in die Zwischenablage kopiert werden und enthält eine Clear-Stats-Aktion, die Zähler zurücksetzt und Last Seen beibehält.",
+		"fr": "Diagnostics et statistiques BLE étendus : Last Seen affiche désormais le temps écoulé (HH:MM:SS), le polling est limité aux appareils obsolètes (>30s), Last Seen n'est mis à jour que lorsque des données valides sont reçues, des compteurs de succès/échecs de polling et de publicités ont été ajoutés, ainsi que des colonnes RSSI/MAC/Driver. Le tableau des statistiques est maintenant triable, peut être copié dans le presse-papiers et inclut une action Clear Stats qui réinitialise les compteurs tout en conservant Last Seen.",
+		"es": "Diagnóstico y estadísticas BLE ampliados: Last Seen ahora muestra el tiempo transcurrido (HH:MM:SS), el sondeo se limita a dispositivos desactualizados (>30s), Last Seen solo se actualiza cuando se reciben datos válidos, se añadieron contadores de aciertos/fallos de sondeo y de anuncios, y se añadieron columnas de RSSI/MAC/Driver. La tabla de estadísticas ahora se puede ordenar, se puede copiar al portapapeles e incluye una acción Clear Stats que restablece los contadores conservando Last Seen.",
+		"pt": "Diagnóstico e estatísticas BLE expandidos: Last Seen agora mostra o tempo decorrido (HH:MM:SS), a sondagem é limitada a dispositivos desatualizados (>30s), Last Seen só é atualizado quando dados válidos são recebidos, contadores de acertos/falhas de sondagem e de anúncios foram adicionados, e colunas de RSSI/MAC/Driver foram adicionadas. A tabela de estatísticas agora é ordenável, pode ser copiada para a área de transferência e inclui uma ação Clear Stats que redefine os contadores preservando Last Seen.",
+		"it": "Diagnostica e statistiche BLE ampliate: Last Seen ora mostra il tempo trascorso (HH:MM:SS), il polling è limitato ai dispositivi non aggiornati (>30s), Last Seen viene aggiornato solo quando vengono ricevuti dati validi, sono stati aggiunti contatori di successi/errori del polling e delle pubblicità, e sono state aggiunte colonne RSSI/MAC/Driver. La tabella delle statistiche è ora ordinabile, può essere copiata negli appunti e include un'azione Clear Stats che azzera i contatori preservando Last Seen.",
+		"pl": "Rozszerzona diagnostyka i statystyki BLE: Last Seen pokazuje teraz czas, jaki upłynął (HH:MM:SS), odpytywanie jest ograniczone do nieaktualnych urządzeń (>30s), Last Seen jest aktualizowane tylko po odebraniu prawidłowych danych, dodano liczniki trafień/chybień odpytywania i reklam, a także kolumny RSSI/MAC/Driver. Tabela statystyk jest teraz sortowalna, można ją skopiować do schowka i zawiera akcję Clear Stats, która resetuje liczniki, zachowując Last Seen.",
+		"ru": "Расширены диагностика и статистика BLE: Last Seen теперь показывает прошедшее время (HH:MM:SS), опрос ограничен устаревшими устройствами (>30s), Last Seen обновляется только при получении корректных данных, добавлены счетчики успешных/неуспешных опросов и рекламных пакетов, а также столбцы RSSI/MAC/Driver. Таблица статистики теперь сортируется, может быть скопирована в буфер обмена и содержит действие Clear Stats, которое сбрасывает счетчики, сохраняя Last Seen.",
+		"ko": "BLE 진단 및 통계를 확장했습니다: Last Seen은 이제 경과 시간(HH:MM:SS)을 표시하고, 폴링은 오래된 장치(>30초)로 제한되며, Last Seen은 유효한 데이터를 수신했을 때만 업데이트됩니다. 폴링 성공/실패 및 광고 카운터가 추가되었고 RSSI/MAC/드라이버 열이 추가되었습니다. 통계 테이블은 이제 정렬 가능하며 클립보드로 복사할 수 있고, Last Seen 값을 유지한 채 카운터를 초기화하는 Clear Stats 동작이 포함됩니다."
+	},
+	"2.0.85": {
+		"en": "Fix crash on older Homeys when checking for BLE advertisement support.",
+		"no": "Fikse krasj på eldre Homeys når du sjekker for BLE-annonseringsstøtte.",
+		"nl": "Crash op oudere Homeys bij het controleren van BLE-advertentieondersteuning oplossen.",
+		"de": "Absturz auf älteren Homeys beim Überprüfen der BLE-Werbeunterstützung beheben.",
+		"fr": "Correction du crash sur les anciens Homeys lors de la vérification de la prise en charge de la publicité BLE.",
+		"es": "Solucionar el bloqueo en Homeys más antiguos al comprobar la compatibilidad con anuncios BLE.",
+		"pt": "Corrigir falha em Homeys mais antigos ao verificar o suporte a anúncios BLE.",
+		"it": "Correggere il crash sui vecchi Homeys durante il controllo del supporto alla pubblicità BLE.",
+		"pl": "Napraw awarię na starszych Homeys podczas sprawdzania obsługi reklam BLE.",
+		"ru": "Исправить сбой на старых Homeys при проверке поддержки рекламы BLE.",
+		"ko": "BLE 광고 지원을 확인할 때 이전 Homeys에서 충돌 수정"
+	},
+	"2.0.86": {
+		"en": "Added support for the Circulator Fan 2 Pro. Ensure webhook mac address details are consistent.",
+		"no": "Lagt til støtte for Circulator Fan 2 Pro. Sørg for at webhook mac-adressedetaljer er konsistente.",
+		"nl": "Ondersteuning toegevoegd voor de Circulator Fan 2 Pro. Zorg ervoor dat de details van het webhook-mac-adres consistent zijn.",
+		"de": "Unterstützung für den Circulator Fan 2 Pro hinzugefügt. Stellen Sie sicher, dass die Details der Webhook-MAC-Adresse konsistent sind.",
+		"fr": "Ajout de la prise en charge du Circulator Fan 2 Pro. Assurez-vous que les détails de l'adresse MAC du webhook sont cohérents.",
+		"es": "Se agregó soporte para el Circulator Fan 2 Pro. Asegúrese de que los detalles de la dirección mac del webhook sean consistentes.",
+		"pt": "Adicionado suporte para o Circulator Fan 2 Pro. Certifique-se de que os detalhes do endereço mac do webhook sejam consistentes.",
+		"it": "Aggiunto supporto per il Circulator Fan 2 Pro. Assicurati che i dettagli dell'indirizzo mac del webhook siano coerenti.",
+		"pl": "Dodano obsługę Circulator Fan 2 Pro. Upewnij się, że szczegóły adresu mac webhooka są spójne.",
+		"ru": "Добавлена поддержка Circulator Fan 2 Pro. Убедьтесь, что детали адреса mac вебхука согласованы.",
+		"ko": "Circulator Fan 2 Pro 지원 추가. 웹후크 mac 주소 세부 정보가 일관되도록 합니다."
+	},
+	"2.0.87": {
+		"en": "Updated Circulator Fan 2 Pro icon.",
+		"no": "Oppdatert Circulator Fan 2 Pro-ikon.",
+		"nl": "Bijgewerkt Circulator Fan 2 Pro-pictogram.",
+		"de": "Aktualisiertes Circulator Fan 2 Pro-Symbol.",
+		"fr": "Icône Circulator Fan 2 Pro mise à jour.",
+		"es": "Icono de Circulator Fan 2 Pro actualizado.",
+		"pt": "Ícone do Circulator Fan 2 Pro atualizado.",
+		"it": "Icona Circulator Fan 2 Pro aggiornata.",
+		"pl": "Zaktualizowano ikonę Circulator Fan 2 Pro.",
+		"ru": "Обновлена иконка Circulator Fan 2 Pro.",
+		"ko": "Circulator Fan 2 Pro 아이콘 업데이트."
 	}
 }

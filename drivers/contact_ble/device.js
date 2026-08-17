@@ -39,12 +39,12 @@ class ContactBLEDevice extends Homey.Device
 
 		if (!this.hasCapability('alarm_contact.left_open'))
 		{
-			this.addCapability('alarm_contact.left_open').catch(this.error);;
-			this.addCapability('button_press_id').catch(this.error);;
+			this.addCapability('alarm_contact.left_open').catch(this.error);
+			this.addCapability('button_press_id').catch(this.error);
 		}
 		if (!this.hasCapability('entry_id'))
 		{
-			this.addCapability('entry_id').catch(this.error);;
+			this.addCapability('entry_id').catch(this.error);
 			this.addCapability('exit_id').catch(this.error);
 		}
 
@@ -129,6 +129,7 @@ class ContactBLEDevice extends Homey.Device
 				const data = this.driver.parse(bleAdvertisement);
 				if (data)
 				{
+					this.homey.app.markBLEPollServiceData(this, true, rssi);
 					this.homey.app.updateLog(`Parsed Presence BLE (MAC: ${deviceMac}): ${this.homey.app.varToString(data)}`, 3, 'ble');
 					this.setCapabilityValue('alarm_motion', data.serviceData.motion).catch(this.error);
 					this.setCapabilityValue('alarm_contact', data.serviceData.contact).catch(this.error);
@@ -146,6 +147,7 @@ class ContactBLEDevice extends Homey.Device
 				}
 				else
 				{
+					this.homey.app.markBLEPollServiceData(this, false, rssi);
 					this.homey.app.updateLog(`Parsed Presence BLE (MAC: ${deviceMac}): No service data`, 0, 'ble');
 				}
 			}
@@ -179,14 +181,17 @@ class ContactBLEDevice extends Homey.Device
 		try
 		{
 			const dd = this.getData();
+			const deviceAddress = String(dd.address || '').replace(/[^a-fA-F0-9]/g, '').toLowerCase();
+			const isActive = (value) => (value === true) || (value === 1);
 			for (const event of events)
 			{
-				if (event.address && (event.address.localeCompare(dd.address, 'en', { sensitivity: 'base' }) === 0) && (event.serviceData.modelName === 'WoContact'))
+				const eventAddress = String(event.address || '').replace(/[^a-fA-F0-9]/g, '').toLowerCase();
+				if (eventAddress && (eventAddress === deviceAddress) && event.serviceData && (event.serviceData.modelName === 'WoContact'))
 				{
-					this.setCapabilityValue('alarm_motion', (event.serviceData.motion === 1)).catch(this.error);
-					this.setCapabilityValue('alarm_contact', (event.serviceData.contact === 1)).catch(this.error);
+					this.setCapabilityValue('alarm_motion', isActive(event.serviceData.motion)).catch(this.error);
+					this.setCapabilityValue('alarm_contact', isActive(event.serviceData.contact)).catch(this.error);
 
-					const light = (event.serviceData.light === 1);
+					const light = isActive(event.serviceData.light);
 					if (this.getCapabilityValue('bright') !== light)
 					{
 						this.setCapabilityValue('bright', light).catch(this.error);
@@ -196,7 +201,7 @@ class ContactBLEDevice extends Homey.Device
 					this.setCapabilityValue('button_press_id', event.serviceData.buttonPresses).catch(this.error);
 					this.setCapabilityValue('entry_id', event.serviceData.entryCount).catch(this.error);
 					this.setCapabilityValue('exit_id', event.serviceData.exitCount).catch(this.error);
-					this.setCapabilityValue('alarm_contact.left_open', (event.serviceData.leftOpen === 1)).catch(this.error);
+					this.setCapabilityValue('alarm_contact.left_open', isActive(event.serviceData.leftOpen)).catch(this.error);
 					this.setCapabilityValue('measure_battery', event.serviceData.battery).catch(this.error);
 					this.setCapabilityValue('rssi', event.rssi).catch(this.error);
 
@@ -219,4 +224,3 @@ class ContactBLEDevice extends Homey.Device
 }
 
 module.exports = ContactBLEDevice;
-

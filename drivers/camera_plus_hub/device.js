@@ -82,7 +82,7 @@ class CameraHubDevice extends HubDevice
 
 				if (settings.username && settings.password && settings.ip)
 				{
-					this.homey.app.updateLog('Registering Now video stream (' + this.name + ')', 'hub');
+					this.homey.app.updateLog(`Registering Now video stream (${this.name})`, 'hub');
 					this.video = await this.homey.videos.createVideoRTSP();
 					this.video.registerVideoUrlListener(async () =>
 					{
@@ -94,7 +94,7 @@ class CameraHubDevice extends HubDevice
 					try
 					{
 						await this.setCameraVideo('live_video', 'Live Video', this.video);
-						this.homey.app.updateLog('registered Now video stream (' + this.name + ')', 'hub');
+						this.homey.app.updateLog(`registered Now video stream (${this.name})`, 'hub');
 					}
 					catch (err)
 					{

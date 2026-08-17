@@ -18,12 +18,12 @@ class LockHubDevice extends HubDevice
 
 		if (!this.hasCapability('alarm_generic'))
 		{
-			this.addCapability('alarm_generic').catch(this.error);;
+			this.addCapability('alarm_generic').catch(this.error);
 		}
 
 		if (!this.hasCapability('alarm_contact'))
 		{
-			this.addCapability('alarm_contact').catch(this.error);;
+			this.addCapability('alarm_contact').catch(this.error);
 		}
 
 		// try
@@ -117,12 +117,12 @@ class LockHubDevice extends HubDevice
 					this.setCapabilityValue('measure_battery', data.battery).catch(this.error);
 				}
 			}
-			this.unsetWarning().catch(this.error);;
+			this.unsetWarning().catch(this.error);
 		}
 		catch (err)
 		{
 			this.homey.app.updateLog(`Lock getHubDeviceValues: ${this.homey.app.varToString(err.message)}`, 0, 'hub');
-			this.setWarning(err.message).catch(this.error);;
+			this.setWarning(err.message).catch(this.error);
 		}
 	}
 

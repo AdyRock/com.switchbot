@@ -14,27 +14,27 @@ class CurtainsBLEDevice extends Homey.Device
 	{
 		if (this.hasCapability('open_close'))
 		{
-			this.removeCapability('open_close').catch(this.error);;
+			this.removeCapability('open_close').catch(this.error);
 		}
 		if (!this.hasCapability('windowcoverings_closed'))
 		{
-			this.addCapability('windowcoverings_closed').catch(this.error);;
+			this.addCapability('windowcoverings_closed').catch(this.error);
 		}
 		if (!this.hasCapability('position'))
 		{
-			this.addCapability('position').catch(this.error);;
+			this.addCapability('position').catch(this.error);
 		}
 		if (this.hasCapability('onoff'))
 		{
-			this.removeCapability('onoff').catch(this.error);;
+			this.removeCapability('onoff').catch(this.error);
 		}
 		if (!this.hasCapability('light_level'))
 		{
-			this.addCapability('light_level').catch(this.error);;
+			this.addCapability('light_level').catch(this.error);
 		}
 		if (!this.hasCapability('windowcoverings_state'))
 		{
-			this.addCapability('windowcoverings_state').catch(this.error);;
+			this.addCapability('windowcoverings_state').catch(this.error);
 		}
 
 		this.bestRSSI = 100;
@@ -395,12 +395,13 @@ class CurtainsBLEDevice extends Homey.Device
 				}
 
 				this.homey.app.updateLog(this.homey.app.varToString(bleAdvertisement), 4, 'ble');
-				const rssi = bleAdvertisement.rssi;
+				const { rssi } = bleAdvertisement;
 				this.setCapabilityValue('rssi', rssi).catch(this.error);
 
 				const data = this.driver.parse(bleAdvertisement);
 				if (data)
 				{
+					this.homey.app.markBLEPollServiceData(this, true, rssi);
 					this.homey.app.updateLog(`Parsed Curtain BLE (${name}) ${this.homey.app.varToString(data)}`, 3, 'ble');
 					let position = data.serviceData.position / 100;
 					if (this.invertPosition)
@@ -471,6 +472,7 @@ class CurtainsBLEDevice extends Homey.Device
 				}
 				else
 				{
+					this.homey.app.markBLEPollServiceData(this, false, rssi);
 					this.homey.app.updateLog(`Parsed Curtain BLE (${name}): No service data`, 0, 'ble');
 				}
 			}
@@ -592,4 +594,3 @@ class CurtainsBLEDevice extends Homey.Device
 }
 
 module.exports = CurtainsBLEDevice;
-

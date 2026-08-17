@@ -137,7 +137,7 @@ class CustomRemoteHubDevice extends HubDevice
 			{
 				try
 				{
-					await this.addCapability(capabilityId).catch(this.error);;
+					await this.addCapability(capabilityId).catch(this.error);
 					await this.safeSetCapabilityOptions(capabilityId, { title: buttonText });
 				}
 				catch (err)

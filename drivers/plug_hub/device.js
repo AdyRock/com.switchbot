@@ -96,12 +96,12 @@ class PlugHubDevice extends HubDevice
 					this.setCapabilityValue('measure_voltage', data.voltage).catch(this.error);
 				}
 			}
-			this.unsetWarning().catch(this.error);;
+			this.unsetWarning().catch(this.error);
 		}
 		catch (err)
 		{
 			this.homey.app.updateLog(`Plug getHubDeviceValues: ${this.homey.app.varToString(err.message)}`, 0, 'hub');
-			this.setWarning(err.message).catch(this.error);;
+			this.setWarning(err.message).catch(this.error);
 		}
 	}
 

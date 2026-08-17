@@ -130,7 +130,7 @@ class BotHubDevice extends HubDevice
 						{
 							await this.addCapability('measure_battery');
 						}
-						catch(err)
+						catch (err)
 						{
 							this.homey.app.updateLog(this.homey.app.varToString(err), 'hub');
 						}
@@ -144,7 +144,7 @@ class BotHubDevice extends HubDevice
 		catch (err)
 		{
 			this.homey.app.updateLog(`Bot getHubDeviceValues: ${this.homey.app.varToString(err.message)}`, 0, 'hub');
-			this.setWarning(err.message).catch(this.error);;
+			this.setWarning(err.message).catch(this.error);
 		}
 	}
 
@@ -175,7 +175,7 @@ class BotHubDevice extends HubDevice
 						{
 							await this.addCapability('measure_battery');
 						}
-						catch(err)
+						catch (err)
 						{
 							this.homey.app.updateLog(this.homey.app.varToString(err), 'hub');
 						}

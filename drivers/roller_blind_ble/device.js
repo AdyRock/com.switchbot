@@ -349,17 +349,19 @@ class RollerBlindBLEDevice extends Homey.Device
 				}
 
 				this.homey.app.updateLog(this.homey.app.varToString(bleAdvertisement), 4, 'ble');
-				const rssi = bleAdvertisement.rssi;
+				const { rssi } = bleAdvertisement;
 				this.setCapabilityValue('rssi', rssi).catch(this.error);
 
 				const data = this.driver.parse(bleAdvertisement);
 				if (data)
 				{
+					this.homey.app.markBLEPollServiceData(this, true, rssi);
 					this.homey.app.updateLog(`Parsed Roller Blind BLE (${name}) ${this.homey.app.varToString(data)}`, 3, 'ble');
 					this.updateCapabilities(data);
 				}
 				else
 				{
+					this.homey.app.markBLEPollServiceData(this, false, rssi);
 					this.homey.app.updateLog(`Parsed Roller Blind BLE (${name}): No service data`, 0, 'ble');
 				}
 			}
@@ -452,4 +454,3 @@ class RollerBlindBLEDevice extends Homey.Device
 }
 
 module.exports = RollerBlindBLEDevice;
-

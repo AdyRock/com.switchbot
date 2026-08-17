@@ -16,19 +16,19 @@ class CurtainsHubDevice extends HubDevice
 
 		if (this.hasCapability('open_close'))
 		{
-			this.removeCapability('open_close').catch(this.error);;
+			this.removeCapability('open_close').catch(this.error);
 		}
 		if (!this.hasCapability('windowcoverings_closed'))
 		{
-			this.addCapability('windowcoverings_closed').catch(this.error);;
+			this.addCapability('windowcoverings_closed').catch(this.error);
 		}
 		if (!this.hasCapability('position'))
 		{
-			this.addCapability('position').catch(this.error);;
+			this.addCapability('position').catch(this.error);
 		}
 		if (!this.hasCapability('windowcoverings_state'))
 		{
-			this.addCapability('windowcoverings_state').catch(this.error);;
+			this.addCapability('windowcoverings_state').catch(this.error);
 		}
 
 		this.invertPosition = this.getSetting('invertPosition');
@@ -312,12 +312,12 @@ class CurtainsHubDevice extends HubDevice
 					this.setCapabilityValue('measure_battery', data.battery).catch(this.error);
 				}
 			}
-			this.unsetWarning().catch(this.error);;
+			this.unsetWarning().catch(this.error);
 		}
 		catch (err)
 		{
 			this.homey.app.updateLog(`Curtains getHubDeviceValues: ${this.homey.app.varToString(err.message)}`, 0, 'hub');
-			this.setWarning(err.message).catch(this.error);;
+			this.setWarning(err.message).catch(this.error);
 		}
 	}
 
@@ -387,7 +387,7 @@ class CurtainsHubDevice extends HubDevice
 					{
 						try
 						{
-							await this.addCapability('measure_battery')
+							await this.addCapability('measure_battery');
 						}
 						catch (err)
 						{

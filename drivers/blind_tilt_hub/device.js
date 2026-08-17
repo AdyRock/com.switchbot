@@ -120,7 +120,7 @@ class BlindTiltHubDevice extends HubDevice
 						{
 							await this.addCapability('measure_battery');
 						}
-						catch(err)
+						catch (err)
 						{
 							this.homey.app.updateLog(this.homey.app.varToString(err), 'hub');
 						}
@@ -135,7 +135,7 @@ class BlindTiltHubDevice extends HubDevice
 		catch (err)
 		{
 			this.homey.app.updateLog(`BlindTilt getHubDeviceValues: ${this.homey.app.varToString(err.message)}`, 0, 'hub');
-			this.setWarning(err.message).catch(this.error);;
+			this.setWarning(err.message).catch(this.error);
 		}
 	}
 
@@ -170,7 +170,7 @@ class BlindTiltHubDevice extends HubDevice
 						{
 							await this.addCapability('measure_battery');
 						}
-						catch(err)
+						catch (err)
 						{
 							this.homey.app.updateLog(this.homey.app.varToString(err), 'hub');
 						}

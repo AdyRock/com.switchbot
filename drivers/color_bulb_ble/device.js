@@ -236,7 +236,7 @@ class ColorBulbBLEDevice extends Homey.Device
 			if (await this.homey.app.BLEHub.sendBLEHubCommand(dd.address, bytes, this.bestHub))
 			{
 				this.sendingCommand = false;
-				return;
+				return true;
 			}
 		}
 
@@ -258,7 +258,7 @@ class ColorBulbBLEDevice extends Homey.Device
 					this.homey.app.bleBusy = false;
 					this.homey.app.updateLog(`Command complete for ${name}`, 'ble');
 					this.sendingCommand = false;
-					return;
+					return true;
 				}
 			}
 			catch (err)
@@ -288,6 +288,8 @@ class ColorBulbBLEDevice extends Homey.Device
 			this.homey.app.updateLog(`!!!!!!! Command for ${name} failed\r\n`, 0, 'ble');
 			throw response;
 		}
+
+		return false;
 	}
 
 	isPeripheralNotFoundError(err)
@@ -467,12 +469,13 @@ class ColorBulbBLEDevice extends Homey.Device
 				}
 
 				this.homey.app.updateLog(this.homey.app.varToString(bleAdvertisement), 4, 'ble');
-				const rssi = bleAdvertisement.rssi;
+				const { rssi } = bleAdvertisement;
 				this.setCapabilityValue('rssi', rssi).catch(this.error);
 
 				const data = this.driver.parse(bleAdvertisement);
 				if (data)
 				{
+					this.homey.app.markBLEPollServiceData(this, true, rssi);
 					if (data.serviceData.on_off)
 					{
 						this.setCapabilityValue('onoff', true).catch(this.error);
@@ -492,6 +495,7 @@ class ColorBulbBLEDevice extends Homey.Device
 				}
 				else
 				{
+					this.homey.app.markBLEPollServiceData(this, false, rssi);
 					this.homey.app.updateLog(`Parsed Bulb BLE (${name}): No service data`, 0, 'ble');
 				}
 			}
@@ -563,4 +567,3 @@ class ColorBulbBLEDevice extends Homey.Device
 }
 
 module.exports = ColorBulbBLEDevice;
-

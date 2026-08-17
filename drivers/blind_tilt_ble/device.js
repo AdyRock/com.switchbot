@@ -14,19 +14,19 @@ class BlindTiltBLEDevice extends Homey.Device
 	{
 		if (this.hasCapability('open_close'))
 		{
-			this.removeCapability('open_close').catch(this.error);;
+			this.removeCapability('open_close').catch(this.error);
 		}
 		if (!this.hasCapability('windowcoverings_closed'))
 		{
-			this.addCapability('windowcoverings_closed').catch(this.error);;
+			this.addCapability('windowcoverings_closed').catch(this.error);
 		}
 		if (!this.hasCapability('position'))
 		{
-			this.addCapability('position').catch(this.error);;
+			this.addCapability('position').catch(this.error);
 		}
 		if (this.hasCapability('onoff'))
 		{
-			this.removeCapability('onoff').catch(this.error);;
+			this.removeCapability('onoff').catch(this.error);
 		}
 
 		this.bestRSSI = 100;
@@ -548,6 +548,7 @@ class BlindTiltBLEDevice extends Homey.Device
 
 				if (data)
 				{
+					this.homey.app.markBLEPollServiceData(this, true, rssi);
 					this.homey.app.updateLog(`Parsed Blind Tilt BLE (${name}) ${this.homey.app.varToString(data)}`, 3, 'ble');
 					const position = data.serviceData.position / 100;
 
@@ -578,6 +579,7 @@ class BlindTiltBLEDevice extends Homey.Device
 				}
 				else
 				{
+					this.homey.app.markBLEPollServiceData(this, false, rssi);
 					this.homey.app.updateLog(`Parsed Blind Tilt BLE (${name}): No service data`, 0, 'ble');
 				}
 			}
@@ -675,4 +677,3 @@ class BlindTiltBLEDevice extends Homey.Device
 }
 
 module.exports = BlindTiltBLEDevice;
-

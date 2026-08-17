@@ -22,6 +22,7 @@ const COMMAND_API_OVERHEAD = 500;
 const POLLING_DAILY_BUDGET = DAILY_API_QUOTA - COMMAND_API_OVERHEAD;
 const BLE_POLLING_INTERVAL = 30000; // in milliSeconds
 const BLE_ADVERTISEMENT_RATE_LIMIT_MS = 5000;
+const BLE_ADVERTISEMENT_STALE_POLL_MS = 120000;
 const HUB_POLL_MISSING_AUTH_INTERVAL_MS = 60000;
 const WEBHOOK_AUTH_MISSING_INTERVAL_MS = 5 * 60 * 1000;
 class MyApp extends OAuth2App
@@ -89,13 +90,13 @@ class MyApp extends OAuth2App
 			{
 				result.catch((err) =>
 				{
-					this.updateLog(`Failed to persist setting \"${key}\": ${err.message}`, 0, 'hub');
+					this.updateLog(`Failed to persist setting "${key}": ${err.message}`, 0, 'hub');
 				});
 			}
 		}
 		catch (err)
 		{
-			this.updateLog(`Failed to persist setting \"${key}\": ${err.message}`, 0, 'hub');
+			this.updateLog(`Failed to persist setting "${key}": ${err.message}`, 0, 'hub');
 		}
 	}
 
@@ -222,7 +223,7 @@ class MyApp extends OAuth2App
 			.replace(/([?&]code=)[^&\s]+/gi, '$1***')
 			.replace(/([?&]token=)[^&\s]+/gi, '$1***')
 			.replace(/(Authorization\s*:\s*Bearer\s+)[^\s]+/gi, '$1***')
-			.replace(/(\"Authorization\"\s*:\s*\"Bearer\s+)[^\"]+(\")/gi, '$1***$2');
+			.replace(/("Authorization"\s*:\s*"Bearer\s+)[^"]+(")/gi, '$1***$2');
 
 		// Redact env.json values if they accidentally appear in logs.
 		const env = Homey && Homey.env ? Homey.env : {};
@@ -251,6 +252,7 @@ class MyApp extends OAuth2App
 		return sanitized;
 	}
 
+	/* eslint-disable no-console */
 	overrideLoggingMethods()
 	{
 		// Store original console methods to restore later
@@ -302,6 +304,7 @@ class MyApp extends OAuth2App
 			console.info = this.originalInfo;
 		}
 	}
+	/* eslint-enable no-console */
 
 	handleLogMessage(message, ...optionalParams)
 	{
@@ -346,7 +349,7 @@ class MyApp extends OAuth2App
 		'humidifier2_hub',
 		'light_remote_hub',
 		'lock_hub',
-		"lock_ultra_hub",
+		'lock_ultra_hub',
 		'lock_vision_pro_hub',
 		'meter_pro_CO2_hub',
 		'meter_pro_hub',
@@ -542,16 +545,23 @@ class MyApp extends OAuth2App
 		this.onBLEPoll = this.onBLEPoll.bind(this);
 		this.bleDevices = 0;
 		this.bleTimerID = null;
-		this.bleAdvertisementSupported = this.homey.hasFeature('ble-advertisements');
+		const hasHomeyFeatureApi = this.homey && (typeof this.homey.hasFeature === 'function');
+		this.bleAdvertisementSupported = hasHomeyFeatureApi ? this.homey.hasFeature('ble-advertisements') : false;
 		this.bleAdvertisementSubscriptions = new Map();
 		this.bleAdvertisementSubscriptionPending = new Map();
-		this.bleAdvertisementDeviceToId = new Map();
-		this.bleAdvertisementDevicePayloadFingerprint = new Map();
-		this.bleAdvertisementDeviceParsedStateFingerprint = new Map();
-		this.bleAdvertisementDeviceLocalSeenAt = new Map();
+		this.bleAdvertisementDeviceState = new Map();
 		this.bleAdvertisementDeviceKeys = new WeakMap();
+		this.bleAdvertisementDeviceRegistry = new Map();
+		// Lookup used by webhook dispatch; keys are normalized device ids/addresses.
+		this.webhookDeviceRegistry = new Map();
 		this.bleAdvertisementNextKey = 1;
 		this.blePollingFallbackDevices = new Set();
+		this.bleRegisteredDevices = new Set();
+		this.bleDiscoverUnavailableLogged = false;
+		if (!hasHomeyFeatureApi)
+		{
+			this.updateLog('Homey runtime has no hasFeature API, using polling fallback', 1, 'ble');
+		}
 		if (this.bleAdvertisementSupported)
 		{
 			this.updateLog('BLE advertisement subscriptions enabled', 1, 'ble');
@@ -842,7 +852,7 @@ class MyApp extends OAuth2App
 				const valueObj = {
 					humidifier_mode: parseInt(args.mode, 10),
 					target_humidity: parseInt(args.humidity, 10),
-				}
+				};
 				return args.device.onCapabilityMode(valueObj);
 			});
 
@@ -894,21 +904,21 @@ class MyApp extends OAuth2App
 		relay1OnAction
 			.registerRunListener(async (args, state) =>
 			{
-				return args.device.onCapabilityOnOff('1', true)
+				return args.device.onCapabilityOnOff('1', true);
 			});
 
 		const relay1OffAction = this.homey.flow.getActionCard('onoff_relay1_false');
 		relay1OffAction
 			.registerRunListener(async (args, state) =>
 			{
-				return args.device.onCapabilityOnOff('1', false)
+				return args.device.onCapabilityOnOff('1', false);
 			});
 
 		const relay2OnAction = this.homey.flow.getActionCard('onoff_relay2_true');
 		relay2OnAction
 			.registerRunListener(async (args, state) =>
 			{
-				return args.device.onCapabilityOnOff('2', true)
+				return args.device.onCapabilityOnOff('2', true);
 			});
 
 		const relay2OffAction = this.homey.flow.getActionCard('onoff_relay2_false');
@@ -950,14 +960,14 @@ class MyApp extends OAuth2App
 		openCloseOnAction
 			.registerRunListener(async (args, state) =>
 			{
-				return args.device.onCapabilityOpenClose(true)
+				return args.device.onCapabilityOpenClose(true);
 			});
 
 		const openCloseOffAction = this.homey.flow.getActionCard('open_close_false');
 		openCloseOffAction
 			.registerRunListener(async (args, state) =>
 			{
-				return args.device.onCapabilityOpenClose(false)
+				return args.device.onCapabilityOpenClose(false);
 			});
 
 		/** * CONDITIONS ** */
@@ -1154,6 +1164,13 @@ class MyApp extends OAuth2App
 			const message = this.normalizeLogMessage(newMessage);
 			this.logLevel = this.homey.settings.get('logLevel');
 			const logFilter = this.homey.settings.get('logSource') || 'all';
+
+			if (this.logLevel !== 1 && errorLevel === 1)
+			{
+				// Only log webhook messages if log level is 1
+				return;
+			}
+
 			if (errorLevel === 0 || (errorLevel <= this.logLevel && (logFilter === 'all' || logFilter === logSource)))
 			{
 				this.originalLog(message);
@@ -1357,32 +1374,331 @@ class MyApp extends OAuth2App
 		}
 	}
 
+	getWebhookDispatchDevices(message)
+	{
+		if (!message)
+		{
+			return [];
+		}
+
+		const context = message.context || message;
+
+		// Build a set of normalized lookup keys from the webhook message and context.
+		const lookupKeys = new Set();
+		for (const rawKey of [
+			context && context.deviceMac,
+			context && context.deviceId,
+			message && message.deviceMac,
+			message && message.deviceId,
+		])
+		{
+			for (const key of this.getNormalizedLookupKeys(rawKey))
+			{
+				lookupKeys.add(key);
+			}
+		}
+
+		const devices = [];
+		for (const lookupKey of lookupKeys)
+		{
+			// Check the cached registry for a matching device registration.
+			let registration = this.webhookDeviceRegistry.get(lookupKey);
+
+			// If no valid registration is found, scan the loaded drivers for a matching device with a processWebhookMessage handler.
+			if (!registration || !registration.device || (typeof registration.device.processWebhookMessage !== 'function'))
+			{
+				if (registration && registration.device && (typeof registration.device.processWebhookMessage !== 'function'))
+				{
+					const invalidName = registration.name || (registration.device.getName && typeof registration.device.getName === 'function' ? registration.device.getName() : 'Unknown webhook device');
+					this.updateLog(`Ignoring webhook registry entry without handler for key ${lookupKey}: ${invalidName}`, 2, 'hub');
+				}
+
+				const drivers = this.homey && this.homey.drivers ? this.homey.drivers.getDrivers() : {};
+				// Fallback path: recover from stale/missing registry entries by scanning loaded drivers.
+				for (const driver of Object.values(drivers))
+				{
+					const driverDevices = driver && typeof driver.getDevices === 'function' ? driver.getDevices() : {};
+					for (const device of Object.values(driverDevices))
+					{
+						if (!device || typeof device.getData !== 'function')
+						{
+							continue;
+						}
+
+						if (typeof device.processWebhookMessage !== 'function')
+						{
+							continue;
+						}
+
+						const deviceData = device.getData();
+						const candidateIds = new Set();
+						for (const candidateValue of [deviceData && (deviceData.id || deviceData.pid), deviceData && deviceData.address])
+						{
+							for (const key of this.getNormalizedLookupKeys(candidateValue))
+							{
+								candidateIds.add(key);
+							}
+						}
+						if (!candidateIds.has(lookupKey))
+						{
+							continue;
+						}
+
+						const deviceName = (device.getName && typeof device.getName === 'function') ? device.getName() : 'Unknown webhook device';
+						// Cache the successful mapping so next webhook can be routed without a full scan.
+						registration = { device, name: deviceName, id: lookupKey, address: this.normalizeBLEAdvertisementId(deviceData && deviceData.address ? deviceData.address : null) };
+						this.webhookDeviceRegistry.set(lookupKey, registration);
+						if (registration.address)
+						{
+							this.webhookDeviceRegistry.set(registration.address, registration);
+						}
+						break;
+					}
+					if (registration && registration.device)
+					{
+						break;
+					}
+				}
+			}
+
+			if (!registration || !registration.device || (typeof registration.device.processWebhookMessage !== 'function'))
+			{
+				continue;
+			}
+
+			if (!devices.includes(registration.device))
+			{
+				devices.push(registration.device);
+			}
+		}
+
+		return devices;
+	}
+
 	async processWebhookMessage(message)
 	{
 		this.updateLog(`Got a webhook message! ${this.varToString(message)}`, 1, 'hub');
-		const drivers = this.homey.drivers.getDrivers();
-		for (const driver of Object.values(drivers))
+
+		// Determine which devices should receive the webhook message.
+		const directDevices = this.getWebhookDispatchDevices(message);
+		if (directDevices.length === 0)
 		{
-			const devices = driver.getDevices();
-			for (const device of Object.values(devices))
+			// No devices were found to handle the webhook message. Log diagnostic information for debugging.
+			const context = message && message.context ? message.context : (message || {});
+			const ignoredKeys = new Set();
+			for (const rawKey of [context.deviceMac, context.deviceId, message && message.deviceMac, message && message.deviceId])
 			{
-				if (device.processWebhookMessage)
+				for (const key of this.getNormalizedLookupKeys(rawKey))
 				{
-					try
+					ignoredKeys.add(key);
+				}
+			}
+
+			const registryMatches = [];
+			// Diagnostics: compare lookup keys with cached registry entries and live runtime devices.
+			for (const key of ignoredKeys)
+			{
+				const registration = this.webhookDeviceRegistry.get(key);
+				if (registration)
+				{
+					const hasHandler = Boolean(registration.device && (typeof registration.device.processWebhookMessage === 'function'));
+					registryMatches.push(`${key}->${registration.name || 'unknown'} (handler: ${hasHandler})`);
+				}
+			}
+
+			const runtimeMatches = [];
+			const drivers = this.homey && this.homey.drivers ? this.homey.drivers.getDrivers() : {};
+			for (const driver of Object.values(drivers))
+			{
+				const driverDevices = driver && typeof driver.getDevices === 'function' ? driver.getDevices() : {};
+				for (const device of Object.values(driverDevices))
+				{
+					if (!device || typeof device.getData !== 'function')
 					{
-						await device.processWebhookMessage(message);
+						continue;
 					}
-					catch (err)
+
+					const deviceData = device.getData();
+					const candidateKeys = new Set([
+						...this.getNormalizedLookupKeys(deviceData && (deviceData.id || deviceData.pid) ? (deviceData.id || deviceData.pid) : null),
+						...this.getNormalizedLookupKeys(deviceData && deviceData.address ? deviceData.address : null),
+					]);
+
+					let hasMatch = false;
+					for (const key of ignoredKeys)
 					{
-						this.updateLog(`Error processing webhook message! ${err.message}`, 0, 'hub');
+						if (candidateKeys.has(key))
+						{
+							hasMatch = true;
+							break;
+						}
+					}
+
+					if (!hasMatch)
+					{
+						continue;
+					}
+
+					const name = (device.getName && typeof device.getName === 'function') ? device.getName() : 'Unknown device';
+					const hasHandler = (typeof device.processWebhookMessage === 'function');
+					runtimeMatches.push(`${name} (handler: ${hasHandler})`);
+					if (runtimeMatches.length >= 5)
+					{
+						break;
 					}
 				}
+
+				if (runtimeMatches.length >= 5)
+				{
+					break;
+				}
+			}
+
+			this.updateLog(`Ignored webhook message for unregistered cloud/hub device (lookup keys: ${Array.from(ignoredKeys).join(', ') || 'none'}; registry matches: ${registryMatches.join('; ') || 'none'}; runtime matches: ${runtimeMatches.join('; ') || 'none'})`, 2, 'hub');
+			return;
+		}
+
+		// Dispatch the webhook message to each resolved device.
+		for (const device of directDevices)
+		{
+			try
+			{
+				const deviceData = (device && typeof device.getData === 'function') ? device.getData() : null;
+				const context = (message && message.context) ? message.context : (message || {});
+				const originalDeviceMac = context && context.deviceMac ? context.deviceMac : null;
+				const originalDeviceId = context && context.deviceId ? context.deviceId : null;
+				const incomingKeys = new Set([
+					...this.getNormalizedLookupKeys(originalDeviceMac),
+					...this.getNormalizedLookupKeys(originalDeviceId),
+				]);
+				const candidateKeys = new Set([
+					...this.getNormalizedLookupKeys(deviceData && (deviceData.id || deviceData.pid) ? (deviceData.id || deviceData.pid) : null),
+					...this.getNormalizedLookupKeys(deviceData && deviceData.address ? deviceData.address : null),
+				]);
+
+				if (incomingKeys.size > 0)
+				{
+					let hasKeyMatch = false;
+					for (const incomingKey of incomingKeys)
+					{
+						if (candidateKeys.has(incomingKey))
+						{
+							hasKeyMatch = true;
+							break;
+						}
+					}
+
+					if (!hasKeyMatch)
+					{
+						// Guardrail: never dispatch a webhook update to a device that does not share the incoming key.
+						this.updateLog(`Skipping webhook dispatch for mismatched device mapping (incoming: ${Array.from(incomingKeys).join(', ') || 'none'}, candidate: ${Array.from(candidateKeys).join(', ') || 'none'})`, 0, 'hub');
+						continue;
+					}
+				}
+
+				const resolvedDeviceMac = deviceData && (deviceData.id || deviceData.pid || deviceData.address)
+					? (deviceData.id || deviceData.pid || deviceData.address)
+					: originalDeviceMac;
+				const dispatchDeviceId = (deviceData && (deviceData.id || deviceData.pid || deviceData.address)) || 'unknown';
+				const messageForDevice = {
+					...(message || {}),
+					context: {
+						...((message && message.context) ? message.context : {}),
+						deviceMac: resolvedDeviceMac,
+					},
+				};
+
+				this.updateLog(`Dispatching webhook message to device ${dispatchDeviceId} (original deviceMac: ${originalDeviceMac || 'none'}, original deviceId: ${originalDeviceId || 'none'}, resolved deviceMac: ${resolvedDeviceMac || 'none'})`, 2, 'hub');
+
+				await device.processWebhookMessage(messageForDevice);
+			}
+			catch (err)
+			{
+				this.updateLog(`Error processing webhook message! ${err.message}`, 0, 'hub');
 			}
 		}
 	}
 
-	async registerHomeyWebhook(DeviceMAC)
+	async registerHomeyWebhook(DeviceMAC, device = null)
 	{
+		const lookupKey = this.normalizeBLEAdvertisementId(DeviceMAC);
+		const hasWebhookHandler = (candidate) => Boolean(candidate && (typeof candidate.processWebhookMessage === 'function'));
+		const registerWebhookKeys = (registration, values) =>
+		{
+			// Store multiple normalized key variants (with/without separators) for robust matching.
+			for (const value of values)
+			{
+				for (const key of this.getNormalizedLookupKeys(value))
+				{
+					this.webhookDeviceRegistry.set(key, registration);
+				}
+			}
+		};
+		if (lookupKey)
+		{
+			if (device && device.getData)
+			{
+				if (!hasWebhookHandler(device))
+				{
+					// BLE-only devices can share ids with hub devices; keep them out of webhook routing.
+					const skippedName = (device.getName && typeof device.getName === 'function') ? device.getName() : 'Unknown webhook device';
+					this.updateLog(`Skipping webhook registry for ${skippedName}: no processWebhookMessage handler`, 2, 'hub');
+				}
+				else
+				{
+				const deviceData = device.getData();
+				const deviceName = (device.getName && typeof device.getName === 'function') ? device.getName() : 'Unknown webhook device';
+				const deviceId = this.normalizeBLEAdvertisementId(deviceData && (deviceData.id || deviceData.pid) ? (deviceData.id || deviceData.pid) : null);
+				const deviceAddress = this.normalizeBLEAdvertisementId(deviceData && deviceData.address ? deviceData.address : null);
+				const registration = { device, name: deviceName, id: deviceId, address: deviceAddress };
+				registerWebhookKeys(registration, [deviceId, deviceAddress, lookupKey]);
+				}
+			}
+			else
+			{
+				const drivers = this.homey && this.homey.drivers ? this.homey.drivers.getDrivers() : {};
+				for (const driver of Object.values(drivers))
+				{
+					const devices = driver && typeof driver.getDevices === 'function' ? driver.getDevices() : {};
+					for (const candidateDevice of Object.values(devices))
+					{
+						if (!candidateDevice || typeof candidateDevice.getData !== 'function')
+						{
+							continue;
+						}
+
+						if (!hasWebhookHandler(candidateDevice))
+						{
+							continue;
+						}
+
+						const data = candidateDevice.getData();
+						const candidateKeys = new Set();
+						for (const candidateValue of [data && (data.id || data.pid), data && data.address])
+						{
+							for (const key of this.getNormalizedLookupKeys(candidateValue))
+							{
+								candidateKeys.add(key);
+							}
+						}
+						if (!candidateKeys.has(lookupKey))
+						{
+							continue;
+						}
+
+						const candidateName = (candidateDevice.getName && typeof candidateDevice.getName === 'function') ? candidateDevice.getName() : 'Unknown webhook device';
+						const registration = { device: candidateDevice, name: candidateName, id: this.normalizeBLEAdvertisementId(data && (data.id || data.pid) ? (data.id || data.pid) : null), address: this.normalizeBLEAdvertisementId(data && data.address ? data.address : null) };
+						registerWebhookKeys(registration, [registration.id, registration.address, lookupKey]);
+						break;
+					}
+					if (this.webhookDeviceRegistry.has(lookupKey))
+					{
+						break;
+					}
+				}
+			}
+		}
+
 		// See if the SwitchBot device is already in the list of devices we are registering the webhook for.
 		if (this.devicesMACs.findIndex((device) => device.localeCompare(DeviceMAC, 'en', { sensitivity: 'base' }) === 0) >= 0)
 		{
@@ -1437,7 +1753,7 @@ class MyApp extends OAuth2App
 				if (!this.homeyWebhookRegTimerID)
 				{
 					this.webhookRetryCount++;
-					const baseDelay = Math.min(5000 * Math.pow(2, Math.min(this.webhookRetryCount - 1, 3)), 60000);
+					const baseDelay = Math.min(5000 * (2 ** Math.min(this.webhookRetryCount - 1, 3)), 60000);
 					const jitter = Math.random() * 1000;
 					const nextDelay = Math.floor(baseDelay + jitter);
 					this.updateLog(`Homey Webhook will retry in ${nextDelay}ms (attempt ${this.webhookRetryCount})`, 1, 'hub');
@@ -1465,7 +1781,7 @@ class MyApp extends OAuth2App
 					if (!this.homeyWebhookRegTimerID)
 					{
 						this.webhookRetryCount++;
-						const baseDelay = Math.min(5000 * Math.pow(2, Math.min(this.webhookRetryCount - 1, 3)), 60000);
+						const baseDelay = Math.min(5000 * (2 ** Math.min(this.webhookRetryCount - 1, 3)), 60000);
 						const jitter = Math.random() * 1000;
 						const nextDelay = Math.floor(baseDelay + jitter);
 						this.homeyWebhookRegTimerID = this.homey.setTimeout(() => this.doWebhookReg(), nextDelay);
@@ -1484,7 +1800,7 @@ class MyApp extends OAuth2App
 			if (!this.homeyWebhookRegTimerID)
 			{
 				this.webhookRetryCount++;
-				const baseDelay = Math.min(5000 * Math.pow(2, Math.min(this.webhookRetryCount - 1, 3)), 60000);
+				const baseDelay = Math.min(5000 * (2 ** Math.min(this.webhookRetryCount - 1, 3)), 60000);
 				const jitter = Math.random() * 1000;
 				const nextDelay = Math.floor(baseDelay + jitter);
 				this.updateLog(`Homey Webhook will retry in ${nextDelay}ms (attempt ${this.webhookRetryCount})`, 1, 'hub');
@@ -1797,7 +2113,7 @@ class MyApp extends OAuth2App
 			this.updateLog('OAuth authorization URL prepared', 0, 'hub');
 
 			const callback = await this.homey.cloud.createOAuth2Callback(authorizationUrl);
-			this.updateLog(`OAuth callback created`, 0, 'hub');
+			this.updateLog('OAuth callback created', 0, 'hub');
 
 			this.settingsOAuthFlows[flowId] = {
 				sessionId,
@@ -1806,14 +2122,12 @@ class MyApp extends OAuth2App
 			};
 
 			// Set up the 'url' event listener first (before Promise)
-			let urlPromise;
-			const urlPromiseObj = new Promise((resolve) => {
+			const urlPromise = new Promise((resolve) => {
 				callback.on('url', (url) => {
 					this.updateLog('OAuth callback URL received', 0, 'hub');
 					resolve(url);
 				});
 			});
-			urlPromise = urlPromiseObj;
 
 			// Set up the 'code' event listener (async handling, non-blocking)
 			callback.on('code', async (code) => {
@@ -1856,9 +2170,7 @@ class MyApp extends OAuth2App
 			// Wait for the URL with timeout
 			const authUrl = await Promise.race([
 				urlPromise,
-				new Promise((_, reject) =>
-					this.homey.setTimeout(() => reject(new Error('Timed out while preparing OAuth callback URL')), 15000)
-				),
+				new Promise((_, reject) => this.homey.setTimeout(() => reject(new Error('Timed out while preparing OAuth callback URL')), 15000)),
 			]);
 
 			return {
@@ -2020,6 +2332,75 @@ class MyApp extends OAuth2App
 		return key;
 	}
 
+	getOrCreateBLEAdvertisementDeviceState(deviceKey, device = null)
+	{
+		if (!deviceKey)
+		{
+			return null;
+		}
+
+		let state = this.bleAdvertisementDeviceState.get(deviceKey);
+		if (!state)
+		{
+			state = {
+				device: device || null,
+				bleId: null,
+				localSeenAt: 0,
+				lastRSSI: null,
+				payloadFingerprint: null,
+				parsedStateFingerprint: null,
+				parsedSeenAt: 0,
+				noServiceDataCount: 0,
+				serviceDataPresentCount: 0,
+				advertisementCount: 0,
+				pollCount: 0,
+			};
+			this.bleAdvertisementDeviceState.set(deviceKey, state);
+		}
+
+		if (device)
+		{
+			state.device = device;
+		}
+
+		return state;
+	}
+
+	markBLEPollServiceData(device, hasServiceData, rssi = null)
+	{
+		if (!device)
+		{
+			return;
+		}
+
+		const deviceKey = this.getBLEDeviceSubscriptionKey(device);
+		if (!deviceKey)
+		{
+			return;
+		}
+
+		const state = this.getOrCreateBLEAdvertisementDeviceState(deviceKey, device);
+		if (typeof rssi === 'number' && Number.isFinite(rssi))
+		{
+			state.lastRSSI = rssi;
+		}
+
+		if (hasServiceData)
+		{
+			state.serviceDataPresentCount = Number(state.serviceDataPresentCount || 0) + 1;
+			state.localSeenAt = Date.now();
+		}
+		else
+		{
+			state.noServiceDataCount = Number(state.noServiceDataCount || 0) + 1;
+		}
+	}
+
+	markBLEDeviceSeenFromPoll(device)
+	{
+		this.markBLEPollServiceData(device, true);
+	}
+
 	normalizeBLEAdvertisementId(bleId)
 	{
 		if (!bleId)
@@ -2028,6 +2409,68 @@ class MyApp extends OAuth2App
 		}
 
 		return String(bleId).trim().toLowerCase();
+	}
+
+	getNormalizedLookupKeys(value)
+	{
+		const normalized = this.normalizeBLEAdvertisementId(value);
+		if (!normalized)
+		{
+			return [];
+		}
+
+		const keys = new Set([normalized]);
+		const compactHex = normalized.replace(/[^a-f0-9]/g, '');
+		if (compactHex.length === 12)
+		{
+			keys.add(compactHex);
+			keys.add(compactHex.match(/.{1,2}/g).join(':'));
+		}
+
+		return Array.from(keys);
+	}
+
+	registerBLEDeviceAdvertisement(device)
+	{
+		if (!device)
+		{
+			return null;
+		}
+
+		const deviceData = (device.getData && typeof device.getData === 'function') ? device.getData() : null;
+		const name = (device.getName && typeof device.getName === 'function') ? device.getName() : 'Unknown BLE device';
+		const deviceId = this.normalizeBLEAdvertisementId(deviceData && (deviceData.id || deviceData.pid) ? (deviceData.id || deviceData.pid) : null);
+		const deviceAddress = this.normalizeBLEAdvertisementId(deviceData && deviceData.address ? deviceData.address : null);
+		const deviceBleId = this.normalizeBLEAdvertisementId(deviceData && deviceData.id ? deviceData.id : null);
+		const registration = { device, name, address: deviceAddress, id: deviceId, bleId: deviceBleId };
+		const keys = new Set([deviceBleId, deviceId, deviceAddress].filter(Boolean));
+
+		for (const key of keys)
+		{
+			this.bleAdvertisementDeviceRegistry.set(key, registration);
+		}
+
+		return registration;
+	}
+
+	unregisterBLEDeviceAdvertisement(device)
+	{
+		if (!device)
+		{
+			return;
+		}
+
+		const deviceData = (device.getData && typeof device.getData === 'function') ? device.getData() : null;
+		const deviceId = this.normalizeBLEAdvertisementId(deviceData && (deviceData.id || deviceData.pid) ? (deviceData.id || deviceData.pid) : null);
+		const deviceAddress = this.normalizeBLEAdvertisementId(deviceData && deviceData.address ? deviceData.address : null);
+		const deviceBleId = this.normalizeBLEAdvertisementId(deviceData && deviceData.id ? deviceData.id : null);
+		for (const key of [deviceBleId, deviceId, deviceAddress])
+		{
+			if (key && this.bleAdvertisementDeviceRegistry.get(key)?.device === device)
+			{
+				this.bleAdvertisementDeviceRegistry.delete(key);
+			}
+		}
 	}
 
 	bufferLikeToHex(value)
@@ -2098,7 +2541,11 @@ class MyApp extends OAuth2App
 			return 'empty-advertisement';
 		}
 
-		if (!advertisement.serviceData || advertisement.serviceData.length === 0)
+		const hasNoServiceData = !advertisement.serviceData || (Array.isArray(advertisement.serviceData)
+			? advertisement.serviceData.length === 0
+			: Object.keys(advertisement.serviceData).length === 0);
+
+		if (hasNoServiceData)
 		{
 			if (advertisement.localName === 'WoHand')
 			{
@@ -2185,8 +2632,8 @@ class MyApp extends OAuth2App
 			return normalized;
 		}
 
-		const modelName = normalized.serviceData.modelName;
-		const model = normalized.serviceData.model;
+		const { modelName } = normalized.serviceData;
+		const { model } = normalized.serviceData;
 		if ((modelName === 'Presence(mm)') || (modelName === 'WoPresence') || (model === 's'))
 		{
 			delete normalized.serviceData.duration;
@@ -2243,6 +2690,21 @@ class MyApp extends OAuth2App
 	registerBLEPolling(device)
 	{
 		const deviceKey = this.getBLEDeviceSubscriptionKey(device);
+		if (!deviceKey)
+		{
+			this.updateLog('BLE polling registration skipped: invalid device', 0, 'ble');
+			return;
+		}
+
+		if (!this.bleRegisteredDevices.has(deviceKey))
+		{
+			this.bleRegisteredDevices.add(deviceKey);
+		}
+
+		if (this.bleTimerID === null)
+		{
+			this.bleTimerID = this.homey.setTimeout(this.onBLEPoll, BLE_POLLING_INTERVAL);
+		}
 
 		if (!this.bleAdvertisementSupported || !device)
 		{
@@ -2250,6 +2712,7 @@ class MyApp extends OAuth2App
 			return;
 		}
 
+		this.registerBLEDeviceAdvertisement(device);
 		this.registerBLEAdvertisementSubscription(device)
 			.catch((err) =>
 			{
@@ -2262,9 +2725,19 @@ class MyApp extends OAuth2App
 	unregisterBLEPolling(device)
 	{
 		const deviceKey = this.getBLEDeviceSubscriptionKey(device);
+		if (deviceKey)
+		{
+			this.bleRegisteredDevices.delete(deviceKey);
+			const state = this.bleAdvertisementDeviceState.get(deviceKey);
+			if (state)
+			{
+				state.parsedSeenAt = 0;
+			}
+		}
 
 		if (this.bleAdvertisementSupported && device)
 		{
+			this.unregisterBLEDeviceAdvertisement(device);
 			this.unregisterBLEAdvertisementSubscription(device)
 				.catch((err) =>
 				{
@@ -2284,12 +2757,14 @@ class MyApp extends OAuth2App
 			throw new Error('Invalid BLE device registration');
 		}
 
-		if (this.bleAdvertisementDeviceToId.has(key))
+		const state = this.getOrCreateBLEAdvertisementDeviceState(key, device);
+		if (state && state.bleId)
 		{
 			return;
 		}
 
 		const deviceData = (device.getData && typeof device.getData === 'function') ? device.getData() : null;
+		this.registerBLEDeviceAdvertisement(device);
 		const bleId = this.normalizeBLEAdvertisementId(deviceData && deviceData.id ? deviceData.id : null);
 		if (!bleId)
 		{
@@ -2300,7 +2775,7 @@ class MyApp extends OAuth2App
 		if (existingSubscription)
 		{
 			existingSubscription.devices.set(key, device);
-			this.bleAdvertisementDeviceToId.set(key, bleId);
+			state.bleId = bleId;
 			return;
 		}
 
@@ -2316,7 +2791,7 @@ class MyApp extends OAuth2App
 			}
 
 			subscribed.devices.set(key, device);
-			this.bleAdvertisementDeviceToId.set(key, bleId);
+			state.bleId = bleId;
 			return;
 		}
 
@@ -2369,7 +2844,7 @@ class MyApp extends OAuth2App
 		try
 		{
 			await subscribePromise;
-			this.bleAdvertisementDeviceToId.set(key, bleId);
+			state.bleId = bleId;
 		}
 		finally
 		{
@@ -2388,7 +2863,8 @@ class MyApp extends OAuth2App
 			return;
 		}
 
-		const bleId = this.normalizeBLEAdvertisementId(this.bleAdvertisementDeviceToId.get(key));
+		const state = this.bleAdvertisementDeviceState.get(key);
+		const bleId = this.normalizeBLEAdvertisementId(state && state.bleId);
 		if (!bleId)
 		{
 			return;
@@ -2400,10 +2876,19 @@ class MyApp extends OAuth2App
 			await pendingSubscription.catch(() => null);
 		}
 
-		this.bleAdvertisementDeviceToId.delete(key);
-		this.bleAdvertisementDevicePayloadFingerprint.delete(key);
-		this.bleAdvertisementDeviceParsedStateFingerprint.delete(key);
-		this.bleAdvertisementDeviceLocalSeenAt.delete(key);
+		if (state)
+		{
+			state.bleId = null;
+			state.payloadFingerprint = null;
+			state.parsedStateFingerprint = null;
+			state.parsedSeenAt = 0;
+			state.localSeenAt = 0;
+			state.lastRSSI = null;
+			state.noServiceDataCount = 0;
+			state.serviceDataPresentCount = 0;
+			state.advertisementCount = 0;
+			state.pollCount = 0;
+		}
 
 		const subscription = this.bleAdvertisementSubscriptions.get(bleId);
 		if (!subscription)
@@ -2444,39 +2929,129 @@ class MyApp extends OAuth2App
 
 		this.bleAdvertisementSubscriptions.clear();
 		this.bleAdvertisementSubscriptionPending.clear();
-		this.bleAdvertisementDeviceToId.clear();
-		this.bleAdvertisementDevicePayloadFingerprint.clear();
-		this.bleAdvertisementDeviceParsedStateFingerprint.clear();
-		this.bleAdvertisementDeviceLocalSeenAt.clear();
+		this.bleAdvertisementDeviceState.clear();
 		this.blePollingFallbackDevices.clear();
+		this.bleRegisteredDevices.clear();
 	}
 
-	getBLEAdvertisementDispatchDevices()
+	getBLERegisteredDevices()
 	{
-		const devices = [];
-		const drivers = this.homey.drivers.getDrivers();
-		for (const driver of Object.values(drivers))
+		const devices = new Map();
+		const registrations = this.bleAdvertisementDeviceRegistry.values();
+		for (const registration of registrations)
 		{
-			if (!driver || typeof driver.getDevices !== 'function')
+			if (!registration || !registration.device || typeof registration.device.syncBLEEvents !== 'function')
 			{
 				continue;
 			}
 
-			for (const device of Object.values(driver.getDevices()))
+			const deviceKey = this.getBLEDeviceSubscriptionKey(registration.device);
+			if (deviceKey)
 			{
-				if (device && typeof device.syncBLEEvents === 'function')
-				{
-					devices.push(device);
-				}
+				devices.set(deviceKey, registration.device);
 			}
 		}
 
 		return devices;
 	}
 
+	clearBLEStatistics(preserveLastSeen = true)
+	{
+		for (const state of this.bleAdvertisementDeviceState.values())
+		{
+			if (!state)
+			{
+				continue;
+			}
+
+			if (!preserveLastSeen)
+			{
+				state.localSeenAt = 0;
+				state.parsedSeenAt = 0;
+			}
+
+			state.noServiceDataCount = 0;
+			state.serviceDataPresentCount = 0;
+			state.advertisementCount = 0;
+			state.pollCount = 0;
+			state.lastRSSI = null;
+		}
+
+		return true;
+	}
+
+	getBLEStatistics()
+	{
+		const rows = [];
+		for (const [deviceKey, state] of this.bleAdvertisementDeviceState.entries())
+		{
+			if (!state)
+			{
+				continue;
+			}
+
+			const { device } = state;
+			const deviceData = (device && device.getData && typeof device.getData === 'function') ? device.getData() : null;
+			const name = (device && device.getName && typeof device.getName === 'function') ? device.getName() : (state.bleId || deviceKey);
+			const mac = this.normalizeBLEAdvertisementId(deviceData && deviceData.address ? deviceData.address : null)
+				|| this.normalizeBLEAdvertisementId(deviceData && (deviceData.id || deviceData.pid) ? (deviceData.id || deviceData.pid) : null)
+				|| state.bleId
+				|| '';
+			const driverType = String((device && device.driver && (device.driver.id || (device.driver.manifest && device.driver.manifest.id))) || 'unknown');
+			const lastSeenAt = Math.max(state.localSeenAt || 0, state.parsedSeenAt || 0);
+			rows.push({
+				name,
+				mac,
+				driverType,
+				missing: Number(state.noServiceDataCount || 0),
+				present: Number(state.serviceDataPresentCount || 0),
+				advertisements: Number(state.advertisementCount || 0),
+				rssi: (typeof state.lastRSSI === 'number' && Number.isFinite(state.lastRSSI)) ? Math.round(state.lastRSSI) : null,
+				lastSeenAt,
+				polls: Number(state.pollCount || 0),
+			});
+		}
+
+		rows.sort((a, b) => a.name.localeCompare(b.name));
+		return rows;
+	}
+
+	getBLEAdvertisementDispatchDevicesForAdvertisement(bleId, advertisement)
+	{
+		const lookupAddress = this.normalizeBLEAdvertisementId(advertisement && advertisement.address)
+			|| this.normalizeBLEAdvertisementId(bleId)
+			|| this.normalizeBLEAdvertisementId(advertisement && advertisement.id)
+			|| this.normalizeBLEAdvertisementId(advertisement && advertisement.pid)
+			|| this.normalizeBLEAdvertisementId(advertisement && advertisement.uuid);
+
+		if (!lookupAddress)
+		{
+			this.updateLog(`[filter] BLE advertisement ignored for unregistered device ${bleId || advertisement?.address || 'unknown'} (address=${advertisement?.address || 'n/a'}, name=${advertisement?.localName || 'n/a'})`, 2, 'ble');
+			return [];
+		}
+
+		const registration = this.bleAdvertisementDeviceRegistry.get(lookupAddress);
+		if (!registration || !registration.device || typeof registration.device.syncBLEEvents !== 'function')
+		{
+			this.updateLog(`[filter] BLE advertisement ignored for unregistered address ${lookupAddress}`, 2, 'ble');
+			return [];
+		}
+
+		this.updateLog(`[filter] BLE advertisement matched registered device ${registration.name || registration.device.getName?.() || lookupAddress} for ${lookupAddress}`, 3, 'ble');
+		return [registration.device];
+	}
+
 	getBLEAdvertisementWebhookSummary(device, parsedEvent, bleId)
 	{
-		const deviceName = (device && device.getName && typeof device.getName === 'function') ? device.getName() : (parsedEvent && parsedEvent.address ? parsedEvent.address : bleId);
+		let deviceName = bleId;
+		if (parsedEvent && parsedEvent.address)
+		{
+			deviceName = parsedEvent.address;
+		}
+		if (device && device.getName && typeof device.getName === 'function')
+		{
+			deviceName = device.getName();
+		}
 		const summaryParts = [];
 
 		if (parsedEvent && parsedEvent.address)
@@ -2491,13 +3066,13 @@ class MyApp extends OAuth2App
 
 		if (parsedEvent && parsedEvent.serviceData && typeof parsedEvent.serviceData === 'object')
 		{
-			const serviceData = parsedEvent.serviceData;
+			const { serviceData } = parsedEvent;
 			if (serviceData.modelName)
 			{
 				summaryParts.push(`model=${serviceData.modelName}`);
 			}
 
-			for (const key of ['battery', 'position', 'motion', 'light', 'presence', 'temperature', 'humidity', 'light_level', 'trigger_flag'])
+			for (const key of ['battery', 'position', 'motion', 'contact', 'leftOpen', 'light', 'presence', 'temperature', 'humidity', 'light_level', 'trigger_flag', 'buttonPresses', 'entryCount', 'exitCount', 'lastMotion', 'lastContact'])
 			{
 				if (typeof serviceData[key] !== 'undefined')
 				{
@@ -2514,74 +3089,147 @@ class MyApp extends OAuth2App
 		return `${deviceName}: ${summaryParts.join(', ')}`;
 	}
 
+	isBLEParsedEventForDevice(device, parsedEvent)
+	{
+		if (!device || !parsedEvent)
+		{
+			return false;
+		}
+
+		const deviceData = (device.getData && typeof device.getData === 'function') ? device.getData() : null;
+		if (!deviceData)
+		{
+			return true;
+		}
+
+		const normalize = (value) => String(value || '').replace(/[^a-fA-F0-9]/g, '').toLowerCase();
+
+		const eventAddress = normalize(parsedEvent.address);
+		const deviceAddress = normalize(deviceData.address);
+		if (eventAddress && deviceAddress)
+		{
+			return eventAddress === deviceAddress;
+		}
+
+		const eventId = normalize(parsedEvent.id || parsedEvent.pid || parsedEvent.uuid);
+		const deviceId = normalize(deviceData.id || deviceData.pid);
+		if (eventId && deviceId)
+		{
+			return eventId === deviceId;
+		}
+
+		return true;
+	}
+
 	async handleBLEAdvertisement(bleId, advertisement)
 	{
 		this.updateLog(`[detailed] BLE advertisement payload received for ${bleId}: ${this.varToString(advertisement)}`, 3, 'ble');
-		const devices = this.getBLEAdvertisementDispatchDevices();
-		for (const device of devices)
+		const devices = this.getBLEAdvertisementDispatchDevicesForAdvertisement(bleId, advertisement);
+		if (devices.length === 0)
 		{
-			try
+			return;
+		}
+
+		const device = devices[0];
+		try
+		{
+			if (!device || !device.syncBLEEvents)
 			{
-				if (!device || !device.syncBLEEvents)
-				{
-					continue;
-				}
-
-				const deviceKey = this.getBLEDeviceSubscriptionKey(device);
-				if (!deviceKey)
-				{
-					continue;
-				}
-
-				const nowMs = Date.now();
-				const previousSeenMs = this.bleAdvertisementDeviceLocalSeenAt.get(deviceKey) || 0;
-				if ((nowMs - previousSeenMs) >= 60000)
-				{
-					const name = (device.getName && typeof device.getName === 'function') ? device.getName() : bleId;
-					this.updateLog(`[local-subscription] BLE advertisement received for ${name} (${bleId})`, 2, 'ble');
-					this.bleAdvertisementDeviceLocalSeenAt.set(deviceKey, nowMs);
-				}
-
-				const payloadFingerprint = this.getBLEAdvertisementFingerprint(advertisement);
-				const previousFingerprint = this.bleAdvertisementDevicePayloadFingerprint.get(deviceKey);
-				if (previousFingerprint === payloadFingerprint)
-				{
-					continue;
-				}
-
-				this.bleAdvertisementDevicePayloadFingerprint.set(deviceKey, payloadFingerprint);
-
-				let parsedEvent = null;
-				if (device.driver && typeof device.driver.parse === 'function')
-				{
-					parsedEvent = device.driver.parse(advertisement);
-				}
-
-				if (parsedEvent)
-				{
-					const parsedStateFingerprint = this.getBLEParsedStateFingerprint(parsedEvent);
-					const previousParsedStateFingerprint = this.bleAdvertisementDeviceParsedStateFingerprint.get(deviceKey);
-					if (previousParsedStateFingerprint === parsedStateFingerprint)
-					{
-						continue;
-					}
-
-					this.bleAdvertisementDeviceParsedStateFingerprint.set(deviceKey, parsedStateFingerprint);
-					this.updateLog(`[webhook/ble] ${this.getBLEAdvertisementWebhookSummary(device, parsedEvent, bleId)}`, 1, 'ble');
-					this.updateLog(`[detailed] Parsed BLE advertisement for ${bleId}: ${this.varToString(parsedEvent)}`, 3, 'ble');
-					await device.syncBLEEvents([parsedEvent]);
-				}
-				else
-				{
-					const reason = this.getBLEUnparsedReason(advertisement);
-					this.updateLog(`[detailed] Unparsed BLE advertisement for ${bleId} (${reason})`, 3, 'ble');
-				}
+				return;
 			}
-			catch (err)
+
+			const deviceKey = this.getBLEDeviceSubscriptionKey(device);
+			if (!deviceKey)
 			{
-				const name = (device && device.getName && typeof device.getName === 'function') ? device.getName() : bleId;
-				this.updateLog(`BLE advertisement handling failed for ${name}: ${err.message}`, 0, 'ble');
+				return;
 			}
+
+			const state = this.getOrCreateBLEAdvertisementDeviceState(deviceKey, device);
+			state.advertisementCount = Number(state.advertisementCount || 0) + 1;
+			if (typeof advertisement?.rssi === 'number' && Number.isFinite(advertisement.rssi))
+			{
+				state.lastRSSI = advertisement.rssi;
+			}
+			const payloadFingerprint = this.getBLEAdvertisementFingerprint(advertisement);
+			const previousFingerprint = state.payloadFingerprint;
+
+			const serviceDataIsPresent = !!advertisement
+				&& !!advertisement.serviceData
+				&& (
+					(Array.isArray(advertisement.serviceData) && advertisement.serviceData.length > 0)
+					|| (!Array.isArray(advertisement.serviceData)
+						&& typeof advertisement.serviceData === 'object'
+						&& Object.keys(advertisement.serviceData).length > 0)
+				);
+			if (serviceDataIsPresent)
+			{
+				state.serviceDataPresentCount++;
+			}
+
+			const reason = this.getBLEUnparsedReason(advertisement);
+			if (reason === 'no-service-data')
+			{
+				state.noServiceDataCount++;
+			}
+
+			if (reason === 'no-service-data' || reason === 'service-data-not-array' || reason === 'service-uuid-missing' || reason === 'service-uuid-mismatch' || reason === 'service-buffer-invalid')
+			{
+				this.updateLog(`[filter] BLE advertisement rejected for ${device.getName?.() || bleId}: ${reason}`, 3, 'ble');
+				return;
+			}
+
+			const nowMs = Date.now();
+			const previousSeenMs = state.localSeenAt || 0;
+			state.localSeenAt = nowMs;
+			if ((nowMs - previousSeenMs) >= 60000)
+			{
+				const name = (device.getName && typeof device.getName === 'function') ? device.getName() : bleId;
+				this.updateLog(`[local-subscription] BLE advertisement received for ${name} (${bleId})`, 1, 'ble');
+			}
+
+			if (previousFingerprint === payloadFingerprint)
+			{
+				return;
+			}
+
+			state.payloadFingerprint = payloadFingerprint;
+
+			let parsedEvent = null;
+			if (device.driver && typeof device.driver.parse === 'function')
+			{
+				parsedEvent = device.driver.parse(advertisement);
+			}
+
+			if (parsedEvent)
+			{
+				if (!this.isBLEParsedEventForDevice(device, parsedEvent))
+				{
+					return;
+				}
+
+				state.parsedSeenAt = Date.now();
+
+				const parsedStateFingerprint = this.getBLEParsedStateFingerprint(parsedEvent);
+				const previousParsedStateFingerprint = state.parsedStateFingerprint;
+				if (previousParsedStateFingerprint === parsedStateFingerprint)
+				{
+					return;
+				}
+
+				state.parsedStateFingerprint = parsedStateFingerprint;
+				this.updateLog(`[advertisement/ble] ${this.getBLEAdvertisementWebhookSummary(device, parsedEvent, bleId)}`, 1, 'ble');
+				this.updateLog(`[detailed] Parsed BLE advertisement for ${bleId}: ${this.varToString(parsedEvent)}`, 3, 'ble');
+				await device.syncBLEEvents([parsedEvent]);
+			}
+			else
+			{
+				this.updateLog(`[detailed] Unparsed BLE advertisement for ${bleId} (${reason})`, 3, 'ble');
+			}
+		}
+		catch (err)
+		{
+			const name = (device && device.getName && typeof device.getName === 'function') ? device.getName() : bleId;
+			this.updateLog(`BLE advertisement handling failed for ${name}: ${err.message}`, 0, 'ble');
 		}
 	}
 
@@ -2597,24 +3245,65 @@ class MyApp extends OAuth2App
 			this.updateLog('\r\n------ Polling BLE Starting ------', 'hub');
 
 			const promises = [];
+			const nowMs = Date.now();
+			let staleFallbackPolls = 0;
 			try
 			{
-				// Run discovery too fetch new data
-				await this.homey.ble.discover(['cba20d00224d11e69fb80002a5d5c51b'], 2000);
-				this.updateLog('BLE Finished Discovery', 'hub');
-
-				// eslint-disable-next-line no-restricted-syntax
-				const drivers = this.homey.drivers.getDrivers();
-				for (const driver of Object.values(drivers))
+				// Run discovery to fetch new data when available, but continue fallback polling if not.
+				if (this.homey.ble && (typeof this.homey.ble.discover === 'function'))
 				{
-					const devices = driver.getDevices();
-					for (const device of Object.values(devices))
+					try
 					{
-						if (device.getDeviceValues)
-						{
-							promises.push(device.getDeviceValues());
-						}
+						await this.homey.ble.discover(['cba20d00224d11e69fb80002a5d5c51b'], 2000);
+						this.updateLog('BLE Finished Discovery', 'hub');
 					}
+					catch (discoverErr)
+					{
+						this.updateLog(`BLE discovery unavailable during poll: ${discoverErr.message}. Continuing fallback polling.`, 1, 'ble');
+					}
+				}
+				else if (!this.bleDiscoverUnavailableLogged)
+				{
+					this.bleDiscoverUnavailableLogged = true;
+					this.updateLog('BLE discovery API unavailable on this Homey, using fallback polling only.', 1, 'ble');
+				}
+
+				const registeredDevices = this.getBLERegisteredDevices();
+				for (const [deviceKey, device] of registeredDevices)
+				{
+					if (!device || !device.getDeviceValues)
+					{
+						continue;
+					}
+
+					if (!this.bleRegisteredDevices.has(deviceKey))
+					{
+						continue;
+					}
+
+					if (this.blePollingFallbackDevices.has(deviceKey) || !this.bleAdvertisementSupported)
+					{
+						const fallbackState = this.getOrCreateBLEAdvertisementDeviceState(deviceKey, device);
+						fallbackState.pollCount = (fallbackState.pollCount || 0) + 1;
+						promises.push(device.getDeviceValues());
+						continue;
+					}
+
+					const state = this.getOrCreateBLEAdvertisementDeviceState(deviceKey, device);
+					const lastLocalSeenAt = state.localSeenAt || 0;
+					const lastParsedSeenAt = state.parsedSeenAt || 0;
+					const lastSeenAt = Math.max(lastLocalSeenAt, lastParsedSeenAt);
+					if (!lastSeenAt || ((nowMs - lastSeenAt) >= BLE_ADVERTISEMENT_STALE_POLL_MS))
+					{
+						state.pollCount = (state.pollCount || 0) + 1;
+						staleFallbackPolls++;
+						promises.push(device.getDeviceValues());
+					}
+				}
+
+				if (staleFallbackPolls > 0)
+				{
+					this.updateLog(`BLE stale-subscription fallback polling for ${staleFallbackPolls} device(s)`, 1, 'ble');
 				}
 
 				this.updateLog('Polling BLE: waiting for devices to update', 'hub');
@@ -2634,7 +3323,7 @@ class MyApp extends OAuth2App
 			this.updateLog('Polling BLE skipped while discovery in progress\r\n', 'hub');
 		}
 
-		if (this.bleDevices > 0)
+		if (this.bleRegisteredDevices.size > 0)
 		{
 			this.updateLog(`Next BLE polling interval = ${BLE_POLLING_INTERVAL}`, 'hub');
 			this.bleTimerID = this.homey.setTimeout(this.onBLEPoll, BLE_POLLING_INTERVAL);

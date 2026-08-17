@@ -1,7 +1,7 @@
 {
 	"actions": [
 		{
-			"id": "circulating_fan_mode",
+			"id": "circulating_fan_mode3",
 			"title": {
 				"en": "Set fan mode",
 				"no": "Sett viftemodus",
@@ -105,20 +105,37 @@
 							}
 						},
 						{
-							"id": "baby",
+							"id": "hurricane",
 							"title": {
-								"en": "Baby",
-								"no": "Baby",
-								"nl": "Baby",
-								"da": "Baby",
-								"de": "Baby",
-								"es": "Bebé",
-								"fr": "Bébé",
-								"it": "Bambino",
-								"sv": "Baby",
-								"pl": "Dziecko",
-								"ru": "Младенец",
-								"ko": "아기"
+								"en": "Hurricane",
+								"no": "Orkan",
+								"nl": "Orkaan",
+								"da": "Orkan",
+								"de": "Hurrikan",
+								"es": "Huracán",
+								"fr": "Ouragan",
+								"it": "Uragano",
+								"sv": "Orkan",
+								"pl": "Huragan",
+								"ru": "Ураган",
+								"ko": "허리케인"
+							}
+						},
+						{
+							"id": "custom",
+							"title": {
+								"en": "Custom",
+								"no": "Tilpasset",
+								"nl": "Aangepast",
+								"da": "Tilpasset",
+								"de": "Benutzerdefiniert",
+								"es": "Personalizado",
+								"fr": "Personnalisé",
+								"it": "Personalizzato",
+								"sv": "Anpassad",
+								"pl": "Niestandardowy",
+								"ru": "Пользовательский",
+								"ko": "사용자 정의"
 							}
 						}
 					]

@@ -61,8 +61,8 @@ class ArtFrameHubDevice extends HubDevice
 		this.homey.setTimeout(() =>
 		{
 			this.getHubDeviceValues().catch(this.error);
-		}
-		, 5000);
+		},
+		5000);
 		return result;
 	}
 
@@ -74,8 +74,8 @@ class ArtFrameHubDevice extends HubDevice
 		this.homey.setTimeout(() =>
 		{
 			this.getHubDeviceValues().catch(this.error);
-		}
-		, 30000);
+		},
+		30000);
 		return result;
 	}
 

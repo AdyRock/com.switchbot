@@ -56,12 +56,12 @@ class Hub3Device extends HubDevice
 				this.setCapabilityValue('measure_luminance', data.lightLevel * 5).catch(this.error);
 				this.setCapabilityValue('alarm_motion', data.detectionState === 'DETECTED').catch(this.error);
 			}
-			this.unsetWarning().catch(this.error);;
+			this.unsetWarning().catch(this.error);
 		}
 		catch (err)
 		{
 			this.homey.app.updateLog(`Hub3Device getHubDeviceValues: ${this.homey.app.varToString(err.message)}`, 0, 'hub');
-			this.setWarning(err.message).catch(this.error);;
+			this.setWarning(err.message).catch(this.error);
 		}
 	}
 

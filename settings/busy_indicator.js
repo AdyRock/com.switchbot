@@ -56,7 +56,7 @@ busy_indicator.prototype.show = function ()
 	this.el.cntr.classList.add(this.show_class);
 
 	this.align();
-	
+
 	if (this.cb.show != undefined)
 		this.cb.show();
 }
@@ -65,7 +65,7 @@ busy_indicator.prototype.align = function ()
 {
 	if (this.el.img == null)
 		return;
-	
+
 	this.pos = this.calc_pos();
 
 	this.el.img.style.top = this.pos.y + "px";
@@ -79,7 +79,7 @@ busy_indicator.prototype.calc_pos = function ()
 
 	x = this.el.cntr.clientWidth/2 - this.el.img.offsetWidth/2;
 	y = this.el.cntr.clientHeight/2 - this.el.img.offsetHeight/2;
-	
+
 	return {x: x, y: y};
 }
 

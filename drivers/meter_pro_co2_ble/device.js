@@ -89,12 +89,13 @@ class MeterProCO2BLEDevice extends Homey.Device
 				}
 
 				this.homey.app.updateLog(this.homey.app.varToString(bleAdvertisement), 4, 'ble');
-				const rssi = bleAdvertisement.rssi;
+				const { rssi } = bleAdvertisement;
 				this.setCapabilityValue('rssi', rssi).catch(this.error);
 
 				const data = this.driver.parse(bleAdvertisement);
 				if (data)
 				{
+					this.homey.app.markBLEPollServiceData(this, true, rssi);
 					this.homey.app.updateLog(`Parsed MeterProCO2 BLE: ${this.homey.app.varToString(data)}`, 3, 'ble');
 					this.setCapabilityValue('measure_temperature', data.serviceData.temperature.c).catch(this.error);
 					this.setCapabilityValue('measure_humidity', data.serviceData.humidity).catch(this.error);
@@ -105,6 +106,7 @@ class MeterProCO2BLEDevice extends Homey.Device
 				}
 				else
 				{
+					this.homey.app.markBLEPollServiceData(this, false, rssi);
 					this.homey.app.updateLog(`Parsed MeterProCO2 BLE: No data for ${dd.id}`, 2, 'ble');
 				}
 			}
@@ -158,4 +160,3 @@ class MeterProCO2BLEDevice extends Homey.Device
 }
 
 module.exports = MeterProCO2BLEDevice;
-

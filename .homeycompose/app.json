@@ -1,6 +1,6 @@
 {
 	"id": "com.switchbot",
-	"version": "2.0.83",
+	"version": "2.0.87",
 	"compatibility": ">=12.2.0",
 	"platforms": [
 		"local",
@@ -544,6 +544,14 @@
 		"getDetect": {
 			"method": "get",
 			"path": "/getDetect/"
+		},
+		"getBLEStatistics": {
+			"method": "get",
+			"path": "/getBLEStatistics/"
+		},
+		"clearBLEStatistics": {
+			"method": "post",
+			"path": "/clearBLEStatistics/"
 		},
 		"clearLog": {
 			"method": "post",

@@ -48,10 +48,6 @@ class GarageDoorOpenerDevice extends HubDevice
 		this.log('GarageDoorOpenerDevice was renamed');
 	}
 
-	async onSettings({ oldSettings, newSettings, changedKeys })
-	{
-	}
-
 	// this method is called when the Homey device has requested a position change ( 0 to 1)
 	async onCapabilityOpenClose(value, opts)
 	{
@@ -110,7 +106,7 @@ class GarageDoorOpenerDevice extends HubDevice
 		catch (err)
 		{
 			this.homey.app.updateLog(`Garage Door Opener getHubDeviceValues: ${this.homey.app.varToString(err.message)}`, 0, 'hub');
-			this.setWarning(err.message).catch(this.error);;
+			this.setWarning(err.message).catch(this.error);
 		}
 	}
 

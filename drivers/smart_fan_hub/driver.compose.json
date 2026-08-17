@@ -14,7 +14,7 @@
     "ru": "Умный Вентилятор (HUB)",
     "ko": "스마트 팬 (HUB)"
   },
-  "class": "other",
+  "class": "fan",
   "capabilities": [
     "onoff",
     "smart_fan_speed",

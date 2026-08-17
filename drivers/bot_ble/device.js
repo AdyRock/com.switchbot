@@ -319,6 +319,7 @@ class BotBLEDevice extends Homey.Device
 
 					if (notification.status === true)
 					{
+						this.homey.app.markBLEPollServiceData(this, true);
 						if (Array.isArray(notification.notificationData) && notification.notificationData.length > 1)
 						{
 							this.setCapabilityValue('measure_battery', notification.notificationData[1]).catch(this.error);
@@ -348,12 +349,13 @@ class BotBLEDevice extends Homey.Device
 					}
 
 					this.homey.app.updateLog(this.homey.app.varToString(bleAdvertisement), 4, 'ble');
-					const rssi = bleAdvertisement.rssi;
+					const { rssi } = bleAdvertisement;
 					this.setCapabilityValue('rssi', rssi).catch(this.error);
 
 					const data = this.driver.parse(bleAdvertisement);
 					if (data)
 					{
+						this.homey.app.markBLEPollServiceData(this, true, rssi);
 						this.homey.app.updateLog(`Parsed Bot BLE (${name}) ${this.homey.app.varToString(data)}`, 3, 'ble');
 
 						this.setAvailable();
@@ -387,6 +389,7 @@ class BotBLEDevice extends Homey.Device
 					}
 					else
 					{
+						this.homey.app.markBLEPollServiceData(this, false, rssi);
 						this.homey.app.updateLog(`Parsed Bot BLE (${name}): No service data`, 0, 'ble');
 					}
 				}
@@ -464,4 +467,3 @@ class BotBLEDevice extends Homey.Device
 }
 
 module.exports = BotBLEDevice;
-

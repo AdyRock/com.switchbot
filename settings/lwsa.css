@@ -1,12 +1,16 @@
+body {
+	overflow: hidden;
+}
+
 /* Style the tab */
 .tab {
 	overflow: hidden;
 	border: 1px solid #ccc;
 	background-color: #d1ddeb;
-  }
-  
-  /* Style the buttons that are used to open the tab content */
-  .tab button {
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
 	float: left;
 	border: none;
 	outline: none;
@@ -14,24 +18,38 @@
 	padding: 14px 16px;
 	transition: 0.3s;
 	color: #c8cfd9;
-  }
-  
-  /* Change background color of buttons on hover */
-  .tab button:hover {
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
 	background-color: #73859c !important;
 	color: white !important;
-  }
-  
-  /* Create an active/current tablink class */
-  .active {
+}
+
+/* Create an active/current tablink class */
+.active {
 	background-color: #4a6e9b !important;
 	color: white !important;
-  }
-  
-  /* Style the tab content */
-  .tabcontent {
+}
+
+/* Style the tab content */
+.tabcontent {
 	display: none;
 	padding: 6px 12px;
 	border: 1px solid #ccc;
 	border-top: none;
-  }
+	overflow: hidden;
+}
+
+.statistics-scroll {
+	width: 100%;
+	max-width: 100%;
+	overflow: auto;
+	box-sizing: border-box;
+	display: block;
+	position: relative;
+	scrollbar-gutter: stable;
+	min-width: 0;
+	height: 100%;
+	max-height: 100%;
+}

@@ -4,7 +4,7 @@
 
 const HubDevice = require('../hub_device');
 
-class SmartFanNewHubDevice extends HubDevice
+class SmartFanPro2HubDevice extends HubDevice
 {
 
 	/**
@@ -16,13 +16,13 @@ class SmartFanNewHubDevice extends HubDevice
 
 		this.registerCapabilityListener('onoff', this.onCapabilityOnOff.bind(this));
 		this.registerCapabilityListener('fan_speed', this.onCapabilityFanSpeed.bind(this));
-		this.registerCapabilityListener('smart_fan_mode2', this.onCapabilityFanMode.bind(this));
+		this.registerCapabilityListener('smart_fan_mode3', this.onCapabilityFanMode.bind(this));
 		this.registerCapabilityListener('night_light', this.onCapabilityNightLight.bind(this));
 
 		const dd = this.getData();
 		this.homey.app.registerHomeyWebhook(dd.id).catch(this.error);
 
-		this.log('SmartFanNewHubDevice has been initialising');
+		this.log('SmartFanPro2HubDevice has been initialising');
 	}
 
 	// this method is called when the Homey device switches the device on or off
@@ -67,10 +67,10 @@ class SmartFanNewHubDevice extends HubDevice
 			if (data)
 			{
 				this.setAvailable();
-				this.homey.app.updateLog(`Smart Fan New Hub got: ${this.homey.app.varToString(data)}`, 3, 'hub');
+				this.homey.app.updateLog(`Smart Fan Pro2 Hub got: ${this.homey.app.varToString(data)}`, 3, 'hub');
 
 				this.setCapabilityValue('onoff', data.power === 'on').catch(this.error);
-				this.setCapabilityValue('smart_fan_mode2', data.mode).catch(this.error);
+				this.setCapabilityValue('smart_fan_mode3', data.mode).catch(this.error);
 				this.setCapabilityValue('fan_speed', data.fanSpeed / 100).catch(this.error);
 				this.setCapabilityValue('night_light', data.nightStatus).catch(this.error);
 				this.setCapabilityValue('measure_battery', data.battery).catch(this.error);
@@ -79,7 +79,7 @@ class SmartFanNewHubDevice extends HubDevice
 		}
 		catch (err)
 		{
-			this.homey.app.updateLog(`Smart Fan New Hub getHubDeviceValues: ${this.homey.app.varToString(err.message)}`, 0, 'hub');
+			this.homey.app.updateLog(`Smart Fan Pro2 Hub getHubDeviceValues: ${this.homey.app.varToString(err.message)}`, 0, 'hub');
 			this.setWarning(err.message).catch(this.error);
 		}
 	}
@@ -94,13 +94,9 @@ class SmartFanNewHubDevice extends HubDevice
 				// message is for this device
 				this.setCapabilityValue('onoff', message.context.powerState === 'ON').catch(this.error);
 				this.setCapabilityValue('fan_speed', message.context.fanSpeed / 100).catch(this.error);
-				this.setCapabilityValue('smart_fan_mode2', message.context.mode).catch(this.error);
+				this.setCapabilityValue('smart_fan_mode3', message.context.mode).catch(this.error);
 				this.setCapabilityValue('night_light', message.context.nightStatus).catch(this.error);
-				if (typeof message.context.battery !== 'undefined')
-				{
-					this.setCapabilityValue('measure_battery', message.context.battery).catch(this.error);
-				}
-				this.homey.app.updateLog(`Smart Fan New Hub got webhook message: ${this.homey.app.varToString(message)}`, 3, 'hub');
+				this.homey.app.updateLog(`Smart Fan Pro2 Hub got webhook message: ${this.homey.app.varToString(message)}`, 3, 'hub');
 				this.unsetWarning().catch(this.error);
 			}
 		}
@@ -112,4 +108,4 @@ class SmartFanNewHubDevice extends HubDevice
 
 }
 
-module.exports = SmartFanNewHubDevice;
+module.exports = SmartFanPro2HubDevice;

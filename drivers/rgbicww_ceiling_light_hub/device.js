@@ -103,13 +103,13 @@ class RGBICWWCeilingLightHubDevice extends LightHubDevice
 		const oldColorDim = this.hasCapability('dim.colour') ? this.getCapabilityValue('dim.colour') : null;
 
 		const mainLightPower = String(status.mainLightPower || status.powerState || '').toLowerCase();
-		if (mainLightPower != '')
+		if (mainLightPower !== '')
 		{
 			this.setCapabilityValue('onoff', mainLightPower === 'on').catch(this.error);
 		}
 
 		const colorLightPower = String(status.colorLightPower || status.colorLightPowerState || '').toLowerCase();
-		if (colorLightPower != '')
+		if (colorLightPower !== '')
 		{
 			const newColorOn = colorLightPower === 'on';
 			this.setCapabilityValue('onoff.colour', newColorOn).catch(this.error);

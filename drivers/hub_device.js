@@ -223,8 +223,8 @@ class HubDevice extends OAuth2Device
 			this.homey.setTimeout(() =>
 			{
 				this.getHubDeviceValues().catch(this.error);
-			}
-			, randomDelay);
+			},
+			randomDelay);
 		}
 		else
 		{
@@ -309,7 +309,7 @@ class HubDevice extends OAuth2Device
 				{
 					if (attempt < maxAttempts)
 					{
-						const baseDelay = 700 * Math.pow(2, attempt - 1);
+						const baseDelay = 700 * (2 ** (attempt - 1));
 						const retryDelay = baseDelay + Math.floor(Math.random() * 250);
 						this.homey.app.updateLog(`OAuth command to ${dd.id} returned no body, retrying in ${retryDelay}ms (attempt ${attempt}/${maxAttempts})`, 1, 'hub');
 						await new Promise((resolve) => this.homey.setTimeout(resolve, retryDelay));
@@ -325,7 +325,7 @@ class HubDevice extends OAuth2Device
 
 				if ((responseCode === 171) && (attempt < maxAttempts))
 				{
-					const baseDelay = 700 * Math.pow(2, attempt - 1);
+					const baseDelay = 700 * (2 ** (attempt - 1));
 					const retryDelay = baseDelay + Math.floor(Math.random() * 250);
 					this.homey.app.updateLog(`Transient SwitchBot response ${responseCode} for ${dd.id}, retrying in ${retryDelay}ms (attempt ${attempt}/${maxAttempts})`, 1, 'hub');
 					await new Promise((resolve) => this.homey.setTimeout(resolve, retryDelay));
@@ -347,7 +347,7 @@ class HubDevice extends OAuth2Device
 					await this.clearDeviceOfflineWarning(dd.id);
 					if (attempt < maxAttempts)
 					{
-						const baseDelay = 700 * Math.pow(2, attempt - 1);
+						const baseDelay = 700 * (2 ** (attempt - 1));
 						const retryDelay = baseDelay + Math.floor(Math.random() * 250);
 						this.homey.app.updateLog(`Transient SwitchBot response ${responseCode} for ${dd.id}, status probe succeeded, retrying in ${retryDelay}ms (attempt ${attempt}/${maxAttempts})`, 1, 'hub');
 						await new Promise((resolve) => this.homey.setTimeout(resolve, retryDelay));
@@ -409,6 +409,7 @@ class HubDevice extends OAuth2Device
 	// Override this method to get the device values
 	async getHubDeviceValues()
 	{
+		return null;
 	}
 
 	async _getHubDeviceValues()
@@ -522,6 +523,8 @@ class HubDevice extends OAuth2Device
 			const retData = await oAuth2Client.startScene(dd.id);
 			return retData.body;
 		}
+
+		return null;
 	}
 
 }
