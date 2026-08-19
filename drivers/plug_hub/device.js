@@ -90,10 +90,24 @@ class PlugHubDevice extends HubDevice
 				{
 					this.setCapabilityValue('onoff', data.power === 'on').catch(this.error);
 				}
-				if (data.electricCurrent)
+				if (data.electricCurrent !== undefined)
 				{
-					this.setCapabilityValue('measure_current', data.electricCurrent).catch(this.error);
+					// SwitchBot reports electricCurrent in milliAmps (per the Plug Mini (US)
+					// API docs) but Homey's measure_current capability expects Amps.
+					this.setCapabilityValue('measure_current', data.electricCurrent / 1000).catch(this.error);
 					this.setCapabilityValue('measure_voltage', data.voltage).catch(this.error);
+				}
+
+				// 'weight' is the instantaneous power draw in Watts. Only the metering plugs
+				// (Plug Mini US/JP) report it, so the capability is added on demand and the
+				// plain Plug is left alone. Homey Energy derives cumulative kWh from this.
+				if (typeof data.weight === 'number')
+				{
+					if (!this.hasCapability('measure_power'))
+					{
+						await this.addCapability('measure_power').catch(this.error);
+					}
+					this.setCapabilityValue('measure_power', data.weight).catch(this.error);
 				}
 			}
 			this.unsetWarning().catch(this.error);
