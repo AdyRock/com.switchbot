@@ -1417,5 +1417,18 @@
 		"pl": "Zaktualizowano ikonę Circulator Fan 2 Pro.",
 		"ru": "Обновлена иконка Circulator Fan 2 Pro.",
 		"ko": "Circulator Fan 2 Pro 아이콘 업데이트."
+	},
+	"2.0.88": {
+		"en": "Fix power conversions for Plug Mini and Relay thanks to georgiemrtnz",
+		"no": "Fiks strømkonverteringer for Plug Mini og Relay takket være georgiemrtnz",
+		"nl": "Los stroomconversies op voor Plug Mini en Relay dankzij georgiemrtnz",
+		"de": "Stromumwandlungen für Plug Mini und Relay beheben dank georgiemrtnz",
+		"fr": "Correction des conversions de puissance pour Plug Mini et Relay grâce à georgiemrtnz",
+		"es": "Corregir conversiones de energía para Plug Mini y Relay gracias a georgiemrtnz",
+		"pt": "Corrigir conversões de energia para Plug Mini e Relay graças a georgiemrtnz",
+		"it": "Correggere le conversioni di potenza per Plug Mini e Relay grazie a georgiemrtnz",
+		"pl": "Napraw konwersje mocy dla Plug Mini i Relay dzięki georgiemrtnz",
+		"ru": "Исправить преобразования мощности для Plug Mini и Relay благодаря georgiemrtnz",
+		"ko": "Plug Mini 및 Relay의 전력 변환 수정 georgiemrtnz 덕분에 완료"
 	}
 }
