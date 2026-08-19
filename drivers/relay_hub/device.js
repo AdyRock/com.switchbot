@@ -129,8 +129,11 @@ class RelayHubDevice extends HubDevice
 				{
 					this.setCapabilityValue('measure_voltage', data.voltage).catch(this.error);
 					this.setCapabilityValue('measure_power', data.power).catch(this.error);
-					this.setCapabilityValue('measure_current', data.electricCurrent).catch(this.error);
-					this.setCapabilityValue('meter_power', data.usedElectricity).catch(this.error);
+					// Relay Switch 1PM reports electricCurrent in mA; measure_current expects Amps.
+					this.setCapabilityValue('measure_current', data.electricCurrent / 1000).catch(this.error);
+					// usedElectricity is daily consumption in watt-minutes; meter_power expects kWh
+					// (watt-minutes / 60 = Wh, / 1000 = kWh). Matches plug_eu_hub.
+					this.setCapabilityValue('meter_power', data.usedElectricity / 60000).catch(this.error);
 				}
 			}
 			this.unsetWarning().catch(this.error);
