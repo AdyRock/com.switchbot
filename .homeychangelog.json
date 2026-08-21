@@ -1430,5 +1430,18 @@
 		"pl": "Napraw konwersje mocy dla Plug Mini i Relay dzięki georgiemrtnz",
 		"ru": "Исправить преобразования мощности для Plug Mini и Relay благодаря georgiemrtnz",
 		"ko": "Plug Mini 및 Relay의 전력 변환 수정 georgiemrtnz 덕분에 완료"
+	},
+	"2.0.89": {
+		"en": "Improved EAI_AGAIN error handling to retry under all call paths.",
+		"no": "Forbedret EAI_AGAIN-feilhåndtering for å prøve igjen under alle kallbaner.",
+		"nl": "Verbeterde EAI_AGAIN-foutafhandeling om opnieuw te proberen onder alle oproeppaden.",
+		"de": "Verbesserte EAI_AGAIN-Fehlerbehandlung, um unter allen Aufrufpfaden erneut zu versuchen.",
+		"fr": "Amélioration de la gestion des erreurs EAI_AGAIN pour réessayer sous tous les chemins d'appel.",
+		"es": "Mejora del manejo de errores EAI_AGAIN para reintentar en todas las rutas de llamada.",
+		"pt": "Melhoria do manuseio de erros EAI_AGAIN para tentar novamente em todos os caminhos de chamada.",
+		"it": "Migliorata la gestione degli errori EAI_AGAIN per riprovare in tutti i percorsi di chiamata.",
+		"pl": "Ulepszono obsługę błędów EAI_AGAIN, aby ponowić próbę we wszystkich ścieżkach wywołań.",
+		"ru": "Улучшена обработка ошибок EAI_AGAIN для повторной попытки во всех путях вызова.",
+		"ko": "모든 호출 경로에서 재시도하도록 EAI_AGAIN 오류 처리 개선."
 	}
 }
