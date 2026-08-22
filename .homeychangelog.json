@@ -1443,5 +1443,18 @@
 		"pl": "Ulepszono obsługę błędów EAI_AGAIN, aby ponowić próbę we wszystkich ścieżkach wywołań.",
 		"ru": "Улучшена обработка ошибок EAI_AGAIN для повторной попытки во всех путях вызова.",
 		"ko": "모든 호출 경로에서 재시도하도록 EAI_AGAIN 오류 처리 개선."
+	},
+	"2.0.90": {
+		"en": "Fix crash when checking for BLE advertisement support on older Homeys. Upadtead app settings pages including an option to specify filters the the data to be logged.",
+		"no": "Fikse krasj når du sjekker for BLE-annonseringsstøtte på eldre Homeys. Oppdaterte appinnstillingssider inkludert et alternativ for å spesifisere filtre for dataene som skal logges.",
+		"nl": "Crash oplossen bij het controleren van BLE-advertentieondersteuning op oudere Homeys. Bijgewerkte app-instellingenpagina's inclusief een optie om filters op te geven voor de gegevens die moeten worden gelogd.",
+		"de": "Absturz beim Überprüfen der BLE-Werbeunterstützung auf älteren Homeys beheben. Aktualisierte App-Einstellungsseiten einschließlich einer Option zum Angeben von Filtern für die zu protokollierenden Daten.",
+		"fr": "Correction du crash lors de la vérification de la prise en charge de la publicité BLE sur les anciens Homeys. Pages de paramètres de l'application mises à jour, y compris une option pour spécifier les filtres des données à enregistrer.",
+		"es": "Solucionar el bloqueo al comprobar la compatibilidad con anuncios BLE en Homeys más antiguos. Páginas de configuración de la aplicación actualizadas, incluida una opción para especificar filtros para los datos que se registrarán.",
+		"pt": "Corrigir falha ao verificar o suporte a anúncios BLE em Homeys mais antigos. Páginas de configurações do aplicativo atualizadas, incluindo uma opção para especificar filtros para os dados a serem registrados.",
+		"it": "Correggere il crash durante il controllo del supporto alla pubblicità BLE sui vecchi Homeys. Pagine delle impostazioni dell'app aggiornate, inclusa un'opzione per specificare i filtri per i dati da registrare.",
+		"pl": "Napraw awarię podczas sprawdzania obsługi reklam BLE na starszych Homeys. Zaktualizowano strony ustawień aplikacji, w tym opcję określania filtrów dla danych do rejestrowania.",
+		"ru": "Исправить сбой при проверке поддержки рекламы BLE на старых Homeys. Обновлены страницы настроек приложения, включая опцию указания фильтров для данных, которые будут регистрироваться.",
+		"ko": "이전 Homeys에서 BLE 광고 지원을 확인할 때 충돌을 수정했습니다. 기록할 데이터를 필터링하는 옵션을 포함하여 앱 설정 페이지를 업데이트했습니다."
 	}
 }

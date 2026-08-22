@@ -1169,6 +1169,24 @@ class MyApp extends OAuth2App
 				const data = device && typeof device.getData === 'function' ? device.getData() : {};
 				const homeyName = device && typeof device.getName === 'function' ? device.getName() : '';
 				const driverId = String((device && device.driver && (device.driver.id || (device.driver.manifest && device.driver.manifest.id))) || '');
+				const driverManifest = (device && device.driver && device.driver.manifest) || (driver && driver.manifest) || {};
+				const manifestName = driverManifest.name;
+				const language = this.homey && this.homey.i18n && typeof this.homey.i18n.getLanguage === 'function'
+					? this.homey.i18n.getLanguage()
+					: 'en';
+				const driverName = typeof manifestName === 'string'
+					? manifestName
+					: String((manifestName && (manifestName[language] || manifestName[String(language).split('-')[0]] || manifestName.en || Object.values(manifestName)[0])) || driverId);
+				const connectivity = Array.isArray(driverManifest.connectivity) ? driverManifest.connectivity : [];
+				let logSource = null;
+				if (connectivity.includes('ble'))
+				{
+					logSource = 'ble';
+				}
+				else if (connectivity.includes('cloud'))
+				{
+					logSource = 'hub';
+				}
 				const identifier = data && (data.address || data.id || data.pid) ? String(data.address || data.id || data.pid) : '';
 				const switchBotName = String((data && (data.deviceName || data.name)) || homeyName || '');
 				const deviceType = String((data && data.type) || driverId || '');
@@ -1179,6 +1197,8 @@ class MyApp extends OAuth2App
 					homeyName: String(homeyName || ''),
 					deviceType,
 					driverId,
+					driverName,
+					logSource,
 					aliases: [data && data.address, data && data.id, data && data.pid, data && data.type, data && data.deviceName, data && data.name, homeyName, driverId]
 						.filter((value) => typeof value === 'string' && value.trim().length > 0)
 						.map((value) => value.trim()),
@@ -1189,10 +1209,9 @@ class MyApp extends OAuth2App
 		return filterDevices;
 	}
 
-	getLogFilterOptions()
+	buildLogFilterOptions(devices)
 	{
-		const devices = this.getLogFilterDevices();
-		const optionFields = ['identifier', 'switchBotName', 'homeyName', 'deviceType'];
+		const optionFields = ['identifier', 'switchBotName', 'homeyName'];
 		const options = {};
 		for (const field of optionFields)
 		{
@@ -1200,7 +1219,30 @@ class MyApp extends OAuth2App
 				.sort((left, right) => left.localeCompare(right));
 		}
 
+		const deviceTypeOptions = new Map();
+		for (const device of devices)
+		{
+			if (device.deviceType && !deviceTypeOptions.has(device.deviceType))
+			{
+				deviceTypeOptions.set(device.deviceType, device.driverName || device.deviceType);
+			}
+		}
+		options.deviceType = Array.from(deviceTypeOptions, ([value, label]) => ({ value, label }))
+			.sort((left, right) => left.label.localeCompare(right.label));
+
 		return options;
+	}
+
+	getLogFilterOptions()
+	{
+		const devices = this.getLogFilterDevices();
+		return {
+			...this.buildLogFilterOptions(devices),
+			bySource: {
+				ble: this.buildLogFilterOptions(devices.filter((device) => device.logSource === 'ble')),
+				hub: this.buildLogFilterOptions(devices.filter((device) => device.logSource === 'hub')),
+			},
+		};
 	}
 
 	matchesLogDeviceFilter(message)

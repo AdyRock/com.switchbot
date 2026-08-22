@@ -423,7 +423,7 @@
 					<label class="homey-form-label" for="logFilterType">Filter source type</label>
 					<select class="homey-form-select" id="logFilterType" title="Filter source type" aria-label="Filter source type">
 						<option value="none">All data</option>
-						<option value="identifier">BLE MAC / deviceId</option>
+						<option id="logFilterIdentifierOption" value="identifier">BLE MAC / deviceId</option>
 						<option value="switchBotName">SwitchBot deviceName</option>
 						<option value="homeyName">Homey device name</option>
 						<option value="deviceType">deviceType</option>
@@ -892,10 +892,33 @@
 			return option ? option.textContent.trim() : '';
 		}
 
+		function updateLogFilterIdentifierLabel()
+		{
+			const identifierOption = document.getElementById('logFilterIdentifierOption');
+			if (logSourceElement.value === 'ble')
+			{
+				identifierOption.textContent = 'BLE MAC';
+			}
+			else if (logSourceElement.value === 'hub')
+			{
+				identifierOption.textContent = 'deviceId';
+			}
+			else
+			{
+				identifierOption.textContent = 'BLE MAC / deviceId';
+			}
+		}
+
 		function populateLogFilterValues(selectedValue)
 		{
+			updateLogFilterIdentifierLabel();
 			const filterType = logFilterTypeElement.value;
-			const values = filterType === 'none' ? [] : (logFilterOptions[filterType] || []);
+			const sourceOptions = logSourceElement.value !== 'all' && logFilterOptions.bySource
+				? (logFilterOptions.bySource[logSourceElement.value] || {})
+				: logFilterOptions;
+			const values = filterType === 'none' ? [] : (sourceOptions[filterType] || []).map((entry) => (
+				typeof entry === 'string' ? { value: entry, label: entry } : entry
+			));
 			logFilterValueElement.innerHTML = '';
 
 			if (filterType === 'none')
@@ -919,15 +942,15 @@
 				return;
 			}
 
-			for (const value of values)
+			for (const entry of values)
 			{
 				const option = document.createElement('option');
-				option.value = value;
-				option.textContent = value;
+				option.value = entry.value;
+				option.textContent = entry.label;
 				logFilterValueElement.appendChild(option);
 			}
 
-			if (selectedValue && values.includes(selectedValue))
+			if (selectedValue && values.some((entry) => entry.value === selectedValue))
 			{
 				logFilterValueElement.value = selectedValue;
 			}
@@ -1121,6 +1144,11 @@
 			logFilterTypeElement.addEventListener('change', function ()
 			{
 				populateLogFilterValues('');
+			});
+
+			logSourceElement.addEventListener('change', function ()
+			{
+				populateLogFilterValues(logFilterValueElement.value);
 			});
 
 			openLogSettingsElement.addEventListener('click', function ()
