@@ -9,6 +9,8 @@ if (process.env.DEBUG === '1')
 }
 
 const Homey = require('homey');
+const fs = require('fs').promises;
+const path = require('path');
 const { OAuth2App } = require('homey-oauth2app');
 const nodemailer = require('nodemailer');
 const HubInterface = require('./lib/hub_interface');
@@ -25,6 +27,21 @@ const BLE_ADVERTISEMENT_RATE_LIMIT_MS = 5000;
 const BLE_ADVERTISEMENT_STALE_POLL_MS = 120000;
 const HUB_POLL_MISSING_AUTH_INTERVAL_MS = 60000;
 const WEBHOOK_AUTH_MISSING_INTERVAL_MS = 5 * 60 * 1000;
+// Device types whose official API matrix has no Status, Command, or Webhook support.
+// Source: https://github.com/OpenWonderLabs/SwitchBotAPI#device-specifications-and-supported-features-list
+const API_LIST_ONLY_DEVICE_TYPES = new Set([
+	'Hub',
+	'Hub Plus',
+	'Hub Mini',
+	'Pan/Tilt Cam 2K',
+	'Pan/Tilt Cam Plus 2K',
+	'Pan/Tilt Cam Plus 3K',
+	'Remote',
+	'Keypad',
+	'Keypad Touch',
+	'Keypad Vision',
+	'Keypad Vision Pro',
+]);
 class MyApp extends OAuth2App
 {
 
@@ -1243,6 +1260,216 @@ class MyApp extends OAuth2App
 				hub: this.buildLogFilterOptions(devices.filter((device) => device.logSource === 'hub')),
 			},
 		};
+	}
+
+	async getDriverSupportMatrix()
+	{
+		const notSupportableDevices = Array.from(API_LIST_ONLY_DEVICE_TYPES, (deviceType) => ({
+			label: deviceType,
+			deviceType,
+		})).sort((left, right) => left.label.localeCompare(right.label));
+		const hasConnectedSession = Boolean(this.getFirstSavedOAuth2Client() || (this.openToken && this.openSecret));
+		if (!hasConnectedSession)
+		{
+			return {
+				generatedAt: new Date().toISOString(),
+				hasConnectedSession: false,
+				totalSwitchBotDevices: 0,
+				totalMatchedDrivers: 0,
+				totalSupportedInstalled: 0,
+				totalSupportedNotInstalled: 0,
+				totalUnsupported: 0,
+				totalNotSupportable: notSupportableDevices.length,
+				recommendations: [],
+				notSupportableDevices,
+			};
+		}
+
+		const response = await this.getHUBDevices();
+		const accountData = response && response.body ? response.body : response;
+		const deviceList = accountData && Array.isArray(accountData.deviceList) ? accountData.deviceList : [];
+		const remoteList = accountData && Array.isArray(accountData.infraredRemoteList) ? accountData.infraredRemoteList : [];
+		const runtimeDrivers = this.homey.drivers && typeof this.homey.drivers.getDrivers === 'function'
+			? this.homey.drivers.getDrivers()
+			: {};
+		const definitions = [];
+
+		for (const [driverKey, driver] of Object.entries(runtimeDrivers || {}))
+		{
+			const driverId = String((driver && driver.id) || driverKey || '').split(':').pop();
+			if (!driverId || driverId === 'scene')
+			{
+				continue;
+			}
+
+			try
+			{
+				const source = await fs.readFile(path.join(__dirname, 'drivers', driverId, 'driver.js'), 'utf8');
+				const pairingCall = source.match(/getHUBDevices\s*\(\s*oAuth2Client\s*,\s*(\[[^\]]*\]|['"][^'"]+['"])(?:\s*,\s*(true|false))?/);
+				const blePairingCall = source.match(/getBLEDevices\s*\(\s*(['"][^'"]+['"])\s*\)/);
+				const supportedLockTypes = typeof driver.getSupportedLockTypes === 'function' ? driver.getSupportedLockTypes() : [];
+				if (!pairingCall && !blePairingCall && supportedLockTypes.length === 0)
+				{
+					continue;
+				}
+
+				const typeExpression = pairingCall ? pairingCall[1] : (blePairingCall && blePairingCall[1]);
+				const types = supportedLockTypes.length > 0
+					? supportedLockTypes
+					: Array.from(typeExpression.matchAll(/['"]([^'"]+)['"]/g), (match) => match[1]);
+				if (types.length === 0)
+				{
+					continue;
+				}
+
+				const manifest = (driver && driver.manifest) || {};
+				const manifestName = manifest.name;
+				const language = this.homey.i18n && typeof this.homey.i18n.getLanguage === 'function'
+					? this.homey.i18n.getLanguage()
+					: 'en';
+				const driverName = typeof manifestName === 'string'
+					? manifestName
+					: String((manifestName && (manifestName[language] || manifestName.en || Object.values(manifestName)[0])) || driverId);
+
+				definitions.push({
+					driverId,
+					driverName,
+					driverIcon: `/drivers/${driverId}/assets/icon.svg`,
+					types,
+					isBLE: Boolean(blePairingCall),
+					isRemote: Boolean(pairingCall && pairingCall[2] === 'true'),
+					family: driverId.replace(/_(hub|ble)$/i, '').toLowerCase(),
+				});
+			}
+			catch (err)
+			{
+				this.updateLog(`Driver support definition error (${driverId}): ${err.message}`, 1, 'hub');
+			}
+		}
+
+		const recommendations = [];
+		const addRecommendation = (device, deviceType, isRemote) =>
+		{
+			const directDefinitions = definitions.filter((candidate) => !candidate.isBLE && candidate.isRemote === isRemote
+				&& candidate.types.some((type) => deviceType === type || (isRemote && deviceType === `DIY ${type}`)));
+			if (!isRemote && API_LIST_ONLY_DEVICE_TYPES.has(deviceType))
+			{
+				return;
+			}
+
+			const alternativeDefinitions = [...directDefinitions];
+			if (!isRemote)
+			{
+				for (const directDefinition of directDefinitions)
+				{
+					for (const candidate of definitions)
+					{
+						if (candidate.isBLE && candidate.family === directDefinition.family && !alternativeDefinitions.includes(candidate))
+						{
+							alternativeDefinitions.push(candidate);
+						}
+					}
+				}
+			}
+
+			const deviceId = String(device.deviceId || '');
+			const accountDeviceKeys = new Set(this.getNormalizedLookupKeys(deviceId));
+			const installedDefinitions = [];
+			for (const candidate of alternativeDefinitions)
+			{
+				const runtimeDriver = Object.values(runtimeDrivers || {}).find((driver) => String((driver && driver.id) || '').split(':').pop() === candidate.driverId);
+				const installedDevices = runtimeDriver && typeof runtimeDriver.getDevices === 'function' ? runtimeDriver.getDevices() : {};
+				const isInstalled = Object.values(installedDevices || {}).some((installedDevice) =>
+				{
+					const data = installedDevice && typeof installedDevice.getData === 'function' ? installedDevice.getData() : {};
+					const installedKeys = new Set([
+						...this.getNormalizedLookupKeys(data && data.id),
+						...this.getNormalizedLookupKeys(data && data.pid),
+						...this.getNormalizedLookupKeys(data && data.address),
+					]);
+					return Array.from(accountDeviceKeys).some((key) => installedKeys.has(key));
+				});
+				if (isInstalled)
+				{
+					installedDefinitions.push(candidate);
+				}
+			}
+
+			const appendRecommendation = (definition, isInstalled) =>
+			{
+				recommendations.push({
+					label: String(device.deviceName || deviceId || deviceType || 'Unknown device'),
+					deviceId,
+					deviceType,
+					isRemote,
+					isInstalled,
+					recommendedDriverId: definition ? definition.driverId : '',
+					recommendedDriverName: definition ? definition.driverName : '',
+					recommendedDriverIcon: definition ? definition.driverIcon : '',
+					switchBotDevice: device,
+				});
+			};
+
+			if (installedDefinitions.length > 0)
+			{
+				installedDefinitions.forEach((definition) => appendRecommendation(definition, true));
+			}
+			else
+			{
+				appendRecommendation(directDefinitions[0] || alternativeDefinitions[0] || null, false);
+			}
+		};
+
+		for (const device of deviceList)
+		{
+			addRecommendation(device || {}, String((device && device.deviceType) || ''), false);
+		}
+		for (const device of remoteList)
+		{
+			addRecommendation(device || {}, String((device && device.remoteType) || ''), true);
+		}
+
+		const totalSupportedInstalled = recommendations.filter((item) => item.recommendedDriverId && item.isInstalled).length;
+		const totalSupportedNotInstalled = recommendations.filter((item) => item.recommendedDriverId && !item.isInstalled).length;
+		const totalUnsupported = recommendations.filter((item) => !item.recommendedDriverId).length;
+		return {
+			generatedAt: new Date().toISOString(),
+			hasConnectedSession: true,
+			totalSwitchBotDevices: deviceList.length + remoteList.length,
+			totalMatchedDrivers: definitions.length,
+			totalSupportedInstalled,
+			totalSupportedNotInstalled,
+			totalUnsupported,
+			totalNotSupportable: notSupportableDevices.length,
+			recommendations: recommendations.sort((left, right) => left.label.localeCompare(right.label)
+				|| left.recommendedDriverName.localeCompare(right.recommendedDriverName)),
+			notSupportableDevices,
+		};
+	}
+
+	async sendUnsupportedDevices(unsupportedDevices)
+	{
+		const devices = Array.isArray(unsupportedDevices) ? unsupportedDevices : [];
+		if (devices.length === 0)
+		{
+			throw new Error('No unsupported devices to send');
+		}
+
+		const transporter = nodemailer.createTransport({
+			host: Homey.env.MAIL_HOST,
+			port: 465,
+			secure: true,
+			auth: { user: Homey.env.MAIL_USER, pass: Homey.env.MAIL_SECRET },
+			tls: { rejectUnauthorized: false },
+		});
+		const response = await transporter.sendMail({
+			from: `"Homey User" <${Homey.env.MAIL_USER}>`,
+			to: Homey.env.MAIL_RECIPIENT,
+			subject: `SwitchBot unsupported devices (${this.homeyHash} : ${Homey.manifest.version})`,
+			text: JSON.stringify(devices, null, 2),
+		});
+
+		return { message: response.messageId || 'OK' };
 	}
 
 	matchesLogDeviceFilter(message)

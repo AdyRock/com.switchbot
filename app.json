@@ -558,6 +558,14 @@
       "method": "post",
       "path": "/clearBLEStatistics/"
     },
+    "GetDriverSupportMatrix": {
+      "method": "post",
+      "path": "/GetDriverSupportMatrix/"
+    },
+    "SendUnsupportedDevices": {
+      "method": "post",
+      "path": "/SendUnsupportedDevices/"
+    },
     "clearLog": {
       "method": "post",
       "path": "/clearLog/"

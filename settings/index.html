@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<title>SwitchBot Settings</title>
+	<title data-i18n="settings.pageTitle">SwitchBot Settings</title>
 	<link rel="stylesheet" type="text/css" href="lwsa.css">
 	<link rel="stylesheet" type="text/css" href="busy_indicator.css" />
 
@@ -18,6 +18,14 @@
 			width: 100%;
 			z-index: 100;
 			background-color: rgba(30, 30, 30, 0.5);
+		}
+
+		.sim-log-tab-hidden {
+			display: none !important;
+		}
+
+		.sim-log-tab-debug {
+			display: block !important;
 		}
 
 			#statistics {
@@ -264,6 +272,82 @@
 			gap: 8px;
 			margin-top: 18px;
 		}
+
+		#driverSupport {
+			height: calc(100vh - 102px);
+			overflow-y: auto;
+			box-sizing: border-box;
+		}
+
+		.driver-support-summary {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+			gap: 8px;
+			margin-bottom: 12px;
+		}
+
+		.driver-support-chip,
+		.driver-support-section {
+			border: 1px solid #dce1e8;
+			border-radius: 6px;
+			background: #ffffff;
+		}
+
+		.driver-support-chip {
+			padding: 9px 10px;
+		}
+
+		.driver-support-chip-label {
+			display: block;
+			font-size: 12px;
+			color: #5f6673;
+		}
+
+		.driver-support-chip-value {
+			display: block;
+			margin-top: 3px;
+			font-size: 17px;
+			font-weight: 700;
+		}
+
+		.driver-support-section {
+			margin-bottom: 10px;
+			padding: 10px;
+			border-left-width: 4px;
+		}
+
+		.driver-support-not-installed { border-left-color: #d18400; background: #fff9ef; }
+		.driver-support-installed { border-left-color: #1d8f4d; background: #f3fbf6; }
+		.driver-support-unsupported { border-left-color: #768195; background: #f7f9fc; }
+		.driver-support-not-supportable { border-left-color: #a54646; background: #fff6f6; }
+		.driver-support-clickable { cursor: pointer; }
+
+		.driver-support-section h3 {
+			display: flex;
+			justify-content: space-between;
+			gap: 8px;
+			margin: 0 0 8px;
+			font-size: 15px;
+		}
+
+		.driver-support-group {
+			display: grid;
+			grid-template-columns: 48px 1fr;
+			gap: 10px;
+			padding-top: 8px;
+			margin-top: 8px;
+			border-top: 1px solid rgba(0, 0, 0, 0.08);
+		}
+
+		.driver-support-icon {
+			width: 48px;
+			height: 48px;
+			object-fit: contain;
+		}
+
+		.driver-support-group strong { font-size: 14px; }
+		.driver-support-list { margin: 5px 0 0; padding-left: 18px; }
+		.driver-support-list li { margin: 2px 0; font-size: 13px; }
 	</style>
 
 	<!-- The '/homey.js' script must be included in your settings view to work -->
@@ -280,11 +364,12 @@
 	<!-- Tab links -->
 	<div class="tab">
 		<button class="tablinks" onclick="setPage(event, 'appSettings')" id="appSettingsTab" data-i18n="settings.tabAppSettings" title="settings.tabAppSettings"></button>
-		<button class="tablinks" onclick="setPage(event, 'statistics')" id="statisticsTab">Statistics</button>
+		<button class="tablinks" onclick="setPage(event, 'statistics')" id="statisticsTab" data-i18n="settings.tabStatistics" title="settings.tabStatistics"></button>
 		<button class="tablinks" onclick="setPage(event, 'detected')" id="defaultOpen" data-i18n="settings.tabDetected" title="settings.tabDetected"></button>
 		<button class="tablinks" onclick="setPage(event, 'log')" data-i18n="settings.tabLog" title="settings.tabLog"></button>
 		<button class="tablinks" onclick="setPage(event, 'status')" id="deviceStatusTab" data-i18n="settings.tabGetStatus" title="settings.tabGetStatus"></button>
 		<button class="tablinks" onclick="setPage(event, 'oldSettings')" id="oldSettingsTab" data-i18n="settings.tabOldSettings" title="settings.tabOldSettings"></button>
+		<button class="tablinks" onclick="setPage(event, 'driverSupport')" id="driverSupportTab" data-i18n="settings.tabDriverSupport" title="settings.tabDriverSupport"></button>
 		<button class="tablinks sim-log-tab-hidden" onclick="setPage(event, 'simulator')" id="simLogTab" data-i18n="settings.tabSimulationData" title="settings.tabSimulationData"></button>
 	</div>
 
@@ -302,7 +387,7 @@
 		<fieldset>
 			<div class="field row">
 				<label class="homey-form-label" for="numConnections"><span data-i18n="settings.numConnections"></span></label>
-				<input class="homey-form-input" id="numConnections" type="number" min="1" value="1" title="Number of connections" aria-label="Number of connections" />
+				<input class="homey-form-input" id="numConnections" type="number" min="1" value="1" title="settings.numConnections" aria-label="settings.numConnections" />
 			</div>
 			<p></p>
 			<p>
@@ -315,10 +400,10 @@
 	<div id="statistics" class="tabcontent">
 		<fieldset>
 			<div class="statistics-actions">
-				<p>Live BLE service-data statistics for the registered devices.</p>
+				<p data-i18n="settings.statisticsDescription"></p>
 				<div>
-					<button id="clearBLEStatistics" class="homey-button-small" type="button">Clear Stats</button>
-					<button id="copyBLEStatistics" class="homey-button-small" type="button">Copy Table</button>
+					<button id="clearBLEStatistics" class="homey-button-small" type="button" data-i18n="settings.clearStatistics" title="settings.clearStatistics"></button>
+					<button id="copyBLEStatistics" class="homey-button-small" type="button" data-i18n="settings.copyTable" title="settings.copyTable"></button>
 				</div>
 			</div>
 			<div class="statistics-scroll" style="padding: 0;">
@@ -336,25 +421,25 @@
 					</colgroup>
 					<thead>
 						<tr>
-							<th class="sortable" data-sort-key="name">Device</th>
-							<th class="sortable" data-sort-key="mac">MAC</th>
-							<th class="sortable" data-sort-key="driverType">Driver</th>
-							<th colspan="2" style="text-align:center;">Service Data</th>
-							<th class="sortable" data-sort-key="advertisements" style="text-align:right;">Adverts</th>
-							<th class="sortable" data-sort-key="polls" style="text-align:right;">Polled</th>
-							<th class="sortable" data-sort-key="rssi" style="text-align:right;">RSSI</th>
-							<th class="sortable" data-sort-key="lastSeenAt">Last Seen</th>
+							<th class="sortable" data-sort-key="name" data-i18n="settings.device"></th>
+							<th class="sortable" data-sort-key="mac" data-i18n="settings.mac"></th>
+							<th class="sortable" data-sort-key="driverType" data-i18n="settings.driver"></th>
+							<th colspan="2" style="text-align:center;" data-i18n="settings.serviceData"></th>
+							<th class="sortable" data-sort-key="advertisements" style="text-align:right;" data-i18n="settings.advertisements"></th>
+							<th class="sortable" data-sort-key="polls" style="text-align:right;" data-i18n="settings.polled"></th>
+							<th class="sortable" data-sort-key="rssi" style="text-align:right;" data-i18n="settings.rssi"></th>
+							<th class="sortable" data-sort-key="lastSeenAt" data-i18n="settings.lastSeen"></th>
 						</tr>
 						<tr>
 							<th></th>
 							<th></th>
 							<th></th>
-							<th class="sortable" data-sort-key="missing" style="text-align:right;">Missing</th>
-							<th class="sortable" data-sort-key="present" style="text-align:right;">Present</th>
+							<th class="sortable" data-sort-key="missing" style="text-align:right;" data-i18n="settings.missing"></th>
+							<th class="sortable" data-sort-key="present" style="text-align:right;" data-i18n="settings.present"></th>
 							<th></th>
 							<th></th>
-							<th style="text-align:right;">dBm</th>
-							<th>HH:MM:SS ago</th>
+							<th style="text-align:right;" data-i18n="settings.dbm"></th>
+							<th data-i18n="settings.elapsedTime"></th>
 						</tr>
 					</thead>
 					<tbody></tbody>
@@ -370,13 +455,13 @@
 				<strong data-i18n="settings.oauthMissingSessionTitle"></strong> <span data-i18n="settings.oauthMissingSessionText"></span>
 			</p>
 			<p class="detected-actions">
-				<button id="loginWithOAuth" class="homey-button-small oauth-login-button" data-i18n="settings.loginWithSwitchBot" title="Login with SwitchBot Account"></button>
-				<button id="getDeviceLog" class="homey-button-small" data-i18n="settings.getDevices" title="Get HUB Devices"></button>
-				<button id="clearDeviceLog" class="homey-button-small" data-i18n="settings.clear" title="Clear Log"></button>
-				<button id="sendDeviceLog" class="homey-button-small" data-i18n="settings.send" title="Send Log"></button>
+				<button id="loginWithOAuth" class="homey-button-small oauth-login-button" data-i18n="settings.loginWithSwitchBot" title="settings.loginWithSwitchBot"></button>
+				<button id="getDeviceLog" class="homey-button-small" data-i18n="settings.getDevices" title="settings.getDevices"></button>
+				<button id="clearDeviceLog" class="homey-button-small" data-i18n="settings.clear" title="settings.clear"></button>
+				<button id="sendDeviceLog" class="homey-button-small" data-i18n="settings.send" title="settings.send"></button>
 			</p>
 			<div class="field row">
-				<textarea id="detectedDevices" class="homey-form-textarea" wrap="off" title="Detected devices"></textarea>
+				<textarea id="detectedDevices" class="homey-form-textarea" wrap="off" title="settings.detectedDevices" aria-label="settings.detectedDevices"></textarea>
 			</div>
 		</fieldset>
 	</div>
@@ -388,22 +473,22 @@
 			</p>
 			<div class="log-settings-bar">
 				<div id="logSettingsSummary" class="log-settings-summary"></div>
-				<button id="openLogSettings" class="homey-button-small" type="button">Log settings</button>
+				<button id="openLogSettings" class="homey-button-small" type="button" data-i18n="settings.logSettings" title="settings.logSettings"></button>
 			</div>
 			<p>
-				<button id="clearInfoLog" class="homey-button-small" data-i18n="settings.clear" title="Clear Log"></button>
-				<button id="sendInfoLog" class="homey-button-small" data-i18n="settings.send" title="Send Log"></button>
+				<button id="clearInfoLog" class="homey-button-small" data-i18n="settings.clear" title="settings.clear"></button>
+				<button id="sendInfoLog" class="homey-button-small" data-i18n="settings.send" title="settings.send"></button>
 			</p>
 			<div class="field row">
-				<textarea id="infoLog" class="homey-form-textarea" wrap="off" title="Diagnostics log"></textarea>
+				<textarea id="infoLog" class="homey-form-textarea" wrap="off" title="settings.diagnosticsLog" aria-label="settings.diagnosticsLog"></textarea>
 			</div>
 		</fieldset>
 		<div id="logSettingsModal" class="log-settings-modal" role="dialog" aria-modal="true" aria-labelledby="logSettingsTitle">
 			<div class="log-settings-panel">
-				<h2 id="logSettingsTitle">Log settings</h2>
+				<h2 id="logSettingsTitle" data-i18n="settings.logSettings"></h2>
 				<div class="field row">
 					<label class="homey-form-label" for="logLevel"><span data-i18n="settings.logLevel"></span></label>
-					<select class="homey-form-select" id="logLevel" title="Log level" aria-label="Log level">
+					<select class="homey-form-select" id="logLevel" title="settings.logLevel" aria-label="settings.logLevel">
 						<option value="0" data-i18n="settings.logErrorsOnly"></option>
 						<option value="1" data-i18n="settings.logWebhookInfo"></option>
 						<option value="2" data-i18n="settings.logBasicInfo"></option>
@@ -413,29 +498,29 @@
 				</div>
 				<div class="field row">
 					<label class="homey-form-label" for="logSource"><span data-i18n="settings.logSource"></span></label>
-					<select class="homey-form-select" id="logSource" title="Log source" aria-label="Log source">
+					<select class="homey-form-select" id="logSource" title="settings.logSource" aria-label="settings.logSource">
 						<option value="all" data-i18n="settings.logSourceAll"></option>
 						<option value="ble" data-i18n="settings.logSourceBLE"></option>
 						<option value="hub" data-i18n="settings.logSourceHub"></option>
 					</select>
 				</div>
 				<div class="field row">
-					<label class="homey-form-label" for="logFilterType">Filter source type</label>
-					<select class="homey-form-select" id="logFilterType" title="Filter source type" aria-label="Filter source type">
-						<option value="none">All data</option>
-						<option id="logFilterIdentifierOption" value="identifier">BLE MAC / deviceId</option>
-						<option value="switchBotName">SwitchBot deviceName</option>
-						<option value="homeyName">Homey device name</option>
-						<option value="deviceType">deviceType</option>
+					<label class="homey-form-label" for="logFilterType" data-i18n="settings.logFilterType"></label>
+					<select class="homey-form-select" id="logFilterType" title="settings.logFilterType" aria-label="settings.logFilterType">
+						<option value="none" data-i18n="settings.allData"></option>
+						<option id="logFilterIdentifierOption" value="identifier" data-i18n="settings.bleMacDeviceId"></option>
+						<option value="switchBotName" data-i18n="settings.switchBotDeviceName"></option>
+						<option value="homeyName" data-i18n="settings.homeyDeviceName"></option>
+						<option value="deviceType" data-i18n="settings.deviceType"></option>
 					</select>
 				</div>
 				<div class="field row">
-					<label class="homey-form-label" for="logFilterValue">Filter information</label>
-					<select class="homey-form-select" id="logFilterValue" title="Filter information" aria-label="Filter information"></select>
+					<label class="homey-form-label" for="logFilterValue" data-i18n="settings.logFilterValue"></label>
+					<select class="homey-form-select" id="logFilterValue" title="settings.logFilterValue" aria-label="settings.logFilterValue"></select>
 				</div>
 				<div class="log-settings-actions">
-					<button id="cancelLogSettings" class="homey-button-small" type="button">Cancel</button>
-					<button id="saveLogSettings" class="homey-button-small" type="button">Save</button>
+					<button id="cancelLogSettings" class="homey-button-small" type="button" data-i18n="settings.cancel"></button>
+					<button id="saveLogSettings" class="homey-button-small" type="button" data-i18n="settings.save"></button>
 				</div>
 			</div>
 		</div>
@@ -449,7 +534,7 @@
 					class="debug-send-button" data-i18n="settings.send" title="settings.send"></button><button
 					id="clearSend" class="debug-clear-button" data-i18n="settings.clear" title="settings.clear"></button></p>
 			<div class="field row">
-				<textarea id="sendResponse" class="homey-form-textarea" wrap="off" title="Send command response"></textarea>
+				<textarea id="sendResponse" class="homey-form-textarea" wrap="off" title="settings.sendCommandResponse" aria-label="settings.sendCommandResponse"></textarea>
 			</div>
 		</fieldset>
 	</div>
@@ -461,7 +546,7 @@
 			<p><button id="useSim" class="homey-button-small" data-i18n="settings.activate" title="settings.activate"></button><button id="clearSim"
 					class="debug-clear-button" data-i18n="settings.clearSim" title="settings.clearSim"></button></p>
 			<div class="field row">
-				<textarea id="simData" class="homey-form-textarea" wrap="off" title="Simulation data"></textarea>
+				<textarea id="simData" class="homey-form-textarea" wrap="off" title="settings.simulationData" aria-label="settings.simulationData"></textarea>
 			</div>
 		</fieldset>
 	</div>
@@ -481,7 +566,7 @@
 				<button id="sendStatusLog" class="homey-button-small" data-i18n="settings.send" title="settings.send"></button>
 			</p>
 			<div class="field row">
-				<textarea id="statusData" class="homey-form-textarea" wrap="off" title="Device status log"></textarea>
+				<textarea id="statusData" class="homey-form-textarea" wrap="off" title="settings.deviceStatusLog" aria-label="settings.deviceStatusLog"></textarea>
 			</div>
 		</fieldset>
 	</div>
@@ -503,6 +588,12 @@
 				<button id="saveSettings" class="homey-button-small" data-i18n="settings.save" title="settings.save"></button>
 			</p>
 		</fieldset>
+	</div>
+
+	<!-- DRIVER SUPPORT PAGE -->
+	<div id="driverSupport" class="tabcontent">
+		<div id="driverSupportSummary" class="driver-support-summary"></div>
+		<div id="driverSupportView"></div>
 	</div>
 
 	<script type="text/javascript">
@@ -533,7 +624,227 @@
 		var globalAuthWarningElement = document.getElementById('globalAuthWarning');
 		var globalAuthLoginElement = document.getElementById('globalAuthLogin');
 		var globalAuthLegacyElement = document.getElementById('globalAuthLegacy');
+		var driverSupportSummaryElement = document.getElementById('driverSupportSummary');
+		var driverSupportViewElement = document.getElementById('driverSupportView');
 		var homeyInstance = null;
+
+		function translateSetting(key, fallback)
+		{
+			if (!homeyInstance)
+			{
+				return fallback;
+			}
+			const value = homeyInstance.__(key);
+			return value === key ? fallback : value;
+		}
+
+		function renderDriverSupportError(message)
+		{
+			driverSupportSummaryElement.innerHTML = '';
+			driverSupportViewElement.innerHTML = '';
+			const section = document.createElement('section');
+			section.className = 'driver-support-section';
+			section.textContent = message;
+			driverSupportViewElement.appendChild(section);
+		}
+
+		function createDriverSupportSection(title, items, className)
+		{
+			const section = document.createElement('section');
+			section.className = `driver-support-section ${className}`;
+			const heading = document.createElement('h3');
+			const headingText = document.createElement('span');
+			headingText.textContent = title;
+			const count = document.createElement('span');
+			count.textContent = items.length;
+			heading.appendChild(headingText);
+			heading.appendChild(count);
+			section.appendChild(heading);
+			return section;
+		}
+
+		function createDriverSupportIcon(driverId, iconPath)
+		{
+			const marker = '/settings/';
+			const markerIndex = window.location.pathname.indexOf(marker);
+			const appBasePath = markerIndex >= 0 ? window.location.pathname.substring(0, markerIndex) : '';
+			const canonicalPath = `/drivers/${driverId}/assets/icon.svg`;
+			const candidates = [
+				iconPath,
+				appBasePath ? `${appBasePath}${canonicalPath}` : '',
+				`../drivers/${driverId}/assets/icon.svg`,
+			].filter((candidate, index, paths) => candidate && paths.indexOf(candidate) === index);
+			const icon = document.createElement('img');
+			icon.className = 'driver-support-icon';
+			icon.alt = '';
+			let candidateIndex = 0;
+
+			icon.onerror = function ()
+			{
+				if (candidateIndex >= candidates.length)
+				{
+					icon.style.visibility = 'hidden';
+					return;
+				}
+
+				icon.src = candidates[candidateIndex];
+				candidateIndex++;
+			};
+			icon.onerror();
+			return icon;
+		}
+
+		function appendSupportedDriverSection(title, items, className)
+		{
+			const section = createDriverSupportSection(title, items, className);
+			const groups = {};
+			items.forEach((item) => {
+				const key = item.recommendedDriverId;
+				if (!groups[key])
+				{
+					groups[key] = { name: item.recommendedDriverName || key, icon: item.recommendedDriverIcon, devices: [] };
+				}
+				groups[key].devices.push(item.label);
+			});
+
+			Object.keys(groups).sort((left, right) => groups[left].name.localeCompare(groups[right].name)).forEach((key) => {
+				const group = groups[key];
+				const row = document.createElement('div');
+				row.className = 'driver-support-group';
+				const icon = createDriverSupportIcon(key, group.icon);
+				const content = document.createElement('div');
+				const name = document.createElement('strong');
+				name.textContent = group.name;
+				const list = document.createElement('ul');
+				list.className = 'driver-support-list';
+				group.devices.sort().forEach((deviceName) => {
+					const item = document.createElement('li');
+					item.textContent = deviceName;
+					list.appendChild(item);
+				});
+				content.appendChild(name);
+				content.appendChild(list);
+				row.appendChild(icon);
+				row.appendChild(content);
+				section.appendChild(row);
+			});
+
+			if (items.length === 0)
+			{
+				section.appendChild(document.createTextNode(translateSetting('settings.none', 'None')));
+			}
+			driverSupportViewElement.appendChild(section);
+		}
+
+		function appendNotSupportableSection(notSupportableDevices)
+		{
+			const section = createDriverSupportSection(
+				translateSetting('settings.driverSupportNotSupportableDevices', 'Not supportable: no status, commands, or webhooks exposed by the SwitchBot API'),
+				notSupportableDevices,
+				'driver-support-not-supportable',
+			);
+			const list = document.createElement('ul');
+			list.className = 'driver-support-list';
+			notSupportableDevices.forEach((device) => {
+				const item = document.createElement('li');
+				item.textContent = device.deviceType || device.label;
+				list.appendChild(item);
+			});
+			section.appendChild(list);
+			if (notSupportableDevices.length === 0)
+			{
+				section.appendChild(document.createTextNode(translateSetting('settings.none', 'None')));
+			}
+			driverSupportViewElement.appendChild(section);
+		}
+
+		function renderDriverSupport(result)
+		{
+			if (!result)
+			{
+				renderDriverSupportError(translateSetting('settings.noData', 'No data'));
+				return;
+			}
+			if (result.hasConnectedSession === false)
+			{
+				renderDriverSupportError(translateSetting('settings.driverSupportConnectLogin', 'Log in with your SwitchBot account before checking driver support.'));
+				appendNotSupportableSection(Array.isArray(result.notSupportableDevices) ? result.notSupportableDevices : []);
+				return;
+			}
+
+			driverSupportSummaryElement.innerHTML = '';
+			driverSupportViewElement.innerHTML = '';
+			[
+				['driverSupportGenerated', 'Generated', result.generatedAt || '-'],
+				['driverSupportDevices', 'SwitchBot devices', result.totalSwitchBotDevices || 0],
+				['driverSupportDrivers', 'Matched drivers', result.totalMatchedDrivers || 0],
+				['driverSupportNotAdded', 'Supported but not added', result.totalSupportedNotInstalled || 0],
+				['driverSupportAdded', 'Supported and added', result.totalSupportedInstalled || 0],
+				['driverSupportUnsupported', 'Unsupported', result.totalUnsupported || 0],
+				['driverSupportNotSupportable', 'Not supportable', result.totalNotSupportable || 0],
+			].forEach((summary) => {
+				const chip = document.createElement('div');
+				chip.className = 'driver-support-chip';
+				chip.innerHTML = `<span class="driver-support-chip-label"></span><span class="driver-support-chip-value"></span>`;
+				chip.firstChild.textContent = translateSetting(`settings.${summary[0]}`, summary[1]);
+				chip.lastChild.textContent = summary[2];
+				driverSupportSummaryElement.appendChild(chip);
+			});
+
+			const recommendations = Array.isArray(result.recommendations) ? result.recommendations : [];
+			const supportedNotInstalled = recommendations.filter((item) => item.recommendedDriverId && !item.isInstalled);
+			const supportedInstalled = recommendations.filter((item) => item.recommendedDriverId && item.isInstalled);
+			const unsupported = recommendations.filter((item) => !item.recommendedDriverId);
+			appendSupportedDriverSection(translateSetting('settings.driverSupportNotAdded', 'Supported but not added to Homey'), supportedNotInstalled, 'driver-support-not-installed');
+			appendSupportedDriverSection(translateSetting('settings.driverSupportAdded', 'Supported and already added to Homey'), supportedInstalled, 'driver-support-installed');
+
+			const unsupportedSection = createDriverSupportSection(translateSetting('settings.driverSupportUnsupportedDevices', 'Unsupported devices'), unsupported, 'driver-support-unsupported');
+			const unsupportedList = document.createElement('ul');
+			unsupportedList.className = 'driver-support-list';
+			unsupported.forEach((device) => {
+				const item = document.createElement('li');
+				item.textContent = `${device.label} (${device.deviceType || translateSetting('settings.unknownType', 'Unknown type')})`;
+				unsupportedList.appendChild(item);
+			});
+			unsupportedSection.appendChild(unsupportedList);
+			if (unsupported.length > 0)
+			{
+				unsupportedSection.classList.add('driver-support-clickable');
+				unsupportedSection.title = translateSetting('settings.driverSupportSendTitle', 'Click to send unsupported device information to the developer');
+				unsupportedSection.addEventListener('click', function ()
+				{
+					Homey.confirm(translateSetting('settings.confirmSendUnsupported', 'Send information about these unsupported devices to the developer?'), null, function (err, confirmed)
+					{
+						if (err || !confirmed) return;
+						waitCursor(true);
+						Homey.api('POST', '/SendUnsupportedDevices/', { unsupportedDevices: unsupported }, function (apiErr)
+						{
+							waitCursor(false);
+							Homey.alert(apiErr || translateSetting('settings.logSentSuccessfully', 'Log sent successfully'));
+						});
+					});
+				});
+			}
+			driverSupportViewElement.appendChild(unsupportedSection);
+
+			const notSupportableDevices = Array.isArray(result.notSupportableDevices) ? result.notSupportableDevices : [];
+			appendNotSupportableSection(notSupportableDevices);
+		}
+
+		function refreshDriverSupport()
+		{
+			waitCursor(true);
+			Homey.api('POST', '/GetDriverSupportMatrix/', {}, function (err, result)
+			{
+				waitCursor(false);
+				if (err)
+				{
+					renderDriverSupportError(`${translateSetting('settings.driverSupportFetchFailed', 'Failed to fetch driver support data')}: ${err.message || err}`);
+					return;
+				}
+				renderDriverSupport(result);
+			});
+		}
 
 		function hasTextValue(value)
 		{
@@ -703,7 +1014,17 @@
 		function getBLEStatisticsClipboardText()
 		{
 			const rows = [];
-			rows.push(['Device', 'MAC', 'Driver', 'Missing', 'Present', 'Advertisements', 'Polled', 'RSSI (dBm)', 'Last Seen (HH:MM:SS ago)'].join('\t'));
+			rows.push([
+				translateSetting('settings.device', 'Device'),
+				translateSetting('settings.mac', 'MAC'),
+				translateSetting('settings.driver', 'Driver'),
+				translateSetting('settings.missing', 'Missing'),
+				translateSetting('settings.present', 'Present'),
+				translateSetting('settings.advertisements', 'Advertisements'),
+				translateSetting('settings.polled', 'Polled'),
+				translateSetting('settings.rssiDbm', 'RSSI (dBm)'),
+				translateSetting('settings.lastSeenElapsed', 'Last Seen (HH:MM:SS ago)'),
+			].join('\t'));
 
 			const tbody = bleStatisticsTableElement && bleStatisticsTableElement.querySelector('tbody');
 			if (!tbody)
@@ -721,7 +1042,7 @@
 				}
 
 				const values = cells.map((cell) => cell.textContent.replace(/\s+/g, ' ').trim());
-				if (values[0] === 'No BLE devices registered.')
+				if (values[0] === translateSetting('settings.noBleDevices', 'No BLE devices registered.'))
 				{
 					continue;
 				}
@@ -748,7 +1069,7 @@
 
 				if (homeyInstance)
 				{
-					homeyInstance.alert('Statistics table copied to clipboard.');
+					homeyInstance.alert(translateSetting('settings.statisticsCopied', 'Statistics table copied to clipboard.'));
 				}
 			}
 			catch (err)
@@ -768,15 +1089,15 @@
 				if (homeyInstance)
 				{
 					homeyInstance.alert(copied
-						? 'Statistics table copied to clipboard.'
-						: 'Could not copy automatically. Please select and copy the table manually.');
+						? translateSetting('settings.statisticsCopied', 'Statistics table copied to clipboard.')
+						: translateSetting('settings.statisticsCopyFailed', 'Could not copy automatically. Please select and copy the table manually.'));
 				}
 			}
 		}
 
 		function clearBLEStatistics()
 		{
-			Homey.confirm('Clear BLE statistics counters and keep Last Seen values?', null, function (err, ok)
+			Homey.confirm(translateSetting('settings.confirmClearStatistics', 'Clear BLE statistics counters and keep Last Seen values?'), null, function (err, ok)
 			{
 				if (err || !ok)
 				{
@@ -802,7 +1123,7 @@
 				const timestamp = Number(lastSeenAt || 0);
 				if (!timestamp)
 				{
-					return 'Never';
+					return translateSetting('settings.never', 'Never');
 				}
 
 				const elapsedSeconds = Math.max(0, Math.floor((Date.now() - timestamp) / 1000));
@@ -820,7 +1141,7 @@
 
 			if (!Array.isArray(rows) || rows.length === 0)
 			{
-				tbody.innerHTML = '<tr><td colspan="9" style="padding:8px;">No BLE devices registered.</td></tr>';
+				tbody.innerHTML = `<tr><td colspan="9" style="padding:8px;">${translateSetting('settings.noBleDevices', 'No BLE devices registered.')}</td></tr>`;
 				return;
 			}
 
@@ -835,7 +1156,7 @@
 				const driverText = (row.driverType || '').replace(/[<>]/g, '');
 				return `
 					<tr>
-						<td style="padding:6px 8px;">${(row.name || 'Unknown').replace(/[<>]/g, '')}</td>
+						<td style="padding:6px 8px;">${(row.name || translateSetting('settings.unknown', 'Unknown')).replace(/[<>]/g, '')}</td>
 						<td style="padding:6px 8px;">${macText}</td>
 						<td style="padding:6px 8px;">${driverText}</td>
 						<td style="padding:6px 8px; text-align:right;">${Number(row.missing || 0)}</td>
@@ -897,15 +1218,15 @@
 			const identifierOption = document.getElementById('logFilterIdentifierOption');
 			if (logSourceElement.value === 'ble')
 			{
-				identifierOption.textContent = 'BLE MAC';
+				identifierOption.textContent = translateSetting('settings.bleMac', 'BLE MAC');
 			}
 			else if (logSourceElement.value === 'hub')
 			{
-				identifierOption.textContent = 'deviceId';
+				identifierOption.textContent = translateSetting('settings.deviceIdTechnical', 'deviceId');
 			}
 			else
 			{
-				identifierOption.textContent = 'BLE MAC / deviceId';
+				identifierOption.textContent = translateSetting('settings.bleMacDeviceId', 'BLE MAC / deviceId');
 			}
 		}
 
@@ -925,7 +1246,7 @@
 			{
 				const option = document.createElement('option');
 				option.value = '';
-				option.textContent = 'All data';
+				option.textContent = translateSetting('settings.allData', 'All data');
 				logFilterValueElement.appendChild(option);
 				logFilterValueElement.disabled = true;
 				return;
@@ -936,7 +1257,7 @@
 			{
 				const option = document.createElement('option');
 				option.value = '';
-				option.textContent = 'No matching devices';
+				option.textContent = translateSetting('settings.noMatchingDevices', 'No matching devices');
 				logFilterValueElement.appendChild(option);
 				logFilterValueElement.disabled = true;
 				return;
@@ -959,12 +1280,12 @@
 		function updateLogSettingsSummary()
 		{
 			const filterSummary = logFilterTypeElement.value === 'none'
-				? 'All data'
-				: `${getSelectedText(logFilterTypeElement)}: ${getSelectedText(logFilterValueElement) || 'No selection'}`;
+				? translateSetting('settings.allData', 'All data')
+				: `${getSelectedText(logFilterTypeElement)}: ${getSelectedText(logFilterValueElement) || translateSetting('settings.noSelection', 'No selection')}`;
 			logSettingsSummaryElement.textContent = [
-				`Level: ${getSelectedText(logLevelElement)}`,
-				`Source: ${getSelectedText(logSourceElement)}`,
-				`Filter: ${filterSummary}`,
+				`${translateSetting('settings.level', 'Level')}: ${getSelectedText(logLevelElement)}`,
+				`${translateSetting('settings.source', 'Source')}: ${getSelectedText(logSourceElement)}`,
+				`${translateSetting('settings.filter', 'Filter')}: ${filterSummary}`,
 			].join('\n');
 		}
 
@@ -1014,7 +1335,7 @@
 		{
 			if (logFilterTypeElement.value !== 'none' && !logFilterValueElement.value)
 			{
-				Homey.alert('Select filter information before saving.');
+				Homey.alert(translateSetting('settings.selectFilterInformation', 'Select filter information before saving.'));
 				return;
 			}
 
@@ -1078,10 +1399,7 @@
 			Homey.get('debugMode', function (err, debugMode)
 			{
 				if (err) return Homey.alert(err);
-				if (debugMode)
-				{
-					document.getElementById("simLogTab").style.display = "block";
-				}
+				document.getElementById('simLogTab').classList.toggle('sim-log-tab-debug', debugMode === true);
 			});
 
 			document.getElementById("defaultOpen").click();
@@ -1562,6 +1880,10 @@
 			else if (tabPage == 'statistics')
 			{
 				refreshBLEStatistics();
+			}
+			else if (tabPage == 'driverSupport')
+			{
+				refreshDriverSupport();
 			}
 		}
 
