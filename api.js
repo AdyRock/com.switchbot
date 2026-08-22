@@ -7,6 +7,10 @@ module.exports = {
 	{
 		return homey.app.diagLog;
 	},
+	async getLogFilterOptions({ homey, query })
+	{
+		return homey.app.getLogFilterOptions();
+	},
 	async getDetect({ homey, query })
 	{
 		try

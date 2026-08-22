@@ -1157,6 +1157,77 @@ class MyApp extends OAuth2App
 		return source.toString();
 	}
 
+	getLogFilterDevices()
+	{
+		const filterDevices = [];
+		const drivers = this.homey && this.homey.drivers ? this.homey.drivers.getDrivers() : {};
+		for (const driver of Object.values(drivers))
+		{
+			const devices = driver && typeof driver.getDevices === 'function' ? driver.getDevices() : {};
+			for (const device of Object.values(devices))
+			{
+				const data = device && typeof device.getData === 'function' ? device.getData() : {};
+				const homeyName = device && typeof device.getName === 'function' ? device.getName() : '';
+				const driverId = String((device && device.driver && (device.driver.id || (device.driver.manifest && device.driver.manifest.id))) || '');
+				const identifier = data && (data.address || data.id || data.pid) ? String(data.address || data.id || data.pid) : '';
+				const switchBotName = String((data && (data.deviceName || data.name)) || homeyName || '');
+				const deviceType = String((data && data.type) || driverId || '');
+
+				filterDevices.push({
+					identifier,
+					switchBotName,
+					homeyName: String(homeyName || ''),
+					deviceType,
+					driverId,
+					aliases: [data && data.address, data && data.id, data && data.pid, data && data.type, data && data.deviceName, data && data.name, homeyName, driverId]
+						.filter((value) => typeof value === 'string' && value.trim().length > 0)
+						.map((value) => value.trim()),
+				});
+			}
+		}
+
+		return filterDevices;
+	}
+
+	getLogFilterOptions()
+	{
+		const devices = this.getLogFilterDevices();
+		const optionFields = ['identifier', 'switchBotName', 'homeyName', 'deviceType'];
+		const options = {};
+		for (const field of optionFields)
+		{
+			options[field] = Array.from(new Set(devices.map((device) => device[field]).filter(Boolean)))
+				.sort((left, right) => left.localeCompare(right));
+		}
+
+		return options;
+	}
+
+	matchesLogDeviceFilter(message)
+	{
+		const filterType = this.homey.settings.get('logFilterType') || 'none';
+		const filterValue = String(this.homey.settings.get('logFilterValue') || '').trim();
+		if (filterType === 'none' || !filterValue)
+		{
+			return true;
+		}
+
+		const matchingDevices = this.getLogFilterDevices()
+			.filter((device) => device[filterType] === filterValue);
+		if (matchingDevices.length === 0)
+		{
+			return false;
+		}
+
+		const normalizedMessage = String(message).toLowerCase();
+		const compactMessage = normalizedMessage.replace(/[^a-z0-9]/g, '');
+		return matchingDevices.some((device) => device.aliases.some((alias) => {
+			const normalizedAlias = alias.toLowerCase();
+			const compactAlias = normalizedAlias.replace(/[^a-z0-9]/g, '');
+			return normalizedMessage.includes(normalizedAlias) || (compactAlias.length >= 6 && compactMessage.includes(compactAlias));
+		}));
+	}
+
 	updateLog(newMessage, errorLevel = 2, logSource = 'hub')
 	{
 		try
@@ -1171,7 +1242,7 @@ class MyApp extends OAuth2App
 				return;
 			}
 
-			if (errorLevel === 0 || (errorLevel <= this.logLevel && (logFilter === 'all' || logFilter === logSource)))
+			if (errorLevel === 0 || (errorLevel <= this.logLevel && (logFilter === 'all' || logFilter === logSource) && this.matchesLogDeviceFilter(message)))
 			{
 				this.originalLog(message);
 				const nowTime = new Date(Date.now());
@@ -2443,7 +2514,11 @@ class MyApp extends OAuth2App
 		const deviceAddress = this.normalizeBLEAdvertisementId(deviceData && deviceData.address ? deviceData.address : null);
 		const deviceBleId = this.normalizeBLEAdvertisementId(deviceData && deviceData.id ? deviceData.id : null);
 		const registration = { device, name, address: deviceAddress, id: deviceId, bleId: deviceBleId };
-		const keys = new Set([deviceBleId, deviceId, deviceAddress].filter(Boolean));
+		const keys = new Set([
+			...this.getNormalizedLookupKeys(deviceBleId),
+			...this.getNormalizedLookupKeys(deviceId),
+			...this.getNormalizedLookupKeys(deviceAddress),
+		]);
 
 		for (const key of keys)
 		{
@@ -2464,7 +2539,12 @@ class MyApp extends OAuth2App
 		const deviceId = this.normalizeBLEAdvertisementId(deviceData && (deviceData.id || deviceData.pid) ? (deviceData.id || deviceData.pid) : null);
 		const deviceAddress = this.normalizeBLEAdvertisementId(deviceData && deviceData.address ? deviceData.address : null);
 		const deviceBleId = this.normalizeBLEAdvertisementId(deviceData && deviceData.id ? deviceData.id : null);
-		for (const key of [deviceBleId, deviceId, deviceAddress])
+		const keys = new Set([
+			...this.getNormalizedLookupKeys(deviceBleId),
+			...this.getNormalizedLookupKeys(deviceId),
+			...this.getNormalizedLookupKeys(deviceAddress),
+		]);
+		for (const key of keys)
 		{
 			if (key && this.bleAdvertisementDeviceRegistry.get(key)?.device === device)
 			{
@@ -2495,7 +2575,41 @@ class MyApp extends OAuth2App
 			return Buffer.from(value).toString('hex');
 		}
 
+		if (value && value.type === 'Buffer' && Array.isArray(value.data))
+		{
+			return Buffer.from(value.data).toString('hex');
+		}
+
 		return String(value);
+	}
+
+	formatBLEAdvertisementSummary(advertisement, fallbackId = '')
+	{
+		const payload = advertisement && typeof advertisement === 'object' ? advertisement : {};
+		const rawAddress = payload.address || payload.id || payload.pid || payload.uuid || fallbackId || 'unknown';
+		const compactAddress = String(rawAddress).replace(/[^a-fA-F0-9]/g, '');
+		const mac = compactAddress.length === 12
+			? (compactAddress.match(/.{1,2}/g) || []).join(':').toUpperCase()
+			: String(rawAddress).toUpperCase();
+		let serviceEntries = [];
+
+		if (Array.isArray(payload.serviceData))
+		{
+			serviceEntries = payload.serviceData.map((entry) => ({
+				uuid: String((entry && entry.uuid) || '').toLowerCase(),
+				data: this.bufferLikeToHex(entry && entry.data),
+			}));
+		}
+		else if (payload.serviceData && typeof payload.serviceData === 'object')
+		{
+			serviceEntries = Object.entries(payload.serviceData).map(([uuid, data]) => ({
+				uuid: String(uuid).toLowerCase(),
+				data: this.bufferLikeToHex(data),
+			}));
+		}
+
+		const manufacturerData = this.bufferLikeToHex(payload.manufacturerData);
+		return `MAC: ${mac}, Service: ${JSON.stringify(serviceEntries)}, Manufacturer: ${manufacturerData || 'missing'}`;
 	}
 
 	getBLEAdvertisementFingerprint(advertisement)
@@ -2555,12 +2669,26 @@ class MyApp extends OAuth2App
 			return 'no-service-data';
 		}
 
-		if (!Array.isArray(advertisement.serviceData) || !advertisement.serviceData[0])
+		let serviceEntry = null;
+		if (Array.isArray(advertisement.serviceData))
+		{
+			serviceEntry = advertisement.serviceData[0];
+		}
+		else if (advertisement.serviceData && typeof advertisement.serviceData === 'object')
+		{
+			const firstEntry = Object.entries(advertisement.serviceData)[0];
+			if (firstEntry)
+			{
+				serviceEntry = { uuid: firstEntry[0], data: firstEntry[1] };
+			}
+		}
+
+		if (!serviceEntry)
 		{
 			return 'service-data-not-array';
 		}
 
-		const { uuid } = advertisement.serviceData[0];
+		const { uuid } = serviceEntry;
 		if (typeof uuid !== 'string')
 		{
 			return 'service-uuid-missing';
@@ -2571,8 +2699,22 @@ class MyApp extends OAuth2App
 			return 'service-uuid-mismatch';
 		}
 
-		const buf = advertisement.serviceData[0].data;
-		if (!buf || !Buffer.isBuffer(buf) || buf.length < 3)
+		const rawBuffer = serviceEntry.data;
+		let buf = null;
+		if (Buffer.isBuffer(rawBuffer))
+		{
+			buf = rawBuffer;
+		}
+		else if (rawBuffer instanceof Uint8Array || Array.isArray(rawBuffer))
+		{
+			buf = Buffer.from(rawBuffer);
+		}
+		else if (rawBuffer && rawBuffer.type === 'Buffer' && Array.isArray(rawBuffer.data))
+		{
+			buf = Buffer.from(rawBuffer.data);
+		}
+
+		if (!buf || buf.length < 3)
 		{
 			return 'service-buffer-invalid';
 		}
@@ -3018,26 +3160,45 @@ class MyApp extends OAuth2App
 
 	getBLEAdvertisementDispatchDevicesForAdvertisement(bleId, advertisement)
 	{
-		const lookupAddress = this.normalizeBLEAdvertisementId(advertisement && advertisement.address)
-			|| this.normalizeBLEAdvertisementId(bleId)
-			|| this.normalizeBLEAdvertisementId(advertisement && advertisement.id)
-			|| this.normalizeBLEAdvertisementId(advertisement && advertisement.pid)
-			|| this.normalizeBLEAdvertisementId(advertisement && advertisement.uuid);
+		const lookupKeys = new Set();
+		for (const value of [
+			advertisement && advertisement.address,
+			bleId,
+			advertisement && advertisement.id,
+			advertisement && advertisement.pid,
+			advertisement && advertisement.uuid,
+		])
+		{
+			for (const key of this.getNormalizedLookupKeys(value))
+			{
+				lookupKeys.add(key);
+			}
+		}
 
-		if (!lookupAddress)
+		if (lookupKeys.size === 0)
 		{
 			this.updateLog(`[filter] BLE advertisement ignored for unregistered device ${bleId || advertisement?.address || 'unknown'} (address=${advertisement?.address || 'n/a'}, name=${advertisement?.localName || 'n/a'})`, 2, 'ble');
 			return [];
 		}
 
-		const registration = this.bleAdvertisementDeviceRegistry.get(lookupAddress);
+		let registration = null;
+		let matchedKey = null;
+		for (const key of lookupKeys)
+		{
+			registration = this.bleAdvertisementDeviceRegistry.get(key);
+			if (registration)
+			{
+				matchedKey = key;
+				break;
+			}
+		}
 		if (!registration || !registration.device || typeof registration.device.syncBLEEvents !== 'function')
 		{
-			this.updateLog(`[filter] BLE advertisement ignored for unregistered address ${lookupAddress}`, 2, 'ble');
+			this.updateLog(`[filter] BLE advertisement ignored for unregistered address ${Array.from(lookupKeys)[0]}`, 2, 'ble');
 			return [];
 		}
 
-		this.updateLog(`[filter] BLE advertisement matched registered device ${registration.name || registration.device.getName?.() || lookupAddress} for ${lookupAddress}`, 3, 'ble');
+		this.updateLog(`[filter] BLE advertisement matched registered device ${registration.name || registration.device.getName?.() || matchedKey} for ${matchedKey}`, 3, 'ble');
 		return [registration.device];
 	}
 
@@ -3123,6 +3284,7 @@ class MyApp extends OAuth2App
 
 	async handleBLEAdvertisement(bleId, advertisement)
 	{
+		this.updateLog(this.formatBLEAdvertisementSummary(advertisement, bleId), 2, 'ble');
 		this.updateLog(`[detailed] BLE advertisement payload received for ${bleId}: ${this.varToString(advertisement)}`, 3, 'ble');
 		const devices = this.getBLEAdvertisementDispatchDevicesForAdvertisement(bleId, advertisement);
 		if (devices.length === 0)

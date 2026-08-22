@@ -541,6 +541,10 @@
 			"method": "get",
 			"path": "/getLog/"
 		},
+		"getLogFilterOptions": {
+			"method": "get",
+			"path": "/getLogFilterOptions/"
+		},
 		"getDetect": {
 			"method": "get",
 			"path": "/getDetect/"

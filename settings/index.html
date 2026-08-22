@@ -178,14 +178,15 @@
 
 		.statistics-actions {
 			display: flex;
-			align-items: center;
-			justify-content: space-between;
+			flex-direction: column;
+			align-items: flex-start;
 			gap: 8px;
 			margin: 0 0 8px 0;
 		}
 
 		.statistics-actions p {
 			margin: 0;
+			white-space: nowrap;
 		}
 
 		.statistics-actions > div {
@@ -198,6 +199,70 @@
 		#bleStatisticsTable td {
 			-webkit-user-select: text;
 			user-select: text;
+		}
+
+		.log-settings-bar {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: 12px;
+			margin: 8px 0 12px;
+			padding: 10px 12px;
+			border: 1px solid rgba(0, 0, 0, 0.12);
+			border-radius: 6px;
+			background: #f7f8fa;
+		}
+
+		.log-settings-summary {
+			min-width: 0;
+			font-size: 90%;
+			line-height: 1.5;
+			white-space: pre-line;
+		}
+
+		#openLogSettings {
+			flex: 0 0 auto;
+			min-width: 112px;
+			padding: 8px 14px;
+			white-space: nowrap;
+		}
+
+		.log-settings-modal {
+			display: none;
+			position: fixed;
+			inset: 0;
+			z-index: 200;
+			align-items: center;
+			justify-content: center;
+			padding: 20px;
+			background: rgba(30, 30, 30, 0.55);
+		}
+
+		.log-settings-modal.open {
+			display: flex;
+		}
+
+		.log-settings-panel {
+			width: min(480px, 100%);
+			max-height: calc(100vh - 40px);
+			overflow-y: auto;
+			box-sizing: border-box;
+			padding: 20px;
+			border-radius: 8px;
+			background: #ffffff;
+			box-shadow: 0 12px 36px rgba(0, 0, 0, 0.25);
+		}
+
+		.log-settings-panel h2 {
+			margin: 0 0 16px;
+			font-size: 20px;
+		}
+
+		.log-settings-actions {
+			display: flex;
+			justify-content: flex-end;
+			gap: 8px;
+			margin-top: 18px;
 		}
 	</style>
 
@@ -321,25 +386,9 @@
 		<fieldset>
 			<p><span data-i18n="settings.diagnosticsLog"></span>
 			</p>
-			<div class="field row">
-				<label class="homey-form-label" for="logLevel"><span data-i18n="settings.logLevel"></span></label>
-				<select class="homey-form-select" id="logLevel" title="Log level" aria-label="Log level">
-					<option value=0 data-i18n="settings.logErrorsOnly"></option>
-					<option value=1 data-i18n="settings.logWebhookInfo"></option>
-					<option value=2 data-i18n="settings.logBasicInfo"></option>
-					<option value=3 data-i18n="settings.logDetailedInfo"></option>
-					<option value=4 data-i18n="settings.logFullInfo"></option>
-				</select>
-				<P></P>
-			</div>
-			<div class="field row">
-				<label class="homey-form-label" for="logSource"><span data-i18n="settings.logSource"></span></label>
-				<select class="homey-form-select" id="logSource" title="Log source" aria-label="Log source">
-					<option value="all" data-i18n="settings.logSourceAll"></option>
-					<option value="ble" data-i18n="settings.logSourceBLE"></option>
-					<option value="hub" data-i18n="settings.logSourceHub"></option>
-				</select>
-				<P></P>
+			<div class="log-settings-bar">
+				<div id="logSettingsSummary" class="log-settings-summary"></div>
+				<button id="openLogSettings" class="homey-button-small" type="button">Log settings</button>
 			</div>
 			<p>
 				<button id="clearInfoLog" class="homey-button-small" data-i18n="settings.clear" title="Clear Log"></button>
@@ -349,6 +398,47 @@
 				<textarea id="infoLog" class="homey-form-textarea" wrap="off" title="Diagnostics log"></textarea>
 			</div>
 		</fieldset>
+		<div id="logSettingsModal" class="log-settings-modal" role="dialog" aria-modal="true" aria-labelledby="logSettingsTitle">
+			<div class="log-settings-panel">
+				<h2 id="logSettingsTitle">Log settings</h2>
+				<div class="field row">
+					<label class="homey-form-label" for="logLevel"><span data-i18n="settings.logLevel"></span></label>
+					<select class="homey-form-select" id="logLevel" title="Log level" aria-label="Log level">
+						<option value="0" data-i18n="settings.logErrorsOnly"></option>
+						<option value="1" data-i18n="settings.logWebhookInfo"></option>
+						<option value="2" data-i18n="settings.logBasicInfo"></option>
+						<option value="3" data-i18n="settings.logDetailedInfo"></option>
+						<option value="4" data-i18n="settings.logFullInfo"></option>
+					</select>
+				</div>
+				<div class="field row">
+					<label class="homey-form-label" for="logSource"><span data-i18n="settings.logSource"></span></label>
+					<select class="homey-form-select" id="logSource" title="Log source" aria-label="Log source">
+						<option value="all" data-i18n="settings.logSourceAll"></option>
+						<option value="ble" data-i18n="settings.logSourceBLE"></option>
+						<option value="hub" data-i18n="settings.logSourceHub"></option>
+					</select>
+				</div>
+				<div class="field row">
+					<label class="homey-form-label" for="logFilterType">Filter source type</label>
+					<select class="homey-form-select" id="logFilterType" title="Filter source type" aria-label="Filter source type">
+						<option value="none">All data</option>
+						<option value="identifier">BLE MAC / deviceId</option>
+						<option value="switchBotName">SwitchBot deviceName</option>
+						<option value="homeyName">Homey device name</option>
+						<option value="deviceType">deviceType</option>
+					</select>
+				</div>
+				<div class="field row">
+					<label class="homey-form-label" for="logFilterValue">Filter information</label>
+					<select class="homey-form-select" id="logFilterValue" title="Filter information" aria-label="Filter information"></select>
+				</div>
+				<div class="log-settings-actions">
+					<button id="cancelLogSettings" class="homey-button-small" type="button">Cancel</button>
+					<button id="saveLogSettings" class="homey-button-small" type="button">Save</button>
+				</div>
+			</div>
+		</div>
 	</div>
 
 	<!--SEND COMMAND PAGE -->
@@ -424,6 +514,14 @@
 		var infoLogElement = document.getElementById('infoLog');
 		var logLevelElement = document.getElementById('logLevel');
 		var logSourceElement = document.getElementById('logSource');
+		var logFilterTypeElement = document.getElementById('logFilterType');
+		var logFilterValueElement = document.getElementById('logFilterValue');
+		var logSettingsSummaryElement = document.getElementById('logSettingsSummary');
+		var logSettingsModalElement = document.getElementById('logSettingsModal');
+		var openLogSettingsElement = document.getElementById('openLogSettings');
+		var cancelLogSettingsElement = document.getElementById('cancelLogSettings');
+		var saveLogSettingsElement = document.getElementById('saveLogSettings');
+		var logFilterOptions = {};
 		var clearInfoLogElement = document.getElementById('clearInfoLog');
 		var sendInfoLogElement = document.getElementById('sendInfoLog');
 
@@ -788,6 +886,141 @@
 			});
 		}
 
+		function getSelectedText(selectElement)
+		{
+			const option = selectElement.options[selectElement.selectedIndex];
+			return option ? option.textContent.trim() : '';
+		}
+
+		function populateLogFilterValues(selectedValue)
+		{
+			const filterType = logFilterTypeElement.value;
+			const values = filterType === 'none' ? [] : (logFilterOptions[filterType] || []);
+			logFilterValueElement.innerHTML = '';
+
+			if (filterType === 'none')
+			{
+				const option = document.createElement('option');
+				option.value = '';
+				option.textContent = 'All data';
+				logFilterValueElement.appendChild(option);
+				logFilterValueElement.disabled = true;
+				return;
+			}
+
+			logFilterValueElement.disabled = false;
+			if (values.length === 0)
+			{
+				const option = document.createElement('option');
+				option.value = '';
+				option.textContent = 'No matching devices';
+				logFilterValueElement.appendChild(option);
+				logFilterValueElement.disabled = true;
+				return;
+			}
+
+			for (const value of values)
+			{
+				const option = document.createElement('option');
+				option.value = value;
+				option.textContent = value;
+				logFilterValueElement.appendChild(option);
+			}
+
+			if (selectedValue && values.includes(selectedValue))
+			{
+				logFilterValueElement.value = selectedValue;
+			}
+		}
+
+		function updateLogSettingsSummary()
+		{
+			const filterSummary = logFilterTypeElement.value === 'none'
+				? 'All data'
+				: `${getSelectedText(logFilterTypeElement)}: ${getSelectedText(logFilterValueElement) || 'No selection'}`;
+			logSettingsSummaryElement.textContent = [
+				`Level: ${getSelectedText(logLevelElement)}`,
+				`Source: ${getSelectedText(logSourceElement)}`,
+				`Filter: ${filterSummary}`,
+			].join('\n');
+		}
+
+		function loadLogSettings(callback)
+		{
+			Homey.api('GET', '/getLogFilterOptions/', {}, function (optionsErr, options)
+			{
+				if (optionsErr)
+				{
+					Homey.alert(optionsErr);
+					return;
+				}
+				logFilterOptions = options || {};
+
+				Homey.get('logLevel', function (levelErr, logLevel)
+				{
+					if (levelErr) return Homey.alert(levelErr);
+					logLevelElement.value = String(logLevel === null ? 0 : logLevel);
+					Homey.get('logSource', function (sourceErr, logSource)
+					{
+						if (sourceErr) return Homey.alert(sourceErr);
+						logSourceElement.value = logSource || 'all';
+						Homey.get('logFilterType', function (typeErr, filterType)
+						{
+							if (typeErr) return Homey.alert(typeErr);
+							logFilterTypeElement.value = filterType || 'none';
+							Homey.get('logFilterValue', function (valueErr, filterValue)
+							{
+								if (valueErr) return Homey.alert(valueErr);
+								populateLogFilterValues(filterValue || '');
+								updateLogSettingsSummary();
+								if (callback) callback();
+							});
+						});
+					});
+				});
+			});
+		}
+
+		function closeLogSettings()
+		{
+			logSettingsModalElement.classList.remove('open');
+			openLogSettingsElement.focus();
+		}
+
+		function saveLogSettings()
+		{
+			if (logFilterTypeElement.value !== 'none' && !logFilterValueElement.value)
+			{
+				Homey.alert('Select filter information before saving.');
+				return;
+			}
+
+			const settings = [
+				['logLevel', parseInt(logLevelElement.value)],
+				['logSource', logSourceElement.value],
+				['logFilterType', logFilterTypeElement.value],
+				['logFilterValue', logFilterTypeElement.value === 'none' ? '' : logFilterValueElement.value],
+			];
+			let pending = settings.length;
+			for (const [key, value] of settings)
+			{
+				Homey.set(key, value, function (err)
+				{
+					if (err)
+					{
+						Homey.alert(err);
+						return;
+					}
+					pending--;
+					if (pending === 0)
+					{
+						updateLogSettingsSummary();
+						closeLogSettings();
+					}
+				});
+			}
+		}
+
 		// a method named 'onHomeyReady' must be present in your code
 		function onHomeyReady(Homey)
 		{
@@ -877,17 +1110,7 @@
 				detectedDevicesElement.value = data.devices;
 			});
 
-			Homey.get('logLevel', function (err, logLevel)
-			{
-				if (err) return Homey.alert(err);
-				logLevelElement.value = logLevel.toString();
-			});
-
-			Homey.get('logSource', function (err, logSource)
-			{
-				if (err) return Homey.alert(err);
-				logSourceElement.value = logSource || 'all';
-			});
+			loadLogSettings();
 
 			Homey.get('numConnections', function (err, numConnections)
 			{
@@ -895,20 +1118,35 @@
 				numConnectionsElement.value = numConnections;
 			});
 
-			logLevelElement.addEventListener('change', function (e)
+			logFilterTypeElement.addEventListener('change', function ()
 			{
-				Homey.set('logLevel', parseInt(logLevelElement.value), function (err)
+				populateLogFilterValues('');
+			});
+
+			openLogSettingsElement.addEventListener('click', function ()
+			{
+				loadLogSettings(function ()
 				{
-					if (err) return Homey.alert(err);
+					logSettingsModalElement.classList.add('open');
+					logLevelElement.focus();
 				});
 			});
 
-			logSourceElement.addEventListener('change', function (e)
+			cancelLogSettingsElement.addEventListener('click', closeLogSettings);
+			saveLogSettingsElement.addEventListener('click', saveLogSettings);
+			logSettingsModalElement.addEventListener('click', function (event)
 			{
-				Homey.set('logSource', logSourceElement.value, function (err)
+				if (event.target === logSettingsModalElement)
 				{
-					if (err) return Homey.alert(err);
-				});
+					closeLogSettings();
+				}
+			});
+			document.addEventListener('keydown', function (event)
+			{
+				if (event.key === 'Escape' && logSettingsModalElement.classList.contains('open'))
+				{
+					closeLogSettings();
+				}
 			});
 
 			loginWithOAuthElement.addEventListener('click', function (e)
@@ -1242,15 +1480,10 @@
 
 			if (tabPage == 'log')
 			{
-				// Refresh the log data
-				Homey.get('logLevel', function (err, logLevel)
-				{
-					if (err) return Homey.alert(err);
-					logLevelElement.value = logLevel;
-				});
+				loadLogSettings();
 
 				// Make the log text area fill the page
-				infoLogElement.style.width = (logLevelElement.offsetWidth) + 'px';
+				infoLogElement.style.width = infoLogElement.parentElement.clientWidth + 'px';
 				infoLogElement.style.height = (window.innerHeight - infoLogElement.offsetTop - 60) + 'px';
 			}
 			else if (tabPage == 'detected')
