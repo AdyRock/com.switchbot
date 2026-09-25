@@ -6775,17 +6775,17 @@
       "id": "blind_tilt_ble",
       "name": {
         "en": "Blind Tilt (BLE)",
-        "no": "Markise m/tilt (BLE)",
-        "nl": "Rolgordijn Kantelen (BLE)",
-        "da": "Rullegardin Tilt (BLE)",
-        "de": "Rollo Neigen (BLE)",
-        "es": "Inclinación Persiana (BLE)",
-        "fr": "Inclinaison Store (BLE)",
-        "it": "Inclinazione Tenda (BLE)",
-        "sv": "Rullgardin Lutning (BLE)",
-        "pl": "Przechylanie Rolety (BLE)",
-        "ru": "Наклон Жалюзи (BLE)",
-        "ko": "블라인드 기울이기 (BLE)"
+        "no": "Blind Tilt (BLE)",
+        "nl": "Blind Tilt (BLE)",
+        "da": "Blind Tilt (BLE)",
+        "de": "Blind Tilt (BLE)",
+        "es": "Blind Tilt (BLE)",
+        "fr": "Blind Tilt (BLE)",
+        "it": "Blind Tilt (BLE)",
+        "sv": "Blind Tilt (BLE)",
+        "pl": "Blind Tilt (BLE)",
+        "ru": "Blind Tilt (BLE)",
+        "ko": "Blind Tilt (BLE)"
       },
       "platforms": [
         "local",
@@ -7042,7 +7042,7 @@
       "id": "blind_tilt_hub",
       "name": {
         "en": "Blind Tilt (HUB)",
-        "no": "Markise m/tilt (HUB)",
+        "no": "Blind Tilt (HUB)",
         "nl": "Blind Tilt (HUB)",
         "da": "Blind Tilt (HUB)",
         "de": "Blind Tilt (HUB)",
