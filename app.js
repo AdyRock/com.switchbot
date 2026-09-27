@@ -384,21 +384,28 @@ class MyApp extends OAuth2App
 	static OAUTH2_DRIVERS = [
 		'air_con_hub',
 		'air_puifier_hub',
+		'air_purifier_remote_hub',
+		'art_frame_hub',
 		'blind_tilt_hub',
 		'bot_hub',
 		'camera_hub',
 		'camera_plus_hub',
+		'candle_warmer_lamp_hub',
+		'ceiling_light_hub',
+		'climate_panel_hub',
 		'color_bulb_hub',
 		'contact_hub',
 		'curtains_hub',
 		'custom_remote_hub',
 		'dvd',
 		'fan_hub',
+		'garage_door_opener',
 		'hub3',
 		'humidifier_hub',
 		'humidifier2_hub',
 		'light_remote_hub',
 		'lock_hub',
+		'lock_pro_matter_hub',
 		'lock_ultra_hub',
 		'lock_vision_pro_hub',
 		'meter_pro_CO2_hub',
@@ -406,21 +413,28 @@ class MyApp extends OAuth2App
 		'plug_eu_hub',
 		'plug_hub',
 		'presence_hub',
+		'presence2_hub',
+		'projector_hub',
+		'radiator_themostat',
 		'relay_hub',
 		'relay2pm_hub',
+		'rgbicww_ceiling_light_hub',
 		'robot_vacuum_hub',
+		'robot_vacuum_K11_hub',
 		'robot_vacuum_K20_hub',
 		'robot_vacuum_S10_hub',
 		'roller_blind_hub',
 		'S10_water_station',
 		'scene',
 		'settop_box_hub',
+		'smart_fan_Pro2_hub',
 		'smart_fan_hub',
 		'smart_fan_new_hub',
 		'speaker',
 		'strip_light',
 		'temperature_hub',
 		'tv_hub',
+		'video_doorbell',
 		'weather_station_hub',
 		'water_leak_hub',
 	];
@@ -455,6 +469,8 @@ class MyApp extends OAuth2App
 		this.webhookAuthMissingLogged = false;
 		this.cachedFirstOAuth2Client = null;
 		this.cachedFirstOAuth2SessionId = null;
+		const hasOAuth2Session = Boolean(this.getFirstSavedOAuth2Client());
+		this.updateLog(`Authentication state at startup: legacy API token=${this.openToken ? 'present' : 'missing'}, secret=${this.openSecret ? 'present' : 'missing'}, OAuth2 session=${hasOAuth2Session ? 'available' : 'missing'}.`, 0, 'hub');
 
 		if (this.logLevel >= 0)
 		{
@@ -552,13 +568,17 @@ class MyApp extends OAuth2App
 						this.homey.app.disableOAuth2Debug();
 					}
 				}
-				else if (setting === 'openToken')
+				else if ((setting === 'openToken') || (setting === 'openSecret'))
 				{
+					const previousTokenPresent = Boolean(this.openToken);
+					const previousSecretPresent = Boolean(this.openSecret);
 					this.openToken = this.homey.settings.get('openToken');
-				}
-				else if (setting === 'openSecret')
-				{
 					this.openSecret = this.homey.settings.get('openSecret');
+					const previousTokenStatus = previousTokenPresent ? 'present' : 'missing';
+					const previousSecretStatus = previousSecretPresent ? 'present' : 'missing';
+					const tokenStatus = this.openToken ? 'present' : 'missing';
+					const secretStatus = this.openSecret ? 'present' : 'missing';
+					this.updateLog(`Legacy SwitchBot auth setting changed (${setting}): token ${previousTokenStatus} -> ${tokenStatus}, secret ${previousSecretStatus} -> ${secretStatus}; credential values omitted.`, 0, 'hub');
 				}
 				else if (setting === 'numConnections')
 				{

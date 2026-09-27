@@ -358,7 +358,7 @@
 			</div>
 			<p></p>
 			<p>
-				<button id="saveSettings" class="homey-button-small" data-i18n="settings.save" title="settings.save"></button>
+				<button id="saveSettings" class="homey-button-small" data-i18n="settings.save" title="settings.save" disabled></button>
 			</p>
 		</fieldset>
 	</div>
@@ -745,6 +745,9 @@
 		var openTokenIDElement = document.getElementById('openToken');
 		var openSecretElement = document.getElementById('openSecret');
 		var saveSettingsElement = document.getElementById('saveSettings');
+		var oldSettingsFieldsLoaded = false;
+		var oldSettingsTokenLoaded = false;
+		var oldSettingsSecretLoaded = false;
 
 		// App settings tab
 		var numConnectionsElement = document.getElementById('numConnections');
@@ -2319,6 +2322,11 @@
 
 			saveSettingsElement.addEventListener('click', function (e)
 			{
+				if (!oldSettingsFieldsLoaded)
+				{
+					return;
+				}
+
 				Homey.set('openToken', openTokenIDElement.value, function (err)
 				{
 					if (err)
@@ -2413,16 +2421,35 @@
 			}
 			else if (tabPage == 'oldSettings')
 			{
+				oldSettingsFieldsLoaded = false;
+				oldSettingsTokenLoaded = false;
+				oldSettingsSecretLoaded = false;
+				openTokenIDElement.value = '';
+				openSecretElement.value = '';
+				saveSettingsElement.disabled = true;
+
 				Homey.get('openToken', function (err, openToken)
 				{
 					if (err) return Homey.alert(err);
-					openTokenIDElement.value = openToken;
+					openTokenIDElement.value = openToken || '';
+					oldSettingsTokenLoaded = true;
+					if (oldSettingsSecretLoaded)
+					{
+						oldSettingsFieldsLoaded = true;
+						saveSettingsElement.disabled = false;
+					}
 				});
 
 				Homey.get('openSecret', function (err, openSecret)
 				{
 					if (err) return Homey.alert(err);
-					openSecretElement.value = openSecret;
+					openSecretElement.value = openSecret || '';
+					oldSettingsSecretLoaded = true;
+					if (oldSettingsTokenLoaded)
+					{
+						oldSettingsFieldsLoaded = true;
+						saveSettingsElement.disabled = false;
+					}
 				});
 			}
 			else if (tabPage == 'appSettings')

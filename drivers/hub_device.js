@@ -403,7 +403,7 @@ class HubDevice extends OAuth2Device
 
 		// No API key or OAuth client available, so we cannot send the command
 		this.logMissingAuthOnce(dd.id);
-		return false;
+		throw new Error('No API key or OAuth client available. Re-authenticate in app settings to restore control.');
 	}
 
 	// Override this method to get the device values

@@ -1508,5 +1508,18 @@
 		"pl": "Nie ma potrzeby sondowania wartości czujnika kontaktu huba, ponieważ webhook obsłuży aktualizacje.",
 		"ru": "Нет необходимости опрашивать значения датчика контакта хаба, так как веб-хук будет обрабатывать обновления.",
 		"ko": "허브 접촉 센서 값을 폴링할 필요가 없습니다. 웹훅이 업데이트를 처리합니다."
+	},
+	"2.0.95": {
+		"en": "Updated OAuth driver table. Prevent credential save issues.",
+		"no": "Oppdatert OAuth-driver tabell. Forhindre problemer med lagring av legitimasjon.",
+		"nl": "Bijgewerkte OAuth-stuurprogramma tabel. Voorkom problemen met het opslaan van referenties.",
+		"de": "Aktualisierte OAuth-Treibertabelle. Verhindern Sie Probleme beim Speichern von Anmeldeinformationen.",
+		"fr": "Tableau des pilotes OAuth mis à jour. Empêcher les problèmes d'enregistrement des informations d'identification.",
+		"es": "Tabla de controladores OAuth actualizada. Evitar problemas de guardado de credenciales.",
+		"pt": "Tabela de driver OAuth atualizada. Evitar problemas de salvamento de credenciais.",
+		"it": "Tabella dei driver OAuth aggiornata. Prevenire problemi di salvataggio delle credenziali.",
+		"pl": "Zaktualizowano tabelę sterowników OAuth. Zapobiegaj problemom z zapisywaniem poświadczeń.",
+		"ru": "Обновлена таблица драйверов OAuth. Предотвращение проблем с сохранением учетных данных.",
+		"ko": "OAuth 드라이버 테이블이 업데이트되었습니다. 자격 증명 저장 문제 방지."
 	}
 }
