@@ -9,7 +9,7 @@ class LockUltraHubDriver extends LockAdvancedHubDriver
 
 	getSupportedLockTypes()
 	{
-		return ['Smart Lock Pro', 'Smart Lock Ultra'];
+		return ['Smart Lock Pro', 'Smart Lock Ultra', 'Smart Lock Ultra Max'];
 	}
 
 }

@@ -1,6 +1,6 @@
 {
 	"id": "com.switchbot",
-	"version": "2.0.95",
+	"version": "2.0.96",
 	"compatibility": ">=12.2.0",
 	"platforms": [
 		"local",

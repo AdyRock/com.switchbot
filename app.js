@@ -47,6 +47,7 @@ const API_LIST_ONLY_DEVICE_TYPES = new Set([
 	'Hub',
 	'Hub Plus',
 	'Hub Mini',
+	'Hub Mini2',
 	'Pan/Tilt Cam 2K',
 	'Pan/Tilt Cam Plus 2K',
 	'Pan/Tilt Cam Plus 3K',
@@ -77,6 +78,17 @@ const BLE_MODEL_DRIVER_MAP = {
 const BLE_NOT_SUPPORTABLE_DEVICE_TYPES = ['WoRemote'];
 class MyApp extends OAuth2App
 {
+
+	async onShouldDeleteSession({ sessionId, configId = 'default' })
+	{
+		// Settings OAuth sessions provide account-wide cloud access and are not owned by a device.
+		if (typeof sessionId === 'string' && sessionId.startsWith('settings-session-'))
+		{
+			return false;
+		}
+
+		return super.onShouldDeleteSession({ sessionId, configId });
+	}
 
 	toPositiveInteger(value, fallback = 1)
 	{
@@ -2489,13 +2501,14 @@ class MyApp extends OAuth2App
 			if (sessionIds && sessionIds.length > 0)
 			{
 				const firstSessionId = sessionIds[0];
+				const configId = savedSessions[firstSessionId].configId || 'default';
 				if (this.cachedFirstOAuth2Client && this.cachedFirstOAuth2SessionId === firstSessionId)
 				{
 					return this.cachedFirstOAuth2Client;
 				}
 
 				const client = this.getOAuth2Client({
-					configId: 'default',
+					configId,
 					sessionId: firstSessionId,
 				});
 

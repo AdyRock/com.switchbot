@@ -1521,5 +1521,18 @@
 		"pl": "Zaktualizowano tabelę sterowników OAuth. Zapobiegaj problemom z zapisywaniem poświadczeń.",
 		"ru": "Обновлена таблица драйверов OAuth. Предотвращение проблем с сохранением учетных данных.",
 		"ko": "OAuth 드라이버 테이블이 업데이트되었습니다. 자격 증명 저장 문제 방지."
+	},
+	"2.0.96": {
+		"en": "Added support for Smart Lock Ultra Max",
+		"no": "La støtte for Smart Lock Ultra Max er lagt til",
+		"nl": "Ondersteuning voor Smart Lock Ultra Max toegevoegd",
+		"de": "Unterstützung für Smart Lock Ultra Max hinzugefügt",
+		"fr": "Prise en charge de Smart Lock Ultra Max ajoutée",
+		"es": "Se agregó soporte para Smart Lock Ultra Max",
+		"pt": "Adicionado suporte para Smart Lock Ultra Max",
+		"it": "Aggiunto supporto per Smart Lock Ultra Max",
+		"pl": "Dodano obsługę Smart Lock Ultra Max",
+		"ru": "Добавлена поддержка Smart Lock Ultra Max",
+		"ko": "Smart Lock Ultra Max에 대한 지원이 추가되었습니다."
 	}
 }
