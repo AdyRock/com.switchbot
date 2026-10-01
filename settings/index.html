@@ -415,6 +415,16 @@
 			return value === key ? fallback : value;
 		}
 
+		function escapeHtml(value)
+		{
+			return String(value === undefined || value === null ? '' : value)
+				.replace(/&/g, '&amp;')
+				.replace(/</g, '&lt;')
+				.replace(/>/g, '&gt;')
+				.replace(/"/g, '&quot;')
+				.replace(/'/g, '&#39;');
+		}
+
 		function renderDriverSupportError(message)
 		{
 			driverSupportSummaryElement.innerHTML = '';
@@ -1099,7 +1109,7 @@
 				.slice()
 				.sort((left, right) => compareAllBLEDevicesRows(left, right, allBLEDevicesSort.key, allBLEDevicesSort.direction));
 
-			const sanitize = (value) => String(value || '').replace(/[<>]/g, '');
+			const sanitize = (value) => escapeHtml(value);
 			const spaceHex = (hex) => String(hex || '').replace(/(.{2})/g, '$1 ').trim();
 
 			tbody.innerHTML = sortedRows.map((row) => {
@@ -1424,18 +1434,18 @@
 				const lastSeenText = formatElapsedSince(row.lastSeenAt);
 				const rssiText = (typeof row.rssi === 'number' && Number.isFinite(row.rssi)) ? String(Math.round(row.rssi)) : '-';
 				const rssiClass = getRSSIQualityClass(row.rssi);
-				const macText = (row.mac || '').replace(/[<>]/g, '');
+				const macText = escapeHtml(row.mac);
 				const macClass = row.viaBLEHub ? 'ble-hub-source' : '';
 				const macTitle = row.viaBLEHub ? translateSetting('settings.bleHubSourceTitle', 'Relayed via ESP32 BLE Hub') : '';
-				const driverText = (row.driverType || '').replace(/[<>]/g, '');
+				const driverText = escapeHtml(row.driverType);
 				const naText = (value) => (row.viaBLEHub && !Number(value || 0)) ? '-' : String(Number(value || 0));
 				const errorsCount = Number(row.errors || 0);
-				const lastErrorText = row.lastError ? String(row.lastError).replace(/[<>]/g, '').replace(/"/g, '&quot;') : '';
+				const lastErrorText = row.lastError ? escapeHtml(row.lastError) : '';
 				const errorCellClass = errorsCount > 0 ? 'ble-error-count' : '';
 				const errorCellTitle = errorsCount > 0 ? translateSetting('settings.clickToViewError', 'Click to view last error') : '';
 				return `
 					<tr>
-						<td style="padding:6px 8px;">${(row.name || translateSetting('settings.unknown', 'Unknown')).replace(/[<>]/g, '')}</td>
+						<td style="padding:6px 8px;">${escapeHtml(row.name || translateSetting('settings.unknown', 'Unknown'))}</td>
 						<td class="${macClass}" title="${macTitle}" style="padding:6px 8px;">${macText}</td>
 						<td style="padding:6px 8px;">${driverText}</td>
 						<td style="padding:6px 8px; text-align:right;">${naText(row.missing)}</td>
@@ -1485,13 +1495,13 @@
 				.sort((left, right) => compareDetectedBLEDevicesRows(left, right, bleDetectedDevicesSort.key, bleDetectedDevicesSort.direction));
 
 			tbody.innerHTML = sortedRows.map((row) => {
-				const modelName = String(row.modelName || row.model || translateSetting('settings.unknown', 'Unknown')).replace(/[<>]/g, '');
-				const address = String(row.address || '').replace(/[<>]/g, '');
+				const modelName = escapeHtml(row.modelName || row.model || translateSetting('settings.unknown', 'Unknown'));
+				const address = escapeHtml(row.address);
 				const addressClass = row.viaBLEHub ? 'ble-hub-source' : '';
 				const rssiText = (typeof row.rssi === 'number' && Number.isFinite(row.rssi)) ? String(row.rssi) : '-';
 				const rssiClass = getRSSIQualityClass(row.rssi);
 				const driverText = row.matchedDriverName
-					? String(row.matchedDriverName).replace(/[<>]/g, '')
+					? escapeHtml(row.matchedDriverName)
 					: translateSetting('settings.bleDeviceUnsupported', 'Unsupported');
 				const installedText = row.isInstalled
 					? translateSetting('settings.yes', 'Yes')
@@ -1513,7 +1523,7 @@
 			const tbody = bleDetectedTableElement && bleDetectedTableElement.querySelector('tbody');
 			if (tbody)
 			{
-				tbody.innerHTML = `<tr><td colspan="5" style="padding:8px;">${message}</td></tr>`;
+				tbody.innerHTML = `<tr><td colspan="5" style="padding:8px;">${escapeHtml(message)}</td></tr>`;
 			}
 		}
 
