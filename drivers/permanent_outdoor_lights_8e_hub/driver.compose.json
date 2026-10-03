@@ -1,0 +1,23 @@
+{
+	"name": {
+		"en": "Permanent Outdoor Lights 8E (HUB)"
+	},
+	"class": "light",
+	"capabilities": [
+		"onoff",
+		"dim",
+		"light_hue",
+		"light_saturation",
+		"light_temperature",
+		"light_mode"
+	],
+	"energy": {
+		"approximation": {
+			"usageOn": 15,
+			"usageOff": 0.1
+		}
+	},
+	"$extends": [
+		"hubDriver"
+	]
+}

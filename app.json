@@ -10057,6 +10057,62 @@
       }
     },
     {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        }
+      ],
+      "icon": "/drivers/permanent_outdoor_lights_8e_hub/assets/icon.svg",
+      "images": {
+        "large": "/drivers/permanent_outdoor_lights_8e_hub/assets/images/large.jpg",
+        "small": "/drivers/permanent_outdoor_lights_8e_hub/assets/images/small.jpg"
+      },
+      "name": {
+        "en": "Permanent Outdoor Lights 8E (HUB)"
+      },
+      "class": "light",
+      "capabilities": [
+        "onoff",
+        "dim",
+        "light_hue",
+        "light_saturation",
+        "light_temperature",
+        "light_mode"
+      ],
+      "energy": {
+        "approximation": {
+          "usageOn": 15,
+          "usageOff": 0.1
+        }
+      },
+      "id": "permanent_outdoor_lights_8e_hub"
+    },
+    {
       "name": {
         "en": "Plug (BLE)",
         "no": "Plug (BLE)",
