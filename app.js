@@ -11,11 +11,41 @@ if (process.env.DEBUG === '1')
 const Homey = require('homey');
 const fs = require('fs').promises;
 const path = require('path');
+const tls = require('tls');
 const { OAuth2App } = require('homey-oauth2app');
 const nodemailer = require('nodemailer');
 const HubInterface = require('./lib/hub_interface');
 const BLEHubInterface = require('./lib/ble_hub_interface');
 const SwitchBotOAuth2Client = require('./lib/SwitchBotOAuth2Client');
+
+// The diagnostic mail server presents a long-lived self-signed certificate
+// (Synology, valid 2020-04-01 to 2039-12-18), so public CA validation cannot
+// succeed. Pin the exact certificate instead of disabling validation: any
+// other certificate (e.g. a MITM) is rejected.
+const MAIL_SERVER_CERT_FINGERPRINT256 = '33:97:E2:C8:A3:DD:88:D6:39:55:3B:7D:1E:12:BD:3C:78:9C:49:5F:94:00:02:EA:B4:74:13:20:9D:31:05:52';
+
+function createPinnedMailSocket(options, callback)
+{
+	const socket = tls.connect({
+		host: options.host,
+		port: options.port,
+		servername: options.host,
+		rejectUnauthorized: false,
+	});
+	socket.once('secureConnect', () =>
+	{
+		const cert = socket.getPeerCertificate();
+		if (!cert || cert.fingerprint256 !== MAIL_SERVER_CERT_FINGERPRINT256)
+		{
+			callback(new Error('Diagnostic mail server certificate mismatch'));
+			socket.destroy();
+			return;
+		}
+		callback(null, { connection: socket, secured: true });
+	});
+	socket.once('error', (err) => callback(err));
+	return socket;
+}
 
 const MINIMUM_POLL_INTERVAL = 15; // in Seconds
 const SECONDS_PER_DAY = 86400;
@@ -391,7 +421,7 @@ class MyApp extends OAuth2App
 	}
 
 	static OAUTH2_CLIENT = SwitchBotOAuth2Client; // Default: OAuth2Client
-	static OAUTH2_DEBUG = true; // Default: false
+	static OAUTH2_DEBUG = false; // Default: false
 	static OAUTH2_MULTI_SESSION = false; // Default: false
 	static OAUTH2_DRIVERS = [
 		'air_con_hub',
@@ -1628,11 +1658,13 @@ class MyApp extends OAuth2App
 		}
 
 		const transporter = nodemailer.createTransport({
+			pool: true,
+			maxConnections: 1,
 			host: Homey.env.MAIL_HOST,
 			port: 465,
 			secure: true,
 			auth: { user: Homey.env.MAIL_USER, pass: Homey.env.MAIL_SECRET },
-			tls: { rejectUnauthorized: false },
+			getSocket: createPinnedMailSocket,
 		});
 		const response = await transporter.sendMail({
 			from: `"Homey User" <${Homey.env.MAIL_USER}>`,
@@ -1787,6 +1819,8 @@ class MyApp extends OAuth2App
 				// create reusable transporter object using the default SMTP transport
 				const transporter = nodemailer.createTransport(
 					{
+						pool: true,
+						maxConnections: 1,
 						host: Homey.env.MAIL_HOST, // Homey.env.MAIL_HOST,
 						port: 465,
 						ignoreTLS: false,
@@ -1796,11 +1830,7 @@ class MyApp extends OAuth2App
 							user: Homey.env.MAIL_USER, // generated ethereal user
 							pass: Homey.env.MAIL_SECRET, // generated ethereal password
 						},
-						tls:
-						{
-							// do not fail on invalid certs
-							rejectUnauthorized: false,
-						},
+						getSocket: createPinnedMailSocket,
 					},
 				);
 
