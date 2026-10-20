@@ -201,13 +201,32 @@ class HubDevice extends OAuth2Device
 
 	async onInit()
 	{
-		try
+		const { OAuth2SessionId } = this.getStore();
+		const hasLegacyAuth = Boolean(this.homey.app.openToken && this.homey.app.openSecret);
+		if (!OAuth2SessionId && hasLegacyAuth)
 		{
-			await super.onInit();
+			// Paired with a legacy API token/secret, so there is no OAuth2 session to
+			// bind. Run the initialisation that OAuth2Device.onInit would normally call.
+			this.homey.app.updateLog('Device initialised without an OAuth2 session; using legacy API token', 2, 'hub');
+			try
+			{
+				await this.onOAuth2Init();
+			}
+			catch (err)
+			{
+				this.homey.app.updateLog(this.homey.app.varToString(err), 'hub');
+			}
 		}
-		catch (err)
+		else
 		{
-			this.homey.app.updateLog(this.homey.app.varToString(err), 'hub');
+			try
+			{
+				await super.onInit();
+			}
+			catch (err)
+			{
+				this.homey.app.updateLog(this.homey.app.varToString(err), 'hub');
+			}
 		}
 
 		if (this.hasCapability('button.send_log'))

@@ -1534,5 +1534,18 @@
 		"pl": "Dodano obsługę Smart Lock Ultra Max",
 		"ru": "Добавлена поддержка Smart Lock Ultra Max",
 		"ko": "Smart Lock Ultra Max에 대한 지원이 추가되었습니다."
+	},
+	"2.0.97": {
+		"en": "Workaround for the SwitchBot OAuth sign-in outage: devices can now be added using the API token and secret from the app settings. Commands sent via the API token now use the SwitchBot v1.1 API for compatibility with newer devices.",
+		"no": "Omgåelse av SwitchBot OAuth-påloggingsbruddet: enheter kan nå legges til med API-tokenet og hemmeligheten fra appinnstillingene. Kommandoer sendt via API-tokenet bruker nå SwitchBot v1.1 API-et for kompatibilitet med nyere enheter.",
+		"nl": "Tijdelijke oplossing voor de SwitchBot OAuth-aanmeldstoring: apparaten kunnen nu worden toegevoegd met de API-token en het geheim uit de app-instellingen. Commando's die via de API-token worden verzonden, gebruiken nu de SwitchBot v1.1 API voor compatibiliteit met nieuwere apparaten.",
+		"de": "Workaround für den SwitchBot OAuth-Anmeldefehler: Geräte können jetzt mit dem API-Token und dem Geheimnis aus den App-Einstellungen hinzugefügt werden. Über das API-Token gesendete Befehle verwenden jetzt die SwitchBot v1.1 API für Kompatibilität mit neueren Geräten.",
+		"fr": "Solution de contournement pour la panne de connexion OAuth de SwitchBot : les appareils peuvent désormais être ajoutés à l'aide du token API et du secret depuis les paramètres de l'application. Les commandes envoyées via le token API utilisent désormais l'API SwitchBot v1.1 pour la compatibilité avec les appareils plus récents.",
+		"es": "Solución alternativa para la interrupción de inicio de sesión de OAuth de SwitchBot: ahora los dispositivos se pueden añadir usando el token de API y el secreto desde la configuración de la aplicación. Los comandos enviados mediante el token de API ahora usan la API SwitchBot v1.1 para compatibilidad con dispositivos más nuevos.",
+		"pt": "Solução alternativa para a interrupção do login OAuth do SwitchBot: os dispositivos agora podem ser adicionados usando o token de API e o segredo nas configurações do aplicativo. Os comandos enviados pelo token de API agora usam a API SwitchBot v1.1 para compatibilidade com dispositivos mais recentes.",
+		"it": "Soluzione alternativa per l'interruzione dell'accesso OAuth di SwitchBot: ora i dispositivi possono essere aggiunti utilizzando il token API e il segreto dalle impostazioni dell'app. I comandi inviati tramite il token API ora utilizzano l'API SwitchBot v1.1 per la compatibilità con i dispositivi più recenti.",
+		"pl": "Obejście awarii logowania OAuth SwitchBot: urządzenia można teraz dodawać za pomocą tokena API i klucza tajnego z ustawień aplikacji. Polecenia wysyłane za pomocą tokena API korzystają teraz z interfejsu API SwitchBot v1.1 w celu zapewnienia zgodności z nowszymi urządzeniami.",
+		"ru": "Обход сбоя входа OAuth SwitchBot: теперь устройства можно добавлять с помощью API-токена и секрета из настроек приложения. Команды, отправляемые через API-токен, теперь используют API SwitchBot v1.1 для совместимости с новыми устройствами.",
+		"ko": "SwitchBot OAuth 로그인 장애에 대한 해결 방법: 이제 앱 설정에서 API 토큰과 시크릿을 사용하여 기기를 추가할 수 있습니다. API 토큰을 통해 전송되는 명령은 이제 최신 기기와의 호환성을 위해 SwitchBot v1.1 API를 사용합니다."
 	}
 }

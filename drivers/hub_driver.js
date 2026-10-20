@@ -7,6 +7,35 @@ const { OAuth2Driver } = require('homey-oauth2app');
 class HubDriver extends OAuth2Driver
 {
 
+	/**
+	 * onPair is called when the pairing process starts.
+	 * When a legacy API token and secret are configured, skip the OAuth2 login
+	 * view and list the devices using the token instead. This keeps pairing
+	 * working when the SwitchBot OAuth service is unavailable.
+	 */
+	onPair(socket)
+	{
+		const hasLegacyAuth = Boolean(this.homey.app.openToken && this.homey.app.openSecret);
+		if (!hasLegacyAuth)
+		{
+			super.onPair(socket);
+			return;
+		}
+
+		this.homey.app.updateLog('Pairing with legacy API token/secret; skipping OAuth2 login', 2, 'hub');
+
+		socket.setHandler('showView', async (viewId) =>
+		{
+			if (viewId === 'login_oauth2')
+			{
+				// Skip the OAuth2 login view; the legacy token is used instead
+				await socket.emit('authorized');
+			}
+		});
+
+		socket.setHandler('list_devices', async () => this.onPairListDevices({ oAuth2Client: null }));
+	}
+
 	async getHUBDevices(oAuth2Client, type, RemoteList = false, requireHub = false)
 	{
 		let response = null;
@@ -208,6 +237,12 @@ class HubDriver extends OAuth2Driver
 
 	async getScenes(oAuth2Client)
 	{
+		if (!oAuth2Client)
+		{
+			// Legacy token/secret pairing; the hub interface returns pre-mapped scene devices
+			return this.homey.app.hub.getScenes();
+		}
+
 		const response = await oAuth2Client.getScenes();
 		if (response)
 		{
