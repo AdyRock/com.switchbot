@@ -1547,5 +1547,18 @@
 		"pl": "Obejście awarii logowania OAuth SwitchBot: urządzenia można teraz dodawać za pomocą tokena API i klucza tajnego z ustawień aplikacji. Polecenia wysyłane za pomocą tokena API korzystają teraz z interfejsu API SwitchBot v1.1 w celu zapewnienia zgodności z nowszymi urządzeniami.",
 		"ru": "Обход сбоя входа OAuth SwitchBot: теперь устройства можно добавлять с помощью API-токена и секрета из настроек приложения. Команды, отправляемые через API-токен, теперь используют API SwitchBot v1.1 для совместимости с новыми устройствами.",
 		"ko": "SwitchBot OAuth 로그인 장애에 대한 해결 방법: 이제 앱 설정에서 API 토큰과 시크릿을 사용하여 기기를 추가할 수 있습니다. API 토큰을 통해 전송되는 명령은 이제 최신 기기와의 호환성을 위해 SwitchBot v1.1 API를 사용합니다."
+	},
+	"2.0.98": {
+		"en": "Merged PR #251 to fix BLE busy issue after a failure",
+		"no": "Sammenslått PR #251 for å fikse BLE opptatt-problem etter en feil",
+		"nl": "Samengevoegd PR #251 om het BLE-busy probleem na een fout op te lossen",
+		"de": "PR #251 zusammengeführt, um das BLE-busy-Problem nach einem Fehler zu beheben",
+		"fr": "Fusion de la PR #251 pour corriger le problème de BLE occupé après une panne",
+		"es": "Se fusionó la PR #251 para solucionar el problema de BLE ocupado después de una falla",
+		"pt": "Mesclado PR #251 para corrigir o problema de BLE ocupado após uma falha",
+		"it": "Unito PR #251 per risolvere il problema BLE occupato dopo un errore",
+		"pl": "Scalono PR #251 w celu naprawy problemu z zajętym BLE po awarii",
+		"ru": "Объединен PR #251 для исправления проблемы с занятым BLE после сбоя",
+		"ko": "실패 후 BLE 바쁨 문제를 수정하기 위해 PR #251 병합"
 	}
 }
