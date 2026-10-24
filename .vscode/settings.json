@@ -19,6 +19,10 @@
 	"/^Get-ChildItem -Path drivers -Recurse -Filter device\\.js \\| Select-String -Pattern \"async processWebhookMessage\\\\\\(message\\\\\\)\" -Context 0,35 \\| ForEach-Object \\{ \"`n--- \\$\\(\\$_\\.Path\\) ---\"; \\$_\\.Line; \\$_\\.Context\\.PostContext \\}$/": {
 		"approve": true,
 		"matchCommandLine": true
+	},
+	"/^gh api repos/AdyRock/com\\.switchbot/pulls/251/comments --paginate$/": {
+		"approve": true,
+		"matchCommandLine": true
 	}
 }
 }
