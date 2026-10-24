@@ -151,56 +151,59 @@ class BotBLEDevice extends Homey.Device
 		}
 		this.sendingCommand = true;
 
-		if (this.homey.app.BLEHub)
+		try
 		{
-			const dd = this.getData();
-			if (await this.homey.app.BLEHub.sendBLEHubCommand(dd.address, bytes, this.bestHub))
+			if (this.homey.app.BLEHub)
 			{
-				this.sendingCommand = false;
-				return;
-			}
-		}
-
-		let loops = 5;
-		let response = null;
-		while (loops-- > 0)
-		{
-			while (this.homey.app.bleBusy)
-			{
-				await this.homey.app.Delay(200);
-			}
-
-			this.homey.app.bleBusy = true;
-			try
-			{
-				response = await this._operateBotLoop(name, bytes);
-				if (response.status && (response.status === true))
+				const dd = this.getData();
+				if (await this.homey.app.BLEHub.sendBLEHubCommand(dd.address, bytes, this.bestHub))
 				{
-					this.homey.app.bleBusy = false;
-					this.homey.app.updateLog(`Command complete for ${name}`, 'ble');
-					this.sendingCommand = false;
 					return;
 				}
 			}
-			catch (err)
+
+			let loops = 5;
+			let response = null;
+			while (loops-- > 0)
 			{
-				this.homey.app.updateLog(`_operateBot error: ${name} : ${err.message}`, 0, 'ble');
+				while (this.homey.app.bleBusy)
+				{
+					await this.homey.app.Delay(200);
+				}
+
+				this.homey.app.bleBusy = true;
+				try
+				{
+					response = await this._operateBotLoop(name, bytes);
+					if (response && (response.status === true))
+					{
+						this.homey.app.updateLog(`Command complete for ${name}`, 'ble');
+						return;
+					}
+				}
+				catch (err)
+				{
+					response = err;
+					this.homey.app.updateLog(`_operateBot error: ${name} : ${err.message}`, 0, 'ble');
+				}
+				finally
+				{
+					this.homey.app.bleBusy = false;
+				}
+
+				if (loops > 0)
+				{
+					this.homey.app.updateLog(`Retry command for ${name} in 2 seconds`, 'ble');
+					await this.homey.app.Delay(2000);
+				}
 			}
 
-			this.homey.app.bleBusy = false;
-
-			if (loops > 0)
-			{
-				this.homey.app.updateLog(`Retry command for ${name} in 2 seconds`, 'ble');
-				await this.homey.app.Delay(2000);
-			}
-		}
-
-		if (response instanceof Error)
-		{
 			this.homey.app.updateLog(`!!!!!!! Command for ${name} failed\r\n`, 0, 'ble');
+			throw response instanceof Error ? response : new Error(`Command for ${name} failed without acknowledgement`);
+		}
+		finally
+		{
 			this.sendingCommand = false;
-			throw response;
 		}
 	}
 
