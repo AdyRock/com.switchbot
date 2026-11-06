@@ -1,0 +1,41 @@
+{
+  "title": {
+    "en": "Show a random web image",
+    "no": "Vis et tilfeldig nettbilde",
+    "nl": "Toon een willekeurige webafbeelding",
+    "da": "Vis et tilfældigt webbillede",
+    "de": "Zufälliges Webbild anzeigen",
+    "es": "Mostrar una imagen web aleatoria",
+    "fr": "Afficher une image web aléatoire",
+    "it": "Mostra un'immagine web casuale",
+    "sv": "Visa en slumpmässig webbild",
+    "pl": "Pokaż losowy obraz z sieci",
+    "ru": "Показать случайное веб-изображение",
+    "ko": "무작위 웹 이미지 표시"
+  },
+  "hint": {
+    "en": "Show a random image from the URL list defined in the app settings",
+    "no": "Vis et tilfeldig bilde fra URL-listen definert i appinnstillingene",
+    "nl": "Toon een willekeurige afbeelding uit de URL-lijst in de app-instellingen",
+    "da": "Vis et tilfældigt billede fra URL-listen i app-indstillingerne",
+    "de": "Zeige ein zufälliges Bild aus der in den App-Einstellungen definierten URL-Liste",
+    "es": "Mostrar una imagen aleatoria de la lista de URL definida en los ajustes de la aplicación",
+    "fr": "Afficher une image aléatoire de la liste d'URL définie dans les paramètres de l'application",
+    "it": "Mostra un'immagine casuale dall'elenco di URL definito nelle impostazioni dell'app",
+    "sv": "Visa en slumpmässig bild från URL-listan som definierats i appinställningarna",
+    "pl": "Pokaż losowy obraz z listy adresów URL zdefiniowanej w ustawieniach aplikacji",
+    "ru": "Показать случайное изображение из списка URL, заданного в настройках приложения",
+    "ko": "앱 설정에 정의된 URL 목록에서 무작위 이미지를 표시합니다"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=art_frame_hub"
+    }
+  ],
+  "platforms": [
+    "local",
+    "cloud"
+  ]
+}

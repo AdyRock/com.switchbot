@@ -1,0 +1,89 @@
+{
+  "title": {
+    "en": "Show a web image from the list",
+    "no": "Vis et nettbilde fra listen",
+    "nl": "Toon een webafbeelding uit de lijst",
+    "da": "Vis et webbillede fra listen",
+    "de": "Webbild aus der Liste anzeigen",
+    "es": "Mostrar una imagen web de la lista",
+    "fr": "Afficher une image web de la liste",
+    "it": "Mostra un'immagine web dall'elenco",
+    "sv": "Visa en webbild från listan",
+    "pl": "Pokaż obraz z sieci z listy",
+    "ru": "Показать веб-изображение из списка",
+    "ko": "목록에서 웹 이미지 표시"
+  },
+  "titleFormatted": {
+    "en": "Show web image number [[image_number]] from the list",
+    "no": "Vis nettbilde nummer [[image_number]] fra listen",
+    "nl": "Toon webafbeelding nummer [[image_number]] uit de lijst",
+    "da": "Vis webbillede nummer [[image_number]] fra listen",
+    "de": "Webbild Nummer [[image_number]] aus der Liste anzeigen",
+    "es": "Mostrar la imagen web número [[image_number]] de la lista",
+    "fr": "Afficher l'image web numéro [[image_number]] de la liste",
+    "it": "Mostra l'immagine web numero [[image_number]] dall'elenco",
+    "sv": "Visa webbild nummer [[image_number]] från listan",
+    "pl": "Pokaż obraz z sieci numer [[image_number]] z listy",
+    "ru": "Показать веб-изображение номер [[image_number]] из списка",
+    "ko": "목록에서 [[image_number]]번 웹 이미지 표시"
+  },
+  "hint": {
+    "en": "Show the image at the given position in the URL list defined in the app settings",
+    "no": "Vis bildet på den angitte posisjonen i URL-listen definert i appinnstillingene",
+    "nl": "Toon de afbeelding op de opgegeven positie in de URL-lijst in de app-instellingen",
+    "da": "Vis billedet på den angivne position i URL-listen i app-indstillingerne",
+    "de": "Zeige das Bild an der angegebenen Position in der in den App-Einstellungen definierten URL-Liste",
+    "es": "Mostrar la imagen en la posición indicada de la lista de URL definida en los ajustes de la aplicación",
+    "fr": "Afficher l'image à la position donnée dans la liste d'URL définie dans les paramètres de l'application",
+    "it": "Mostra l'immagine nella posizione indicata dell'elenco di URL definito nelle impostazioni dell'app",
+    "sv": "Visa bilden på den angivna positionen i URL-listan som definierats i appinställningarna",
+    "pl": "Pokaż obraz na podanej pozycji listy adresów URL zdefiniowanej w ustawieniach aplikacji",
+    "ru": "Показать изображение в заданной позиции списка URL, заданного в настройках приложения",
+    "ko": "앱 설정에 정의된 URL 목록에서 지정한 위치의 이미지를 표시합니다"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=art_frame_hub"
+    },
+    {
+      "type": "number",
+      "name": "image_number",
+      "min": 1,
+      "step": 1,
+      "title": {
+        "en": "Image number",
+        "no": "Bildenummer",
+        "nl": "Afbeeldingsnummer",
+        "da": "Billednummer",
+        "de": "Bildnummer",
+        "es": "Número de imagen",
+        "fr": "Numéro d'image",
+        "it": "Numero immagine",
+        "sv": "Bildnummer",
+        "pl": "Numer obrazu",
+        "ru": "Номер изображения",
+        "ko": "이미지 번호"
+      },
+      "placeholder": {
+        "en": "Image number",
+        "no": "Bildenummer",
+        "nl": "Afbeeldingsnummer",
+        "da": "Billednummer",
+        "de": "Bildnummer",
+        "es": "Número de imagen",
+        "fr": "Numéro d'image",
+        "it": "Numero immagine",
+        "sv": "Bildnummer",
+        "pl": "Numer obrazu",
+        "ru": "Номер изображения",
+        "ko": "이미지 번호"
+      }
+    }
+  ],
+  "platforms": [
+    "local",
+    "cloud"
+  ]
+}

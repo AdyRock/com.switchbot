@@ -29,6 +29,7 @@
 	<!-- Tab links -->
 	<div class="tab">
 		<button class="tablinks" onclick="setPage(event, 'appSettings')" id="appSettingsTab" data-mode="hub" data-i18n="settings.tabAppSettings" title="settings.tabAppSettings"></button>
+		<button class="tablinks" onclick="setPage(event, 'artFrameImages')" id="artFrameImagesTab" data-mode="hub" data-i18n="settings.tabArtFrameImages" title="settings.tabArtFrameImages"></button>
 		<button class="tablinks" onclick="setPage(event, 'statistics')" id="statisticsTab" data-mode="ble" data-i18n="settings.tabStatistics" title="settings.tabStatistics"></button>
 		<button class="tablinks" onclick="setPage(event, 'detected')" id="defaultOpen" data-mode="hub" data-i18n="settings.tabDetected" title="settings.tabDetected"></button>
 		<button class="tablinks" onclick="setPage(event, 'bleDevices')" id="bleDevicesTab" data-mode="ble" data-i18n="settings.tabBLEDevices" title="settings.tabBLEDevices"></button>
@@ -59,6 +60,21 @@
 			<p></p>
 			<p>
 				<button id="saveAppSettings" class="homey-button-small" data-i18n="settings.save" title="settings.save"></button>
+			</p>
+		</fieldset>
+	</div>
+
+	<!-- ART FRAME IMAGES PAGE -->
+	<div id="artFrameImages" class="tabcontent">
+		<fieldset>
+			<p data-i18n="settings.artFrameImagesDescription"></p>
+			<div class="field row">
+				<label class="homey-form-label" for="artFrameImageUrls"><span data-i18n="settings.artFrameImageUrls"></span></label>
+				<textarea class="homey-form-input" id="artFrameImageUrls" rows="15" wrap="off" spellcheck="false" title="settings.artFrameImageUrls" aria-label="settings.artFrameImageUrls" placeholder="https://example.com/image1.jpg&#10;https://example.com/image2.jpg" style="width: 100%; box-sizing: border-box;"></textarea>
+			</div>
+			<p></p>
+			<p>
+				<button id="saveArtFrameImageUrls" class="homey-button-small" data-i18n="settings.save" title="settings.save"></button>
 			</p>
 		</fieldset>
 	</div>
@@ -762,6 +778,11 @@
 		// App settings tab
 		var numConnectionsElement = document.getElementById('numConnections');
 		var saveAppSettingsElement = document.getElementById('saveAppSettings');
+
+		// Art frame images tab
+		var artFrameImageUrlsElement = document.getElementById('artFrameImageUrls');
+		var saveArtFrameImageUrlsElement = document.getElementById('saveArtFrameImageUrls');
+
 		var bleStatisticsTableElement = document.getElementById('bleStatisticsTable');
 		var clearBLEStatisticsElement = document.getElementById('clearBLEStatistics');
 		var copyBLEStatisticsElement = document.getElementById('copyBLEStatistics');
@@ -2369,6 +2390,22 @@
 					}
 				});
 			});
+
+			saveArtFrameImageUrlsElement.addEventListener('click', function (e)
+			{
+				var urls = artFrameImageUrlsElement.value
+					.split('\n')
+					.map(function (url) { return url.trim(); })
+					.filter(function (url) { return url !== ''; });
+
+				Homey.set('artFrameImageUrls', urls, function (err)
+				{
+					if (err)
+					{
+						return Homey.alert(err);
+					}
+				});
+			});
 		}
 
 		function setPage(evt, tabPage)
@@ -2469,6 +2506,24 @@
 					if (err) return Homey.alert(err);
 					numConnectionsElement.value = numConnections;
 				});
+			}
+			else if (tabPage == 'artFrameImages')
+			{
+				Homey.get('artFrameImageUrls', function (err, urls)
+				{
+					if (err) return Homey.alert(err);
+					if (Array.isArray(urls))
+					{
+						artFrameImageUrlsElement.value = urls.join('\n');
+					}
+					else
+					{
+						artFrameImageUrlsElement.value = urls || '';
+					}
+				});
+
+				// Make the URL list text area fill the page
+				artFrameImageUrlsElement.style.height = (window.innerHeight - artFrameImageUrlsElement.offsetTop - 100) + 'px';
 			}
 			else if (tabPage == 'statistics')
 			{

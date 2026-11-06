@@ -1,8 +1,13 @@
 {
+	"noImageUrls": "앱 설정의 예술 프레임 이미지 목록에 이미지 URL이 추가되지 않았습니다",
+	"noImageUrl": "이미지 URL이 제공되지 않았습니다",
 	"settings": {
 		"modeHub": "HUB(클라우드)",
 		"modeBLE": "BLE",
 		"tabAppSettings": "설정",
+		"tabArtFrameImages": "예술 프레임 이미지",
+		"artFrameImagesDescription": "예술 프레임 장치용 이미지 URL을 한 줄에 하나씩 추가하세요. SwitchBot 클라우드가 이미지를 가져올 수 있도록 URL은 인터넷에서 접근 가능해야 합니다. 장치 버튼이나 Flow 카드를 사용하여 프레임에 이미지를 표시하세요.",
+		"artFrameImageUrls": "이미지 URL (한 줄에 하나)",
 		"tabDetected": "기기",
 		"tabLog": "로그",
 		"tabGetStatus": "상태",

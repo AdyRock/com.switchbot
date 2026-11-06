@@ -1,0 +1,21 @@
+{
+  "type": "boolean",
+  "getable": false,
+  "setable": true,
+  "uiComponent": "button",
+  "title": {
+    "en": "Previous Web Image",
+    "no": "Forrige nettbilde",
+    "nl": "Vorige webafbeelding",
+    "da": "Forrige webbillede",
+    "de": "Vorheriges Webbild",
+    "es": "Imagen web anterior",
+    "fr": "Image web précédente",
+    "it": "Immagine web precedente",
+    "sv": "Föregående webbild",
+    "pl": "Poprzedni obraz z sieci",
+    "ru": "Предыдущее веб-изображение",
+    "ko": "이전 웹 이미지"
+  },
+  "icon": "/assets/prev.svg"
+}

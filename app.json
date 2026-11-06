@@ -2845,6 +2845,299 @@
     "actions": [
       {
         "title": {
+          "en": "Show the next web image",
+          "no": "Vis neste nettbilde",
+          "nl": "Toon de volgende webafbeelding",
+          "da": "Vis næste webbillede",
+          "de": "Nächstes Webbild anzeigen",
+          "es": "Mostrar la siguiente imagen web",
+          "fr": "Afficher l'image web suivante",
+          "it": "Mostra l'immagine web successiva",
+          "sv": "Visa nästa webbild",
+          "pl": "Pokaż następny obraz z sieci",
+          "ru": "Показать следующее веб-изображение",
+          "ko": "다음 웹 이미지 표시"
+        },
+        "hint": {
+          "en": "Show the next image from the URL list defined in the app settings",
+          "no": "Vis neste bilde fra URL-listen definert i appinnstillingene",
+          "nl": "Toon de volgende afbeelding uit de URL-lijst in de app-instellingen",
+          "da": "Vis det næste billede fra URL-listen i app-indstillingerne",
+          "de": "Zeige das nächste Bild aus der in den App-Einstellungen definierten URL-Liste",
+          "es": "Mostrar la siguiente imagen de la lista de URL definida en los ajustes de la aplicación",
+          "fr": "Afficher l'image suivante de la liste d'URL définie dans les paramètres de l'application",
+          "it": "Mostra l'immagine successiva dall'elenco di URL definito nelle impostazioni dell'app",
+          "sv": "Visa nästa bild från URL-listan som definierats i appinställningarna",
+          "pl": "Pokaż następny obraz z listy adresów URL zdefiniowanej w ustawieniach aplikacji",
+          "ru": "Показать следующее изображение из списка URL, заданного в настройках приложения",
+          "ko": "앱 설정에 정의된 URL 목록에서 다음 이미지를 표시합니다"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=art_frame_hub"
+          }
+        ],
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "id": "art_frame_next_url_image"
+      },
+      {
+        "title": {
+          "en": "Show the previous web image",
+          "no": "Vis forrige nettbilde",
+          "nl": "Toon de vorige webafbeelding",
+          "da": "Vis forrige webbillede",
+          "de": "Vorheriges Webbild anzeigen",
+          "es": "Mostrar la imagen web anterior",
+          "fr": "Afficher l'image web précédente",
+          "it": "Mostra l'immagine web precedente",
+          "sv": "Visa föregående webbild",
+          "pl": "Pokaż poprzedni obraz z sieci",
+          "ru": "Показать предыдущее веб-изображение",
+          "ko": "이전 웹 이미지 표시"
+        },
+        "hint": {
+          "en": "Show the previous image from the URL list defined in the app settings",
+          "no": "Vis forrige bilde fra URL-listen definert i appinnstillingene",
+          "nl": "Toon de vorige afbeelding uit de URL-lijst in de app-instellingen",
+          "da": "Vis det forrige billede fra URL-listen i app-indstillingerne",
+          "de": "Zeige das vorherige Bild aus der in den App-Einstellungen definierten URL-Liste",
+          "es": "Mostrar la imagen anterior de la lista de URL definida en los ajustes de la aplicación",
+          "fr": "Afficher l'image précédente de la liste d'URL définie dans les paramètres de l'application",
+          "it": "Mostra l'immagine precedente dall'elenco di URL definito nelle impostazioni dell'app",
+          "sv": "Visa föregående bild från URL-listan som definierats i appinställningarna",
+          "pl": "Pokaż poprzedni obraz z listy adresów URL zdefiniowanej w ustawieniach aplikacji",
+          "ru": "Показать предыдущее изображение из списка URL, заданного в настройках приложения",
+          "ko": "앱 설정에 정의된 URL 목록에서 이전 이미지를 표시합니다"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=art_frame_hub"
+          }
+        ],
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "id": "art_frame_prev_url_image"
+      },
+      {
+        "title": {
+          "en": "Show a random web image",
+          "no": "Vis et tilfeldig nettbilde",
+          "nl": "Toon een willekeurige webafbeelding",
+          "da": "Vis et tilfældigt webbillede",
+          "de": "Zufälliges Webbild anzeigen",
+          "es": "Mostrar una imagen web aleatoria",
+          "fr": "Afficher une image web aléatoire",
+          "it": "Mostra un'immagine web casuale",
+          "sv": "Visa en slumpmässig webbild",
+          "pl": "Pokaż losowy obraz z sieci",
+          "ru": "Показать случайное веб-изображение",
+          "ko": "무작위 웹 이미지 표시"
+        },
+        "hint": {
+          "en": "Show a random image from the URL list defined in the app settings",
+          "no": "Vis et tilfeldig bilde fra URL-listen definert i appinnstillingene",
+          "nl": "Toon een willekeurige afbeelding uit de URL-lijst in de app-instellingen",
+          "da": "Vis et tilfældigt billede fra URL-listen i app-indstillingerne",
+          "de": "Zeige ein zufälliges Bild aus der in den App-Einstellungen definierten URL-Liste",
+          "es": "Mostrar una imagen aleatoria de la lista de URL definida en los ajustes de la aplicación",
+          "fr": "Afficher une image aléatoire de la liste d'URL définie dans les paramètres de l'application",
+          "it": "Mostra un'immagine casuale dall'elenco di URL definito nelle impostazioni dell'app",
+          "sv": "Visa en slumpmässig bild från URL-listan som definierats i appinställningarna",
+          "pl": "Pokaż losowy obraz z listy adresów URL zdefiniowanej w ustawieniach aplikacji",
+          "ru": "Показать случайное изображение из списка URL, заданного в настройках приложения",
+          "ko": "앱 설정에 정의된 URL 목록에서 무작위 이미지를 표시합니다"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=art_frame_hub"
+          }
+        ],
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "id": "art_frame_random_url_image"
+      },
+      {
+        "title": {
+          "en": "Show an image from a URL",
+          "no": "Vis et bilde fra en URL",
+          "nl": "Toon een afbeelding van een URL",
+          "da": "Vis et billede fra en URL",
+          "de": "Bild von einer URL anzeigen",
+          "es": "Mostrar una imagen desde una URL",
+          "fr": "Afficher une image depuis une URL",
+          "it": "Mostra un'immagine da un URL",
+          "sv": "Visa en bild från en URL",
+          "pl": "Pokaż obraz z adresu URL",
+          "ru": "Показать изображение по URL",
+          "ko": "URL에서 이미지 표시"
+        },
+        "titleFormatted": {
+          "en": "Show the image from [[url]]",
+          "no": "Vis bildet fra [[url]]",
+          "nl": "Toon de afbeelding van [[url]]",
+          "da": "Vis billedet fra [[url]]",
+          "de": "Zeige das Bild von [[url]]",
+          "es": "Mostrar la imagen desde [[url]]",
+          "fr": "Afficher l'image depuis [[url]]",
+          "it": "Mostra l'immagine da [[url]]",
+          "sv": "Visa bilden från [[url]]",
+          "pl": "Pokaż obraz z [[url]]",
+          "ru": "Показать изображение с [[url]]",
+          "ko": "[[url]]의 이미지 표시"
+        },
+        "hint": {
+          "en": "Send an image URL to the frame. The URL must be reachable from the internet so the SwitchBot cloud can fetch the image",
+          "no": "Send en bilde-URL til rammen. URL-en må være tilgjengelig fra internett slik at SwitchBot-skyen kan hente bildet",
+          "nl": "Stuur een afbeeldings-URL naar het frame. De URL moet bereikbaar zijn vanaf internet zodat de SwitchBot-cloud de afbeelding kan ophalen",
+          "da": "Send en billed-URL til rammen. URL'en skal kunne nås fra internettet, så SwitchBot-skyen kan hente billedet",
+          "de": "Sende eine Bild-URL an den Rahmen. Die URL muss aus dem Internet erreichbar sein, damit die SwitchBot-Cloud das Bild abrufen kann",
+          "es": "Enviar una URL de imagen al marco. La URL debe ser accesible desde internet para que la nube de SwitchBot pueda obtener la imagen",
+          "fr": "Envoyer une URL d'image au cadre. L'URL doit être accessible depuis internet pour que le cloud SwitchBot puisse récupérer l'image",
+          "it": "Invia un URL di immagine alla cornice. L'URL deve essere raggiungibile da internet affinché il cloud SwitchBot possa recuperare l'immagine",
+          "sv": "Skicka en bild-URL till ramen. URL:en måste kunna nås från internet så att SwitchBot-molnet kan hämta bilden",
+          "pl": "Wyślij adres URL obrazu do ramki. Adres URL musi być dostępny z internetu, aby chmura SwitchBot mogła pobrać obraz",
+          "ru": "Отправить URL изображения на рамку. URL должен быть доступен из интернета, чтобы облако SwitchBot могло получить изображение",
+          "ko": "프레임에 이미지 URL을 보냅니다. SwitchBot 클라우드가 이미지를 가져올 수 있도록 URL은 인터넷에서 접근 가능해야 합니다"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=art_frame_hub"
+          },
+          {
+            "type": "text",
+            "name": "url",
+            "title": {
+              "en": "Image URL",
+              "no": "Bilde-URL",
+              "nl": "Afbeeldings-URL",
+              "da": "Billed-URL",
+              "de": "Bild-URL",
+              "es": "URL de la imagen",
+              "fr": "URL de l'image",
+              "it": "URL dell'immagine",
+              "sv": "Bild-URL",
+              "pl": "Adres URL obrazu",
+              "ru": "URL изображения",
+              "ko": "이미지 URL"
+            },
+            "placeholder": {
+              "en": "https://example.com/image.jpg"
+            }
+          }
+        ],
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "id": "art_frame_send_image_url"
+      },
+      {
+        "title": {
+          "en": "Show a web image from the list",
+          "no": "Vis et nettbilde fra listen",
+          "nl": "Toon een webafbeelding uit de lijst",
+          "da": "Vis et webbillede fra listen",
+          "de": "Webbild aus der Liste anzeigen",
+          "es": "Mostrar una imagen web de la lista",
+          "fr": "Afficher une image web de la liste",
+          "it": "Mostra un'immagine web dall'elenco",
+          "sv": "Visa en webbild från listan",
+          "pl": "Pokaż obraz z sieci z listy",
+          "ru": "Показать веб-изображение из списка",
+          "ko": "목록에서 웹 이미지 표시"
+        },
+        "titleFormatted": {
+          "en": "Show web image number [[image_number]] from the list",
+          "no": "Vis nettbilde nummer [[image_number]] fra listen",
+          "nl": "Toon webafbeelding nummer [[image_number]] uit de lijst",
+          "da": "Vis webbillede nummer [[image_number]] fra listen",
+          "de": "Webbild Nummer [[image_number]] aus der Liste anzeigen",
+          "es": "Mostrar la imagen web número [[image_number]] de la lista",
+          "fr": "Afficher l'image web numéro [[image_number]] de la liste",
+          "it": "Mostra l'immagine web numero [[image_number]] dall'elenco",
+          "sv": "Visa webbild nummer [[image_number]] från listan",
+          "pl": "Pokaż obraz z sieci numer [[image_number]] z listy",
+          "ru": "Показать веб-изображение номер [[image_number]] из списка",
+          "ko": "목록에서 [[image_number]]번 웹 이미지 표시"
+        },
+        "hint": {
+          "en": "Show the image at the given position in the URL list defined in the app settings",
+          "no": "Vis bildet på den angitte posisjonen i URL-listen definert i appinnstillingene",
+          "nl": "Toon de afbeelding op de opgegeven positie in de URL-lijst in de app-instellingen",
+          "da": "Vis billedet på den angivne position i URL-listen i app-indstillingerne",
+          "de": "Zeige das Bild an der angegebenen Position in der in den App-Einstellungen definierten URL-Liste",
+          "es": "Mostrar la imagen en la posición indicada de la lista de URL definida en los ajustes de la aplicación",
+          "fr": "Afficher l'image à la position donnée dans la liste d'URL définie dans les paramètres de l'application",
+          "it": "Mostra l'immagine nella posizione indicata dell'elenco di URL definito nelle impostazioni dell'app",
+          "sv": "Visa bilden på den angivna positionen i URL-listan som definierats i appinställningarna",
+          "pl": "Pokaż obraz na podanej pozycji listy adresów URL zdefiniowanej w ustawieniach aplikacji",
+          "ru": "Показать изображение в заданной позиции списка URL, заданного в настройках приложения",
+          "ko": "앱 설정에 정의된 URL 목록에서 지정한 위치의 이미지를 표시합니다"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=art_frame_hub"
+          },
+          {
+            "type": "number",
+            "name": "image_number",
+            "min": 1,
+            "step": 1,
+            "title": {
+              "en": "Image number",
+              "no": "Bildenummer",
+              "nl": "Afbeeldingsnummer",
+              "da": "Billednummer",
+              "de": "Bildnummer",
+              "es": "Número de imagen",
+              "fr": "Numéro d'image",
+              "it": "Numero immagine",
+              "sv": "Bildnummer",
+              "pl": "Numer obrazu",
+              "ru": "Номер изображения",
+              "ko": "이미지 번호"
+            },
+            "placeholder": {
+              "en": "Image number",
+              "no": "Bildenummer",
+              "nl": "Afbeeldingsnummer",
+              "da": "Billednummer",
+              "de": "Bildnummer",
+              "es": "Número de imagen",
+              "fr": "Numéro d'image",
+              "it": "Numero immagine",
+              "sv": "Bildnummer",
+              "pl": "Numer obrazu",
+              "ru": "Номер изображения",
+              "ko": "이미지 번호"
+            }
+          }
+        ],
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "id": "art_frame_show_url_image"
+      },
+      {
+        "title": {
           "en": "Decrease the brightness",
           "no": "Senk lysstyrken",
           "nl": "Verlaag de helderheid",
@@ -6762,6 +7055,10 @@
       "capabilities": [
         "speaker_next",
         "speaker_prev",
+        "url_image_index",
+        "url_image_next",
+        "url_image_prev",
+        "url_image_random",
         "measure_battery"
       ],
       "energy": {
@@ -15229,6 +15526,94 @@
         "ko": "잠금 해제"
       },
       "icon": "/assets/unlocked.svg"
+    },
+    "url_image_index": {
+      "type": "number",
+      "getable": true,
+      "setable": true,
+      "uiComponent": "slider",
+      "min": 1,
+      "max": 1,
+      "step": 1,
+      "decimals": 0,
+      "title": {
+        "en": "Web Image Number",
+        "no": "Nettbilde nummer",
+        "nl": "Webafbeelding nummer",
+        "da": "Webbillede nummer",
+        "de": "Webbild-Nummer",
+        "es": "Número de imagen web",
+        "fr": "Numéro d'image web",
+        "it": "Numero immagine web",
+        "sv": "Webbild nummer",
+        "pl": "Numer obrazu z sieci",
+        "ru": "Номер веб-изображения",
+        "ko": "웹 이미지 번호"
+      },
+      "icon": "/assets/web_image.svg"
+    },
+    "url_image_next": {
+      "type": "boolean",
+      "getable": false,
+      "setable": true,
+      "uiComponent": "button",
+      "title": {
+        "en": "Next Web Image",
+        "no": "Neste nettbilde",
+        "nl": "Volgende webafbeelding",
+        "da": "Næste webbillede",
+        "de": "Nächstes Webbild",
+        "es": "Siguiente imagen web",
+        "fr": "Image web suivante",
+        "it": "Immagine web successiva",
+        "sv": "Nästa webbild",
+        "pl": "Następny obraz z sieci",
+        "ru": "Следующее веб-изображение",
+        "ko": "다음 웹 이미지"
+      },
+      "icon": "/assets/next.svg"
+    },
+    "url_image_prev": {
+      "type": "boolean",
+      "getable": false,
+      "setable": true,
+      "uiComponent": "button",
+      "title": {
+        "en": "Previous Web Image",
+        "no": "Forrige nettbilde",
+        "nl": "Vorige webafbeelding",
+        "da": "Forrige webbillede",
+        "de": "Vorheriges Webbild",
+        "es": "Imagen web anterior",
+        "fr": "Image web précédente",
+        "it": "Immagine web precedente",
+        "sv": "Föregående webbild",
+        "pl": "Poprzedni obraz z sieci",
+        "ru": "Предыдущее веб-изображение",
+        "ko": "이전 웹 이미지"
+      },
+      "icon": "/assets/prev.svg"
+    },
+    "url_image_random": {
+      "type": "boolean",
+      "getable": false,
+      "setable": true,
+      "uiComponent": "button",
+      "title": {
+        "en": "Random Web Image",
+        "no": "Tilfeldig nettbilde",
+        "nl": "Willekeurige webafbeelding",
+        "da": "Tilfældigt webbillede",
+        "de": "Zufälliges Webbild",
+        "es": "Imagen web aleatoria",
+        "fr": "Image web aléatoire",
+        "it": "Immagine web casuale",
+        "sv": "Slumpmässig webbild",
+        "pl": "Losowy obraz z sieci",
+        "ru": "Случайное веб-изображение",
+        "ko": "무작위 웹 이미지"
+      },
+      "icon": "/assets/random.svg"
     },
     "vaccum_clean_mode": {
       "type": "enum",

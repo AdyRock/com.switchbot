@@ -1,9 +1,14 @@
 {
+	"noImageUrls": "Er zijn geen afbeeldings-URL's toegevoegd aan de kunstframe-afbeeldingenlijst in de app-instellingen",
+	"noImageUrl": "Geen afbeeldings-URL opgegeven",
 	"settings": {
 		"pageTitle": "SwitchBot-instellingen",
 		"modeHub": "HUB (cloud)",
 		"modeBLE": "BLE",
 		"tabAppSettings": "Instellingen",
+		"tabArtFrameImages": "Kunstframe afbeeldingen",
+		"artFrameImagesDescription": "Voeg afbeeldings-URL's toe voor de kunstframe-apparaten, één per regel. De URL's moeten bereikbaar zijn vanaf internet zodat de SwitchBot-cloud de afbeeldingen kan ophalen. Gebruik de apparaatknoppen of Flow-kaarten om de afbeeldingen op een frame te tonen.",
+		"artFrameImageUrls": "Afbeeldings-URL's (één per regel)",
 		"tabStatistics": "Statistieken",
 		"tabDetected": "Apparaten",
 		"tabLog": "Log",

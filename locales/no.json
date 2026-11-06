@@ -1,10 +1,15 @@
 {
+    "noImageUrls": "Ingen bilde-URL-er er lagt til i kunstramme-bildelisten i appinnstillingene",
+    "noImageUrl": "Ingen bilde-URL angitt",
     "settings":
     {
         "pageTitle": "SwitchBot-innstillinger",
         "modeHub": "HUB (sky)",
         "modeBLE": "BLE",
         "tabAppSettings": "Innstillinger",
+        "tabArtFrameImages": "Kunstramme-bilder",
+        "artFrameImagesDescription": "Legg til bilde-URL-er for kunstramme-enhetene, én per linje. URL-ene må være tilgjengelige fra internett slik at SwitchBot-skyen kan hente bildene. Bruk enhetsknappene eller Flow-kort for å vise bildene på en ramme.",
+        "artFrameImageUrls": "Bilde-URL-er (én per linje)",
         "tabStatistics": "Statistikk",
         "tabDetected": "Enheter",
         "tabLog": "Logg",

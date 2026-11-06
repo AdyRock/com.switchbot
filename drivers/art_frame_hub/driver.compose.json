@@ -18,6 +18,10 @@
   "capabilities": [
     "speaker_next",
 	"speaker_prev",
+	"url_image_index",
+	"url_image_next",
+	"url_image_prev",
+	"url_image_random",
 	"measure_battery"
   ],
   "energy": {

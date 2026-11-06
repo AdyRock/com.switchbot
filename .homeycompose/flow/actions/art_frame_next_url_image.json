@@ -1,0 +1,41 @@
+{
+  "title": {
+    "en": "Show the next web image",
+    "no": "Vis neste nettbilde",
+    "nl": "Toon de volgende webafbeelding",
+    "da": "Vis næste webbillede",
+    "de": "Nächstes Webbild anzeigen",
+    "es": "Mostrar la siguiente imagen web",
+    "fr": "Afficher l'image web suivante",
+    "it": "Mostra l'immagine web successiva",
+    "sv": "Visa nästa webbild",
+    "pl": "Pokaż następny obraz z sieci",
+    "ru": "Показать следующее веб-изображение",
+    "ko": "다음 웹 이미지 표시"
+  },
+  "hint": {
+    "en": "Show the next image from the URL list defined in the app settings",
+    "no": "Vis neste bilde fra URL-listen definert i appinnstillingene",
+    "nl": "Toon de volgende afbeelding uit de URL-lijst in de app-instellingen",
+    "da": "Vis det næste billede fra URL-listen i app-indstillingerne",
+    "de": "Zeige das nächste Bild aus der in den App-Einstellungen definierten URL-Liste",
+    "es": "Mostrar la siguiente imagen de la lista de URL definida en los ajustes de la aplicación",
+    "fr": "Afficher l'image suivante de la liste d'URL définie dans les paramètres de l'application",
+    "it": "Mostra l'immagine successiva dall'elenco di URL definito nelle impostazioni dell'app",
+    "sv": "Visa nästa bild från URL-listan som definierats i appinställningarna",
+    "pl": "Pokaż następny obraz z listy adresów URL zdefiniowanej w ustawieniach aplikacji",
+    "ru": "Показать следующее изображение из списка URL, заданного в настройках приложения",
+    "ko": "앱 설정에 정의된 URL 목록에서 다음 이미지를 표시합니다"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=art_frame_hub"
+    }
+  ],
+  "platforms": [
+    "local",
+    "cloud"
+  ]
+}

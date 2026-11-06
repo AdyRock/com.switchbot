@@ -1,8 +1,13 @@
 {
+	"noImageUrls": "No se han añadido URL de imágenes a la lista de imágenes del marco de arte en los ajustes de la aplicación",
+	"noImageUrl": "No se proporcionó ninguna URL de imagen",
 	"settings": {
 		"modeHub": "HUB (nube)",
 		"modeBLE": "BLE",
 		"tabAppSettings": "Configuración",
+		"tabArtFrameImages": "Imágenes del marco de arte",
+		"artFrameImagesDescription": "Añade URL de imágenes para los dispositivos de marco de arte, una por línea. Las URL deben ser accesibles desde internet para que la nube de SwitchBot pueda obtener las imágenes. Usa los botones del dispositivo o las tarjetas de Flow para mostrar las imágenes en un marco.",
+		"artFrameImageUrls": "URL de imágenes (una por línea)",
 		"tabDetected": "Dispositivos",
 		"tabLog": "Registro",
 		"tabGetStatus": "Estado",

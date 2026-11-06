@@ -1,9 +1,14 @@
 {
+  "noImageUrls": "Inga bild-URL:er har lagts till i konstramens bildlista i appinställningarna",
+  "noImageUrl": "Ingen bild-URL angiven",
   "settings": {
   "pageTitle": "SwitchBot-inställningar",
   "modeHub": "HUB (moln)",
   "modeBLE": "BLE",
   "tabAppSettings": "Inställningar",
+  "tabArtFrameImages": "Konstram-bilder",
+  "artFrameImagesDescription": "Lägg till bild-URL:er för konstram-enheterna, en per rad. URL:erna måste kunna nås från internet så att SwitchBot-molnet kan hämta bilderna. Använd enhetens knappar eller Flow-kort för att visa bilderna på en ram.",
+  "artFrameImageUrls": "Bild-URL:er (en per rad)",
   "tabStatistics": "Statistik",
   "tabDetected": "Enheter",
   "tabLog": "Logg",

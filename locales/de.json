@@ -1,8 +1,13 @@
 {
+	"noImageUrls": "Der Kunstrahmen-Bilderliste in den App-Einstellungen wurden keine Bild-URLs hinzugefügt",
+	"noImageUrl": "Keine Bild-URL angegeben",
 	"settings": {
 		"modeHub": "HUB (Cloud)",
 		"modeBLE": "BLE",
 		"tabAppSettings": "Einstellungen",
+		"tabArtFrameImages": "Kunstrahmen-Bilder",
+		"artFrameImagesDescription": "Füge Bild-URLs für die Kunstrahmen-Geräte hinzu, eine pro Zeile. Die URLs müssen aus dem Internet erreichbar sein, damit die SwitchBot-Cloud die Bilder abrufen kann. Verwende die Gerätetasten oder Flow-Karten, um die Bilder auf einem Rahmen anzuzeigen.",
+		"artFrameImageUrls": "Bild-URLs (eine pro Zeile)",
 		"tabDetected": "Geräte",
 		"tabLog": "Protokoll",
 		"tabGetStatus": "Status",

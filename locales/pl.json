@@ -1,9 +1,14 @@
 {
+  "noImageUrls": "Nie dodano żadnych adresów URL obrazów do listy obrazów ramki artystycznej w ustawieniach aplikacji",
+  "noImageUrl": "Nie podano adresu URL obrazu",
   "settings": {
   "pageTitle": "Ustawienia SwitchBot",
   "modeHub": "HUB (chmura)",
   "modeBLE": "BLE",
   "tabAppSettings": "Ustawienia",
+  "tabArtFrameImages": "Obrazy ramki artystycznej",
+  "artFrameImagesDescription": "Dodaj adresy URL obrazów dla ramek artystycznych, po jednym w wierszu. Adresy URL muszą być dostępne z internetu, aby chmura SwitchBot mogła pobrać obrazy. Użyj przycisków urządzenia lub kart Flow, aby wyświetlić obrazy na ramce.",
+  "artFrameImageUrls": "Adresy URL obrazów (po jednym w wierszu)",
   "tabStatistics": "Statystyki",
   "tabDetected": "Urządzenia",
   "tabLog": "Dziennik",

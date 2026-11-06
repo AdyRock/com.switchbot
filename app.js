@@ -823,6 +823,41 @@ class MyApp extends OAuth2App
 				return args.device.onCapabilityCommand('forward');
 			});
 
+		const artFrameNextUrlImageAction = this.homey.flow.getActionCard('art_frame_next_url_image');
+		artFrameNextUrlImageAction
+			.registerRunListener(async (args, state) =>
+			{
+				return args.device.onCapabilityUrlImageNext();
+			});
+
+		const artFramePrevUrlImageAction = this.homey.flow.getActionCard('art_frame_prev_url_image');
+		artFramePrevUrlImageAction
+			.registerRunListener(async (args, state) =>
+			{
+				return args.device.onCapabilityUrlImagePrev();
+			});
+
+		const artFrameRandomUrlImageAction = this.homey.flow.getActionCard('art_frame_random_url_image');
+		artFrameRandomUrlImageAction
+			.registerRunListener(async (args, state) =>
+			{
+				return args.device.onCapabilityUrlImageRandom();
+			});
+
+		const artFrameShowUrlImageAction = this.homey.flow.getActionCard('art_frame_show_url_image');
+		artFrameShowUrlImageAction
+			.registerRunListener(async (args, state) =>
+			{
+				return args.device.sendUrlImageByIndex(args.image_number);
+			});
+
+		const artFrameSendImageUrlAction = this.homey.flow.getActionCard('art_frame_send_image_url');
+		artFrameSendImageUrlAction
+			.registerRunListener(async (args, state) =>
+			{
+				return args.device.sendImageUrl(args.url);
+			});
+
 		const startSceneAction = this.homey.flow.getActionCard('start_scene');
 		startSceneAction
 			.registerRunListener(async (args, state) =>

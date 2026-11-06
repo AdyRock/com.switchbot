@@ -1,8 +1,13 @@
 {
+	"noImageUrls": "Nessun URL di immagine è stato aggiunto all'elenco immagini della cornice artistica nelle impostazioni dell'app",
+	"noImageUrl": "Nessun URL di immagine fornito",
 	"settings": {
 		"modeHub": "HUB (cloud)",
 		"modeBLE": "BLE",
 		"tabAppSettings": "Impostazioni",
+		"tabArtFrameImages": "Immagini cornice artistica",
+		"artFrameImagesDescription": "Aggiungi URL di immagini per le cornici artistiche, uno per riga. Gli URL devono essere raggiungibili da internet affinché il cloud SwitchBot possa recuperare le immagini. Usa i pulsanti del dispositivo o le schede Flow per mostrare le immagini su una cornice.",
+		"artFrameImageUrls": "URL delle immagini (uno per riga)",
 		"tabDetected": "Dispositivi",
 		"tabLog": "Registro",
 		"tabGetStatus": "Stato",

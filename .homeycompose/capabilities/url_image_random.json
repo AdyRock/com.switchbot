@@ -1,0 +1,21 @@
+{
+  "type": "boolean",
+  "getable": false,
+  "setable": true,
+  "uiComponent": "button",
+  "title": {
+    "en": "Random Web Image",
+    "no": "Tilfeldig nettbilde",
+    "nl": "Willekeurige webafbeelding",
+    "da": "Tilfældigt webbillede",
+    "de": "Zufälliges Webbild",
+    "es": "Imagen web aleatoria",
+    "fr": "Image web aléatoire",
+    "it": "Immagine web casuale",
+    "sv": "Slumpmässig webbild",
+    "pl": "Losowy obraz z sieci",
+    "ru": "Случайное веб-изображение",
+    "ko": "무작위 웹 이미지"
+  },
+  "icon": "/assets/random.svg"
+}

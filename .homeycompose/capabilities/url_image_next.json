@@ -1,0 +1,21 @@
+{
+  "type": "boolean",
+  "getable": false,
+  "setable": true,
+  "uiComponent": "button",
+  "title": {
+    "en": "Next Web Image",
+    "no": "Neste nettbilde",
+    "nl": "Volgende webafbeelding",
+    "da": "Næste webbillede",
+    "de": "Nächstes Webbild",
+    "es": "Siguiente imagen web",
+    "fr": "Image web suivante",
+    "it": "Immagine web successiva",
+    "sv": "Nästa webbild",
+    "pl": "Następny obraz z sieci",
+    "ru": "Следующее веб-изображение",
+    "ko": "다음 웹 이미지"
+  },
+  "icon": "/assets/next.svg"
+}

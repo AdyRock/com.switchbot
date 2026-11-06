@@ -1,8 +1,13 @@
 {
+  "noImageUrls": "Der er ikke tilføjet nogen billed-URL'er til kunstramme-billedlisten i app-indstillingerne",
+  "noImageUrl": "Ingen billed-URL angivet",
   "settings": {
   "modeHub": "HUB (cloud)",
   "modeBLE": "BLE",
   "tabAppSettings": "Indstillinger",
+  "tabArtFrameImages": "Kunstramme-billeder",
+  "artFrameImagesDescription": "Tilføj billed-URL'er til kunstramme-enhederne, én pr. linje. URL'erne skal kunne nås fra internettet, så SwitchBot-skyen kan hente billederne. Brug enhedsknapperne eller Flow-kort til at vise billederne på en ramme.",
+  "artFrameImageUrls": "Billed-URL'er (én pr. linje)",
   "tabDetected": "Enheder",
   "tabLog": "Log",
   "tabGetStatus": "Status",

@@ -1,8 +1,13 @@
 {
+	"noImageUrls": "Aucune URL d'image n'a été ajoutée à la liste d'images du cadre artistique dans les paramètres de l'application",
+	"noImageUrl": "Aucune URL d'image fournie",
 	"settings": {
 		"modeHub": "HUB (cloud)",
 		"modeBLE": "BLE",
 		"tabAppSettings": "Paramètres",
+		"tabArtFrameImages": "Images du cadre artistique",
+		"artFrameImagesDescription": "Ajoutez des URL d'images pour les cadres artistiques, une par ligne. Les URL doivent être accessibles depuis internet pour que le cloud SwitchBot puisse récupérer les images. Utilisez les boutons de l'appareil ou les cartes Flow pour afficher les images sur un cadre.",
+		"artFrameImageUrls": "URL des images (une par ligne)",
 		"tabDetected": "Appareils",
 		"tabLog": "Journal",
 		"tabGetStatus": "Statut",
