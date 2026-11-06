@@ -7,7 +7,7 @@
   "modeBLE": "BLE",
   "tabAppSettings": "Ustawienia",
   "tabArtFrameImages": "Obrazy ramki artystycznej",
-  "artFrameImagesDescription": "Dodaj adresy URL obrazów dla ramek artystycznych, po jednym w wierszu. Adresy URL muszą być dostępne z internetu, aby chmura SwitchBot mogła pobrać obrazy. Użyj przycisków urządzenia lub kart Flow, aby wyświetlić obrazy na ramce.",
+  "artFrameImagesDescription": "Dodaj adresy URL obrazów dla ramek artystycznych, po jednym w wierszu. Adresy URL muszą być dostępne z internetu, aby chmura SwitchBot mogła pobrać obrazy. Użyj przycisków urządzenia lub kart Flow, aby wyświetlić obrazy na ramce. Uwaga: ze względu na ograniczenie interfejsu API SwitchBot nowo przesłany obraz czeka w aplikacji mobilnej SwitchBot, dopóki nie zostanie tam raz zsynchronizowany, zanim ramka będzie mogła go wyświetlić lub do niego przejść.",
   "artFrameImageUrls": "Adresy URL obrazów (po jednym w wierszu)",
   "tabStatistics": "Statystyki",
   "tabDetected": "Urządzenia",

@@ -6,7 +6,7 @@
 		"modeBLE": "BLE",
 		"tabAppSettings": "Impostazioni",
 		"tabArtFrameImages": "Immagini cornice artistica",
-		"artFrameImagesDescription": "Aggiungi URL di immagini per le cornici artistiche, uno per riga. Gli URL devono essere raggiungibili da internet affinché il cloud SwitchBot possa recuperare le immagini. Usa i pulsanti del dispositivo o le schede Flow per mostrare le immagini su una cornice.",
+		"artFrameImagesDescription": "Aggiungi URL di immagini per le cornici artistiche, uno per riga. Gli URL devono essere raggiungibili da internet affinché il cloud SwitchBot possa recuperare le immagini. Usa i pulsanti del dispositivo o le schede Flow per mostrare le immagini su una cornice. Nota: a causa di una limitazione dell’API SwitchBot, un’immagine appena caricata resta in attesa nell’app mobile SwitchBot finché non viene sincronizzata lì una volta, prima che la cornice possa mostrarla o passare ad essa.",
 		"artFrameImageUrls": "URL delle immagini (uno per riga)",
 		"tabDetected": "Dispositivi",
 		"tabLog": "Registro",

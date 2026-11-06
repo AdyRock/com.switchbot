@@ -6,7 +6,7 @@
 		"modeBLE": "BLE",
 		"tabAppSettings": "Einstellungen",
 		"tabArtFrameImages": "Kunstrahmen-Bilder",
-		"artFrameImagesDescription": "Füge Bild-URLs für die Kunstrahmen-Geräte hinzu, eine pro Zeile. Die URLs müssen aus dem Internet erreichbar sein, damit die SwitchBot-Cloud die Bilder abrufen kann. Verwende die Gerätetasten oder Flow-Karten, um die Bilder auf einem Rahmen anzuzeigen.",
+		"artFrameImagesDescription": "Füge Bild-URLs für die Kunstrahmen-Geräte hinzu, eine pro Zeile. Die URLs müssen aus dem Internet erreichbar sein, damit die SwitchBot-Cloud die Bilder abrufen kann. Verwende die Gerätetasten oder Flow-Karten, um die Bilder auf einem Rahmen anzuzeigen. Hinweis: Aufgrund einer Einschränkung der SwitchBot-API wartet ein neu hochgeladenes Bild in der SwitchBot-Mobil-App, bis es dort einmal synchronisiert wurde, bevor der Rahmen es anzeigen oder dorthin wechseln kann.",
 		"artFrameImageUrls": "Bild-URLs (eine pro Zeile)",
 		"tabDetected": "Geräte",
 		"tabLog": "Protokoll",

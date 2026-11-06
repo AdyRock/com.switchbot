@@ -7,7 +7,7 @@
 		"modeBLE": "BLE",
 		"tabAppSettings": "Instellingen",
 		"tabArtFrameImages": "Kunstframe afbeeldingen",
-		"artFrameImagesDescription": "Voeg afbeeldings-URL's toe voor de kunstframe-apparaten, één per regel. De URL's moeten bereikbaar zijn vanaf internet zodat de SwitchBot-cloud de afbeeldingen kan ophalen. Gebruik de apparaatknoppen of Flow-kaarten om de afbeeldingen op een frame te tonen.",
+		"artFrameImagesDescription": "Voeg afbeeldings-URL's toe voor de kunstframe-apparaten, één per regel. De URL's moeten bereikbaar zijn vanaf internet zodat de SwitchBot-cloud de afbeeldingen kan ophalen. Gebruik de apparaatknoppen of Flow-kaarten om de afbeeldingen op een frame te tonen. Let op: door een beperking van de SwitchBot-API wacht een nieuw geüploade afbeelding in de SwitchBot-mobiele app totdat deze daar eenmalig is gesynchroniseerd, voordat het frame deze kan tonen of ernaartoe kan bladeren.",
 		"artFrameImageUrls": "Afbeeldings-URL's (één per regel)",
 		"tabStatistics": "Statistieken",
 		"tabDetected": "Apparaten",

@@ -7,7 +7,7 @@
   "modeBLE": "BLE",
   "tabAppSettings": "Inställningar",
   "tabArtFrameImages": "Konstram-bilder",
-  "artFrameImagesDescription": "Lägg till bild-URL:er för konstram-enheterna, en per rad. URL:erna måste kunna nås från internet så att SwitchBot-molnet kan hämta bilderna. Använd enhetens knappar eller Flow-kort för att visa bilderna på en ram.",
+  "artFrameImagesDescription": "Lägg till bild-URL:er för konstram-enheterna, en per rad. URL:erna måste kunna nås från internet så att SwitchBot-molnet kan hämta bilderna. Använd enhetens knappar eller Flow-kort för att visa bilderna på en ram. Obs: på grund av en begränsning i SwitchBot-API:et väntar en nyuppladdad bild i SwitchBot-mobilappen tills den synkroniserats där en gång, innan ramen kan visa den eller bläddra till den.",
   "artFrameImageUrls": "Bild-URL:er (en per rad)",
   "tabStatistics": "Statistik",
   "tabDetected": "Enheter",

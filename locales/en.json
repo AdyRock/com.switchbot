@@ -7,7 +7,7 @@
 		"modeBLE": "BLE",
 		"tabAppSettings": "Settings",
 		"tabArtFrameImages": "Art Frame Images",
-		"artFrameImagesDescription": "Add image URLs for the Art Frame devices, one per line. The URLs must be reachable from the internet so the SwitchBot cloud can fetch the images. Use the device buttons or Flow cards to show the images on a frame.",
+		"artFrameImagesDescription": "Add image URLs for the Art Frame devices, one per line. The URLs must be reachable from the internet so the SwitchBot cloud can fetch the images. Use the device buttons or Flow cards to show the images on a frame. Note: due to a SwitchBot API limitation, a newly uploaded image waits in the SwitchBot mobile app until it is synced there once, before the frame can show it or step to it.",
 		"artFrameImageUrls": "Image URLs (one per line)",
 		"tabStatistics": "Statistics",
 		"tabDetected": "Devices",

@@ -6,7 +6,7 @@
 		"modeBLE": "BLE",
 		"tabAppSettings": "설정",
 		"tabArtFrameImages": "예술 프레임 이미지",
-		"artFrameImagesDescription": "예술 프레임 장치용 이미지 URL을 한 줄에 하나씩 추가하세요. SwitchBot 클라우드가 이미지를 가져올 수 있도록 URL은 인터넷에서 접근 가능해야 합니다. 장치 버튼이나 Flow 카드를 사용하여 프레임에 이미지를 표시하세요.",
+		"artFrameImagesDescription": "예술 프레임 장치용 이미지 URL을 한 줄에 하나씩 추가하세요. SwitchBot 클라우드가 이미지를 가져올 수 있도록 URL은 인터넷에서 접근 가능해야 합니다. 장치 버튼이나 Flow 카드를 사용하여 프레임에 이미지를 표시하세요. 참고: SwitchBot API의 제한으로 인해 새로 업로드된 이미지는 SwitchBot 모바일 앱에서 한 번 동기화될 때까지 대기하며, 그 후에야 프레임에서 표시하거나 해당 이미지로 이동할 수 있습니다.",
 		"artFrameImageUrls": "이미지 URL (한 줄에 하나)",
 		"tabDetected": "기기",
 		"tabLog": "로그",

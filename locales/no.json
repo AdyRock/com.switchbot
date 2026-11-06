@@ -8,7 +8,7 @@
         "modeBLE": "BLE",
         "tabAppSettings": "Innstillinger",
         "tabArtFrameImages": "Kunstramme-bilder",
-        "artFrameImagesDescription": "Legg til bilde-URL-er for kunstramme-enhetene, én per linje. URL-ene må være tilgjengelige fra internett slik at SwitchBot-skyen kan hente bildene. Bruk enhetsknappene eller Flow-kort for å vise bildene på en ramme.",
+        "artFrameImagesDescription": "Legg til bilde-URL-er for kunstramme-enhetene, én per linje. URL-ene må være tilgjengelige fra internett slik at SwitchBot-skyen kan hente bildene. Bruk enhetsknappene eller Flow-kort for å vise bildene på en ramme. Merk: på grunn av en begrensning i SwitchBot-API-et venter et nylig opplastet bilde i SwitchBot-mobilappen til det synkroniseres der én gang, før rammen kan vise det eller bla til det.",
         "artFrameImageUrls": "Bilde-URL-er (én per linje)",
         "tabStatistics": "Statistikk",
         "tabDetected": "Enheter",

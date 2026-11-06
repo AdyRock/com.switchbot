@@ -6,7 +6,7 @@
 		"modeBLE": "BLE",
 		"tabAppSettings": "Paramètres",
 		"tabArtFrameImages": "Images du cadre artistique",
-		"artFrameImagesDescription": "Ajoutez des URL d'images pour les cadres artistiques, une par ligne. Les URL doivent être accessibles depuis internet pour que le cloud SwitchBot puisse récupérer les images. Utilisez les boutons de l'appareil ou les cartes Flow pour afficher les images sur un cadre.",
+		"artFrameImagesDescription": "Ajoutez des URL d'images pour les cadres artistiques, une par ligne. Les URL doivent être accessibles depuis internet pour que le cloud SwitchBot puisse récupérer les images. Utilisez les boutons de l'appareil ou les cartes Flow pour afficher les images sur un cadre. Remarque : en raison d’une limitation de l’API SwitchBot, une image nouvellement envoyée attend dans l’application mobile SwitchBot jusqu’à ce qu’elle y soit synchronisée une fois, avant que le cadre puisse l’afficher ou y accéder.",
 		"artFrameImageUrls": "URL des images (une par ligne)",
 		"tabDetected": "Appareils",
 		"tabLog": "Journal",

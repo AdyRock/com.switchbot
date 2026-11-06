@@ -6,7 +6,7 @@
 		"modeBLE": "BLE",
 		"tabAppSettings": "Configuración",
 		"tabArtFrameImages": "Imágenes del marco de arte",
-		"artFrameImagesDescription": "Añade URL de imágenes para los dispositivos de marco de arte, una por línea. Las URL deben ser accesibles desde internet para que la nube de SwitchBot pueda obtener las imágenes. Usa los botones del dispositivo o las tarjetas de Flow para mostrar las imágenes en un marco.",
+		"artFrameImagesDescription": "Añade URL de imágenes para los dispositivos de marco de arte, una por línea. Las URL deben ser accesibles desde internet para que la nube de SwitchBot pueda obtener las imágenes. Usa los botones del dispositivo o las tarjetas de Flow para mostrar las imágenes en un marco. Nota: debido a una limitación de la API de SwitchBot, una imagen recién subida espera en la aplicación móvil de SwitchBot hasta que se sincroniza allí una vez, antes de que el marco pueda mostrarla o navegar hasta ella.",
 		"artFrameImageUrls": "URL de imágenes (una por línea)",
 		"tabDetected": "Dispositivos",
 		"tabLog": "Registro",
