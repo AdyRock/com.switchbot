@@ -94,6 +94,12 @@ class ArtFrameHubDevice extends HubDevice
 			this.onAppSettingsChanged = null;
 		}
 
+		if (this.nudgeSyncTimer)
+		{
+			this.homey.clearTimeout(this.nudgeSyncTimer);
+			this.nudgeSyncTimer = null;
+		}
+
 		return super.onOAuth2Deleted();
 	}
 
@@ -166,7 +172,24 @@ class ArtFrameHubDevice extends HubDevice
 			throw new Error(this.homey.__('noImageUrl'));
 		}
 
-		return this.sendCommand('uploadImage', { imageUrl: imageUrl.trim() });
+		const result = await this.sendCommand('uploadImage', { imageUrl: imageUrl.trim() });
+
+		if (this.getSetting('nudgeSyncAfterUpload'))
+		{
+			// Experimental: send a 'next' command shortly after the upload to nudge the frame to wake up and sync
+			if (this.nudgeSyncTimer)
+			{
+				this.homey.clearTimeout(this.nudgeSyncTimer);
+			}
+			this.nudgeSyncTimer = this.homey.setTimeout(() =>
+			{
+				this.nudgeSyncTimer = null;
+				this.sendCommand('next', '').catch(this.error);
+			},
+			5000);
+		}
+
+		return result;
 	}
 
 	/**

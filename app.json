@@ -7066,7 +7066,42 @@
           "AA",
           "AA"
         ]
-      }
+      },
+      "settings": [
+        {
+          "id": "nudgeSyncAfterUpload",
+          "type": "checkbox",
+          "label": {
+            "en": "Send 'Next' after web image upload (experimental)",
+            "no": "Send 'Neste' etter opplasting av nettbilde (eksperimentell)",
+            "nl": "Stuur 'Volgende' na upload van webafbeelding (experimenteel)",
+            "da": "Send 'Næste' efter upload af webbillede (eksperimentel)",
+            "de": "Sende 'Weiter' nach dem Hochladen eines Webbilds (experimentell)",
+            "es": "Enviar 'Siguiente' tras subir una imagen web (experimental)",
+            "fr": "Envoyer 'Suivant' après l'envoi d'une image web (expérimental)",
+            "it": "Invia 'Avanti' dopo il caricamento di un'immagine web (sperimentale)",
+            "sv": "Skicka 'Nästa' efter uppladdning av webbild (experimentell)",
+            "pl": "Wyślij 'Następny' po przesłaniu obrazu z sieci (eksperymentalne)",
+            "ru": "Отправлять 'Далее' после загрузки веб-изображения (экспериментально)",
+            "ko": "웹 이미지 업로드 후 '다음' 보내기 (실험적)"
+          },
+          "value": false,
+          "hint": {
+            "en": "After a web image is uploaded, a 'Next' command is sent a few seconds later to nudge the frame to wake up and sync. Note: if the frame has already shown the uploaded image, this will change the displayed image.",
+            "no": "Etter at et nettbilde er lastet opp, sendes en 'Neste'-kommando noen sekunder senere for å få rammen til å våkne og synkronisere. Merk: Hvis rammen allerede har vist det opplastede bildet, vil dette endre bildet som vises.",
+            "nl": "Nadat een webafbeelding is geüpload, wordt enkele seconden later een 'Volgende'-commando gestuurd om het frame te laten ontwaken en synchroniseren. Let op: als het frame de geüploade afbeelding al heeft getoond, verandert hierdoor de weergegeven afbeelding.",
+            "da": "Efter at et webbillede er uploadet, sendes en 'Næste'-kommando et par sekunder senere for at få rammen til at vågne og synkronisere. Bemærk: Hvis rammen allerede har vist det uploadede billede, vil dette ændre det viste billede.",
+            "de": "Nach dem Hochladen eines Webbilds wird einige Sekunden später ein 'Weiter'-Befehl gesendet, um den Rahmen zum Aufwachen und Synchronisieren zu bewegen. Hinweis: Wenn der Rahmen das hochgeladene Bild bereits angezeigt hat, wird dadurch das angezeigte Bild gewechselt.",
+            "es": "Después de subir una imagen web, se envía un comando 'Siguiente' unos segundos después para que el marco se active y sincronice. Nota: si el marco ya ha mostrado la imagen subida, esto cambiará la imagen mostrada.",
+            "fr": "Après l'envoi d'une image web, une commande 'Suivant' est envoyée quelques secondes plus tard pour inciter le cadre à se réveiller et à se synchroniser. Remarque : si le cadre a déjà affiché l'image envoyée, cela changera l'image affichée.",
+            "it": "Dopo il caricamento di un'immagine web, alcuni secondi dopo viene inviato un comando 'Avanti' per spingere la cornice a svegliarsi e sincronizzarsi. Nota: se la cornice ha già mostrato l'immagine caricata, questo cambierà l'immagine visualizzata.",
+            "sv": "Efter att en webbild har laddats upp skickas ett 'Nästa'-kommando några sekunder senare för att få ramen att vakna och synkronisera. Obs: om ramen redan har visat den uppladdade bilden ändras den visade bilden.",
+            "pl": "Po przesłaniu obrazu z sieci, kilka sekund później wysyłane jest polecenie 'Następny', aby skłonić ramkę do wybudzenia i synchronizacji. Uwaga: jeśli ramka już wyświetliła przesłany obraz, spowoduje to zmianę wyświetlanego obrazu.",
+            "ru": "После загрузки веб-изображения через несколько секунд отправляется команда 'Далее', чтобы рамка проснулась и синхронизировалась. Примечание: если рамка уже показала загруженное изображение, это сменит отображаемое изображение.",
+            "ko": "웹 이미지가 업로드된 후 몇 초 뒤에 '다음' 명령을 보내 프레임이 깨어나 동기화하도록 유도합니다. 참고: 프레임이 이미 업로드된 이미지를 표시한 경우 표시되는 이미지가 바뀝니다."
+          }
+        }
+      ]
     },
     {
       "id": "blind_tilt_ble",
