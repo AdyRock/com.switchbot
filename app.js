@@ -2789,6 +2789,15 @@ class MyApp extends OAuth2App
 		}
 	}
 
+	restartHUBPolling()
+	{
+		// Restart the polling timer if it has stopped, e.g. when polling had been disabled for all devices
+		if ((this.hubDevices > 0) && (this.timerHubID === null))
+		{
+			this.timerHubID = this.homey.setTimeout(this.onHubPoll, 1000);
+		}
+	}
+
 	async onHubPoll()
 	{
 		this.homey.app.updateLog(`Polling hub: ${this.homey.app.apiCalls} API calls today`, 'hub');

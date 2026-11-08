@@ -74,6 +74,41 @@
       "AAA"
     ]
   },
+  "settings": [
+    {
+      "id": "enable_polling",
+      "type": "checkbox",
+      "value": false,
+      "label": {
+        "en": "Enable polling",
+        "no": "Aktiver polling",
+        "nl": "Polling inschakelen",
+        "da": "Aktivér polling",
+        "de": "Abfrage aktivieren",
+        "es": "Habilitar sondeo",
+        "fr": "Activer l'interrogation",
+        "it": "Abilita il polling",
+        "sv": "Aktivera polling",
+        "pl": "Włącz odpytywanie",
+        "ru": "Включить опрос",
+        "ko": "폴링 활성화"
+      },
+      "hint": {
+        "en": "Enable this if the device misses updates, e.g. the brightness does not change. Polling uses extra API calls, which may increase the update interval of other SwitchBot devices.",
+        "no": "Aktiver dette hvis enheten går glipp av oppdateringer, f.eks. at lysstyrken ikke endres. Polling bruker ekstra API-kall, noe som kan øke oppdateringsintervallet for andre SwitchBot-enheter.",
+        "nl": "Schakel dit in als het apparaat updates mist, bijv. als de helderheid niet verandert. Polling gebruikt extra API-aanroepen, waardoor het update-interval van andere SwitchBot-apparaten kan toenemen.",
+        "da": "Aktivér dette, hvis enheden går glip af opdateringer, f.eks. at lysstyrken ikke ændres. Polling bruger ekstra API-kald, hvilket kan øge opdateringsintervallet for andre SwitchBot-enheder.",
+        "de": "Aktivieren Sie dies, wenn das Gerät Aktualisierungen verpasst, z. B. wenn sich die Helligkeit nicht ändert. Die Abfrage verwendet zusätzliche API-Aufrufe, wodurch sich das Aktualisierungsintervall anderer SwitchBot-Geräte verlängern kann.",
+        "es": "Habilite esto si el dispositivo pierde actualizaciones, p. ej., el brillo no cambia. El sondeo utiliza llamadas API adicionales, lo que puede aumentar el intervalo de actualización de otros dispositivos SwitchBot.",
+        "fr": "Activez cette option si l'appareil manque des mises à jour, par exemple si la luminosité ne change pas. L'interrogation utilise des appels API supplémentaires, ce qui peut augmenter l'intervalle de mise à jour des autres appareils SwitchBot.",
+        "it": "Abilita questa opzione se il dispositivo perde gli aggiornamenti, ad es. la luminosità non cambia. Il polling utilizza chiamate API aggiuntive, che possono aumentare l'intervallo di aggiornamento degli altri dispositivi SwitchBot.",
+        "sv": "Aktivera detta om enheten missar uppdateringar, t.ex. att ljusstyrkan inte ändras. Polling använder extra API-anrop, vilket kan öka uppdateringsintervallet för andra SwitchBot-enheter.",
+        "pl": "Włącz tę opcję, jeśli urządzenie pomija aktualizacje, np. jasność się nie zmienia. Odpytywanie wykorzystuje dodatkowe wywołania API, co może wydłużyć interwał aktualizacji innych urządzeń SwitchBot.",
+        "ru": "Включите эту опцию, если устройство пропускает обновления, например, не меняется яркость. Опрос использует дополнительные вызовы API, что может увеличить интервал обновления других устройств SwitchBot.",
+        "ko": "기기가 업데이트를 놓치는 경우(예: 밝기가 변경되지 않음) 이 옵션을 활성화하세요. 폴링은 추가 API 호출을 사용하므로 다른 SwitchBot 기기의 업데이트 간격이 길어질 수 있습니다."
+      }
+    }
+  ],
   "$extends": [
     "hubDriver"
   ]

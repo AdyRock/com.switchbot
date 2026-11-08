@@ -30,6 +30,17 @@ class ContactHubDevice extends HubDevice
 		const dd = this.getData();
 		this.homey.app.registerHomeyWebhook(dd.id, this).catch(this.error);
 
+		if (!this.getSetting('enable_polling'))
+		{
+			// Polling is disabled so fetch the initial values now, as the webhook only sends changes
+			const randomDelay = Math.floor(Math.random() * 10000) + 5000; // between 5 and 15 seconds
+			this.homey.setTimeout(() =>
+			{
+				this.getHubDeviceValues().catch(this.error);
+			},
+			randomDelay);
+		}
+
 		this.log('ContactHubDevice has been initialising');
 	}
 
@@ -98,13 +109,38 @@ class ContactHubDevice extends HubDevice
 		}
 	}
 
-	// No need to poll for hub device values as the webhook will handle updates
-	// async pollHubDeviceValues()
-	// {
-	// 	// The webhook is only triggerd for the door contact so we need polling for the motion and bright state
-	// 	await this.getHubDeviceValues();
-	// 	return true;
-	// }
+	/**
+	 * onSettings is called when the user updates the device's settings.
+	 * @param {object} event the onSettings event data
+	 * @param {object} event.oldSettings The old settings object
+	 * @param {object} event.newSettings The new settings object
+	 * @param {string[]} event.changedKeys An array of keys changed since the previous version
+	 * @returns {Promise<string|void>} return a custom message that will be displayed
+	 */
+	async onSettings({ oldSettings, newSettings, changedKeys })
+	{
+		if (changedKeys.indexOf('enable_polling') >= 0)
+		{
+			if (newSettings.enable_polling)
+			{
+				// Make sure the hub polling timer is running again as it stops when no devices require polling
+				this.homey.app.restartHUBPolling();
+			}
+		}
+	}
+
+	// Normally the webhook handles updates, but some installations miss webhook messages
+	// (e.g. for brightness changes), so polling can be enabled in the advanced settings
+	async pollHubDeviceValues()
+	{
+		if (this.getSetting('enable_polling'))
+		{
+			await this.getHubDeviceValues();
+			return true;
+		}
+
+		return false;
+	}
 
 	async processWebhookMessage(message)
 	{

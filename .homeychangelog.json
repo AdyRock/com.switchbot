@@ -1560,5 +1560,18 @@
 		"pl": "Scalono PR #251 w celu naprawy problemu z zajętym BLE po awarii",
 		"ru": "Объединен PR #251 для исправления проблемы с занятым BLE после сбоя",
 		"ko": "실패 후 BLE 바쁨 문제를 수정하기 위해 PR #251 병합"
+	},
+	"2.0.99": {
+		"en": "Added an advanced setting to the Contact Sensor (HUB) to enable polling for installations where webhook updates are missed",
+		"no": "La til en avansert innstilling for Kontaktsensor (HUB) for å aktivere polling for installasjoner der webhook-oppdateringer uteblir",
+		"nl": "Geavanceerde instelling toegevoegd aan de Contactsensor (HUB) om polling in te schakelen voor installaties waar webhook-updates worden gemist",
+		"de": "Erweiterte Einstellung für den Kontaktsensor (HUB) hinzugefügt, um die Abfrage für Installationen zu aktivieren, bei denen Webhook-Aktualisierungen verpasst werden",
+		"fr": "Ajout d'un paramètre avancé au capteur de contact (HUB) pour activer l'interrogation pour les installations où les mises à jour webhook sont manquées",
+		"es": "Se agregó una configuración avanzada al sensor de contacto (HUB) para habilitar el sondeo en instalaciones donde se pierden las actualizaciones de webhook",
+		"pt": "Adicionada uma configuração avançada ao sensor de contato (HUB) para ativar a sondagem em instalações onde as atualizações de webhook são perdidas",
+		"it": "Aggiunta un'impostazione avanzata al sensore di contatto (HUB) per abilitare il polling nelle installazioni in cui gli aggiornamenti webhook vengono persi",
+		"pl": "Dodano zaawansowane ustawienie do czujnika kontaktu (HUB) umożliwiające odpytywanie w instalacjach, w których aktualizacje webhook są pomijane",
+		"ru": "Добавлена расширенная настройка для датчика контакта (HUB), позволяющая включить опрос для установок, где пропускаются обновления webhook",
+		"ko": "웹훅 업데이트가 누락되는 설치 환경을 위해 접촉 센서 (HUB)에 폴링을 활성화하는 고급 설정 추가"
 	}
 }
