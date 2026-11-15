@@ -1586,5 +1586,18 @@
 		"pl": "Po osiągnięciu limitu API SwitchBot odpytywanie i żądania w tle są teraz automatycznie wstrzymywane z rosnącym czasem oczekiwania zamiast ponawiania, przerwa jest zachowywana po ponownym uruchomieniu aplikacji, a urządzenia hub wyświetlają ostrzeżenie, dopóki API ponownie nie zacznie przyjmować żądań. Błędy limitu są teraz wyraźnie zgłaszane w dzienniku.",
 		"ru": "При достижении лимита API SwitchBot опрос и фоновые запросы теперь автоматически приостанавливаются с увеличивающимся интервалом вместо повторных попыток, пауза сохраняется после перезапуска приложения, а устройства хаба показывают предупреждение, пока API снова не начнёт принимать запросы. Ошибки лимита теперь чётко отображаются в журнале.",
 		"ko": "SwitchBot API 사용 한도에 도달하면 이제 폴링과 백그라운드 요청이 재시도하는 대신 대기 시간을 늘려가며 자동으로 일시 중지되고, 일시 중지는 앱을 다시 시작해도 유지되며, API가 다시 요청을 받을 때까지 허브 기기에 경고가 표시됩니다. 사용 한도 오류가 이제 로그에 명확하게 표시됩니다."
+	},
+	"2.0.101": {
+		"en": "When a device or its hub reports offline the request is no longer retried; further requests to that device are paused for a short, increasing time, and the device shows a warning saying whether the device or its hub is offline.",
+		"no": "Når en enhet eller huben rapporterer at den er frakoblet, prøves forespørselen ikke lenger på nytt; videre forespørsler til enheten settes på pause i en kort, økende periode, og enheten viser en advarsel om at enheten eller huben er frakoblet.",
+		"nl": "Wanneer een apparaat of de hub offline meldt, wordt het verzoek niet meer herhaald; verdere verzoeken naar dat apparaat worden kort en steeds langer gepauzeerd, en het apparaat toont een waarschuwing of het apparaat of de hub offline is.",
+		"de": "Wenn ein Gerät oder sein Hub offline meldet, wird die Anfrage nicht mehr wiederholt; weitere Anfragen an das Gerät werden für eine kurze, zunehmende Zeit pausiert, und das Gerät zeigt eine Warnung an, ob das Gerät oder sein Hub offline ist.",
+		"fr": "Lorsqu'un appareil ou son hub est signalé hors ligne, la requête n'est plus répétée ; les requêtes suivantes vers cet appareil sont suspendues pendant une durée courte et croissante, et l'appareil affiche un avertissement indiquant si l'appareil ou son hub est hors ligne.",
+		"es": "Cuando un dispositivo o su hub informa que está desconectado, la solicitud ya no se reintenta; las siguientes solicitudes a ese dispositivo se pausan durante un tiempo corto y creciente, y el dispositivo muestra una advertencia indicando si el dispositivo o su hub está desconectado.",
+		"pt": "Quando um dispositivo ou seu hub informa que está offline, a solicitação não é mais repetida; as solicitações seguintes para esse dispositivo são pausadas por um tempo curto e crescente, e o dispositivo mostra um aviso indicando se o dispositivo ou seu hub está offline.",
+		"it": "Quando un dispositivo o il suo hub risulta offline, la richiesta non viene più ripetuta; le richieste successive a quel dispositivo vengono sospese per un tempo breve e crescente, e il dispositivo mostra un avviso che indica se il dispositivo o il suo hub è offline.",
+		"pl": "Gdy urządzenie lub jego hub zgłasza brak połączenia, żądanie nie jest już ponawiane; kolejne żądania do tego urządzenia są wstrzymywane na krótki, rosnący czas, a urządzenie wyświetla ostrzeżenie, czy offline jest urządzenie, czy jego hub.",
+		"ru": "Если устройство или его хаб сообщает, что не в сети, запрос больше не повторяется; последующие запросы к устройству приостанавливаются на короткое, увеличивающееся время, а устройство показывает предупреждение о том, что не в сети устройство или его хаб.",
+		"ko": "기기 또는 허브가 오프라인으로 응답하면 더 이상 요청을 재시도하지 않으며, 해당 기기에 대한 이후 요청은 짧고 점점 늘어나는 시간 동안 일시 중지되고, 기기 또는 허브 중 무엇이 오프라인인지 알려주는 경고가 표시됩니다."
 	}
 }

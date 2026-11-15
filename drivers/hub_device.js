@@ -6,6 +6,9 @@ const { OAuth2Device } = require('homey-oauth2app');
 
 const MISSING_AUTH_LOG_THROTTLE_MS = 5 * 60 * 1000;
 const DEVICE_OFFLINE_COOLDOWN_MS = 30 * 1000;
+const DEVICE_OFFLINE_COOLDOWN_MAX_MS = 5 * 60 * 1000;
+const SWITCHBOT_DEVICE_OFFLINE = 161;
+const SWITCHBOT_HUB_OFFLINE = 171;
 
 class HubDevice extends OAuth2Device
 {
@@ -57,41 +60,77 @@ class HubDevice extends OAuth2Device
 		}
 	}
 
-	getOfflineCooldownUntil(deviceId)
+	isOfflineCode(code)
 	{
-		if (!this._offlineCooldownByDevice)
-		{
-			this._offlineCooldownByDevice = {};
-		}
-
-		return this._offlineCooldownByDevice[deviceId] || 0;
+		const value = Number.parseInt(code, 10);
+		return (value === SWITCHBOT_DEVICE_OFFLINE) || (value === SWITCHBOT_HUB_OFFLINE);
 	}
 
-	setOfflineCooldown(deviceId, cooldownMs = DEVICE_OFFLINE_COOLDOWN_MS)
+	getOfflineMessage(code)
 	{
-		if (!this._offlineCooldownByDevice)
-		{
-			this._offlineCooldownByDevice = {};
-		}
+		return (Number.parseInt(code, 10) === SWITCHBOT_HUB_OFFLINE)
+			? 'The SwitchBot hub for this device is offline'
+			: 'SwitchBot device is offline';
+	}
 
-		this._offlineCooldownByDevice[deviceId] = Date.now() + cooldownMs;
+	getActiveOfflineCooldown(deviceId)
+	{
+		const entry = this._offlineCooldownByDevice ? this._offlineCooldownByDevice[deviceId] : null;
+		return (entry && (entry.until > Date.now())) ? entry : null;
 	}
 
 	clearOfflineCooldown(deviceId)
 	{
 		if (!this._offlineCooldownByDevice)
 		{
+			return false;
+		}
+
+		const hadEntry = Boolean(this._offlineCooldownByDevice[deviceId]);
+		delete this._offlineCooldownByDevice[deviceId];
+		return hadEntry;
+	}
+
+	// While a device (or its hub) is known to be offline, requests are not sent to SwitchBot so they don't use API quota
+	async checkOfflineCooldown(deviceId, action)
+	{
+		const cooldown = this.getActiveOfflineCooldown(deviceId);
+		if (!cooldown)
+		{
 			return;
 		}
 
-		delete this._offlineCooldownByDevice[deviceId];
+		const message = this.getOfflineMessage(cooldown.code);
+		this.homey.app.updateLog(`Skipping ${action} for ${deviceId}: ${message}, next attempt allowed in ${Math.ceil((cooldown.until - Date.now()) / 1000)}s`, 1, 'hub');
+		await this.setDeviceOfflineWarning(deviceId, message);
+		throw new Error(message);
 	}
 
-	async setDeviceOfflineWarning(deviceId)
+	// An offline response ends the request without retrying. Further requests are skipped for a cool-down
+	// period that doubles while the device stays offline and is reset by the next successful request.
+	async handleOfflineResponse(deviceId, code, responseMessage, action)
+	{
+		if (!this._offlineCooldownByDevice)
+		{
+			this._offlineCooldownByDevice = {};
+		}
+
+		const previous = this._offlineCooldownByDevice[deviceId];
+		const cooldownMs = previous ? Math.min(previous.cooldownMs * 2, DEVICE_OFFLINE_COOLDOWN_MAX_MS) : DEVICE_OFFLINE_COOLDOWN_MS;
+		this._offlineCooldownByDevice[deviceId] = { until: Date.now() + cooldownMs, cooldownMs, code: Number.parseInt(code, 10) };
+
+		const message = this.getOfflineMessage(code);
+		const responseText = responseMessage ? ` ${responseMessage}` : '';
+		this.homey.app.updateLog(`${action} for ${deviceId} failed: ${code}${responseText} - ${message}, not retrying for ${cooldownMs / 1000}s`, 0, 'hub');
+		await this.setDeviceOfflineWarning(deviceId, message);
+		return new Error(message);
+	}
+
+	async setDeviceOfflineWarning(deviceId, message = 'SwitchBot device is offline')
 	{
 		try
 		{
-			await this.setWarning(`SwitchBot device ${deviceId} is offline`);
+			await this.setWarning(message);
 		}
 		catch (err)
 		{
@@ -140,51 +179,6 @@ class HubDevice extends OAuth2Device
 		catch (err)
 		{
 			this.homey.app.updateLog(`Unable to clear rate limit warning for ${this.getName()}: ${err.message}`, 1, 'hub');
-		}
-	}
-
-	async confirmDeviceOffline(oAuth2Client, deviceId)
-	{
-		if (!oAuth2Client)
-		{
-			return true;
-		}
-
-		try
-		{
-			const statusResponse = await oAuth2Client.getDeviceData(deviceId);
-			const statusBody = statusResponse?.body ?? statusResponse;
-			this.homey.app.updateLog(`Status probe response for ${deviceId}: ${this.homey.app.varToString(statusBody)}`, 1, 'hub');
-
-			const statusCode = Number.parseInt(statusResponse?.statusCode ?? statusResponse?.body?.statusCode ?? 100, 10);
-			const explicitOnline = (statusBody && typeof statusBody === 'object' && typeof statusBody.online !== 'undefined') ? Boolean(statusBody.online) : null;
-			if (explicitOnline === false)
-			{
-				this.homey.app.updateLog(`Status probe for ${deviceId} explicitly reported the device offline`, 1, 'hub');
-				return true;
-			}
-
-			if (statusCode === 100)
-			{
-				if (explicitOnline === true)
-				{
-					this.homey.app.updateLog(`Status probe for ${deviceId} succeeded and reported the device online`, 1, 'hub');
-				}
-				else
-				{
-					this.homey.app.updateLog(`Status probe for ${deviceId} succeeded after command returned offline`, 1, 'hub');
-				}
-				return false;
-			}
-
-			const statusMessage = statusResponse?.message ?? statusResponse?.body?.message ?? 'unknown';
-			this.homey.app.updateLog(`Status probe for ${deviceId} confirmed command failure: ${statusCode} ${statusMessage}`.trim(), 1, 'hub');
-			return true;
-		}
-		catch (err)
-		{
-			this.homey.app.updateLog(`Status probe for ${deviceId} failed after command returned offline: ${err.message}`, 1, 'hub');
-			return true;
 		}
 	}
 
@@ -333,6 +327,7 @@ class HubDevice extends OAuth2Device
 
 		if (this.homey.app.openToken)
 		{
+			await this.checkOfflineCooldown(dd.id, 'command');
 			this.homey.app.updateLog(`Sending ${this.homey.app.varToString(data)} to ${dd.id} using API key`, 3, 'hub');
 			try
 			{
@@ -340,22 +335,26 @@ class HubDevice extends OAuth2Device
 			}
 			catch (err)
 			{
+				if (this.isOfflineCode(err.statusCode))
+				{
+					throw await this.handleOfflineResponse(dd.id, err.statusCode, err.message, 'Command');
+				}
+
 				this.homey.app.updateLog(this.homey.app.varToString(err), 'hub');
 			}
+
+			if (result && this.clearOfflineCooldown(dd.id))
+			{
+				await this.clearDeviceOfflineWarning(dd.id);
+			}
+
 			this.homey.app.updateLog(`Success sending command to ${dd.id} using API key`, 'hub');
 			return result;
 		}
 
 		if (oAuth2Client)
 		{
-			const offlineCooldownUntil = this.getOfflineCooldownUntil(dd.id);
-			if (offlineCooldownUntil > Date.now())
-			{
-				const remainingMs = offlineCooldownUntil - Date.now();
-				this.homey.app.updateLog(`Skipping command to ${dd.id}: recent offline response, retrying after ${Math.ceil(remainingMs / 1000)}s`, 1, 'hub');
-				await this.setDeviceOfflineWarning(dd.id);
-				throw new Error('Error: SwitchBot device is offline');
-			}
+			await this.checkOfflineCooldown(dd.id, 'command');
 
 			const maxAttempts = 3;
 			let responseCode = 100;
@@ -391,43 +390,12 @@ class HubDevice extends OAuth2Device
 
 				responseCode = Number.parseInt(result.statusCode ?? result.body?.statusCode ?? 100, 10);
 				responseMessage = result.message ?? result.body?.message ?? '';
-
-				if ((responseCode === 171) && (attempt < maxAttempts))
-				{
-					const baseDelay = 700 * (2 ** (attempt - 1));
-					const retryDelay = baseDelay + Math.floor(Math.random() * 250);
-					this.homey.app.updateLog(`Transient SwitchBot response ${responseCode} for ${dd.id}, retrying in ${retryDelay}ms (attempt ${attempt}/${maxAttempts})`, 1, 'hub');
-					await new Promise((resolve) => this.homey.setTimeout(resolve, retryDelay));
-					continue;
-				}
-
-				if (responseCode === 161)
-				{
-					const confirmedOffline = await this.confirmDeviceOffline(oAuth2Client, dd.id);
-					if (confirmedOffline)
-					{
-						this.homey.app.updateLog(`Failed to send command to ${dd.id} using OAuth: ${responseCode} ${responseMessage}`.trim(), 0, 'hub');
-						this.setOfflineCooldown(dd.id);
-						await this.setDeviceOfflineWarning(dd.id);
-						throw new Error('Error: SwitchBot device is offline');
-					}
-
-					this.clearOfflineCooldown(dd.id);
-					await this.clearDeviceOfflineWarning(dd.id);
-					if (attempt < maxAttempts)
-					{
-						const baseDelay = 700 * (2 ** (attempt - 1));
-						const retryDelay = baseDelay + Math.floor(Math.random() * 250);
-						this.homey.app.updateLog(`Transient SwitchBot response ${responseCode} for ${dd.id}, status probe succeeded, retrying in ${retryDelay}ms (attempt ${attempt}/${maxAttempts})`, 1, 'hub');
-						await new Promise((resolve) => this.homey.setTimeout(resolve, retryDelay));
-						continue;
-					}
-
-					this.homey.app.updateLog(`SwitchBot reported ${responseCode} for ${dd.id} but a follow-up status check succeeded; treating command as completed`, 1, 'hub');
-					return true;
-				}
-
 				break;
+			}
+
+			if (this.isOfflineCode(responseCode))
+			{
+				throw await this.handleOfflineResponse(dd.id, responseCode, responseMessage, 'Command');
 			}
 
 			if (responseCode !== 100)
@@ -441,11 +409,6 @@ class HubDevice extends OAuth2Device
 				{
 					this.homey.app.updateLog(`Failed to send command to ${dd.id} using OAuth: ${responseCode} ${responseMessage}`.trim(), 0, 'hub');
 					throw new Error('Error: Command is not supported by SwitchBot');
-				}
-				else if (responseCode === 171)
-				{
-					this.homey.app.updateLog(`Failed to send command to ${dd.id} using OAuth: ${responseCode} ${responseMessage}`.trim(), 0, 'hub');
-					throw new Error('Error: SwitchBot hub is offline');
 				}
 				else if (responseCode === 174)
 				{
@@ -490,6 +453,7 @@ class HubDevice extends OAuth2Device
 		}
 
 		const dd = this.getData();
+		await this.checkOfflineCooldown(dd.id, 'status request');
 		const oAuth2Client = this.getOAuth2ClientForDevice();
 		if (this.homey.app.openToken)
 		{
@@ -501,6 +465,11 @@ class HubDevice extends OAuth2Device
 			catch (err)
 			{
 				throw this.appendApiCallCountToRateLimitError(err);
+			}
+
+			if (this.isOfflineCode(data.statusCode))
+			{
+				throw await this.handleOfflineResponse(dd.id, data.statusCode, data.message, 'Status request');
 			}
 
 			if (data.statusCode !== 100)
@@ -523,6 +492,11 @@ class HubDevice extends OAuth2Device
 			catch (err)
 			{
 				throw this.appendApiCallCountToRateLimitError(err);
+			}
+
+			if (this.isOfflineCode(data.statusCode))
+			{
+				throw await this.handleOfflineResponse(dd.id, data.statusCode, data.message, 'Status request');
 			}
 
 			if (data.statusCode !== 100)
