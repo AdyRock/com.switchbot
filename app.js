@@ -52,6 +52,9 @@ const SECONDS_PER_DAY = 86400;
 const DAILY_API_QUOTA = 10000;
 const COMMAND_API_OVERHEAD = 500;
 const POLLING_DAILY_BUDGET = DAILY_API_QUOTA - COMMAND_API_OVERHEAD;
+const RATE_LIMIT_BACKOFF_INITIAL_MS = 5 * 60 * 1000;
+const RATE_LIMIT_BACKOFF_MAX_MS = 60 * 60 * 1000;
+const RATE_LIMIT_RESUME_JITTER_MS = 30 * 1000;
 const BLE_POLLING_INTERVAL = 30000; // in milliSeconds
 const BLE_ADVERTISEMENT_RATE_LIMIT_MS = 5000;
 const BLE_ADVERTISEMENT_STALE_POLL_MS = 120000;
@@ -225,6 +228,128 @@ class MyApp extends OAuth2App
 		this.apiCalls = this.toPositiveInteger(this.apiCalls, 0) + step;
 		this.persistApiCalls();
 		return this.apiCalls;
+	}
+
+	isRateLimitMessage(message)
+	{
+		return /rate\s*limit|too\s*many\s*requests|\b429\b/i.test(message ? String(message) : '');
+	}
+
+	// Called when SwitchBot rejects a request with HTTP 429. Background requests (polling, initial
+	// value reads, webhook checks) are paused with an exponential back-off so that a rate-limited
+	// account is not kept locked by retries. The state is persisted so app restarts honour it.
+	noteRateLimited(source)
+	{
+		const now = Date.now();
+		if (this.rateLimitedUntil > now)
+		{
+			// Already backing off; failures from requests that were in flight don't extend it
+			return;
+		}
+
+		this.rateLimitBackoffMs = this.rateLimitBackoffMs
+			? Math.min(this.rateLimitBackoffMs * 2, RATE_LIMIT_BACKOFF_MAX_MS)
+			: RATE_LIMIT_BACKOFF_INITIAL_MS;
+		this.rateLimitedUntil = now + this.rateLimitBackoffMs;
+		this.safeSetSetting('rateLimitedUntil', this.rateLimitedUntil);
+		this.safeSetSetting('rateLimitBackoffMs', this.rateLimitBackoffMs);
+
+		const remainingText = ((this.apiRemaining !== null) && (this.apiRemaining !== undefined)) ? `, SwitchBot reported ${this.apiRemaining} remaining` : '';
+		this.updateLog(`SwitchBot API rate limit reached (${source}; ${this.apiCalls} API calls today from this Homey${remainingText}). `
+			+ `The daily quota is shared by everything using this SwitchBot account. Pausing background requests for ${Math.round(this.rateLimitBackoffMs / 60000)} minutes`, 0, 'hub');
+		this.updateHubDevicesRateLimitWarning(true);
+	}
+
+	getRateLimitWarningText()
+	{
+		return 'SwitchBot API rate limit reached. Updates are paused and will resume automatically.';
+	}
+
+	// Show or clear the rate limit warning on every hub (cloud) device, as they all share the account quota
+	updateHubDevicesRateLimitWarning(rateLimited)
+	{
+		try
+		{
+			const drivers = this.homey.drivers.getDrivers();
+			for (const driver of Object.values(drivers))
+			{
+				for (const device of Object.values(driver.getDevices()))
+				{
+					if (rateLimited && (typeof device.setRateLimitWarning === 'function'))
+					{
+						device.setRateLimitWarning().catch(this.error);
+					}
+					else if (!rateLimited && (typeof device.clearRateLimitWarning === 'function'))
+					{
+						device.clearRateLimitWarning().catch(this.error);
+					}
+				}
+			}
+		}
+		catch (err)
+		{
+			this.updateLog(`Unable to update rate limit warnings: ${err.message}`, 1, 'hub');
+		}
+	}
+
+	// Called when SwitchBot accepts a request, which ends any rate limit back-off
+	noteApiSuccess()
+	{
+		if (!this.rateLimitBackoffMs)
+		{
+			return;
+		}
+
+		this.rateLimitBackoffMs = 0;
+		this.rateLimitedUntil = 0;
+		this.safeSetSetting('rateLimitedUntil', 0);
+		this.safeSetSetting('rateLimitBackoffMs', 0);
+		this.updateLog('SwitchBot API is accepting requests again; resuming background requests', 0, 'hub');
+		this.updateHubDevicesRateLimitWarning(false);
+	}
+
+	isRateLimited()
+	{
+		return this.rateLimitedUntil > Date.now();
+	}
+
+	// Milliseconds until background requests may resume, including a random spread so devices don't all resume together
+	getRateLimitResumeDelay()
+	{
+		const remaining = this.rateLimitedUntil - Date.now();
+		if (remaining <= 0)
+		{
+			return 0;
+		}
+
+		return remaining + Math.floor(Math.random() * RATE_LIMIT_RESUME_JITTER_MS);
+	}
+
+	getRateLimitStatusText()
+	{
+		return `SwitchBot API rate limited, retrying in ${Math.ceil(Math.max(0, this.rateLimitedUntil - Date.now()) / 60000)} minute(s)`;
+	}
+
+	// Record the remaining daily quota reported by SwitchBot (x-ratelimit-remaining header). Unlike the
+	// local counter this includes calls made by other integrations and follows SwitchBot's own reset time.
+	noteRateLimitRemaining(value)
+	{
+		if ((value === null) || (value === undefined) || (value === ''))
+		{
+			return;
+		}
+
+		const remaining = Number.parseInt(value, 10);
+		if (!Number.isFinite(remaining))
+		{
+			return;
+		}
+
+		this.apiRemaining = remaining;
+		if (remaining <= 0)
+		{
+			this.noteRateLimited('x-ratelimit-remaining is 0');
+		}
 	}
 
 	formatRateLimitErrorMessage(message)
@@ -536,6 +661,14 @@ class MyApp extends OAuth2App
 		if (!this.apiCalls)
 		{
 			this.apiCalls = 0;
+		}
+
+		this.apiRemaining = null;
+		this.rateLimitedUntil = this.toPositiveInteger(this.homey.settings.get('rateLimitedUntil'), 0);
+		this.rateLimitBackoffMs = this.toPositiveInteger(this.homey.settings.get('rateLimitBackoffMs'), 0);
+		if (this.isRateLimited())
+		{
+			this.updateLog(`Startup: ${this.getRateLimitStatusText()} (back-off from a previous rate limit response)`, 0, 'hub');
 		}
 
 		// Set timer to reset the api counter at midnight
@@ -2474,6 +2607,18 @@ class MyApp extends OAuth2App
 			this.webhookAuthMissingLogged = false;
 		}
 
+		if (this.isRateLimited())
+		{
+			if (this.switchBotWebhookTimerID)
+			{
+				this.homey.clearTimeout(this.switchBotWebhookTimerID);
+			}
+
+			this.updateLog(`SwitchBot webhook check skipped: ${this.getRateLimitStatusText()}`, 1, 'hub');
+			this.switchBotWebhookTimerID = this.homey.setTimeout(() => this.setupSwitchBotWebhook(), this.getRateLimitResumeDelay());
+			return;
+		}
+
 		const isStartupAttempt = !this.switchBotWebhookTimerID;
 
 		// Setup a timer to ensure the webhook is registered every hour in case of issues with the SwitchBot cloud or the Homey webhook service
@@ -2488,7 +2633,8 @@ class MyApp extends OAuth2App
 		const isRegistered = await this.ensureSwitchBotWebhook();
 		if (!isRegistered)
 		{
-			timer = 60 * 1000;
+			// Retry after a minute, or once any rate limit back-off has expired
+			timer = Math.max(60 * 1000, this.getRateLimitResumeDelay());
 		}
 
 		if (isStartupAttempt)
@@ -2829,6 +2975,16 @@ class MyApp extends OAuth2App
 			this.hubAuthMissingLogged = false;
 		}
 
+		if (this.isRateLimited())
+		{
+			this.homey.app.updateLog(`Hub polling skipped: ${this.getRateLimitStatusText()}`, 1, 'hub');
+			if (this.hubDevices > 0)
+			{
+				this.timerHubID = this.homey.setTimeout(this.onHubPoll, this.getRateLimitResumeDelay());
+			}
+			return;
+		}
+
 		let totalHuBDevices = 0;
 
 		const drivers = this.homey.drivers.getDrivers();
@@ -2837,6 +2993,12 @@ class MyApp extends OAuth2App
 			const devices = driver.getDevices();
 			for (const device of Object.values(devices))
 			{
+				if (this.isRateLimited())
+				{
+					// Rate limited part way through the cycle, so don't poll the remaining devices
+					break;
+				}
+
 				if (device.pollHubDeviceValues)
 				{
 					try
@@ -2856,13 +3018,24 @@ class MyApp extends OAuth2App
 			}
 		}
 
+		if (this.isRateLimited())
+		{
+			if (this.hubDevices > 0)
+			{
+				this.homey.app.updateLog(`Hub polling paused: ${this.getRateLimitStatusText()}`, 1, 'hub');
+				this.timerHubID = this.homey.setTimeout(this.onHubPoll, this.getRateLimitResumeDelay());
+			}
+			return;
+		}
+
 		if (totalHuBDevices > 0)
 		{
 			const minimumIntervalMs = MINIMUM_POLL_INTERVAL * 1000;
 			const quotaIntervalMs = Math.ceil((SECONDS_PER_DAY * 1000 * totalHuBDevices * this.numConnections) / POLLING_DAILY_BUDGET);
 			const nextInterval = Math.max(minimumIntervalMs, quotaIntervalMs);
 
-			this.homey.app.updateLog(`Next HUB polling interval = ${nextInterval / 1000}s for ${totalHuBDevices} active devices across ${this.numConnections} Homey account connection(s): ${this.homey.app.apiCalls} API calls today`, 'hub');
+			const remainingText = ((this.apiRemaining !== null) && (this.apiRemaining !== undefined)) ? ` (SwitchBot reports ${this.apiRemaining} remaining)` : '';
+			this.homey.app.updateLog(`Next HUB polling interval = ${nextInterval / 1000}s for ${totalHuBDevices} active devices across ${this.numConnections} Homey account connection(s): ${this.homey.app.apiCalls} API calls today${remainingText}`, 'hub');
 			this.timerHubID = this.homey.setTimeout(this.onHubPoll, nextInterval);
 		}
 	}

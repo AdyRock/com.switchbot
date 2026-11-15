@@ -33,12 +33,7 @@ class ContactHubDevice extends HubDevice
 		if (!this.getSetting('enable_polling'))
 		{
 			// Polling is disabled so fetch the initial values now, as the webhook only sends changes
-			const randomDelay = Math.floor(Math.random() * 10000) + 5000; // between 5 and 15 seconds
-			this.homey.setTimeout(() =>
-			{
-				this.getHubDeviceValues().catch(this.error);
-			},
-			randomDelay);
+			this.scheduleInitialHubValuesFetch();
 		}
 
 		this.log('ContactHubDevice has been initialising');

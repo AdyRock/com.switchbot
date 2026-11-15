@@ -111,6 +111,38 @@ class HubDevice extends OAuth2Device
 		}
 	}
 
+	async setRateLimitWarning()
+	{
+		this.rateLimitWarningActive = true;
+		try
+		{
+			await this.setWarning(this.homey.app.getRateLimitWarningText());
+		}
+		catch (err)
+		{
+			this.homey.app.updateLog(`Unable to set rate limit warning for ${this.getName()}: ${err.message}`, 1, 'hub');
+		}
+	}
+
+	// Only clears the warning if it was set because of the rate limit, so other warnings are kept
+	async clearRateLimitWarning()
+	{
+		if (!this.rateLimitWarningActive)
+		{
+			return;
+		}
+
+		this.rateLimitWarningActive = false;
+		try
+		{
+			await this.unsetWarning();
+		}
+		catch (err)
+		{
+			this.homey.app.updateLog(`Unable to clear rate limit warning for ${this.getName()}: ${err.message}`, 1, 'hub');
+		}
+	}
+
 	async confirmDeviceOffline(oAuth2Client, deviceId)
 	{
 		if (!oAuth2Client)
@@ -234,22 +266,40 @@ class HubDevice extends OAuth2Device
 			this.removeCapability('button.send_log').catch(this.error);
 		}
 
+		if (this.homey.app.isRateLimited())
+		{
+			// Still within a rate limit back-off from before the app restarted
+			this.setRateLimitWarning().catch(this.error);
+		}
+
 		if (!this.pollHubDeviceValues)
 		{
-			// Set a random timer to fetch initial values from the hub device
-			const randomDelay = Math.floor(Math.random() * 10000) + 5000; // between 5 and 15 seconds
-			this.homey.app.updateLog(`fetch initial values in ${randomDelay} ms`, 3, 'hub');
-			this.homey.setTimeout(() =>
-			{
-				this.getHubDeviceValues().catch(this.error);
-			},
-			randomDelay);
+			this.scheduleInitialHubValuesFetch();
 		}
 		else
 		{
 			// Polling is enabled, so we need to fetch the initial values from the hub device
 			this.homey.app.registerHUBPolling();
 		}
+	}
+
+	// Fetch the initial values after a random delay, deferring until any SwitchBot rate limit back-off has expired
+	scheduleInitialHubValuesFetch()
+	{
+		const randomDelay = Math.floor(Math.random() * 10000) + 5000; // between 5 and 15 seconds
+		const delay = randomDelay + this.homey.app.getRateLimitResumeDelay();
+		this.homey.app.updateLog(`fetch initial values in ${delay} ms`, 3, 'hub');
+		this.homey.setTimeout(() =>
+		{
+			if (this.homey.app.isRateLimited())
+			{
+				this.scheduleInitialHubValuesFetch();
+				return;
+			}
+
+			this.getHubDeviceValues().catch(this.error);
+		},
+		delay);
 	}
 
 	/**
@@ -433,6 +483,12 @@ class HubDevice extends OAuth2Device
 
 	async _getHubDeviceValues()
 	{
+		if (this.homey.app.isRateLimited())
+		{
+			// Don't make the rate limit worse; the request would be rejected anyway
+			throw new Error(this.homey.app.getRateLimitWarningText());
+		}
+
 		const dd = this.getData();
 		const oAuth2Client = this.getOAuth2ClientForDevice();
 		if (this.homey.app.openToken)
