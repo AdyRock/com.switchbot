@@ -1,0 +1,20 @@
+{
+  "id": "ai_hub",
+  "name": {
+    "en": "AI Hub"
+  },
+  "class": "sensor",
+  "capabilities": [
+    "alarm_generic"
+  ],
+  "capabilitiesOptions": {
+    "alarm_generic": {
+      "title": {
+        "en": "Offline"
+      }
+    }
+  },
+  "$extends": [
+    "hubDriver"
+  ]
+}

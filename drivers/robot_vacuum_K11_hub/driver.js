@@ -19,7 +19,7 @@ class HubVacuumK11Driver extends HubDriver
 
 	async onPairListDevices({ oAuth2Client })
 	{
-		return this.getHUBDevices(oAuth2Client, ['Robot Vacuum Cleaner K11 Plus']);
+		return this.getHUBDevices(oAuth2Client, ['Robot Vacuum Cleaner K11 Plus', 'Robot Vacuum Cleaner K11 Plus Pro']);
 	}
 
 	async triggerStateChanged(device, tokens, state)
