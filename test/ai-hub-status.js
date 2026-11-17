@@ -59,6 +59,20 @@ async function run()
 	const polled = fixture('online');
 	assert.equal(await polled.device.pollHubDeviceValues(), true);
 	assert.equal(polled.calls.values.alarm_generic, false);
+
+	for (const [status, expectedAlarm] of [['online', false], ['offline', true]])
+	{
+		const added = fixture(status);
+		let initialFetch;
+		added.device.scheduleInitialHubValuesFetch = () =>
+		{
+			initialFetch = added.device.getHubDeviceValues();
+		};
+		await added.device.onOAuth2Added();
+		assert.ok(initialFetch);
+		await initialFetch;
+		assert.equal(added.calls.values.alarm_generic, expectedAlarm);
+	}
 }
 
 run().catch((err) =>

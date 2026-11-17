@@ -1601,6 +1601,6 @@
 		"ko": "기기 또는 허브가 오프라인으로 응답하면 더 이상 요청을 재시도하지 않으며, 해당 기기에 대한 이후 요청은 짧고 점점 늘어나는 시간 동안 일시 중지되고, 기기 또는 허브 중 무엇이 오프라인인지 알려주는 경고가 표시됩니다."
 	},
 	"2.0.102": {
-		"en": "Recognized SwitchBot Remote with screen, Outdoor Spotlight Cam 2K, Safety Alarm, and Wallet Finder Card as known API-list-only devices; added online status support for AI Hub and support for the K11 Plus Pro device type."
+		"en": "Recognized SwitchBot Remote with screen, Outdoor Spotlight Cam 2K, Safety Alarm, and Wallet Finder Card as known API-list-only devices; added AI Hub online status support with an initial update after pairing and support for the K11 Plus Pro device type."
 	}
 }

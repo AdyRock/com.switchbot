@@ -553,6 +553,7 @@ class MyApp extends OAuth2App
 	static OAUTH2_DEBUG = false; // Default: false
 	static OAUTH2_MULTI_SESSION = false; // Default: false
 	static OAUTH2_DRIVERS = [
+		'ai_hub',
 		'air_con_hub',
 		'air_puifier_hub',
 		'air_purifier_remote_hub',

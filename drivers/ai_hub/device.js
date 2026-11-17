@@ -7,6 +7,11 @@ const HubDevice = require('../hub_device');
 class AIHubDevice extends HubDevice
 {
 
+	async onOAuth2Added()
+	{
+		this.scheduleInitialHubValuesFetch();
+	}
+
 	async getHubDeviceValues()
 	{
 		try
