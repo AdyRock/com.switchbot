@@ -25,6 +25,9 @@ class BLEDriver extends Homey.Driver
 		// Wait before claiming the radio, otherwise the startup discovery cannot run.
 		await this.homey.app.whenInitialBLEDiscoveryComplete();
 
+		// Cloud-only installations do not scan in the background, so populate the cache on demand.
+		await this.homey.app.refreshBLEDeviceCache();
+
 		this.homey.app.bleDiscovery = true;
 		this.homey.app.updateLog('BLE Discovery started', 'ble');
 		this.homey.app.detectedDevices = '';
@@ -84,8 +87,7 @@ class BLEDriver extends Homey.Driver
 				await this.homey.app.Delay(500);
 			}
 
-			// Use the app's background discovery cache rather than scanning again, so devices that
-			// were seen since startup are offered even if they miss this moment's advertisement.
+			// Include previous sightings even if they missed the on-demand scan's advertisement window.
 			const cachedDevices = this.homey.app.getCachedBLEDevices(type);
 			this.homey.app.updateLog(`BLE Discovery using cache: ${cachedDevices.length} device(s) of type ${type}`, 2, 'ble');
 

@@ -65,7 +65,7 @@ const DETECTED_BLE_DEVICE_STALE_MS = 5 * 60 * 1000;
 // An active advertisement monitor stops homey.ble.discover()/find() returning service data for the
 // device it covers, which breaks the polling fallback, so subscriptions default to off.
 const BLE_ADVERTISEMENT_SUBSCRIPTIONS_DEFAULT = false;
-// Background scan that keeps a running list of every SwitchBot device seen since startup.
+// Background scan for installations with paired BLE devices; pairing can also refresh the cache on demand.
 const BLE_DISCOVERY_CACHE_INTERVAL_MS = 60000;
 const BLE_DISCOVERY_CACHE_SCAN_MS = 6000;
 const BLE_DISCOVERY_CACHE_START_DELAY_MS = 2000;
@@ -4250,7 +4250,10 @@ class MyApp extends OAuth2App
 		let scanRan = false;
 		try
 		{
-			scanRan = await this.refreshBLEDeviceCache();
+			if (this.bleRegisteredDevices.size > 0)
+			{
+				scanRan = await this.refreshBLEDeviceCache();
+			}
 		}
 		catch (err)
 		{
@@ -4259,7 +4262,7 @@ class MyApp extends OAuth2App
 
 		// Drivers may not be loaded yet, or the radio may be busy; keep retrying quickly so the
 		// initial cache is never left empty, but give up eventually rather than blocking forever.
-		if (!this.initialBLEDiscoveryDone && !scanRan
+		if (!this.initialBLEDiscoveryDone && !scanRan && (this.bleRegisteredDevices.size > 0)
 			&& (this.initialBLEDiscoveryAttempts < BLE_DISCOVERY_CACHE_MAX_INITIAL_ATTEMPTS))
 		{
 			this.initialBLEDiscoveryAttempts++;
