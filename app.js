@@ -74,6 +74,8 @@ const BLE_DISCOVERY_CACHE_RETRY_MS = 3000;
 const BLE_DISCOVERY_CACHE_MAX_INITIAL_ATTEMPTS = 10;
 const HUB_POLL_MISSING_AUTH_INTERVAL_MS = 60000;
 const WEBHOOK_AUTH_MISSING_INTERVAL_MS = 5 * 60 * 1000;
+const TEMPORARY_DIAGNOSTICS_DURATION_MS = 5 * 60 * 1000;
+const TEMPORARY_DIAGNOSTICS_COOLDOWN_MS = 15 * 60 * 1000;
 // Device types whose official API matrix has no Status, Command, or Webhook support.
 // Source: https://github.com/OpenWonderLabs/SwitchBotAPI#device-specifications-and-supported-features-list
 const API_LIST_ONLY_DEVICE_TYPES = new Set([
@@ -421,6 +423,31 @@ class MyApp extends OAuth2App
 		return Array.isArray(this.devicesMACs) && this.devicesMACs.length > 0;
 	}
 
+	enableTemporaryDiagnostics()
+	{
+		const now = Date.now();
+		const nextAllowedAt = Number(this.temporaryDiagnosticsNextAllowedAt) || 0;
+		if (nextAllowedAt > now)
+		{
+			const retrySeconds = Math.ceil((nextAllowedAt - now) / 1000);
+			throw new Error(`Temporary diagnostics can be enabled again in ${retrySeconds} seconds`);
+		}
+
+		this.temporaryDiagnosticsUntil = now + TEMPORARY_DIAGNOSTICS_DURATION_MS;
+		this.temporaryDiagnosticsNextAllowedAt = now + TEMPORARY_DIAGNOSTICS_COOLDOWN_MS;
+		if (this.homey && this.homey.settings && typeof this.safeSetSetting === 'function')
+		{
+			this.safeSetSetting('temporaryDiagnosticsNextAllowedAt', this.temporaryDiagnosticsNextAllowedAt);
+		}
+		this.updateLog('Temporary diagnostics enabled for five minutes (BLE and Hub basic logging)', 0, 'hub');
+		return true;
+	}
+
+	isTemporaryDiagnosticsActive()
+	{
+		return (Number(this.temporaryDiagnosticsUntil) || 0) > Date.now();
+	}
+
 	normalizeLogMessage(newMessage)
 	{
 		const message = this.redactSensitiveLogData((typeof newMessage === 'string') ? newMessage : this.varToString(newMessage));
@@ -636,6 +663,8 @@ class MyApp extends OAuth2App
 		this.devicesMACs = [];
 		this.homeyWebhookRegTimerID = null;
 		this.switchBotWebhookTimerID = null;
+		this.temporaryDiagnosticsUntil = 0;
+		this.temporaryDiagnosticsNextAllowedAt = this.toPositiveInteger(this.homey.settings.get('temporaryDiagnosticsNextAllowedAt'), 0);
 		this.apiCallsPersistTimer = null;
 		this.hubAuthMissingLogged = false;
 		this.webhookAuthMissingLogged = false;
@@ -861,6 +890,13 @@ class MyApp extends OAuth2App
 		this.settingsOAuthFlows = {};
 
 		// Register flow cards
+
+		const enableTemporaryDiagnosticsAction = this.homey.flow.getActionCard('enable_temporary_diagnostics');
+		enableTemporaryDiagnosticsAction
+			.registerRunListener(async () =>
+			{
+				return this.enableTemporaryDiagnostics();
+			});
 
 		const operateAction = this.homey.flow.getActionCard('operate_aircon');
 		operateAction
@@ -1845,17 +1881,27 @@ class MyApp extends OAuth2App
 		{
 			const message = this.normalizeLogMessage(newMessage);
 			this.logLevel = this.homey.settings.get('logLevel');
-			const logFilter = this.homey.settings.get('logSource') || 'all';
+			const temporaryDiagnosticsActive = this.isTemporaryDiagnosticsActive();
+			const effectiveLogLevel = temporaryDiagnosticsActive ? 2 : this.logLevel;
+			const logFilter = temporaryDiagnosticsActive ? 'all' : (this.homey.settings.get('logSource') || 'all');
 
-			if (this.logLevel !== 1 && errorLevel === 1)
+			if (!temporaryDiagnosticsActive && effectiveLogLevel !== 1 && errorLevel === 1)
 			{
 				// Only log webhook messages if log level is 1
 				return;
 			}
 
-			if (errorLevel === 0 || (errorLevel <= this.logLevel && (logFilter === 'all' || logFilter === logSource) && this.matchesLogDeviceFilter(message)))
+			if (errorLevel === 0 || (errorLevel <= effectiveLogLevel && (logFilter === 'all' || logFilter === logSource) && (temporaryDiagnosticsActive || this.matchesLogDeviceFilter(message))))
 			{
-				this.originalLog(message);
+				if (temporaryDiagnosticsActive)
+				{
+					// Homey Cloud diagnostic reports retain error output by default.
+					this.originalError(message);
+				}
+				else
+				{
+					this.originalLog(message);
+				}
 				const nowTime = new Date(Date.now());
 
 				this.diagLog += '\r\n* ';

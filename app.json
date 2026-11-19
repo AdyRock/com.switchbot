@@ -2957,6 +2957,20 @@
       },
       {
         "title": {
+          "en": "Enable SwitchBot diagnostics for 5 minutes"
+        },
+        "hint": {
+          "en": "Temporarily enables basic BLE, Hub, and webhook logging for five minutes. This action can only be repeated after 15 minutes."
+        },
+        "args": [],
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "id": "enable_temporary_diagnostics"
+      },
+      {
+        "title": {
           "en": "Set to high speed",
           "no": "Sett til høy fart",
           "nl": "Zet op hoge snelheid",
