@@ -1605,5 +1605,8 @@
 	},
 	"2.0.103": {
 		"en": "Added support for the SwitchBot Outdoor Spotlight Cam 2K, improved BLE discovery for paired installations, and added temporary diagnostics for enhanced logging."
+	},
+	"2.0.104": {
+		"en": "Added on/off Flow conditions for both relays on the Relay Switch 2PM and fixed initial battery status retrieval for the Video Doorbell."
 	}
 }

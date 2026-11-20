@@ -1307,6 +1307,20 @@ class MyApp extends OAuth2App
 			return Promise.resolve(conditionMet);
 		});
 
+		const relayConditions = [
+			{ id: 'onoff_relay1_is_true', capability: 'onoff.one', value: true },
+			{ id: 'onoff_relay1_is_false', capability: 'onoff.one', value: false },
+			{ id: 'onoff_relay2_is_true', capability: 'onoff.two', value: true },
+			{ id: 'onoff_relay2_is_false', capability: 'onoff.two', value: false },
+		];
+		for (const condition of relayConditions)
+		{
+			this.homey.flow.getConditionCard(condition.id).registerRunListener(({ device }) =>
+			{
+				return Promise.resolve(device.getCapabilityValue(condition.capability) === condition.value);
+			});
+		}
+
 		// Device Triggers
 		this.stateChangedTrigger = this.homey.flow.getDeviceTriggerCard('vaccum_state_changed');
 		this.stateChangedToTrigger = this.homey.flow.getDeviceTriggerCard('vaccum_state_changed_to');

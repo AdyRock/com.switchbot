@@ -1,0 +1,27 @@
+{
+  "title": {
+    "en": "Relay 1 is turned off",
+    "no": "Relé 1 er slått av",
+    "nl": "Relais 1 is uitgeschakeld",
+    "da": "Relæ 1 er slukket",
+    "de": "Relais 1 ist ausgeschaltet",
+    "es": "El relé 1 está apagado",
+    "fr": "Le relais 1 est éteint",
+    "it": "Il relè 1 è spento",
+    "sv": "Relä 1 är av",
+    "pl": "Przekaźnik 1 jest wyłączony",
+    "ru": "Реле 1 выключено",
+    "ko": "릴레이 1 꺼짐"
+  },
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=relay2pm_hub"
+    }
+  ],
+  "platforms": [
+    "local",
+    "cloud"
+  ]
+}

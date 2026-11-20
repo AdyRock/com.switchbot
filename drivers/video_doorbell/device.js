@@ -126,6 +126,29 @@ class VideoDoorBellDevice extends HubDevice
 		}
 	}
 
+	async getHubDeviceValues()
+	{
+		try
+		{
+			const data = await this._getHubDeviceValues();
+			if (data)
+			{
+				this.setAvailable();
+				this.homey.app.updateLog(`Video Doorbell Hub got: ${this.homey.app.varToString(data)}`, 3, 'hub');
+				if ((typeof data.battery !== 'undefined') && (data.battery !== null))
+				{
+					this.setCapabilityValue('measure_battery', data.battery).catch(this.error);
+				}
+			}
+			this.unsetWarning().catch(this.error);
+		}
+		catch (err)
+		{
+			this.homey.app.updateLog(`Video Doorbell getHubDeviceValues: ${this.homey.app.varToString(err.message)}`, 0, 'hub');
+			this.setWarning(err.message).catch(this.error);
+		}
+	}
+
 	async processWebhookMessage(message)
 	{
 		try

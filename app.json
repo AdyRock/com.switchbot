@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.switchbot",
-  "version": "2.0.103",
+  "version": "2.0.104",
   "compatibility": ">=12.2.0",
   "platforms": [
     "local",
@@ -2612,6 +2612,118 @@
           "cloud"
         ],
         "id": "onoff_colour_is_true"
+      },
+      {
+        "title": {
+          "en": "Relay 1 is turned off",
+          "no": "Relé 1 er slått av",
+          "nl": "Relais 1 is uitgeschakeld",
+          "da": "Relæ 1 er slukket",
+          "de": "Relais 1 ist ausgeschaltet",
+          "es": "El relé 1 está apagado",
+          "fr": "Le relais 1 est éteint",
+          "it": "Il relè 1 è spento",
+          "sv": "Relä 1 är av",
+          "pl": "Przekaźnik 1 jest wyłączony",
+          "ru": "Реле 1 выключено",
+          "ko": "릴레이 1 꺼짐"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=relay2pm_hub"
+          }
+        ],
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "id": "onoff_relay1_is_false"
+      },
+      {
+        "title": {
+          "en": "Relay 1 is turned on",
+          "no": "Relé 1 er slått på",
+          "nl": "Relais 1 is ingeschakeld",
+          "da": "Relæ 1 er tændt",
+          "de": "Relais 1 ist eingeschaltet",
+          "es": "El relé 1 está encendido",
+          "fr": "Le relais 1 est allumé",
+          "it": "Il relè 1 è acceso",
+          "sv": "Relä 1 är på",
+          "pl": "Przekaźnik 1 jest włączony",
+          "ru": "Реле 1 включено",
+          "ko": "릴레이 1 켜짐"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=relay2pm_hub"
+          }
+        ],
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "id": "onoff_relay1_is_true"
+      },
+      {
+        "title": {
+          "en": "Relay 2 is turned off",
+          "no": "Relé 2 er slått av",
+          "nl": "Relais 2 is uitgeschakeld",
+          "da": "Relæ 2 er slukket",
+          "de": "Relais 2 ist ausgeschaltet",
+          "es": "El relé 2 está apagado",
+          "fr": "Le relais 2 est éteint",
+          "it": "Il relè 2 è spento",
+          "sv": "Relä 2 är av",
+          "pl": "Przekaźnik 2 jest wyłączony",
+          "ru": "Реле 2 выключено",
+          "ko": "릴레이 2 꺼짐"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=relay2pm_hub"
+          }
+        ],
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "id": "onoff_relay2_is_false"
+      },
+      {
+        "title": {
+          "en": "Relay 2 is turned on",
+          "no": "Relé 2 er slått på",
+          "nl": "Relais 2 is ingeschakeld",
+          "da": "Relæ 2 er tændt",
+          "de": "Relais 2 ist eingeschaltet",
+          "es": "El relé 2 está encendido",
+          "fr": "Le relais 2 est allumé",
+          "it": "Il relè 2 è acceso",
+          "sv": "Relä 2 är på",
+          "pl": "Przekaźnik 2 jest włączony",
+          "ru": "Реле 2 включено",
+          "ko": "릴레이 2 켜짐"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=relay2pm_hub"
+          }
+        ],
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "id": "onoff_relay2_is_true"
       },
       {
         "title": {
