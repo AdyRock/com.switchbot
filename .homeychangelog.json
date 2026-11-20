@@ -1602,5 +1602,8 @@
 	},
 	"2.0.102": {
 		"en": "Recognized SwitchBot Remote with screen, Outdoor Spotlight Cam 2K, Safety Alarm, and Wallet Finder Card as known API-list-only devices; added AI Hub online status support with an initial update after pairing and support for the K11 Plus Pro device type."
+	},
+	"2.0.103": {
+		"en": "Added support for the SwitchBot Outdoor Spotlight Cam 2K, improved BLE discovery for paired installations, and added temporary diagnostics for enhanced logging."
 	}
 }
