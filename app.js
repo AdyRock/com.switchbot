@@ -88,6 +88,7 @@ const API_LIST_ONLY_DEVICE_TYPES = new Set([
 	'Pan/Tilt Cam Plus 3K',
 	'Remote',
 	'remote with screen',
+	'Outdoor Spotlight Cam',
 	'Outdoor Spotlight Cam 2K',
 	'Safety Alarm',
 	'Wallet Finder Card',
