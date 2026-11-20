@@ -107,6 +107,7 @@ class CurtainsHubDevice extends HubDevice
 	// this method is called when the Homey device switches the device on or off
 	async onCapabilityopenClose(value, opts)
 	{
+		const exactClose = value === true;
 		value = value ? 1 : 0;
 
 		if (this.invertPosition)
@@ -114,12 +115,13 @@ class CurtainsHubDevice extends HubDevice
 			value = 1 - value;
 		}
 
-		return this.runToPos(value * 100, this.motionMode);
+		return this.runToPos(value * 100, this.motionMode, exactClose);
 	}
 
 	// this method is called when the Homey device has requested a position change ( 0 to 1)
 	async onCapabilityPosition(value, opts)
 	{
+		const exactClose = value === 1;
 		let mode = this.motionMode;
 
 		if (opts === 'fast')
@@ -136,7 +138,7 @@ class CurtainsHubDevice extends HubDevice
 			value = 1 - value;
 		}
 
-		return this.runToPos(value * 100, mode);
+		return this.runToPos(value * 100, mode, exactClose);
 	}
 
 	async onCapabilityState(value, opts)
@@ -193,9 +195,16 @@ class CurtainsHubDevice extends HubDevice
 	 * - Promise object
 	 *   Nothing will be passed to the `resolve()`.
 	 * ---------------------------------------------------------------- */
-	close()
+	async close()
 	{
-		return this._operateCurtain('turnOff', 'default');
+		const operation = this._operateCurtain('turnOff', 'default');
+		const sequence = this.commandSequence;
+		const result = await operation;
+		if (result !== false && this.commandSequence === sequence && this.getData().type === 'Curtain3')
+		{
+			this.pendingCloseUntil = Date.now() + 120000;
+		}
+		return result;
 	}
 
 	stop()
@@ -214,13 +223,23 @@ class CurtainsHubDevice extends HubDevice
 	 * - Promise object
 	 *   Nothing will be passed to the `resolve()`.
 	 * ---------------------------------------------------------------- */
-	async runToPos(percent, mode = 0xff)
+	async runToPos(percent, mode = 0xff, exactClose = false)
 	{
-		return this._operateCurtain('setPosition', `0,${mode},${percent}`);
+		const operation = this._operateCurtain('setPosition', `0,${mode},${percent}`);
+		const sequence = this.commandSequence;
+		const result = await operation;
+		if (exactClose && result !== false && this.commandSequence === sequence && this.getData().type === 'Curtain3')
+		{
+			this.pendingCloseUntil = Date.now() + 120000;
+		}
+		return result;
 	}
 
 	async _operateCurtain(command, parameter)
 	{
+		this.commandSequence = (this.commandSequence || 0) + 1;
+		this.pendingCloseUntil = null;
+		this.closeEndpointLatched = false;
 		this.setCapabilityValue('position', null).catch(this.error);
 		const data = {
 			command,
@@ -247,17 +266,22 @@ class CurtainsHubDevice extends HubDevice
 	{
 		try
 		{
+			const sequence = this.commandSequence;
 			const data = await this._getHubDeviceValues();
+			if (sequence !== this.commandSequence) return;
 			if (data)
 			{
 				this.setAvailable();
 				this.homey.app.updateLog(`Curtain Hub got: ${this.homey.app.varToString(data)}`, 3, 'hub');
 
-				let position = data.slidePosition / 100;
-				if (this.invertPosition)
+				const physicalPosition = this.invertPosition ? 1 - data.slidePosition / 100 : data.slidePosition / 100;
+				const nearClose = Math.abs(physicalPosition - 0.99) < 0.000001;
+				if (this.pendingCloseUntil > Date.now() && data.moving === false && data.calibrate === true && nearClose)
 				{
-					position = 1 - position;
+					this.closeEndpointLatched = true;
 				}
+				if (!nearClose || data.moving === true) this.closeEndpointLatched = false;
+				const position = this.closeEndpointLatched && nearClose ? 1 : physicalPosition;
 
 				if (position > 0.5)
 				{
@@ -282,7 +306,7 @@ class CurtainsHubDevice extends HubDevice
 				}
 
 				this.setCapabilityValue('windowcoverings_set', position).catch(this.error);
-				this.setCapabilityValue('position', position * 100).catch(this.error);
+				this.setCapabilityValue('position', physicalPosition * 100).catch(this.error);
 
 				if (this.lastPosition)
 				{
@@ -336,11 +360,10 @@ class CurtainsHubDevice extends HubDevice
 				}
 
 				const data = message.context;
-				let position = data.slidePosition / 100;
-				if (this.invertPosition)
-				{
-					position = 1 - position;
-				}
+				const physicalPosition = this.invertPosition ? 1 - data.slidePosition / 100 : data.slidePosition / 100;
+				const nearClose = Math.abs(physicalPosition - 0.99) < 0.000001;
+				if (!nearClose || data.moving === true) this.closeEndpointLatched = false;
+				const position = this.closeEndpointLatched && nearClose ? 1 : physicalPosition;
 
 				if (position > 0.5)
 				{
@@ -361,7 +384,7 @@ class CurtainsHubDevice extends HubDevice
 				}
 
 				this.setCapabilityValue('windowcoverings_set', position).catch(this.error);
-				this.setCapabilityValue('position', position * 100).catch(this.error);
+				this.setCapabilityValue('position', physicalPosition * 100).catch(this.error);
 
 				if (position === 0)
 				{
