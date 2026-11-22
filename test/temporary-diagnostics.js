@@ -76,5 +76,68 @@ loggingApp.updateLog('not logged after expiry', 2, 'hub');
 loggingApp.updateLog('webhook not logged after expiry', 1, 'hub');
 assert.equal(errorLines.length, 4);
 
+const filterApp = Object.create(MyApp.prototype);
+let selectedFilterValue = 'temperature_hub';
+const filterDevice = {
+	getData: () => ({ id: 'meter-1', type: 'Meter' }),
+	getName: () => 'Meter in kitchen',
+};
+const manifest = JSON.parse(fs.readFileSync(path.join(__dirname, '../app.json'), 'utf8'));
+const temperatureManifest = manifest.drivers.find((driver) => driver.id === 'temperature_hub');
+filterApp.homey = {
+	manifest,
+	drivers: {
+		getDrivers: () => ({
+			temperature_hub: {
+				manifest: temperatureManifest,
+				getDevices: () => ({ meter: filterDevice }),
+			},
+		}),
+	},
+	i18n: { getLanguage: () => 'en' },
+	settings: {
+		get: (key) => (key === 'logFilterType' ? 'deviceType' : selectedFilterValue),
+	},
+};
+const filterOptions = filterApp.getLogFilterOptions();
+const filterTemperature = filterOptions.deviceType.filter((option) => option.value === 'temperature_hub');
+assert.equal(filterTemperature.length, 1);
+assert.equal(filterTemperature[0].label, 'Temperature & Humidity (HUB) [temperature_hub]');
+assert.equal(filterTemperature[0].legacyTypes[0], 'Meter');
+assert.ok(filterOptions.bySource.hub.deviceType.some((option) => option.value === 'temperature_hub'));
+assert.ok(!filterOptions.bySource.ble.deviceType.some((option) => option.value === 'temperature_hub'));
+assert.equal(filterOptions.identifier.length, 1);
+assert.equal(filterApp.matchesLogDeviceFilter('Meter in kitchen temperature_hub'), true);
+selectedFilterValue = 'Meter';
+assert.equal(filterApp.matchesLogDeviceFilter('Meter in kitchen temperature_hub'), true);
+assert.equal(filterApp.matchesLogDeviceFilter('Unrelated device'), false);
+
+const extraOptions = filterApp.buildLogFilterOptions([
+	{ driverId: 'temperature_hub', driverName: 'Temperature', deviceType: 'Meter', logSource: 'hub' },
+	{ driverId: 'temperature_hub', driverName: 'Temperature', deviceType: 'MeterPlus', logSource: 'hub' },
+	{ driverId: 'other_hub', driverName: 'Other', deviceType: 'Meter', logSource: 'hub' },
+	{ driverId: '', driverName: '', deviceType: 'Unknown', logSource: 'hub' },
+]);
+assert.equal(extraOptions.deviceType.length, 3);
+const temperatureOption = extraOptions.deviceType.find((option) => option.value === 'temperature_hub');
+assert.equal(temperatureOption.legacyTypes.length, 2);
+assert.ok(temperatureOption.legacyTypes.includes('MeterPlus'));
+assert.ok(extraOptions.deviceType.some((option) => option.value === 'other_hub'));
+assert.ok(extraOptions.deviceType.some((option) => option.value === 'Unknown'));
+
+filterApp.homey.drivers.getDrivers = () => ({});
+const unpairedOptions = filterApp.getLogFilterOptions();
+assert.equal(unpairedOptions.deviceType.length, manifest.drivers.length);
+assert.equal(unpairedOptions.identifier.length, 0);
+for (const driver of manifest.drivers)
+{
+	assert.equal(unpairedOptions.deviceType.filter((option) => option.value === driver.id).length, 1);
+	for (const [connectivity, source] of [['ble', 'ble'], ['cloud', 'hub']])
+	{
+		const count = unpairedOptions.bySource[source].deviceType.filter((option) => option.value === driver.id).length;
+		assert.equal(count, driver.connectivity.includes(connectivity) ? 1 : 0, driver.id);
+	}
+}
+
 // eslint-disable-next-line no-console
 console.log('Temporary diagnostics tests passed');

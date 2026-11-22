@@ -623,13 +623,16 @@
 			appendNotSupportableSection(notSupportableDevices);
 		}
 
+		var driverSupportRequestId = 0;
 		function refreshDriverSupport()
 		{
+			const requestId = ++driverSupportRequestId;
 			const mode = (modeBLEElement && modeBLEElement.checked) ? 'ble' : 'hub';
 			renderDriverSupportError(translateSetting('settings.driverSupportLoading', 'Checking driver support...'));
 			waitCursor(true);
 			Homey.api('POST', '/GetDriverSupportMatrix/', { mode }, function (err, result)
 			{
+				if (requestId !== driverSupportRequestId) return;
 				waitCursor(false);
 				if (err)
 				{
@@ -1618,6 +1621,10 @@
 			const values = filterType === 'none' ? [] : (sourceOptions[filterType] || []).map((entry) => (
 				typeof entry === 'string' ? { value: entry, label: entry } : entry
 			));
+			const legacyMatches = filterType === 'deviceType' && selectedValue
+				? values.filter((entry) => Array.isArray(entry.legacyTypes) && entry.legacyTypes.includes(selectedValue))
+				: [];
+			const hasSelectedValue = selectedValue && values.some((entry) => entry.value === selectedValue);
 			logFilterValueElement.innerHTML = '';
 			logFilterValueListElement.innerHTML = '';
 
@@ -1683,13 +1690,28 @@
 				logFilterValueListElement.appendChild(item);
 			}
 
-			if (selectedValue && values.some((entry) => entry.value === selectedValue))
+			if (selectedValue && !hasSelectedValue && legacyMatches.length > 0)
+			{
+				const option = document.createElement('option');
+				option.value = selectedValue;
+				option.textContent = legacyMatches.length === 1
+					? `${legacyMatches[0].label} (${selectedValue})`
+					: selectedValue;
+				option.dataset.driverId = legacyMatches.length === 1 ? legacyMatches[0].driverId || '' : '';
+				option.hidden = true;
+				logFilterValueElement.appendChild(option);
+			}
+
+			if (selectedValue && (hasSelectedValue || legacyMatches.length > 0))
 			{
 				logFilterValueElement.value = selectedValue;
 			}
 
+			const selectedItemValue = !hasSelectedValue && logFilterValueElement.value === selectedValue && legacyMatches.length === 1
+				? legacyMatches[0].value
+				: logFilterValueElement.value;
 			const selectedItem = Array.from(logFilterValueListElement.querySelectorAll('.log-filter-value-item'))
-				.find((item) => item.dataset.value === logFilterValueElement.value);
+				.find((item) => item.dataset.value === selectedItemValue);
 			if (selectedItem)
 			{
 				selectedItem.classList.add('selected');

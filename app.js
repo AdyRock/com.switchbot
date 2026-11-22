@@ -1501,14 +1501,14 @@ class MyApp extends OAuth2App
 	{
 		const filterDevices = [];
 		const drivers = this.homey && this.homey.drivers ? this.homey.drivers.getDrivers() : {};
-		for (const driver of Object.values(drivers))
+		for (const [driverKey, driver] of Object.entries(drivers))
 		{
 			const devices = driver && typeof driver.getDevices === 'function' ? driver.getDevices() : {};
 			for (const device of Object.values(devices))
 			{
 				const data = device && typeof device.getData === 'function' ? device.getData() : {};
 				const homeyName = device && typeof device.getName === 'function' ? device.getName() : '';
-				const driverId = String((device && device.driver && (device.driver.id || (device.driver.manifest && device.driver.manifest.id))) || '');
+				const driverId = String((driver && driver.id) || driverKey || (device && device.driver && device.driver.id) || '').split(':').pop();
 				const driverManifest = (device && device.driver && device.driver.manifest) || (driver && driver.manifest) || {};
 				const manifestName = driverManifest.name;
 				const language = this.homey && this.homey.i18n && typeof this.homey.i18n.getLanguage === 'function'
@@ -1574,13 +1574,25 @@ class MyApp extends OAuth2App
 		const deviceTypeOptions = new Map();
 		for (const device of devices)
 		{
-			if (device.deviceType && !deviceTypeOptions.has(device.deviceType))
+			const value = device.driverId || device.deviceType;
+			if (value && !deviceTypeOptions.has(value))
 			{
-				deviceTypeOptions.set(device.deviceType, {
-					value: device.deviceType,
-					label: device.driverName || device.deviceType,
+				deviceTypeOptions.set(value, {
+					value,
+					label: device.driverId && device.driverName && device.driverName !== device.driverId
+						? `${device.driverName} [${device.driverId}]`
+						: (device.driverName || value),
 					driverId: device.driverId,
+					legacyTypes: [],
 				});
+			}
+			if (value && device.deviceType && device.deviceType !== value)
+			{
+				const { legacyTypes } = deviceTypeOptions.get(value);
+				if (!legacyTypes.includes(device.deviceType))
+				{
+					legacyTypes.push(device.deviceType);
+				}
 			}
 		}
 		options.deviceType = Array.from(deviceTypeOptions.values())
@@ -1592,11 +1604,24 @@ class MyApp extends OAuth2App
 	getLogFilterOptions()
 	{
 		const devices = this.getLogFilterDevices();
+		const manifests = (this.homey.manifest && this.homey.manifest.drivers) || [];
+		const drivers = manifests.map((manifest) => ({
+			driverId: manifest.id,
+			deviceType: manifest.id,
+			driverName: this.getDriverDisplayName({ manifest }, manifest.id),
+			connectivity: manifest.connectivity || [],
+		}));
 		return {
-			...this.buildLogFilterOptions(devices),
+			...this.buildLogFilterOptions([...devices, ...drivers]),
 			bySource: {
-				ble: this.buildLogFilterOptions(devices.filter((device) => device.logSource === 'ble')),
-				hub: this.buildLogFilterOptions(devices.filter((device) => device.logSource === 'hub')),
+				ble: this.buildLogFilterOptions([
+					...devices.filter((device) => device.logSource === 'ble'),
+					...drivers.filter((driver) => driver.connectivity.includes('ble')),
+				]),
+				hub: this.buildLogFilterOptions([
+					...devices.filter((device) => device.logSource === 'hub'),
+					...drivers.filter((driver) => driver.connectivity.includes('cloud')),
+				]),
 			},
 		};
 	}
@@ -1704,17 +1729,15 @@ class MyApp extends OAuth2App
 			{
 				const source = await fs.readFile(path.join(__dirname, 'drivers', driverId, 'driver.js'), 'utf8');
 				const pairingCall = source.match(/getHUBDevices\s*\(\s*oAuth2Client\s*,\s*(\[[^\]]*\]|['"][^'"]+['"])(?:\s*,\s*(true|false))?/);
-				const blePairingCall = source.match(/getBLEDevices\s*\(\s*(['"][^'"]+['"])\s*\)/);
 				const supportedLockTypes = typeof driver.getSupportedLockTypes === 'function' ? driver.getSupportedLockTypes() : [];
-				if (!pairingCall && !blePairingCall && supportedLockTypes.length === 0)
+				if (!pairingCall && supportedLockTypes.length === 0)
 				{
 					continue;
 				}
 
-				const typeExpression = pairingCall ? pairingCall[1] : (blePairingCall && blePairingCall[1]);
 				const types = supportedLockTypes.length > 0
 					? supportedLockTypes
-					: Array.from(typeExpression.matchAll(/['"]([^'"]+)['"]/g), (match) => match[1]);
+					: Array.from(pairingCall[1].matchAll(/['"]([^'"]+)['"]/g), (match) => match[1]);
 				if (types.length === 0)
 				{
 					continue;
@@ -1727,9 +1750,7 @@ class MyApp extends OAuth2App
 					driverName,
 					driverIcon: `/drivers/${driverId}/assets/icon.svg`,
 					types,
-					isBLE: Boolean(blePairingCall),
 					isRemote: Boolean(pairingCall && pairingCall[2] === 'true'),
-					family: driverId.replace(/_(hub|ble)$/i, '').toLowerCase(),
 				});
 			}
 			catch (err)
@@ -1741,32 +1762,17 @@ class MyApp extends OAuth2App
 		const recommendations = [];
 		const addRecommendation = (device, deviceType, isRemote) =>
 		{
-			const directDefinitions = definitions.filter((candidate) => !candidate.isBLE && candidate.isRemote === isRemote
+			const directDefinitions = definitions.filter((candidate) => candidate.isRemote === isRemote
 				&& candidate.types.some((type) => deviceType === type || (isRemote && deviceType === `DIY ${type}`)));
 			if (!isRemote && API_LIST_ONLY_DEVICE_TYPES.has(deviceType))
 			{
 				return;
 			}
 
-			const alternativeDefinitions = [...directDefinitions];
-			if (!isRemote)
-			{
-				for (const directDefinition of directDefinitions)
-				{
-					for (const candidate of definitions)
-					{
-						if (candidate.isBLE && candidate.family === directDefinition.family && !alternativeDefinitions.includes(candidate))
-						{
-							alternativeDefinitions.push(candidate);
-						}
-					}
-				}
-			}
-
 			const deviceId = String(device.deviceId || '');
 			const accountDeviceKeys = new Set(this.getNormalizedLookupKeys(deviceId));
 			const installedDefinitions = [];
-			for (const candidate of alternativeDefinitions)
+			for (const candidate of directDefinitions)
 			{
 				const runtimeDriver = Object.values(runtimeDrivers || {}).find((driver) => String((driver && driver.id) || '').split(':').pop() === candidate.driverId);
 				const installedDevices = runtimeDriver && typeof runtimeDriver.getDevices === 'function' ? runtimeDriver.getDevices() : {};
@@ -1807,7 +1813,7 @@ class MyApp extends OAuth2App
 			}
 			else
 			{
-				appendRecommendation(directDefinitions[0] || alternativeDefinitions[0] || null, false);
+				appendRecommendation(directDefinitions[0] || null, false);
 			}
 		};
 
@@ -1875,7 +1881,8 @@ class MyApp extends OAuth2App
 		}
 
 		const matchingDevices = this.getLogFilterDevices()
-			.filter((device) => device[filterType] === filterValue);
+			.filter((device) => device[filterType] === filterValue
+				|| (filterType === 'deviceType' && device.driverId === filterValue));
 		if (matchingDevices.length === 0)
 		{
 			return false;

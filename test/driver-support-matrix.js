@@ -21,6 +21,7 @@ vm.runInNewContext(source, {
 	setTimeout,
 	clearTimeout,
 	Buffer,
+	__dirname: path.join(__dirname, '..'),
 	require: (name) =>
 	{
 		if (name === 'homey') return Homey;
@@ -54,16 +55,69 @@ app.getHUBDevices = async () => ({
 	infraredRemoteList: [],
 });
 
-app.getDriverSupportMatrix().then((result) =>
+async function run()
 {
+	const result = await app.getDriverSupportMatrix();
 	assert.equal(result.totalSwitchBotDevices, 3);
 	assert.equal(result.totalUnsupported, 0);
 	assert.equal(result.recommendations.length, 0);
 	assert.ok(result.notSupportableDevices.some((device) => device.deviceType === 'Outdoor Spotlight Cam'));
 	assert.ok(result.notSupportableDevices.some((device) => device.deviceType === 'Wallet Finder Card'));
+
+	const paired = (id) => ({ getData: () => ({ id }) });
+	const driver = (id, name, devices) => ({
+		id,
+		manifest: { name: { en: name } },
+		getDevices: () => devices,
+	});
+	app.homey.drivers.getDrivers = () => ({
+		temperature_hub: driver('temperature_hub', 'Temperature & Humidity (HUB)', [paired('112233445566')]),
+		temperature_ble: driver('temperature_ble', 'Temperature & Humidity (BLE)', [paired('aabbccddeeff')]),
+		water_leak_hub: driver('water_leak_hub', 'Water Leak Detector (HUB)', [paired('998877665544')]),
+		water_leak_ble: driver('water_leak_ble', 'Water Leak Sensor (BLE)', [paired('998877665544')]),
+	});
+	app.getHUBDevices = async () => ({
+		deviceList: [
+			{ deviceId: 'AABBCCDDEEFF', deviceName: 'Office', deviceType: 'Meter' },
+			{ deviceId: '112233445566', deviceName: 'Kitchen', deviceType: 'Meter' },
+			{ deviceId: '998877665544', deviceName: 'Leak', deviceType: 'Water Detector' },
+			{ deviceId: '123456789012', deviceName: 'Unknown', deviceType: 'Unknown' },
+		],
+		infraredRemoteList: [],
+	});
+	const hub = await app.getDriverSupportMatrix('hub');
+	assert.equal(hub.totalMatchedDrivers, 2);
+	assert.equal(hub.totalSupportedInstalled, 2);
+	assert.equal(hub.totalSupportedNotInstalled, 1);
+	assert.equal(hub.totalUnsupported, 1);
+	assert.ok(hub.recommendations.every((item) => !item.recommendedDriverId.endsWith('_ble')));
+	const office = hub.recommendations.find((item) => item.deviceId === 'AABBCCDDEEFF');
+	assert.equal(office.recommendedDriverId, 'temperature_hub');
+	assert.equal(office.isInstalled, false);
+	const kitchen = hub.recommendations.find((item) => item.deviceId === '112233445566');
+	assert.equal(kitchen.recommendedDriverId, 'temperature_hub');
+	assert.equal(kitchen.isInstalled, true);
+	const leak = hub.recommendations.filter((item) => item.deviceId === '998877665544');
+	assert.equal(leak.length, 1);
+	assert.equal(leak[0].recommendedDriverId, 'water_leak_hub');
+	assert.equal(leak[0].isInstalled, true);
+
+	app.getDetectedBLEDevices = async () => [{
+		modelName: 'Meter',
+		model: 'T',
+		address: 'aa:bb:cc:dd:ee:ff',
+		matchedDriverId: 'temperature_ble',
+		matchedDriverName: 'Temperature & Humidity (BLE)',
+		isInstalled: true,
+	}];
+	const ble = await app.getDriverSupportMatrix('ble');
+	assert.equal(ble.totalSupportedInstalled, 1);
+	assert.equal(ble.recommendations[0].recommendedDriverId, 'temperature_ble');
 	// eslint-disable-next-line no-console
 	console.log('Driver support matrix tests passed');
-}).catch((err) =>
+}
+
+run().catch((err) =>
 {
 	// eslint-disable-next-line no-console
 	console.error(err);
