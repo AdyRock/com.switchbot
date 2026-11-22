@@ -70,6 +70,7 @@ class BlindTiltBLEDevice extends Homey.Device
 	async onAdded()
 	{
 		this.log('BlindTiltBLEDevice has been added');
+		await this.getDeviceValues(true);
 	}
 
 	/**

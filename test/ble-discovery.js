@@ -141,6 +141,44 @@ async function run()
 	await assert.rejects(() => failed.parser.getBLEDevices('?'), /radio failed/);
 	assert.equal(failed.app.bleBusy, false, 'failed pairing discovery must release the radio');
 
+	const curtain3 = fixture();
+	await curtain3.app.onBLEDiscoveryCacheTick();
+	curtain3.app.homey.i18n = { getLanguage: () => 'en' };
+	curtain3.parser.id = 'curtains_ble';
+	curtain3.parser.manifest = { name: { en: 'Curtains (BLE)' } };
+	curtain3.app.homey.drivers.getDrivers = () => ({ curtains_ble: curtain3.parser });
+	curtain3.app.BLEHub = {
+		getBLEHubDevices: async () => [{
+			address: 'c5:bd:1d:ab:c0:e1',
+			serviceData: { model: '{', modelName: 'WoCurtain3' },
+		}],
+	};
+	const recommendations = new Map();
+	curtain3.app.addDetectedBLEDevice(
+		recommendations,
+		curtain3.app.homey.drivers.getDrivers(),
+		'c5:bd:1d:ab:c0:e1',
+		{ model: '{', modelName: 'WoCurtain3' },
+		-54,
+		true,
+	);
+	assert.equal(recommendations.get('c5:bd:1d:ab:c0:e1').matchedDriverId, 'curtains_ble');
+	const curtain3Devices = await curtain3.parser.getBLEDevices('c');
+	assert.equal(curtain3Devices.length, 1, 'Curtain 3 BLE-hub model alias must be pairable by the curtain driver');
+	assert.equal(curtain3Devices[0].data.modelName, 'WoCurtain3');
+
+	const rawParser = new BLEDriver();
+	rawParser.homey = curtain3.app.homey;
+	const parsedCurtain3 = rawParser.parse({
+		address: 'db:27:4e:46:3c:c5',
+		uuid: 'db274e463cc5',
+		id: 'db274e463cc5',
+		rssi: -71,
+		serviceData: [{ uuid: '0000fd3d-0000-1000-8000-00805f9b34fb', data: Buffer.from([0x7b, 0, 50, 25, 2]) }],
+	});
+	assert.equal(parsedCurtain3.serviceData.model, 'c');
+	assert.equal(parsedCurtain3.serviceData.modelName, 'WoCurtain3');
+
 	process.stdout.write('PASS BLE discovery gating, startup, device changes, pairing, Scan Now, and scan failure\n');
 }
 

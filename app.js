@@ -104,6 +104,7 @@ const BLE_MODEL_DRIVER_MAP = {
 	u: 'color_bulb_ble',
 	d: 'contact_ble',
 	c: 'curtains_ble',
+	'{': 'curtains_ble',
 	4: 'meter_pro_ble',
 	5: 'meter_pro_co2_ble',
 	'?': 'plug_eu_ble',
@@ -113,6 +114,9 @@ const BLE_MODEL_DRIVER_MAP = {
 	T: 'temperature_ble',
 	'&': 'water_leak_ble',
 	x: 'blind_tilt_ble',
+};
+const BLE_MODEL_ALIASES = {
+	'{': 'c',
 };
 // BLE device types the app recognises but can never support (no useful status/commands over BLE).
 const BLE_NOT_SUPPORTABLE_DEVICE_TYPES = ['WoRemote'];
@@ -4461,7 +4465,8 @@ class MyApp extends OAuth2App
 			return rows;
 		}
 
-		return rows.filter((row) => row.model === type);
+		const canonicalType = BLE_MODEL_ALIASES[type] || type;
+		return rows.filter((row) => (BLE_MODEL_ALIASES[row.model] || row.model) === canonicalType);
 	}
 
 	// Settings-table rows built purely from the background discovery cache, for when a scan can't run.

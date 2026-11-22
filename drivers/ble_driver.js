@@ -45,7 +45,9 @@ class BLEDriver extends Homey.Driver
 				{
 					try
 					{
-						if (deviceData.serviceData.model === type)
+						const { model } = deviceData.serviceData;
+						const matchesType = (model === type) || ((type === 'c') && (model === '{'));
+						if (matchesType)
 						{
 							if (deviceData.address)
 							{
@@ -494,7 +496,7 @@ class BLEDriver extends Homey.Driver
 
 		const data = {
 			model: 'c',
-			modelName: 'WoCurtain',
+			modelName: buf.readUInt8(0) === 0x7b ? 'WoCurtain3' : 'WoCurtain',
 			calibration: !!calibration,
 			battery,
 			position: currPosition,

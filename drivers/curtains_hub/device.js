@@ -66,6 +66,12 @@ class CurtainsHubDevice extends HubDevice
 	async onAdded()
 	{
 		this.log('CurtainsHubDevice has been added');
+		await super.onAdded();
+	}
+
+	async onOAuth2Added()
+	{
+		this.initialHubValuesFetched = await this.getHubDeviceValues();
 	}
 
 	/**
@@ -234,9 +240,14 @@ class CurtainsHubDevice extends HubDevice
 	async pollHubDeviceValues()
 	{
 		const dd = this.getData();
-		if (!dd.type)
+		const initialWebhookDeviceFetch = Boolean(dd.type) && !this.initialHubValuesFetched;
+		if (!dd.type || initialWebhookDeviceFetch)
 		{
-			await this.getHubDeviceValues();
+			const fetched = await this.getHubDeviceValues();
+			if (fetched)
+			{
+				this.initialHubValuesFetched = true;
+			}
 			return true;
 		}
 
@@ -295,7 +306,7 @@ class CurtainsHubDevice extends HubDevice
 
 				this.lastPosition = position;
 
-				if (data.battery)
+				if (data.battery !== undefined && data.battery !== null)
 				{
 					if (!this.hasCapability('measure_battery'))
 					{
@@ -311,13 +322,17 @@ class CurtainsHubDevice extends HubDevice
 
 					this.setCapabilityValue('measure_battery', data.battery).catch(this.error);
 				}
+				this.unsetWarning().catch(this.error);
+				return true;
 			}
-			this.unsetWarning().catch(this.error);
+
+			return false;
 		}
 		catch (err)
 		{
 			this.homey.app.updateLog(`Curtains getHubDeviceValues: ${this.homey.app.varToString(err.message)}`, 0, 'hub');
 			this.setWarning(err.message).catch(this.error);
+			return false;
 		}
 	}
 

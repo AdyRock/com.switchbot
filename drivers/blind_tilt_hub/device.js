@@ -36,6 +36,12 @@ class BlindTiltHubDevice extends HubDevice
 	async onAdded()
 	{
 		this.log('BlindTiltHubDevice has been added');
+		await super.onAdded();
+	}
+
+	async onOAuth2Added()
+	{
+		this.initialHubValuesFetched = await this.getHubDeviceValues();
 	}
 
 	/**
@@ -84,8 +90,19 @@ class BlindTiltHubDevice extends HubDevice
 
 	async pollHubDeviceValues()
 	{
-		await this.getHubDeviceValues();
-		return true;
+		const dd = this.getData();
+		const initialWebhookDeviceFetch = Boolean(dd.type) && !this.initialHubValuesFetched;
+		if (!dd.type || initialWebhookDeviceFetch)
+		{
+			const fetched = await this.getHubDeviceValues();
+			if (fetched)
+			{
+				this.initialHubValuesFetched = true;
+			}
+			return true;
+		}
+
+		return false;
 	}
 
 	async getHubDeviceValues()
@@ -112,7 +129,7 @@ class BlindTiltHubDevice extends HubDevice
 
 				this.lastPosition = position;
 
-				if (data.battery)
+				if (data.battery !== undefined && data.battery !== null)
 				{
 					if (!this.hasCapability('measure_battery'))
 					{
@@ -130,12 +147,16 @@ class BlindTiltHubDevice extends HubDevice
 				}
 
 				this.unsetWarning().catch(this.error);
+				return true;
 			}
+
+			return false;
 		}
 		catch (err)
 		{
 			this.homey.app.updateLog(`BlindTilt getHubDeviceValues: ${this.homey.app.varToString(err.message)}`, 0, 'hub');
 			this.setWarning(err.message).catch(this.error);
+			return false;
 		}
 	}
 
@@ -162,7 +183,7 @@ class BlindTiltHubDevice extends HubDevice
 
 				this.lastPosition = position;
 
-				if (data.battery)
+				if (data.battery !== undefined && data.battery !== null)
 				{
 					if (!this.hasCapability('measure_battery'))
 					{

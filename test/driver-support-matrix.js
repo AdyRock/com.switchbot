@@ -51,6 +51,7 @@ app.getHUBDevices = async () => ({
 		{ deviceId: 'camera-one', deviceName: 'Outdoor Cam', deviceType: 'Outdoor Spotlight Cam' },
 		{ deviceId: 'camera-two', deviceName: 'Outdoor Spotlight Cam', deviceType: 'Outdoor Spotlight Cam' },
 		{ deviceId: 'wallet', deviceName: 'Wallet Finder', deviceType: 'Wallet Finder Card' },
+		{ deviceId: 'B0E9FE531977', deviceName: 'Universal Remote', deviceType: 'remote with screen' },
 	],
 	infraredRemoteList: [],
 });
@@ -58,11 +59,12 @@ app.getHUBDevices = async () => ({
 async function run()
 {
 	const result = await app.getDriverSupportMatrix();
-	assert.equal(result.totalSwitchBotDevices, 3);
+	assert.equal(result.totalSwitchBotDevices, 4);
 	assert.equal(result.totalUnsupported, 0);
 	assert.equal(result.recommendations.length, 0);
 	assert.ok(result.notSupportableDevices.some((device) => device.deviceType === 'Outdoor Spotlight Cam'));
 	assert.ok(result.notSupportableDevices.some((device) => device.deviceType === 'Wallet Finder Card'));
+	assert.ok(result.notSupportableDevices.some((device) => device.deviceType === 'remote with screen'));
 
 	const paired = (id) => ({ getData: () => ({ id }) });
 	const driver = (id, name, devices) => ({
