@@ -18,7 +18,7 @@ class ArtFrameHubDriver extends HubDriver
 
 	async onPairListDevices({ oAuth2Client })
 	{
-		return this.getHUBDevices(oAuth2Client, ['AI Art Frame'], false, false);
+		return this.getHUBDevices(oAuth2Client, ['AI Art Frame', 'AI Art Frame 2'], false, false);
 	}
 
 }

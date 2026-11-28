@@ -115,6 +115,19 @@ async function run()
 	const ble = await app.getDriverSupportMatrix('ble');
 	assert.equal(ble.totalSupportedInstalled, 1);
 	assert.equal(ble.recommendations[0].recommendedDriverId, 'temperature_ble');
+
+	app.homey.drivers.getDrivers = () => ({
+		art_frame_hub: driver('art_frame_hub', 'Art Frame (HUB)', []),
+	});
+	app.getHUBDevices = async () => ({
+		deviceList: [
+			{ deviceId: 'B0E9FE93BD77', deviceName: 'AI Art Frame 2 77', deviceType: 'AI Art Frame 2' },
+		],
+		infraredRemoteList: [],
+	});
+	const artFrame = await app.getDriverSupportMatrix('hub');
+	assert.equal(artFrame.totalUnsupported, 0);
+	assert.equal(artFrame.recommendations[0].recommendedDriverId, 'art_frame_hub');
 	// eslint-disable-next-line no-console
 	console.log('Driver support matrix tests passed');
 }

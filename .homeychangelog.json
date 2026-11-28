@@ -1608,5 +1608,8 @@
 	},
 	"2.0.104": {
 		"en": "Added on/off Flow conditions for both relays on the Relay Switch 2PM, fixed initial battery status retrieval for the Video Doorbell, added battery support for Blind Tilt (HUB), and reduced idle Blind Tilt and Curtains polling by fetching their initial state when added and relying on webhooks afterward."
+	},
+	"2.0.105": {
+		"en": "Added support for the AI Art Frame 2 (HUB)."
 	}
 }
